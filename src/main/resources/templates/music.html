@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Музыка</title>
+</head>
+<body>
+
+<div class="container">
+
+    <div th:insert="fragments/header.html"></div>
+
+    <div class="table">
+        <h2>Рейтинги по годам</h2>
+
+        <br>
+
+        <div th:each="SOTYList : ${SOTYLists}">
+            <a th:text="${SOTYList.title}" th:href="'/music/best-songs-' + ${SOTYList.url}"></a>
+            <br>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

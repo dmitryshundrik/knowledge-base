@@ -1,8 +1,14 @@
 package com.dmitryshundrik.knowledgebase.model.music.enums;
 
 public enum Period {
-    MEDIEVAL("Средневековье"), RENAISSANCE("Возрождение"), BAROQUE("Барокко"), CLASSICAL("Класссицизм"),
-    ROMANTIC("Романтизм"), MODERNISM("Модернизм");
+
+    MEDIEVAL("Средневековье"),
+    RENAISSANCE("Возрождение"),
+    EARLY_BAROQUE("Ранее барокко"),
+    BAROQUE("Барокко"),
+    CLASSICAL("Класссицизм"),
+    ROMANTIC("Романтизм"),
+    MODERNISM("Модернизм");
 
     private final String label;
 

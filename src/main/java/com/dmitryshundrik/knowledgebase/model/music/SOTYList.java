@@ -1,8 +1,21 @@
 package com.dmitryshundrik.knowledgebase.model.music;
 
-import java.time.LocalDate;
+import lombok.Data;
 
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.List;
+
+@Data
+@Entity
+@Table(name = "sotylists")
 public class SOTYList {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String url;
 
     private String title;
 
@@ -12,5 +25,6 @@ public class SOTYList {
 
     private String spotifyLink;
 
-    private String songsList;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<SOTYListComposition> sotyListCompositions;
 }

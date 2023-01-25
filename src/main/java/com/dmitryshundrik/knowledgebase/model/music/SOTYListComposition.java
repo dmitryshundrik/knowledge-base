@@ -6,17 +6,15 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "lyrics")
-public class Lyric {
+@Table(name = "sotylistcompositions")
+public class SOTYListComposition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String language;
+    private Long rank;
 
-    private String text;
-
-    private boolean isOriginal;
-
+    @OneToOne(cascade = CascadeType.ALL)
+    private Composition composition;
 }
