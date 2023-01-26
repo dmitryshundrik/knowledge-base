@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${genre.label}"></title>
+</head>
+<body>
+<div class="container">
+
+    <div th:insert="fragments/header.html"></div>
+
+    <div class="table">
+        <h2 th:text="${genre.label}"></h2>
+
+        <div th:each="composition : ${compositions}">
+            <h3 th:text="${composition.musician.nickName + ' - ' + composition.title}"></h3>
+            <br>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

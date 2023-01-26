@@ -3,14 +3,13 @@ package com.dmitryshundrik.knowledgebase.service;
 import com.dmitryshundrik.knowledgebase.model.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.music.SOTYList;
 import com.dmitryshundrik.knowledgebase.model.music.SOTYListComposition;
+import com.dmitryshundrik.knowledgebase.model.music.enums.Genre;
 import com.dmitryshundrik.knowledgebase.repository.CompositionRepository;
 import com.dmitryshundrik.knowledgebase.repository.SOTYRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class MusicService {
@@ -21,12 +20,20 @@ public class MusicService {
     @Autowired
     private CompositionRepository compositionRepository;
 
+    private final static Map<String, Genre> slugGenreMap = new HashMap<>();
+
+    static {
+        for (Genre value : Genre.values()) {
+            slugGenreMap.put(value.getSlug(), value);
+        }
+    }
+
     public List<SOTYList> findAllSOTYLists() {
         return SOTYRepository.findAll();
     }
 
-    public SOTYList findSOTYListByUrl(String url) {
-        return SOTYRepository.findSOTYListByUrl(url);
+    public SOTYList findSOTYListBySlug(String slug) {
+        return SOTYRepository.findSOTYListBySlug(slug);
     }
 
     public List<Composition> SOTYListToCompositionList(SOTYList sotyList) {
@@ -39,5 +46,13 @@ public class MusicService {
             compositions.add(compositionRepository.findCompositionById(sotyListComposition.getId()));
         }
         return compositions;
+    }
+
+    public List<Composition> findAllCompositionsByGenre(Genre genre) {
+        return compositionRepository.findAllByGenresIsContaining(genre);
+    }
+
+    public Genre getGenreBySlug(String slug) {
+        return slugGenreMap.get(slug);
     }
 }

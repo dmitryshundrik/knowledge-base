@@ -11,14 +11,36 @@
     <div th:insert="fragments/header.html"></div>
 
     <div class="table">
-        <h2>Рейтинги по годам</h2>
 
-        <br>
-
-        <div th:each="SOTYList : ${SOTYLists}">
-            <a th:text="${SOTYList.title}" th:href="'/music/best-songs-' + ${SOTYList.url}"></a>
-            <br>
+        <div class="table-item">
+            <h2>Рейтинги по годам</h2>
+            <div th:each="SOTYList : ${SOTYLists}">
+                <a th:text="${SOTYList.title}" th:href="'/music/best-songs-' + ${SOTYList.slug}"></a>
+                <br>
+            </div>
         </div>
+
+        <div class="table-item">
+            <h2>Эпохи</h2>
+            <div th:each="period : ${periods}">
+                <a th:text="${period.label}" ></a>
+            </div>
+        </div>
+
+        <div class="table-item">
+            <h2>Стили и формы</h2>
+            <div th:each="style : ${styles}">
+                <a th:text="${style.label}" ></a>
+            </div>
+        </div>
+
+        <div class="table-item">
+            <h2>Жанры</h2>
+            <div th:each="genre : ${genres}">
+                <a th:text="${genre.label}" th:href="'/music/genres/' + ${genre.slug}"></a>
+            </div>
+        </div>
+
     </div>
 </div>
 

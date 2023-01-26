@@ -19,7 +19,7 @@ public class Musician {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String url;
+    private String slug;
 
     private String firstName;
 
