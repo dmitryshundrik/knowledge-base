@@ -1,7 +1,6 @@
 package com.dmitryshundrik.knowledgebase.model.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.enums.Genre;
-import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -10,8 +9,8 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "compositions")
-public class Composition {
+@Table(name = "albums")
+public class Album {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,29 +20,24 @@ public class Composition {
 
     private String title;
 
-    private String catalogNumber;
-
     @OneToOne(cascade = CascadeType.ALL)
     private Musician musician;
 
-    private String feature;
+    private String artwork;
 
     private LocalDate date;
-
-    private Period period;
 
     @Enumerated(EnumType.STRING)
     @ElementCollection
     private List<Genre> genres;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Lyric> lyrics;
-
     private String description;
 
     private Double rating;
 
+    @OneToMany
+    private List<Composition> compositions;
+
     @ElementCollection
     private List<String> highlights;
-
 }

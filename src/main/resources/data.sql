@@ -18,37 +18,57 @@ VALUES (1, '', '', 'Cardi B'),
        (3, '', '', 'The Chicks'),
        (4, 'Adrianne', 'Lenker', 'Adrianne Lenker'),
        (5, '', '', 'Arca'),
+       (6, '', '', 'Kelly Lee Owens'),
+       (7, 'Jessie', 'Ware', 'Jessie Ware'),
+       (8, '', '', 'Phoebe Bridgers'),
+       (9, 'Dua', 'Lipa', 'Dua Lipa'),
+       (10, '', '', 'Charli XCX'),
+       (11, '', '', 'Megan Thee Stallion'),
+       (12, '', '', 'Laura Marling'),
+       (13, '', '', 'Waxahatchee'),
+       (14, '', '', 'Dorian Electra'),
+       (15, '', '', 'Róisín Murphy'),
+       (16, '', '', 'Harry Styles'),
+       (17, '', '', 'Run The Jewels'),
+       (18, '', '', 'Bruce Springsteen'),
+       (19, '', '', 'Cakes Da Killa'),
+       (20, '', '', '645AR');
 
-       (6, '', '', ''),
-       (7, '', '', ''),
-       (8, '', '', ''),
-       (9, '', '', ''),
-       (10, '', '', '');
 
 INSERT INTO compositions (id, slug, title, musician_id, feature, "date")
+--      Top 2020
 VALUES (1, 'WAP', 'WAP', 1, '(feat. Megan Thee Stallion)', '2020-01-01'),
        (2, 'describe', 'Describe', 2, '', '2020-01-01'),
        (3, 'gaslighter', 'Gaslighter', 3, '', '2020-01-01'),
        (4, 'anything', 'Anything', 4, '', '2020-01-01'),
        (5, 'time', 'Time', 5, '', '2020-01-01'),
-
-       (6, '', '', null, '', '2020-01-01'),
-       (7, '', '', null, '', '2020-01-01'),
-       (8, '', '', null, '', '2020-01-01'),
-       (9, '', '', null, '', '2020-01-01'),
-       (10, '', '', null, '', '2020-01-01');
+       (6, 'melt!', 'Melt!', 6, '', '2020-01-01'),
+       (7, 'spotlight', 'Spotlight', 7, '', '2020-01-01'),
+       (8, 'garden-song', 'Garden Song', 8, '', '2020-01-01'),
+       (9, 'break-my-heart', 'Break My Heart', 9, '', '2020-01-01'),
+       (10, 'claws', 'Claws', 10, '', '2020-01-01'),
+       (11, 'savage-remix', 'Savage Remix', 11, '(feat. Beyoncé)', '2020-01-01'),
+       (12, 'held-down', 'Held Down', 12, '', '2020-01-01'),
+       (13, 'lilacs', 'Lilacs', 13, '', '2020-01-01'),
+       (14, 'edgelord', 'Edgelord', 14, '(feat. Rebecca Black)', '2020-01-01'),
+       (15, 'simulation', 'Simulation', 15, '', '2020-01-01'),
+       (16, 'watermelon-sugar', 'Watermelon Sugar', 16, '(feat. 2 Chainz)', '2020-01-01'),
+       (17, 'out-of-sight', 'Out Of Sight', 17, '', '2020-01-01'),
+       (18, 'the-power-of-prayer', 'The Power Of Prayer', 18, '', '2020-01-01'),
+       (19, 'don-dada', 'Don Dada', 19, '& Proper Villains', '2020-01-01'),
+       (20, 'sum-bout-u', 'Sum Bout U', 20, '(feat. FKA twigs)', '2020-01-01');
 
 INSERT INTO composition_genres (composition_id, genres)
-VALUES (1, 'HIP_HOP'),
+VALUES (1, 'RAP'),
        (1, 'RAP'),
-       (2, ''),
-       (3, ''),
-       (4, ''),
-       (5, ''),
-       (1, ''),
-       (1, ''),
-       (1, ''),
-       (1, '');
+       (2, 'RAP'),
+       (3, 'RAP'),
+       (4, 'RAP'),
+       (5, 'RAP'),
+       (1, 'RAP'),
+       (1, 'RAP'),
+       (1, 'RAP'),
+       (1, 'RAP');
 
 INSERT INTO sotylistcompositions (id, rank, composition_id)
 VALUES (1, 1, 1),
@@ -68,3 +88,12 @@ VALUES (1, 1),
        (1, 3),
        (1, 4),
        (1, 5);
+
+INSERT INTO events (id, "date", description)
+VALUES (1, '2020-01-01', 'This application has no explicit mapping for error, so you are seeing this as a fallback.');
+
+INSERT INTO timelines (id, "type", title)
+VALUES (1, 'MUSIC', 'Краткая история музыки');
+
+INSERT INTO timelines_events (timeline_id, events_id)
+VALUES (1, 1);

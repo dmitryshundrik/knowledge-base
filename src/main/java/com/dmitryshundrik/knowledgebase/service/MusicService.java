@@ -28,12 +28,12 @@ public class MusicService {
         }
     }
 
-    public List<SOTYList> findAllSOTYLists() {
+    public List<SOTYList> getAllSOTYLists() {
         return SOTYRepository.findAll();
     }
 
-    public SOTYList findSOTYListBySlug(String slug) {
-        return SOTYRepository.findSOTYListBySlug(slug);
+    public SOTYList getSOTYListBySlug(String slug) {
+        return SOTYRepository.getSOTYListBySlug(slug);
     }
 
     public List<Composition> SOTYListToCompositionList(SOTYList sotyList) {
@@ -43,13 +43,13 @@ public class MusicService {
         sotyListCompositions.sort(Comparator.comparing(SOTYListComposition::getRank));
 
         for (SOTYListComposition sotyListComposition : sotyListCompositions) {
-            compositions.add(compositionRepository.findCompositionById(sotyListComposition.getId()));
+            compositions.add(compositionRepository.getCompositionById(sotyListComposition.getId()));
         }
         return compositions;
     }
 
-    public List<Composition> findAllCompositionsByGenre(Genre genre) {
-        return compositionRepository.findAllByGenresIsContaining(genre);
+    public List<Composition> getAllCompositionsByGenre(Genre genre) {
+        return compositionRepository.getAllByGenresIsContaining(genre);
     }
 
     public Genre getGenreBySlug(String slug) {

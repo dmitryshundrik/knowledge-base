@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface CompositionRepository extends JpaRepository<Composition, Long> {
 
-    Composition findCompositionById(Long id);
+    Composition getCompositionById(Long id);
 
-    List<Composition> findAllByGenresIsContaining(Genre genre);
+    List<Composition> getAllByGenresIsContaining(Genre genre);
 
 }

@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SOTYRepository extends JpaRepository<SOTYList, Long> {
 
-    SOTYList findSOTYListBySlug(String slug);
+    SOTYList getSOTYListBySlug(String slug);
 
 }
