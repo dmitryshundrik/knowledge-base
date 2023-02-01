@@ -1,4 +1,4 @@
-package com.dmitryshundrik.knowledgebase.model.common;
+package com.dmitryshundrik.knowledgebase.model.timeline;
 
 import lombok.Data;
 

@@ -1,23 +1,20 @@
-package com.dmitryshundrik.knowledgebase.model.music;
+package com.dmitryshundrik.knowledgebase.model.music.dto;
 
-import com.dmitryshundrik.knowledgebase.model.timeline.Event;
+import com.dmitryshundrik.knowledgebase.model.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Genre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Style;
+import com.dmitryshundrik.knowledgebase.model.timeline.Event;
+import lombok.Builder;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
-@Entity
-@Table(name = "musicians")
-public class Musician {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Builder
+public class MusicianCreateEditDTO {
 
     private String slug;
 
@@ -33,24 +30,20 @@ public class Musician {
 
     private Integer died;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate deathDate;
 
     private Period period;
 
-    @Enumerated(EnumType.STRING)
-    @ElementCollection
     private List<Style> styles;
 
-    @Enumerated(EnumType.STRING)
-    @ElementCollection
     private List<Genre> genres;
 
-    @OneToMany
     private List<Event> events;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "musician")
     private List<Composition> compositions;
 
 }

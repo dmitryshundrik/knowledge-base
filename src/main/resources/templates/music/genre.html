@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title th:text="${genre.label}"></title>
 </head>
 <body>
 <div class="container">
@@ -10,20 +10,16 @@
     <div th:insert="fragments/header.html"></div>
 
     <div class="table">
-        <h2 th:text="${SOTYList.title}"></h2>
-        <br>
-        <h4 th:text="${SOTYList.description}"></h4>
-        <br>
-        <a th:href="${SOTYList.spotifyLink}" target="_blank">
-            <h5>Слушать в Spotify</h5>
-        </a>
-        <br>
-        <div th:each="composition : ${compositionList}">
+        <h2 th:text="${genre.label}"></h2>
+
+        <div th:each="composition : ${compositions}">
             <h3 th:text="${composition.musician.nickName + ' - ' + composition.title}"></h3>
             <br>
         </div>
     </div>
-</div>
 
+    <div th:insert="fragments/footer.html"></div>
+
+</div>
 </body>
 </html>

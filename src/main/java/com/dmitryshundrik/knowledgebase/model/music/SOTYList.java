@@ -19,12 +19,10 @@ public class SOTYList {
 
     private String title;
 
-    private LocalDate date;
+    private Integer year;
 
     private String description;
 
     private String spotifyLink;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<SOTYListComposition> sotyListCompositions;
 }

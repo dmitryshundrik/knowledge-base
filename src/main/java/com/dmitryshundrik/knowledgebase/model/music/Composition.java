@@ -3,9 +3,7 @@ package com.dmitryshundrik.knowledgebase.model.music;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Genre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
 import lombok.Data;
-
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -23,12 +21,12 @@ public class Composition {
 
     private String catalogNumber;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Musician musician;
 
     private String feature;
 
-    private LocalDate date;
+    private Integer year;
 
     private Period period;
 
@@ -36,12 +34,15 @@ public class Composition {
     @ElementCollection
     private List<Genre> genres;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Lyric> lyrics;
+    private String lyric;
+
+    private String translation;
 
     private String description;
 
     private Double rating;
+
+    private Integer yearEndRank;
 
     @ElementCollection
     private List<String> highlights;

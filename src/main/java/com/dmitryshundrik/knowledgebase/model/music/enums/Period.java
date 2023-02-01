@@ -4,11 +4,11 @@ public enum Period {
 
     MEDIEVAL("Средневековье", "medieval"),
     RENAISSANCE("Возрождение", "renaissance"),
-//    EARLY_BAROQUE("Ранее барокко"),
     BAROQUE("Барокко", "baroque"),
     CLASSICAL("Класссицизм", "classical"),
     ROMANTIC("Романтизм", "romantic"),
-    MODERNISM("Модернизм", "modernism");
+    MODERNISM("Модернизм", "modernism"),
+    CONTEMPORARY("Cовременная музыка", "contemporary");
 
     private final String label;
 

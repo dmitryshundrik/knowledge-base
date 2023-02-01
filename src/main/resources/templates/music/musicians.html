@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все музыканты</title>
+</head>
+<body>
+<div class="container">
+
+    <div th:insert="fragments/header.html"></div>
+
+    <div class="table">
+        <h2>Все музыканты</h2>
+
+        <div th:each="musician : ${musicians}">
+            <h3 th:text="${musician.nickName}"></h3>
+            <br>
+        </div>
+    </div>
+
+    <div th:insert="fragments/footer.html"></div>
+
+</div>
+</body>
+</html>

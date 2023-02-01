@@ -13,25 +13,27 @@
     <div class="table">
 
         <div class="table-item">
-            <h2>Рейтинги по годам</h2>
+            <h2>Рейтинги и списки</h2>
             <div th:each="SOTYList : ${SOTYLists}">
                 <a th:text="${SOTYList.title}" th:href="'/music/best-songs-' + ${SOTYList.slug}"></a>
                 <br>
             </div>
             <a href="/music/timeline-of-music">Краткая история музыки</a>
+            <br>
+            <a href="/music/musicians">Все музыканты</a>
         </div>
 
         <div class="table-item">
             <h2>Эпохи</h2>
             <div th:each="period : ${periods}">
-                <a th:text="${period.label}" ></a>
+                <a th:text="${period.label}" th:href="'/music/periods/' + ${period.slug}"></a>
             </div>
         </div>
 
         <div class="table-item">
             <h2>Стили и формы</h2>
             <div th:each="style : ${styles}">
-                <a th:text="${style.label}" ></a>
+                <a th:text="${style.label}" th:href="'/music/styles-and-forms/' + ${style.slug}"></a>
             </div>
         </div>
 
@@ -41,8 +43,10 @@
                 <a th:text="${genre.label}" th:href="'/music/genres/' + ${genre.slug}"></a>
             </div>
         </div>
-
     </div>
+
+    <div th:insert="fragments/footer.html"></div>
+
 </div>
 
 </body>

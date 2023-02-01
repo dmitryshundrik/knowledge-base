@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div class="container">
+
+    <div th:insert="fragments/header.html"></div>
+
+    <div>
+        <h3>изменение fields</h3>
+    </div>
+
+    <div class="table">
+        <form th:action="${'/management/musician/edit/' + musician.slug}" th:method="put" th:object="${musician}">
+            <div>
+                <label>slug</label>
+                <input type="text" th:field="*{slug}"/>
+            </div>
+            <div>
+                <label>first name</label>
+                <input type="text" th:field="*{firstName}"/>
+            </div>
+            <div>
+                <label>last name</label>
+                <input type="text" th:field="*{lastName}"/>
+            </div>
+            <div>
+                <label>nickname</label>
+                <input type="text" th:field="*{nickName}"/>
+            </div>
+            <div>
+                <label>born</label>
+                <input type="number" th:field="*{born}"/>
+            </div>
+            <div>
+                <label>died</label>
+                <input type="number" th:field="*{died}"/>
+            </div>
+            <div>
+                <label>birthday</label>
+                <input type="date" th:field="*{birthDate}"/>
+            </div>
+            <div>
+                <label>deathday</label>
+                <input type="date" th:field="*{deathDate}"/>
+            </div>
+            <div>
+                <label>period</label>
+                <select th:field="*{period}">
+                    <option th:value="null" selected>выбрать период</option>
+                    <option th:each="period : ${periods}" th:value="${period}" th:text="${period.label}"></option>
+                </select>
+            </div>
+            <div>
+                <label>styles</label>
+                <select th:field="*{styles}" multiple="multiple">
+                    <option th:each="style : ${styles}" th:value="${style}" th:text="${style.label}"></option>
+                </select>
+            </div>
+
+            <br>
+            <input type="submit" value="Сохранить"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>

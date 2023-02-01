@@ -1,10 +1,9 @@
 package com.dmitryshundrik.knowledgebase.model.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.enums.Genre;
+import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
 import lombok.Data;
-
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -20,12 +19,16 @@ public class Album {
 
     private String title;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    private String catalogNumber;
+
+    @ManyToOne
     private Musician musician;
 
     private String artwork;
 
-    private LocalDate date;
+    private Integer year;
+
+    private Period period;
 
     @Enumerated(EnumType.STRING)
     @ElementCollection
@@ -35,9 +38,8 @@ public class Album {
 
     private Double rating;
 
+    private Integer yearEndRank;
+
     @OneToMany
     private List<Composition> compositions;
-
-    @ElementCollection
-    private List<String> highlights;
 }
