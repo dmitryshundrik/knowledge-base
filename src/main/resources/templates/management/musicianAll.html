@@ -1,60 +1,84 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <link th:href="@{/styles/management/entityAllManagement.css}" rel="stylesheet">
 </head>
 <body>
 <div class="container">
 
     <div th:insert="fragments/header.html"></div>
 
-    <div>
-        <h3>архив musician</h3>
-        <a href="/management/musician/create">создание musician</a>
-    </div>
-
     <div class="table">
-        <table>
-            <thead>
-            <tr>
-                <th>id</th>
-                <th>slug</th>
-                <th>firstName</th>
-                <th>lastName</th>
-                <th>nickName</th>
-                <th>born</th>
-                <th>died</th>
-                <th>birthDate</th>
-                <th>deathDate</th>
-                <th>period</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="musician : ${musicians}">
-                <th th:text="${musician.id}"></th>
-                <th th:text="${musician.slug}"></th>
-                <th th:text="${musician.firstName}"></th>
-                <th th:text="${musician.lastName}"></th>
-                <th th:text="${musician.nickName}"></th>
-                <th th:text="${musician.born}"></th>
-                <th th:text="${musician.died}"></th>
-                <th th:text="${musician.birthDate}"></th>
-                <th th:text="${musician.deathDate}"></th>
-                <th th:if="${musician.period != null}" th:text="${musician.period.label}"></th>
 
-                <th>
-                    <a th:href="${'/management/musician/edit/' + musician.slug}">редактировать</a>
-                </th>
-                <th>
-                    <form th:action="${'/management/musician/delete/' + musician.slug}" th:method="delete">
-                        <input type="submit" value="удалить">
-                    </form>
-                </th>
-            </tr>
-            </tbody>
-        </table>
+        <div class="table-title">
+            <h4>архив musician</h4>
+            <a href="/management/musician/create">создать musician</a>
+        </div>
+
+        <div class="table-body">
+            <table>
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>nickName</th>
+                    <th>slug</th>
+                    <th>firstName</th>
+                    <th>lastName</th>
+                    <th>born</th>
+                    <th>died</th>
+                    <th>birthDate</th>
+                    <th>deathDate</th>
+                    <th>period</th>
+                    <th>styles</th>
+                    <th>genres</th>
+                    <th>редактировать</th>
+                    <th>удалить</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="musician : ${musicians}">
+                    <td th:text="${musician.id}"></td>
+                    <td th:text="${musician.nickName}"></td>
+                    <td th:text="${musician.slug}"></td>
+                    <td th:text="${musician.firstName}"></td>
+                    <td th:text="${musician.lastName}"></td>
+                    <td th:text="${musician.born}"></td>
+                    <td th:text="${musician.died}"></td>
+                    <td th:text="${musician.birthDate}"></td>
+                    <td th:text="${musician.deathDate}"></td>
+
+                    <td th:if="${musician.period != null}" th:text="${musician.period.label}"></td>
+                    <td th:if="${musician.period == null}" th:text="period"></td>
+
+                    <td th:if="${musician.styles != null}">
+                        <span th:each="style : ${musician.styles}">
+                            <p th:text="${style.label}"></p>
+                        </span>
+                    </td>
+
+                    <td th:if="${musician.genres != null}">
+                        <span th:each="genre : ${musician.genres}">
+                            <p th:text="${genre.label}"></p>
+                        </span>
+                    </td>
+
+                    <td>
+                        <a th:href="${'/management/musician/edit/' + musician.slug}">редактировать</a>
+                    </td>
+                    <td>
+                        <form th:action="${'/management/musician/delete/' + musician.slug}" th:method="delete">
+                            <input type="submit" value="удалить">
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
+
+    <div th:insert="fragments/footer.html"></div>
 
 </div>
 </body>

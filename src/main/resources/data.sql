@@ -64,8 +64,13 @@ VALUES (1, 'RAP'),
        (2, 'ROCK'),
        (2, 'SHOEGASE');
 
-INSERT INTO events (id, "date", description)
-VALUES (1, '2020-01-01', 'This application has no explicit mapping for error, so you are seeing this as a fallback.');
+INSERT INTO events (id, "year", description)
+VALUES (1, 2020, 'This application has no explicit mapping for error, so you are seeing this as a fallback.'),
+       (2, 2022, 'This application has no explicit mapping for error, so you are seeing this as a fallback.');
+
+INSERT INTO musicians_events(musician_id, events_id)
+VALUES (1, 1),
+       (1, 2);
 
 INSERT INTO timelines (id, "type", title)
 VALUES (1, 'MUSIC', 'Краткая история музыки');

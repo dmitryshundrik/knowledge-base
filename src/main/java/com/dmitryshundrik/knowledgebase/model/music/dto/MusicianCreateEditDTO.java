@@ -1,10 +1,9 @@
 package com.dmitryshundrik.knowledgebase.model.music.dto;
 
-import com.dmitryshundrik.knowledgebase.model.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Genre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Style;
-import com.dmitryshundrik.knowledgebase.model.timeline.Event;
+import com.dmitryshundrik.knowledgebase.model.timeline.EventDTO;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -42,8 +41,6 @@ public class MusicianCreateEditDTO {
 
     private List<Genre> genres;
 
-    private List<Event> events;
-
-    private List<Composition> compositions;
+    private List<EventDTO> events;
 
 }

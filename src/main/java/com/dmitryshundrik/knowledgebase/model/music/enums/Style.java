@@ -8,7 +8,9 @@ public enum Style {
     INSTRUMENTAL_MUSIC("Инструментальные произведения", "instrumental-music"),
     VOCAL_MUSIC("Вокальные произведения", "vocal-music"),
 
-    THEATRE_MUSIC("Театральная музыка", "theatre-music");
+    THEATRE_MUSIC("Театральная музыка", "theatre-music"),
+
+    CONTEMPORARY("Cовременная музыка", "contemporary");
 
     private final String label;
 

@@ -1,10 +1,13 @@
 package com.dmitryshundrik.knowledgebase.model.music.dto;
 
+import com.dmitryshundrik.knowledgebase.model.music.enums.Genre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
+import com.dmitryshundrik.knowledgebase.model.music.enums.Style;
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Builder
@@ -30,4 +33,7 @@ public class MusicianViewDTO {
 
     private Period period;
 
+    private List<Style> styles;
+
+    private List<Genre> genres;
 }

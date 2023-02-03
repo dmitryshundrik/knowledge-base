@@ -1,0 +1,57 @@
+
+.table-title {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+.table-body {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 300px;
+    gap: 50px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 100px;
+    border: 1px solid gray;
+    gap: 10px;
+}
+
+.form-item {
+    display: flex;
+    flex-direction: row;
+}
+
+.table-body-item {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0px;
+    border: 1px solid gray;
+}
+
+.form label {
+    width: 40%;
+    display: flex;
+    align-self: center;
+}
+
+.form input {
+    width: 60%;
+}
+
+.form select {
+    width: 60%;
+}
+
+.input-submit {
+    align-self: end;
+}
+
+th {
+    text-align: center;
+}
+
+tr:hover {background-color: lightgray;}

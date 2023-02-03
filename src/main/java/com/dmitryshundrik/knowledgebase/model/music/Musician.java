@@ -8,6 +8,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -16,7 +17,7 @@ import java.util.List;
 public class Musician {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     private String slug;
@@ -48,7 +49,7 @@ public class Musician {
     private List<Genre> genres;
 
     @OneToMany
-    private List<Event> events;
+    private List<Event> events = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "musician")
     private List<Composition> compositions;

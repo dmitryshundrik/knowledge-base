@@ -1,70 +1,112 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <link th:href="@{/styles/management/entityCreateEditManagement.css}" rel="stylesheet">
 </head>
 <body>
 <div class="container">
 
     <div th:insert="fragments/header.html"></div>
 
-    <div>
-        <h3>изменение fields</h3>
-    </div>
-
     <div class="table">
-        <form th:action="${'/management/musician/edit/' + musician.slug}" th:method="put" th:object="${musician}">
-            <div>
-                <label>slug</label>
-                <input type="text" th:field="*{slug}"/>
-            </div>
-            <div>
-                <label>first name</label>
-                <input type="text" th:field="*{firstName}"/>
-            </div>
-            <div>
-                <label>last name</label>
-                <input type="text" th:field="*{lastName}"/>
-            </div>
-            <div>
-                <label>nickname</label>
-                <input type="text" th:field="*{nickName}"/>
-            </div>
-            <div>
-                <label>born</label>
-                <input type="number" th:field="*{born}"/>
-            </div>
-            <div>
-                <label>died</label>
-                <input type="number" th:field="*{died}"/>
-            </div>
-            <div>
-                <label>birthday</label>
-                <input type="date" th:field="*{birthDate}"/>
-            </div>
-            <div>
-                <label>deathday</label>
-                <input type="date" th:field="*{deathDate}"/>
-            </div>
-            <div>
-                <label>period</label>
-                <select th:field="*{period}">
-                    <option th:value="null" selected>выбрать период</option>
-                    <option th:each="period : ${periods}" th:value="${period}" th:text="${period.label}"></option>
-                </select>
-            </div>
-            <div>
-                <label>styles</label>
-                <select th:field="*{styles}" multiple="multiple">
-                    <option th:each="style : ${styles}" th:value="${style}" th:text="${style.label}"></option>
-                </select>
-            </div>
 
-            <br>
-            <input type="submit" value="Сохранить"/>
-        </form>
+        <div class="table-title">
+            <h4>изменить musician</h4>
+        </div>
+
+        <div class="table-body">
+            <form class="form" th:action="${'/management/musician/edit/' + musician.slug}" th:method="put"
+                  th:object="${musician}">
+                <div class="form-item">
+                    <label>nickname</label>
+                    <input type="text" th:field="*{nickName}"/>
+                </div>
+                <div class="form-item">
+                    <label>slug</label>
+                    <input type="text" th:field="*{slug}"/>
+                </div>
+                <div class="form-item">
+                    <label>first name</label>
+                    <input type="text" th:field="*{firstName}"/>
+                </div>
+                <div class="form-item">
+                    <label>last name</label>
+                    <input type="text" th:field="*{lastName}"/>
+                </div>
+                <div class="form-item">
+                    <label>born</label>
+                    <input type="number" th:field="*{born}"/>
+                </div>
+                <div class="form-item">
+                    <label>died</label>
+                    <input type="number" th:field="*{died}"/>
+                </div>
+                <div class="form-item">
+                    <label>birthday</label>
+                    <input type="date" th:field="*{birthDate}"/>
+                </div>
+                <div class="form-item">
+                    <label>deathday</label>
+                    <input type="date" th:field="*{deathDate}"/>
+                </div>
+                <div class="form-item">
+                    <label>period</label>
+                    <select th:field="*{period}">
+                        <option th:value="null" selected>выбрать период</option>
+                        <option th:each="period : ${periods}" th:value="${period}" th:text="${period.label}"></option>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label>styles</label>
+                    <select th:field="*{styles}" multiple="multiple">
+                        <option th:each="style : ${styles}" th:value="${style}" th:text="${style.label}"></option>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label>genres</label>
+                    <select th:field="*{genres}" multiple="multiple">
+                        <option th:each="genre : ${genres}" th:value="${genre}" th:text="${genre.label}"></option>
+                    </select>
+                </div>
+                <input class="input-submit" type="submit" value="Обновить"/>
+            </form>
+
+            <div class="table-body-item">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>year</th>
+                        <th>description</th>
+                        <th>редактировать</th>
+                        <th>удалить</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="event : ${musician.events}">
+                        <th th:text="${event.id}"></th>
+                        <th th:text="${event.year}"></th>
+                        <th th:text="${event.description}"></th>
+                        <th>
+                            <a th:href="${'/management/musician/edit/' + musician.slug + '/event/' + event.id}">редактировать</a>
+                        </th>
+                        <th>
+                            <form th:action="${'/management/musician/delete/' + musician.slug + '/event/' + event.id}"
+                                  th:method="delete">
+                                <input type="submit" value="удалить">
+                            </form>
+                        </th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
+
+    <div th:insert="fragments/footer.html"></div>
+
 </div>
 </body>
 </html>

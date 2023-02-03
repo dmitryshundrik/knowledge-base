@@ -4,6 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
+import com.dmitryshundrik.knowledgebase.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,9 @@ public class MusicianService {
     @Autowired
     private MusicianRepository musicianRepository;
 
+    @Autowired
+    private EventService eventService;
+
     public List<Musician> getAllMusicians() {
         return musicianRepository.getAllByOrderById();
     }
@@ -30,18 +34,15 @@ public class MusicianService {
         musicianRepository.deleteBySlug(slug);
     }
 
-    public void updateMusician(MusicianCreateEditDTO musicianCreateEditDTO, String slug) {
+    public void updateExistingMusician(MusicianCreateEditDTO musicianCreateEditDTO, String slug) {
         Musician musicianBySlug = getMusicianBySlug(slug);
-        musicianBySlug.setFirstName(musicianCreateEditDTO.getFirstName());
-        musicianBySlug.setLastName(musicianCreateEditDTO.getLastName());
-        musicianBySlug.setNickName(musicianCreateEditDTO.getNickName());
-        musicianBySlug.setBorn(musicianCreateEditDTO.getBorn());
-        musicianBySlug.setDied(musicianCreateEditDTO.getDied());
-        musicianBySlug.setBirthDate(musicianCreateEditDTO.getBirthDate());
-        musicianBySlug.setDeathDate(musicianCreateEditDTO.getDeathDate());
-        musicianBySlug.setPeriod(musicianCreateEditDTO.getPeriod());
-        musicianBySlug.setStyles(musicianCreateEditDTO.getStyles());
+        setUpMusicianFieldsFromDTO(musicianBySlug, musicianCreateEditDTO);
+    }
 
+    public void createMusicianByMusicianDTO(MusicianCreateEditDTO musicianCreateEditDTO) {
+        Musician musician = new Musician();
+        setUpMusicianFieldsFromDTO(musician, musicianCreateEditDTO);
+        musicianRepository.save(musician);
     }
 
     public List<MusicianViewDTO> musiciansListToMusiciansViewDTOList(List<Musician> musicianList) {
@@ -56,6 +57,8 @@ public class MusicianService {
                 .birthDate(musician.getBirthDate())
                 .deathDate(musician.getDeathDate())
                 .period(musician.getPeriod())
+                .styles(musician.getStyles())
+                .genres(musician.getGenres())
                 .build()).collect(Collectors.toList());
     }
 
@@ -73,9 +76,20 @@ public class MusicianService {
                 .period(musician.getPeriod())
                 .styles(musician.getStyles())
                 .genres(musician.getGenres())
-                .events(musician.getEvents())
-                .compositions(musician.getCompositions())
+                .events(eventService.eventListToEventDTOList(musician.getEvents()))
                 .build();
     }
 
+    private void setUpMusicianFieldsFromDTO(Musician musician, MusicianCreateEditDTO musicianCreateEditDTO) {
+        musician.setFirstName(musicianCreateEditDTO.getFirstName());
+        musician.setLastName(musicianCreateEditDTO.getLastName());
+        musician.setNickName(musicianCreateEditDTO.getNickName());
+        musician.setBorn(musicianCreateEditDTO.getBorn());
+        musician.setDied(musicianCreateEditDTO.getDied());
+        musician.setBirthDate(musicianCreateEditDTO.getBirthDate());
+        musician.setDeathDate(musicianCreateEditDTO.getDeathDate());
+        musician.setPeriod(musicianCreateEditDTO.getPeriod());
+        musician.setStyles(musicianCreateEditDTO.getStyles());
+        musician.setGenres(musicianCreateEditDTO.getGenres());
+    }
 }

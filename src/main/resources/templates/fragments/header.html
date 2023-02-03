@@ -1,25 +1,28 @@
 <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Header</title>
+    <title></title>
+    <link th:href="@{/styles/reset.css}" rel="stylesheet">
+    <link th:href="@{/styles/initial.css}" rel="stylesheet">
 </head>
 <body>
 
 <div class="header">
-    <div class="logo">
+
+    <div class="header-title">
         <a href="/">
             <h1>дмитрий шундрик</h1>
         </a>
     </div>
-    <div class="menu">
+
+    <div class="header-menu">
         <a href="/music">Музыка</a>
-        |
         <a href="/gastronomy">Гастрономия</a>
-        |
         <a href="/resources">Ресурсы</a>
-        |
         <a href="/management">Управление</a>
     </div>
+
 </div>
 
 </body>

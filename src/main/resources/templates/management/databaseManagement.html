@@ -1,35 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <link th:href="@{/styles/management/databaseManagement.css}" rel="stylesheet">
 </head>
 <body>
 <div class="container">
 
     <div th:insert="fragments/header.html"></div>
 
-    <div>
-        <h3>управление database</h3>
-    </div>
-
     <div class="table">
-        <div class="table-item">
-            <a href="/management/musician/all">Музыканты</a>
-            <br>
-            <a href="/management/album/all">Альбомы</a>
-            <br>
-            <a href="/management/composition/all">Произведения</a>
-            <br>
-            <a href="/management/sotylist/all">Годовые списки</a>
+
+        <div class="table-title">
+            <h4>управление database</h4>
         </div>
 
-        <br>
+        <div class="table-body">
+            <div class="table-body-item">
+                <a href="/management/musician/all">Музыканты</a>
+                <a href="/management/album/all">Альбомы</a>
+                <a href="/management/composition/all">Музыкальные произведения</a>
+                <a href="/management/sotylist/all">Годовые списки</a>
+            </div>
 
-        <div class="table-item">
-            <a href="/management/recipe/all">Рецепты</a>
+            <div class="table-body-item">
+                <a href="/management/recipe/all">Рецепты</a>
+            </div>
         </div>
+
     </div>
+
+    <div th:insert="fragments/footer.html"></div>
 
 </div>
 </body>

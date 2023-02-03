@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link th:href="@{/styles/management/entityCreateEditManagement.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <div th:insert="fragments/header.html"></div>
+
+    <div class="table">
+
+        <div class="table-title">
+            <h4>изменение event</h4>
+        </div>
+
+        <div class="table-body">
+            <form class="form" th:action="${'/management/musician/edit/' + slug +'/event/' + event.id}" th:method="put"
+                  th:object="${event}">
+                <div class="form-item">
+                    <label>year</label>
+                    <input type="number" th:field="*{year}"/>
+                </div>
+                <div class="form-item">
+                    <label>date</label>
+                    <input type="date" th:field="*{date}"/>
+                </div>
+                <div class="form-item">
+                    <label>description</label>
+                    <input type="text" th:field="*{description}"/>
+                </div>
+                <input class="input-submit" type="submit" value="Сохранить"/>
+            </form>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
