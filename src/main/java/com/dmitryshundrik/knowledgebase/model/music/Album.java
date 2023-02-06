@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
 import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -12,8 +13,8 @@ import java.util.List;
 public class Album {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    private UUID id;
 
     private String slug;
 

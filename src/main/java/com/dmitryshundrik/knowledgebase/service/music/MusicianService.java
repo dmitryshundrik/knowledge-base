@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,7 @@ public class MusicianService {
     private EventService eventService;
 
     public List<Musician> getAllMusicians() {
-        return musicianRepository.getAllByOrderById();
+        return musicianRepository.getAllByOrderByCreated();
     }
 
     public Musician getMusicianBySlug(String slug) {
@@ -41,13 +42,14 @@ public class MusicianService {
 
     public void createMusicianByMusicianDTO(MusicianCreateEditDTO musicianCreateEditDTO) {
         Musician musician = new Musician();
+        musician.setCreated(Instant.now());
         setUpMusicianFieldsFromDTO(musician, musicianCreateEditDTO);
         musicianRepository.save(musician);
     }
 
     public List<MusicianViewDTO> musiciansListToMusiciansViewDTOList(List<Musician> musicianList) {
         return musicianList.stream().map(musician -> MusicianViewDTO.builder()
-                .id(musician.getId())
+                .created(musician.getCreated())
                 .slug(musician.getSlug())
                 .firstName(musician.getFirstName())
                 .lastName(musician.getLastName())
@@ -81,9 +83,10 @@ public class MusicianService {
     }
 
     private void setUpMusicianFieldsFromDTO(Musician musician, MusicianCreateEditDTO musicianCreateEditDTO) {
+        musician.setSlug(musicianCreateEditDTO.getSlug());
+        musician.setNickName(musicianCreateEditDTO.getNickName());
         musician.setFirstName(musicianCreateEditDTO.getFirstName());
         musician.setLastName(musicianCreateEditDTO.getLastName());
-        musician.setNickName(musicianCreateEditDTO.getNickName());
         musician.setBorn(musicianCreateEditDTO.getBorn());
         musician.setDied(musicianCreateEditDTO.getDied());
         musician.setBirthDate(musicianCreateEditDTO.getBirthDate());

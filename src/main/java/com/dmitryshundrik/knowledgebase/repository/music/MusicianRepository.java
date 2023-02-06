@@ -4,12 +4,13 @@ import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.UUID;
 
-public interface MusicianRepository extends JpaRepository<Musician, Long> {
+public interface MusicianRepository extends JpaRepository<Musician, UUID> {
 
     Musician getMusicianBySlug(String slug);
 
-    List<Musician> getAllByOrderById();
+    List<Musician> getAllByOrderByCreated();
     void deleteBySlug(String slug);
 
 }

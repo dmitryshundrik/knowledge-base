@@ -7,9 +7,11 @@ import com.dmitryshundrik.knowledgebase.model.music.enums.Style;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -17,8 +19,10 @@ import java.util.List;
 public class Musician {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+    @GeneratedValue
+    private UUID id;
+
+    private Instant created;
 
     private String slug;
 
@@ -48,7 +52,7 @@ public class Musician {
     @ElementCollection
     private List<Genre> genres;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Event> events = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "musician")

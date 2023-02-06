@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/management/musician")
@@ -35,7 +36,7 @@ public class MusicianManagementController {
 
     @GetMapping("/create")
     public String getCreateMusician(Model model) {
-        model.addAttribute("musician", new Musician());
+        model.addAttribute("musician", new MusicianCreateEditDTO());
         model.addAttribute("periods", Period.values());
         return "management/musicianCreate";
     }
@@ -62,17 +63,37 @@ public class MusicianManagementController {
         return "redirect:/management/musician/all";
     }
 
-    @GetMapping("/edit/{slug}/event/{id}")
-    public String getEditMusicianEventById(@PathVariable String slug, @PathVariable Long id, Model model) {
+    @GetMapping("/edit/{slug}/event/create")
+    public String getCreateEventForMusician(@PathVariable String slug, Model model) {
+        model.addAttribute("eventDTO", new EventDTO());
+        model.addAttribute("slug", slug);
+        return "management/eventCreate";
+    }
+
+    @PostMapping("/edit/{slug}/event/create")
+    public String postCreateEventForMusician(@PathVariable String slug, @ModelAttribute("eventDTO") EventDTO eventDTO) {
+        Musician musician = musicianService.getMusicianBySlug(slug);
+        eventService.createMusicianEventByEventDTO(musician, eventDTO);
+        return "redirect:/management/musician/edit/" + slug;
+    }
+
+    @GetMapping("/edit/{slug}/event/edit/{id}")
+    public String getEditMusicianEventById(@PathVariable String slug, @PathVariable UUID id, Model model) {
         Event eventById = eventService.getEventById(id);
-        model.addAttribute("event", eventService.eventToEventDTO(eventById));
+        model.addAttribute("eventDTO", eventService.eventToEventDTO(eventById));
         model.addAttribute("slug", slug);
         return "management/eventEdit";
     }
 
-    @PutMapping("/edit/{slug}/event/{id}")
-    public String putEditMusicianEventById(@PathVariable String slug, @PathVariable Long id, @ModelAttribute("event") EventDTO eventDTO) {
+    @PutMapping("/edit/{slug}/event/edit/{id}")
+    public String putEditMusicianEventById(@PathVariable String slug, @PathVariable UUID id, @ModelAttribute("eventDTO") EventDTO eventDTO) {
         eventService.updateEvent(eventDTO, id);
+        return "redirect:/management/musician/edit/" + slug;
+    }
+
+    @DeleteMapping(("/edit/{slug}/event/delete/{id}"))
+    public String deleteMusisianEventById(@PathVariable String slug, @PathVariable UUID id) {
+        eventService.deleteMusicianEventById(id, musicianService.getMusicianBySlug(slug));
         return "redirect:/management/musician/edit/" + slug;
     }
 

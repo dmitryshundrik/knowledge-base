@@ -20,15 +20,15 @@
             <table>
                 <thead>
                 <tr>
-                    <th>id</th>
-                    <th>nickName</th>
+                    <th>created</th>
+                    <th>nick_name</th>
                     <th>slug</th>
-                    <th>firstName</th>
-                    <th>lastName</th>
+                    <th>first_name</th>
+                    <th>last_name</th>
                     <th>born</th>
                     <th>died</th>
-                    <th>birthDate</th>
-                    <th>deathDate</th>
+                    <th>birth_date</th>
+                    <th>death_date</th>
                     <th>period</th>
                     <th>styles</th>
                     <th>genres</th>
@@ -38,7 +38,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="musician : ${musicians}">
-                    <td th:text="${musician.id}"></td>
+                    <td th:text="${musician.created}"></td>
                     <td th:text="${musician.nickName}"></td>
                     <td th:text="${musician.slug}"></td>
                     <td th:text="${musician.firstName}"></td>

@@ -13,11 +13,11 @@
     <div class="table">
 
         <div class="table-title">
-            <h4>изменение event</h4>
+            <h4>создание event</h4>
         </div>
 
         <div class="table-body">
-            <form class="form" th:action="${'/management/musician/edit/' + slug +'/event/edit/' + eventDTO.id}" th:method="put"
+            <form class="form" th:action="${'/management/musician/edit/' + slug +'/event/create'}" th:method="post"
                   th:object="${eventDTO}">
                 <div class="form-item">
                     <label>year</label>
@@ -31,7 +31,7 @@
                     <label>description</label>
                     <input type="text" th:field="*{description}"/>
                 </div>
-                <input class="input-submit" type="submit" value="Обновить"/>
+                <input class="input-submit" type="submit" value="Создать"/>
             </form>
         </div>
 

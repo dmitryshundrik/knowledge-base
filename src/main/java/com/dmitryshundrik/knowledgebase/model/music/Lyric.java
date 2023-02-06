@@ -3,6 +3,7 @@ package com.dmitryshundrik.knowledgebase.model.music;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -10,8 +11,8 @@ import javax.persistence.*;
 public class Lyric {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    private UUID id;
 
     private String language;
 

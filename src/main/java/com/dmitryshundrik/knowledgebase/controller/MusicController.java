@@ -40,8 +40,8 @@ public class MusicController {
     public String getMusicPage(Model model) {
         model.addAttribute("SOTYLists", sotyListService.getAllSOTYLists());
         model.addAttribute("periods", Period.values());
-        model.addAttribute("styles", Style.values());
-        model.addAttribute("genres", Genre.values());
+        model.addAttribute("styles", Style.getSortedValues());
+        model.addAttribute("genres", Genre.getSortedValues());
         return "music/music";
     }
 

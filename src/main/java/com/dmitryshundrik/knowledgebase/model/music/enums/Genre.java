@@ -1,8 +1,13 @@
 package com.dmitryshundrik.knowledgebase.model.music.enums;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public enum Genre {
 
-    // Modern Genres
     AFROFUTURISM("Афрофутуризм", "afrofuturism"),
     ALTERNATIVE("Альтернативная музыка", "alternative"),
     ALTERNATIVE_POP("Альтернативная поп-музыка", "alternative-pop"),
@@ -98,5 +103,9 @@ public enum Genre {
 
     public String getSlug() {
         return slug;
+    }
+
+    public static List<Genre> getSortedValues() {
+        return Arrays.stream(Genre.values()).sorted(Comparator.comparing(Genre::getLabel)).collect(Collectors.toList());
     }
 }

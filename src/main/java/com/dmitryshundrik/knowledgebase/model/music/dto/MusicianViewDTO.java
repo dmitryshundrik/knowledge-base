@@ -6,6 +6,7 @@ import com.dmitryshundrik.knowledgebase.model.music.enums.Style;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 @Builder
 public class MusicianViewDTO {
 
-    private Long id;
+    private Instant created;
 
     private String slug;
 

@@ -3,7 +3,9 @@ package com.dmitryshundrik.knowledgebase.model.timeline;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -11,8 +13,10 @@ import java.time.LocalDate;
 public class Event {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    private UUID id;
+
+    private Instant created;
 
     private Integer year;
 

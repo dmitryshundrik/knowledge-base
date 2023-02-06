@@ -4,6 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.music.enums.Genre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Style;
 import com.dmitryshundrik.knowledgebase.model.timeline.EventDTO;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Data
 @Builder
+@AllArgsConstructor
 public class MusicianCreateEditDTO {
 
     private String slug;
@@ -42,5 +44,9 @@ public class MusicianCreateEditDTO {
     private List<Genre> genres;
 
     private List<EventDTO> events;
+
+    public MusicianCreateEditDTO () {
+
+    }
 
 }

@@ -63,7 +63,7 @@
                         <option th:each="style : ${styles}" th:value="${style}" th:text="${style.label}"></option>
                     </select>
                 </div>
-                <div class="form-item">
+                <div class="form-item genres">
                     <label>genres</label>
                     <select th:field="*{genres}" multiple="multiple">
                         <option th:each="genre : ${genres}" th:value="${genre}" th:text="${genre.label}"></option>
@@ -72,12 +72,19 @@
                 <input class="input-submit" type="submit" value="Обновить"/>
             </form>
 
+            <div class="table-title">
+                <h4>архим event</h4>
+                <a th:href="${'/management/musician/edit/' + musician.slug + '/event/create'}">создать event</a>
+            </div>
+
             <div class="table-body-item">
+
                 <table>
                     <thead>
                     <tr>
-                        <th>id</th>
+                        <th>created</th>
                         <th>year</th>
+                        <th>date</th>
                         <th>description</th>
                         <th>редактировать</th>
                         <th>удалить</th>
@@ -85,14 +92,15 @@
                     </thead>
                     <tbody>
                     <tr th:each="event : ${musician.events}">
-                        <th th:text="${event.id}"></th>
+                        <th th:text="${event.created}"></th>
                         <th th:text="${event.year}"></th>
+                        <th th:text="${event.date}"></th>
                         <th th:text="${event.description}"></th>
                         <th>
-                            <a th:href="${'/management/musician/edit/' + musician.slug + '/event/' + event.id}">редактировать</a>
+                            <a th:href="${'/management/musician/edit/' + musician.slug + '/event/edit/' + event.id}">редактировать</a>
                         </th>
                         <th>
-                            <form th:action="${'/management/musician/delete/' + musician.slug + '/event/' + event.id}"
+                            <form th:action="${'/management/musician/edit/' + musician.slug + '/event/delete/' + event.id}"
                                   th:method="delete">
                                 <input type="submit" value="удалить">
                             </form>
