@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <link th:href="@{/styles/management/entityAllManagement.css}" rel="stylesheet">
+    <link th:href="@{/styles/management/entity-all-management.css}" rel="stylesheet">
 </head>
 <body>
 <div class="container">
@@ -12,7 +12,7 @@
     <div class="table">
 
         <div class="table-title">
-            <h4>архив musician</h4>
+            <h3>архив musician</h3>
             <a href="/management/musician/create">создать musician</a>
         </div>
 
@@ -20,6 +20,7 @@
             <table>
                 <thead>
                 <tr>
+                    <th>#</th>
                     <th>created</th>
                     <th>nick_name</th>
                     <th>slug</th>
@@ -30,14 +31,15 @@
                     <th>birth_date</th>
                     <th>death_date</th>
                     <th>period</th>
-                    <th>styles</th>
-                    <th>genres</th>
+                    <th>academic_genres</th>
+                    <th>contemporary_genres</th>
                     <th>редактировать</th>
                     <th>удалить</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="musician : ${musicians}">
+                    <th th:text="${musicianStat.index + 1}"></th>
                     <td th:text="${musician.created}"></td>
                     <td th:text="${musician.nickName}"></td>
                     <td th:text="${musician.slug}"></td>
@@ -51,15 +53,14 @@
                     <td th:if="${musician.period != null}" th:text="${musician.period.label}"></td>
                     <td th:if="${musician.period == null}" th:text="period"></td>
 
-                    <td th:if="${musician.styles != null}">
-                        <span th:each="style : ${musician.styles}">
-                            <p th:text="${style.label}"></p>
+                    <td th:if="${musician.academicGenres != null}">
+                        <span th:each="academicGenre : ${musician.academicGenres}">
+                            <p th:text="${academicGenre.label}"></p>
                         </span>
                     </td>
-
-                    <td th:if="${musician.genres != null}">
-                        <span th:each="genre : ${musician.genres}">
-                            <p th:text="${genre.label}"></p>
+                    <td th:if="${musician.contemporaryGenres != null}">
+                        <span th:each="contemporaryGenre : ${musician.contemporaryGenres}">
+                            <p th:text="${contemporaryGenre.label}"></p>
                         </span>
                     </td>
 

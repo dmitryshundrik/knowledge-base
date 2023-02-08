@@ -1,0 +1,26 @@
+
+.table-title {
+    display: flex;
+    flex-direction: row;
+    padding: 50px 300px;
+    justify-content: center;
+}
+
+.entity-image {
+    width: 250px;
+    padding: 0px 30px;
+}
+
+.entity-information {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 30px;
+    gap: 5px;
+}
+
+.table-body {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px solid gray;
+}

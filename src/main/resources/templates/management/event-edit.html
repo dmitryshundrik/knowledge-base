@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <link th:href="@{/styles/management/entityCreateEditManagement.css}" rel="stylesheet">
+    <link th:href="@{/styles/management/entity-create-edit-management.css}" rel="stylesheet">
 </head>
 <body>
 <div class="container">
@@ -13,11 +13,11 @@
     <div class="table">
 
         <div class="table-title">
-            <h4>создание event</h4>
+            <h3>измененить event</h3>
         </div>
 
         <div class="table-body">
-            <form class="form" th:action="${'/management/musician/edit/' + slug +'/event/create'}" th:method="post"
+            <form class="form" th:action="${'/management/musician/edit/' + slug +'/event/edit/' + eventDTO.id}" th:method="put"
                   th:object="${eventDTO}">
                 <div class="form-item">
                     <label>year</label>
@@ -27,11 +27,11 @@
                     <label>date</label>
                     <input type="date" th:field="*{date}"/>
                 </div>
-                <div class="form-item">
+                <div class="form-item major-field">
                     <label>description</label>
                     <input type="text" th:field="*{description}"/>
                 </div>
-                <input class="input-submit" type="submit" value="Создать"/>
+                <input class="input-submit" type="submit" value="Обновить"/>
             </form>
         </div>
 

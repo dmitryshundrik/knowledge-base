@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Краткая история музыки</title>
+    <link th:href="@{/styles/music/musician-all.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <div th:insert="fragments/header.html"></div>
+
+    <div class="table">
+
+        <div class="table-title">
+            <h3>Краткая история музыки</h3>
+        </div>
+
+        <div class="table-body">
+            <div class="table-body-item" th:each="event : ${events}">
+                <p th:text="${event.date + ' ' + event.description}"></p>
+            </div>
+        </div>
+
+    </div>
+
+    <div th:insert="fragments/footer.html"></div>
+
+</div>
+</body>
+</html>

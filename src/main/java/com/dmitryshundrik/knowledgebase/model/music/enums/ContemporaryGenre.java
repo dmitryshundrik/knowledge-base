@@ -4,12 +4,10 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public enum Genre {
+public enum ContemporaryGenre {
 
     AFROFUTURISM("Афрофутуризм", "afrofuturism"),
-    ALTERNATIVE("Альтернативная музыка", "alternative"),
     ALTERNATIVE_POP("Альтернативная поп-музыка", "alternative-pop"),
     ALTERNATIVE_REGGAETON("Альтернативный реггетон", "alternative-reggaeton"),
     ALTERNATIVE_RHYTHM_AND_BLUES("Альтернативный ритм-н-блюз", "alternative-rhythm-and-blues"),
@@ -48,51 +46,13 @@ public enum Genre {
     SHOEGASE("Шугейз", "shoegaze"),
     SINGER_SONGWRITER("Автор-исполнитель", "singer-songwriter"),
     SPOKEN_WORD("Художественная декламация", "spoken-word"),
-    TECHNO("Техно", "techno"),
-
-
-    // Instrumental Genres
-    CANZONE("Канцона", "canzone"),
-    CHACONNE("Чакона", "chaconne"),
-    CONCERTO("Концерт", "concerto"),
-    CONCERTO_GROSSO("Кончерто гроссо", "concerto-grosso"),
-    FANTASIA("Фантазия", "fantasia"),
-    FUGUE("Фуга", "fugue"),
-    OVERTURE("Увертюра", "overture"),
-    PARTITA("Партита", "partita"),
-    PASSACAGLIA("Пассакалья", "passacaglia"),
-    PRELUDE("Прелюдия", "prelude"),
-    RICERCAR("Ричеркар", "ricercar"),
-    SONATA("Соната", "sonata"),
-    SUITE("Сюита", "suite"),
-    TOCCATA("Токката", "toccata"),
-
-
-    //Vocal Genres
-    ARIA("Ария", "aria"),
-    BALLET("Балет", "ballet"),
-    CANTATA("Кантата", "cantata"),
-    CHORALE("Хорал", "chorale"),
-    COMEDIE("Комедия", "comedie"),
-    COMEDIE_BALLET("Комедия-балет", "comedie-ballet"),
-    DIVERTISSEMENT("Дивертисмент", "divertissement"),
-    GRAND_MOTET("Большой мотет", "grand-motet"),
-    MADRIGAL("Мадригал", "madrigal"),
-    MASS("Месса", "mass"),
-    MOTET("Мотет", "motet"),
-    OPERA("Опера", "opera"),
-    OPERA_BALLET("Опера-балет", "opera-ballet"),
-    ORATORIO("Оратория", "oratorio"),
-    PASSION("Страсти", "passion"),
-    PASTORALE("Пастораль", "pastorale"),
-    PETIT_MOTET("Малый мотет", "petit-motet"),
-    TRAGEDIE_BALLET("Трагедия-балет", "tragedie-ballet");
+    TECHNO("Техно", "techno");
 
     private final String label;
 
     private final String slug;
 
-    Genre(String label, String slug) {
+    ContemporaryGenre(String label, String slug) {
         this.label = label;
         this.slug = slug;
     }
@@ -105,7 +65,7 @@ public enum Genre {
         return slug;
     }
 
-    public static List<Genre> getSortedValues() {
-        return Arrays.stream(Genre.values()).sorted(Comparator.comparing(Genre::getLabel)).collect(Collectors.toList());
+    public static List<ContemporaryGenre> getSortedValues() {
+        return Arrays.stream(ContemporaryGenre.values()).sorted(Comparator.comparing(ContemporaryGenre::getLabel)).collect(Collectors.toList());
     }
 }

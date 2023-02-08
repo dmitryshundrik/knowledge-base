@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Музыка</title>
+    <link th:href="@{/styles/music/music-page.css}" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <div th:insert="fragments/header.html"></div>
+
+    <div class="table">
+
+        <div class="table-title">
+            <h3>Музыка</h3>
+        </div>
+
+        <div class="table-body">
+            <div class="table-body-item">
+                <h3>Рейтинги и списки</h3>
+                <div th:each="SOTYList : ${SOTYLists}">
+                    <a th:text="${SOTYList.title}" th:href="'/music/best-songs-' + ${SOTYList.slug}"></a>
+                    <br>
+                </div>
+                <a href="/music/timeline-of-music">Краткая история музыки</a>
+                <a href="/music/musician/all">Все музыканты</a>
+            </div>
+
+            <div class="table-body-item">
+                <h3>Эпохи</h3>
+                <div th:each="period : ${periods}">
+                    <a th:text="${period.label}" th:href="'/music/period/' + ${period.slug}"></a>
+                </div>
+            </div>
+
+            <div class="table-body-item">
+                <h3>Академические жанры</h3>
+                <div th:each="academicGenre : ${academicGenres}">
+                    <a th:text="${academicGenre.label}"
+                       th:href="'/music/academic-genre/' + ${academicGenre.slug}"></a>
+                </div>
+            </div>
+
+            <div class="table-body-item">
+                <h3>Современные жанры</h3>
+                <div th:each="contemporaryGenre : ${contemporaryGenres}">
+                    <a th:text="${contemporaryGenre.label}"
+                       th:href="'/music/contemporary-genre/' + ${contemporaryGenre.slug}"></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div th:insert="fragments/footer.html"></div>
+
+</div>
+
+</body>
+</html>

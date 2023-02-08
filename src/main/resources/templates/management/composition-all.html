@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link th:href="@{/styles/management/entity-all-management.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <div th:insert="fragments/header.html"></div>
+
+    <div class="table">
+
+        <div class="table-title">
+            <h3>архив composition</h3>
+            <a href="/management/composition/create">создать composition</a>
+        </div>
+
+        <div class="table-body">
+            <table>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>created</th>
+                    <th>title</th>
+                    <th>slug</th>
+                    <th>catalog_number</th>
+                    <th>musician</th>
+                    <th>feature</th>
+                    <th>year</th>
+                    <th>period</th>
+                    <th>academic_genres</th>
+                    <th>contemporary_genres</th>
+                    <th>rating</th>
+                    <th>year_end_rank</th>
+                    <th>highlights</th>
+                    <th>description</th>
+                    <th>редактировать</th>
+                    <th>удалить</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="composition : ${compositions}">
+                    <th th:text="${compositionStat.index + 1}"></th>
+                    <td th:text="${composition.created}"></td>
+                    <td th:text="${composition.title}"></td>
+                    <td th:text="${composition.slug}"></td>
+                    <td th:text="${composition.catalogNumber}"></td>
+                    <td th:text="${composition.musician}"></td>
+                    <td th:text="${composition.feature}"></td>
+                    <td th:text="${composition.year}"></td>
+                    <td th:if="${composition.period != null}" th:text="${composition.period.label}"></td>
+
+                    <td th:if="${composition.academicGenres != null}">
+                        <span th:each="academicGenre : ${composition.academicGenres}">
+                            <p th:text="${academicGenre.label}"></p>
+                        </span>
+                    </td>
+                    <td th:if="${composition.contemporaryGenres != null}">
+                        <span th:each="contemporaryGenre : ${composition.contemporaryGenres}">
+                            <p th:text="${contemporaryGenre.label}"></p>
+                        </span>
+                    </td>
+
+                    <td th:text="${composition.rating}"></td>
+                    <td th:text="${composition.yearEndRank}"></td>
+                    <td th:if="${composition.highlights != null}">
+                        <span th:each="highlight : ${composition.highlights}">
+                            <p th:text="${highlights}"></p>
+                        </span>
+                    </td>
+                    <td th:text="${composition.description}"></td>
+
+                    <td>
+                        <a th:href="${'/management/composition/edit/' + composition.slug}">редактировать</a>
+                    </td>
+                    <td>
+                        <form th:action="${'/management/composition/delete/' + composition.slug}" th:method="delete">
+                            <input type="submit" value="удалить">
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div th:insert="fragments/footer.html"></div>
+
+</div>
+</body>
+</html>

@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${SOTYList.title}"></title>
+    <link th:href="@{/styles/music/soty-list.css}" rel="stylesheet">
+
 </head>
 <body>
 <div class="container">
@@ -10,21 +12,29 @@
     <div th:insert="fragments/header.html"></div>
 
     <div class="table">
-        <h2 th:text="${SOTYList.title}"></h2>
-        <br>
-        <h4 th:text="${SOTYList.description}"></h4>
-        <br>
-        <a th:href="${SOTYList.spotifyLink}" target="_blank">
-            <h5>Слушать в Spotify</h5>
-        </a>
-        <br>
-        <div th:each="composition : ${compositions}">
-            <h3 th:text="${composition.musician.nickName + ' - ' + composition.title}"></h3>
-            <div th:each="genre : ${composition.genres}">
-                <span th:text="${genre.label}"></span>
-            </div>
-            <br>
+
+        <div class="table-title">
+            <h3 th:text="${SOTYList.title}"></h3>
         </div>
+
+        <div class="table-body">
+            <div class="table-body-item description">
+                <p th:text="${SOTYList.description}"></p>
+                <a th:href="${SOTYList.spotifyLink}" target="_blank">
+                    <p>Слушать в Spotify</p>
+                </a>
+            </div>
+
+            <div class="table-body-item">
+                <div th:each="composition : ${compositions}">
+                    <span th:text="${composition.musician.nickName + ' - ' + composition.title}"></span>
+                    <div th:each="contemporaryGenre : ${composition.genres}">
+                        <span th:text="${contemporaryGenre.label}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div th:insert="fragments/footer.html"></div>

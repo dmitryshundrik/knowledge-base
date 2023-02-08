@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все музыканты</title>
+    <link th:href="@{/styles/music/musician-all.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <div th:insert="fragments/header.html"></div>
+
+    <div class="table">
+
+        <div class="table-title">
+            <h3>Все музыканты</h3>
+        </div>
+
+        <div class="table-body">
+            <table>
+                <thead>
+                <tr>
+                    <th>дата рождения</th>
+                    <th>дата смерти</th>
+                    <th>псевдоним</th>
+                    <th>период</th>
+                    <th>жанр (академический)</th>
+                    <th>жанр (современный)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="musician : ${musicians}">
+                    <td th:text="${musician.born}"></td>
+                    <td th:text="${musician.died}"></td>
+                    <td>
+                        <a th:href="${'/music/musician/' + musician.slug}">
+                            <p th:text="${musician.nickName}"></p>
+                        </a>
+                    </td>
+                    <td th:if="${musician.period != null}" th:text="${musician.period.label}"></td>
+                    <td th:if="${musician.period == null}" th:text="period"></td>
+                    <td th:if="${musician.academicGenres != null}">
+                        <span th:each="academicGenre : ${musician.academicGenres}">
+                            <p th:text="${academicGenre.label}"></p>
+                        </span>
+                    </td>
+                    <td th:if="${musician.contemporaryGenres != null}">
+                        <span th:each="contemporaryGenre : ${musician.contemporaryGenres}">
+                            <p th:text="${contemporaryGenre.label}"></p>
+                        </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div th:insert="fragments/footer.html"></div>
+
+</div>
+</body>
+</html>

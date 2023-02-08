@@ -58,6 +58,8 @@ public class EventService {
                 .build();
     }
 
+
+
     public List<EventDTO> eventListToEventDTOList(List<Event> eventList) {
         return eventList.stream().map(event -> eventToEventDTO(event)).collect(Collectors.toList());
     }

@@ -1,10 +1,11 @@
 package com.dmitryshundrik.knowledgebase.controller;
 
+import com.dmitryshundrik.knowledgebase.model.music.Musician;
+import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
+import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.timeline.TimelineType;
 import com.dmitryshundrik.knowledgebase.model.music.SOTYList;
-import com.dmitryshundrik.knowledgebase.model.music.enums.Genre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
-import com.dmitryshundrik.knowledgebase.model.music.enums.Style;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicService;
 import com.dmitryshundrik.knowledgebase.service.TimelineService;
@@ -40,9 +41,9 @@ public class MusicController {
     public String getMusicPage(Model model) {
         model.addAttribute("SOTYLists", sotyListService.getAllSOTYLists());
         model.addAttribute("periods", Period.values());
-        model.addAttribute("styles", Style.getSortedValues());
-        model.addAttribute("genres", Genre.getSortedValues());
-        return "music/music";
+        model.addAttribute("academicGenres", AcademicGenre.getSortedValues());
+        model.addAttribute("contemporaryGenres", ContemporaryGenre.getSortedValues());
+        return "music/music-page";
     }
 
     @GetMapping("/best-songs-{slug}")
@@ -56,35 +57,44 @@ public class MusicController {
 
     @GetMapping("/timeline-of-music")
     public String getTimelineOfMusic(Model model) {
-        model.addAttribute("timeline", timelineService.getTimeline(TimelineType.MUSIC));
-        return "music/timelineOfMusic";
+        model.addAttribute("events", timelineService.getTimeline(TimelineType.MUSIC).getEvents());
+        return "music/timeline-of-music";
     }
 
-    @GetMapping("/musicians")
+    @GetMapping("/musician/all")
     public String getAllMusicians(Model model) {
         model.addAttribute("musicians", musicianService.getAllMusicians());
-        return "music/musicians";
+        return "music/musician-all";
     }
 
-    @GetMapping("/periods/{slug}")
-    public String getPeriod(@PathVariable String slug, Model model) {
+    @GetMapping("/musician/{slug}")
+    public String getMusicianBySlug(@PathVariable String slug, Model model) {
+        Musician musicianBySlug = musicianService.getMusicianBySlug(slug);
+        model.addAttribute("musician", musicianService.getMusicianViewDTO(musicianBySlug));
+        return "music/musician-entity";
+    }
+
+    @GetMapping("/period/{slug}")
+    public String getPeriodBySlug(@PathVariable String slug, Model model) {
         Period periodBySlug = musicService.getPeriodBySlug(slug);
         model.addAttribute("period", periodBySlug);
         model.addAttribute("compostitions", compositionService.getAllCompositionsByPeriod(periodBySlug));
-        return "music/period";
+        return "music/period-table";
     }
 
-    @GetMapping("/styles-and-forms/{slug}")
-    public String getStyle(@PathVariable String slug, Model model) {
-
-        return "music/style";
+    @GetMapping("/academic-genre/{slug}")
+    public String getAcademicGenreBySlug(@PathVariable String slug, Model model) {
+        AcademicGenre academicGenre = musicService.getAcademicGenreByClug(slug);
+        model.addAttribute("genre", academicGenre);
+        model.addAttribute("compositions", compositionService.getAllCompositionsByAcademicGenre(academicGenre));
+        return "music/genre-table";
     }
 
-    @GetMapping("/genres/{slug}")
-    public String getGenre(@PathVariable String slug, Model model) {
-        Genre genreBySlug = musicService.getGenreBySlug(slug);
-        model.addAttribute("genre", genreBySlug);
-        model.addAttribute("compositions", compositionService.getAllCompositionsByGenre(genreBySlug));
-        return "music/genre";
+    @GetMapping("/contemporary-genre/{slug}")
+    public String getContemporaryGenreBySlug(@PathVariable String slug, Model model) {
+        ContemporaryGenre contemporaryGenre = musicService.getContemporaryGenreBySlug(slug);
+        model.addAttribute("genre", contemporaryGenre);
+        model.addAttribute("compositions", compositionService.getAllCompositionsByContemporaryGenre(contemporaryGenre));
+        return "music/genre-table";
     }
 }

@@ -1,0 +1,23 @@
+
+.table-title {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+.table-body {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 25px;
+}
+
+.table-body-item {
+    display: flex;
+    flex-direction: column;
+    width: 49%;
+    padding: 25px 0px;
+    gap: 5px;
+    align-items: center;
+    border: 1px solid gray;
+}

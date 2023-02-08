@@ -46,7 +46,11 @@
     width: 60%;
 }
 
-.genres select {
+.major-field input {
+    height: 100px;
+}
+
+.major-field select {
     height: 200px;
 }
 

@@ -1,21 +1,20 @@
-package com.dmitryshundrik.knowledgebase.model.music;
+package com.dmitryshundrik.knowledgebase.model.music.dto;
 
+import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
+import lombok.Builder;
 import lombok.Data;
-import javax.persistence.*;
+
+import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
 
 @Data
-@Entity
-@Table(name = "albums")
-public class Album {
+@Builder
+public class CompositionViewDTO {
 
-    @Id
-    @GeneratedValue
-    private UUID id;
+    private Instant created;
 
     private String slug;
 
@@ -23,30 +22,23 @@ public class Album {
 
     private String catalogNumber;
 
-    @ManyToOne
     private Musician musician;
 
-    private String artwork;
+    private String feature;
 
     private Integer year;
 
-    @Enumerated(EnumType.STRING)
     private Period period;
 
-    @Enumerated(EnumType.STRING)
-    @ElementCollection
     private List<AcademicGenre> academicGenres;
 
-    @Enumerated(EnumType.STRING)
-    @ElementCollection
     private List<ContemporaryGenre> contemporaryGenres;
-
-    private String description;
 
     private Double rating;
 
     private Integer yearEndRank;
 
-    @OneToMany
-    private List<Composition> compositions;
+    private String highlights;
+
+    private String description;
 }

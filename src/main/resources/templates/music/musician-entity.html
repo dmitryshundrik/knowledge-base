@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${musician.nickName}"></title>
+    <link th:href="@{/styles/music/musician-entity.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <div th:insert="fragments/header.html"></div>
+
+    <div class="table">
+
+        <div class="table-title">
+            <div class="entity-image">
+                <img th:src="|data:image;base64,${musician.image}|">
+            </div>
+            <div class="entity-information">
+                <h1 class="nick-name" th:text="${musician.nickName}"></h1>
+                <p class="dates">
+                    Годы жизни: <span th:text="${musician.born}"></span> <span th:text="${musician.died}"></span>
+                </p>
+                <p class="period">
+                    Период: <span th:text="${musician.period.label}"></span>
+                </p>
+                <p class="genre">
+                    Жанр:
+                    <span th:each="genre : ${musician.academicGenres}">
+                        <a th:href="'/music/academic-genre/' + ${genre.slug}">
+                            <span th:text="${genre.label}"></span>
+                        </a>
+                    </span>
+                    <span th:each="genre : ${musician.contemporaryGenres}">
+                        <a th:href="'/music/contemporary-genre/' + ${genre.slug}">
+                            <span th:text="${genre.label}"></span>
+                        </a>
+                    </span>
+                </p>
+                <p class="spotify-link">
+                    Лучшие произведения: <a th:href="${musician.spotifyLink}"><span>слушать в Spotify</span></a>
+                </p>
+            </div>
+        </div>
+
+        <div class="table-body">
+            <div class="table-body-item entity-events">
+
+            </div>
+
+            <div class="table-body-item entity-best-list">
+
+            </div>
+
+            <div class="table-body-item entity-all-works">
+
+            </div>
+        </div>
+
+    </div>
+
+    <div th:insert="fragments/footer.html"></div>
+
+</div>
+</body>
+</html>

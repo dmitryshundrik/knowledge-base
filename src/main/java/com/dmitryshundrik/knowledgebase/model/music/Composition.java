@@ -1,9 +1,11 @@
 package com.dmitryshundrik.knowledgebase.model.music;
 
-import com.dmitryshundrik.knowledgebase.model.music.enums.Genre;
+import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
+import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
 import lombok.Data;
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,6 +17,8 @@ public class Composition {
     @Id
     @GeneratedValue
     private UUID id;
+
+    private Instant created;
 
     private String slug;
 
@@ -29,23 +33,27 @@ public class Composition {
 
     private Integer year;
 
+    @Enumerated(EnumType.STRING)
     private Period period;
 
     @Enumerated(EnumType.STRING)
     @ElementCollection
-    private List<Genre> genres;
+    private List<AcademicGenre> academicGenres;
 
-    private String lyric;
-
-    private String translation;
-
-    private String description;
+    @Enumerated(EnumType.STRING)
+    @ElementCollection
+    private List<ContemporaryGenre> contemporaryGenres;
 
     private Double rating;
 
     private Integer yearEndRank;
 
-    @ElementCollection
-    private List<String> highlights;
+    private String highlights;
+
+    private String description;
+
+    private String lyrics;
+
+    private String translation;
 
 }

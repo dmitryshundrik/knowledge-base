@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <link th:href="@{/styles/management/entityCreateEditManagement.css}" rel="stylesheet">
+    <link th:href="@{/styles/management/entity-create-edit-management.css}" rel="stylesheet">
 </head>
 <body>
 <div class="container">
@@ -12,7 +12,7 @@
     <div class="table">
 
         <div class="table-title">
-            <h4>изменить musician</h4>
+            <h3>изменить musician</h3>
         </div>
 
         <div class="table-body">
@@ -57,23 +57,38 @@
                         <option th:each="period : ${periods}" th:value="${period}" th:text="${period.label}"></option>
                     </select>
                 </div>
-                <div class="form-item">
-                    <label>styles</label>
-                    <select th:field="*{styles}" multiple="multiple">
-                        <option th:each="style : ${styles}" th:value="${style}" th:text="${style.label}"></option>
+                <div class="form-item major-field">
+                    <label>academic_genres</label>
+                    <select th:field="*{academicGenres}" multiple="multiple">
+                        <option th:each="academicGenre : ${academicGenres}" th:value="${academicGenre}"
+                                th:text="${academicGenre.label}"></option>
                     </select>
                 </div>
-                <div class="form-item genres">
-                    <label>genres</label>
-                    <select th:field="*{genres}" multiple="multiple">
-                        <option th:each="genre : ${genres}" th:value="${genre}" th:text="${genre.label}"></option>
+                <div class="form-item major-field">
+                    <label>contemporary_genres</label>
+                    <select th:field="*{contemporaryGenres}" multiple="multiple">
+                        <option th:each="contemporaryGenre : ${contemporaryGenres}" th:value="${contemporaryGenre}"
+                                th:text="${contemporaryGenre.label}"></option>
                     </select>
+                </div>
+                <div class="form-item">
+                    <label>spotify_link</label>
+                    <input type="text" th:field="*{spotifyLink}"/>
                 </div>
                 <input class="input-submit" type="submit" value="Обновить"/>
             </form>
 
+            <form class="form" method="post" th:action="${'/management/musician/edit/' + musician.slug + '/upload'}"
+                  enctype="multipart/form-data">
+                <div class="form-item">
+                    <label>image</label>
+                    <input type="file" name="file">
+                </div>
+                <button class="input-submit" type="submit">Загрузить</button>
+            </form>
+
             <div class="table-title">
-                <h4>архим event</h4>
+                <h4>архив event</h4>
                 <a th:href="${'/management/musician/edit/' + musician.slug + '/event/create'}">создать event</a>
             </div>
 

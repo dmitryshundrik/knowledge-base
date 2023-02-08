@@ -5,6 +5,8 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
 import com.dmitryshundrik.knowledgebase.service.EventService;
+import com.dmitryshundrik.knowledgebase.util.Constants;
+import com.dmitryshundrik.knowledgebase.util.Formatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,8 +33,12 @@ public class MusicianService {
         return musicianRepository.getMusicianBySlug(slug);
     }
 
-    public void deleteMusicianBySlug(String slug) {
-        musicianRepository.deleteBySlug(slug);
+    public void createMusicianByMusicianDTO(MusicianCreateEditDTO musicianCreateEditDTO) {
+        Musician musician = new Musician();
+        musician.setCreated(Instant.now());
+        musician.setImage(Constants.DEFAULT_ENTITY_IMAGE);
+        setUpMusicianFieldsFromDTO(musician, musicianCreateEditDTO);
+        musicianRepository.save(musician);
     }
 
     public void updateExistingMusician(MusicianCreateEditDTO musicianCreateEditDTO, String slug) {
@@ -40,31 +46,40 @@ public class MusicianService {
         setUpMusicianFieldsFromDTO(musicianBySlug, musicianCreateEditDTO);
     }
 
-    public void createMusicianByMusicianDTO(MusicianCreateEditDTO musicianCreateEditDTO) {
-        Musician musician = new Musician();
-        musician.setCreated(Instant.now());
-        setUpMusicianFieldsFromDTO(musician, musicianCreateEditDTO);
-        musicianRepository.save(musician);
+    public void updateMusicianImageBySlug(String slug, byte[] bytes) {
+        Musician musicianBySlug = getMusicianBySlug(slug);
+        musicianBySlug.setImage(new String(bytes));
     }
 
-    public List<MusicianViewDTO> musiciansListToMusiciansViewDTOList(List<Musician> musicianList) {
-        return musicianList.stream().map(musician -> MusicianViewDTO.builder()
-                .created(musician.getCreated())
+    public void deleteMusicianBySlug(String slug) {
+        musicianRepository.deleteBySlug(slug);
+    }
+
+    public MusicianViewDTO getMusicianViewDTO(Musician musician) {
+        return MusicianViewDTO.builder()
+                .created(Formatter.instantFormatter(musician.getCreated()))
                 .slug(musician.getSlug())
                 .firstName(musician.getFirstName())
                 .lastName(musician.getLastName())
                 .nickName(musician.getNickName())
+                .image(musician.getImage())
                 .born(musician.getBorn())
                 .died(musician.getDied())
                 .birthDate(musician.getBirthDate())
                 .deathDate(musician.getDeathDate())
                 .period(musician.getPeriod())
-                .styles(musician.getStyles())
-                .genres(musician.getGenres())
-                .build()).collect(Collectors.toList());
+                .academicGenres(musician.getAcademicGenres())
+                .contemporaryGenres(musician.getContemporaryGenres())
+                .spotifyLink(musician.getSpotifyLink())
+                .events(eventService.eventListToEventDTOList(musician.getEvents()))
+                .build();
     }
 
-    public MusicianCreateEditDTO musicianToMusicianCreateEditDTO(Musician musician) {
+    public List<MusicianViewDTO> getMusiciansViewDTOList(List<Musician> musicianList) {
+        return musicianList.stream().map(musician -> getMusicianViewDTO(musician)).collect(Collectors.toList());
+    }
+
+    public MusicianCreateEditDTO getMusicianCreateEditDTO(Musician musician) {
         return MusicianCreateEditDTO.builder()
                 .slug(musician.getSlug())
                 .firstName(musician.getFirstName())
@@ -76,23 +91,25 @@ public class MusicianService {
                 .birthDate(musician.getBirthDate())
                 .deathDate(musician.getDeathDate())
                 .period(musician.getPeriod())
-                .styles(musician.getStyles())
-                .genres(musician.getGenres())
+                .academicGenres(musician.getAcademicGenres())
+                .contemporaryGenres(musician.getContemporaryGenres())
+                .spotifyLink(musician.getSpotifyLink())
                 .events(eventService.eventListToEventDTOList(musician.getEvents()))
                 .build();
     }
 
     private void setUpMusicianFieldsFromDTO(Musician musician, MusicianCreateEditDTO musicianCreateEditDTO) {
         musician.setSlug(musicianCreateEditDTO.getSlug());
-        musician.setNickName(musicianCreateEditDTO.getNickName());
         musician.setFirstName(musicianCreateEditDTO.getFirstName());
         musician.setLastName(musicianCreateEditDTO.getLastName());
+        musician.setNickName(musicianCreateEditDTO.getNickName());
         musician.setBorn(musicianCreateEditDTO.getBorn());
         musician.setDied(musicianCreateEditDTO.getDied());
         musician.setBirthDate(musicianCreateEditDTO.getBirthDate());
         musician.setDeathDate(musicianCreateEditDTO.getDeathDate());
         musician.setPeriod(musicianCreateEditDTO.getPeriod());
-        musician.setStyles(musicianCreateEditDTO.getStyles());
-        musician.setGenres(musicianCreateEditDTO.getGenres());
+        musician.setAcademicGenres(musicianCreateEditDTO.getAcademicGenres());
+        musician.setContemporaryGenres(musicianCreateEditDTO.getContemporaryGenres());
+        musician.setSpotifyLink(musicianCreateEditDTO.getSpotifyLink());
     }
 }

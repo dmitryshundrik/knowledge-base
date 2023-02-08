@@ -1,8 +1,10 @@
 package com.dmitryshundrik.knowledgebase.model.music.dto;
 
-import com.dmitryshundrik.knowledgebase.model.music.enums.Genre;
+import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
+import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
-import com.dmitryshundrik.knowledgebase.model.music.enums.Style;
+import com.dmitryshundrik.knowledgebase.model.timeline.Event;
+import com.dmitryshundrik.knowledgebase.model.timeline.EventDTO;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,7 +16,7 @@ import java.util.List;
 @Builder
 public class MusicianViewDTO {
 
-    private Instant created;
+    private String created;
 
     private String slug;
 
@@ -23,6 +25,8 @@ public class MusicianViewDTO {
     private String lastName;
 
     private String nickName;
+
+    private String image;
 
     private Integer born;
 
@@ -34,7 +38,11 @@ public class MusicianViewDTO {
 
     private Period period;
 
-    private List<Style> styles;
+    private List<AcademicGenre> academicGenres;
 
-    private List<Genre> genres;
+    private List<ContemporaryGenre> contemporaryGenres;
+
+    private String spotifyLink;
+
+    private List<EventDTO> events;
 }

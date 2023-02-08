@@ -1,0 +1,13 @@
+
+.table-title {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+.table-body {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px solid gray;
+}

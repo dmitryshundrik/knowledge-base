@@ -1,14 +1,15 @@
 package com.dmitryshundrik.knowledgebase.model.music.dto;
 
-import com.dmitryshundrik.knowledgebase.model.music.enums.Genre;
+import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
+import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
-import com.dmitryshundrik.knowledgebase.model.music.enums.Style;
 import com.dmitryshundrik.knowledgebase.model.timeline.EventDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Column;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -39,9 +40,11 @@ public class MusicianCreateEditDTO {
 
     private Period period;
 
-    private List<Style> styles;
+    private List<AcademicGenre> academicGenres;
 
-    private List<Genre> genres;
+    private List<ContemporaryGenre> contemporaryGenres;
+
+    private String spotifyLink;
 
     private List<EventDTO> events;
 
