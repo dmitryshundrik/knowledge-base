@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @Builder
 @AllArgsConstructor
-public class CompositionCreateEditDTO {
+public class AlbumCreateEditDTO {
 
     private String slug;
 
@@ -24,7 +24,7 @@ public class CompositionCreateEditDTO {
 
     private String musicianSlug;
 
-    private String feature;
+    private String artwork;
 
     private Integer year;
 
@@ -42,11 +42,9 @@ public class CompositionCreateEditDTO {
 
     private String description;
 
-    private String lyrics;
+    private List<CompositionViewDTO> compositions;
 
-    private String translation;
-
-    public CompositionCreateEditDTO () {
+    public AlbumCreateEditDTO() {
 
     }
 }

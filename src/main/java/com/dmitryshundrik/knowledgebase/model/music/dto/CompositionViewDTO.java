@@ -14,7 +14,7 @@ import java.util.List;
 @Builder
 public class CompositionViewDTO {
 
-    private Instant created;
+    private String created;
 
     private String slug;
 
@@ -22,7 +22,9 @@ public class CompositionViewDTO {
 
     private String catalogNumber;
 
-    private Musician musician;
+    private String musicianNickname;
+
+    private String musicianSlug;
 
     private String feature;
 
@@ -41,4 +43,5 @@ public class CompositionViewDTO {
     private String highlights;
 
     private String description;
+
 }

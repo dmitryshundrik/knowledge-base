@@ -7,6 +7,7 @@ import com.dmitryshundrik.knowledgebase.model.timeline.Event;
 import com.dmitryshundrik.knowledgebase.model.timeline.EventDTO;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -32,8 +33,10 @@ public class MusicianViewDTO {
 
     private Integer died;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate deathDate;
 
     private Period period;
@@ -45,4 +48,9 @@ public class MusicianViewDTO {
     private String spotifyLink;
 
     private List<EventDTO> events;
+
+    private List<AlbumViewDTO> albums;
+
+    private List<CompositionViewDTO> compositions;
+
 }

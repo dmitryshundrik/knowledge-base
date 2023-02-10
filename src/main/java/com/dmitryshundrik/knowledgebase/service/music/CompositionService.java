@@ -1,6 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.Composition;
+import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.SOTYList;
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionViewDTO;
@@ -8,6 +9,7 @@ import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
 import com.dmitryshundrik.knowledgebase.repository.music.CompositionRepository;
+import com.dmitryshundrik.knowledgebase.util.Formatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,12 +25,12 @@ public class CompositionService {
     @Autowired
     private CompositionRepository compositionRepository;
 
-    public Composition getCompositionBySlug(String slug) {
-        return compositionRepository.getCompositionBySlug(slug);
-    }
-
     public List<Composition> getAllCompositions() {
         return compositionRepository.findAll();
+    }
+
+    public Composition getCompositionBySlug(String slug) {
+        return compositionRepository.getCompositionBySlug(slug);
     }
 
     public List<Composition> getAllCompositionsByPeriod(Period period) {
@@ -47,9 +49,10 @@ public class CompositionService {
         return compositionRepository.getAllByYearAndYearEndRankNotNull(sotyList.getYear());
     }
 
-    public void createCompositionByCompositionDTO(CompositionCreateEditDTO compositionCreateEditDTO) {
+    public void createCompositionByCompositionDTO(CompositionCreateEditDTO compositionCreateEditDTO, Musician musician) {
         Composition composition = new Composition();
         composition.setCreated(Instant.now());
+        composition.setMusician(musician);
         setUpCompositionFieldsFromDTO(composition, compositionCreateEditDTO);
         compositionRepository.save(composition);
     }
@@ -68,7 +71,8 @@ public class CompositionService {
                 .slug(composition.getSlug())
                 .title(composition.getTitle())
                 .catalogNumber(composition.getCatalogNumber())
-                .musician(composition.getMusician())
+                .musicianNickname(composition.getMusician().getNickName())
+                .musicianSlug(composition.getMusician().getSlug())
                 .feature(composition.getFeature())
                 .year(composition.getYear())
                 .period(composition.getPeriod())
@@ -85,11 +89,12 @@ public class CompositionService {
 
     public List<CompositionViewDTO> getCompositionViewDTOList(List<Composition> compositionList) {
         return compositionList.stream().map(composition -> CompositionViewDTO.builder()
-                .created(composition.getCreated())
+                .created(Formatter.instantFormatter(composition.getCreated()))
                 .slug(composition.getSlug())
                 .title(composition.getTitle())
                 .catalogNumber(composition.getCatalogNumber())
-                .musician(composition.getMusician())
+                .musicianNickname(composition.getMusician().getNickName())
+                .musicianSlug(composition.getMusician().getSlug())
                 .feature(composition.getFeature())
                 .year(composition.getYear())
                 .period(composition.getPeriod())
@@ -106,7 +111,6 @@ public class CompositionService {
         composition.setSlug(compositionCreateEditDTO.getSlug());
         composition.setTitle(compositionCreateEditDTO.getTitle());
         composition.setCatalogNumber(compositionCreateEditDTO.getCatalogNumber());
-        composition.setMusician(compositionCreateEditDTO.getMusician());
         composition.setFeature(compositionCreateEditDTO.getFeature());
         composition.setYear(compositionCreateEditDTO.getYear());
         composition.setPeriod(compositionCreateEditDTO.getPeriod());

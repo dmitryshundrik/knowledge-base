@@ -12,11 +12,11 @@
     <div class="table">
 
         <div class="table-title">
-            <h3>создать musician</h3>
+            <h4>создать musician</h4>
         </div>
 
         <div class="table-body">
-            <form class="form" th:action="${'/management/musician/create'}" th:method="post" th:object="${musician}">
+            <form class="form" th:action="${'/management/musician/create'}" th:method="post" th:object="${musicianCreateEditDTO}">
                 <div class="form-item">
                     <label>nickname</label>
                     <input type="text" th:field="*{nickName}"/>

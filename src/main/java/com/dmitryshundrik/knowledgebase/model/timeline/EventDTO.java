@@ -16,7 +16,7 @@ public class EventDTO {
 
     private UUID id;
 
-    private Instant created;
+    private String created;
 
     private Integer year;
 

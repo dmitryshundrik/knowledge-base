@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Краткая история музыки</title>
-    <link th:href="@{/styles/music/musician-all.css}" rel="stylesheet">
+    <link th:href="@{/styles/music/timeline-of-music.css}" rel="stylesheet">
 </head>
 <body>
 <div class="container">
@@ -17,7 +17,7 @@
         </div>
 
         <div class="table-body">
-            <div class="table-body-item" th:each="event : ${events}">
+            <div class="table-body-item" th:each="event : ${timeline.events}">
                 <p th:text="${event.date + ' ' + event.description}"></p>
             </div>
         </div>

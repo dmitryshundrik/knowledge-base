@@ -3,7 +3,6 @@ package com.dmitryshundrik.knowledgebase.model.music.dto;
 import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,8 +10,9 @@ import java.util.List;
 
 @Data
 @Builder
-@AllArgsConstructor
-public class CompositionCreateEditDTO {
+public class AlbumViewDTO {
+
+    private String created;
 
     private String slug;
 
@@ -24,7 +24,7 @@ public class CompositionCreateEditDTO {
 
     private String musicianSlug;
 
-    private String feature;
+    private String artwork;
 
     private Integer year;
 
@@ -42,11 +42,5 @@ public class CompositionCreateEditDTO {
 
     private String description;
 
-    private String lyrics;
-
-    private String translation;
-
-    public CompositionCreateEditDTO () {
-
-    }
+    private List<CompositionViewDTO> compositions;
 }

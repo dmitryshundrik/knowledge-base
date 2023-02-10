@@ -5,9 +5,6 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
-import com.dmitryshundrik.knowledgebase.model.timeline.Event;
-import com.dmitryshundrik.knowledgebase.model.timeline.EventDTO;
-import com.dmitryshundrik.knowledgebase.service.EventService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,101 +15,62 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
-@RequestMapping("/management/musician")
+@RequestMapping("")
 public class MusicianManagementController {
 
     @Autowired
     private MusicianService musicianService;
 
-    @Autowired
-    private EventService eventService;
-
-    @GetMapping("/all")
+    @GetMapping("/management/musician/all")
     public String getAllMusicians(Model model) {
         List<Musician> allMusicians = musicianService.getAllMusicians();
-        model.addAttribute("musicians", musicianService.getMusiciansViewDTOList(allMusicians));
+        model.addAttribute("musicianViewDTOList", musicianService.getMusicianViewDTOList(allMusicians));
         return "management/musician-all";
     }
 
-    @GetMapping("/create")
+    @GetMapping("/management/musician/create")
     public String getCreateMusician(Model model) {
-        model.addAttribute("musician", new MusicianCreateEditDTO());
+        model.addAttribute("musicianCreateEditDTO", new MusicianCreateEditDTO());
         model.addAttribute("periods", Period.values());
         model.addAttribute("academicGenres", AcademicGenre.getSortedValues());
         model.addAttribute("contemporaryGenres", ContemporaryGenre.getSortedValues());
         return "management/musician-create";
     }
 
-    @PostMapping("/create")
-    public String postCreateMusician(@ModelAttribute("musician") MusicianCreateEditDTO musicianCreateEditDTO) {
+    @PostMapping("/management/musician/create")
+    public String postCreateMusician(@ModelAttribute("musicianCreateEditDTO") MusicianCreateEditDTO musicianCreateEditDTO) {
         musicianService.createMusicianByMusicianDTO(musicianCreateEditDTO);
         return "redirect:/management/musician/all";
     }
 
-    @GetMapping("/edit/{slug}")
+    @GetMapping("/management/musician/edit/{slug}")
     public String getEditMusicianBySlug(@PathVariable String slug, Model model) {
         Musician musicianBySlug = musicianService.getMusicianBySlug(slug);
-        model.addAttribute("musician", musicianService.getMusicianCreateEditDTO(musicianBySlug));
+        model.addAttribute("musicianCreateEditDTO", musicianService.getMusicianCreateEditDTO(musicianBySlug));
         model.addAttribute("periods", Period.values());
         model.addAttribute("academicGenres", AcademicGenre.getSortedValues());
         model.addAttribute("contemporaryGenres", ContemporaryGenre.getSortedValues());
         return "management/musician-edit";
     }
 
-    @PutMapping("/edit/{slug}")
-    public String putEditMusicianBySlug(@PathVariable String slug, @ModelAttribute("musician") MusicianCreateEditDTO musicianCreateEditDTO) {
+    @PutMapping("/management/musician/edit/{slug}")
+    public String putEditMusicianBySlug(@PathVariable String slug, @ModelAttribute("musicianCreateEditDTO") MusicianCreateEditDTO musicianCreateEditDTO) {
         musicianService.updateExistingMusician(musicianCreateEditDTO, slug);
-        return "redirect:/management/musician/all";
+        return "redirect:/management/musician/edit/" + musicianCreateEditDTO.getSlug();
     }
 
-    @PostMapping("/edit/{slug}/upload")
-    public String postUploadImage(@PathVariable String slug, @RequestParam("file") MultipartFile file) throws IOException {
+    @PostMapping("/management/musician/edit/{slug}/upload")
+    public String postUploadMusicianImage(@PathVariable String slug, @RequestParam("file") MultipartFile file) throws IOException {
         byte[] bytes = Base64.encodeBase64(file.getBytes());
         musicianService.updateMusicianImageBySlug(slug, bytes);
         return "redirect:/management/musician/edit/" + slug;
     }
 
-    @GetMapping("/edit/{slug}/event/create")
-    public String getCreateEventForMusician(@PathVariable String slug, Model model) {
-        model.addAttribute("eventDTO", new EventDTO());
-        model.addAttribute("slug", slug);
-        return "management/event-create";
-    }
-
-    @PostMapping("/edit/{slug}/event/create")
-    public String postCreateEventForMusician(@PathVariable String slug, @ModelAttribute("eventDTO") EventDTO eventDTO) {
-        Musician musician = musicianService.getMusicianBySlug(slug);
-        eventService.createMusicianEventByEventDTO(musician, eventDTO);
-        return "redirect:/management/musician/edit/" + slug;
-    }
-
-    @GetMapping("/edit/{slug}/event/edit/{id}")
-    public String getEditMusicianEventById(@PathVariable String slug, @PathVariable UUID id, Model model) {
-        Event eventById = eventService.getEventById(id);
-        model.addAttribute("eventDTO", eventService.eventToEventDTO(eventById));
-        model.addAttribute("slug", slug);
-        return "management/event-edit";
-    }
-
-    @PutMapping("/edit/{slug}/event/edit/{id}")
-    public String putEditMusicianEventById(@PathVariable String slug, @PathVariable UUID id, @ModelAttribute("eventDTO") EventDTO eventDTO) {
-        eventService.updateEvent(eventDTO, id);
-        return "redirect:/management/musician/edit/" + slug;
-    }
-
-    @DeleteMapping(("/edit/{slug}/event/delete/{id}"))
-    public String deleteMusisianEventById(@PathVariable String slug, @PathVariable UUID id) {
-        eventService.deleteMusicianEventById(id, musicianService.getMusicianBySlug(slug));
-        return "redirect:/management/musician/edit/" + slug;
-    }
-
-    @DeleteMapping("/delete/{slug}")
-    public String deleteMusicianBySlug(@PathVariable String slug, Model model) {
+    @DeleteMapping("/management/musician/delete/{slug}")
+    public String deleteMusicianBySlug(@PathVariable String slug) {
         musicianService.deleteMusicianBySlug(slug);
-        model.addAttribute("musicians", musicianService.getAllMusicians());
         return "redirect:/management/musician/all";
     }
 

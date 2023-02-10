@@ -4,7 +4,6 @@ import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.timeline.Event;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -30,12 +29,12 @@ public class Musician {
     @Column(unique = true, nullable = false)
     private String slug;
 
+    @NotBlank
+    private String nickName;
+
     private String firstName;
 
     private String lastName;
-
-    @NotBlank
-    private String nickName;
 
     @Column(columnDefinition = "text")
     private String image;
@@ -65,6 +64,10 @@ public class Musician {
     private List<Event> events = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "musician")
+    private List<Album> albums;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "musician")
     private List<Composition> compositions;
+
 
 }

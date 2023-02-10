@@ -4,17 +4,29 @@
     flex-direction: row;
     padding: 50px 300px;
     justify-content: center;
+    height: 300px;
 }
 
 .entity-image {
-    width: 250px;
-    padding: 0px 30px;
+    width: 50%;
+    text-align: center;
+}
+
+.entity-image img {
+    width: auto;
+    max-height: 100%;
 }
 
 .entity-information {
     display: flex;
     flex-direction: column;
-    padding: 0px 30px;
+    width: 50%;
+    gap: 5px;
+}
+
+.genre {
+    display: flex;
+    flex-direction: row;
     gap: 5px;
 }
 

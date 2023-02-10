@@ -13,8 +13,7 @@
     <div class="table">
 
         <div class="table-title">
-            <h3>архив composition</h3>
-            <a href="/management/composition/create">создать composition</a>
+            <h4>архив composition</h4>
         </div>
 
         <div class="table-body">
@@ -36,18 +35,18 @@
                     <th>year_end_rank</th>
                     <th>highlights</th>
                     <th>description</th>
-                    <th>редактировать</th>
-                    <th>удалить</th>
+                    <th>edit</th>
+                    <th>delete</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="composition : ${compositions}">
+                <tr th:each="composition : ${compositionViewDTOList}">
                     <th th:text="${compositionStat.index + 1}"></th>
                     <td th:text="${composition.created}"></td>
                     <td th:text="${composition.title}"></td>
                     <td th:text="${composition.slug}"></td>
                     <td th:text="${composition.catalogNumber}"></td>
-                    <td th:text="${composition.musician}"></td>
+                    <td th:text="${composition.musicianNickname}"></td>
                     <td th:text="${composition.feature}"></td>
                     <td th:text="${composition.year}"></td>
                     <td th:if="${composition.period != null}" th:text="${composition.period.label}"></td>
@@ -73,11 +72,11 @@
                     <td th:text="${composition.description}"></td>
 
                     <td>
-                        <a th:href="${'/management/composition/edit/' + composition.slug}">редактировать</a>
+                        <a th:href="${'/management/musician/edit/' + composition.musicianSlug + '/composition/edit/' + composition.slug}">edit</a>
                     </td>
                     <td>
-                        <form th:action="${'/management/composition/delete/' + composition.slug}" th:method="delete">
-                            <input type="submit" value="удалить">
+                        <form th:action="${'/management/musician/edit/' + composition.musicianSlug + '/composition/delete/' + composition.slug}" th:method="delete">
+                            <input type="submit" value="delete">
                         </form>
                     </td>
                 </tr>

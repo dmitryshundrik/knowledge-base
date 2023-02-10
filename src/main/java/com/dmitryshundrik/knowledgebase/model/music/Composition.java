@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
 import lombok.Data;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
@@ -20,8 +21,10 @@ public class Composition {
 
     private Instant created;
 
+    @NotBlank
     private String slug;
 
+    @NotBlank
     private String title;
 
     private String catalogNumber;
@@ -52,8 +55,10 @@ public class Composition {
 
     private String description;
 
+    @Column(columnDefinition = "text")
     private String lyrics;
 
+    @Column(columnDefinition = "text")
     private String translation;
 
 }

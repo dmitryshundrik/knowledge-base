@@ -11,6 +11,7 @@ import com.dmitryshundrik.knowledgebase.service.music.MusicService;
 import com.dmitryshundrik.knowledgebase.service.TimelineService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import com.dmitryshundrik.knowledgebase.service.music.SOTYListService;
+import com.dmitryshundrik.knowledgebase.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,12 +39,12 @@ public class MusicController {
     private TimelineService timelineService;
 
     @GetMapping()
-    public String getMusicPage(Model model) {
+    public String getMainPage(Model model) {
         model.addAttribute("SOTYLists", sotyListService.getAllSOTYLists());
         model.addAttribute("periods", Period.values());
         model.addAttribute("academicGenres", AcademicGenre.getSortedValues());
         model.addAttribute("contemporaryGenres", ContemporaryGenre.getSortedValues());
-        return "music/music-page";
+        return "music/main-page";
     }
 
     @GetMapping("/best-songs-{slug}")
@@ -52,12 +53,12 @@ public class MusicController {
         model.addAttribute("SOTYList", sotyListBySlug);
         model.addAttribute("compositions", compositionService.getAllCompositionsBySOTYList(sotyListBySlug));
 
-        return "music/SOTYList";
+        return "music/soty-list";
     }
 
     @GetMapping("/timeline-of-music")
     public String getTimelineOfMusic(Model model) {
-        model.addAttribute("events", timelineService.getTimeline(TimelineType.MUSIC).getEvents());
+        model.addAttribute("timeline", timelineService.getTimeline(TimelineType.MUSIC));
         return "music/timeline-of-music";
     }
 
@@ -70,8 +71,11 @@ public class MusicController {
     @GetMapping("/musician/{slug}")
     public String getMusicianBySlug(@PathVariable String slug, Model model) {
         Musician musicianBySlug = musicianService.getMusicianBySlug(slug);
-        model.addAttribute("musician", musicianService.getMusicianViewDTO(musicianBySlug));
-        return "music/musician-entity";
+        if(slug.equals("cardi-b")) {
+            musicianBySlug.setImage(Constants.CARDI_B);
+        }
+        model.addAttribute("musicianViewDTO", musicianService.getMusicianViewDTO(musicianBySlug));
+        return "music/musician";
     }
 
     @GetMapping("/period/{slug}")
@@ -79,7 +83,7 @@ public class MusicController {
         Period periodBySlug = musicService.getPeriodBySlug(slug);
         model.addAttribute("period", periodBySlug);
         model.addAttribute("compostitions", compositionService.getAllCompositionsByPeriod(periodBySlug));
-        return "music/period-table";
+        return "music/period";
     }
 
     @GetMapping("/academic-genre/{slug}")
@@ -87,7 +91,7 @@ public class MusicController {
         AcademicGenre academicGenre = musicService.getAcademicGenreByClug(slug);
         model.addAttribute("genre", academicGenre);
         model.addAttribute("compositions", compositionService.getAllCompositionsByAcademicGenre(academicGenre));
-        return "music/genre-table";
+        return "music/genre";
     }
 
     @GetMapping("/contemporary-genre/{slug}")
@@ -95,6 +99,6 @@ public class MusicController {
         ContemporaryGenre contemporaryGenre = musicService.getContemporaryGenreBySlug(slug);
         model.addAttribute("genre", contemporaryGenre);
         model.addAttribute("compositions", compositionService.getAllCompositionsByContemporaryGenre(contemporaryGenre));
-        return "music/genre-table";
+        return "music/genre";
     }
 }

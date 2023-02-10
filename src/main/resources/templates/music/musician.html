@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${musician.nickName}"></title>
-    <link th:href="@{/styles/music/musician-entity.css}" rel="stylesheet">
+    <title th:text="${musicianViewDTO.nickName}"></title>
+    <link th:href="@{/styles/music/musician.css}" rel="stylesheet">
 </head>
 <body>
 <div class="container">
@@ -14,31 +14,31 @@
 
         <div class="table-title">
             <div class="entity-image">
-                <img th:src="|data:image;base64,${musician.image}|">
+                <img th:src="|data:image;base64,${musicianViewDTO.image}|">
             </div>
             <div class="entity-information">
-                <h1 class="nick-name" th:text="${musician.nickName}"></h1>
+                <h1 class="nick-name" th:text="${musicianViewDTO.nickName}"></h1>
                 <p class="dates">
-                    Годы жизни: <span th:text="${musician.born}"></span> <span th:text="${musician.died}"></span>
+                    Годы жизни: <span th:text="${musicianViewDTO.born}"></span> <span th:text="${musicianViewDTO.died}"></span>
                 </p>
                 <p class="period">
-                    Период: <span th:text="${musician.period.label}"></span>
+                    Период: <span th:text="${musicianViewDTO.period.label}"></span>
                 </p>
                 <p class="genre">
                     Жанр:
-                    <span th:each="genre : ${musician.academicGenres}">
+                    <span th:each="genre : ${musicianViewDTO.academicGenres}">
                         <a th:href="'/music/academic-genre/' + ${genre.slug}">
                             <span th:text="${genre.label}"></span>
                         </a>
                     </span>
-                    <span th:each="genre : ${musician.contemporaryGenres}">
+                    <span th:each="genre : ${musicianViewDTO.contemporaryGenres}">
                         <a th:href="'/music/contemporary-genre/' + ${genre.slug}">
                             <span th:text="${genre.label}"></span>
                         </a>
                     </span>
                 </p>
                 <p class="spotify-link">
-                    Лучшие произведения: <a th:href="${musician.spotifyLink}"><span>слушать в Spotify</span></a>
+                    Лучшие произведения: <a th:href="${musicianViewDTO.spotifyLink}"><span>слушать в Spotify</span></a>
                 </p>
             </div>
         </div>

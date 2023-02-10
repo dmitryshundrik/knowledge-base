@@ -9,7 +9,6 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -47,6 +46,10 @@ public class MusicianCreateEditDTO {
     private String spotifyLink;
 
     private List<EventDTO> events;
+
+    private List<AlbumViewDTO> albums;
+
+    private List<CompositionViewDTO> compositions;
 
     public MusicianCreateEditDTO () {
 

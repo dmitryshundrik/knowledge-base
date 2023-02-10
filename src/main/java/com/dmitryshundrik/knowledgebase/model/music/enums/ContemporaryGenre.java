@@ -30,12 +30,15 @@ public enum ContemporaryGenre {
     FOLK("Фолк", "folk"),
     FOLKTRONICA("Фолктроника", "folktronica"),
     FREE_JAZZ("Фри-джаз", "free-jazz"),
+    GLITCH("Глитч","glitch"),
     HARDCORE_PUNK("Хардкор-панк", "hardcore-punk"),
     HIP_HOP("Хип-хоп", "hip-hop"),
+    INDUSTRIAL("Индастриал","industrial"),
     JAZZ("Джаз", "jazz"),
     MELODIC_RAP("Мелодичный рэп", "melodic-rap"),
     MINIMAL("Минимализм", "minimal"),
     NEW_AGE("Нью-эйдж", "new-age"),
+    NOISE("Нойз","noise"),
     OLDSCHOOL_REGGAETON("Олд-скул реггетон", "old-school-reggaeton"),
     POP("Поп", "pop"),
     POP_ROCK("Поп-рок", "pop-rock"),
@@ -46,7 +49,9 @@ public enum ContemporaryGenre {
     SHOEGASE("Шугейз", "shoegaze"),
     SINGER_SONGWRITER("Автор-исполнитель", "singer-songwriter"),
     SPOKEN_WORD("Художественная декламация", "spoken-word"),
-    TECHNO("Техно", "techno");
+    TECHNO("Техно", "techno"),
+    TRAP("Трэп","trap"),
+    LATIN_TRAP("Латинский трэп", "latin-trap");
 
     private final String label;
 

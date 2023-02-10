@@ -20,10 +20,9 @@
             <table>
                 <thead>
                 <tr>
-                    <th>дата рождения</th>
-                    <th>дата смерти</th>
-                    <th>псевдоним</th>
+                    <th>год рождения</th>
                     <th>период</th>
+                    <th>псевдоним</th>
                     <th>жанр (академический)</th>
                     <th>жанр (современный)</th>
                 </tr>
@@ -31,13 +30,12 @@
                 <tbody>
                 <tr th:each="musician : ${musicians}">
                     <td th:text="${musician.born}"></td>
-                    <td th:text="${musician.died}"></td>
+                    <td th:if="${musician.period != null}" th:text="${musician.period.label}"></td>
                     <td>
                         <a th:href="${'/music/musician/' + musician.slug}">
                             <p th:text="${musician.nickName}"></p>
                         </a>
                     </td>
-                    <td th:if="${musician.period != null}" th:text="${musician.period.label}"></td>
                     <td th:if="${musician.period == null}" th:text="period"></td>
                     <td th:if="${musician.academicGenres != null}">
                         <span th:each="academicGenre : ${musician.academicGenres}">

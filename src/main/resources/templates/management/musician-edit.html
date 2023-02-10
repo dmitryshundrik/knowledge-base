@@ -12,12 +12,11 @@
     <div class="table">
 
         <div class="table-title">
-            <h3>изменить musician</h3>
+            <h4>изменить musician</h4>
         </div>
-
         <div class="table-body">
-            <form class="form" th:action="${'/management/musician/edit/' + musician.slug}" th:method="put"
-                  th:object="${musician}">
+            <form class="form" th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug}" th:method="put"
+                  th:object="${musicianCreateEditDTO}">
                 <div class="form-item">
                     <label>nickname</label>
                     <input type="text" th:field="*{nickName}"/>
@@ -78,7 +77,11 @@
                 <input class="input-submit" type="submit" value="Обновить"/>
             </form>
 
-            <form class="form" method="post" th:action="${'/management/musician/edit/' + musician.slug + '/upload'}"
+            <div class="table-title">
+                <h4>изменить image</h4>
+            </div>
+            <form class="form entity-image" method="post"
+                  th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/upload'}"
                   enctype="multipart/form-data">
                 <div class="form-item">
                     <label>image</label>
@@ -88,12 +91,11 @@
             </form>
 
             <div class="table-title">
-                <h4>архив event</h4>
-                <a th:href="${'/management/musician/edit/' + musician.slug + '/event/create'}">создать event</a>
+                <h4>архив events</h4>
+                <a th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/event/create'}">создать
+                    event</a>
             </div>
-
             <div class="table-body-item">
-
                 <table>
                     <thead>
                     <tr>
@@ -101,29 +103,112 @@
                         <th>year</th>
                         <th>date</th>
                         <th>description</th>
-                        <th>редактировать</th>
-                        <th>удалить</th>
+                        <th>edit</th>
+                        <th>delete</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="event : ${musician.events}">
+                    <tr th:each="event : ${musicianCreateEditDTO.events}">
                         <th th:text="${event.created}"></th>
                         <th th:text="${event.year}"></th>
                         <th th:text="${event.date}"></th>
                         <th th:text="${event.description}"></th>
                         <th>
-                            <a th:href="${'/management/musician/edit/' + musician.slug + '/event/edit/' + event.id}">редактировать</a>
+                            <a th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/event/edit/' + event.id}">edit</a>
                         </th>
                         <th>
-                            <form th:action="${'/management/musician/edit/' + musician.slug + '/event/delete/' + event.id}"
+                            <form th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/event/delete/' + event.id}"
                                   th:method="delete">
-                                <input type="submit" value="удалить">
+                                <input type="submit" value="delete">
                             </form>
                         </th>
                     </tr>
                     </tbody>
                 </table>
             </div>
+
+            <div class="table-title">
+                <h4>архив albums</h4>
+                <a th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/album/create'}">создать
+                    album</a>
+            </div>
+            <div class="table-body-item">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>created</th>
+                        <th>year</th>
+                        <th>catalog_number</th>
+                        <th>title</th>
+                        <th>rating</th>
+                        <th>year_end_rank</th>
+                        <th>edit</th>
+                        <th>delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="album : ${musicianCreateEditDTO.albums}">
+                        <th th:text="${album.created}"></th>
+                        <th th:text="${album.year}"></th>
+                        <th th:text="${album.catalogNumber}"></th>
+                        <th th:text="${album.title}"></th>
+                        <th th:text="${album.rating}"></th>
+                        <th th:text="${album.yearEndRank}"></th>
+                        <th>
+                            <a th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/album/edit/' + album.slug}">edit</a>
+                        </th>
+                        <th>
+                            <form th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/album/delete/' + album.slug}"
+                                  th:method="delete">
+                                <input type="submit" value="delete">
+                            </form>
+                        </th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-title">
+                <h4>архив compositions</h4>
+                <a th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/composition/create'}">создать
+                    composition</a>
+            </div>
+            <div class="table-body-item">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>created</th>
+                        <th>year</th>
+                        <th>catalog_number</th>
+                        <th>title</th>
+                        <th>rating</th>
+                        <th>year_end_rank</th>
+                        <th>edit</th>
+                        <th>delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="composition : ${musicianCreateEditDTO.compositions}">
+                        <th th:text="${composition.created}"></th>
+                        <th th:text="${composition.year}"></th>
+                        <th th:text="${composition.catalogNumber}"></th>
+                        <th th:text="${composition.title}"></th>
+                        <th th:text="${composition.rating}"></th>
+                        <th th:text="${composition.yearEndRank}"></th>
+                        <th>
+                            <a th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/composition/edit/' + composition.slug}">edit</a>
+                        </th>
+                        <th>
+                            <form th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/composition/delete/' + composition.slug}"
+                                  th:method="delete">
+                                <input type="submit" value="delete">
+                            </form>
+                        </th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
 
     </div>

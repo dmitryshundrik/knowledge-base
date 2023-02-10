@@ -25,6 +25,12 @@ public class MusicianService {
     @Autowired
     private EventService eventService;
 
+    @Autowired
+    private AlbumService albumService;
+
+    @Autowired
+    private CompositionService compositionService;
+
     public List<Musician> getAllMusicians() {
         return musicianRepository.getAllByOrderByCreated();
     }
@@ -72,10 +78,12 @@ public class MusicianService {
                 .contemporaryGenres(musician.getContemporaryGenres())
                 .spotifyLink(musician.getSpotifyLink())
                 .events(eventService.eventListToEventDTOList(musician.getEvents()))
+                .albums(albumService.getAlbumViewDTOList(musician.getAlbums()))
+                .compositions(compositionService.getCompositionViewDTOList(musician.getCompositions()))
                 .build();
     }
 
-    public List<MusicianViewDTO> getMusiciansViewDTOList(List<Musician> musicianList) {
+    public List<MusicianViewDTO> getMusicianViewDTOList(List<Musician> musicianList) {
         return musicianList.stream().map(musician -> getMusicianViewDTO(musician)).collect(Collectors.toList());
     }
 
@@ -95,6 +103,8 @@ public class MusicianService {
                 .contemporaryGenres(musician.getContemporaryGenres())
                 .spotifyLink(musician.getSpotifyLink())
                 .events(eventService.eventListToEventDTOList(musician.getEvents()))
+                .albums(albumService.getAlbumViewDTOList(musician.getAlbums()))
+                .compositions(compositionService.getCompositionViewDTOList(musician.getCompositions()))
                 .build();
     }
 

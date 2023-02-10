@@ -13,12 +13,14 @@
     <div class="table">
 
         <div class="table-title">
-            <h3>создать composition</h3>
+            <h4>создать composition</h4>
         </div>
 
         <div class="table-body">
-            <form class="form" th:action="${'/management/composition/create'}" th:method="post"
-                  th:object="${composition}">
+            <form class="form"
+                  th:action="${'/management/musician/edit/' + compositionCreateEditDTO.musicianSlug + '/composition/create'}"
+                  th:method="post"
+                  th:object="${compositionCreateEditDTO}">
                 <div class="form-item">
                     <label>title</label>
                     <input type="text" th:field="*{title}"/>
@@ -33,7 +35,7 @@
                 </div>
                 <div class="form-item">
                     <label>musician</label>
-                    <input type="text" th:field="*{musician}"/>
+                    <input disabled type="text" th:field="*{musicianNickname}"/>
                 </div>
                 <div class="form-item">
                     <label>feature</label>

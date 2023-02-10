@@ -4,6 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.timeline.Event;
 import com.dmitryshundrik.knowledgebase.model.timeline.EventDTO;
 import com.dmitryshundrik.knowledgebase.repository.EventRepository;
+import com.dmitryshundrik.knowledgebase.util.Formatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,7 +52,7 @@ public class EventService {
     public EventDTO eventToEventDTO(Event event) {
         return EventDTO.builder()
                 .id(event.getId())
-                .created(event.getCreated())
+                .created(Formatter.instantFormatter(event.getCreated()))
                 .year(event.getYear())
                 .date(event.getDate())
                 .description(event.getDescription())

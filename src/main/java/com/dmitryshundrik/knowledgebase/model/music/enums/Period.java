@@ -8,8 +8,8 @@ public enum Period {
     CLASSICAL("Класссицизм", "classical"),
     ROMANTIC("Романтизм", "romantic"),
     MODERNISM("Модернизм", "modernism"),
-    XX_CENTURY_MUSIC("Музыка XX века", "xx-century-music"),
-    XXI_CENTURY_MUSIC("Музыка XXI века", "xxi-century-music");
+    XX_CENTURY_MUSIC("XX век", "xx-century-music"),
+    XXI_CENTURY_MUSIC("XXI век", "xxi-century-music");
 
     private final String label;
 
