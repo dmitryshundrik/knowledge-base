@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
+import com.dmitryshundrik.knowledgebase.model.music.Album;
 import com.dmitryshundrik.knowledgebase.model.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.SOTYList;
@@ -49,22 +50,30 @@ public class CompositionService {
         return compositionRepository.getAllByYearAndYearEndRankNotNull(sotyList.getYear());
     }
 
-    public void createCompositionByCompositionDTO(CompositionCreateEditDTO compositionCreateEditDTO, Musician musician) {
+    public CompositionCreateEditDTO createCompositionByDTO(CompositionCreateEditDTO compositionCreateEditDTO, Musician musician, Album album) {
         Composition composition = new Composition();
         composition.setCreated(Instant.now());
         composition.setMusician(musician);
-        setUpCompositionFieldsFromDTO(composition, compositionCreateEditDTO);
-        compositionRepository.save(composition);
+        composition.setAlbum(album);
+        setCompositionFieldsFromDTO(composition, compositionCreateEditDTO);
+        if(album != null) {
+            album.getCompositions().add(composition);
+        }
+        Composition createdComposition = compositionRepository.save(composition);
+        createdComposition.setSlug(createdComposition.getSlug() + "-" + createdComposition.getId());
+        return getCompositionCreateEditDTO(createdComposition);
     }
 
-    public void updateExistingComposition(CompositionCreateEditDTO compositionCreateEditDTO, String slug) {
+    public void updateExistingComposition(CompositionCreateEditDTO compositionCreateEditDTO, String slug, Album album) {
         Composition compositionBySlug = compositionRepository.getCompositionBySlug(slug);
-        setUpCompositionFieldsFromDTO(compositionBySlug, compositionCreateEditDTO);
+        compositionBySlug.setAlbum(album);
+        setCompositionFieldsFromDTO(compositionBySlug, compositionCreateEditDTO);
     }
 
     public void deleteCompositionBySlug(String slug) {
         compositionRepository.deleteBySlug(slug);
     }
+
 
     public CompositionCreateEditDTO getCompositionCreateEditDTO(Composition composition) {
         return CompositionCreateEditDTO.builder()
@@ -73,6 +82,7 @@ public class CompositionService {
                 .catalogNumber(composition.getCatalogNumber())
                 .musicianNickname(composition.getMusician().getNickName())
                 .musicianSlug(composition.getMusician().getSlug())
+                .albumId(composition.getAlbum() == null ? null : composition.getAlbum().getId().toString())
                 .feature(composition.getFeature())
                 .year(composition.getYear())
                 .period(composition.getPeriod())
@@ -87,14 +97,15 @@ public class CompositionService {
                 .build();
     }
 
-    public List<CompositionViewDTO> getCompositionViewDTOList(List<Composition> compositionList) {
-        return compositionList.stream().map(composition -> CompositionViewDTO.builder()
+    public CompositionViewDTO getCompositionViewDTO(Composition composition) {
+        return CompositionViewDTO.builder()
                 .created(Formatter.instantFormatter(composition.getCreated()))
                 .slug(composition.getSlug())
                 .title(composition.getTitle())
                 .catalogNumber(composition.getCatalogNumber())
                 .musicianNickname(composition.getMusician().getNickName())
                 .musicianSlug(composition.getMusician().getSlug())
+                .albumTitle(composition.getAlbum() == null ? null : composition.getAlbum().getTitle())
                 .feature(composition.getFeature())
                 .year(composition.getYear())
                 .period(composition.getPeriod())
@@ -104,10 +115,15 @@ public class CompositionService {
                 .rating(composition.getRating())
                 .yearEndRank(composition.getYearEndRank())
                 .highlights(composition.getHighlights())
-                .build()).collect(Collectors.toList());
+                .build();
     }
 
-    private void setUpCompositionFieldsFromDTO(Composition composition, CompositionCreateEditDTO compositionCreateEditDTO) {
+    public List<CompositionViewDTO> getCompositionViewDTOList(List<Composition> compositionList) {
+        return compositionList.stream().map(composition -> getCompositionViewDTO(composition)).collect(Collectors.toList());
+
+    }
+
+    private void setCompositionFieldsFromDTO(Composition composition, CompositionCreateEditDTO compositionCreateEditDTO) {
         composition.setSlug(compositionCreateEditDTO.getSlug());
         composition.setTitle(compositionCreateEditDTO.getTitle());
         composition.setCatalogNumber(compositionCreateEditDTO.getCatalogNumber());

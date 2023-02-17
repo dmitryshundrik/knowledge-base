@@ -17,22 +17,29 @@
         </div>
 
         <div class="table-body">
-            <form class="form" th:action="${'/management/musician/edit/' + slug +'/event/create'}" th:method="post"
-                  th:object="${eventDTO}">
-                <div class="form-item">
-                    <label>year</label>
-                    <input type="number" th:field="*{year}"/>
-                </div>
-                <div class="form-item">
-                    <label>date</label>
-                    <input type="date" th:field="*{date}"/>
-                </div>
-                <div class="form-item major-field">
-                    <label>description</label>
-                    <input type="text" th:field="*{description}"/>
-                </div>
-                <input class="input-submit" type="submit" value="Создать"/>
-            </form>
+            <div class="table-body-item">
+                <form class="form" th:action="${'/management/musician/edit/' + slug +'/event/create'}" th:method="post"
+                      th:object="${eventDTO}">
+                    <div class="form-item">
+                        <label>year</label>
+                        <input type="number" th:field="*{year}"/>
+                    </div>
+                    <p class="error" th:if="${#fields.hasErrors('year')}" th:errorclass="error" th:errors="*{year}"></p>
+
+                    <div class="form-item">
+                        <label>date</label>
+                        <input type="date" th:field="*{date}"/>
+                    </div>
+
+                    <div class="form-item major-field">
+                        <label>description</label>
+                        <input type="text" th:field="*{description}"/>
+                    </div>
+                    <p class="error" th:if="${#fields.hasErrors('description')}" th:errorclass="error" th:errors="*{description}"></p>
+
+                    <input class="input-submit" type="submit" value="Создать"/>
+                </form>
+            </div>
         </div>
 
     </div>

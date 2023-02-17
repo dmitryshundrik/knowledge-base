@@ -3,8 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <link th:href="@{/styles/management/entity-all-management.css}" rel="stylesheet">
 </head>
 <body>
+<div class="container">
 
+    <div th:insert="fragments/header.html"></div>
+
+    <div class="table">
+
+        <div class="table-title">
+            <h4>архив album</h4>
+        </div>
+
+        <div class="table-body">
+            <table>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>created</th>
+                    <th>title</th>
+                    <th>slug</th>
+                    <th>catalog_number</th>
+                    <th>musician</th>
+                    <th>feature</th>
+                    <th>year</th>
+                    <th>period</th>
+                    <th>academic_genres</th>
+                    <th>contemporary_genres</th>
+                    <th>rating</th>
+                    <th>year_end_rank</th>
+                    <th>highlights</th>
+                    <th>description</th>
+                    <th>edit</th>
+                    <th>delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="album : ${albumViewDTOList}">
+                    <th th:text="${albumStat.index + 1}"></th>
+                    <td th:text="${album.created}"></td>
+                    <td th:text="${album.title}"></td>
+                    <td th:text="${album.slug}"></td>
+                    <td th:text="${album.catalogNumber}"></td>
+                    <td th:text="${album.musicianNickname}"></td>
+                    <td th:text="${album.feature}"></td>
+                    <td th:text="${album.year}"></td>
+                    <td th:if="${album.period != null}" th:text="${album.period.label}"></td>
+
+                    <td th:if="${album.academicGenres != null}">
+                        <span th:each="academicGenre : ${album.academicGenres}">
+                            <p th:text="${academicGenre.label}"></p>
+                        </span>
+                    </td>
+                    <td th:if="${album.contemporaryGenres != null}">
+                        <span th:each="contemporaryGenre : ${album.contemporaryGenres}">
+                            <p th:text="${contemporaryGenre.label}"></p>
+                        </span>
+                    </td>
+
+                    <td th:text="${album.rating}"></td>
+                    <td th:text="${album.yearEndRank}"></td>
+                    <td th:if="${album.highlights != null}">
+                        <span th:each="highlight : ${album.highlights}">
+                            <p th:text="${highlights}"></p>
+                        </span>
+                    </td>
+                    <td th:text="${album.description}"></td>
+
+                    <td>
+                        <a th:href="${'/management/musician/edit/' + album.musicianSlug + '/album/edit/' + album.slug}">edit</a>
+                    </td>
+                    <td>
+                        <form th:action="${'/management/musician/edit/' + album.musicianSlug + '/album/delete/' + album.slug}" th:method="delete">
+                            <input type="submit" value="delete">
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div th:insert="fragments/footer.html"></div>
+
+</div>
 </body>
 </html>

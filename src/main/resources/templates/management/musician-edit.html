@@ -15,84 +15,118 @@
             <h4>изменить musician</h4>
         </div>
         <div class="table-body">
-            <form class="form" th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug}" th:method="put"
-                  th:object="${musicianCreateEditDTO}">
-                <div class="form-item">
-                    <label>nickname</label>
-                    <input type="text" th:field="*{nickName}"/>
-                </div>
-                <div class="form-item">
-                    <label>slug</label>
-                    <input type="text" th:field="*{slug}"/>
-                </div>
-                <div class="form-item">
-                    <label>first name</label>
-                    <input type="text" th:field="*{firstName}"/>
-                </div>
-                <div class="form-item">
-                    <label>last name</label>
-                    <input type="text" th:field="*{lastName}"/>
-                </div>
-                <div class="form-item">
-                    <label>born</label>
-                    <input type="number" th:field="*{born}"/>
-                </div>
-                <div class="form-item">
-                    <label>died</label>
-                    <input type="number" th:field="*{died}"/>
-                </div>
-                <div class="form-item">
-                    <label>birthday</label>
-                    <input type="date" th:field="*{birthDate}"/>
-                </div>
-                <div class="form-item">
-                    <label>deathday</label>
-                    <input type="date" th:field="*{deathDate}"/>
-                </div>
-                <div class="form-item">
-                    <label>period</label>
-                    <select th:field="*{period}">
-                        <option th:value="null" selected>выбрать период</option>
-                        <option th:each="period : ${periods}" th:value="${period}" th:text="${period.label}"></option>
-                    </select>
-                </div>
-                <div class="form-item major-field">
-                    <label>academic_genres</label>
-                    <select th:field="*{academicGenres}" multiple="multiple">
-                        <option th:each="academicGenre : ${academicGenres}" th:value="${academicGenre}"
-                                th:text="${academicGenre.label}"></option>
-                    </select>
-                </div>
-                <div class="form-item major-field">
-                    <label>contemporary_genres</label>
-                    <select th:field="*{contemporaryGenres}" multiple="multiple">
-                        <option th:each="contemporaryGenre : ${contemporaryGenres}" th:value="${contemporaryGenre}"
-                                th:text="${contemporaryGenre.label}"></option>
-                    </select>
-                </div>
-                <div class="form-item">
-                    <label>spotify_link</label>
-                    <input type="text" th:field="*{spotifyLink}"/>
-                </div>
-                <input class="input-submit" type="submit" value="Обновить"/>
-            </form>
+            <div class="table-body-item">
+                <form class="form"
+                      th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug}"
+                      th:method="put"
+                      th:object="${musicianCreateEditDTO}">
+
+                    <div class="form-item">
+                        <label>nickname</label>
+                        <input type="text" th:field="*{nickName}"/>
+                    </div>
+
+                    <div class="form-item">
+                        <label>slug</label>
+                        <input type="text" th:field="*{slug}"/>
+                    </div>
+
+                    <div class="form-item">
+                        <label>first name</label>
+                        <input type="text" th:field="*{firstName}"/>
+                    </div>
+
+                    <div class="form-item">
+                        <label>last name</label>
+                        <input type="text" th:field="*{lastName}"/>
+                    </div>
+
+                    <div class="form-item">
+                        <label>born</label>
+                        <input type="number" th:field="*{born}"/>
+                    </div>
+
+                    <div class="form-item">
+                        <label>died</label>
+                        <input type="number" th:field="*{died}"/>
+                    </div>
+
+                    <div class="form-item">
+                        <label>birthday</label>
+                        <input type="date" th:field="*{birthDate}"/>
+                    </div>
+
+                    <div class="form-item">
+                        <label>deathday</label>
+                        <input type="date" th:field="*{deathDate}"/>
+                    </div>
+
+                    <div class="form-item">
+                        <label>period</label>
+                        <select th:field="*{period}">
+                            <option th:value="null" selected>выбрать период</option>
+                            <option th:each="period : ${periods}" th:value="${period}"
+                                    th:text="${period.label}"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-item major-field">
+                        <label>academic_genres</label>
+                        <select th:field="*{academicGenres}" multiple="multiple">
+                            <option th:each="academicGenre : ${academicGenres}" th:value="${academicGenre}"
+                                    th:text="${academicGenre.label}"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-item major-field">
+                        <label>contemporary_genres</label>
+                        <select th:field="*{contemporaryGenres}" multiple="multiple">
+                            <option th:each="contemporaryGenre : ${contemporaryGenres}" th:value="${contemporaryGenre}"
+                                    th:text="${contemporaryGenre.label}"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-item">
+                        <label>spotify_link</label>
+                        <input type="text" th:field="*{spotifyLink}"/>
+                    </div>
+
+                    <input class="input-submit" type="submit" value="Обновить"/>
+                </form>
+            </div>
 
             <div class="table-title">
                 <h4>изменить image</h4>
             </div>
-            <form class="form entity-image" method="post"
-                  th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/upload'}"
-                  enctype="multipart/form-data">
-                <div class="form-item">
-                    <label>image</label>
-                    <input type="file" name="file">
+            <div class="table-body-item">
+                <form class="form"
+                      th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/image/upload'}"
+                      th:method="post"
+                      enctype="multipart/form-data">
+
+                    <div class="form-item">
+                        <label>image</label>
+                        <input type="file" name="file">
+                    </div>
+
+                    <button class="input-submit" type="submit">Загрузить</button>
+                </form>
+
+                <div class="entity-image">
+                    <img alt="" th:src="|data:image;base64,${musicianCreateEditDTO.image}|">
                 </div>
-                <button class="input-submit" type="submit">Загрузить</button>
-            </form>
+
+                <form class="form"
+                      th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/image/delete'}"
+                      th:method="delete">
+                    <input class="input-submit" type="submit" value="Удалить">
+                </form>
+            </div>
 
             <div class="table-title">
                 <h4>архив events</h4>
-                <a th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/event/create'}">создать
+                <a target="_blank"
+                   th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/event/create'}">создать
                     event</a>
             </div>
             <div class="table-body-item">
@@ -114,7 +148,8 @@
                         <th th:text="${event.date}"></th>
                         <th th:text="${event.description}"></th>
                         <th>
-                            <a th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/event/edit/' + event.id}">edit</a>
+                            <a target="_blank"
+                               th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/event/edit/' + event.id}">edit</a>
                         </th>
                         <th>
                             <form th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/event/delete/' + event.id}"
@@ -129,7 +164,8 @@
 
             <div class="table-title">
                 <h4>архив albums</h4>
-                <a th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/album/create'}">создать
+                <a target="_blank"
+                   th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/album/create'}">создать
                     album</a>
             </div>
             <div class="table-body-item">
@@ -155,7 +191,8 @@
                         <th th:text="${album.rating}"></th>
                         <th th:text="${album.yearEndRank}"></th>
                         <th>
-                            <a th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/album/edit/' + album.slug}">edit</a>
+                            <a target="_blank"
+                               th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/album/edit/' + album.slug}">edit</a>
                         </th>
                         <th>
                             <form th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/album/delete/' + album.slug}"
@@ -170,7 +207,8 @@
 
             <div class="table-title">
                 <h4>архив compositions</h4>
-                <a th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/composition/create'}">создать
+                <a target="_blank"
+                   th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/composition/create'}">создать
                     composition</a>
             </div>
             <div class="table-body-item">
@@ -181,6 +219,7 @@
                         <th>year</th>
                         <th>catalog_number</th>
                         <th>title</th>
+                        <th>album</th>
                         <th>rating</th>
                         <th>year_end_rank</th>
                         <th>edit</th>
@@ -193,10 +232,12 @@
                         <th th:text="${composition.year}"></th>
                         <th th:text="${composition.catalogNumber}"></th>
                         <th th:text="${composition.title}"></th>
+                        <th th:text="${composition.albumTitle}"></th>
                         <th th:text="${composition.rating}"></th>
                         <th th:text="${composition.yearEndRank}"></th>
                         <th>
-                            <a th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/composition/edit/' + composition.slug}">edit</a>
+                            <a target="_blank"
+                               th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/composition/edit/' + composition.slug}">edit</a>
                         </th>
                         <th>
                             <form th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/composition/delete/' + composition.slug}"
@@ -208,9 +249,7 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
-
     </div>
 
     <div th:insert="fragments/footer.html"></div>

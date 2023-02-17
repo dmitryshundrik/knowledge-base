@@ -7,7 +7,6 @@ import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,11 +24,9 @@ public class Musician {
 
     private Instant created;
 
-    @NotBlank
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String slug;
 
-    @NotBlank
     private String nickName;
 
     private String firstName;
@@ -58,6 +55,7 @@ public class Musician {
     @ElementCollection
     private List<ContemporaryGenre> contemporaryGenres;
 
+    @Column(columnDefinition = "text")
     private String spotifyLink;
 
     @OneToMany(cascade = CascadeType.ALL)

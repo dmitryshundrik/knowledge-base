@@ -5,7 +5,6 @@ import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
 import lombok.Data;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
@@ -21,16 +20,16 @@ public class Album {
 
     private Instant created;
 
-    @NotBlank
     private String slug;
 
-    @NotBlank
     private String title;
 
     private String catalogNumber;
 
     @ManyToOne
     private Musician musician;
+
+    private String feature;
 
     @Column(columnDefinition = "text")
     private String artwork;
@@ -52,10 +51,12 @@ public class Album {
 
     private Integer yearEndRank;
 
+    @Column(columnDefinition = "text")
     private String highlights;
 
+    @Column(columnDefinition = "text")
     private String description;
 
-    @OneToMany
+    @OneToMany(mappedBy = "album")
     private List<Composition> compositions;
 }

@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -17,13 +18,15 @@ import java.util.List;
 @AllArgsConstructor
 public class MusicianCreateEditDTO {
 
+    @NotBlank(message = "slug may not be blank")
     private String slug;
+
+    @NotBlank(message = "nickname may not be blank")
+    private String nickName;
 
     private String firstName;
 
     private String lastName;
-
-    private String nickName;
 
     private String image;
 

@@ -6,13 +6,16 @@ import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
+import com.dmitryshundrik.knowledgebase.service.music.MusicianValidationService;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -22,6 +25,9 @@ public class MusicianManagementController {
 
     @Autowired
     private MusicianService musicianService;
+
+    @Autowired
+    private MusicianValidationService musicianValidationService;
 
     @GetMapping("/management/musician/all")
     public String getAllMusicians(Model model) {
@@ -40,14 +46,20 @@ public class MusicianManagementController {
     }
 
     @PostMapping("/management/musician/create")
-    public String postCreateMusician(@ModelAttribute("musicianCreateEditDTO") MusicianCreateEditDTO musicianCreateEditDTO) {
+    public String postCreateMusician(@Valid @ModelAttribute("musicianCreateEditDTO") MusicianCreateEditDTO musicianCreateEditDTO,
+                                     BindingResult bindingResult, Model model) {
+        String error = musicianValidationService.musicianSlugIsExist(musicianCreateEditDTO.getSlug());
+        if (!error.isEmpty() || bindingResult.hasErrors()) {
+            model.addAttribute("slug", error);
+            return "management/musician-create";
+        }
         musicianService.createMusicianByMusicianDTO(musicianCreateEditDTO);
-        return "redirect:/management/musician/all";
+        return "redirect:/management/musician/edit/" + musicianCreateEditDTO.getSlug();
     }
 
-    @GetMapping("/management/musician/edit/{slug}")
-    public String getEditMusicianBySlug(@PathVariable String slug, Model model) {
-        Musician musicianBySlug = musicianService.getMusicianBySlug(slug);
+    @GetMapping("/management/musician/edit/{musicianSlug}")
+    public String getEditMusicianBySlug(@PathVariable String musicianSlug, Model model) {
+        Musician musicianBySlug = musicianService.getMusicianBySlug(musicianSlug);
         model.addAttribute("musicianCreateEditDTO", musicianService.getMusicianCreateEditDTO(musicianBySlug));
         model.addAttribute("periods", Period.values());
         model.addAttribute("academicGenres", AcademicGenre.getSortedValues());
@@ -55,22 +67,30 @@ public class MusicianManagementController {
         return "management/musician-edit";
     }
 
-    @PutMapping("/management/musician/edit/{slug}")
-    public String putEditMusicianBySlug(@PathVariable String slug, @ModelAttribute("musicianCreateEditDTO") MusicianCreateEditDTO musicianCreateEditDTO) {
-        musicianService.updateExistingMusician(musicianCreateEditDTO, slug);
+    @PutMapping("/management/musician/edit/{musicianSlug}")
+    public String putEditMusicianBySlug(@PathVariable String musicianSlug,
+                                        @ModelAttribute("musicianCreateEditDTO") MusicianCreateEditDTO musicianCreateEditDTO) {
+        musicianService.updateExistingMusician(musicianCreateEditDTO, musicianSlug);
         return "redirect:/management/musician/edit/" + musicianCreateEditDTO.getSlug();
     }
 
-    @PostMapping("/management/musician/edit/{slug}/upload")
-    public String postUploadMusicianImage(@PathVariable String slug, @RequestParam("file") MultipartFile file) throws IOException {
+    @PostMapping("/management/musician/edit/{musicianSlug}/image/upload")
+    public String postUploadMusicianImage(@PathVariable String musicianSlug,
+                                          @RequestParam("file") MultipartFile file) throws IOException {
         byte[] bytes = Base64.encodeBase64(file.getBytes());
-        musicianService.updateMusicianImageBySlug(slug, bytes);
-        return "redirect:/management/musician/edit/" + slug;
+        musicianService.updateMusicianImageBySlug(musicianSlug, bytes);
+        return "redirect:/management/musician/edit/" + musicianSlug;
     }
 
-    @DeleteMapping("/management/musician/delete/{slug}")
-    public String deleteMusicianBySlug(@PathVariable String slug) {
-        musicianService.deleteMusicianBySlug(slug);
+    @DeleteMapping("/management/musician/edit/{musicianSlug}/image/delete")
+    public String deleteMusicianImage(@PathVariable String musicianSlug) {
+        musicianService.deleteMuscianImage(musicianSlug);
+        return "redirect:/management/musician/edit/" + musicianSlug;
+    }
+
+    @DeleteMapping("/management/musician/delete/{musicianSlug}")
+    public String deleteMusicianBySlug(@PathVariable String musicianSlug) {
+        musicianService.deleteMusicianBySlug(musicianSlug);
         return "redirect:/management/musician/all";
     }
 

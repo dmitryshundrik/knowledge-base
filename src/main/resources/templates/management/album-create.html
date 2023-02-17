@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title></title>
@@ -12,66 +13,53 @@
     <div class="table">
 
         <div class="table-title">
-            <h4>создать musician</h4>
+            <h4>создать album</h4>
         </div>
 
         <div class="table-body">
             <div class="table-body-item">
                 <form class="form"
-                      th:action="${'/management/musician/create'}"
+                      th:action="${'/management/musician/edit/' + albumCreateEditDTO.musicianSlug + '/album/create'}"
                       th:method="post"
-                      th:object="${musicianCreateEditDTO}">
+                      th:object="${albumCreateEditDTO}">
 
                     <div class="form-item">
-                        <label>nickname</label>
-                        <input type="text" th:field="*{nickName}"/>
+                        <label>title</label>
+                        <input type="text" th:field="*{title}"/>
                     </div>
-                    <p class="error" th:if="${#fields.hasErrors('nickName')}" th:errorclass="error"
-                       th:errors="*{nickName}"></p>
+                    <p class="error" th:if="${#fields.hasErrors('title')}" th:errorclass="error" th:errors="*{title}"></p>
 
                     <div class="form-item">
                         <label>slug</label>
                         <input type="text" th:field="*{slug}"/>
                     </div>
                     <p class="error" th:if="${#fields.hasErrors('slug')}" th:errorclass="error" th:errors="*{slug}"></p>
-                    <p class="error" th:if="${not #strings.isEmpty('slug')}" th:text="${slug}"></p>
 
                     <div class="form-item">
-                        <label>first name</label>
-                        <input type="text" th:field="*{firstName}"/>
+                        <label>catalog_number</label>
+                        <input type="text" th:field="*{catalogNumber}"/>
                     </div>
 
                     <div class="form-item">
-                        <label>last name</label>
-                        <input type="text" th:field="*{lastName}"/>
+                        <label>musician</label>
+                        <input disabled type="text" th:field="*{musicianNickname}"/>
                     </div>
 
                     <div class="form-item">
-                        <label>born</label>
-                        <input type="number" th:field="*{born}"/>
+                        <label>feature</label>
+                        <input type="text" th:field="*{feature}"/>
                     </div>
 
                     <div class="form-item">
-                        <label>died</label>
-                        <input type="number" th:field="*{died}"/>
-                    </div>
-
-                    <div class="form-item">
-                        <label>birthday</label>
-                        <input type="date" th:field="*{birthDate}"/>
-                    </div>
-
-                    <div class="form-item">
-                        <label>deathday</label>
-                        <input type="date" th:field="*{deathDate}"/>
+                        <label>year</label>
+                        <input type="number" th:field="*{year}"/>
                     </div>
 
                     <div class="form-item">
                         <label>period</label>
                         <select th:field="*{period}">
                             <option th:value="null" selected>выбрать период</option>
-                            <option th:each="period : ${periods}" th:value="${period}"
-                                    th:text="${period.label}"></option>
+                            <option th:each="period : ${periods}" th:value="${period}" th:text="${period.label}"></option>
                         </select>
                     </div>
 
@@ -92,14 +80,28 @@
                     </div>
 
                     <div class="form-item">
-                        <label>spotify_link</label>
-                        <input type="text" th:field="*{spotifyLink}"/>
+                        <label>rating</label>
+                        <input type="number" step="0.5" th:field="*{rating}"/>
+                    </div>
+
+                    <div class="form-item">
+                        <label>year_end_rank</label>
+                        <input type="number" th:field="*{yearEndRank}"/>
+                    </div>
+
+                    <div class="form-item major-field">
+                        <label>highlights</label>
+                        <input type="text" th:field="*{highlights}"/>
+                    </div>
+
+                    <div class="form-item major-field">
+                        <label>description</label>
+                        <input type="text" th:field="*{description}"/>
                     </div>
 
                     <input class="input-submit" type="submit" value="Создать"/>
                 </form>
             </div>
-
         </div>
 
     </div>

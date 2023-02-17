@@ -3,7 +3,9 @@ package com.dmitryshundrik.knowledgebase.service.music;
 import com.dmitryshundrik.knowledgebase.model.music.Album;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumSelectDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumViewDTO;
+import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
 import com.dmitryshundrik.knowledgebase.util.Formatter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,30 +24,57 @@ public class AlbumService {
     @Autowired
     private AlbumRepository albumRepository;
 
-    @Autowired
-    private CompositionService compositionService;
+    public Album getAlbumById(String id) {
+        return albumRepository.findById(UUID.fromString(id)).orElse(null);
+    }
+
+    public Album getAlbumBySlug(String slug) {
+        return albumRepository.getAlbumBySlug(slug);
+    }
 
     public List<Album> getAllAlbums() {
         return albumRepository.findAll();
-
     }
 
-    public void createAlbumByAlbumDTO(AlbumCreateEditDTO albumCreateEditDTO, Musician musician) {
+    public List<Album> getAllAlbumsByMusician(Musician musician) {
+        return albumRepository.getAllByMusician(musician);
+    }
+
+    public AlbumCreateEditDTO createAlbumByDTO(AlbumCreateEditDTO albumCreateEditDTO, Musician musician) {
         Album album = new Album();
         album.setCreated(Instant.now());
         album.setMusician(musician);
-        setUpALbumFieldsFromDTO(album, albumCreateEditDTO);
-        albumRepository.save(album);
+        setALbumFieldsFromDTO(album, albumCreateEditDTO);
+        Album createdAlbum = albumRepository.save(album);
+        createdAlbum.setSlug(createdAlbum.getSlug() + "-" + createdAlbum.getId());
+        return getAlbumCreateEditDTO(createdAlbum);
     }
 
-    public List<AlbumViewDTO> getAlbumViewDTOList(List<Album> albumList) {
-        return albumList.stream().map(album -> AlbumViewDTO.builder()
+    public void updateExistingAlbum(AlbumCreateEditDTO albumCreateEditDTO, String slug) {
+        Album albumBySlug = getAlbumBySlug(slug);
+        setALbumFieldsFromDTO(albumBySlug, albumCreateEditDTO);
+    }
+
+    public void deleteAlbumBySlug(String slug) {
+        albumRepository.delete(getAlbumBySlug(slug));
+    }
+
+    public Album preparingAlbumById(CompositionCreateEditDTO compositionCreateEditDTO) {
+        if (compositionCreateEditDTO.getAlbumId().isBlank()) {
+            return null;
+        }
+        return getAlbumById(compositionCreateEditDTO.getAlbumId());
+    }
+
+    public AlbumViewDTO getAlbumViewDTO(Album album) {
+        return AlbumViewDTO.builder()
                 .created(Formatter.instantFormatter(album.getCreated()))
                 .slug(album.getSlug())
                 .title(album.getTitle())
                 .catalogNumber(album.getCatalogNumber())
                 .musicianNickname(album.getMusician().getNickName())
                 .musicianSlug(album.getMusician().getSlug())
+                .feature(album.getFeature())
                 .artwork(album.getArtwork())
                 .year(album.getYear())
                 .period(album.getPeriod())
@@ -54,16 +84,50 @@ public class AlbumService {
                 .yearEndRank(album.getYearEndRank())
                 .highlights(album.getHighlights())
                 .description(album.getDescription())
-                .compositions(compositionService.getCompositionViewDTOList(album.getCompositions()))
-                .build()).collect(Collectors.toList());
+                .build();
+    }
+
+    public List<AlbumViewDTO> getAlbumViewDTOList(List<Album> albumList) {
+        return albumList.stream().map(album -> getAlbumViewDTO(album)).collect(Collectors.toList());
 
     }
 
-    private void setUpALbumFieldsFromDTO(Album album, AlbumCreateEditDTO albumCreateEditDTO) {
+    public AlbumCreateEditDTO getAlbumCreateEditDTO(Album album) {
+        return AlbumCreateEditDTO.builder()
+                .slug(album.getSlug())
+                .title(album.getTitle())
+                .catalogNumber(album.getCatalogNumber())
+                .musicianNickname(album.getMusician().getNickName())
+                .musicianSlug(album.getMusician().getSlug())
+                .feature(album.getFeature())
+                .artwork(album.getArtwork())
+                .year(album.getYear())
+                .period(album.getPeriod())
+                .academicGenres(album.getAcademicGenres())
+                .contemporaryGenres(album.getContemporaryGenres())
+                .rating(album.getRating())
+                .yearEndRank(album.getYearEndRank())
+                .highlights(album.getHighlights())
+                .description(album.getDescription())
+                .build();
+    }
+
+    public AlbumSelectDTO getAlbumSelectDTO(Album album) {
+        return AlbumSelectDTO.builder()
+                .id(album.getId().toString())
+                .title(album.getTitle())
+                .build();
+    }
+
+    public List<AlbumSelectDTO> getAlbumSelectDTOList(List<Album> albumList) {
+        return albumList.stream().map(album -> getAlbumSelectDTO(album)).collect(Collectors.toList());
+    }
+
+    private void setALbumFieldsFromDTO(Album album, AlbumCreateEditDTO albumCreateEditDTO) {
         album.setSlug(albumCreateEditDTO.getSlug());
         album.setTitle(albumCreateEditDTO.getTitle());
         album.setCatalogNumber(albumCreateEditDTO.getCatalogNumber());
-        album.setArtwork(albumCreateEditDTO.getArtwork());
+        album.setFeature(albumCreateEditDTO.getFeature());
         album.setYear(albumCreateEditDTO.getYear());
         album.setPeriod(albumCreateEditDTO.getPeriod());
         album.setAcademicGenres(albumCreateEditDTO.getAcademicGenres());
@@ -73,4 +137,5 @@ public class AlbumService {
         album.setHighlights(albumCreateEditDTO.getHighlights());
         album.setDescription(albumCreateEditDTO.getDescription());
     }
+
 }

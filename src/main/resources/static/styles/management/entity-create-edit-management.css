@@ -15,7 +15,6 @@
     display: flex;
     flex-direction: column;
     padding: 20px 100px;
-    border: 1px solid gray;
     gap: 10px;
 }
 
@@ -29,6 +28,19 @@
     flex-direction: column;
     padding: 20px 0px;
     border: 1px solid gray;
+}
+
+.entity-image {
+    width: 46%;
+    height: 150px;
+    padding: 20px 100px 0px 0px;
+    align-self: end;
+    text-align: left;
+}
+
+.entity-image img {
+    width: auto;
+    max-height: 100%;
 }
 
 .form label {
@@ -58,8 +70,15 @@
     width: 60%;
 }
 
+.error {
+    width: 60%;
+    align-self: end;
+}
+
 th {
     text-align: center;
 }
 
-tr:hover {background-color: lightgray;}
+tr:hover {
+    background-color: lightgray;
+}

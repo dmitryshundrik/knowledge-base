@@ -19,9 +19,9 @@
 
         <div class="table-body">
             <div class="table-body-item">
-                <h3>Рейтинги и списки</h3>
+                <h3>Списки и графики</h3>
                 <div th:each="SOTYList : ${SOTYLists}">
-                    <a th:text="${SOTYList.title}" th:href="'/music/best-songs-' + ${SOTYList.slug}"></a>
+                    <a th:text="${SOTYList.title}" th:href="'/music/lists-and-charts/' + ${SOTYList.slug}"></a>
                     <br>
                 </div>
                 <a href="/music/timeline-of-music">Краткая история музыки</a>

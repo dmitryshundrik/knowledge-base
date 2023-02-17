@@ -24,6 +24,8 @@ public class AlbumViewDTO {
 
     private String musicianSlug;
 
+    private String feature;
+
     private String artwork;
 
     private Integer year;

@@ -25,7 +25,7 @@
                 </a>
             </div>
 
-            <div class="table-body-item">
+            <div class="table-body-item soty-list">
                 <div th:each="composition : ${compositions}">
                     <span th:text="${composition.musician.nickName + ' - ' + composition.title}"></span>
                     <div th:each="contemporaryGenre : ${composition.contemporaryGenres}">

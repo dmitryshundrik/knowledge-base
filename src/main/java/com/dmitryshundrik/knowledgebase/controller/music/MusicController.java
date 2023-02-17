@@ -1,4 +1,4 @@
-package com.dmitryshundrik.knowledgebase.controller;
+package com.dmitryshundrik.knowledgebase.controller.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
@@ -11,7 +11,6 @@ import com.dmitryshundrik.knowledgebase.service.music.MusicService;
 import com.dmitryshundrik.knowledgebase.service.TimelineService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import com.dmitryshundrik.knowledgebase.service.music.SOTYListService;
-import com.dmitryshundrik.knowledgebase.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,12 +46,11 @@ public class MusicController {
         return "music/main-page";
     }
 
-    @GetMapping("/best-songs-{slug}")
+    @GetMapping("/lists-and-charts/{slug}")
     public String getSOTYList(@PathVariable String slug, Model model) {
         SOTYList sotyListBySlug = sotyListService.getSOTYListBySlug(slug);
         model.addAttribute("SOTYList", sotyListBySlug);
         model.addAttribute("compositions", compositionService.getAllCompositionsBySOTYList(sotyListBySlug));
-
         return "music/soty-list";
     }
 
@@ -71,9 +69,6 @@ public class MusicController {
     @GetMapping("/musician/{slug}")
     public String getMusicianBySlug(@PathVariable String slug, Model model) {
         Musician musicianBySlug = musicianService.getMusicianBySlug(slug);
-        if(slug.equals("cardi-b")) {
-            musicianBySlug.setImage(Constants.CARDI_B);
-        }
         model.addAttribute("musicianViewDTO", musicianService.getMusicianViewDTO(musicianBySlug));
         return "music/musician";
     }

@@ -6,6 +6,7 @@
     <link th:href="@{/styles/management/entity-create-edit-management.css}" rel="stylesheet">
 </head>
 <body>
+<body>
 <div class="container">
 
     <div th:insert="fragments/header.html"></div>
@@ -13,26 +14,41 @@
     <div class="table">
 
         <div class="table-title">
-            <h4>измененить event</h4>
+            <h4>изменить SOTY</h4>
         </div>
 
         <div class="table-body">
             <div class="table-body-item">
-                <form class="form" th:action="${'/management/musician/edit/' + slug +'/event/edit/' + eventDTO.id}"
+                <form class="form"
+                      th:action="${'/management/soty-list/edit/' + sotyListCreateEditDTO.slug }"
                       th:method="put"
-                      th:object="${eventDTO}">
+                      th:object="${sotyListCreateEditDTO}">
+
+                    <div class="form-item">
+                        <label>slug</label>
+                        <input type="text" th:field="*{slug}"/>
+                    </div>
+
+                    <div class="form-item">
+                        <label>title</label>
+                        <input type="text" th:field="*{title}"/>
+                    </div>
+
                     <div class="form-item">
                         <label>year</label>
                         <input type="number" th:field="*{year}"/>
                     </div>
-                    <div class="form-item">
-                        <label>date</label>
-                        <input type="date" th:field="*{date}"/>
-                    </div>
+
                     <div class="form-item major-field">
                         <label>description</label>
                         <input type="text" th:field="*{description}"/>
                     </div>
+
+                    <div class="form-item ">
+                        <label>spotify_link</label>
+                        <input type="text" th:field="*{spotifyLink}"/>
+                    </div>
+
                     <input class="input-submit" type="submit" value="Обновить"/>
                 </form>
             </div>

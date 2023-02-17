@@ -1,6 +1,8 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
+import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
@@ -42,19 +44,26 @@ public class MusicianService {
     public void createMusicianByMusicianDTO(MusicianCreateEditDTO musicianCreateEditDTO) {
         Musician musician = new Musician();
         musician.setCreated(Instant.now());
-        musician.setImage(Constants.DEFAULT_ENTITY_IMAGE);
-        setUpMusicianFieldsFromDTO(musician, musicianCreateEditDTO);
+        musician.setImage(Constants.DEFAULT_PLACEHOLDER);
+        setMusicianFieldsFromDTO(musician, musicianCreateEditDTO);
         musicianRepository.save(musician);
     }
 
     public void updateExistingMusician(MusicianCreateEditDTO musicianCreateEditDTO, String slug) {
         Musician musicianBySlug = getMusicianBySlug(slug);
-        setUpMusicianFieldsFromDTO(musicianBySlug, musicianCreateEditDTO);
+        setMusicianFieldsFromDTO(musicianBySlug, musicianCreateEditDTO);
     }
 
     public void updateMusicianImageBySlug(String slug, byte[] bytes) {
-        Musician musicianBySlug = getMusicianBySlug(slug);
-        musicianBySlug.setImage(new String(bytes));
+        if (bytes.length != 0) {
+            Musician musicianBySlug = getMusicianBySlug(slug);
+            musicianBySlug.setImage(new String(bytes));
+        }
+    }
+
+    public void deleteMuscianImage(String musicianSlug) {
+        Musician musicianBySlug = getMusicianBySlug(musicianSlug);
+        musicianBySlug.setImage(Constants.DEFAULT_PLACEHOLDER);
     }
 
     public void deleteMusicianBySlug(String slug) {
@@ -108,7 +117,19 @@ public class MusicianService {
                 .build();
     }
 
-    private void setUpMusicianFieldsFromDTO(Musician musician, MusicianCreateEditDTO musicianCreateEditDTO) {
+    public void setMusicianFieldsToAlbumDTO(AlbumCreateEditDTO albumCreateEditDTO, String musicianSlug) {
+        Musician musicianBySlug = getMusicianBySlug(musicianSlug);
+        albumCreateEditDTO.setMusicianNickname(musicianBySlug.getNickName());
+        albumCreateEditDTO.setMusicianSlug(musicianBySlug.getSlug());
+    }
+
+    public void setMusicianFieldsToCompositionDTO(CompositionCreateEditDTO compositionCreateEditDTO, String musicianSlug) {
+        Musician musicianBySlug = getMusicianBySlug(musicianSlug);
+        compositionCreateEditDTO.setMusicianNickname(musicianBySlug.getNickName());
+        compositionCreateEditDTO.setMusicianSlug(musicianBySlug.getSlug());
+    }
+
+    private void setMusicianFieldsFromDTO(Musician musician, MusicianCreateEditDTO musicianCreateEditDTO) {
         musician.setSlug(musicianCreateEditDTO.getSlug());
         musician.setFirstName(musicianCreateEditDTO.getFirstName());
         musician.setLastName(musicianCreateEditDTO.getLastName());

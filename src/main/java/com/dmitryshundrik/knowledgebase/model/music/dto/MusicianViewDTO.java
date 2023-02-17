@@ -3,13 +3,11 @@ package com.dmitryshundrik.knowledgebase.model.music.dto;
 import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
-import com.dmitryshundrik.knowledgebase.model.timeline.Event;
 import com.dmitryshundrik.knowledgebase.model.timeline.EventDTO;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 

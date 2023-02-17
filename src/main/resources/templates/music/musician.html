@@ -18,26 +18,32 @@
             </div>
             <div class="entity-information">
                 <h1 class="nick-name" th:text="${musicianViewDTO.nickName}"></h1>
-                <p class="dates">
-                    Годы жизни: <span th:text="${musicianViewDTO.born}"></span> <span th:text="${musicianViewDTO.died}"></span>
+                <p class="dates" th:if="${musicianViewDTO.born} != null">
+                    Дата рождения: <span th:text="${musicianViewDTO.born}"></span>
                 </p>
-                <p class="period">
+                <p class="dates" th:if="${musicianViewDTO.died} != null">
+                    Дата смерти: <span th:text="${musicianViewDTO.died}"></span>
+                </p>
+                <p class="period" th:if="${musicianViewDTO.period} != null">
                     Период: <span th:text="${musicianViewDTO.period.label}"></span>
                 </p>
-                <p class="genre">
+                <p class="genre" th:if="${not #lists.isEmpty(musicianViewDTO.academicGenres)}">
                     Жанр:
                     <span th:each="genre : ${musicianViewDTO.academicGenres}">
                         <a th:href="'/music/academic-genre/' + ${genre.slug}">
                             <span th:text="${genre.label}"></span>
                         </a>
                     </span>
+                </p>
+                <p class="genre" th:if="${not #lists.isEmpty(musicianViewDTO.contemporaryGenres)}">
+                    Жанр:
                     <span th:each="genre : ${musicianViewDTO.contemporaryGenres}">
                         <a th:href="'/music/contemporary-genre/' + ${genre.slug}">
                             <span th:text="${genre.label}"></span>
                         </a>
                     </span>
                 </p>
-                <p class="spotify-link">
+                <p class="spotify-link" th:if="${not #strings.isEmpty(musicianViewDTO.spotifyLink)}">
                     Лучшие произведения: <a th:href="${musicianViewDTO.spotifyLink}"><span>слушать в Spotify</span></a>
                 </p>
             </div>

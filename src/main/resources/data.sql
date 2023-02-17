@@ -1,13 +1,13 @@
 INSERT INTO sotylists (id, slug, title, "year", description, spotify_link)
-VALUES ('112C8DD8-346B-426E-B06C-00BBA97DCD00', '2020', '20 лучших песен 2020 года', 2020,
+VALUES ('112C8DD8-346B-426E-B06C-00BBA97DCD00', 'best-songs-2020', '20 лучших песен 2020 года', 2020,
         'Откровенный трэп-бэнгер от Cardi B, Perfume Genius и другие.',
         'https://open.spotify.com/playlist/5VH3DyCjQfdqfRWHyvJYvQ?si=e2a2189011ea459d'),
 
-       ('112C8DD8-346B-426E-B06C-00BBA97DCD01', '2021', '25 лучших песен 2021 года', 2021,
+       ('112C8DD8-346B-426E-B06C-00BBA97DCD01', 'best-songs-2021', '25 лучших песен 2021 года', 2021,
         'Кавер Arooj Aftab на традиционную газель на урду, индастриал хип-хоп от Smerz и другие.',
         'https://open.spotify.com/playlist/7dLtbBxcj9kIhVVGgm6EtI?si=2d9dd932221d409c'),
 
-       ('112C8DD8-346B-426E-B06C-00BBA97DCD02', '2022', '25 лучших песен 2022 года', 2022,
+       ('112C8DD8-346B-426E-B06C-00BBA97DCD02', 'best-songs-2022', '25 лучших песен 2022 года', 2022,
         'Элегантные мутации фальцета Perfume Genius, 23-минутная декламация стихов экспрессиониста Георга
                     Гейма от Diamanda Galás и другие.',
         'https://open.spotify.com/playlist/01Zvl7BwHNnnkqrmURAx1R?si=b255595d03384698');

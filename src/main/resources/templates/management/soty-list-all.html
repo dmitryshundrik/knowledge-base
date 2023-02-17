@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link th:href="@{/styles/management/entity-all-management.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <div th:insert="fragments/header.html"></div>
+
+    <div class="table">
+
+        <div class="table-title">
+            <h4>архив SOTY</h4>
+            <a target="_blank" href="/management/soty-list/create">создать soty</a>
+        </div>
+
+        <div class="table-body">
+            <table>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>created</th>
+                    <th>title</th>
+                    <th>slug</th>
+                    <th>year</th>
+                    <th>description</th>
+                    <th>spotify_link</th>
+                    <th>edit</th>
+                    <th>delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="sotyList : ${sotyListViewDTOList}">
+                    <th th:text="${sotyListStat.index + 1}"></th>
+                    <td th:text="${sotyList.created}"></td>
+                    <td th:text="${sotyList.title}"></td>
+                    <td th:text="${sotyList.slug}"></td>
+
+                    <td th:text="${sotyList.year}"></td>
+                    <td th:text="${sotyList.description}"></td>
+                    <td th:text="${sotyList.spotifyLink}"></td>
+
+                    <td>
+                        <a th:href="${'/management/soty-list/edit/' + sotyList.slug}">edit</a>
+                    </td>
+                    <td>
+                        <form th:action="${'/management/soty-list/delete/' + sotyList.slug}" th:method="delete">
+                            <input type="submit" value="delete">
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div th:insert="fragments/footer.html"></div>
+
+</div>
+</body>
+</html>

@@ -33,8 +33,10 @@ public class EventService {
         return eventRepository.save(event);
     }
 
-    public void createMusicianEventByEventDTO(Musician musician, EventDTO eventDTO) {
-        musician.getEvents().add(createEventByEventDTO(eventDTO));
+    public UUID createMusicianEventByEventDTO(EventDTO eventDTO, Musician musician) {
+        Event eventByEventDTO = createEventByEventDTO(eventDTO);
+        musician.getEvents().add(eventByEventDTO);
+        return eventByEventDTO.getId();
     }
 
     public void updateEvent(EventDTO eventDTO, UUID id) {
@@ -44,7 +46,7 @@ public class EventService {
         eventById.setDescription(eventDTO.getDescription());
     }
 
-    public void deleteMusicianEventById(UUID id, Musician musician) {
+    public void deleteMusicianEventById(Musician musician, UUID id) {
         eventRepository.deleteById(id);
         musician.getEvents().removeIf(event -> event.getId().equals(id));
     }
@@ -58,8 +60,6 @@ public class EventService {
                 .description(event.getDescription())
                 .build();
     }
-
-
 
     public List<EventDTO> eventListToEventDTOList(List<Event> eventList) {
         return eventList.stream().map(event -> eventToEventDTO(event)).collect(Collectors.toList());

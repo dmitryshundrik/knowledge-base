@@ -1,13 +1,11 @@
 package com.dmitryshundrik.knowledgebase.model.music.dto;
 
-import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -25,6 +23,10 @@ public class CompositionViewDTO {
     private String musicianNickname;
 
     private String musicianSlug;
+
+    private String albumId;
+
+    private String albumTitle;
 
     private String feature;
 

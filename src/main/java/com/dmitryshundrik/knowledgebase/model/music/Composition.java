@@ -5,7 +5,6 @@ import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
 import lombok.Data;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
@@ -21,10 +20,8 @@ public class Composition {
 
     private Instant created;
 
-    @NotBlank
     private String slug;
 
-    @NotBlank
     private String title;
 
     private String catalogNumber;
@@ -35,6 +32,9 @@ public class Composition {
     private String feature;
 
     private Integer year;
+
+    @ManyToOne
+    private Album album;
 
     @Enumerated(EnumType.STRING)
     private Period period;
@@ -51,8 +51,10 @@ public class Composition {
 
     private Integer yearEndRank;
 
+    @Column(columnDefinition = "text")
     private String highlights;
 
+    @Column(columnDefinition = "text")
     private String description;
 
     @Column(columnDefinition = "text")

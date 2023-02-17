@@ -45,3 +45,7 @@
 .footer p {
     padding: 5px 0px;
 }
+
+.error {
+    color: red;
+}

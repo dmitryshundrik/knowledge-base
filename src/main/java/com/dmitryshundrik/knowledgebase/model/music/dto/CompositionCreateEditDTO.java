@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Data
@@ -14,8 +15,10 @@ import java.util.List;
 @AllArgsConstructor
 public class CompositionCreateEditDTO {
 
+    @NotBlank(message = "slug may not be blank")
     private String slug;
 
+    @NotBlank(message = "title may not be blank")
     private String title;
 
     private String catalogNumber;
@@ -23,6 +26,8 @@ public class CompositionCreateEditDTO {
     private String musicianNickname;
 
     private String musicianSlug;
+
+    private String albumId;
 
     private String feature;
 
