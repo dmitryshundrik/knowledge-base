@@ -59,12 +59,15 @@ public class Musician {
     private String spotifyLink;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @OrderBy("year")
     private List<Event> events = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "musician")
+    @OrderBy("year")
     private List<Album> albums;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "musician")
+    @OrderBy("year")
     private List<Composition> compositions;
 
 

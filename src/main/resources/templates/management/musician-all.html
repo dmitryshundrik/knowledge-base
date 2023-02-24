@@ -64,10 +64,10 @@
                         </span>
                     </td>
 
-                    <td>
-                        <a th:href="${'/management/musician/edit/' + musician.slug}">edit</a>
+                    <td class="td-settings">
+                        <a target="_blank" th:href="${'/management/musician/edit/' + musician.slug}">edit</a>
                     </td>
-                    <td>
+                    <td class="td-settings">
                         <form th:action="${'/management/musician/delete/' + musician.slug}" th:method="delete">
                             <input type="submit" value="delete">
                         </form>

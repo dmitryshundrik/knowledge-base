@@ -43,6 +43,8 @@ public class AlbumCreateEditDTO {
 
     private Integer yearEndRank;
 
+    private Integer essentialAlbumsRank;
+
     private String highlights;
 
     private String description;

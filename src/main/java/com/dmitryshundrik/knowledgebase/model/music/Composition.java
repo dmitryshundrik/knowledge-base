@@ -51,6 +51,8 @@ public class Composition {
 
     private Integer yearEndRank;
 
+    private Integer essentialCompositionsRank;
+
     @Column(columnDefinition = "text")
     private String highlights;
 

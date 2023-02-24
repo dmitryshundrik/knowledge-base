@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -66,6 +67,13 @@ public class AlbumService {
         return getAlbumById(compositionCreateEditDTO.getAlbumId());
     }
 
+    public List<AlbumViewDTO> getEssentialAlbumsViewDTOList(List<Album> albumList) {
+        return albumList.stream().map(album -> getAlbumViewDTO(album))
+                .filter(albumViewDTO -> albumViewDTO.getEssentialAlbumsRank() != null)
+                .sorted(Comparator.comparing(AlbumViewDTO::getEssentialAlbumsRank))
+                .collect(Collectors.toList());
+    }
+
     public AlbumViewDTO getAlbumViewDTO(Album album) {
         return AlbumViewDTO.builder()
                 .created(Formatter.instantFormatter(album.getCreated()))
@@ -82,6 +90,7 @@ public class AlbumService {
                 .contemporaryGenres(album.getContemporaryGenres())
                 .rating(album.getRating())
                 .yearEndRank(album.getYearEndRank())
+                .essentialAlbumsRank(album.getEssentialAlbumsRank())
                 .highlights(album.getHighlights())
                 .description(album.getDescription())
                 .build();
@@ -107,6 +116,7 @@ public class AlbumService {
                 .contemporaryGenres(album.getContemporaryGenres())
                 .rating(album.getRating())
                 .yearEndRank(album.getYearEndRank())
+                .essentialAlbumsRank(album.getEssentialAlbumsRank())
                 .highlights(album.getHighlights())
                 .description(album.getDescription())
                 .build();
@@ -134,6 +144,7 @@ public class AlbumService {
         album.setContemporaryGenres(albumCreateEditDTO.getContemporaryGenres());
         album.setRating(albumCreateEditDTO.getRating());
         album.setYearEndRank(albumCreateEditDTO.getYearEndRank());
+        album.setEssentialAlbumsRank(albumCreateEditDTO.getEssentialAlbumsRank());
         album.setHighlights(albumCreateEditDTO.getHighlights());
         album.setDescription(albumCreateEditDTO.getDescription());
     }

@@ -43,6 +43,8 @@ public class CompositionCreateEditDTO {
 
     private Integer yearEndRank;
 
+    private Integer essentialCompositionsRank;
+
     private String highlights;
 
     private String description;

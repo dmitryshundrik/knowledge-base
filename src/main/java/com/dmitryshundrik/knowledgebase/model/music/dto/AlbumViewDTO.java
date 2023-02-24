@@ -40,6 +40,8 @@ public class AlbumViewDTO {
 
     private Integer yearEndRank;
 
+    private Integer essentialAlbumsRank;
+
     private String highlights;
 
     private String description;

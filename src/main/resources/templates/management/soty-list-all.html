@@ -27,7 +27,6 @@
                     <th>slug</th>
                     <th>year</th>
                     <th>description</th>
-                    <th>spotify_link</th>
                     <th>edit</th>
                     <th>delete</th>
                 </tr>
@@ -41,12 +40,11 @@
 
                     <td th:text="${sotyList.year}"></td>
                     <td th:text="${sotyList.description}"></td>
-                    <td th:text="${sotyList.spotifyLink}"></td>
 
-                    <td>
-                        <a th:href="${'/management/soty-list/edit/' + sotyList.slug}">edit</a>
+                    <td class="td-settings">
+                        <a target="_blank" th:href="${'/management/soty-list/edit/' + sotyList.slug}">edit</a>
                     </td>
-                    <td>
+                    <td class="td-settings">
                         <form th:action="${'/management/soty-list/delete/' + sotyList.slug}" th:method="delete">
                             <input type="submit" value="delete">
                         </form>

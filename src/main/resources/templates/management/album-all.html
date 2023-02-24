@@ -33,6 +33,7 @@
                     <th>contemporary_genres</th>
                     <th>rating</th>
                     <th>year_end_rank</th>
+                    <th>essential_albums_rank</th>
                     <th>highlights</th>
                     <th>description</th>
                     <th>edit</th>
@@ -64,6 +65,7 @@
 
                     <td th:text="${album.rating}"></td>
                     <td th:text="${album.yearEndRank}"></td>
+                    <td th:text="${album.essentialAlbumsRank}"></td>
                     <td th:if="${album.highlights != null}">
                         <span th:each="highlight : ${album.highlights}">
                             <p th:text="${highlights}"></p>
@@ -71,10 +73,10 @@
                     </td>
                     <td th:text="${album.description}"></td>
 
-                    <td>
-                        <a th:href="${'/management/musician/edit/' + album.musicianSlug + '/album/edit/' + album.slug}">edit</a>
+                    <td class="td-settings">
+                        <a target="_blank" th:href="${'/management/musician/edit/' + album.musicianSlug + '/album/edit/' + album.slug}">edit</a>
                     </td>
-                    <td>
+                    <td class="td-settings">
                         <form th:action="${'/management/musician/edit/' + album.musicianSlug + '/album/delete/' + album.slug}" th:method="delete">
                             <input type="submit" value="delete">
                         </form>

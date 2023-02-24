@@ -33,7 +33,7 @@
 
                     <div class="form-item major-field">
                         <label>description</label>
-                        <input type="text" th:field="*{description}"/>
+                        <textarea th:field="*{description}"></textarea>
                     </div>
                     <p class="error" th:if="${#fields.hasErrors('description')}" th:errorclass="error" th:errors="*{description}"></p>
 

@@ -1,10 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
-import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianViewDTO;
+import com.dmitryshundrik.knowledgebase.model.music.dto.*;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
 import com.dmitryshundrik.knowledgebase.service.EventService;
 import com.dmitryshundrik.knowledgebase.util.Constants;
@@ -88,7 +85,9 @@ public class MusicianService {
                 .spotifyLink(musician.getSpotifyLink())
                 .events(eventService.eventListToEventDTOList(musician.getEvents()))
                 .albums(albumService.getAlbumViewDTOList(musician.getAlbums()))
+                .essentialAlbums(albumService.getEssentialAlbumsViewDTOList(musician.getAlbums()))
                 .compositions(compositionService.getCompositionViewDTOList(musician.getCompositions()))
+                .essentialCompositions(compositionService.getEssentialCompositionsViewDTOList(musician.getCompositions()))
                 .build();
     }
 

@@ -51,6 +51,8 @@ public class Album {
 
     private Integer yearEndRank;
 
+    private Integer essentialAlbumsRank;
+
     @Column(columnDefinition = "text")
     private String highlights;
 

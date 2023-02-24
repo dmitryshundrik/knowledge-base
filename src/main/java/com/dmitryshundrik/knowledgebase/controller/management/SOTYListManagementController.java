@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping()
-public class ListAndChartManagementController {
+public class SOTYListManagementController {
 
     @Autowired
     private SOTYListService sotyListService;

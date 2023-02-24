@@ -25,19 +25,19 @@
 
                     <div class="form-item">
                         <label>title</label>
-                        <input type="text" th:field="*{title}"/>
+                        <input type="text" th:field="*{title}" maxlength="255"/>
                     </div>
                     <p class="error" th:if="${#fields.hasErrors('title')}" th:errorclass="error" th:errors="*{title}"></p>
 
                     <div class="form-item">
                         <label>slug</label>
-                        <input type="text" th:field="*{slug}"/>
+                        <input type="text" th:field="*{slug}" maxlength="255"/>
                     </div>
                     <p class="error" th:if="${#fields.hasErrors('slug')}" th:errorclass="error" th:errors="*{slug}"></p>
 
                     <div class="form-item">
                         <label>catalog_number</label>
-                        <input type="text" th:field="*{catalogNumber}"/>
+                        <input type="text" th:field="*{catalogNumber}" maxlength="255"/>
                     </div>
 
                     <div class="form-item">
@@ -47,7 +47,7 @@
 
                     <div class="form-item">
                         <label>feature</label>
-                        <input type="text" th:field="*{feature}"/>
+                        <input type="text" th:field="*{feature}" maxlength="255"/>
                     </div>
 
                     <div class="form-item">
@@ -99,24 +99,29 @@
                         <input type="number" th:field="*{yearEndRank}"/>
                     </div>
 
+                    <div class="form-item">
+                        <label>essential_compositions_rank</label>
+                        <input type="number" th:field="*{essentialCompositionsRank}"/>
+                    </div>
+
                     <div class="form-item major-field">
                         <label>highlights</label>
-                        <input type="text" th:field="*{highlights}"/>
+                        <textarea th:field="*{highlights}"></textarea>
                     </div>
 
                     <div class="form-item major-field">
                         <label>description</label>
-                        <input type="text" th:field="*{description}"/>
+                        <textarea th:field="*{description}"></textarea>
                     </div>
 
                     <div class="form-item major-field">
                         <label>lyrics</label>
-                        <input type="text" th:field="*{lyrics}"/>
+                        <textarea th:field="*{lyrics}"></textarea>
                     </div>
 
                     <div class="form-item major-field">
                         <label>translation</label>
-                        <input type="text" th:field="*{translation}"/>
+                        <textarea th:field="*{translation}"></textarea>
                     </div>
 
                     <input class="input-submit" type="submit" value="Создать"/>

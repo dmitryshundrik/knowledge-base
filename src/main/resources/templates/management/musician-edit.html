@@ -23,22 +23,22 @@
 
                     <div class="form-item">
                         <label>nickname</label>
-                        <input type="text" th:field="*{nickName}"/>
+                        <input type="text" th:field="*{nickName}" maxlength="255"/>
                     </div>
 
                     <div class="form-item">
                         <label>slug</label>
-                        <input type="text" th:field="*{slug}"/>
+                        <input type="text" th:field="*{slug}" maxlength="255"/>
                     </div>
 
                     <div class="form-item">
                         <label>first name</label>
-                        <input type="text" th:field="*{firstName}"/>
+                        <input type="text" th:field="*{firstName}" maxlength="255"/>
                     </div>
 
                     <div class="form-item">
                         <label>last name</label>
-                        <input type="text" th:field="*{lastName}"/>
+                        <input type="text" th:field="*{lastName}" maxlength="255"/>
                     </div>
 
                     <div class="form-item">
@@ -88,7 +88,7 @@
 
                     <div class="form-item">
                         <label>spotify_link</label>
-                        <input type="text" th:field="*{spotifyLink}"/>
+                        <input type="text" th:field="*{spotifyLink}" maxlength="255"/>
                     </div>
 
                     <input class="input-submit" type="submit" value="Обновить"/>
@@ -147,11 +147,11 @@
                         <th th:text="${event.year}"></th>
                         <th th:text="${event.date}"></th>
                         <th th:text="${event.description}"></th>
-                        <th>
+                        <th class="td-settings">
                             <a target="_blank"
                                th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/event/edit/' + event.id}">edit</a>
                         </th>
-                        <th>
+                        <th class="td-settings">
                             <form th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/event/delete/' + event.id}"
                                   th:method="delete">
                                 <input type="submit" value="delete">
@@ -174,10 +174,10 @@
                     <tr>
                         <th>created</th>
                         <th>year</th>
-                        <th>catalog_number</th>
                         <th>title</th>
                         <th>rating</th>
                         <th>year_end_rank</th>
+                        <th>essential_albums_rank</th>
                         <th>edit</th>
                         <th>delete</th>
                     </tr>
@@ -186,15 +186,15 @@
                     <tr th:each="album : ${musicianCreateEditDTO.albums}">
                         <th th:text="${album.created}"></th>
                         <th th:text="${album.year}"></th>
-                        <th th:text="${album.catalogNumber}"></th>
                         <th th:text="${album.title}"></th>
                         <th th:text="${album.rating}"></th>
                         <th th:text="${album.yearEndRank}"></th>
-                        <th>
+                        <th th:text="${album.essentialAlbumsRank}"></th>
+                        <th class="td-settings">
                             <a target="_blank"
                                th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/album/edit/' + album.slug}">edit</a>
                         </th>
-                        <th>
+                        <th class="td-settings">
                             <form th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/album/delete/' + album.slug}"
                                   th:method="delete">
                                 <input type="submit" value="delete">
@@ -222,6 +222,7 @@
                         <th>album</th>
                         <th>rating</th>
                         <th>year_end_rank</th>
+                        <th>essential_compositions_rank</th>
                         <th>edit</th>
                         <th>delete</th>
                     </tr>
@@ -235,11 +236,12 @@
                         <th th:text="${composition.albumTitle}"></th>
                         <th th:text="${composition.rating}"></th>
                         <th th:text="${composition.yearEndRank}"></th>
-                        <th>
+                        <th th:text="${composition.essentialCompositionsRank}"></th>
+                        <th class="td-settings">
                             <a target="_blank"
                                th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/composition/edit/' + composition.slug}">edit</a>
                         </th>
-                        <th>
+                        <th class="td-settings">
                             <form th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/composition/delete/' + composition.slug}"
                                   th:method="delete">
                                 <input type="submit" value="delete">

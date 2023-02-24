@@ -42,6 +42,8 @@ public class CompositionViewDTO {
 
     private Integer yearEndRank;
 
+    private Integer essentialCompositionsRank;
+
     private String highlights;
 
     private String description;
