@@ -2,6 +2,7 @@ package com.dmitryshundrik.knowledgebase.model.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
+import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.model.timeline.Event;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
 import lombok.Data;
@@ -44,6 +45,8 @@ public class Musician {
 
     private LocalDate deathDate;
 
+    private String birthplace;
+
     @Enumerated(EnumType.STRING)
     private Period period;
 
@@ -55,19 +58,25 @@ public class Musician {
     @ElementCollection
     private List<ContemporaryGenre> contemporaryGenres;
 
+    @Enumerated(EnumType.STRING)
+    private SortType albumsSortType;
+
+    @Enumerated(EnumType.STRING)
+    private SortType compositionsSortType;
+
     @Column(columnDefinition = "text")
     private String spotifyLink;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @OrderBy("year")
+    @OrderBy("created")
     private List<Event> events = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "musician")
-    @OrderBy("year")
+    @OrderBy("created")
     private List<Album> albums;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "musician")
-    @OrderBy("year")
+    @OrderBy("created")
     private List<Composition> compositions;
 
 

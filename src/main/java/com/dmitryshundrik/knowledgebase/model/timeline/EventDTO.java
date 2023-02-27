@@ -19,7 +19,7 @@ public class EventDTO {
 
     private String created;
 
-    @NotNull(message = "year may not be null")
+//  @NotNull(message = "year may not be null")
     private Integer year;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")

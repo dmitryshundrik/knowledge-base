@@ -3,6 +3,7 @@ package com.dmitryshundrik.knowledgebase.model.music.dto;
 import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
+import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.model.timeline.EventDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,11 +41,17 @@ public class MusicianCreateEditDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate deathDate;
 
+    private String birthplace;
+
     private Period period;
 
     private List<AcademicGenre> academicGenres;
 
     private List<ContemporaryGenre> contemporaryGenres;
+
+    private SortType albumsSortType;
+
+    private SortType compositionsSortType;
 
     private String spotifyLink;
 

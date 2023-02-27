@@ -79,14 +79,16 @@ public class MusicianService {
                 .died(musician.getDied())
                 .birthDate(musician.getBirthDate())
                 .deathDate(musician.getDeathDate())
+                .birthplace(musician.getBirthplace())
                 .period(musician.getPeriod())
                 .academicGenres(musician.getAcademicGenres())
                 .contemporaryGenres(musician.getContemporaryGenres())
                 .spotifyLink(musician.getSpotifyLink())
                 .events(eventService.eventListToEventDTOList(musician.getEvents()))
-                .albums(albumService.getAlbumViewDTOList(musician.getAlbums()))
+                .albums(albumService.getSortedAlbumViewDTOList(musician.getAlbums(), musician.getAlbumsSortType()))
                 .essentialAlbums(albumService.getEssentialAlbumsViewDTOList(musician.getAlbums()))
-                .compositions(compositionService.getCompositionViewDTOList(musician.getCompositions()))
+                .compositions(compositionService
+                        .getSortedCompositionViewDTOList(musician.getCompositions(), musician.getCompositionsSortType()))
                 .essentialCompositions(compositionService.getEssentialCompositionsViewDTOList(musician.getCompositions()))
                 .build();
     }
@@ -106,13 +108,17 @@ public class MusicianService {
                 .died(musician.getDied())
                 .birthDate(musician.getBirthDate())
                 .deathDate(musician.getDeathDate())
+                .birthplace(musician.getBirthplace())
                 .period(musician.getPeriod())
                 .academicGenres(musician.getAcademicGenres())
                 .contemporaryGenres(musician.getContemporaryGenres())
+                .albumsSortType(musician.getAlbumsSortType())
+                .compositionsSortType(musician.getCompositionsSortType())
                 .spotifyLink(musician.getSpotifyLink())
                 .events(eventService.eventListToEventDTOList(musician.getEvents()))
-                .albums(albumService.getAlbumViewDTOList(musician.getAlbums()))
-                .compositions(compositionService.getCompositionViewDTOList(musician.getCompositions()))
+                .albums(albumService.getSortedAlbumViewDTOList(musician.getAlbums(), musician.getAlbumsSortType()))
+                .compositions(compositionService
+                        .getSortedCompositionViewDTOList(musician.getCompositions(), musician.getCompositionsSortType()))
                 .build();
     }
 
@@ -137,9 +143,12 @@ public class MusicianService {
         musician.setDied(musicianCreateEditDTO.getDied());
         musician.setBirthDate(musicianCreateEditDTO.getBirthDate());
         musician.setDeathDate(musicianCreateEditDTO.getDeathDate());
+        musician.setBirthplace(musicianCreateEditDTO.getBirthplace());
         musician.setPeriod(musicianCreateEditDTO.getPeriod());
         musician.setAcademicGenres(musicianCreateEditDTO.getAcademicGenres());
         musician.setContemporaryGenres(musicianCreateEditDTO.getContemporaryGenres());
+        musician.setAlbumsSortType(musicianCreateEditDTO.getAlbumsSortType());
+        musician.setCompositionsSortType(musicianCreateEditDTO.getCompositionsSortType());
         musician.setSpotifyLink(musicianCreateEditDTO.getSpotifyLink());
     }
 }

@@ -62,6 +62,11 @@
                     </div>
 
                     <div class="form-item">
+                        <label>birthplace</label>
+                        <input type="text" th:field="*{birthplace}" maxlength="255"/>
+                    </div>
+
+                    <div class="form-item">
                         <label>period</label>
                         <select th:field="*{period}">
                             <option th:value="null" selected>выбрать период</option>
@@ -83,6 +88,24 @@
                         <select th:field="*{contemporaryGenres}" multiple="multiple">
                             <option th:each="contemporaryGenre : ${contemporaryGenres}" th:value="${contemporaryGenre}"
                                     th:text="${contemporaryGenre.label}"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-item">
+                        <label>album_sort_type</label>
+                        <select th:field="*{albumsSortType}">
+                            <option th:value="null" selected>выбрать тип сортировки альбомов</option>
+                            <option th:each="sortType : ${sortTypes}" th:value="${sortType}"
+                                    th:text="${sortType.label}"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-item">
+                        <label>compositions_sort_type</label>
+                        <select th:field="*{compositionsSortType}">
+                            <option th:value="null" selected>выбрать тип сортировки композиций</option>
+                            <option th:each="sortType : ${sortTypes}" th:value="${sortType}"
+                                    th:text="${sortType.label}"></option>
                         </select>
                     </div>
 
@@ -211,6 +234,7 @@
                    th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/composition/create'}">создать
                     composition</a>
             </div>
+
             <div class="table-body-item">
                 <table>
                     <thead>

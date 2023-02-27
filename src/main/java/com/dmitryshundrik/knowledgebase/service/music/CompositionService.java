@@ -4,11 +4,13 @@ import com.dmitryshundrik.knowledgebase.model.music.Album;
 import com.dmitryshundrik.knowledgebase.model.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.SOTYList;
+import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
+import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.repository.music.CompositionRepository;
 import com.dmitryshundrik.knowledgebase.util.Formatter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,7 +102,6 @@ public class CompositionService {
                 .collect(Collectors.toList());
     }
 
-
     public CompositionCreateEditDTO getCompositionCreateEditDTO(Composition composition) {
         return CompositionCreateEditDTO.builder()
                 .slug(composition.getSlug())
@@ -138,18 +139,33 @@ public class CompositionService {
                 .period(composition.getPeriod())
                 .academicGenres(composition.getAcademicGenres())
                 .contemporaryGenres(composition.getContemporaryGenres())
-                .description(composition.getDescription())
                 .rating(composition.getRating())
                 .yearEndRank(composition.getYearEndRank())
                 .essentialCompositionsRank(composition.getEssentialCompositionsRank())
                 .highlights(composition.getHighlights())
+                .description(composition.getDescription())
                 .build();
     }
 
     public List<CompositionViewDTO> getCompositionViewDTOList(List<Composition> compositionList) {
         return compositionList.stream().map(composition -> getCompositionViewDTO(composition))
                 .collect(Collectors.toList());
+    }
 
+    public List<CompositionViewDTO> getSortedCompositionViewDTOList(List<Composition> compositionList, SortType sortType) {
+        return getCompositionViewDTOList(compositionList).stream()
+                .sorted((o1, o2) -> {
+                            if (SortType.CATALOGUE_NUMBER.equals(sortType)) {
+                                return o1.getCatalogNumber().compareTo(o2.getCatalogNumber());
+                            } else if (SortType.YEAR.equals(sortType)) {
+                                return o1.getYear().compareTo(o2.getYear());
+                            } else if (SortType.RATING.equals(sortType)) {
+                                return o1.getRating().compareTo(o2.getRating());
+                            }
+                            return -1;
+                        }
+                )
+                .collect(Collectors.toList());
     }
 
     private void setCompositionFieldsFromDTO(Composition composition, CompositionCreateEditDTO compositionCreateEditDTO) {

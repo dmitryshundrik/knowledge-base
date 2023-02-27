@@ -6,6 +6,7 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumSelectDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
 import com.dmitryshundrik.knowledgebase.util.Formatter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +100,22 @@ public class AlbumService {
     public List<AlbumViewDTO> getAlbumViewDTOList(List<Album> albumList) {
         return albumList.stream().map(album -> getAlbumViewDTO(album)).collect(Collectors.toList());
 
+    }
+
+    public List<AlbumViewDTO> getSortedAlbumViewDTOList(List<Album> albumList, SortType sortType) {
+        return getAlbumViewDTOList(albumList).stream()
+                .sorted((o1, o2) -> {
+                            if (SortType.CATALOGUE_NUMBER.equals(sortType)) {
+                                return o1.getCatalogNumber().compareTo(o2.getCatalogNumber());
+                            } else if (SortType.YEAR.equals(sortType)) {
+                                return o1.getYear().compareTo(o2.getYear());
+                            } else if (SortType.RATING.equals(sortType)) {
+                                return o1.getRating().compareTo(o2.getRating());
+                            }
+                            return -1;
+                        }
+                )
+                .collect(Collectors.toList());
     }
 
     public AlbumCreateEditDTO getAlbumCreateEditDTO(Album album) {

@@ -3,6 +3,7 @@ package com.dmitryshundrik.knowledgebase.model.music;
 import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
+import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import lombok.Data;
 import javax.persistence.*;
 import java.time.Instant;

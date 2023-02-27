@@ -3,6 +3,7 @@ package com.dmitryshundrik.knowledgebase.model.music.dto;
 import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
+import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.model.timeline.EventDTO;
 import lombok.Builder;
 import lombok.Data;
@@ -36,6 +37,8 @@ public class MusicianViewDTO {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate deathDate;
+
+    private String birthplace;
 
     private Period period;
 

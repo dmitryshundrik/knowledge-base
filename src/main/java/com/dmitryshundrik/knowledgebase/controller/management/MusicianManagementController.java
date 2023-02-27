@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
+import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianValidationService;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -42,6 +43,7 @@ public class MusicianManagementController {
         model.addAttribute("periods", Period.values());
         model.addAttribute("academicGenres", AcademicGenre.getSortedValues());
         model.addAttribute("contemporaryGenres", ContemporaryGenre.getSortedValues());
+        model.addAttribute("sortTypes", SortType.values());
         return "management/musician-create";
     }
 
@@ -64,6 +66,7 @@ public class MusicianManagementController {
         model.addAttribute("periods", Period.values());
         model.addAttribute("academicGenres", AcademicGenre.getSortedValues());
         model.addAttribute("contemporaryGenres", ContemporaryGenre.getSortedValues());
+        model.addAttribute("sortTypes", SortType.values());
         return "management/musician-edit";
     }
 

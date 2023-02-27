@@ -67,6 +67,11 @@
                     </div>
 
                     <div class="form-item">
+                        <label>birthplace</label>
+                        <input type="text" th:field="*{birthplace}" maxlength="255"/>
+                    </div>
+
+                    <div class="form-item">
                         <label>period</label>
                         <select th:field="*{period}">
                             <option th:value="null" selected>выбрать период</option>
