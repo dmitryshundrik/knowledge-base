@@ -3,7 +3,8 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding: 0px 50px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .header {
@@ -13,7 +14,7 @@
 }
 
 .header-title {
-    padding-top: 30px;
+    padding: 20px 0;
 }
 
 .header-title a {
@@ -24,8 +25,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    padding-top: 25px;
-    padding-bottom: 15px;
+    padding: 15px 0;
     gap: 25px;
     border-bottom: 1px solid gray;
 }
@@ -38,12 +38,12 @@
 }
 
 .footer {
-    padding: 40px 0px;
+    padding: 40px 0;
     text-align: center;
 }
 
 .footer p {
-    padding: 5px 0px;
+    padding: 5px 0;
 }
 
 .error {

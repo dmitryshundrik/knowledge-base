@@ -1,8 +1,7 @@
 package com.dmitryshundrik.knowledgebase.model.music.dto;
 
-import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
-import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
+import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
+import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,11 +32,11 @@ public class AlbumCreateEditDTO {
 
     private Integer year;
 
-    private Period period;
+    private List<MusicPeriod> musicPeriods;
 
-    private List<AcademicGenre> academicGenres;
+    private List<MusicGenre> classicalGenres;
 
-    private List<ContemporaryGenre> contemporaryGenres;
+    private List<MusicGenre> contemporaryGenres;
 
     private Double rating;
 

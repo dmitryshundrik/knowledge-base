@@ -1,11 +1,10 @@
-package com.dmitryshundrik.knowledgebase.controller.management;
+package com.dmitryshundrik.knowledgebase.controller.management.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.Album;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
-import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
+import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
+import com.dmitryshundrik.knowledgebase.service.music.MusicPeriodService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +25,12 @@ public class AlbumManagementController {
     @Autowired
     private MusicianService musicianService;
 
+    @Autowired
+    private MusicPeriodService musicPeriodService;
+
+    @Autowired
+    private MusicGenreService musicGenreService;
+
     @GetMapping("/management/album/all")
     public String getAllAlbums(Model model) {
         List<Album> allAlbums = albumService.getAllAlbums();
@@ -38,9 +43,9 @@ public class AlbumManagementController {
         AlbumCreateEditDTO albumCreateEditDTO = new AlbumCreateEditDTO();
         musicianService.setMusicianFieldsToAlbumDTO(albumCreateEditDTO, musicianSlug);
         model.addAttribute("albumCreateEditDTO", albumCreateEditDTO);
-        model.addAttribute("periods", Period.values());
-        model.addAttribute("academicGenres", AcademicGenre.getSortedValues());
-        model.addAttribute("contemporaryGenres", ContemporaryGenre.getSortedValues());
+        model.addAttribute("musicPeriods", musicPeriodService.getAll());
+        model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
+        model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
         return "management/album-create";
     }
 
@@ -61,9 +66,9 @@ public class AlbumManagementController {
     public String getEditAlbumBySlug(@PathVariable String musicianSlug, @PathVariable String albumSlug, Model model) {
         Album albumBySlug = albumService.getAlbumBySlug(albumSlug);
         model.addAttribute("albumCreateEditDTO", albumService.getAlbumCreateEditDTO(albumBySlug));
-        model.addAttribute("periods", Period.values());
-        model.addAttribute("academicGenres", AcademicGenre.getSortedValues());
-        model.addAttribute("contemporaryGenres", ContemporaryGenre.getSortedValues());
+        model.addAttribute("musicPeriods", musicPeriodService.getAll());
+        model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
+        model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
         return "management/album-edit";
     }
 

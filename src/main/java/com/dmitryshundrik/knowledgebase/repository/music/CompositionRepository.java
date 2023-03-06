@@ -1,9 +1,8 @@
 package com.dmitryshundrik.knowledgebase.repository.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.Composition;
-import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
-import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
+import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
+import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -15,11 +14,9 @@ public interface CompositionRepository extends JpaRepository<Composition, UUID> 
 
     void deleteBySlug(String slug);
 
-    List<Composition> getAllByPeriod(Period period);
+    List<Composition> getAllByMusicPeriodsIsContaining(MusicPeriod musicPeriod);
 
-    List<Composition> getAllByAcademicGenresIsContaining(AcademicGenre academicGenre);
-
-    List<Composition> getAllByContemporaryGenresIsContaining(ContemporaryGenre contemporaryGenre);
+    List<Composition> getAllByMusicGenresIsContaining(MusicGenre musicGenre);
 
     List<Composition> getAllByYearAndYearEndRankNotNull(Integer year);
 

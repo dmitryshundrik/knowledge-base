@@ -68,26 +68,32 @@
 
                     <div class="form-item">
                         <label>period</label>
-                        <select th:field="*{period}">
+                        <select th:field="*{musicPeriods}">
                             <option th:value="null" selected>выбрать период</option>
-                            <option th:each="period : ${periods}" th:value="${period}"
-                                    th:text="${period.label}"></option>
+                            <option th:each="period : ${periods}"
+                                    th:value="${period}"
+                                    th:text="${period.title}">
+                            </option>
                         </select>
                     </div>
 
                     <div class="form-item major-field">
-                        <label>academic_genres</label>
-                        <select th:field="*{academicGenres}" multiple="multiple">
-                            <option th:each="academicGenre : ${academicGenres}" th:value="${academicGenre}"
-                                    th:text="${academicGenre.label}"></option>
+                        <label>classical_genres</label>
+                        <select th:field="*{classicalGenres}" multiple="multiple">
+                            <option th:each="genre : ${classicalGenres}"
+                                    th:value="${genre}"
+                                    th:text="${genre.label}">
+                            </option>
                         </select>
                     </div>
 
                     <div class="form-item major-field">
                         <label>contemporary_genres</label>
                         <select th:field="*{contemporaryGenres}" multiple="multiple">
-                            <option th:each="contemporaryGenre : ${contemporaryGenres}" th:value="${contemporaryGenre}"
-                                    th:text="${contemporaryGenre.label}"></option>
+                            <option th:each="genre : ${contemporaryGenres}"
+                                    th:value="${genre}"
+                                    th:text="${genre.label}">
+                            </option>
                         </select>
                     </div>
 
@@ -95,8 +101,10 @@
                         <label>album_sort_type</label>
                         <select th:field="*{albumsSortType}">
                             <option th:value="null" selected>выбрать тип сортировки альбомов</option>
-                            <option th:each="sortType : ${sortTypes}" th:value="${sortType}"
-                                    th:text="${sortType.label}"></option>
+                            <option th:each="sortType : ${sortTypes}"
+                                    th:value="${sortType}"
+                                    th:text="${sortType.label}">
+                            </option>
                         </select>
                     </div>
 
@@ -104,8 +112,10 @@
                         <label>compositions_sort_type</label>
                         <select th:field="*{compositionsSortType}">
                             <option th:value="null" selected>выбрать тип сортировки композиций</option>
-                            <option th:each="sortType : ${sortTypes}" th:value="${sortType}"
-                                    th:text="${sortType.label}"></option>
+                            <option th:each="sortType : ${sortTypes}"
+                                    th:value="${sortType}"
+                                    th:text="${sortType.label}">
+                            </option>
                         </select>
                     </div>
 
@@ -129,7 +139,7 @@
 
                     <div class="form-item">
                         <label>image</label>
-                        <input type="file" name="file">
+                        <input type="file" name="file" accept="image/*">
                     </div>
 
                     <button class="input-submit" type="submit">Загрузить</button>
@@ -199,8 +209,8 @@
                         <th>year</th>
                         <th>title</th>
                         <th>rating</th>
-                        <th>year_end_rank</th>
-                        <th>essential_albums_rank</th>
+                        <th>YER</th>
+                        <th>EAR</th>
                         <th>edit</th>
                         <th>delete</th>
                     </tr>
@@ -245,8 +255,8 @@
                         <th>title</th>
                         <th>album</th>
                         <th>rating</th>
-                        <th>year_end_rank</th>
-                        <th>essential_compositions_rank</th>
+                        <th>YER</th>
+                        <th>ECR</th>
                         <th>edit</th>
                         <th>delete</th>
                     </tr>

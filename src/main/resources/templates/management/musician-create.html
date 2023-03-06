@@ -73,26 +73,31 @@
 
                     <div class="form-item">
                         <label>period</label>
-                        <select th:field="*{period}">
+                        <select th:field="*{musicPeriods}">
                             <option th:value="null" selected>выбрать период</option>
-                            <option th:each="period : ${periods}" th:value="${period}"
-                                    th:text="${period.label}"></option>
+                            <option th:each="period : ${musicPeriods}"
+                                    th:value="${period}"
+                                    th:text="${period.title}"></option>
                         </select>
                     </div>
 
                     <div class="form-item major-field">
-                        <label>academic_genres</label>
-                        <select th:field="*{academicGenres}" multiple="multiple">
-                            <option th:each="academicGenre : ${academicGenres}" th:value="${academicGenre}"
-                                    th:text="${academicGenre.label}"></option>
+                        <label>classical_genres</label>
+                        <select th:field="*{classicalGenres}" multiple="multiple">
+                            <option th:each="genre : ${classicalGenres}"
+                                    th:value="${genre}"
+                                    th:text="${genre.title}">
+                            </option>
                         </select>
                     </div>
 
                     <div class="form-item major-field">
                         <label>contemporary_genres</label>
                         <select th:field="*{contemporaryGenres}" multiple="multiple">
-                            <option th:each="contemporaryGenre : ${contemporaryGenres}" th:value="${contemporaryGenre}"
-                                    th:text="${contemporaryGenre.label}"></option>
+                            <option th:each="genre : ${contemporaryGenres}"
+                                    th:value="${genre}"
+                                    th:text="${genre.title}">
+                            </option>
                         </select>
                     </div>
 

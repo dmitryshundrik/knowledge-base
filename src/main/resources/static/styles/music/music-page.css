@@ -15,7 +15,7 @@
 .table-body-item {
     display: flex;
     flex-direction: column;
-    width: 49%;
+    width: 48%;
     padding: 25px 0px;
     gap: 5px;
     align-items: center;

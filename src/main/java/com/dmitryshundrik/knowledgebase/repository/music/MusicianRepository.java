@@ -11,6 +11,7 @@ public interface MusicianRepository extends JpaRepository<Musician, UUID> {
     Musician getMusicianBySlug(String slug);
 
     List<Musician> getAllByOrderByCreated();
+
     void deleteBySlug(String slug);
 
 }

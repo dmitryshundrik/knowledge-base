@@ -1,8 +1,7 @@
 package com.dmitryshundrik.knowledgebase.model.music.dto;
 
-import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
-import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
+import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
+import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.model.timeline.EventDTO;
 import lombok.AllArgsConstructor;
@@ -43,11 +42,11 @@ public class MusicianCreateEditDTO {
 
     private String birthplace;
 
-    private Period period;
+    private List<MusicPeriod> musicPeriods;
 
-    private List<AcademicGenre> academicGenres;
+    private List<MusicGenre> classicalGenres;
 
-    private List<ContemporaryGenre> contemporaryGenres;
+    private List<MusicGenre> contemporaryGenres;
 
     private SortType albumsSortType;
 

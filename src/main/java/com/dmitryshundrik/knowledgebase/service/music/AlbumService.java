@@ -6,6 +6,7 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumSelectDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
 import com.dmitryshundrik.knowledgebase.util.Formatter;
@@ -86,9 +87,8 @@ public class AlbumService {
                 .feature(album.getFeature())
                 .artwork(album.getArtwork())
                 .year(album.getYear())
-                .period(album.getPeriod())
-                .academicGenres(album.getAcademicGenres())
-                .contemporaryGenres(album.getContemporaryGenres())
+                .musicPeriods(album.getMusicPeriods())
+                .musicGenres(album.getMusicGenres())
                 .rating(album.getRating())
                 .yearEndRank(album.getYearEndRank())
                 .essentialAlbumsRank(album.getEssentialAlbumsRank())
@@ -128,9 +128,13 @@ public class AlbumService {
                 .feature(album.getFeature())
                 .artwork(album.getArtwork())
                 .year(album.getYear())
-                .period(album.getPeriod())
-                .academicGenres(album.getAcademicGenres())
-                .contemporaryGenres(album.getContemporaryGenres())
+                .musicPeriods(album.getMusicPeriods())
+                .classicalGenres(album.getMusicGenres().stream()
+                        .filter(musicGenre -> musicGenre.getMusicGenreType().equals(MusicGenreType.CLASSICAL))
+                        .collect(Collectors.toList()))
+                .contemporaryGenres(album.getMusicGenres().stream()
+                        .filter(musicGenre -> musicGenre.getMusicGenreType().equals(MusicGenreType.CONTEMPORARY))
+                        .collect(Collectors.toList()))
                 .rating(album.getRating())
                 .yearEndRank(album.getYearEndRank())
                 .essentialAlbumsRank(album.getEssentialAlbumsRank())
@@ -156,9 +160,9 @@ public class AlbumService {
         album.setCatalogNumber(albumCreateEditDTO.getCatalogNumber());
         album.setFeature(albumCreateEditDTO.getFeature());
         album.setYear(albumCreateEditDTO.getYear());
-        album.setPeriod(albumCreateEditDTO.getPeriod());
-        album.setAcademicGenres(albumCreateEditDTO.getAcademicGenres());
-        album.setContemporaryGenres(albumCreateEditDTO.getContemporaryGenres());
+        album.setMusicPeriods(albumCreateEditDTO.getMusicPeriods());
+        album.setMusicGenres(albumCreateEditDTO.getClassicalGenres());
+        album.getMusicGenres().addAll(albumCreateEditDTO.getContemporaryGenres());
         album.setRating(albumCreateEditDTO.getRating());
         album.setYearEndRank(albumCreateEditDTO.getYearEndRank());
         album.setEssentialAlbumsRank(albumCreateEditDTO.getEssentialAlbumsRank());

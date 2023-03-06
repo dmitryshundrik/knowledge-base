@@ -1,34 +1,33 @@
 
-.table-title {
+.table {
+    padding: 0 200px;
+}
+
+.table-header {
     display: flex;
-    height: 320px;
-    padding: 50px 300px;
-    justify-content: center;
-    gap: 40px;
+    padding-top: 60px;
+    gap: 30px;
 }
 
 .entity-image {
-    min-width: 25%;
+    width: 30%;
+    max-width: 30%;
     padding: 10px;
     text-align: center;
     border: 1px solid gray;
 }
 
-.entity-image img {
-    width: auto;
-    max-height: 100%;
-}
-
 .entity-information {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 100%;
     gap: 10px;
 }
 
-.nick-name {
+.nickname {
     border-bottom: 1px solid gray;
 }
+
 
 .genre {
     display: flex;
@@ -39,7 +38,7 @@
 .table-body {
     display: flex;
     flex-direction: column;
-    padding: 0px 300px;
+    padding: 30px 0;
     gap: 50px;
 }
 

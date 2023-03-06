@@ -31,23 +31,23 @@
             <div class="table-body-item">
                 <h3>Эпохи</h3>
                 <div th:each="period : ${periods}">
-                    <a th:text="${period.label}" th:href="'/music/period/' + ${period.slug}"></a>
+                    <a th:text="${period.title}" th:href="'/music/period/' + ${period.slug}"></a>
                 </div>
             </div>
 
             <div class="table-body-item">
-                <h3>Академические жанры</h3>
-                <div th:each="academicGenre : ${academicGenres}">
-                    <a th:text="${academicGenre.label}"
-                       th:href="'/music/academic-genre/' + ${academicGenre.slug}"></a>
+                <h3>Классические жанры</h3>
+                <div th:each="genre : ${classicalMusicGenres}">
+                    <a th:text="${genre.title}"
+                       th:href="'/music/genre/' + ${genre.slug}"></a>
                 </div>
             </div>
 
             <div class="table-body-item">
                 <h3>Современные жанры</h3>
-                <div th:each="contemporaryGenre : ${contemporaryGenres}">
-                    <a th:text="${contemporaryGenre.label}"
-                       th:href="'/music/contemporary-genre/' + ${contemporaryGenre.slug}"></a>
+                <div th:each="genre : ${contemporaryMusicGenres}">
+                    <a th:text="${genre.title} + ' (' + ${genre.count} + ') '"
+                       th:href="'/music/genre/' + ${genre.slug}"></a>
                 </div>
             </div>
         </div>

@@ -1,17 +1,11 @@
-package com.dmitryshundrik.knowledgebase.controller.management;
+package com.dmitryshundrik.knowledgebase.controller.management.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.Album;
 import com.dmitryshundrik.knowledgebase.model.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumSelectDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
-import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
-import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
-import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
-import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
-import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
+import com.dmitryshundrik.knowledgebase.service.music.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +27,13 @@ public class CompositionManagementController {
 
     @Autowired
     private MusicianService musicianService;
+
+    @Autowired
+    private MusicPeriodService musicPeriodService;
+
+    @Autowired
+    private MusicGenreService musicGenreService;
+
 
     @GetMapping("/management/composition/all")
     public String getAllCompositions(Model model) {
@@ -56,9 +57,9 @@ public class CompositionManagementController {
         List<AlbumSelectDTO> albumSelectDTOList = albumService.getAlbumSelectDTOList(allAlbumsByMusician);
         model.addAttribute("compositionCreateEditDTO", compositionCreateEditDTO);
         model.addAttribute("albumSelectDTOList", albumSelectDTOList);
-        model.addAttribute("periods", Period.values());
-        model.addAttribute("academicGenres", AcademicGenre.getSortedValues());
-        model.addAttribute("contemporaryGenres", ContemporaryGenre.getSortedValues());
+        model.addAttribute("musicPeriods", musicPeriodService.getAll());
+        model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
+        model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
         return "management/composition-create";
     }
 
@@ -86,9 +87,9 @@ public class CompositionManagementController {
         List<AlbumSelectDTO> albumSelectDTOList = albumService.getAlbumSelectDTOList(allAlbumsByMusician);
         model.addAttribute("compositionCreateEditDTO", compositionService.getCompositionCreateEditDTO(compositionBySlug));
         model.addAttribute("albumSelectDTOList", albumSelectDTOList);
-        model.addAttribute("periods", Period.values());
-        model.addAttribute("academicGenres", AcademicGenre.getSortedValues());
-        model.addAttribute("contemporaryGenres", ContemporaryGenre.getSortedValues());
+        model.addAttribute("musicPeriods", musicPeriodService.getAll());
+        model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
+        model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
         return "management/composition-edit";
     }
 

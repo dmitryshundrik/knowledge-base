@@ -1,11 +1,10 @@
-package com.dmitryshundrik.knowledgebase.controller.management;
+package com.dmitryshundrik.knowledgebase.controller.management.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
-import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
+import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
+import com.dmitryshundrik.knowledgebase.service.music.MusicPeriodService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianValidationService;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -30,6 +29,12 @@ public class MusicianManagementController {
     @Autowired
     private MusicianValidationService musicianValidationService;
 
+    @Autowired
+    private MusicPeriodService musicPeriodService;
+
+    @Autowired
+    private MusicGenreService musicGenreService;
+
     @GetMapping("/management/musician/all")
     public String getAllMusicians(Model model) {
         List<Musician> allMusicians = musicianService.getAllMusicians();
@@ -40,9 +45,9 @@ public class MusicianManagementController {
     @GetMapping("/management/musician/create")
     public String getCreateMusician(Model model) {
         model.addAttribute("musicianCreateEditDTO", new MusicianCreateEditDTO());
-        model.addAttribute("periods", Period.values());
-        model.addAttribute("academicGenres", AcademicGenre.getSortedValues());
-        model.addAttribute("contemporaryGenres", ContemporaryGenre.getSortedValues());
+        model.addAttribute("musicPeriods", musicPeriodService.getAll());
+        model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
+        model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
         model.addAttribute("sortTypes", SortType.values());
         return "management/musician-create";
     }
@@ -63,9 +68,9 @@ public class MusicianManagementController {
     public String getEditMusicianBySlug(@PathVariable String musicianSlug, Model model) {
         Musician musicianBySlug = musicianService.getMusicianBySlug(musicianSlug);
         model.addAttribute("musicianCreateEditDTO", musicianService.getMusicianCreateEditDTO(musicianBySlug));
-        model.addAttribute("periods", Period.values());
-        model.addAttribute("academicGenres", AcademicGenre.getSortedValues());
-        model.addAttribute("contemporaryGenres", ContemporaryGenre.getSortedValues());
+        model.addAttribute("musicPeriods", musicPeriodService.getAll());
+        model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
+        model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
         model.addAttribute("sortTypes", SortType.values());
         return "management/musician-edit";
     }

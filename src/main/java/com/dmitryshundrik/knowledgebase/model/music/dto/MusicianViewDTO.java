@@ -1,9 +1,7 @@
 package com.dmitryshundrik.knowledgebase.model.music.dto;
 
-import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
-import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
-import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
+import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
+import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.timeline.EventDTO;
 import lombok.Builder;
 import lombok.Data;
@@ -40,11 +38,9 @@ public class MusicianViewDTO {
 
     private String birthplace;
 
-    private Period period;
+    private List<MusicPeriod> musicPeriods;
 
-    private List<AcademicGenre> academicGenres;
-
-    private List<ContemporaryGenre> contemporaryGenres;
+    private List<MusicGenre> musicGenres;
 
     private String spotifyLink;
 

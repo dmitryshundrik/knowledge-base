@@ -14,7 +14,7 @@
     <div class="table">
 
         <div class="table-title">
-            <h3 th:text="${SOTYList.title}"></h3>
+            <h2 th:text="${SOTYList.title}"></h2>
         </div>
 
         <div class="table-body">
@@ -26,10 +26,16 @@
             </div>
 
             <div class="table-body-item soty-list">
-                <div th:each="composition : ${compositions}">
-                    <span th:text="${composition.musician.nickName + ' - ' + composition.title}"></span>
-                    <div th:each="contemporaryGenre : ${composition.contemporaryGenres}">
-                        <span th:text="${contemporaryGenre.label}"></span>
+                <div class="soty-list-item" th:each="composition : ${compositions}">
+                    <div class="song-title">
+                        <span th:text="${compositionStat.index + 1} + '.'"></span>
+                        <span th:text="${composition.musicianNickname + ' - ' + composition.title + ' ' + composition.feature}"></span>
+                    </div>
+                    <div class="song-genres">
+                        <span th:each="genre : ${composition.musicGenres}">
+                            <span th:if="${genreStat.index + 1  < composition.genre.size}"
+                                  th:text="${genre.label} + ','"></span>
+                        </span>
                     </div>
                 </div>
             </div>

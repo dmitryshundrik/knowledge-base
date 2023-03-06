@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/management")
-public class ArchiveManagementController {
+public class ManagementController {
 
     @GetMapping()
-    public String getArchiveManagementPage() {
-        return "management/archive-management";
+    public String getManagementPage() {
+        return "management/management-page";
     }
 
 }

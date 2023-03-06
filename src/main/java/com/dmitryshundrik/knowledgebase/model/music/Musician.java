@@ -1,10 +1,7 @@
 package com.dmitryshundrik.knowledgebase.model.music;
 
-import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.model.timeline.Event;
-import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -47,16 +44,11 @@ public class Musician {
 
     private String birthplace;
 
-    @Enumerated(EnumType.STRING)
-    private Period period;
+    @OneToMany
+    private List<MusicPeriod> musicPeriods;
 
-    @Enumerated(EnumType.STRING)
-    @ElementCollection
-    private List<AcademicGenre> academicGenres;
-
-    @Enumerated(EnumType.STRING)
-    @ElementCollection
-    private List<ContemporaryGenre> contemporaryGenres;
+    @OneToMany
+    private List<MusicGenre> musicGenres;
 
     @Enumerated(EnumType.STRING)
     private SortType albumsSortType;

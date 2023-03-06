@@ -1,8 +1,5 @@
 package com.dmitryshundrik.knowledgebase.model.music;
 
-import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
-import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
 import lombok.Data;
 import javax.persistence.*;
 import java.time.Instant;
@@ -36,16 +33,11 @@ public class Album {
 
     private Integer year;
 
-    @Enumerated(EnumType.STRING)
-    private Period period;
+    @OneToMany
+    private List<MusicPeriod> musicPeriods;
 
-    @Enumerated(EnumType.STRING)
-    @ElementCollection
-    private List<AcademicGenre> academicGenres;
-
-    @Enumerated(EnumType.STRING)
-    @ElementCollection
-    private List<ContemporaryGenre> contemporaryGenres;
+    @OneToMany
+    private List<MusicGenre> musicGenres;
 
     private Double rating;
 

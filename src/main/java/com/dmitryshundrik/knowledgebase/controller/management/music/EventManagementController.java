@@ -1,4 +1,4 @@
-package com.dmitryshundrik.knowledgebase.controller.management;
+package com.dmitryshundrik.knowledgebase.controller.management.music;
 
 import com.dmitryshundrik.knowledgebase.model.timeline.Event;
 import com.dmitryshundrik.knowledgebase.model.timeline.EventDTO;

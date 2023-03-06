@@ -30,11 +30,10 @@
                     <th>year</th>
                     <th>album</th>
                     <th>period</th>
-                    <th>academic_genres</th>
-                    <th>contemporary_genres</th>
+                    <th>genres</th>
                     <th>rating</th>
-                    <th>year_end_rank</th>
-                    <th>essential_compositions_rank</th>
+                    <th>YER</th>
+                    <th>ECR</th>
                     <th>highlights</th>
                     <th>description</th>
                     <th>edit</th>
@@ -52,35 +51,30 @@
                     <td th:text="${composition.feature}"></td>
                     <td th:text="${composition.year}"></td>
                     <td th:text="${composition.albumTitle}"></td>
-                    <td th:if="${composition.period != null}" th:text="${composition.period.label}"></td>
-
-                    <td th:if="${composition.academicGenres != null}">
-                        <span th:each="academicGenre : ${composition.academicGenres}">
-                            <p th:text="${academicGenre.label}"></p>
+                    <td th:if="${not #lists.isEmpty(composition.musicPeriods)}"
+                        th:text="period ${composition.musicPeriods}">
+                        <span th:text="${period.title}"></span>
+                    </td>
+                    <td th:if="${not #lists.isEmpty(composition.musicGenres)}">
+                        <span th:each="genre : ${composition.musicGenres}">
+                            <p th:text="${genre.title}"></p>
                         </span>
                     </td>
-                    <td th:if="${composition.contemporaryGenres != null}">
-                        <span th:each="contemporaryGenre : ${composition.contemporaryGenres}">
-                            <p th:text="${contemporaryGenre.label}"></p>
-                        </span>
-                    </td>
-
                     <td th:text="${composition.rating}"></td>
                     <td th:text="${composition.yearEndRank}"></td>
                     <th th:text="${composition.essentialCompositionsRank}"></th>
-                    <td th:if="${composition.highlights != null}">
-                        <span th:each="highlight : ${composition.highlights}">
-                            <p th:text="${highlights}"></p>
-                        </span>
-                    </td>
+                    <td th:text="${composition.highlights}"></td>
                     <td th:text="${composition.description}"></td>
 
                     <td class="td-settings">
-                        <a target="_blank" th:href="${'/management/musician/edit/' + composition.musicianSlug + '/composition/edit/' + composition.slug}">edit</a>
+                        <a target="_blank"
+                           th:href="${'/management/musician/edit/' + composition.musicianSlug + '/composition/edit/' + composition.slug}">edit</a>
                     </td>
                     <td class="td-settings">
                         <form th:action="${'/management/composition/delete/' + composition.slug}" th:method="delete">
-                            <input type="submit" value="delete">
+                            <input type="submit" value="delete"
+                                   th:data-confirm-delete="|Are you sure you want to delete this composition?|"
+                                   onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
                         </form>
                     </td>
                 </tr>

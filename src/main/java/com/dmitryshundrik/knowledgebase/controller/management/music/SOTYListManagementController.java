@@ -1,4 +1,4 @@
-package com.dmitryshundrik.knowledgebase.controller.management;
+package com.dmitryshundrik.knowledgebase.controller.management.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.SOTYList;
 import com.dmitryshundrik.knowledgebase.model.music.dto.SOTYListCreateEditDTO;

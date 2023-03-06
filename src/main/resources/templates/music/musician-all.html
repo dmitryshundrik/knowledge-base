@@ -23,30 +23,32 @@
                     <th>год рождения</th>
                     <th>период</th>
                     <th>псевдоним</th>
-                    <th>жанр (академический)</th>
-                    <th>жанр (современный)</th>
+                    <th>жанры</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="musician : ${musicians}">
+
                     <td th:text="${musician.born}"></td>
-                    <td th:if="${musician.period != null}" th:text="${musician.period.label}"></td>
+
+                    <td th:if="${not #lists.isEmpty(musician.musicPeriods)}">
+                        <span th:each="period : ${musician.musicPeriods}">
+                            <p th:text="${period.title}"></p>
+                        </span>
+                    </td>
+
                     <td>
                         <a th:href="${'/music/musician/' + musician.slug}">
                             <p th:text="${musician.nickName}"></p>
                         </a>
                     </td>
-                    <td th:if="${musician.period == null}" th:text="period"></td>
-                    <td th:if="${musician.academicGenres != null}">
-                        <span th:each="academicGenre : ${musician.academicGenres}">
-                            <p th:text="${academicGenre.label}"></p>
+
+                    <td th:if="${not #lists.isEmpty(musician.musicGenres)}">
+                        <span th:each="genre : ${musician.musicGenres}">
+                            <p th:text="${genre.title}"></p>
                         </span>
                     </td>
-                    <td th:if="${musician.contemporaryGenres != null}">
-                        <span th:each="contemporaryGenre : ${musician.contemporaryGenres}">
-                            <p th:text="${contemporaryGenre.label}"></p>
-                        </span>
-                    </td>
+
                 </tr>
                 </tbody>
             </table>

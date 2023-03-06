@@ -1,17 +1,12 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
-import com.dmitryshundrik.knowledgebase.model.music.Album;
-import com.dmitryshundrik.knowledgebase.model.music.Composition;
-import com.dmitryshundrik.knowledgebase.model.music.Musician;
-import com.dmitryshundrik.knowledgebase.model.music.SOTYList;
-import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumViewDTO;
+import com.dmitryshundrik.knowledgebase.model.music.*;
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionViewDTO;
-import com.dmitryshundrik.knowledgebase.model.music.enums.AcademicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.enums.ContemporaryGenre;
-import com.dmitryshundrik.knowledgebase.model.music.enums.Period;
+import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.repository.music.CompositionRepository;
+import com.dmitryshundrik.knowledgebase.repository.music.MusicGenreRepository;
 import com.dmitryshundrik.knowledgebase.util.Formatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +24,9 @@ public class CompositionService {
     @Autowired
     private CompositionRepository compositionRepository;
 
+    @Autowired
+    private MusicGenreRepository musicGenreRepository;
+
     public List<Composition> getAllCompositions() {
         return compositionRepository.findAll();
     }
@@ -37,20 +35,45 @@ public class CompositionService {
         return compositionRepository.getCompositionBySlug(slug);
     }
 
-    public List<Composition> getAllCompositionsByPeriod(Period period) {
-        return compositionRepository.getAllByPeriod(period);
+    public List<Composition> getAllCompositionsByPeriod(MusicPeriod musicPeriod) {
+        return compositionRepository.getAllByMusicPeriodsIsContaining(musicPeriod);
     }
 
-    public List<Composition> getAllCompositionsByAcademicGenre(AcademicGenre academicGenre) {
-        return compositionRepository.getAllByAcademicGenresIsContaining(academicGenre);
+    public List<MusicGenre> getFilteredClassicalGenres() {
+        return musicGenreRepository.findAll().stream()
+                .filter(musicGenre -> {
+                    List<Composition> compositions = getAllCompositionsByMusicGenre(musicGenre);
+                    if (musicGenre.getMusicGenreType().equals(MusicGenreType.CLASSICAL) && !compositions.isEmpty()) {
+                        musicGenre.setCount(compositions.size());
+                        return true;
+                    }
+                    return false;
+                })
+                .sorted(Comparator.comparing(MusicGenre::getCount)).collect(Collectors.toList());
     }
 
-    public List<Composition> getAllCompositionsByContemporaryGenre(ContemporaryGenre contemporaryGenre) {
-        return compositionRepository.getAllByContemporaryGenresIsContaining(contemporaryGenre);
+    public List<MusicGenre> getFilteredContemporaryGenres() {
+        return musicGenreRepository.findAll().stream()
+                .filter(musicGenre -> {
+                    List<Composition> compositions = getAllCompositionsByMusicGenre(musicGenre);
+                    if (musicGenre.getMusicGenreType().equals(MusicGenreType.CONTEMPORARY) && !compositions.isEmpty()) {
+                        musicGenre.setCount(compositions.size());
+                        return true;
+                    }
+                    return false;
+                })
+                .sorted(Comparator.comparing(MusicGenre::getCount)).collect(Collectors.toList());
     }
 
-    public List<Composition> getAllCompositionsBySOTYList(SOTYList sotyList) {
-        return compositionRepository.getAllByYearAndYearEndRankNotNull(sotyList.getYear());
+    public List<Composition> getAllCompositionsByMusicGenre(MusicGenre musicGenre) {
+        return compositionRepository.getAllByMusicGenresIsContaining(musicGenre);
+    }
+
+
+    public List<CompositionViewDTO> getAllCompositionsBySOTYList(SOTYList sotyList) {
+        return getCompositionViewDTOList(compositionRepository.getAllByYearAndYearEndRankNotNull(sotyList.getYear()))
+                .stream().sorted(Comparator.comparing(CompositionViewDTO::getYearEndRank))
+                .collect(Collectors.toList());
     }
 
     public CompositionCreateEditDTO createCompositionByDTO(CompositionCreateEditDTO compositionCreateEditDTO, Musician musician, Album album) {
@@ -112,9 +135,13 @@ public class CompositionService {
                 .albumId(composition.getAlbum() == null ? null : composition.getAlbum().getId().toString())
                 .feature(composition.getFeature())
                 .year(composition.getYear())
-                .period(composition.getPeriod())
-                .academicGenres(composition.getAcademicGenres())
-                .contemporaryGenres(composition.getContemporaryGenres())
+                .musicPeriods(composition.getMusicPeriods())
+                .classicalGenres(composition.getMusicGenres().stream()
+                        .filter(musicGenre -> musicGenre.getMusicGenreType().equals(MusicGenreType.CLASSICAL))
+                        .collect(Collectors.toList()))
+                .contemporaryGenres(composition.getMusicGenres().stream()
+                        .filter(musicGenre -> musicGenre.getMusicGenreType().equals(MusicGenreType.CONTEMPORARY))
+                        .collect(Collectors.toList()))
                 .rating(composition.getRating())
                 .yearEndRank(composition.getYearEndRank())
                 .essentialCompositionsRank(composition.getEssentialCompositionsRank())
@@ -136,9 +163,8 @@ public class CompositionService {
                 .albumTitle(composition.getAlbum() == null ? null : composition.getAlbum().getTitle())
                 .feature(composition.getFeature())
                 .year(composition.getYear())
-                .period(composition.getPeriod())
-                .academicGenres(composition.getAcademicGenres())
-                .contemporaryGenres(composition.getContemporaryGenres())
+                .musicPeriods(composition.getMusicPeriods())
+                .musicGenres(composition.getMusicGenres())
                 .rating(composition.getRating())
                 .yearEndRank(composition.getYearEndRank())
                 .essentialCompositionsRank(composition.getEssentialCompositionsRank())
@@ -177,9 +203,9 @@ public class CompositionService {
         composition.setCatalogNumber(compositionCreateEditDTO.getCatalogNumber());
         composition.setFeature(compositionCreateEditDTO.getFeature());
         composition.setYear(compositionCreateEditDTO.getYear());
-        composition.setPeriod(compositionCreateEditDTO.getPeriod());
-        composition.setAcademicGenres(compositionCreateEditDTO.getAcademicGenres());
-        composition.setContemporaryGenres(compositionCreateEditDTO.getContemporaryGenres());
+        composition.setMusicPeriods(compositionCreateEditDTO.getMusicPeriods());
+        composition.setMusicGenres(compositionCreateEditDTO.getClassicalGenres());
+        composition.getMusicGenres().addAll(compositionCreateEditDTO.getContemporaryGenres());
         composition.setRating(compositionCreateEditDTO.getRating());
         composition.setYearEndRank(compositionCreateEditDTO.getYearEndRank());
         composition.setEssentialCompositionsRank(compositionCreateEditDTO.getEssentialCompositionsRank());

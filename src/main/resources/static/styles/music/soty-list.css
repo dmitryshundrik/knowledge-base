@@ -8,10 +8,34 @@
 .table-body {
     display: flex;
     flex-direction: column;
-    padding: 10px;
     border: 1px solid gray;
+    padding: 25px 250px;
+    gap: 40px;
 }
 
 .description {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
     text-align: center;
+}
+
+.soty-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.soty-list-item {
+    text-align: center;
+}
+
+.song-title {
+    font-size: 1.4em;
+}
+
+.song-genres {
+    justify-content: center;
+    font-size: 1.0em;
 }

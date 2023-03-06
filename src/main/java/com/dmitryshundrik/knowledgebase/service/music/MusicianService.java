@@ -2,6 +2,7 @@ package com.dmitryshundrik.knowledgebase.service.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.dto.*;
+import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
 import com.dmitryshundrik.knowledgebase.service.EventService;
 import com.dmitryshundrik.knowledgebase.util.Constants;
@@ -80,9 +81,8 @@ public class MusicianService {
                 .birthDate(musician.getBirthDate())
                 .deathDate(musician.getDeathDate())
                 .birthplace(musician.getBirthplace())
-                .period(musician.getPeriod())
-                .academicGenres(musician.getAcademicGenres())
-                .contemporaryGenres(musician.getContemporaryGenres())
+                .musicPeriods(musician.getMusicPeriods())
+                .musicGenres(musician.getMusicGenres())
                 .spotifyLink(musician.getSpotifyLink())
                 .events(eventService.eventListToEventDTOList(musician.getEvents()))
                 .albums(albumService.getSortedAlbumViewDTOList(musician.getAlbums(), musician.getAlbumsSortType()))
@@ -109,9 +109,13 @@ public class MusicianService {
                 .birthDate(musician.getBirthDate())
                 .deathDate(musician.getDeathDate())
                 .birthplace(musician.getBirthplace())
-                .period(musician.getPeriod())
-                .academicGenres(musician.getAcademicGenres())
-                .contemporaryGenres(musician.getContemporaryGenres())
+                .musicPeriods(musician.getMusicPeriods())
+                .classicalGenres(musician.getMusicGenres().stream()
+                        .filter(musicGenre -> musicGenre.getMusicGenreType().equals(MusicGenreType.CLASSICAL))
+                        .collect(Collectors.toList()))
+                .contemporaryGenres(musician.getMusicGenres().stream()
+                        .filter(musicGenre -> musicGenre.getMusicGenreType().equals(MusicGenreType.CONTEMPORARY))
+                        .collect(Collectors.toList()))
                 .albumsSortType(musician.getAlbumsSortType())
                 .compositionsSortType(musician.getCompositionsSortType())
                 .spotifyLink(musician.getSpotifyLink())
@@ -144,9 +148,9 @@ public class MusicianService {
         musician.setBirthDate(musicianCreateEditDTO.getBirthDate());
         musician.setDeathDate(musicianCreateEditDTO.getDeathDate());
         musician.setBirthplace(musicianCreateEditDTO.getBirthplace());
-        musician.setPeriod(musicianCreateEditDTO.getPeriod());
-        musician.setAcademicGenres(musicianCreateEditDTO.getAcademicGenres());
-        musician.setContemporaryGenres(musicianCreateEditDTO.getContemporaryGenres());
+        musician.setMusicPeriods(musicianCreateEditDTO.getMusicPeriods());
+        musician.setMusicGenres(musicianCreateEditDTO.getClassicalGenres());
+        musician.getMusicGenres().addAll(musicianCreateEditDTO.getContemporaryGenres());
         musician.setAlbumsSortType(musicianCreateEditDTO.getAlbumsSortType());
         musician.setCompositionsSortType(musicianCreateEditDTO.getCompositionsSortType());
         musician.setSpotifyLink(musicianCreateEditDTO.getSpotifyLink());

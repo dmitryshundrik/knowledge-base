@@ -12,56 +12,63 @@
 
     <div class="table">
 
-        <div class="table-title">
+        <div class="table-header">
+
             <div class="entity-image">
                 <img th:src="|data:image;base64,${musicianViewDTO.image}|">
             </div>
+
             <div class="entity-information">
 
-                <h1 class="nick-name" th:text="${musicianViewDTO.nickName}"></h1>
+                <div class="nickname">
+                    <h1 th:text="${musicianViewDTO.nickName}"></h1>
+                </div>
 
-                <p class="period" th:if="${musicianViewDTO.period} != null">
+                <div class="period" th:if="${not #lists.isEmpty(musicianViewDTO.musicPeriods)}">
                     Период:
-                    <a th:href="'/music/period/' + ${musicianViewDTO.period.slug}">
-                        <span th:text="${musicianViewDTO.period.label}"></span>
-                    </a>
-                </p>
+                    <span th:each="period : ${musicianViewDTO.musicPeriods}">
+                        <a th:href="'/music/period/' + ${period.slug}">
+                            <span th:text="${period.title}"></span>
+                        </a>
+                    </span>
+                </div>
 
-                <p class="dates" th:if="${musicianViewDTO.born} != null">
+                <div class="dates" th:if="${musicianViewDTO.born} != null">
                     Дата рождения: <span th:text="${musicianViewDTO.born}"></span>
-                </p>
+                </div>
 
-                <p class="dates" th:if="${not #strings.isEmpty(musicianViewDTO.birthplace)}">
+                <div class="dates" th:if="${not #strings.isEmpty(musicianViewDTO.birthplace)}">
                     Место рождения: <span th:text="${musicianViewDTO.birthplace}"></span>
-                </p>
+                </div>
 
-                <p class="dates" th:if="${musicianViewDTO.died} != null">
+                <div class="dates" th:if="${musicianViewDTO.died} != null">
                     Дата смерти: <span th:text="${musicianViewDTO.died}"></span>
-                </p>
+                </div>
 
-                <p class="genre"
-                   th:if="${not #lists.isEmpty(musicianViewDTO.academicGenres)} or ${not #lists.isEmpty(musicianViewDTO.contemporaryGenres)}">
+                <div class="genre"
+                     th:if="${not #lists.isEmpty(musicianViewDTO.musicGenres)}">
                     Жанр:
-                    <span th:each="genre : ${musicianViewDTO.academicGenres}">
-                        <a th:href="'/music/academic-genre/' + ${genre.slug}">
-                            <span th:text="${genre.label}"></span>
-                        </a>
+                    <span th:each="genre : ${musicianViewDTO.musicGenres}">
+                        <a th:if="${genreStat.index + 1 < musicianViewDTO.musicGenres.size}"
+                           th:href="'/music/' + ${genre.slug}"
+                           th:text="${genre.title} + ','"></a>
                     </span>
-                    <span th:each="genre : ${musicianViewDTO.contemporaryGenres}">
-                        <a th:href="'/music/contemporary-genre/' + ${genre.slug}">
-                                <span th:text="${genre.label}"></span>
-                        </a>
+                    <span th:each="genre : ${musicianViewDTO.musicGenres}">
+                        <a th:if="${genreStat.index + 1 == musicianViewDTO.musicGenres.size}"
+                           th:href="'/music/' + ${genre.slug}"
+                           th:text="${genre.title}"></a>
                     </span>
-                </p>
+                </div>
 
-                <p class="spotify-link" th:if="${not #strings.isEmpty(musicianViewDTO.spotifyLink)}">
+                <div class="spotify-link" th:if="${not #strings.isEmpty(musicianViewDTO.spotifyLink)}">
                     Лучшие произведения: <a th:href="${musicianViewDTO.spotifyLink}"><span>слушать в Spotify</span></a>
-                </p>
-
+                </div>
             </div>
+
         </div>
 
         <div class="table-body">
+
             <div class="table-body-item events" th:if="${not #lists.isEmpty(musicianViewDTO.events)}">
                 <div class="table-body-item-title">
                     <h2>Таймлайн</h2>
@@ -95,20 +102,23 @@
                 </div>
             </div>
 
-            <div class="table-body-item all-works"
-                 th:if="${not #lists.isEmpty(musicianViewDTO.compositions)}">
+            <div class="table-body-item all-works" th:if="${not #lists.isEmpty(musicianViewDTO.compositions)}">
                 <div class="table-body-item-title">
                     <h2>Все произведения</h2>
                 </div>
                 <div class="all-works-item" th:each="composition : ${musicianViewDTO.compositions}">
+
                     <p class="item-year-index" th:text="${composition.year}"></p>
+
                     <p th:if="${not #strings.isEmpty(composition.catalogNumber)}"
                        th:text="${composition.catalogNumber}"></p>
+
                     <p th:text="${composition.title}"></p>
-                    <p class="rating"
-                       th:if="${not #lists.isEmpty(musicianViewDTO.academicGenres)}"
+
+                    <p class="rating" th:if="${composition.rating} != null"
                        th:text="${composition.rating}">
                     </p>
+
                     <p th:text="${composition.highlights}"></p>
                 </div>
             </div>
