@@ -57,7 +57,8 @@
                         <label>album</label>
                         <select th:field="*{albumId}">
                             <option th:value="null" selected>выбрать альбом</option>
-                            <option th:each="album : ${albumSelectDTOList}" th:value="${album.id}"
+                            <option th:each="album : ${albumSelectDTOList}"
+                                    th:value="${album.id}"
                                     th:text="${album.title}"></option>
                         </select>
                     </div>
@@ -67,7 +68,7 @@
                         <select th:field="*{musicPeriods}">
                             <option th:value="null" selected>выбрать период</option>
                             <option th:each="period : ${musicPeriods}"
-                                    th:value="${period}"
+                                    th:value="${period.id}"
                                     th:text="${period.title}"></option>
                         </select>
                     </div>
@@ -76,7 +77,7 @@
                         <label>classical_genres</label>
                         <select th:field="*{classicalGenres}" multiple="multiple">
                             <option th:each="genre : ${classicalGenres}"
-                                    th:value="${genre}"
+                                    th:value="${genre.id}"
                                     th:text="${genre.title}"></option>
                         </select>
                     </div>
@@ -85,7 +86,7 @@
                         <label>contemporary_genres</label>
                         <select th:field="*{contemporaryGenres}" multiple="multiple">
                             <option th:each="genre : ${contemporaryGenres}"
-                                    th:value="${genre}"
+                                    th:value="${genre.id}"
                                     th:text="${genre.title}"></option>
                         </select>
                     </div>

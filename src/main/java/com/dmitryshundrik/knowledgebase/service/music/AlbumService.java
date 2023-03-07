@@ -1,6 +1,8 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.Album;
+import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
+import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumSelectDTO;
@@ -33,6 +35,14 @@ public class AlbumService {
 
     public Album getAlbumBySlug(String slug) {
         return albumRepository.getAlbumBySlug(slug);
+    }
+
+    public List<Album> getAllAlbumsByPeriod(MusicPeriod period) {
+        return albumRepository.getAllByMusicPeriodsIsContaining(period);
+    }
+
+    public List<Album> getAllAlbumsByGenre(MusicGenre genre) {
+        return albumRepository.getAllByMusicGenresIsContaining(genre);
     }
 
     public List<Album> getAllAlbums() {

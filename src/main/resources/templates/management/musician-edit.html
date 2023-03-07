@@ -66,12 +66,11 @@
                         <input type="text" th:field="*{birthplace}" maxlength="255"/>
                     </div>
 
-                    <div class="form-item">
+                    <div class="form-item major-field">
                         <label>period</label>
-                        <select th:field="*{musicPeriods}">
-                            <option th:value="null" selected>выбрать период</option>
-                            <option th:each="period : ${periods}"
-                                    th:value="${period}"
+                        <select th:field="*{musicPeriods}" multiple="multiple">
+                            <option th:each="period : ${musicPeriods}"
+                                    th:value="${period.id}"
                                     th:text="${period.title}">
                             </option>
                         </select>
@@ -81,8 +80,8 @@
                         <label>classical_genres</label>
                         <select th:field="*{classicalGenres}" multiple="multiple">
                             <option th:each="genre : ${classicalGenres}"
-                                    th:value="${genre}"
-                                    th:text="${genre.label}">
+                                    th:value="${genre.id}"
+                                    th:text="${genre.title}">
                             </option>
                         </select>
                     </div>
@@ -91,8 +90,8 @@
                         <label>contemporary_genres</label>
                         <select th:field="*{contemporaryGenres}" multiple="multiple">
                             <option th:each="genre : ${contemporaryGenres}"
-                                    th:value="${genre}"
-                                    th:text="${genre.label}">
+                                    th:value="${genre.id}"
+                                    th:text="${genre.title}">
                             </option>
                         </select>
                     </div>

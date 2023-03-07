@@ -35,38 +35,12 @@ public class CompositionService {
         return compositionRepository.getCompositionBySlug(slug);
     }
 
-    public List<Composition> getAllCompositionsByPeriod(MusicPeriod musicPeriod) {
-        return compositionRepository.getAllByMusicPeriodsIsContaining(musicPeriod);
+    public List<Composition> getAllCompositionsByPeriod(MusicPeriod period) {
+        return compositionRepository.getAllByMusicPeriodsIsContaining(period);
     }
 
-    public List<MusicGenre> getFilteredClassicalGenres() {
-        return musicGenreRepository.findAll().stream()
-                .filter(musicGenre -> {
-                    List<Composition> compositions = getAllCompositionsByMusicGenre(musicGenre);
-                    if (musicGenre.getMusicGenreType().equals(MusicGenreType.CLASSICAL) && !compositions.isEmpty()) {
-                        musicGenre.setCount(compositions.size());
-                        return true;
-                    }
-                    return false;
-                })
-                .sorted(Comparator.comparing(MusicGenre::getCount)).collect(Collectors.toList());
-    }
-
-    public List<MusicGenre> getFilteredContemporaryGenres() {
-        return musicGenreRepository.findAll().stream()
-                .filter(musicGenre -> {
-                    List<Composition> compositions = getAllCompositionsByMusicGenre(musicGenre);
-                    if (musicGenre.getMusicGenreType().equals(MusicGenreType.CONTEMPORARY) && !compositions.isEmpty()) {
-                        musicGenre.setCount(compositions.size());
-                        return true;
-                    }
-                    return false;
-                })
-                .sorted(Comparator.comparing(MusicGenre::getCount)).collect(Collectors.toList());
-    }
-
-    public List<Composition> getAllCompositionsByMusicGenre(MusicGenre musicGenre) {
-        return compositionRepository.getAllByMusicGenresIsContaining(musicGenre);
+    public List<Composition> getAllCompositionsByGenre(MusicGenre genre) {
+        return compositionRepository.getAllByMusicGenresIsContaining(genre);
     }
 
 

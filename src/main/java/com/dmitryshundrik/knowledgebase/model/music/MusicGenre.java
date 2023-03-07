@@ -24,6 +24,7 @@ public class MusicGenre {
 
     private String titleEn;
 
+    @Enumerated(EnumType.STRING)
     private MusicGenreType musicGenreType;
 
     private Integer count;

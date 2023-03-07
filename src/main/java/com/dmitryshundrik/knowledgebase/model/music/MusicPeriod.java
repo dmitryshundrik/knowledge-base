@@ -19,7 +19,7 @@ public class MusicPeriod {
 
     private String slug;
 
-    private String titleRu;
+    private String title;
 
     private String titleEn;
 

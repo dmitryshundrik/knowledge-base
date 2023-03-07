@@ -58,7 +58,7 @@
                         <select th:field="*{musicPeriods}">
                             <option th:value="null" selected>выбрать период</option>
                             <option th:each="period : ${musicPeriods}"
-                                    th:value="${period}"
+                                    th:value="${period.id}"
                                     th:text="${period.title}">
                             </option>
                         </select>
@@ -68,7 +68,7 @@
                         <label>classical_genres</label>
                         <select th:field="*{classicalGenres}" multiple="multiple">
                             <option th:each="genre : ${classicalGenres}"
-                                    th:value="${genre}"
+                                    th:value="${genre.id}"
                                     th:text="${genre.title}">
                             </option>
                         </select>
@@ -78,7 +78,7 @@
                         <label>contemporary_genres</label>
                         <select th:field="*{contemporaryGenres}" multiple="multiple">
                             <option th:each="genre : ${contemporaryGenres}"
-                                    th:value="${genre}"
+                                    th:value="${genre.id}"
                                     th:text="${genre.title}">
                             </option>
                         </select>

@@ -1,5 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
+import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
+import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.dto.*;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
@@ -37,6 +39,14 @@ public class MusicianService {
 
     public Musician getMusicianBySlug(String slug) {
         return musicianRepository.getMusicianBySlug(slug);
+    }
+
+    public List<Musician> getAllMusiciansByPeriod(MusicPeriod period) {
+        return musicianRepository.getAllByMusicPeriodsIsContaining(period);
+    }
+
+    public List<Musician> getAllMusiciansByGenre(MusicGenre genre) {
+        return musicianRepository.getAllByMusicGenresIsContaining(genre);
     }
 
     public void createMusicianByMusicianDTO(MusicianCreateEditDTO musicianCreateEditDTO) {

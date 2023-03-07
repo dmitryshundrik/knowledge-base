@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link th:href="@{/styles/management/entity-create-edit-management.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <div th:insert="fragments/header.html"></div>
+
+    <div class="table">
+
+        <div class="table-title">
+            <h4>создать genre</h4>
+        </div>
+
+        <div class="table-body">
+            <div class="table-body-item">
+                <form class="form"
+                      th:action="${'/management/music-genre/create'}"
+                      th:method="post"
+                      th:object="${dto}">
+
+                    <div class="form-item">
+                        <label>slug</label>
+                        <input type="text" th:field="*{slug}"/>
+                    </div>
+
+                    <div class="form-item">
+                        <label>title</label>
+                        <input type="text" th:field="*{title}"/>
+                    </div>
+
+                    <div class="form-item">
+                        <label>titleEn</label>
+                        <input type="text" th:field="*{titleEn}"/>
+                    </div>
+
+                    <div class="form-item">
+                        <label>music_genre_type</label>
+                        <select th:field="*{musicGenreType}">
+                            <option th:value="null" selected>выбрать тип музыкального жанра</option>
+                            <option th:each="genreType : ${musicGenreTypes}"
+                                    th:value="${genreType}"
+                                    th:text="${genreType.label}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-item major-field">
+                        <label>description</label>
+                        <textarea th:field="*{description}"></textarea>
+                    </div>
+
+                    <input class="input-submit" type="submit" value="Создать"/>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

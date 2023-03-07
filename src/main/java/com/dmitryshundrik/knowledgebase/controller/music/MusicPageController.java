@@ -35,8 +35,8 @@ public class MusicPageController {
     public String getMusicPage(Model model) {
         model.addAttribute("SOTYLists", sotyListService.getAllSOTYLists());
         model.addAttribute("musicPeriods", musicPeriodService.getAll());
-        model.addAttribute("classicalMusicGenres", musicGenreService.getAllClassicalGenres());
-        model.addAttribute("contemporaryMusicGenres", musicGenreService.getAllContemporaryGenres());
+        model.addAttribute("classicalMusicGenres", musicGenreService.getFilteredClassicalGenres());
+        model.addAttribute("contemporaryMusicGenres", musicGenreService.getFilteredContemporaryGenres());
         return "music/music-page";
     }
 
@@ -78,7 +78,7 @@ public class MusicPageController {
     public String getClassicalGenreBySlug(@PathVariable String slug, Model model) {
         MusicGenre musicGenre = musicGenreService.getMusicGenreBySlug(slug);
         model.addAttribute("musicGenre", musicGenre);
-        model.addAttribute("compositions", compositionService.getAllCompositionsByMusicGenre(musicGenre));
+        model.addAttribute("compositions", compositionService.getAllCompositionsByGenre(musicGenre));
         return "music/genre";
     }
 
