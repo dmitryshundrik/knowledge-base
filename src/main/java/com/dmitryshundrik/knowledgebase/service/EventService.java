@@ -29,7 +29,7 @@ public class EventService {
     public Event createEventByEventDTO(EventDTO eventDTO) {
         Event event = new Event();
         event.setCreated(Instant.now());
-        setUpEventFieldsFromDTO(event, eventDTO);
+        setFieldsFromDTO(event, eventDTO);
         return eventRepository.save(event);
     }
 
@@ -65,7 +65,7 @@ public class EventService {
         return eventList.stream().map(event -> eventToEventDTO(event)).collect(Collectors.toList());
     }
 
-    private void setUpEventFieldsFromDTO(Event event, EventDTO eventDTO) {
+    private void setFieldsFromDTO(Event event, EventDTO eventDTO) {
         event.setYear(eventDTO.getYear());
         event.setDate(eventDTO.getDate());
         event.setDescription(eventDTO.getDescription());

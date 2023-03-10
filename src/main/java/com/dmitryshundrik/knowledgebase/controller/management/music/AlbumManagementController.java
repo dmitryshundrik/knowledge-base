@@ -40,9 +40,9 @@ public class AlbumManagementController {
 
     @GetMapping("/management/musician/edit/{musicianSlug}/album/create")
     public String getCreateAlbum(@PathVariable String musicianSlug, Model model) {
-        AlbumCreateEditDTO albumCreateEditDTO = new AlbumCreateEditDTO();
-        musicianService.setMusicianFieldsToAlbumDTO(albumCreateEditDTO, musicianSlug);
-        model.addAttribute("albumCreateEditDTO", albumCreateEditDTO);
+        AlbumCreateEditDTO albumDTO = new AlbumCreateEditDTO();
+        musicianService.setMusicianFieldsToAlbumDTO(albumDTO, musicianSlug);
+        model.addAttribute("albumCreateEditDTO", albumDTO);
         model.addAttribute("musicPeriods", musicPeriodService.getAll());
         model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
         model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
@@ -51,14 +51,14 @@ public class AlbumManagementController {
 
     @PostMapping("/management/musician/edit/{musicianSlug}/album/create")
     public String postCreateAlbum(@PathVariable String musicianSlug,
-                                  @Valid @ModelAttribute("albumCreateEditDTO") AlbumCreateEditDTO albumCreateEditDTO,
+                                  @Valid @ModelAttribute("albumCreateEditDTO") AlbumCreateEditDTO albumDTO,
                                   BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            musicianService.setMusicianFieldsToAlbumDTO(albumCreateEditDTO, musicianSlug);
+            musicianService.setMusicianFieldsToAlbumDTO(albumDTO, musicianSlug);
             return "management/album-create";
         }
         AlbumCreateEditDTO DTOByCreatedAlbum = albumService
-                .createAlbumByDTO(albumCreateEditDTO, musicianService.getMusicianBySlug(musicianSlug));
+                .createAlbumByDTO(albumDTO, musicianService.getMusicianBySlug(musicianSlug));
         return "redirect:/management/musician/edit/" + musicianSlug + "/album/edit/" + DTOByCreatedAlbum.getSlug();
     }
 
@@ -74,9 +74,9 @@ public class AlbumManagementController {
 
     @PutMapping("management/musician/edit/{musicianSlug}/album/edit/{albumSlug}")
     public String putEditAlbumBySlug(@PathVariable String musicianSlug, @PathVariable String albumSlug,
-                                     @ModelAttribute("albumCreateEditDTO") AlbumCreateEditDTO albumCreateEditDTO) {
-        albumService.updateExistingAlbum(albumCreateEditDTO, albumSlug);
-        return "redirect:/management/musician/edit/" + musicianSlug + "/album/edit/" + albumCreateEditDTO.getSlug();
+                                     @ModelAttribute("albumCreateEditDTO") AlbumCreateEditDTO albumDTO) {
+        albumService.updateExistingAlbum(albumDTO, albumSlug);
+        return "redirect:/management/musician/edit/" + musicianSlug + "/album/edit/" + albumDTO.getSlug();
     }
 
     @DeleteMapping("management/musician/edit/{musicianSlug}/album/delete/{albumSlug}")

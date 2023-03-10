@@ -27,16 +27,16 @@ public class SOTYListService {
         return sotyListRepository.getSOTYListBySlug(slug);
     }
 
-    public void createSOTYListbySOTYListDTO (SOTYListCreateEditDTO sotyListCreateEditDTO) {
+    public void createSOTYListbySOTYListDTO (SOTYListCreateEditDTO sotyListDTO) {
         SOTYList sotyList = new SOTYList();
         sotyList.setCreated(Instant.now());
-        setSOTYListFieldsFromDTO(sotyList, sotyListCreateEditDTO);
+        setFieldsFromDTO(sotyList, sotyListDTO);
         sotyListRepository.save(sotyList);
     }
 
-    public void updateExistingSOTYList(SOTYListCreateEditDTO sotyListCreateEditDTO, String slug) {
+    public void updateExistingSOTYList(SOTYListCreateEditDTO sotyListDTO, String slug) {
         SOTYList sotyListBySlug = getSOTYListBySlug(slug);
-        setSOTYListFieldsFromDTO(sotyListBySlug, sotyListCreateEditDTO);
+        setFieldsFromDTO(sotyListBySlug, sotyListDTO);
     }
 
     public void deleteSOTYListBySlug(String slug) {
@@ -68,11 +68,11 @@ public class SOTYListService {
                 .build();
     }
 
-    public void setSOTYListFieldsFromDTO(SOTYList sotyList, SOTYListCreateEditDTO sotyListCreateEditDTO) {
-        sotyList.setSlug(sotyListCreateEditDTO.getSlug());
-        sotyList.setTitle(sotyListCreateEditDTO.getTitle());
-        sotyList.setYear(sotyListCreateEditDTO.getYear());
-        sotyList.setDescription(sotyListCreateEditDTO.getDescription());
-        sotyList.setSpotifyLink(sotyListCreateEditDTO.getSpotifyLink());
+    public void setFieldsFromDTO(SOTYList sotyList, SOTYListCreateEditDTO sotyListDTO) {
+        sotyList.setSlug(sotyListDTO.getSlug());
+        sotyList.setTitle(sotyListDTO.getTitle());
+        sotyList.setYear(sotyListDTO.getYear());
+        sotyList.setDescription(sotyListDTO.getDescription());
+        sotyList.setSpotifyLink(sotyListDTO.getSpotifyLink());
     }
 }

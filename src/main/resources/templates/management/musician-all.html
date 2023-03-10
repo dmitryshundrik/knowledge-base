@@ -53,7 +53,6 @@
                         th:each="period : ${musician.musicPeriods}">
                         <span th:text="${period.title}"></span>
                     </td>
-
                     <td th:if="${not #lists.isEmpty(musician.musicGenres)}"
                         th:each="genre : ${musician.musicGenres}">
                         <span th:text="${genre.title}"></span>
@@ -69,6 +68,7 @@
                                    onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
                         </form>
                     </td>
+
                 </tr>
                 </tbody>
             </table>

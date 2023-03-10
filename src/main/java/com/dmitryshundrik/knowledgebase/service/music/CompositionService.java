@@ -50,12 +50,13 @@ public class CompositionService {
                 .collect(Collectors.toList());
     }
 
-    public CompositionCreateEditDTO createCompositionByDTO(CompositionCreateEditDTO compositionCreateEditDTO, Musician musician, Album album) {
+    public CompositionCreateEditDTO createCompositionByDTO(CompositionCreateEditDTO compositionDTO,
+                                                           Musician musician, Album album) {
         Composition composition = new Composition();
         composition.setCreated(Instant.now());
         composition.setMusician(musician);
         composition.setAlbum(album);
-        setCompositionFieldsFromDTO(composition, compositionCreateEditDTO);
+        setFieldsFromDTO(composition, compositionDTO);
         if (album != null) {
             album.getCompositions().add(composition);
         }
@@ -64,24 +65,24 @@ public class CompositionService {
         return getCompositionCreateEditDTO(createdComposition);
     }
 
-    public void updateExistingComposition(CompositionCreateEditDTO compositionCreateEditDTO, String slug, Album album) {
+    public void updateExistingComposition(CompositionCreateEditDTO compositionDTO, String slug, Album album) {
         Composition compositionBySlug = compositionRepository.getCompositionBySlug(slug);
         compositionBySlug.setAlbum(album);
-        setCompositionFieldsFromDTO(compositionBySlug, compositionCreateEditDTO);
+        setFieldsFromDTO(compositionBySlug, compositionDTO);
     }
 
     public void deleteCompositionBySlug(String slug) {
         compositionRepository.deleteBySlug(slug);
     }
 
-    public void updateEssentialCompositions(CompositionCreateEditDTO compositionCreateEditDTO) {
+    public void updateEssentialCompositions(CompositionCreateEditDTO compositionDTO) {
         List<Composition> sortedEssentialCompositionsList = getAllCompositions()
                 .stream().filter(composition -> composition.getEssentialCompositionsRank() != null)
                 .sorted(Comparator.comparing(Composition::getEssentialCompositionsRank))
                 .collect(Collectors.toList());
         for (int i = 0; i < sortedEssentialCompositionsList.size(); i++) {
             if (sortedEssentialCompositionsList.get(i).getEssentialCompositionsRank()
-                    .equals(compositionCreateEditDTO.getEssentialCompositionsRank())) {
+                    .equals(compositionDTO.getEssentialCompositionsRank())) {
                 for (int j = i; j < sortedEssentialCompositionsList.size(); j++) {
                     sortedEssentialCompositionsList.get(j)
                             .setEssentialCompositionsRank(sortedEssentialCompositionsList.get(j)
@@ -168,24 +169,24 @@ public class CompositionService {
                 .collect(Collectors.toList());
     }
 
-    private void setCompositionFieldsFromDTO(Composition composition, CompositionCreateEditDTO compositionCreateEditDTO) {
+    private void setFieldsFromDTO(Composition composition, CompositionCreateEditDTO compositionDTO) {
 
-        updateEssentialCompositions(compositionCreateEditDTO);
+        updateEssentialCompositions(compositionDTO);
 
-        composition.setSlug(compositionCreateEditDTO.getSlug());
-        composition.setTitle(compositionCreateEditDTO.getTitle());
-        composition.setCatalogNumber(compositionCreateEditDTO.getCatalogNumber());
-        composition.setFeature(compositionCreateEditDTO.getFeature());
-        composition.setYear(compositionCreateEditDTO.getYear());
-        composition.setMusicPeriods(compositionCreateEditDTO.getMusicPeriods());
-        composition.setMusicGenres(compositionCreateEditDTO.getClassicalGenres());
-        composition.getMusicGenres().addAll(compositionCreateEditDTO.getContemporaryGenres());
-        composition.setRating(compositionCreateEditDTO.getRating());
-        composition.setYearEndRank(compositionCreateEditDTO.getYearEndRank());
-        composition.setEssentialCompositionsRank(compositionCreateEditDTO.getEssentialCompositionsRank());
-        composition.setHighlights(compositionCreateEditDTO.getHighlights());
-        composition.setDescription(compositionCreateEditDTO.getDescription());
-        composition.setLyrics(compositionCreateEditDTO.getLyrics());
-        composition.setTranslation(compositionCreateEditDTO.getTranslation());
+        composition.setSlug(compositionDTO.getSlug());
+        composition.setTitle(compositionDTO.getTitle());
+        composition.setCatalogNumber(compositionDTO.getCatalogNumber());
+        composition.setFeature(compositionDTO.getFeature());
+        composition.setYear(compositionDTO.getYear());
+        composition.setMusicPeriods(compositionDTO.getMusicPeriods());
+        composition.setMusicGenres(compositionDTO.getClassicalGenres());
+        composition.getMusicGenres().addAll(compositionDTO.getContemporaryGenres());
+        composition.setRating(compositionDTO.getRating());
+        composition.setYearEndRank(compositionDTO.getYearEndRank());
+        composition.setEssentialCompositionsRank(compositionDTO.getEssentialCompositionsRank());
+        composition.setHighlights(compositionDTO.getHighlights());
+        composition.setDescription(compositionDTO.getDescription());
+        composition.setLyrics(compositionDTO.getLyrics());
+        composition.setTranslation(compositionDTO.getTranslation());
     }
 }

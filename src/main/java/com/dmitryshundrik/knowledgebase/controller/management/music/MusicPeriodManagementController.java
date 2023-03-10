@@ -40,8 +40,8 @@ public class MusicPeriodManagementController {
     }
 
     @PostMapping("/management/music-period/create")
-    public String postCreateMusicPeriod(@ModelAttribute("dto") MusicPeriodCreateEditDTO dto) {
-        String slug = musicPeriodService.createMusicPeriodByDTO(dto);
+    public String postCreateMusicPeriod(@ModelAttribute("dto") MusicPeriodCreateEditDTO periodDTO) {
+        String slug = musicPeriodService.createMusicPeriodByDTO(periodDTO);
         return "redirect:/management/music-period/edit/" + slug;
     }
 
@@ -53,8 +53,8 @@ public class MusicPeriodManagementController {
     }
 
     @PutMapping("management/music-period/edit/{periodSlug}")
-    public String putEditMusicPeriod(@PathVariable String periodSlug, @ModelAttribute("dto") MusicPeriodCreateEditDTO dto) {
-        String slug = musicPeriodService.updateMusicPeriod(periodSlug, dto);
+    public String putEditMusicPeriod(@PathVariable String periodSlug, @ModelAttribute("dto") MusicPeriodCreateEditDTO periodDTO) {
+        String slug = musicPeriodService.updateMusicPeriod(periodSlug, periodDTO);
         return "redirect:/management/music-period/edit/" + slug;
     }
 

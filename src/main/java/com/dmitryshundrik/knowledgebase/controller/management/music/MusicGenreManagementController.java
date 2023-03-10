@@ -43,8 +43,8 @@ public class MusicGenreManagementController {
     }
 
     @PostMapping("/management/music-genre/create")
-    public String postCreateMusicGenre(@ModelAttribute("dto") MusicGenreCreateEditDTO dto) {
-        String slug = musicGenreService.createMusicGenreByDTO(dto);
+    public String postCreateMusicGenre(@ModelAttribute("dto") MusicGenreCreateEditDTO genreDTO) {
+        String slug = musicGenreService.createMusicGenreByDTO(genreDTO);
         return "redirect:/management/music-genre/edit/" + slug;
     }
 
@@ -57,8 +57,8 @@ public class MusicGenreManagementController {
     }
 
     @PutMapping("management/music-genre/edit/{genreSlug}")
-    public String putEditMusicGenre(@PathVariable String genreSlug, @ModelAttribute("dto") MusicGenreCreateEditDTO dto) {
-        String slug = musicGenreService.updateMusicGenre(genreSlug, dto);
+    public String putEditMusicGenre(@PathVariable String genreSlug, @ModelAttribute("dto") MusicGenreCreateEditDTO genreDTO) {
+        String slug = musicGenreService.updateMusicGenre(genreSlug, genreDTO);
         return "redirect:/management/music-genre/edit/" + slug;
     }
 

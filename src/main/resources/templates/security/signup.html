@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link th:href="@{/styles/security/login-signup.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div th:insert="fragments/header.html"></div>
+
+    <div class="table">
+
+        <div class="table-title">
+            <h4>регистрация</h4>
+        </div>
+
+        <div class="table-body">
+            <form class="form" th:action="@{/signup}" th:method="post">
+
+                <div class="form-item">
+                    <input type="text" name="name">
+                </div>
+
+                <div class="form-item">
+                    <input type="text" name="username">
+                </div>
+
+                <div class="form-item">
+                    <input type="password" name="password">
+                </div>
+
+                <input class="input-submit" type="submit" value="Создать"/>
+
+            </form>
+        </div>
+
+    </div>
+
+    <div th:insert="fragments/footer.html"></div>
+
+</div>
+</body>
+</html>

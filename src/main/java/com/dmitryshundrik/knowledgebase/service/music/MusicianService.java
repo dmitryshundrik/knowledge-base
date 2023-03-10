@@ -49,17 +49,17 @@ public class MusicianService {
         return musicianRepository.getAllByMusicGenresIsContaining(genre);
     }
 
-    public void createMusicianByMusicianDTO(MusicianCreateEditDTO musicianCreateEditDTO) {
+    public void createMusicianByMusicianDTO(MusicianCreateEditDTO musicianDTO) {
         Musician musician = new Musician();
         musician.setCreated(Instant.now());
         musician.setImage(Constants.DEFAULT_PLACEHOLDER);
-        setMusicianFieldsFromDTO(musician, musicianCreateEditDTO);
+        setFieldsFromDTO(musician, musicianDTO);
         musicianRepository.save(musician);
     }
 
-    public void updateExistingMusician(MusicianCreateEditDTO musicianCreateEditDTO, String slug) {
+    public void updateExistingMusician(MusicianCreateEditDTO musicianDTO, String slug) {
         Musician musicianBySlug = getMusicianBySlug(slug);
-        setMusicianFieldsFromDTO(musicianBySlug, musicianCreateEditDTO);
+        setFieldsFromDTO(musicianBySlug, musicianDTO);
     }
 
     public void updateMusicianImageBySlug(String slug, byte[] bytes) {
@@ -136,33 +136,33 @@ public class MusicianService {
                 .build();
     }
 
-    public void setMusicianFieldsToAlbumDTO(AlbumCreateEditDTO albumCreateEditDTO, String musicianSlug) {
+    public void setMusicianFieldsToAlbumDTO(AlbumCreateEditDTO albumDTO, String musicianSlug) {
         Musician musicianBySlug = getMusicianBySlug(musicianSlug);
-        albumCreateEditDTO.setMusicianNickname(musicianBySlug.getNickName());
-        albumCreateEditDTO.setMusicianSlug(musicianBySlug.getSlug());
+        albumDTO.setMusicianNickname(musicianBySlug.getNickName());
+        albumDTO.setMusicianSlug(musicianBySlug.getSlug());
     }
 
-    public void setMusicianFieldsToCompositionDTO(CompositionCreateEditDTO compositionCreateEditDTO, String musicianSlug) {
+    public void setMusicianFieldsToCompositionDTO(CompositionCreateEditDTO compositionDTO, String musicianSlug) {
         Musician musicianBySlug = getMusicianBySlug(musicianSlug);
-        compositionCreateEditDTO.setMusicianNickname(musicianBySlug.getNickName());
-        compositionCreateEditDTO.setMusicianSlug(musicianBySlug.getSlug());
+        compositionDTO.setMusicianNickname(musicianBySlug.getNickName());
+        compositionDTO.setMusicianSlug(musicianBySlug.getSlug());
     }
 
-    private void setMusicianFieldsFromDTO(Musician musician, MusicianCreateEditDTO musicianCreateEditDTO) {
-        musician.setSlug(musicianCreateEditDTO.getSlug());
-        musician.setFirstName(musicianCreateEditDTO.getFirstName());
-        musician.setLastName(musicianCreateEditDTO.getLastName());
-        musician.setNickName(musicianCreateEditDTO.getNickName());
-        musician.setBorn(musicianCreateEditDTO.getBorn());
-        musician.setDied(musicianCreateEditDTO.getDied());
-        musician.setBirthDate(musicianCreateEditDTO.getBirthDate());
-        musician.setDeathDate(musicianCreateEditDTO.getDeathDate());
-        musician.setBirthplace(musicianCreateEditDTO.getBirthplace());
-        musician.setMusicPeriods(musicianCreateEditDTO.getMusicPeriods());
-        musician.setMusicGenres(musicianCreateEditDTO.getClassicalGenres());
-        musician.getMusicGenres().addAll(musicianCreateEditDTO.getContemporaryGenres());
-        musician.setAlbumsSortType(musicianCreateEditDTO.getAlbumsSortType());
-        musician.setCompositionsSortType(musicianCreateEditDTO.getCompositionsSortType());
-        musician.setSpotifyLink(musicianCreateEditDTO.getSpotifyLink());
+    private void setFieldsFromDTO(Musician musician, MusicianCreateEditDTO musicianDTO) {
+        musician.setSlug(musicianDTO.getSlug());
+        musician.setFirstName(musicianDTO.getFirstName());
+        musician.setLastName(musicianDTO.getLastName());
+        musician.setNickName(musicianDTO.getNickName());
+        musician.setBorn(musicianDTO.getBorn());
+        musician.setDied(musicianDTO.getDied());
+        musician.setBirthDate(musicianDTO.getBirthDate());
+        musician.setDeathDate(musicianDTO.getDeathDate());
+        musician.setBirthplace(musicianDTO.getBirthplace());
+        musician.setMusicPeriods(musicianDTO.getMusicPeriods());
+        musician.setMusicGenres(musicianDTO.getClassicalGenres());
+        musician.getMusicGenres().addAll(musicianDTO.getContemporaryGenres());
+        musician.setAlbumsSortType(musicianDTO.getAlbumsSortType());
+        musician.setCompositionsSortType(musicianDTO.getCompositionsSortType());
+        musician.setSpotifyLink(musicianDTO.getSpotifyLink());
     }
 }

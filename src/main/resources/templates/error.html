@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>дмитрий шундрик</title>
+    <title></title>
+    <link th:href="@{/styles/error.css}" rel="stylesheet">
 </head>
 <body>
-
 <div class="container">
 
     <div th:insert="fragments/header.html"></div>
@@ -13,11 +13,11 @@
     <div class="table">
 
         <div class="table-title">
-
+            <h1>Something went wrong! </h1>
         </div>
 
         <div class="table-body">
-
+            <a href="/">вернуться на главную</a>
         </div>
 
     </div>
@@ -25,6 +25,5 @@
     <div th:insert="fragments/footer.html"></div>
 
 </div>
-
 </body>
 </html>

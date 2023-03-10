@@ -53,30 +53,30 @@ public class AlbumService {
         return albumRepository.getAllByMusician(musician);
     }
 
-    public AlbumCreateEditDTO createAlbumByDTO(AlbumCreateEditDTO albumCreateEditDTO, Musician musician) {
+    public AlbumCreateEditDTO createAlbumByDTO(AlbumCreateEditDTO albumDTO, Musician musician) {
         Album album = new Album();
         album.setCreated(Instant.now());
         album.setMusician(musician);
-        setALbumFieldsFromDTO(album, albumCreateEditDTO);
+        setFieldsFromDTO(album, albumDTO);
         Album createdAlbum = albumRepository.save(album);
         createdAlbum.setSlug(createdAlbum.getSlug() + "-" + createdAlbum.getId());
         return getAlbumCreateEditDTO(createdAlbum);
     }
 
-    public void updateExistingAlbum(AlbumCreateEditDTO albumCreateEditDTO, String slug) {
+    public void updateExistingAlbum(AlbumCreateEditDTO albumDTO, String slug) {
         Album albumBySlug = getAlbumBySlug(slug);
-        setALbumFieldsFromDTO(albumBySlug, albumCreateEditDTO);
+        setFieldsFromDTO(albumBySlug, albumDTO);
     }
 
     public void deleteAlbumBySlug(String slug) {
         albumRepository.delete(getAlbumBySlug(slug));
     }
 
-    public Album preparingAlbumById(CompositionCreateEditDTO compositionCreateEditDTO) {
-        if (compositionCreateEditDTO.getAlbumId().isBlank()) {
+    public Album preparingAlbumById(CompositionCreateEditDTO compositionDTO) {
+        if (compositionDTO.getAlbumId().isBlank()) {
             return null;
         }
-        return getAlbumById(compositionCreateEditDTO.getAlbumId());
+        return getAlbumById(compositionDTO.getAlbumId());
     }
 
     public List<AlbumViewDTO> getEssentialAlbumsViewDTOList(List<Album> albumList) {
@@ -164,20 +164,20 @@ public class AlbumService {
         return albumList.stream().map(album -> getAlbumSelectDTO(album)).collect(Collectors.toList());
     }
 
-    private void setALbumFieldsFromDTO(Album album, AlbumCreateEditDTO albumCreateEditDTO) {
-        album.setSlug(albumCreateEditDTO.getSlug());
-        album.setTitle(albumCreateEditDTO.getTitle());
-        album.setCatalogNumber(albumCreateEditDTO.getCatalogNumber());
-        album.setFeature(albumCreateEditDTO.getFeature());
-        album.setYear(albumCreateEditDTO.getYear());
-        album.setMusicPeriods(albumCreateEditDTO.getMusicPeriods());
-        album.setMusicGenres(albumCreateEditDTO.getClassicalGenres());
-        album.getMusicGenres().addAll(albumCreateEditDTO.getContemporaryGenres());
-        album.setRating(albumCreateEditDTO.getRating());
-        album.setYearEndRank(albumCreateEditDTO.getYearEndRank());
-        album.setEssentialAlbumsRank(albumCreateEditDTO.getEssentialAlbumsRank());
-        album.setHighlights(albumCreateEditDTO.getHighlights());
-        album.setDescription(albumCreateEditDTO.getDescription());
+    private void setFieldsFromDTO(Album album, AlbumCreateEditDTO albumDTO) {
+        album.setSlug(albumDTO.getSlug());
+        album.setTitle(albumDTO.getTitle());
+        album.setCatalogNumber(albumDTO.getCatalogNumber());
+        album.setFeature(albumDTO.getFeature());
+        album.setYear(albumDTO.getYear());
+        album.setMusicPeriods(albumDTO.getMusicPeriods());
+        album.setMusicGenres(albumDTO.getClassicalGenres());
+        album.getMusicGenres().addAll(albumDTO.getContemporaryGenres());
+        album.setRating(albumDTO.getRating());
+        album.setYearEndRank(albumDTO.getYearEndRank());
+        album.setEssentialAlbumsRank(albumDTO.getEssentialAlbumsRank());
+        album.setHighlights(albumDTO.getHighlights());
+        album.setDescription(albumDTO.getDescription());
     }
 
 }
