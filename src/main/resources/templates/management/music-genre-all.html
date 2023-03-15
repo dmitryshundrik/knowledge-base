@@ -19,6 +19,9 @@
 
         <div class="table-body">
 
+            <div class="table-body-item-title">
+                <h4>классические жанры</h4>
+            </div>
             <div class="table-body-item">
                 <table>
                     <thead>
@@ -38,7 +41,7 @@
                         <td th:text="${genre.created}"></td>
                         <td th:text="${genre.slug}"></td>
                         <td th:text="${genre.title}"></td>
-                        <td th:text="${genre.musicGenreType}"></td>
+                        <td th:if="${genre.musicGenreType} !=  null" th:text="${genre.musicGenreType}"></td>
                         <td class="td-settings">
                             <a target="_blank" th:href="${'/management/music-genre/edit/' + genre.slug}">edit</a>
                         </td>
@@ -54,6 +57,9 @@
                 </table>
             </div>
 
+            <div class="table-body-item-title">
+                <h4>современные жанры</h4>
+            </div>
             <div class="table-body-item">
                 <table>
                     <thead>

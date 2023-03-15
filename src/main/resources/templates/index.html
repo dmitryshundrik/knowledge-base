@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>дмитрий шундрик</title>
+    <link th:href="@{/styles/index.css}" rel="stylesheet">
 </head>
 <body>
 
@@ -12,11 +13,37 @@
 
     <div class="table">
 
-        <div class="table-title">
-
-        </div>
-
         <div class="table-body">
+
+            <div class="table-body-item archive">
+                <h2 class="table-body-item-title archive-title">Архив</h2>
+                <div class="section">
+                    <h3 class="section-title">
+                        <a href="music/">Музыка</a>
+                    </h3>
+                    <div class="section-body">
+                        <div th:each="SOTYList : ${SOTYLists}">
+                            <a th:text="${SOTYList.title}" th:href="'/music/lists-and-charts/' + ${SOTYList.slug}"></a>
+                        </div>
+                        <a href="/music/musician/all">Все музыканты</a>
+                        <a href="/music/album/all">Все альбомы</a>
+                        <a href="/music/timeline-of-music">Краткая история музыки</a>
+                    </div>
+                </div>
+                <div class="section">
+                    <h3 class="section-title">
+                        <a href="music/gastronomy-page.html">Гастрономия</a>
+                    </h3>
+                    <div class="section-body">
+                        <a href="#">Рецепты</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-body-item latest">
+                <h2 class="table-body-item-title latest-title">Последнее</h2>
+
+            </div>
 
         </div>
 

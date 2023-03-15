@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${musicPeriod.title}"></title>
+    <link th:href="@{/styles/music/genre-period.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <div th:insert="fragments/header.html"></div>
+
+    <div class="table">
+
+        <div class="table-title">
+            <h3 th:text="${musicPeriod.title}"></h3>
+        </div>
+
+        <div class="table-body">
+            <div class="table-body-item">
+                <div class="table-body-item-row" th:each="album : ${albums}">
+                    <span class="table-body-item-col" th:text="${album.rating}"></span>
+                    <span class="table-body-item-col" th:text="${album.year}"></span>
+                    <span class="table-body-item-col" th:text="${album.title}"></span>
+                    <span class="table-body-item-col" th:text="${album.musicianNickname}"></span>
+                </div>
+            </div>
+
+            <div class="table-body-item">
+                <div class="table-body-item-row" th:each="composition : ${compositions}">
+                    <span class="table-body-item-col" th:text="${composition.rating}"></span>
+                    <span class="table-body-item-col" th:text="${composition.year}"></span>
+                    <span class="table-body-item-col" th:text="${composition.title}"></span>
+                    <span class="table-body-item-col" th:text="${composition.musicianNickname}"></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div th:insert="fragments/footer.html"></div>
+
+</div>
+</body>
+</html>

@@ -17,9 +17,14 @@
     padding: 30px 0;
 }
 
+.table-body-item-title {
+    text-align: center;
+}
+
 th, td {
     text-align: center;
 }
+
 .td-settings {
     padding: 0 15px;
 }

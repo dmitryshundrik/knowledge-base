@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -159,8 +160,12 @@ public class MusicianService {
         musician.setDeathDate(musicianDTO.getDeathDate());
         musician.setBirthplace(musicianDTO.getBirthplace());
         musician.setMusicPeriods(musicianDTO.getMusicPeriods());
-        musician.setMusicGenres(musicianDTO.getClassicalGenres());
-        musician.getMusicGenres().addAll(musicianDTO.getContemporaryGenres());
+
+        List<MusicGenre> musicGenres = new ArrayList<>();
+        musicGenres.addAll(musicianDTO.getClassicalGenres());
+        musicGenres.addAll(musicianDTO.getContemporaryGenres());
+
+        musician.setMusicGenres(musicGenres);
         musician.setAlbumsSortType(musicianDTO.getAlbumsSortType());
         musician.setCompositionsSortType(musicianDTO.getCompositionsSortType());
         musician.setSpotifyLink(musicianDTO.getSpotifyLink());

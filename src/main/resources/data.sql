@@ -100,6 +100,17 @@ VALUES ('112C8DD8-346B-426E-B06C-02BBA97DCD00', 'WAP', 'WAP', '112C8DD8-346B-426
         '& Proper Villains', 2020, 19),
        ('112C8DD8-346B-426E-B06C-02BBA97DCD19', 'sum-bout-u', 'Sum Bout U', '112C8DD8-346B-426E-B06C-01BBA97DCD19',
         '(feat. FKA twigs)', 2020, 20);
+
+INSERT INTO musicgenres (id, slug, title, music_genre_type)
+VALUES ('112C8DD8-346B-426E-B06C-03BBA97DCD00', 'rap', 'Rap', 'CONTEMPORARY'),
+       ('112C8DD8-346B-426E-B06C-03BBA97DCD01', 'pop', 'Pop', 'CONTEMPORARY'),
+       ('112C8DD8-346B-426E-B06C-03BBA97DCD02', 'rock', 'Rock', 'CONTEMPORARY'),
+       ('112C8DD8-346B-426E-B06C-03BBA97DCD03', 'jazz', 'Jazz', 'CONTEMPORARY');
+
+INSERT INTO musicperiods(id, slug, title)
+VALUES ('112C8DD8-346B-426E-B06C-04BBA97DCD00', 'renaissance', 'Возрождение'),
+       ('112C8DD8-346B-426E-B06C-04BBA97DCD01', 'baroque', 'Барокко'),
+       ('112C8DD8-346B-426E-B06C-04BBA97DCD02', 'classic', 'Классицизм');
 --
 -- INSERT INTO composition_genres (composition_id, genres)
 -- VALUES (1, 'RAP'),

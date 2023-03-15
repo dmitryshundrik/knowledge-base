@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -179,8 +180,12 @@ public class CompositionService {
         composition.setFeature(compositionDTO.getFeature());
         composition.setYear(compositionDTO.getYear());
         composition.setMusicPeriods(compositionDTO.getMusicPeriods());
-        composition.setMusicGenres(compositionDTO.getClassicalGenres());
-        composition.getMusicGenres().addAll(compositionDTO.getContemporaryGenres());
+
+        List<MusicGenre> musicGenres = new ArrayList<>();
+        musicGenres.addAll(compositionDTO.getClassicalGenres());
+        musicGenres.addAll(compositionDTO.getContemporaryGenres());
+
+        composition.setMusicGenres(musicGenres);
         composition.setRating(compositionDTO.getRating());
         composition.setYearEndRank(compositionDTO.getYearEndRank());
         composition.setEssentialCompositionsRank(compositionDTO.getEssentialCompositionsRank());

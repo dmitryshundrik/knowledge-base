@@ -44,10 +44,10 @@ public class Musician {
 
     private String birthplace;
 
-    @OneToMany
+    @ManyToMany
     private List<MusicPeriod> musicPeriods;
 
-    @OneToMany
+    @ManyToMany
     private List<MusicGenre> musicGenres;
 
     @Enumerated(EnumType.STRING)

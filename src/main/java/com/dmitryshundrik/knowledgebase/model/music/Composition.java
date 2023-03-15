@@ -33,10 +33,10 @@ public class Composition {
     @ManyToOne
     private Album album;
 
-    @OneToMany
+    @ManyToMany
     private List<MusicPeriod> musicPeriods;
 
-    @OneToMany
+    @ManyToMany
     private List<MusicGenre> musicGenres;
 
     private Double rating;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Все музыканты</title>
-    <link th:href="@{/styles/music/musician-all.css}" rel="stylesheet">
+    <link th:href="@{/styles/music/entity-all.css}" rel="stylesheet">
 </head>
 <body>
 <div class="container">
@@ -17,41 +17,21 @@
         </div>
 
         <div class="table-body">
-            <table>
-                <thead>
-                <tr>
-                    <th>год рождения</th>
-                    <th>период</th>
-                    <th>псевдоним</th>
-                    <th>жанры</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="musician : ${musicians}">
-
-                    <td th:text="${musician.born}"></td>
-
-                    <td th:if="${not #lists.isEmpty(musician.musicPeriods)}">
-                        <span th:each="period : ${musician.musicPeriods}">
-                            <p th:text="${period.title}"></p>
-                        </span>
-                    </td>
-
-                    <td>
-                        <a th:href="${'/music/musician/' + musician.slug}">
-                            <p th:text="${musician.nickName}"></p>
-                        </a>
-                    </td>
-
-                    <td th:if="${not #lists.isEmpty(musician.musicGenres)}">
-                        <span th:each="genre : ${musician.musicGenres}">
-                            <p th:text="${genre.title}"></p>
-                        </span>
-                    </td>
-
-                </tr>
-                </tbody>
-            </table>
+            <div class="table-body-item">
+                <div class="table-body-item-row" th:each="musician : ${musicians}">
+                    <span class="table-body-item-col" th:text="${musician.born}"></span>
+                    <span class="table-body-item-col" th:text="${musician.nickName}"></span>
+                    <span class="table-body-item-col" th:text="${musician.birthplace}"></span>
+                    <span th:each="genre : ${musician.musicGenres}">
+                            <span th:if="${genreStat.index + 1  < musician.musicGenres.size}"
+                                  th:text="${genre.title} + ','">
+                            </span>
+                            <span th:if="${genreStat.index + 1  == musician.musicGenres.size}"
+                                  th:text="${genre.title}">d
+                            </span>
+                    </span>
+                </div>
+            </div>
         </div>
 
     </div>

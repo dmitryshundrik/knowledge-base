@@ -14,27 +14,31 @@
     <div class="table">
 
         <div class="table-title">
-            <h2 th:text="${SOTYList.title}"></h2>
+            <h3 th:text="${SOTYList.title}"></h3>
+            <div class="table-title-description">
+                <p th:text="${SOTYList.description}"></p>
+                <a th:href="${SOTYList.spotifyLink}" target="_blank">Слушать в Spotify</a>
+            </div>
         </div>
 
         <div class="table-body">
-            <div class="table-body-item description">
-                <p th:text="${SOTYList.description}"></p>
-                <a th:href="${SOTYList.spotifyLink}" target="_blank">
-                    <p>Слушать в Spotify</p>
-                </a>
-            </div>
-
-            <div class="table-body-item soty-list">
-                <div class="soty-list-item" th:each="composition : ${compositions}">
+            <div class="table-body-item">
+                <div class="table-body-item-row" th:each="composition : ${compositions}">
                     <div class="song-title">
                         <span th:text="${compositionStat.index + 1} + '.'"></span>
-                        <span th:text="${composition.musicianNickname + ' - ' + composition.title + ' ' + composition.feature}"></span>
+                        <span th:text="${composition.musicianNickname}"></span>
+                        <span> - </span>
+                        <span th:text="${composition.title}"></span>
+                        <span th:text="${composition.feature}"></span>
                     </div>
                     <div class="song-genres">
                         <span th:each="genre : ${composition.musicGenres}">
-                            <span th:if="${genreStat.index + 1  < composition.genre.size}"
-                                  th:text="${genre.label} + ','"></span>
+                            <span th:if="${genreStat.index + 1  < composition.musicGenres.size}"
+                                  th:text="${genre.title} + ','">
+                            </span>
+                            <span th:if="${genreStat.index + 1  == composition.musicGenres.size}"
+                                  th:text="${genre.title}">d
+                            </span>
                         </span>
                     </div>
                 </div>

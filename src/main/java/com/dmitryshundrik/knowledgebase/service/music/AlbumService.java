@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
@@ -171,8 +172,12 @@ public class AlbumService {
         album.setFeature(albumDTO.getFeature());
         album.setYear(albumDTO.getYear());
         album.setMusicPeriods(albumDTO.getMusicPeriods());
-        album.setMusicGenres(albumDTO.getClassicalGenres());
-        album.getMusicGenres().addAll(albumDTO.getContemporaryGenres());
+
+        List<MusicGenre> musicGenres = new ArrayList<>();
+        musicGenres.addAll(albumDTO.getClassicalGenres());
+        musicGenres.addAll(albumDTO.getContemporaryGenres());
+
+        album.setMusicGenres(musicGenres);
         album.setRating(albumDTO.getRating());
         album.setYearEndRank(albumDTO.getYearEndRank());
         album.setEssentialAlbumsRank(albumDTO.getEssentialAlbumsRank());

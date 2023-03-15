@@ -1,0 +1,45 @@
+
+.table-body {
+    display: flex;
+    flex-direction: row;
+    padding: 40px 100px;
+    justify-content: space-around;
+}
+
+.table-body-item {
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+}
+
+.table-body-item-title {
+    padding-bottom: 5px;
+    border-bottom: 1px solid gray;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    padding: 25px 0;
+    gap: 10px;
+    font-size: 17px;
+}
+
+.section-title {
+
+}
+
+.section-body {
+    display: flex;
+    flex-direction: column;
+    padding-left: 40px;
+    gap: 5px;
+}
+
+.archive-title {
+    text-align: left;
+}
+
+.latest-title {
+    text-align: right;
+}

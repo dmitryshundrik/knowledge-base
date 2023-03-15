@@ -1,9 +1,6 @@
 package com.dmitryshundrik.knowledgebase.controller.music;
 
-import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
-import com.dmitryshundrik.knowledgebase.model.music.Musician;
-import com.dmitryshundrik.knowledgebase.model.music.SOTYList;
+import com.dmitryshundrik.knowledgebase.model.music.*;
 import com.dmitryshundrik.knowledgebase.service.music.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,12 +9,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/music")
 public class MusicPageController {
 
     @Autowired
     private MusicianService musicianService;
+
+    @Autowired
+    private AlbumService albumService;
 
     @Autowired
     private CompositionService compositionService;
@@ -55,8 +57,16 @@ public class MusicPageController {
 
     @GetMapping("/musician/all")
     public String getAllMusicians(Model model) {
-        model.addAttribute("musicians", musicianService.getAllMusicians());
+        List<Musician> allMusicians = musicianService.getAllMusicians();
+        model.addAttribute("musicians", musicianService.getMusicianViewDTOList(allMusicians));
         return "music/musician-all";
+    }
+
+    @GetMapping("/album/all")
+    public String getAllAlbums(Model model) {
+        List<Album> allAlbums = albumService.getAllAlbums();
+        model.addAttribute("albums", albumService.getAlbumViewDTOList(allAlbums));
+        return "music/album-all";
     }
 
     @GetMapping("/musician/{slug}")
@@ -69,17 +79,23 @@ public class MusicPageController {
     @GetMapping("/period/{slug}")
     public String getPeriodBySlug(@PathVariable String slug, Model model) {
         MusicPeriod musicPeriod = musicPeriodService.getMusicPeriodBySlug(slug);
+        List<Album> allAlbumsByPeriod = albumService.getAllAlbumsByPeriod(musicPeriod);
+        List<Composition> allCompositionsByPeriod = compositionService.getAllCompositionsByPeriod(musicPeriod);
         model.addAttribute("musicPeriod", musicPeriod);
-        model.addAttribute("compostitions", compositionService.getAllCompositionsByPeriod(musicPeriod));
-        return "music/period";
+        model.addAttribute("albums", albumService.getAlbumViewDTOList(allAlbumsByPeriod));
+        model.addAttribute("compostitions", compositionService.getCompositionViewDTOList(allCompositionsByPeriod));
+        return "music/music-period";
     }
 
     @GetMapping("/genre/{slug}")
     public String getClassicalGenreBySlug(@PathVariable String slug, Model model) {
         MusicGenre musicGenre = musicGenreService.getMusicGenreBySlug(slug);
+        List<Album> allAlbumsByGenre = albumService.getAllAlbumsByGenre(musicGenre);
+        List<Composition> allCompositionsByGenre = compositionService.getAllCompositionsByGenre(musicGenre);
         model.addAttribute("musicGenre", musicGenre);
-        model.addAttribute("compositions", compositionService.getAllCompositionsByGenre(musicGenre));
-        return "music/genre";
+        model.addAttribute("albums", albumService.getAlbumViewDTOList(allAlbumsByGenre));
+        model.addAttribute("compositions", compositionService.getCompositionViewDTOList(allCompositionsByGenre));
+        return "music/music-genre";
     }
 
 }

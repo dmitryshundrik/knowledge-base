@@ -33,10 +33,10 @@ public class Album {
 
     private Integer year;
 
-    @OneToMany
+    @ManyToMany
     private List<MusicPeriod> musicPeriods;
 
-    @OneToMany
+    @ManyToMany
     private List<MusicGenre> musicGenres;
 
     private Double rating;

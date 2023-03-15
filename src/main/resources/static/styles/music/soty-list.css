@@ -1,41 +1,28 @@
 
 .table-title {
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding: 30px 200px;
     text-align: center;
+}
+
+.table-title-description {
+    padding-top: 15px;
 }
 
 .table-body {
     display: flex;
     flex-direction: column;
+    padding: 10px 200px;
     border: 1px solid gray;
-    padding: 25px 250px;
-    gap: 40px;
 }
 
-.description {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    text-align: center;
-}
-
-.soty-list {
+.table-body-item-row {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
-}
-
-.soty-list-item {
-    text-align: center;
-}
-
-.song-title {
-    font-size: 1.4em;
+    margin: 20px 0px;
 }
 
 .song-genres {
-    justify-content: center;
-    font-size: 1.0em;
+    margin: 5px 0;
+    font-style: italic;
 }
