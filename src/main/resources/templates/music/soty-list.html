@@ -16,7 +16,7 @@
         <div class="table-title">
             <h3 th:text="${SOTYList.title}"></h3>
             <div class="table-title-description">
-                <p th:text="${SOTYList.description}"></p>
+                <span th:text="${SOTYList.description}"></span>
                 <a th:href="${SOTYList.spotifyLink}" target="_blank">Слушать в Spotify</a>
             </div>
         </div>
@@ -34,7 +34,7 @@
                     <div class="song-genres">
                         <span th:each="genre : ${composition.musicGenres}">
                             <span th:if="${genreStat.index + 1  < composition.musicGenres.size}"
-                                  th:text="${genre.title} + ','">
+                                  th:text="${genre.title} + ', '">
                             </span>
                             <span th:if="${genreStat.index + 1  == composition.musicGenres.size}"
                                   th:text="${genre.title}">d

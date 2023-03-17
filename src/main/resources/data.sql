@@ -12,122 +12,73 @@ VALUES ('112C8DD8-346B-426E-B06C-00BBA97DCD00', 'best-songs-2020', '20 лучш�
                     Гейма от Diamanda Galás и другие.',
         'https://open.spotify.com/playlist/01Zvl7BwHNnnkqrmURAx1R?si=b255595d03384698');
 
-INSERT INTO musicians (id, slug, first_name, last_name, nick_name, birth_date, image)
-VALUES ('112C8DD8-346B-426E-B06C-01BBA97DCD00', 'cardi-b', 'Belcalis Marlenis', 'Almánzar', 'Cardi B', '1992-10-11',
-        '/images/cardi-b-img.png'),
+INSERT INTO musicians (id, slug, first_name, last_name, nick_name, born, birthplace)
+VALUES ('112C8DD8-346B-426E-B06C-01BBA97DCD00', 'cardi-b', 'Belcalis Marlenis', 'Almánzar', 'Cardi B', 1992,
+        'Нью-Йорк, США'),
        ('112C8DD8-346B-426E-B06C-01BBA97DCD01', 'perfume-genius', 'Michael Alden', 'Hadreas', 'Perfume Genius',
-        '1981-09-25',
-        '/images/cardi-b-img.png'),
-       ('112C8DD8-346B-426E-B06C-01BBA97DCD02', 'the-chicks', 'none', 'none', 'The Chicks', '2020-01-01',
-        '/images/cardi-b-img.png'),
-       ('112C8DD8-346B-426E-B06C-01BBA97DCD03', 'adrianne-lenker', 'Adrianne', 'Lenker', 'Adrianne Lenker',
-        '2020-01-01',
-        '/images/cardi-b-img.png'),
-       ('112C8DD8-346B-426E-B06C-01BBA97DCD04', 'arca', 'none', 'none', 'Arca', '2020-01-01',
-        '../images/cardi-b-img.png'),
-       ('112C8DD8-346B-426E-B06C-01BBA97DCD05', 'kelly-lee-owens', 'Kelly', 'Lee-Owens', 'Kelly Lee Owens',
-        '2020-01-01',
-        '../images/cardi-b-img.png'),
-       ('112C8DD8-346B-426E-B06C-01BBA97DCD06', 'jessie-ware', 'Jessie', 'Ware', 'Jessie Ware', '2020-01-01',
-        '../images/cardi-b-img.png'),
-       ('112C8DD8-346B-426E-B06C-01BBA97DCD07', 'phoebe-bridgers', 'Phoebe', 'Bridgers', 'Phoebe Bridgers',
-        '2020-01-01',
-        '../images/cardi-b-img.png'),
-       ('112C8DD8-346B-426E-B06C-01BBA97DCD08', 'dua-lipa', 'Dua', 'Lipa', 'Dua Lipa', '2020-01-01',
-        '../images/cardi-b-img.png'),
-       ('112C8DD8-346B-426E-B06C-01BBA97DCD09', 'charli-xcx', 'none', 'none', 'Charli XCX', '2020-01-01',
-        '../images/cardi-b-img.png'),
-       ('112C8DD8-346B-426E-B06C-01BBA97DCD10', 'megan-thee-stallion', 'none', 'none', 'Megan Thee Stallion',
-        '2020-01-01',
-        '../images/cardi-b-img.png'),
-       ('112C8DD8-346B-426E-B06C-01BBA97DCD11', 'laura-marling', 'Laura', 'Marling', 'Laura Marling', '2020-01-01',
-        '../images/cardi-b-img.png'),
-       ('112C8DD8-346B-426E-B06C-01BBA97DCD12', 'waxahatchee', 'none', 'none', 'Waxahatchee', '2020-01-01',
-        '../images/cardi-b-img.png'),
-       ('112C8DD8-346B-426E-B06C-01BBA97DCD13', 'dorian-electra', 'none', 'none', 'Dorian Electra', '2020-01-01',
-        '../images/cardi-b-img.png'),
-       ('112C8DD8-346B-426E-B06C-01BBA97DCD14', 'róisín-murphy', 'Róisín', 'Murphy', 'Róisín Murphy', '2020-01-01',
-        '../images/cardi-b-img.png'),
-       ('112C8DD8-346B-426E-B06C-01BBA97DCD15', 'harry-styles', 'Harry', 'Styles', 'Harry Styles', '2020-01-01',
-        '../images/cardi-b-img.png'),
-       ('112C8DD8-346B-426E-B06C-01BBA97DCD16', 'run-the-jewels', 'none', 'none', 'Run The Jewels', '2020-01-01',
-        '../images/cardi-b-img.png'),
-       ('112C8DD8-346B-426E-B06C-01BBA97DCD17', 'bruce-springsteen', 'Bruce', 'Springsteen', 'Bruce Springsteen',
-        '2020-01-01',
-        '../images/cardi-b-img.png'),
-       ('112C8DD8-346B-426E-B06C-01BBA97DCD18', 'cakes-da-killa', 'none', 'none', 'Cakes Da Killa', '2020-01-01',
-        '../images/cardi-b-img.png'),
-       ('112C8DD8-346B-426E-B06C-01BBA97DCD19', '645AR', 'none', 'none', '645AR', '2020-01-01',
-        '../images/cardi-b-img.png');
---
---
-INSERT INTO compositions (id, slug, title, musician_id, feature, "year", year_end_rank)
---      Top 2020
-VALUES ('112C8DD8-346B-426E-B06C-02BBA97DCD00', 'WAP', 'WAP', '112C8DD8-346B-426E-B06C-01BBA97DCD00',
-        '(feat. Megan Thee Stallion)', 2020, 1),
-       ('112C8DD8-346B-426E-B06C-02BBA97DCD01', 'describe', 'Describe', '112C8DD8-346B-426E-B06C-01BBA97DCD01', '',
-        2020, 2),
-       ('112C8DD8-346B-426E-B06C-02BBA97DCD02', 'gaslighter', 'Gaslighter', '112C8DD8-346B-426E-B06C-01BBA97DCD02', '',
-        2020, 3),
-       ('112C8DD8-346B-426E-B06C-02BBA97DCD03', 'anything', 'Anything', '112C8DD8-346B-426E-B06C-01BBA97DCD03', '',
-        2020, 4),
-       ('112C8DD8-346B-426E-B06C-02BBA97DCD04', 'time', 'Time', '112C8DD8-346B-426E-B06C-01BBA97DCD04', '', 2020, 5),
-       ('112C8DD8-346B-426E-B06C-02BBA97DCD05', 'melt!', 'Melt!', '112C8DD8-346B-426E-B06C-01BBA97DCD05', '', 2020, 6),
-       ('112C8DD8-346B-426E-B06C-02BBA97DCD06', 'spotlight', 'Spotlight', '112C8DD8-346B-426E-B06C-01BBA97DCD06', '',
-        2020, 7),
-       ('112C8DD8-346B-426E-B06C-02BBA97DCD07', 'garden-song', 'Garden Song', '112C8DD8-346B-426E-B06C-01BBA97DCD07',
-        '', 2020, 8),
-       ('112C8DD8-346B-426E-B06C-02BBA97DCD08', 'break-my-heart', 'Break My Heart',
-        '112C8DD8-346B-426E-B06C-01BBA97DCD08', '', 2020, 9),
-       ('112C8DD8-346B-426E-B06C-02BBA97DCD09', 'claws', 'Claws', '112C8DD8-346B-426E-B06C-01BBA97DCD09', '', 2020, 10),
-       ('112C8DD8-346B-426E-B06C-02BBA97DCD10', 'savage-remix', 'Savage Remix', '112C8DD8-346B-426E-B06C-01BBA97DCD10',
-        '(feat. Beyoncé)', 2020, 11),
-       ('112C8DD8-346B-426E-B06C-02BBA97DCD11', 'held-down', 'Held Down', '112C8DD8-346B-426E-B06C-01BBA97DCD11', '',
-        2020, 12),
-       ('112C8DD8-346B-426E-B06C-02BBA97DCD12', 'lilacs', 'Lilacs', '112C8DD8-346B-426E-B06C-01BBA97DCD12', '', 2020,
-        13),
-       ('112C8DD8-346B-426E-B06C-02BBA97DCD13', 'edgelord', 'Edgelord', '112C8DD8-346B-426E-B06C-01BBA97DCD13',
-        '(feat. Rebecca Black)', 2020, 14),
-       ('112C8DD8-346B-426E-B06C-02BBA97DCD14', 'simulation', 'Simulation', '112C8DD8-346B-426E-B06C-01BBA97DCD14', '',
-        2020, 15),
-       ('112C8DD8-346B-426E-B06C-02BBA97DCD15', 'watermelon-sugar', 'Watermelon Sugar',
-        '112C8DD8-346B-426E-B06C-01BBA97DCD15', '(feat. 2 Chainz)', 2020, 16),
-       ('112C8DD8-346B-426E-B06C-02BBA97DCD16', 'out-of-sight', 'Out Of Sight', '112C8DD8-346B-426E-B06C-01BBA97DCD16',
-        '', 2020, 17),
-       ('112C8DD8-346B-426E-B06C-02BBA97DCD17', 'the-power-of-prayer', 'The Power Of Prayer',
-        '112C8DD8-346B-426E-B06C-01BBA97DCD17', '', 2020, 18),
-       ('112C8DD8-346B-426E-B06C-02BBA97DCD18', 'don-dada', 'Don Dada', '112C8DD8-346B-426E-B06C-01BBA97DCD18',
-        '& Proper Villains', 2020, 19),
-       ('112C8DD8-346B-426E-B06C-02BBA97DCD19', 'sum-bout-u', 'Sum Bout U', '112C8DD8-346B-426E-B06C-01BBA97DCD19',
-        '(feat. FKA twigs)', 2020, 20);
+        1985, 'Де-Мойн, США'),
+       ('112C8DD8-346B-426E-B06C-01BBA97DCD02', 'the-chicks', '', '', 'The Chicks', 1989, ''),
+       ('112C8DD8-346B-426E-B06C-01BBA97DCD03', 'johann-sebastian-bach', 'Johann Sebastian', 'Bach',
+        'Иоганн Себастьян Бах', 1685, 'Эйзенах, Тюрингия');
 
-INSERT INTO musicgenres (id, slug, title, music_genre_type)
-VALUES ('112C8DD8-346B-426E-B06C-03BBA97DCD00', 'rap', 'Rap', 'CONTEMPORARY'),
-       ('112C8DD8-346B-426E-B06C-03BBA97DCD01', 'pop', 'Pop', 'CONTEMPORARY'),
-       ('112C8DD8-346B-426E-B06C-03BBA97DCD02', 'rock', 'Rock', 'CONTEMPORARY'),
-       ('112C8DD8-346B-426E-B06C-03BBA97DCD03', 'jazz', 'Jazz', 'CONTEMPORARY');
+INSERT INTO albums (id, slug, title, musician_id, "year", rating)
+VALUES ('112C8DD8-346B-426E-B06C-05BBA97DCD00', 'invasion-in-privacy', 'Invasion In Privacy',
+        '112C8DD8-346B-426E-B06C-01BBA97DCD00', 2017, 7.5),
+       ('112C8DD8-346B-426E-B06C-05BBA97DCD01', 'set-my-heart-on-fire-immediately', 'Set My Heart On Fire Immediately',
+        '112C8DD8-346B-426E-B06C-01BBA97DCD01', 2020, 8.0),
+       ('112C8DD8-346B-426E-B06C-05BBA97DCD02', 'gaslighter', 'Gaslighter',
+        '112C8DD8-346B-426E-B06C-01BBA97DCD02', 2020, 4.0),
+       ('112C8DD8-346B-426E-B06C-05BBA97DCD03', 'cb2', 'CB2',
+        '112C8DD8-346B-426E-B06C-01BBA97DCD00', 2023, 7.0);
+
+INSERT INTO compositions (id, slug, title, musician_id, "year", year_end_rank, catalog_number, rating)
+VALUES ('112C8DD8-346B-426E-B06C-02BBA97DCD00', 'wap', 'WAP', '112C8DD8-346B-426E-B06C-01BBA97DCD00',
+        2020, 1, '', 8),
+       ('112C8DD8-346B-426E-B06C-02BBA97DCD01', 'describe', 'Describe', '112C8DD8-346B-426E-B06C-01BBA97DCD01',
+        2020, 2, '', 8),
+       ('112C8DD8-346B-426E-B06C-02BBA97DCD02', 'gaslighter', 'Gaslighter', '112C8DD8-346B-426E-B06C-01BBA97DCD02',
+        2020, 3, '', 7.5),
+       ('112C8DD8-346B-426E-B06C-02BBA97DCD03', 'brandenburg-concerto-number-1-BWV1046',
+        'Концерт № 1 фа мажор',
+        '112C8DD8-346B-426E-B06C-01BBA97DCD03', 1712, 0, 'BWV1047', 9.0),
+       ('112C8DD8-346B-426E-B06C-02BBA97DCD04', 'brandenburg-concerto-number-2-BWV1047',
+        'Концерт № 2 фа мажор',
+        '112C8DD8-346B-426E-B06C-01BBA97DCD03', 1715, 0, 'BWV1043', 8.0),
+       ('112C8DD8-346B-426E-B06C-02BBA97DCD05', 'brandenburg-concerto-number-5-BWV1052',
+        'Концерт № 5 ре мажор',
+        '112C8DD8-346B-426E-B06C-01BBA97DCD03', 1716, 0, 'BWV1041', 9.5),
+       ('112C8DD8-346B-426E-B06C-02BBA97DCD06', 'bodak-yellow', 'Bodak Yellow', '112C8DD8-346B-426E-B06C-01BBA97DCD00',
+        2017, 1, '', 8);
 
 INSERT INTO musicperiods(id, slug, title)
 VALUES ('112C8DD8-346B-426E-B06C-04BBA97DCD00', 'renaissance', 'Возрождение'),
        ('112C8DD8-346B-426E-B06C-04BBA97DCD01', 'baroque', 'Барокко'),
        ('112C8DD8-346B-426E-B06C-04BBA97DCD02', 'classic', 'Классицизм');
---
--- INSERT INTO composition_genres (composition_id, genres)
--- VALUES (1, 'RAP'),
---        (1, 'HIP_HOP'),
---        (2, 'ROCK'),
---        (2, 'SHOEGASE');
---
--- INSERT INTO events (id, "year", description)
--- VALUES (1, 2020, 'This application has no explicit mapping for error, so you are seeing this as a fallback.'),
---        (2, 2022, 'This application has no explicit mapping for error, so you are seeing this as a fallback.');
---
--- INSERT INTO musicians_events(musician_id, events_id)
--- VALUES (1, 1),
---        (1, 2);
---
--- INSERT INTO timelines (id, "type", title)
--- VALUES (1, 'MUSIC', 'Краткая история музыки');
---
--- INSERT INTO timelines_events (timeline_id, events_id)
--- VALUES (1, 1);
+
+INSERT INTO musicgenres (id, slug, title, music_genre_type)
+VALUES ('112C8DD8-346B-426E-B06C-03BBA97DCD00', 'hip-hop-rap', 'Хип-хоп/Рэп', 'CONTEMPORARY'),
+       ('112C8DD8-346B-426E-B06C-03BBA97DCD01', 'pop', 'Поп', 'CONTEMPORARY'),
+       ('112C8DD8-346B-426E-B06C-03BBA97DCD02', 'rock', 'Рок', 'CONTEMPORARY'),
+       ('112C8DD8-346B-426E-B06C-03BBA97DCD03', 'country', 'Кантри', 'CONTEMPORARY'),
+       ('112C8DD8-346B-426E-B06C-03BBA97DCD04', 'concerto', 'Оркестровый концерт', 'CLASSICAL');
+
+
+INSERT INTO musicians_music_genres(musician_id, music_genres_id)
+VALUES ('112C8DD8-346B-426E-B06C-01BBA97DCD00', '112C8DD8-346B-426E-B06C-03BBA97DCD00'),
+       ('112C8DD8-346B-426E-B06C-01BBA97DCD01', '112C8DD8-346B-426E-B06C-03BBA97DCD02'),
+       ('112C8DD8-346B-426E-B06C-01BBA97DCD02', '112C8DD8-346B-426E-B06C-03BBA97DCD03'),
+       ('112C8DD8-346B-426E-B06C-01BBA97DCD03', '112C8DD8-346B-426E-B06C-03BBA97DCD04');
+
+INSERT INTO albums_music_genres(album_id, music_genres_id)
+VALUES ('112C8DD8-346B-426E-B06C-05BBA97DCD00', '112C8DD8-346B-426E-B06C-03BBA97DCD00'),
+       ('112C8DD8-346B-426E-B06C-05BBA97DCD01', '112C8DD8-346B-426E-B06C-03BBA97DCD01'),
+       ('112C8DD8-346B-426E-B06C-05BBA97DCD01', '112C8DD8-346B-426E-B06C-03BBA97DCD02'),
+       ('112C8DD8-346B-426E-B06C-05BBA97DCD02', '112C8DD8-346B-426E-B06C-03BBA97DCD03');
+
+INSERT INTO compositions_music_genres (composition_id, music_genres_id)
+VALUES ('112C8DD8-346B-426E-B06C-02BBA97DCD00', '112C8DD8-346B-426E-B06C-03BBA97DCD00'),
+       ('112C8DD8-346B-426E-B06C-02BBA97DCD01', '112C8DD8-346B-426E-B06C-03BBA97DCD01'),
+       ('112C8DD8-346B-426E-B06C-02BBA97DCD02', '112C8DD8-346B-426E-B06C-03BBA97DCD02'),
+       ('112C8DD8-346B-426E-B06C-02BBA97DCD03', '112C8DD8-346B-426E-B06C-03BBA97DCD04'),
+       ('112C8DD8-346B-426E-B06C-02BBA97DCD04', '112C8DD8-346B-426E-B06C-03BBA97DCD04'),
+       ('112C8DD8-346B-426E-B06C-02BBA97DCD05', '112C8DD8-346B-426E-B06C-03BBA97DCD04');

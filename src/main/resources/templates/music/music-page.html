@@ -38,7 +38,7 @@
             <div class="table-body-item">
                 <h3>Классические жанры</h3>
                 <div th:each="genre : ${classicalMusicGenres}">
-                    <a th:text="${genre.title}"
+                    <a th:text="${genre.title} + ' (' + ${genre.count} + ') '"
                        th:href="'/music/genre/' + ${genre.slug}"></a>
                 </div>
             </div>

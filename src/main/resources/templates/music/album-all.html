@@ -19,17 +19,21 @@
         <div class="table-body">
             <div class="table-body-item">
                 <div class="table-body-item-row" th:each="album : ${albums}">
-                    <span class="table-body-item-col" th:text="${album.rating}"></span>
                     <span class="table-body-item-col" th:text="${album.year}"></span>
+                    <span class="table-body-item-col">
+                        <a th:text="${album.musicianNickname}" th:href="'/music/musician/' + ${album.musicianSlug}"></a>
+                    </span>
                     <span class="table-body-item-col" th:text="${album.title}"></span>
-                    <span class="table-body-item-col" th:text="${album.musicianNickname}"></span>
-                    <span th:each="genre : ${album.musicGenres}">
-                            <span th:if="${genreStat.index + 1  < album.musicGenres.size}"
+                    <span class="table-body-item-col" th:text="${album.rating}"></span>
+                    <span class="table-body-item-col">
+                        <span th:each="genre : ${album.musicGenres}">
+                            <span class="column-genre" th:if="${genreStat.index + 1  < album.musicGenres.size}"
                                   th:text="${genre.title} + ','">
                             </span>
-                            <span th:if="${genreStat.index + 1  == album.musicGenres.size}"
-                                  th:text="${genre.title}">d
+                            <span class="column-genre" th:if="${genreStat.index + 1  == album.musicGenres.size}"
+                                  th:text="${genre.title}">
                             </span>
+                        </span>
                     </span>
                 </div>
             </div>

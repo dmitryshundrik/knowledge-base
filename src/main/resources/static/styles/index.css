@@ -2,7 +2,7 @@
 .table-body {
     display: flex;
     flex-direction: row;
-    padding: 40px 100px;
+    padding: 50px 100px;
     justify-content: space-around;
 }
 
@@ -13,7 +13,7 @@
 }
 
 .table-body-item-title {
-    padding-bottom: 5px;
+    padding-bottom: 3px;
     border-bottom: 1px solid gray;
 }
 

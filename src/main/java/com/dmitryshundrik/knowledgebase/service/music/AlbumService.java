@@ -38,20 +38,38 @@ public class AlbumService {
         return albumRepository.getAlbumBySlug(slug);
     }
 
+    public List<Album> getAllAlbums() {
+        return albumRepository.findAll();
+    }
+
+    public List<Album> getAllAlbumsSortedByRating() {
+        return getAllAlbums().stream()
+                .sorted((o1, o2) -> o2.getRating().compareTo(o1.getRating()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Album> getAllAlbumsByMusician(Musician musician) {
+        return albumRepository.getAllByMusician(musician);
+    }
+
     public List<Album> getAllAlbumsByPeriod(MusicPeriod period) {
         return albumRepository.getAllByMusicPeriodsIsContaining(period);
+    }
+
+    public List<Album> getAllAlbumsByPeriodSortedByRating(MusicPeriod period) {
+        return getAllAlbumsByPeriod(period).stream()
+                .sorted(Comparator.comparing(Album::getRating))
+                .collect(Collectors.toList());
     }
 
     public List<Album> getAllAlbumsByGenre(MusicGenre genre) {
         return albumRepository.getAllByMusicGenresIsContaining(genre);
     }
 
-    public List<Album> getAllAlbums() {
-        return albumRepository.findAll();
-    }
-
-    public List<Album> getAllAlbumsByMusician(Musician musician) {
-        return albumRepository.getAllByMusician(musician);
+    public List<Album> getAllAlbumsByGenreSortedByRating(MusicGenre genre) {
+        return getAllAlbumsByGenre(genre).stream()
+                .sorted((o1, o2) -> o2.getRating().compareTo(o1.getRating()))
+                .collect(Collectors.toList());
     }
 
     public AlbumCreateEditDTO createAlbumByDTO(AlbumCreateEditDTO albumDTO, Musician musician) {
@@ -116,12 +134,15 @@ public class AlbumService {
     public List<AlbumViewDTO> getSortedAlbumViewDTOList(List<Album> albumList, SortType sortType) {
         return getAlbumViewDTOList(albumList).stream()
                 .sorted((o1, o2) -> {
-                            if (SortType.CATALOGUE_NUMBER.equals(sortType)) {
+                            if (SortType.CATALOGUE_NUMBER.equals(sortType)
+                                    && o1.getCatalogNumber() != null && o2.getCatalogNumber() != null) {
                                 return o1.getCatalogNumber().compareTo(o2.getCatalogNumber());
-                            } else if (SortType.YEAR.equals(sortType)) {
+                            } else if (SortType.YEAR.equals(sortType)
+                                    && o1.getYear() != null && o2.getYear() != null) {
                                 return o1.getYear().compareTo(o2.getYear());
-                            } else if (SortType.RATING.equals(sortType)) {
-                                return o1.getRating().compareTo(o2.getRating());
+                            } else if (SortType.RATING.equals(sortType)
+                                    && o2.getRating() != null && o1.getRating() != null) {
+                                return o2.getRating().compareTo(o1.getRating());
                             }
                             return -1;
                         }

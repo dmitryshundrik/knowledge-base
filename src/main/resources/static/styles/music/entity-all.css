@@ -7,17 +7,23 @@
 .table-body {
     display: flex;
     flex-direction: column;
-    padding: 10px 300px;
+    padding: 0 300px;
     border: 1px solid gray;
+}
+
+.table-body-item {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0px;
 }
 
 .table-body-item-row {
     display: flex;
     flex-direction: row;
-    justify-content: left;
     margin: 15px 0;
+    gap: 15px;
 }
 
-.table-body-item-col {
-    padding: 0 15px;
+.column-genre {
+    font-style: italic;
 }

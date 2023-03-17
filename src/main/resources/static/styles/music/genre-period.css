@@ -11,13 +11,18 @@
     border: 1px solid gray;
 }
 
+.table-body-item {
+    margin: 15px 0;
+}
+
+.table-body-item-title {
+    border-bottom: 1px solid gray;
+}
+
 .table-body-item-row {
     display: flex;
     flex-direction: row;
     justify-content: left;
     margin: 15px 0;
-}
-
-.table-body-item-col {
-    padding: 0 15px;
+    gap: 15px;
 }

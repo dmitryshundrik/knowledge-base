@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +37,12 @@ public class MusicianService {
 
     public List<Musician> getAllMusicians() {
         return musicianRepository.getAllByOrderByCreated();
+    }
+
+    public List<Musician> getAllMusiciansSortedByBorn() {
+        return getAllMusicians().stream()
+                .sorted(Comparator.comparing(Musician::getBorn))
+                .collect(Collectors.toList());
     }
 
     public Musician getMusicianBySlug(String slug) {
