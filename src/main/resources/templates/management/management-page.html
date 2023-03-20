@@ -1,50 +1,49 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title></title>
     <link th:href="@{/styles/management/archive-management.css}" rel="stylesheet">
 </head>
 <body>
-<div class="container">
 
-    <div th:insert="fragments/header.html"></div>
+<header th:insert="fragments/header.html"></header>
 
-    <div class="table">
+<main class="table">
 
-        <div class="table-title">
-            <h4>управление database</h4>
-        </div>
+    <header class="table-title">
+        <h4>управление database</h4>
+    </header>
 
-        <div class="table-body">
+    <div class="table-body">
 
-            <div class="table-body-item">
-                <h3>Статистика</h3>
-                <span>musician: <span th:text="${musicianCount}"></span></span>
-                <span>album: <span th:text="${albumCount}"></span></span>
-                <span>composition: <span th:text="${compositionCount}"></span></span>
-            </div>
+        <article class="table-body-item">
+            <h3>Статистика</h3>
+            <span>musician: <span th:text="${musicianCount}"></span></span>
+            <span>album: <span th:text="${albumCount}"></span></span>
+            <span>composition: <span th:text="${compositionCount}"></span></span>
+        </article>
 
-            <div class="table-body-item">
-                <h3>Музыка</h3>
-                <a href="/management/musician/all">Музыканты</a>
-                <a href="/management/album/all">Альбомы</a>
-                <a href="/management/composition/all">Произведения</a>
-                <a href="/management/soty-list/all">SOTY</a>
-                <a href="/management/music-period/all">Периоды</a>
-                <a href="/management/music-genre/all">Жанры</a>
-            </div>
+        <article class="table-body-item">
+            <h3>Музыка</h3>
+            <a href="/management/musician/all">Музыканты</a>
+            <a href="/management/album/all">Альбомы</a>
+            <a href="/management/composition/all">Произведения</a>
+            <a href="/management/soty-list/all">SOTY</a>
+            <a href="/management/music-period/all">Периоды</a>
+            <a href="/management/music-genre/all">Жанры</a>
+        </article>
 
-            <div class="table-body-item">
-                <h3>Гастрономия</h3>
-                <a href="/management/recipe/all">Рецепты</a>
-            </div>
-
-        </div>
+        <article class="table-body-item">
+            <h3>Гастрономия</h3>
+            <a href="/management/recipe/all">Рецепты</a>
+        </article>
 
     </div>
 
-    <div th:insert="fragments/footer.html"></div>
+</main>
 
-</div>
+<footer th:insert="fragments/footer.html"></footer>
+
 </body>
 </html>

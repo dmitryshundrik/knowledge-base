@@ -7,21 +7,18 @@
 
 <footer class="footer">
 
-    <div class="footer-links">
-
-        <a href="https://www.instagram.com/dmitryshundrik" target="_blank">Instagram</a>
-
-        <a href="https://www.last.fm/user/dmitryshundrik" target="_blank">Last.fm</a>
-
-        <a href="/management">Архив</a>
-
-        <a th:if="${T(com.dmitryshundrik.knowledgebase.security.service.UserService).isAuthenticated()}"
-           th:href="${'/logout'}">Выход</a>
-
-    </div>
+    <nav class="footer-menu">
+        <ul>
+            <li><a href="https://www.instagram.com/dmitryshundrik" target="_blank">Instagram</a></li>
+            <li><a href="https://www.last.fm/user/dmitryshundrik" target="_blank">Last.fm</a></li>
+            <li><a href="/management">Архив</a></li>
+            <li><a th:if="${T(com.dmitryshundrik.knowledgebase.security.service.UserService).isAuthenticated()}"
+                   th:href="${'/logout'}">Выход</a></li>
+        </ul>
+    </nav>
 
     <div class="footer-logo">
-        <p>© Дмитрий Шундрик 2022-2023</p>
+        <span>© Дмитрий Шундрик 2022-2023</span>
     </div>
 
 </footer>

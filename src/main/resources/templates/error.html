@@ -6,24 +6,22 @@
     <link th:href="@{/styles/error.css}" rel="stylesheet">
 </head>
 <body>
-<div class="container">
 
-    <div th:insert="fragments/header.html"></div>
+<header th:insert="fragments/header.html"></header>
 
-    <div class="table">
+<main class="table">
 
-        <div class="table-title">
-            <h1>Something went wrong! </h1>
-        </div>
+    <header class="table-title">
+        <h1>Something went wrong! </h1>
+    </header>
 
-        <div class="table-body">
-            <a href="/">вернуться на главную</a>
-        </div>
-
+    <div class="table-body">
+        <a href="/">вернуться на главную</a>
     </div>
 
-    <div th:insert="fragments/footer.html"></div>
+</main>
 
-</div>
+<footer th:insert="fragments/footer.html"></footer>
+
 </body>
 </html>

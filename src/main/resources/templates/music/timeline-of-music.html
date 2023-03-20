@@ -6,26 +6,24 @@
     <link th:href="@{/styles/music/timeline-of-music.css}" rel="stylesheet">
 </head>
 <body>
-<div class="container">
 
-    <div th:insert="fragments/header.html"></div>
+<header th:insert="fragments/header.html"></header>
 
-    <div class="table">
+<main class="table">
 
-        <div class="table-title">
-            <h3>Краткая история музыки</h3>
-        </div>
+    <header class="table-title">
+        <h3>Краткая история музыки</h3>
+    </header>
 
-        <div class="table-body">
-            <div class="table-body-item" th:each="event : ${timeline.events}">
-                <p th:text="${event.date + ' ' + event.description}"></p>
-            </div>
-        </div>
-
+    <div class="table-body">
+        <article class="table-body-item" th:each="event : ${timeline.events}">
+            <p th:text="${event.date + ' ' + event.description}"></p>
+        </article>
     </div>
 
-    <div th:insert="fragments/footer.html"></div>
+</main>
 
-</div>
+<footer th:insert="fragments/footer.html"></footer>
+
 </body>
 </html>

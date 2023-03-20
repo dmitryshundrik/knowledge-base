@@ -7,51 +7,46 @@
 </head>
 <body>
 
-<div class="container">
+<header th:insert="fragments/header.html"></header>
 
-    <div th:insert="fragments/header.html"></div>
+<main class="table">
 
-    <div class="table">
+    <div class="table-body">
+        <article class="table-body-item">
 
-        <div class="table-body">
-
-            <div class="table-body-item archive">
-                <h2 class="table-body-item-title archive-title">Архив</h2>
-                <div class="section">
-                    <h3 class="section-title">
-                        <a href="music/">Музыка</a>
-                    </h3>
-                    <div class="section-body">
-                        <div th:each="SOTYList : ${SOTYLists}">
-                            <a th:text="${SOTYList.title}" th:href="'/music/lists-and-charts/' + ${SOTYList.slug}"></a>
-                        </div>
-                        <a href="/music/musician/all">Все музыканты</a>
-                        <a href="/music/album/all">Все альбомы</a>
-                        <a href="/music/timeline-of-music">Краткая история музыки</a>
-                    </div>
+            <h2 class="table-body-item-title archive-title">Архив</h2>
+            <section class="section">
+                <h3 class="section-title"><a href="music/">Музыка</a></h3>
+                <div class="section-body">
+                    <span th:each="SOTYList : ${SOTYLists}">
+                        <a th:text="${SOTYList.title}" th:href="'/music/lists-and-charts/' + ${SOTYList.slug}"></a>
+                    </span>
+                    <a href="/music/musician/all">Все музыканты</a>
+                    <a href="/music/album/all">Все альбомы</a>
+                    <a href="/music/timeline-of-music">Краткая история музыки</a>
                 </div>
-                <div class="section">
-                    <h3 class="section-title">
-                        <a href="music/gastronomy-page.html">Гастрономия</a>
-                    </h3>
-                    <div class="section-body">
-                        <a href="#">Рецепты</a>
-                    </div>
+            </section>
+
+            <section class="section">
+                <h3 class="section-title"><a href="music/gastronomy-page.html">Гастрономия</a></h3>
+                <div class="section-body">
+                    <a href="#">Рецепты</a>
                 </div>
-            </div>
+            </section>
 
-            <div class="table-body-item latest">
-                <h2 class="table-body-item-title latest-title">Последнее</h2>
+        </article>
 
-            </div>
+        <aside class="table-body-item">
 
-        </div>
+            <h2 class="table-body-item-title latest-title">Последнее</h2>
+
+        </aside>
 
     </div>
 
-    <div th:insert="fragments/footer.html"></div>
+</main>
 
-</div>
+<footer th:insert="fragments/footer.html"></footer>
 
 </body>
 </html>

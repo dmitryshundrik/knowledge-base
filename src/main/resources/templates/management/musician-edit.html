@@ -1,294 +1,293 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title></title>
     <link th:href="@{/styles/management/entity-create-edit-management.css}" rel="stylesheet">
 </head>
 <body>
-<div class="container">
 
-    <div th:insert="fragments/header.html"></div>
+<header th:insert="fragments/header.html"></header>
 
-    <div class="table">
+<main class="table">
 
-        <div class="table-title">
-            <h4>изменить musician</h4>
-        </div>
-        <div class="table-body">
-            <div class="table-body-item">
-                <form class="form"
-                      th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug}"
-                      th:method="put"
-                      th:object="${musicianCreateEditDTO}">
+    <header class="table-title">
+        <h4>изменить musician</h4>
+    </header>
 
-                    <div class="form-item">
-                        <label>nickname</label>
-                        <input type="text" th:field="*{nickName}" maxlength="255"/>
-                    </div>
+    <div class="table-body">
+        <article class="table-body-item">
+            <form class="form"
+                  th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug}"
+                  th:method="put"
+                  th:object="${musicianCreateEditDTO}">
 
-                    <div class="form-item">
-                        <label>slug</label>
-                        <input type="text" th:field="*{slug}" maxlength="255"/>
-                    </div>
+                <section class="form-item">
+                    <label>nickname</label>
+                    <input type="text" th:field="*{nickName}" maxlength="255"/>
+                </section>
 
-                    <div class="form-item">
-                        <label>first name</label>
-                        <input type="text" th:field="*{firstName}" maxlength="255"/>
-                    </div>
+                <section class="form-item">
+                    <label>slug</label>
+                    <input type="text" th:field="*{slug}" maxlength="255"/>
+                </section>
 
-                    <div class="form-item">
-                        <label>last name</label>
-                        <input type="text" th:field="*{lastName}" maxlength="255"/>
-                    </div>
+                <section class="form-item">
+                    <label>first name</label>
+                    <input type="text" th:field="*{firstName}" maxlength="255"/>
+                </section>
 
-                    <div class="form-item">
-                        <label>born</label>
-                        <input type="number" th:field="*{born}"/>
-                    </div>
+                <section class="form-item">
+                    <label>last name</label>
+                    <input type="text" th:field="*{lastName}" maxlength="255"/>
+                </section>
 
-                    <div class="form-item">
-                        <label>died</label>
-                        <input type="number" th:field="*{died}"/>
-                    </div>
+                <section class="form-item">
+                    <label>born</label>
+                    <input type="number" th:field="*{born}"/>
+                </section>
 
-                    <div class="form-item">
-                        <label>birthday</label>
-                        <input type="date" th:field="*{birthDate}"/>
-                    </div>
+                <section class="form-item">
+                    <label>died</label>
+                    <input type="number" th:field="*{died}"/>
+                </section>
 
-                    <div class="form-item">
-                        <label>deathday</label>
-                        <input type="date" th:field="*{deathDate}"/>
-                    </div>
+                <section class="form-item">
+                    <label>birthday</label>
+                    <input type="date" th:field="*{birthDate}"/>
+                </section>
 
-                    <div class="form-item">
-                        <label>birthplace</label>
-                        <input type="text" th:field="*{birthplace}" maxlength="255"/>
-                    </div>
+                <section class="form-item">
+                    <label>deathday</label>
+                    <input type="date" th:field="*{deathDate}"/>
+                </section>
 
-                    <div class="form-item major-field">
-                        <label>period</label>
-                        <select th:field="*{musicPeriods}" multiple="multiple">
-                            <option th:each="period : ${musicPeriods}"
-                                    th:value="${period.id}"
-                                    th:text="${period.title}">
-                            </option>
-                        </select>
-                    </div>
+                <section class="form-item">
+                    <label>birthplace</label>
+                    <input type="text" th:field="*{birthplace}" maxlength="255"/>
+                </section>
 
-                    <div class="form-item major-field">
-                        <label>classical_genres</label>
-                        <select th:field="*{classicalGenres}" multiple="multiple">
-                            <option th:each="genre : ${classicalGenres}"
-                                    th:value="${genre.id}"
-                                    th:text="${genre.title}">
-                            </option>
-                        </select>
-                    </div>
+                <section class="form-item major-field">
+                    <label>period</label>
+                    <select th:field="*{musicPeriods}" multiple="multiple">
+                        <option th:each="period : ${musicPeriods}"
+                                th:value="${period.id}"
+                                th:text="${period.title}">
+                        </option>
+                    </select>
+                </section>
 
-                    <div class="form-item major-field">
-                        <label>contemporary_genres</label>
-                        <select th:field="*{contemporaryGenres}" multiple="multiple">
-                            <option th:each="genre : ${contemporaryGenres}"
-                                    th:value="${genre.id}"
-                                    th:text="${genre.title}">
-                            </option>
-                        </select>
-                    </div>
+                <section class="form-item major-field">
+                    <label>classical_genres</label>
+                    <select th:field="*{classicalGenres}" multiple="multiple">
+                        <option th:each="genre : ${classicalGenres}"
+                                th:value="${genre.id}"
+                                th:text="${genre.title}">
+                        </option>
+                    </select>
+                </section>
 
-                    <div class="form-item">
-                        <label>album_sort_type</label>
-                        <select th:field="*{albumsSortType}">
-                            <option th:value="null" selected>выбрать тип сортировки альбомов</option>
-                            <option th:each="sortType : ${sortTypes}"
-                                    th:value="${sortType}"
-                                    th:text="${sortType.label}">
-                            </option>
-                        </select>
-                    </div>
+                <section class="form-item major-field">
+                    <label>contemporary_genres</label>
+                    <select th:field="*{contemporaryGenres}" multiple="multiple">
+                        <option th:each="genre : ${contemporaryGenres}"
+                                th:value="${genre.id}"
+                                th:text="${genre.title}">
+                        </option>
+                    </select>
+                </section>
 
-                    <div class="form-item">
-                        <label>compositions_sort_type</label>
-                        <select th:field="*{compositionsSortType}">
-                            <option th:value="null" selected>выбрать тип сортировки композиций</option>
-                            <option th:each="sortType : ${sortTypes}"
-                                    th:value="${sortType}"
-                                    th:text="${sortType.label}">
-                            </option>
-                        </select>
-                    </div>
+                <section class="form-item">
+                    <label>album_sort_type</label>
+                    <select th:field="*{albumsSortType}">
+                        <option th:value="null" selected>выбрать тип сортировки альбомов</option>
+                        <option th:each="sortType : ${sortTypes}"
+                                th:value="${sortType}"
+                                th:text="${sortType.label}">
+                        </option>
+                    </select>
+                </section>
 
-                    <div class="form-item">
-                        <label>spotify_link</label>
-                        <input type="text" th:field="*{spotifyLink}" maxlength="255"/>
-                    </div>
+                <section class="form-item">
+                    <label>compositions_sort_type</label>
+                    <select th:field="*{compositionsSortType}">
+                        <option th:value="null" selected>выбрать тип сортировки композиций</option>
+                        <option th:each="sortType : ${sortTypes}"
+                                th:value="${sortType}"
+                                th:text="${sortType.label}">
+                        </option>
+                    </select>
+                </section>
 
-                    <input class="input-submit" type="submit" value="Обновить"/>
-                </form>
-            </div>
+                <section class="form-item">
+                    <label>spotify_link</label>
+                    <input type="text" th:field="*{spotifyLink}" maxlength="255"/>
+                </section>
 
-            <div class="table-title">
-                <h4>изменить image</h4>
-            </div>
-            <div class="table-body-item">
-                <form class="form"
-                      th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/image/upload'}"
-                      th:method="post"
-                      enctype="multipart/form-data">
+                <input class="input-submit" type="submit" value="Обновить"/>
+            </form>
+        </article>
 
-                    <div class="form-item">
-                        <label>image</label>
-                        <input type="file" name="file" accept="image/*">
-                    </div>
+        <header class="table-title">
+            <h4>изменить image</h4>
+        </header>
+        <article class="table-body-item">
+            <form class="form"
+                  th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/image/upload'}"
+                  th:method="post"
+                  enctype="multipart/form-data">
 
-                    <button class="input-submit" type="submit">Загрузить</button>
-                </form>
+                <section class="form-item">
+                    <label>image</label>
+                    <input type="file" name="file" accept="image/*">
+                </section>
 
-                <div class="entity-image">
-                    <img alt="" th:src="|data:image;base64,${musicianCreateEditDTO.image}|">
-                </div>
+                <button class="input-submit" type="submit">Загрузить</button>
+            </form>
 
-                <form class="form"
-                      th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/image/delete'}"
-                      th:method="delete">
-                    <input class="input-submit" type="submit" value="Удалить">
-                </form>
-            </div>
+            <section class="entity-image">
+                <img alt="" th:src="|data:image;base64,${musicianCreateEditDTO.image}|">
+            </section>
 
-            <div class="table-title">
-                <h4>архив events</h4>
-                <a target="_blank"
-                   th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/event/create'}">создать
-                    event</a>
-            </div>
-            <div class="table-body-item">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>created</th>
-                        <th>year</th>
-                        <th>date</th>
-                        <th>description</th>
-                        <th>edit</th>
-                        <th>delete</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="event : ${musicianCreateEditDTO.events}">
-                        <th th:text="${event.created}"></th>
-                        <th th:text="${event.year}"></th>
-                        <th th:text="${event.date}"></th>
-                        <th th:text="${event.description}"></th>
-                        <th class="td-settings">
-                            <a target="_blank"
-                               th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/event/edit/' + event.id}">edit</a>
-                        </th>
-                        <th class="td-settings">
-                            <form th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/event/delete/' + event.id}"
-                                  th:method="delete">
-                                <input type="submit" value="delete">
-                            </form>
-                        </th>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            <form class="form"
+                  th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/image/delete'}"
+                  th:method="delete">
+                <input class="input-submit" type="submit" value="Удалить">
+            </form>
+        </article>
 
-            <div class="table-title">
-                <h4>архив albums</h4>
-                <a target="_blank"
-                   th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/album/create'}">создать
-                    album</a>
-            </div>
-            <div class="table-body-item">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>created</th>
-                        <th>year</th>
-                        <th>title</th>
-                        <th>rating</th>
-                        <th>YER</th>
-                        <th>EAR</th>
-                        <th>edit</th>
-                        <th>delete</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="album : ${musicianCreateEditDTO.albums}">
-                        <th th:text="${album.created}"></th>
-                        <th th:text="${album.year}"></th>
-                        <th th:text="${album.title}"></th>
-                        <th th:text="${album.rating}"></th>
-                        <th th:text="${album.yearEndRank}"></th>
-                        <th th:text="${album.essentialAlbumsRank}"></th>
-                        <th class="td-settings">
-                            <a target="_blank"
-                               th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/album/edit/' + album.slug}">edit</a>
-                        </th>
-                        <th class="td-settings">
-                            <form th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/album/delete/' + album.slug}"
-                                  th:method="delete">
-                                <input type="submit" value="delete">
-                            </form>
-                        </th>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+        <header class="table-title">
+            <h4>архив events</h4>
+            <a target="_blank"
+               th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/event/create'}">создать
+                event</a>
+        </header>
+        <article class="table-body-item">
+            <table>
+                <thead>
+                <tr>
+                    <th>created</th>
+                    <th>year</th>
+                    <th>date</th>
+                    <th>description</th>
+                    <th>edit</th>
+                    <th>delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="event : ${musicianCreateEditDTO.events}">
+                    <th th:text="${event.created}"></th>
+                    <th th:text="${event.year}"></th>
+                    <th th:text="${event.date}"></th>
+                    <th th:text="${event.description}"></th>
+                    <th class="td-settings">
+                        <a target="_blank"
+                           th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/event/edit/' + event.id}">edit</a>
+                    </th>
+                    <th class="td-settings">
+                        <form th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/event/delete/' + event.id}"
+                              th:method="delete">
+                            <input type="submit" value="delete">
+                        </form>
+                    </th>
+                </tr>
+                </tbody>
+            </table>
+        </article>
 
-            <div class="table-title">
-                <h4>архив compositions</h4>
-                <a target="_blank"
-                   th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/composition/create'}">создать
-                    composition</a>
-            </div>
+        <header class="table-title">
+            <h4>архив albums</h4>
+            <a target="_blank"
+               th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/album/create'}">создать
+                album</a>
+        </header>
+        <article class="table-body-item">
+            <table>
+                <thead>
+                <tr>
+                    <th>created</th>
+                    <th>year</th>
+                    <th>title</th>
+                    <th>rating</th>
+                    <th>YER</th>
+                    <th>EAR</th>
+                    <th>edit</th>
+                    <th>delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="album : ${musicianCreateEditDTO.albums}">
+                    <th th:text="${album.created}"></th>
+                    <th th:text="${album.year}"></th>
+                    <th th:text="${album.title}"></th>
+                    <th th:text="${album.rating}"></th>
+                    <th th:text="${album.yearEndRank}"></th>
+                    <th th:text="${album.essentialAlbumsRank}"></th>
+                    <th class="td-settings">
+                        <a target="_blank"
+                           th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/album/edit/' + album.slug}">edit</a>
+                    </th>
+                    <th class="td-settings">
+                        <form th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/album/delete/' + album.slug}"
+                              th:method="delete">
+                            <input type="submit" value="delete">
+                        </form>
+                    </th>
+                </tr>
+                </tbody>
+            </table>
+        </article>
 
-            <div class="table-body-item">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>created</th>
-                        <th>year</th>
-                        <th>catalog_number</th>
-                        <th>title</th>
-                        <th>album</th>
-                        <th>rating</th>
-                        <th>YER</th>
-                        <th>ECR</th>
-                        <th>edit</th>
-                        <th>delete</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="composition : ${musicianCreateEditDTO.compositions}">
-                        <th th:text="${composition.created}"></th>
-                        <th th:text="${composition.year}"></th>
-                        <th th:text="${composition.catalogNumber}"></th>
-                        <th th:text="${composition.title}"></th>
-                        <th th:text="${composition.albumTitle}"></th>
-                        <th th:text="${composition.rating}"></th>
-                        <th th:text="${composition.yearEndRank}"></th>
-                        <th th:text="${composition.essentialCompositionsRank}"></th>
-                        <th class="td-settings">
-                            <a target="_blank"
-                               th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/composition/edit/' + composition.slug}">edit</a>
-                        </th>
-                        <th class="td-settings">
-                            <form th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/composition/delete/' + composition.slug}"
-                                  th:method="delete">
-                                <input type="submit" value="delete">
-                            </form>
-                        </th>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <header class="table-title">
+            <h4>архив compositions</h4>
+            <a target="_blank"
+               th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/composition/create'}">создать
+                composition</a>
+        </header>
+        <article class="table-body-item">
+            <table>
+                <thead>
+                <tr>
+                    <th>created</th>
+                    <th>year</th>
+                    <th>catalog_number</th>
+                    <th>title</th>
+                    <th>album</th>
+                    <th>rating</th>
+                    <th>YER</th>
+                    <th>ECR</th>
+                    <th>edit</th>
+                    <th>delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="composition : ${musicianCreateEditDTO.compositions}">
+                    <th th:text="${composition.created}"></th>
+                    <th th:text="${composition.year}"></th>
+                    <th th:text="${composition.catalogNumber}"></th>
+                    <th th:text="${composition.title}"></th>
+                    <th th:text="${composition.albumTitle}"></th>
+                    <th th:text="${composition.rating}"></th>
+                    <th th:text="${composition.yearEndRank}"></th>
+                    <th th:text="${composition.essentialCompositionsRank}"></th>
+                    <th class="td-settings">
+                        <a target="_blank"
+                           th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/composition/edit/' + composition.slug}">edit</a>
+                    </th>
+                    <th class="td-settings">
+                        <form th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/composition/delete/' + composition.slug}"
+                              th:method="delete">
+                            <input type="submit" value="delete">
+                        </form>
+                    </th>
+                </tr>
+                </tbody>
+            </table>
+        </article>
     </div>
+</main>
 
-    <div th:insert="fragments/footer.html"></div>
+<footer th:insert="fragments/footer.html"></footer>
 
-</div>
 </body>
 </html>

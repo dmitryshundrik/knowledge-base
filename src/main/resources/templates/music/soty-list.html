@@ -7,49 +7,47 @@
 
 </head>
 <body>
-<div class="container">
 
-    <div th:insert="fragments/header.html"></div>
+<header th:insert="fragments/header.html"></header>
 
-    <div class="table">
+<main class="table">
 
-        <div class="table-title">
-            <h3 th:text="${SOTYList.title}"></h3>
-            <div class="table-title-description">
-                <span th:text="${SOTYList.description}"></span>
-                <a th:href="${SOTYList.spotifyLink}" target="_blank">Слушать в Spotify</a>
-            </div>
-        </div>
+    <header class="table-title">
+        <h3 th:text="${SOTYList.title}"></h3>
+        <section class="table-title-description">
+            <span th:text="${SOTYList.description}"></span>
+            <a th:href="${SOTYList.spotifyLink}" target="_blank">Слушать в Spotify</a>
+        </section>
+    </header>
 
-        <div class="table-body">
-            <div class="table-body-item">
-                <div class="table-body-item-row" th:each="composition : ${compositions}">
-                    <div class="song-title">
-                        <span th:text="${compositionStat.index + 1} + '.'"></span>
-                        <span th:text="${composition.musicianNickname}"></span>
-                        <span> - </span>
-                        <span th:text="${composition.title}"></span>
-                        <span th:text="${composition.feature}"></span>
-                    </div>
-                    <div class="song-genres">
-                        <span th:each="genre : ${composition.musicGenres}">
-                            <span th:if="${genreStat.index + 1  < composition.musicGenres.size}"
-                                  th:text="${genre.title} + ', '">
-                            </span>
-                            <span th:if="${genreStat.index + 1  == composition.musicGenres.size}"
-                                  th:text="${genre.title}">d
-                            </span>
+    <div class="table-body">
+
+        <article class="table-body-item">
+            <section class="table-body-item-row" th:each="composition : ${compositions}">
+                <section class="song-title">
+                    <span th:text="${compositionStat.index + 1} + '.'"></span>
+                    <span th:text="${composition.musicianNickname}"></span>
+                    <span> - </span>
+                    <span th:text="${composition.title}"></span>
+                    <span th:text="${composition.feature}"></span>
+                </section>
+                <section class="song-genres">
+                    <span th:each="genre : ${composition.musicGenres}">
+                        <span th:if="${genreStat.index + 1  < composition.musicGenres.size}"
+                              th:text="${genre.title} + ', '">
                         </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+                        <span th:if="${genreStat.index + 1  == composition.musicGenres.size}"
+                              th:text="${genre.title}">d
+                        </span>
+                    </span>
+                </section>
+            </section>
+        </article>
     </div>
 
-    <div th:insert="fragments/footer.html"></div>
+</main>
 
-</div>
+<footer th:insert="fragments/footer.html"></footer>
 
 </body>
 </html>

@@ -6,135 +6,133 @@
     <link th:href="@{/styles/management/entity-create-edit-management.css}" rel="stylesheet">
 </head>
 <body>
-<div class="container">
 
-    <div th:insert="fragments/header.html"></div>
+<header th:insert="fragments/header.html"></header>
 
-    <div class="table">
+<main class="table">
 
-        <div class="table-title">
-            <h4>изменить composition</h4>
-        </div>
+    <header class="table-title">
+        <h4>изменить composition</h4>
+    </header>
 
-        <div class="table-body">
-            <div class="table-body-item">
-                <form class="form"
-                      th:action="${'/management/musician/edit/' + compositionCreateEditDTO.musicianSlug + '/composition/edit/' + compositionCreateEditDTO.slug}"
-                      th:method="put"
-                      th:object="${compositionCreateEditDTO}">
+    <div class="table-body">
+        <article class="table-body-item">
+            <form class="form"
+                  th:action="${'/management/musician/edit/' + compositionCreateEditDTO.musicianSlug + '/composition/edit/' + compositionCreateEditDTO.slug}"
+                  th:method="put"
+                  th:object="${compositionCreateEditDTO}">
 
-                    <div class="form-item">
-                        <label>title</label>
-                        <input type="text" th:field="*{title}" maxlength="255"/>
-                    </div>
+                <section class="form-item">
+                    <label>title</label>
+                    <input type="text" th:field="*{title}" maxlength="255"/>
+                </section>
 
-                    <div class="form-item">
-                        <label>slug</label>
-                        <input type="text" th:field="*{slug}" maxlength="255"/>
-                    </div>
+                <section class="form-item">
+                    <label>slug</label>
+                    <input type="text" th:field="*{slug}" maxlength="255"/>
+                </section>
 
-                    <div class="form-item">
-                        <label>catalog_number</label>
-                        <input type="text" th:field="*{catalogNumber}" maxlength="255"/>
-                    </div>
+                <section class="form-item">
+                    <label>catalog_number</label>
+                    <input type="text" th:field="*{catalogNumber}" maxlength="255"/>
+                </section>
 
-                    <div class="form-item">
-                        <label>musician</label>
-                        <input disabled type="text" th:field="*{musicianNickname}"/>
-                    </div>
+                <section class="form-item">
+                    <label>musician</label>
+                    <input disabled type="text" th:field="*{musicianNickname}"/>
+                </section>
 
-                    <div class="form-item">
-                        <label>feature</label>
-                        <input type="text" th:field="*{feature}" maxlength="255"/>
-                    </div>
+                <section class="form-item">
+                    <label>feature</label>
+                    <input type="text" th:field="*{feature}" maxlength="255"/>
+                </section>
 
-                    <div class="form-item">
-                        <label>year</label>
-                        <input type="number" th:field="*{year}"/>
-                    </div>
+                <section class="form-item">
+                    <label>year</label>
+                    <input type="number" th:field="*{year}"/>
+                </section>
 
-                    <div class="form-item">
-                        <label>album</label>
-                        <select th:field="*{albumId}">
-                            <option th:value="null" selected>выбрать альбом</option>
-                            <option th:each="album : ${albumSelectDTOList}"
-                                    th:value="${album.id}"
-                                    th:text="${album.title}"></option>
-                        </select>
-                    </div>
+                <section class="form-item">
+                    <label>album</label>
+                    <select th:field="*{albumId}">
+                        <option th:value="null" selected>выбрать альбом</option>
+                        <option th:each="album : ${albumSelectDTOList}"
+                                th:value="${album.id}"
+                                th:text="${album.title}"></option>
+                    </select>
+                </section>
 
-                    <div class="form-item">
-                        <label>period</label>
-                        <select th:field="*{musicPeriods}">
-                            <option th:value="null" selected>выбрать период</option>
-                            <option th:each="period : ${musicPeriods}"
-                                    th:value="${period.id}"
-                                    th:text="${period.title}"></option>
-                        </select>
-                    </div>
+                <section class="form-item">
+                    <label>period</label>
+                    <select th:field="*{musicPeriods}">
+                        <option th:value="null" selected>выбрать период</option>
+                        <option th:each="period : ${musicPeriods}"
+                                th:value="${period.id}"
+                                th:text="${period.title}"></option>
+                    </select>
+                </section>
 
-                    <div class="form-item major-field">
-                        <label>classical_genres</label>
-                        <select th:field="*{classicalGenres}" multiple="multiple">
-                            <option th:each="genre : ${classicalGenres}"
-                                    th:value="${genre.id}"
-                                    th:text="${genre.title}"></option>
-                        </select>
-                    </div>
+                <section class="form-item major-field">
+                    <label>classical_genres</label>
+                    <select th:field="*{classicalGenres}" multiple="multiple">
+                        <option th:each="genre : ${classicalGenres}"
+                                th:value="${genre.id}"
+                                th:text="${genre.title}"></option>
+                    </select>
+                </section>
 
-                    <div class="form-item major-field">
-                        <label>contemporary_genres</label>
-                        <select th:field="*{contemporaryGenres}" multiple="multiple">
-                            <option th:each="genre : ${contemporaryGenres}"
-                                    th:value="${genre.id}"
-                                    th:text="${genre.title}"></option>
-                        </select>
-                    </div>
+                <section class="form-item major-field">
+                    <label>contemporary_genres</label>
+                    <select th:field="*{contemporaryGenres}" multiple="multiple">
+                        <option th:each="genre : ${contemporaryGenres}"
+                                th:value="${genre.id}"
+                                th:text="${genre.title}"></option>
+                    </select>
+                </section>
 
-                    <div class="form-item">
-                        <label>rating</label>
-                        <input type="number" step="0.5" th:field="*{rating}"/>
-                    </div>
+                <section class="form-item">
+                    <label>rating</label>
+                    <input type="number" step="0.5" th:field="*{rating}"/>
+                </section>
 
-                    <div class="form-item">
-                        <label>year_end_rank</label>
-                        <input type="number" th:field="*{yearEndRank}"/>
-                    </div>
+                <section class="form-item">
+                    <label>year_end_rank</label>
+                    <input type="number" th:field="*{yearEndRank}"/>
+                </section>
 
-                    <div class="form-item">
-                        <label>essential_compositions_rank</label>
-                        <input type="number" th:field="*{essentialCompositionsRank}"/>
-                    </div>
+                <section class="form-item">
+                    <label>essential_compositions_rank</label>
+                    <input type="number" th:field="*{essentialCompositionsRank}"/>
+                </section>
 
-                    <div class="form-item major-field">
-                        <label>highlights</label>
-                        <textarea th:field="*{highlights}"></textarea>
-                    </div>
+                <section class="form-item major-field">
+                    <label>highlights</label>
+                    <textarea th:field="*{highlights}"></textarea>
+                </section>
 
-                    <div class="form-item major-field">
-                        <label>description</label>
-                        <textarea th:field="*{description}"></textarea>
-                    </div>
+                <section class="form-item major-field">
+                    <label>description</label>
+                    <textarea th:field="*{description}"></textarea>
+                </section>
 
-                    <div class="form-item major-field">
-                        <label>lyrics</label>
-                        <textarea th:field="*{lyrics}"></textarea>
-                    </div>
+                <section class="form-item major-field">
+                    <label>lyrics</label>
+                    <textarea th:field="*{lyrics}"></textarea>
+                </section>
 
-                    <div class="form-item major-field">
-                        <label>translation</label>
-                        <textarea th:field="*{translation}"></textarea>
-                    </div>
+                <section class="form-item major-field">
+                    <label>translation</label>
+                    <textarea th:field="*{translation}"></textarea>
+                </section>
 
-                    <input class="input-submit" type="submit" value="Обновить"/>
-                </form>
-            </div>
-        </div>
-
+                <input class="input-submit" type="submit" value="Обновить"/>
+            </form>
+        </article>
     </div>
 
-    <div th:insert="fragments/footer.html"></div>
+</main>
 
-</div>
+<footer th:insert="fragments/footer.html"></footer>
+
 </body>
 </html>

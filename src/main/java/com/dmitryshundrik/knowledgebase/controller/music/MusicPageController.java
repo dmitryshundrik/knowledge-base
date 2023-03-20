@@ -2,6 +2,7 @@ package com.dmitryshundrik.knowledgebase.controller.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.*;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
+import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.service.music.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,7 +38,7 @@ public class MusicPageController {
     @GetMapping()
     public String getMusicPage(Model model) {
         model.addAttribute("SOTYLists", sotyListService.getAllSOTYLists());
-        model.addAttribute("musicPeriods", musicPeriodService.getAll());
+        model.addAttribute("musicPeriods", musicPeriodService.getFilteredMusicPeriods());
         model.addAttribute("classicalMusicGenres", musicGenreService.getFilteredClassicalGenres());
         model.addAttribute("contemporaryMusicGenres", musicGenreService.getFilteredContemporaryGenres());
         return "music/music-page";
@@ -65,8 +66,8 @@ public class MusicPageController {
 
     @GetMapping("/album/all")
     public String getAllAlbums(Model model) {
-        List<Album> sortedAlbums = albumService.getAllAlbumsSortedByRating();
-        model.addAttribute("albums", albumService.getAlbumViewDTOList(sortedAlbums));
+        List<Album> albums = albumService.getAllAlbums();
+        model.addAttribute("albums", albumService.getSortedAlbumViewDTOList(albums, SortType.RATING));
         return "music/album-all";
     }
 
@@ -80,11 +81,10 @@ public class MusicPageController {
     @GetMapping("/period/{slug}")
     public String getPeriodBySlug(@PathVariable String slug, Model model) {
         MusicPeriod musicPeriod = musicPeriodService.getMusicPeriodBySlug(slug);
-        List<Album> sortedAlbums = albumService.getAllAlbumsByPeriodSortedByRating(musicPeriod);
         List<Composition> allCompositionsByPeriod = compositionService.getAllCompositionsByPeriod(musicPeriod);
         model.addAttribute("musicPeriod", musicPeriod);
-        model.addAttribute("albums", albumService.getAlbumViewDTOList(sortedAlbums));
-        model.addAttribute("compostitions", compositionService.getCompositionViewDTOList(allCompositionsByPeriod));
+        model.addAttribute("compositions", compositionService
+                .getSortedCompositionViewDTOList(allCompositionsByPeriod, SortType.RATING));
         return "music/music-period";
     }
 
@@ -95,14 +95,14 @@ public class MusicPageController {
         model.addAttribute("classicalType", MusicGenreType.CLASSICAL);
         model.addAttribute("contemporaryType", MusicGenreType.CONTEMPORARY);
         if (musicGenre.getMusicGenreType().equals(MusicGenreType.CONTEMPORARY)) {
+            List<Album> albumsByGenre = albumService.getAllAlbumsByGenre(musicGenre);
             model.addAttribute("albums", albumService
-                    .getAlbumViewDTOList(albumService
-                            .getAllAlbumsByGenreSortedByRating(musicGenre)));
+                    .getSortedAlbumViewDTOList(albumsByGenre, SortType.RATING));
         }
         if (musicGenre.getMusicGenreType().equals(MusicGenreType.CLASSICAL)) {
+            List<Composition> allCompositionsByGenre = compositionService.getAllCompositionsByGenre(musicGenre);
             model.addAttribute("compositions", compositionService
-                    .getCompositionViewDTOList(compositionService
-                            .getAllCompositionsByGenreSortedByRating(musicGenre)));
+                    .getSortedCompositionViewDTOList(allCompositionsByGenre, SortType.RATING));
         }
         return "music/music-genre";
     }

@@ -41,7 +41,9 @@
                         <td th:text="${genre.created}"></td>
                         <td th:text="${genre.slug}"></td>
                         <td th:text="${genre.title}"></td>
-                        <td th:if="${genre.musicGenreType} !=  null" th:text="${genre.musicGenreType}"></td>
+                        <td>
+                            <span th:if="${genre.musicGenreType} !=  null" th:text="${genre.musicGenreType}"></span>
+                        </td>
                         <td class="td-settings">
                             <a target="_blank" th:href="${'/management/music-genre/edit/' + genre.slug}">edit</a>
                         </td>

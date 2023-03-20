@@ -6,43 +6,45 @@
     <link th:href="@{/styles/management/entity-create-edit-management.css}" rel="stylesheet">
 </head>
 <body>
-<div class="container">
 
-    <div th:insert="fragments/header.html"></div>
+<header th:insert="fragments/header.html"></header>
 
-    <div class="table">
+<main class="table">
 
-        <div class="table-title">
-            <h4>создать event</h4>
-        </div>
+    <header class="table-title">
+        <h4>создать event</h4>
+    </header>
 
-        <div class="table-body">
-            <div class="table-body-item">
-                <form class="form" th:action="${'/management/musician/edit/' + slug +'/event/create'}" th:method="post"
-                      th:object="${eventDTO}">
-                    <div class="form-item">
-                        <label>year</label>
-                        <input type="number" th:field="*{year}"/>
-                    </div>
-                    <p class="error" th:if="${#fields.hasErrors('year')}" th:errorclass="error" th:errors="*{year}"></p>
+    <div class="table-body">
+        <article class="table-body-item">
+            <form class="form" th:action="${'/management/musician/edit/' + slug +'/event/create'}" th:method="post"
+                  th:object="${eventDTO}">
+                <section class="form-item">
+                    <label>year</label>
+                    <input type="number" th:field="*{year}"/>
+                </section>
+                <p class="error" th:if="${#fields.hasErrors('year')}" th:errorclass="error" th:errors="*{year}"></p>
 
-                    <div class="form-item">
-                        <label>date</label>
-                        <input type="date" th:field="*{date}"/>
-                    </div>
+                <section class="form-item">
+                    <label>date</label>
+                    <input type="date" th:field="*{date}"/>
+                </section>
 
-                    <div class="form-item major-field">
-                        <label>description</label>
-                        <textarea th:field="*{description}"></textarea>
-                    </div>
-                    <p class="error" th:if="${#fields.hasErrors('description')}" th:errorclass="error" th:errors="*{description}"></p>
+                <section class="form-item major-field">
+                    <label>description</label>
+                    <textarea th:field="*{description}"></textarea>
+                </section>
+                <p class="error" th:if="${#fields.hasErrors('description')}" th:errorclass="error"
+                   th:errors="*{description}"></p>
 
-                    <input class="input-submit" type="submit" value="Создать"/>
-                </form>
-            </div>
-        </div>
-
+                <input class="input-submit" type="submit" value="Создать"/>
+            </form>
+        </article>
     </div>
-</div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
 </body>
 </html>

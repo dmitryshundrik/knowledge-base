@@ -44,7 +44,10 @@ public class MusicianManagementController {
 
     @GetMapping("/management/musician/create")
     public String getCreateMusician(Model model) {
-        model.addAttribute("musicianCreateEditDTO", new MusicianCreateEditDTO());
+        MusicianCreateEditDTO musicianDTO = new MusicianCreateEditDTO();
+        musicianDTO.setAlbumsSortType(SortType.YEAR);
+        musicianDTO.setCompositionsSortType(SortType.YEAR);
+        model.addAttribute("musicianCreateEditDTO", musicianDTO);
         model.addAttribute("musicPeriods", musicPeriodService.getAll());
         model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
         model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());

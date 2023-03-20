@@ -7,56 +7,54 @@
 </head>
 <body>
 
-<div class="container">
+<header th:insert="fragments/header.html"></header>
 
-    <div th:insert="fragments/header.html"></div>
+<main class="table">
 
-    <div class="table">
+    <header class="table-title">
+        <h3>Музыка</h3>
+    </header>
 
-        <div class="table-title">
-            <h3>Музыка</h3>
-        </div>
+    <div class="table-body">
 
-        <div class="table-body">
-            <div class="table-body-item">
-                <h3>Списки и графики</h3>
-                <div th:each="SOTYList : ${SOTYLists}">
-                    <a th:text="${SOTYList.title}" th:href="'/music/lists-and-charts/' + ${SOTYList.slug}"></a>
-                </div>
-                <a href="/music/musician/all">Все музыканты</a>
-                <a href="/music/album/all">Все альбомы</a>
-                <a href="/music/timeline-of-music">Краткая история музыки</a>
-            </div>
+        <section class="table-body-item">
+            <h3>Списки и графики</h3>
+            <span th:each="SOTYList : ${SOTYLists}">
+                <a th:text="${SOTYList.title}" th:href="'/music/lists-and-charts/' + ${SOTYList.slug}"></a>
+            </span>
+            <a href="/music/musician/all">Все музыканты</a>
+            <a href="/music/album/all">Все альбомы</a>
+            <a href="/music/timeline-of-music">Краткая история музыки</a>
+        </section>
 
-            <div class="table-body-item">
-                <h3>Эпохи</h3>
-                <div th:each="period : ${periods}">
-                    <a th:text="${period.title}" th:href="'/music/period/' + ${period.slug}"></a>
-                </div>
-            </div>
+        <section class="table-body-item">
+            <h3>Эпохи</h3>
+            <span th:each="period : ${musicPeriods}">
+                <a th:text="${period.title}" th:href="'/music/period/' + ${period.slug}"></a>
+            </span>
+        </section>
 
-            <div class="table-body-item">
-                <h3>Классические жанры</h3>
-                <div th:each="genre : ${classicalMusicGenres}">
-                    <a th:text="${genre.title} + ' (' + ${genre.count} + ') '"
-                       th:href="'/music/genre/' + ${genre.slug}"></a>
-                </div>
-            </div>
+        <section class="table-body-item">
+            <h3>Классические жанры</h3>
+            <span th:each="genre : ${classicalMusicGenres}">
+                <a th:text="${genre.title} + ' (' + ${genre.count} + ') '"
+                   th:href="'/music/genre/' + ${genre.slug}"></a>
+            </span>
+        </section>
 
-            <div class="table-body-item">
-                <h3>Современные жанры</h3>
-                <div th:each="genre : ${contemporaryMusicGenres}">
-                    <a th:text="${genre.title} + ' (' + ${genre.count} + ') '"
-                       th:href="'/music/genre/' + ${genre.slug}"></a>
-                </div>
-            </div>
-        </div>
+        <section class="table-body-item">
+            <h3>Современные жанры</h3>
+            <span th:each="genre : ${contemporaryMusicGenres}">
+                <a th:text="${genre.title} + ' (' + ${genre.count} + ') '"
+                   th:href="'/music/genre/' + ${genre.slug}"></a>
+            </span>
+        </section>
 
     </div>
 
-    <div th:insert="fragments/footer.html"></div>
+</main>
 
-</div>
+<footer th:insert="fragments/footer.html"></footer>
 
 </body>
 </html>

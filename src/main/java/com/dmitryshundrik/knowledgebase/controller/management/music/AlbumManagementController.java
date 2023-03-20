@@ -33,8 +33,8 @@ public class AlbumManagementController {
 
     @GetMapping("/management/album/all")
     public String getAllAlbums(Model model) {
-        List<Album> allAlbums = albumService.getAllAlbums();
-        model.addAttribute("albumViewDTOList", albumService.getAlbumViewDTOList(allAlbums));
+        List<Album> sortedAlbums = albumService.getAllAlbumsSortedByCreated();
+        model.addAttribute("albumViewDTOList", albumService.getAlbumViewDTOList(sortedAlbums));
         return "management/album-all";
     }
 
@@ -80,10 +80,18 @@ public class AlbumManagementController {
     }
 
     @DeleteMapping("management/musician/edit/{musicianSlug}/album/delete/{albumSlug}")
-    public String deleteAlbumBySlug(@PathVariable String musicianSlug, @PathVariable String albumSlug) {
+    public String deleteMusiciansAlbumBySlug(@PathVariable String musicianSlug, @PathVariable String albumSlug) {
         Album albumBySlug = albumService.getAlbumBySlug(albumSlug);
         albumBySlug.getCompositions().forEach(composition -> composition.setAlbum(null));
         albumService.deleteAlbumBySlug(albumSlug);
         return "redirect:/management/musician/edit/" + musicianSlug;
+    }
+
+    @DeleteMapping("management/album/delete/{albumSlug}")
+    public String deleteAlbumBySlug(@PathVariable String albumSlug) {
+        Album albumBySlug = albumService.getAlbumBySlug(albumSlug);
+        albumBySlug.getCompositions().forEach(composition -> composition.setAlbum(null));
+        albumService.deleteAlbumBySlug(albumSlug);
+        return "redirect:/management/album/all";
     }
 }

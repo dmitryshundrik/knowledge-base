@@ -35,18 +35,23 @@ public class MusicianService {
     @Autowired
     private CompositionService compositionService;
 
+    public Musician getMusicianBySlug(String slug) {
+        return musicianRepository.getMusicianBySlug(slug);
+    }
+
     public List<Musician> getAllMusicians() {
         return musicianRepository.getAllByOrderByCreated();
     }
 
     public List<Musician> getAllMusiciansSortedByBorn() {
         return getAllMusicians().stream()
-                .sorted(Comparator.comparing(Musician::getBorn))
+                .sorted((o1, o2) -> {
+                    if (o1.getBorn() != null && o2.getBorn() != null) {
+                        return o1.getBorn().compareTo(o2.getBorn());
+                    }
+                    return -1;
+                })
                 .collect(Collectors.toList());
-    }
-
-    public Musician getMusicianBySlug(String slug) {
-        return musicianRepository.getMusicianBySlug(slug);
     }
 
     public List<Musician> getAllMusiciansByPeriod(MusicPeriod period) {

@@ -6,38 +6,35 @@
     <link th:href="@{/styles/security/login-signup.css}" rel="stylesheet">
 </head>
 <body>
-<div class="container">
-    <div th:insert="fragments/header.html"></div>
 
-    <div class="table">
+<header th:insert="fragments/header.html"></header>
 
-        <div class="table-title">
-            <h4>авторизация</h4>
-        </div>
+<main class="table">
 
-        <div class="table-body">
-            <form class="form" th:action="@{/login}" th:method="post">
+    <header class="table-title">
+        <h4>авторизация</h4>
+    </header>
 
-                <div class="form-item">
-                    <input type="text" name="username">
-                </div>
+    <div class="table-body">
+        <form class="form" th:action="@{/login}" th:method="post">
+            <section class="form-item">
+                <input type="text" name="username">
+            </section>
 
-                <div class="form-item">
-                    <input type="text" name="password">
-                </div>
+            <section class="form-item">
+                <input type="password" name="password">
+            </section>
 
-                <input class="input-submit" type="submit" value="Войти"/>
+            <input class="input-submit" type="submit" value="Войти"/>
+        </form>
 
-            </form>
-
-            <a href="/signup">cоздать аккаунт</a>
-
-        </div>
+        <a href="/signup">cоздать аккаунт</a>
 
     </div>
 
-    <div th:insert="fragments/footer.html"></div>
+</main>
 
-</div>
+<footer th:insert="fragments/footer.html"></footer>
+
 </body>
 </html>

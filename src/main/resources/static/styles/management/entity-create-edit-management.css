@@ -78,7 +78,20 @@
     align-self: end;
 }
 
-th {
+table {
+    empty-cells: show;
+    border-spacing: 1px;
+}
+
+table tbody tr:nth-child(2n+1) {
+    background: #f1f1f1;
+}
+
+table tbody tr:nth-child(2n) {
+    background: #f8f8f8;
+}
+
+th, td {
     text-align: center;
 }
 

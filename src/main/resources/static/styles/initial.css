@@ -1,5 +1,5 @@
 
-.container {
+body {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -8,8 +8,6 @@
 }
 
 .header {
-    display: flex;
-    flex-direction: column;
     text-align: center;
 }
 
@@ -22,12 +20,12 @@
     text-decoration: none;
 }
 
-.header-menu {
+.header-menu ul {
     display: flex;
     flex-direction: row;
     justify-content: center;
     padding: 15px 0;
-    gap: 40px;
+    gap: 50px;
     border-bottom: 1px solid gray;
 }
 
@@ -46,7 +44,7 @@
     gap: 5px;
 }
 
-.footer-links {
+.footer-menu ul {
     display: flex;
     justify-content: center;
     gap: 5px;

@@ -6,43 +6,44 @@
     <link th:href="@{/styles/music/entity-all.css}" rel="stylesheet">
 </head>
 <body>
-<div class="container">
 
-    <div th:insert="fragments/header.html"></div>
+<header th:insert="fragments/header.html"></header>
 
-    <div class="table">
+<main class="table">
 
-        <div class="table-title">
-            <h3>Все альбомы</h3>
-        </div>
+    <header class="table-title">
+        <h3>Все альбомы</h3>
+    </header>
 
-        <div class="table-body">
-            <div class="table-body-item">
-                <div class="table-body-item-row" th:each="album : ${albums}">
-                    <span class="table-body-item-col" th:text="${album.year}"></span>
-                    <span class="table-body-item-col">
+    <div class="table-body">
+
+        <article class="table-body-item">
+            <section class="table-body-item-row" th:each="album : ${albums}">
+                <span class="table-body-item-col" th:text="${albumStat.index + 1} + '.'"></span>
+                <span class="table-body-item-col rating" th:text="${album.rating}"></span>
+                <span class="table-body-item-col" th:text="${album.title}"></span>
+                <span class="table-body-item-col" th:text="${album.year}"></span>
+<!--                <span class="table-body-item-col">-->
+<!--                    <span th:each="genre : ${album.musicGenres}">-->
+<!--                        <span class="column-genre" th:if="${genreStat.index + 1  < album.musicGenres.size}"-->
+<!--                              th:text="${genre.title} + ','">-->
+<!--                        </span>-->
+<!--                        <span class="column-genre" th:if="${genreStat.index + 1  == album.musicGenres.size}"-->
+<!--                              th:text="${genre.title}">-->
+<!--                        </span>-->
+<!--                    </span>-->
+<!--                </span>-->
+                <span class="table-body-item-col">
                         <a th:text="${album.musicianNickname}" th:href="'/music/musician/' + ${album.musicianSlug}"></a>
-                    </span>
-                    <span class="table-body-item-col" th:text="${album.title}"></span>
-                    <span class="table-body-item-col" th:text="${album.rating}"></span>
-                    <span class="table-body-item-col">
-                        <span th:each="genre : ${album.musicGenres}">
-                            <span class="column-genre" th:if="${genreStat.index + 1  < album.musicGenres.size}"
-                                  th:text="${genre.title} + ','">
-                            </span>
-                            <span class="column-genre" th:if="${genreStat.index + 1  == album.musicGenres.size}"
-                                  th:text="${genre.title}">
-                            </span>
-                        </span>
-                    </span>
-                </div>
-            </div>
-        </div>
+                </span>
+            </section>
+        </article>
 
     </div>
 
-    <div th:insert="fragments/footer.html"></div>
+</main>
 
-</div>
+<footer th:insert="fragments/footer.html"></footer>
+
 </body>
 </html>

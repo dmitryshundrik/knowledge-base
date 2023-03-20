@@ -6,39 +6,40 @@
     <link th:href="@{/styles/management/entity-create-edit-management.css}" rel="stylesheet">
 </head>
 <body>
-<div class="container">
 
-    <div th:insert="fragments/header.html"></div>
+<header th:insert="fragments/header.html"></header>
 
-    <div class="table">
+<main class="table">
 
-        <div class="table-title">
-            <h4>измененить event</h4>
-        </div>
+    <header class="table-title">
+        <h4>измененить event</h4>
+    </header>
 
-        <div class="table-body">
-            <div class="table-body-item">
-                <form class="form" th:action="${'/management/musician/edit/' + slug +'/event/edit/' + eventDTO.id}"
-                      th:method="put"
-                      th:object="${eventDTO}">
-                    <div class="form-item">
-                        <label>year</label>
-                        <input type="number" th:field="*{year}"/>
-                    </div>
-                    <div class="form-item">
-                        <label>date</label>
-                        <input type="date" th:field="*{date}"/>
-                    </div>
-                    <div class="form-item major-field">
-                        <label>description</label>
-                        <textarea th:field="*{description}"></textarea>
-                    </div>
-                    <input class="input-submit" type="submit" value="Обновить"/>
-                </form>
-            </div>
-        </div>
-
+    <div class="table-body">
+        <article class="table-body-item">
+            <form class="form" th:action="${'/management/musician/edit/' + slug +'/event/edit/' + eventDTO.id}"
+                  th:method="put"
+                  th:object="${eventDTO}">
+                <section class="form-item">
+                    <label>year</label>
+                    <input type="number" th:field="*{year}"/>
+                </section>
+                <section class="form-item">
+                    <label>date</label>
+                    <input type="date" th:field="*{date}"/>
+                </section>
+                <section class="form-item major-field">
+                    <label>description</label>
+                    <textarea th:field="*{description}"></textarea>
+                </section>
+                <input class="input-submit" type="submit" value="Обновить"/>
+            </form>
+        </article>
     </div>
-</div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
 </body>
 </html>

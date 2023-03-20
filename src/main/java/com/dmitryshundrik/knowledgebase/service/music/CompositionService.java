@@ -25,9 +25,6 @@ public class CompositionService {
     @Autowired
     private CompositionRepository compositionRepository;
 
-    @Autowired
-    private MusicGenreRepository musicGenreRepository;
-
     public List<Composition> getAllCompositions() {
         return compositionRepository.findAll();
     }
@@ -36,24 +33,24 @@ public class CompositionService {
         return compositionRepository.getCompositionBySlug(slug);
     }
 
+    public List<Composition> getAllCompositionSortedByCreated() {
+        return getAllCompositions().stream()
+                .sorted((o1, o2) -> {
+                    if (o1.getCreated() != null && o2.getCreated() != null) {
+                        return o1.getCreated().compareTo(o2.getCreated());
+                    }
+                    return -1;
+                })
+                .collect(Collectors.toList());
+    }
+
     public List<Composition> getAllCompositionsByPeriod(MusicPeriod period) {
         return compositionRepository.getAllByMusicPeriodsIsContaining(period);
     }
 
+
     public List<Composition> getAllCompositionsByGenre(MusicGenre genre) {
         return compositionRepository.getAllByMusicGenresIsContaining(genre);
-    }
-
-    public List<Composition> getAllCompositionsByGenreSortedByRating(MusicGenre genre) {
-        return getAllCompositionsByGenre(genre).stream()
-                .sorted((o1, o2) -> o2.getRating().compareTo(o1.getRating()))
-                .collect(Collectors.toList());
-    }
-
-    public List<Composition> getAllCompositionsByGenreSortedByYear(MusicGenre genre) {
-        return getAllCompositionsByGenre(genre).stream()
-                .sorted(Comparator.comparing(Composition::getYear))
-                .collect(Collectors.toList());
     }
 
 

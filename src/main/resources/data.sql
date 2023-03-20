@@ -1,3 +1,8 @@
+INSERT INTO users(id, username, password, is_account_non_expired, is_account_non_locked, is_credentials_non_expired,
+                  is_enabled)
+VALUES ('112C8DD8-346B-426E-B06C-000000000001', 'dmitryshundrik', '$2a$10$OzjntV3S0f8R0vGoRtzHuOwEuUkBEaRYgQRjGedLUVzd23Rnm9oCu',
+        true, true, true, true);
+
 INSERT INTO sotylists (id, slug, title, "year", description, spotify_link)
 VALUES ('112C8DD8-346B-426E-B06C-00BBA97DCD00', 'best-songs-2020', '20 лучших песен 2020 года', 2020,
         'Откровенный трэп-бэнгер от Cardi B, Perfume Genius и другие.',

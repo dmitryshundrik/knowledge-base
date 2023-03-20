@@ -7,54 +7,55 @@
 </head>
 <body>
 <body>
-<div class="container">
 
-    <div th:insert="fragments/header.html"></div>
+<header th:insert="fragments/header.html"></header>
 
-    <div class="table">
+<main class="table">
 
-        <div class="table-title">
-            <h4>изменить SOTY</h4>
-        </div>
+    <header class="table-title">
+        <h4>изменить SOTY</h4>
+    </header>
 
-        <div class="table-body">
-            <div class="table-body-item">
-                <form class="form"
-                      th:action="${'/management/soty-list/edit/' + sotyListCreateEditDTO.slug }"
-                      th:method="put"
-                      th:object="${sotyListCreateEditDTO}">
+    <div class="table-body">
+        <article class="table-body-item">
+            <form class="form"
+                  th:action="${'/management/soty-list/edit/' + sotyListCreateEditDTO.slug }"
+                  th:method="put"
+                  th:object="${sotyListCreateEditDTO}">
 
-                    <div class="form-item">
-                        <label>slug</label>
-                        <input type="text" th:field="*{slug}" maxlength="255"/>
-                    </div>
+                <section class="form-item">
+                    <label>slug</label>
+                    <input type="text" th:field="*{slug}" maxlength="255"/>
+                </section>
 
-                    <div class="form-item">
-                        <label>title</label>
-                        <input type="text" th:field="*{title}" maxlength="255"/>
-                    </div>
+                <section class="form-item">
+                    <label>title</label>
+                    <input type="text" th:field="*{title}" maxlength="255"/>
+                </section>
 
-                    <div class="form-item">
-                        <label>year</label>
-                        <input type="number" th:field="*{year}"/>
-                    </div>
+                <section class="form-item">
+                    <label>year</label>
+                    <input type="number" th:field="*{year}"/>
+                </section>
 
-                    <div class="form-item major-field">
-                        <label>description</label>
-                        <textarea th:field="*{description}"></textarea>
-                    </div>
+                <section class="form-item major-field">
+                    <label>description</label>
+                    <textarea th:field="*{description}"></textarea>
+                </section>
 
-                    <div class="form-item ">
-                        <label>spotify_link</label>
-                        <input type="text" th:field="*{spotifyLink}" maxlength="255"/>
-                    </div>
+                <section class="form-item ">
+                    <label>spotify_link</label>
+                    <input type="text" th:field="*{spotifyLink}" maxlength="255"/>
+                </section>
 
-                    <input class="input-submit" type="submit" value="Обновить"/>
-                </form>
-            </div>
-        </div>
-
+                <input class="input-submit" type="submit" value="Обновить"/>
+            </form>
+        </article>
     </div>
-</div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
 </body>
 </html>

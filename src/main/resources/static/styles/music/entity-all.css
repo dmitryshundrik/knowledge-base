@@ -12,8 +12,6 @@
 }
 
 .table-body-item {
-    display: flex;
-    flex-direction: column;
     margin: 20px 0px;
 }
 
@@ -26,4 +24,8 @@
 
 .column-genre {
     font-style: italic;
+}
+
+.rating {
+    color: red;
 }

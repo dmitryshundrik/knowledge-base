@@ -42,12 +42,6 @@ public class CompositionManagementController {
         return "management/composition-all";
     }
 
-    @DeleteMapping("/management/composition/delete/{compositionSlug}")
-    public String deleteCompositionBySlug(@PathVariable String compositionSlug) {
-        compositionService.deleteCompositionBySlug(compositionSlug);
-        return "redirect:/management/composition/all";
-    }
-
     @GetMapping("/management/musician/edit/{musicianSlug}/composition/create")
     public String getCreateComposition(@PathVariable String musicianSlug, Model model) {
         CompositionCreateEditDTO compositionCreateEditDTO = new CompositionCreateEditDTO();
@@ -103,8 +97,14 @@ public class CompositionManagementController {
     }
 
     @DeleteMapping("/management/musician/edit/{musicianSlug}/composition/delete/{compositionSlug}")
-    public String deleteCompositionBySlug(@PathVariable String musicianSlug, @PathVariable String compositionSlug) {
+    public String deleteMusiciansCompositionBySlug(@PathVariable String musicianSlug, @PathVariable String compositionSlug) {
         compositionService.deleteCompositionBySlug(compositionSlug);
         return "redirect:/management/musician/edit/" + musicianSlug;
+    }
+
+    @DeleteMapping("/management/composition/delete/{compositionSlug}")
+    public String deleteCompositionBySlug(@PathVariable String compositionSlug) {
+        compositionService.deleteCompositionBySlug(compositionSlug);
+        return "redirect:/management/composition/all";
     }
 }

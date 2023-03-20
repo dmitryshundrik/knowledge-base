@@ -42,9 +42,14 @@ public class AlbumService {
         return albumRepository.findAll();
     }
 
-    public List<Album> getAllAlbumsSortedByRating() {
+    public List<Album> getAllAlbumsSortedByCreated() {
         return getAllAlbums().stream()
-                .sorted((o1, o2) -> o2.getRating().compareTo(o1.getRating()))
+                .sorted((o1, o2) -> {
+                    if (o1.getCreated() != null && o2.getCreated() != null) {
+                        return o1.getCreated().compareTo(o2.getCreated());
+                    }
+                    return -1;
+                })
                 .collect(Collectors.toList());
     }
 
@@ -56,20 +61,8 @@ public class AlbumService {
         return albumRepository.getAllByMusicPeriodsIsContaining(period);
     }
 
-    public List<Album> getAllAlbumsByPeriodSortedByRating(MusicPeriod period) {
-        return getAllAlbumsByPeriod(period).stream()
-                .sorted(Comparator.comparing(Album::getRating))
-                .collect(Collectors.toList());
-    }
-
     public List<Album> getAllAlbumsByGenre(MusicGenre genre) {
         return albumRepository.getAllByMusicGenresIsContaining(genre);
-    }
-
-    public List<Album> getAllAlbumsByGenreSortedByRating(MusicGenre genre) {
-        return getAllAlbumsByGenre(genre).stream()
-                .sorted((o1, o2) -> o2.getRating().compareTo(o1.getRating()))
-                .collect(Collectors.toList());
     }
 
     public AlbumCreateEditDTO createAlbumByDTO(AlbumCreateEditDTO albumDTO, Musician musician) {

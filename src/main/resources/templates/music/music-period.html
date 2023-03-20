@@ -6,40 +6,37 @@
     <link th:href="@{/styles/music/genre-period.css}" rel="stylesheet">
 </head>
 <body>
-<div class="container">
 
-    <div th:insert="fragments/header.html"></div>
+<header th:insert="fragments/header.html"></header>
 
-    <div class="table">
+<main class="table">
 
-        <div class="table-title">
-            <h3 th:text="${musicPeriod.title}"></h3>
-        </div>
+    <header class="table-title">
+        <h3 th:text="${musicPeriod.title}"></h3>
+    </header>
 
-        <div class="table-body">
-            <div class="table-body-item">
-                <div class="table-body-item-row" th:each="album : ${albums}">
-                    <span class="table-body-item-col" th:text="${album.rating}"></span>
-                    <span class="table-body-item-col" th:text="${album.year}"></span>
-                    <span class="table-body-item-col" th:text="${album.title}"></span>
-                    <span class="table-body-item-col" th:text="${album.musicianNickname}"></span>
-                </div>
-            </div>
-
-            <div class="table-body-item">
-                <div class="table-body-item-row" th:each="composition : ${compositions}">
-                    <span class="table-body-item-col" th:text="${composition.rating}"></span>
-                    <span class="table-body-item-col" th:text="${composition.year}"></span>
-                    <span class="table-body-item-col" th:text="${composition.title}"></span>
-                    <span class="table-body-item-col" th:text="${composition.musicianNickname}"></span>
-                </div>
-            </div>
-        </div>
-
+    <div class="table-body">
+        <article class="table-body-item">
+            <header class="table-body-item-title">
+                <h3>Копмпозиции (лучшее)</h3>
+            </header>
+            <section class="table-body-item-row" th:each="composition : ${compositions}">
+                <span class="table-body-item-col" th:text="${compositionStat.index + 1} + '.'"></span>
+                <span class="table-body-item-col rating" th:text="${composition.rating}"></span>
+                <span class="table-body-item-col" th:text="${composition.title}"></span>
+                <span class="table-body-item-col"  th:text="${composition.catalogNumber}"></span>
+                <span class="table-body-item-col" th:text="${composition.year}"></span>
+                <span class="table-body-item-col">
+                        <a th:text="${composition.musicianNickname}"
+                           th:href="'/music/musician/' + ${composition.musicianSlug}"></a>
+                </span>
+            </section>
+        </article>
     </div>
 
-    <div th:insert="fragments/footer.html"></div>
+</main>
 
-</div>
+<footer th:insert="fragments/footer.html"></footer>
+
 </body>
 </html>
