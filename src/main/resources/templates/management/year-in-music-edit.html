@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link th:href="@{/styles/management/entity-create-edit-management.css}" rel="stylesheet">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h4>изменить YearInMusic</h4>
+    </header>
+
+    <div class="table-body">
+        <article class="table-body-item">
+            <form class="form"
+                  th:action="${'/management/year-in-music/edit/' + yearInMusicDTO.slug }"
+                  th:method="put"
+                  th:object="${yearInMusicDTO}">
+
+                <section class="form-item">
+                    <label>slug</label>
+                    <input type="text" th:field="*{slug}" maxlength="255"/>
+                </section>
+                <p class="error" th:if="${#fields.hasErrors('slug')}" th:errorclass="error" th:errors="*{slug}"></p>
+
+                <section class="form-item">
+                    <label>title</label>
+                    <input type="text" th:field="*{title}" maxlength="255"/>
+                </section>
+                <p class="error" th:if="${#fields.hasErrors('title')}" th:errorclass="error" th:errors="*{title}"></p>
+
+                <section class="form-item">
+                    <label>year</label>
+                    <input type="number" th:field="*{year}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>best_male_singer</label>
+                    <select th:field="*{bestMaleSingerId}">
+                        <option th:value="null" selected>выбрать male singer</option>
+                        <option th:each="maleSinger : ${musicians}"
+                                th:value="${maleSinger.id}"
+                                th:text="${maleSinger.nickName}">
+                        </option>
+                    </select>
+                </section>
+
+                <section class="form-item">
+                    <label>best_female_singer</label>
+                    <select th:field="*{bestFemaleSingerId}">
+                        <option th:value="null" selected>выбрать female singer</option>
+                        <option th:each="femaleSinger : ${musicians}"
+                                th:value="${femaleSinger.id}"
+                                th:text="${femaleSinger.nickName}">
+                        </option>
+                    </select>
+                </section>
+
+                <section class="form-item">
+                    <label>best_group</label>
+                    <select th:field="*{bestGroupId}">
+                        <option th:value="null" selected>выбрать group</option>
+                        <option th:each="group : ${musicians}"
+                                th:value="${group.id}"
+                                th:text="${group.nickName}">
+                        </option>
+                    </select>
+                </section>
+
+                <section class="form-item">
+                    <label>best_composer</label>
+                    <select th:field="*{bestComposerId}">
+                        <option th:value="null" selected>выбрать composer</option>
+                        <option th:each="composer : ${musicians}"
+                                th:value="${composer.id}"
+                                th:text="${composer.nickName}">
+                        </option>
+                    </select>
+                </section>
+
+                <section class="form-item major-field">
+                    <label>aoty_list_description</label>
+                    <textarea th:field="*{aotyListDescription}"></textarea>
+                </section>
+
+                <section class="form-item">
+                    <label>aoty_spotify_link</label>
+                    <input type="text" th:field="*{aotySpotifyLink}" maxlength="255"/>
+                </section>
+
+                <section class="form-item major-field">
+                    <label>soty_list_description</label>
+                    <textarea th:field="*{sotyListDescription}"></textarea>
+                </section>
+
+                <section class="form-item">
+                    <label>soty_spotify_link</label>
+                    <input type="text" th:field="*{sotySpotifyLink}" maxlength="255"/>
+                </section>
+
+                <input class="input-submit" type="submit" value="Обновить"/>
+            </form>
+        </article>
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

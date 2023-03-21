@@ -45,15 +45,15 @@
                 <td th:text="${album.musicianNickname}"></td>
                 <td th:text="${album.year}"></td>
                 <td>
-                        <span th:if="${not #lists.isEmpty(album.musicPeriods)}"
-                              th:each="period : ${album.musicPeriods}">
-                             <span th:text="${period.title}"></span>
-                        </span>
+                    <span th:if="${not #lists.isEmpty(album.musicPeriods)}"
+                          th:each="period : ${album.musicPeriods}">
+                        <span th:text="${period.title}"></span>
+                    </span>
                 </td>
                 <td>
-                        <span th:if="${not #lists.isEmpty(album.musicGenres)}" th:each="genre : ${album.musicGenres}">
-                            <span th:text="${genre.title}"></span>
-                        </span>
+                    <span th:if="${not #lists.isEmpty(album.musicGenres)}" th:each="genre : ${album.musicGenres}">
+                        <span th:text="${genre.title}"></span>
+                    </span>
                 </td>
                 <td th:text="${album.rating}"></td>
                 <td th:text="${album.yearEndRank}"></td>

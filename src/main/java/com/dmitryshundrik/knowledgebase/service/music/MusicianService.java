@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
+import com.dmitryshundrik.knowledgebase.model.music.Album;
 import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
@@ -14,9 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,6 +34,10 @@ public class MusicianService {
     @Autowired
     private CompositionService compositionService;
 
+    public Musician getMusicianById(UUID id) {
+        return musicianRepository.findById(id).orElse(null);
+    }
+
     public Musician getMusicianBySlug(String slug) {
         return musicianRepository.getMusicianBySlug(slug);
     }
@@ -50,6 +53,20 @@ public class MusicianService {
                         return o1.getBorn().compareTo(o2.getBorn());
                     }
                     return -1;
+                })
+                .collect(Collectors.toList());
+    }
+
+    public List<Musician> getAllMusiciansWithWorksByYear(Integer year) {
+        return musicianRepository.findAll().stream()
+                .filter(musician -> {
+                    List<Album> albums = musician.getAlbums();
+                    for (Album album : albums) {
+                        if (Objects.equals(album.getYear(), year)) {
+                            return true;
+                        }
+                    }
+                    return false;
                 })
                 .collect(Collectors.toList());
     }
@@ -153,6 +170,17 @@ public class MusicianService {
         Musician musicianBySlug = getMusicianBySlug(musicianSlug);
         albumDTO.setMusicianNickname(musicianBySlug.getNickName());
         albumDTO.setMusicianSlug(musicianBySlug.getSlug());
+    }
+
+    public MusicianSelectDTO getMusicianSelectDTO(Musician musician) {
+        return MusicianSelectDTO.builder()
+                .id(musician.getId().toString())
+                .nickName(musician.getNickName())
+                .build();
+    }
+
+    public List<MusicianSelectDTO> getMusicianSelectDTOList(List<Musician> musicianList) {
+        return musicianList.stream().map(musician -> getMusicianSelectDTO(musician)).collect(Collectors.toList());
     }
 
     public void setMusicianFieldsToCompositionDTO(CompositionCreateEditDTO compositionDTO, String musicianSlug) {

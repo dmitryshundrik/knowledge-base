@@ -34,10 +34,10 @@
                 </section>
                 <p class="error" th:if="${#fields.hasErrors('title')}" th:errorclass="error" th:errors="*{title}"></p>
 
-                <div class="form-item">
+                <section class="form-item">
                     <label>year</label>
                     <input type="number" th:field="*{year}"/>
-                </div>
+                </section>
 
                 <section class="form-item major-field">
                     <label>description</label>

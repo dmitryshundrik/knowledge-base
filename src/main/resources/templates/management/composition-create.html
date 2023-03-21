@@ -58,7 +58,8 @@
                     <label>album</label>
                     <select th:field="*{albumId}">
                         <option th:value="null" selected>выбрать альбом</option>
-                        <option th:each="album : ${albumSelectDTOList}" th:value="${album.id}"
+                        <option th:each="album : ${albumSelectDTOList}"
+                                th:value="${album.id}"
                                 th:text="${album.title}"></option>
                     </select>
                 </section>

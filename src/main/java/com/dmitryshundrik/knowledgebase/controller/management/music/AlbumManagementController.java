@@ -57,9 +57,9 @@ public class AlbumManagementController {
             musicianService.setMusicianFieldsToAlbumDTO(albumDTO, musicianSlug);
             return "management/album-create";
         }
-        AlbumCreateEditDTO DTOByCreatedAlbum = albumService
+        AlbumCreateEditDTO DTOByCreated = albumService
                 .createAlbumByDTO(albumDTO, musicianService.getMusicianBySlug(musicianSlug));
-        return "redirect:/management/musician/edit/" + musicianSlug + "/album/edit/" + DTOByCreatedAlbum.getSlug();
+        return "redirect:/management/musician/edit/" + musicianSlug + "/album/edit/" + DTOByCreated.getSlug();
     }
 
     @GetMapping("management/musician/edit/{musicianSlug}/album/edit/{albumSlug}")

@@ -54,8 +54,7 @@
 
                 <section class="form-item">
                     <label>period</label>
-                    <select th:field="*{musicPeriods}">
-                        <option th:value="null" selected>выбрать период</option>
+                    <select th:field="*{musicPeriods}" multiple="multiple">
                         <option th:each="period : ${musicPeriods}"
                                 th:value="${period.id}"
                                 th:text="${period.title}">

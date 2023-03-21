@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.repository.music.CompositionRepository;
-import com.dmitryshundrik.knowledgebase.repository.music.MusicGenreRepository;
 import com.dmitryshundrik.knowledgebase.util.Formatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,8 +74,8 @@ public class CompositionService {
         return getCompositionCreateEditDTO(createdComposition);
     }
 
-    public void updateExistingComposition(CompositionCreateEditDTO compositionDTO, String slug, Album album) {
-        Composition compositionBySlug = compositionRepository.getCompositionBySlug(slug);
+    public void updateExistingComposition(CompositionCreateEditDTO compositionDTO, String compositionSlug, Album album) {
+        Composition compositionBySlug = compositionRepository.getCompositionBySlug(compositionSlug);
         compositionBySlug.setAlbum(album);
         setFieldsFromDTO(compositionBySlug, compositionDTO);
     }
