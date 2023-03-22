@@ -52,9 +52,12 @@ public class AlbumManagementController {
     @PostMapping("/management/musician/edit/{musicianSlug}/album/create")
     public String postCreateAlbum(@PathVariable String musicianSlug,
                                   @Valid @ModelAttribute("albumCreateEditDTO") AlbumCreateEditDTO albumDTO,
-                                  BindingResult bindingResult) {
+                                  BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             musicianService.setMusicianFieldsToAlbumDTO(albumDTO, musicianSlug);
+            model.addAttribute("musicPeriods", musicPeriodService.getAll());
+            model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
+            model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
             return "management/album-create";
         }
         AlbumCreateEditDTO DTOByCreated = albumService

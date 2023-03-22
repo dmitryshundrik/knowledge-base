@@ -65,6 +65,12 @@ public class AlbumService {
         return albumRepository.getAllByMusicGenresIsContaining(genre);
     }
 
+    public List<AlbumViewDTO> getAllAlbumsForAOTYList(Integer year) {
+        return getAlbumViewDTOList(albumRepository.getAllByYearAndYearEndRankNotNull(year).stream()
+                .sorted(Comparator.comparing(Album::getYearEndRank))
+                .collect(Collectors.toList()));
+    }
+
     public AlbumCreateEditDTO createAlbumByDTO(AlbumCreateEditDTO albumDTO, Musician musician) {
         Album album = new Album();
         album.setCreated(Instant.now());
@@ -100,7 +106,7 @@ public class AlbumService {
 
     public AlbumViewDTO getAlbumViewDTO(Album album) {
         return AlbumViewDTO.builder()
-                .created(Formatter.instantFormatter(album.getCreated()))
+                .created(Formatter.instantFormatterYMDHMS(album.getCreated()))
                 .slug(album.getSlug())
                 .title(album.getTitle())
                 .catalogNumber(album.getCatalogNumber())
@@ -197,6 +203,10 @@ public class AlbumService {
         album.setEssentialAlbumsRank(albumDTO.getEssentialAlbumsRank());
         album.setHighlights(albumDTO.getHighlights());
         album.setDescription(albumDTO.getDescription());
+    }
+
+    public List<AlbumViewDTO> getLatestUpdate() {
+        return getAlbumViewDTOList(albumRepository.findFirst10ByOrderByCreated());
     }
 
 }

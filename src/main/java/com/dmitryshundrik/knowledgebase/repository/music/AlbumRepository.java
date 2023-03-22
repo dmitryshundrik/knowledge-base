@@ -19,4 +19,8 @@ public interface AlbumRepository extends JpaRepository<Album, UUID> {
 
     List<Album> getAllByMusicGenresIsContaining(MusicGenre genre);
 
+    List<Album> getAllByYearAndYearEndRankNotNull(Integer year);
+
+    List<Album> findFirst10ByOrderByCreated();
+
 }

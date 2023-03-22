@@ -1,9 +1,9 @@
-package com.dmitryshundrik.knowledgebase.service;
+package com.dmitryshundrik.knowledgebase.service.common;
 
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
-import com.dmitryshundrik.knowledgebase.model.timeline.Event;
-import com.dmitryshundrik.knowledgebase.model.timeline.EventDTO;
-import com.dmitryshundrik.knowledgebase.repository.EventRepository;
+import com.dmitryshundrik.knowledgebase.model.common.Event;
+import com.dmitryshundrik.knowledgebase.model.common.EventDTO;
+import com.dmitryshundrik.knowledgebase.repository.common.EventRepository;
 import com.dmitryshundrik.knowledgebase.util.Formatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,7 +54,7 @@ public class EventService {
     public EventDTO eventToEventDTO(Event event) {
         return EventDTO.builder()
                 .id(event.getId())
-                .created(Formatter.instantFormatter(event.getCreated()))
+                .created(Formatter.instantFormatterYMDHMS(event.getCreated()))
                 .year(event.getYear())
                 .date(event.getDate())
                 .description(event.getDescription())

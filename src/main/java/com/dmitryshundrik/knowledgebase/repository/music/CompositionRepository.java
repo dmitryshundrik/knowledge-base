@@ -20,4 +20,6 @@ public interface CompositionRepository extends JpaRepository<Composition, UUID> 
 
     List<Composition> getAllByYearAndYearEndRankNotNull(Integer year);
 
+    List<Composition> findFirst10ByOrderByCreated();
+
 }

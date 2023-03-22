@@ -15,11 +15,14 @@
         <!--<div class="table-title-image">-->
         <!--<img th:src="|data:image;base64,${musicianViewDTO.image}|">-->
         <!--</div>-->
-        <article class="table-title-item">
-            <header class="table-title-info-row nickname">
-                <h1 th:text="${musicianViewDTO.nickName}"></h1>
-            </header>
+        <h1 th:text="${musicianViewDTO.nickName}"></h1>
+    </header>
 
+    <div class="table-body">
+        <article class="table-body-item">
+            <header class="table-body-item-title">
+                <h3>Инфо</h3>
+            </header>
             <section class="table-title-item-row" th:if="${not #lists.isEmpty(musicianViewDTO.musicPeriods)}">
                 <span>Период:</span>
                 <span th:each="period : ${musicianViewDTO.musicPeriods}">
@@ -60,9 +63,6 @@
                 <a th:href="${musicianViewDTO.spotifyLink}" target="_blank">слушать в Spotify</a>
             </section>
         </article>
-    </header>
-
-    <div class="table-body">
 
         <article class="table-body-item" th:if="${not #lists.isEmpty(musicianViewDTO.events)}">
             <header class="table-body-item-title">
@@ -90,11 +90,11 @@
             </header>
             <section class="table-body-item-row" th:each="album : ${musicianViewDTO.albums}">
                 <span th:if="${album.year} != null"
-                          th:text="${album.year}">
+                      th:text="${album.year}">
                 </span>
                 <span th:if="${album.year} == null">????</span>
                 <span th:text="${album.title}"></span>
-                <span th:text="${album.rating}"></span>
+                <span class="rating" th:text="${album.rating}"></span>
                 <span th:text="${album.highlights}"></span>
             </section>
         </article>
@@ -112,7 +112,7 @@
                       th:text="${composition.catalogNumber}">
                 </span>
                 <span th:text="${composition.title}"></span>
-                <span th:text="${composition.rating}"></span>
+                <span class="rating" th:text="${composition.rating}"></span>
                 <span th:text="${composition.highlights}"></span>
             </section>
         </article>

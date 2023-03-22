@@ -5,17 +5,23 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 @Data
 @Builder
 @AllArgsConstructor
 public class MusicGenreCreateEditDTO {
 
+    @NotBlank(message = "slug may not be blank")
     private String slug;
 
+    @NotBlank(message = "title may not be blank")
     private String title;
 
     private String titleEn;
 
+    @NotNull(message = "musicGenreType may not be null")
     private MusicGenreType musicGenreType;
 
     private Integer count;

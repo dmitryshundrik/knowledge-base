@@ -1,9 +1,8 @@
 package com.dmitryshundrik.knowledgebase.model.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
-import com.dmitryshundrik.knowledgebase.model.timeline.Event;
+import com.dmitryshundrik.knowledgebase.model.common.Event;
 import lombok.Data;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -15,7 +14,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "musicians")
-@ToString(exclude = {"albums", "compositions"})
+//@ToString(exclude = {"albums", "compositions"})
 public class Musician {
 
     @Id

@@ -18,8 +18,9 @@
             <section class="section">
                 <h3 class="section-title"><a href="music/">Музыка</a></h3>
                 <div class="section-body">
-                    <span th:each="SOTYList : ${SOTYLists}">
-                        <a th:text="${SOTYList.title}" th:href="'/music/lists-and-charts/' + ${SOTYList.slug}"></a>
+                    <span th:each="yearInMusic : ${yearInMusicList}">
+                        <a th:text="${yearInMusic.title}"
+                           th:href="'/music/lists-and-charts/' + ${yearInMusic.slug}"></a>
                     </span>
                     <a href="/music/musician/all">Все музыканты</a>
                     <a href="/music/album/all">Все альбомы</a>
@@ -39,6 +40,15 @@
         <aside class="table-body-item">
 
             <h2 class="table-body-item-title latest-title">Последнее</h2>
+            <section class="table-body-item-row">
+
+                <span th:each="update : ${latestUpdates}">
+                    <span th:text="${update.created}"></span>
+                    <span th:text="${update.archiveSection}"></span>
+                    <a th:href="${update.link}" th:text="${update.description}"></a>
+                </span>
+
+            </section>
 
         </aside>
 

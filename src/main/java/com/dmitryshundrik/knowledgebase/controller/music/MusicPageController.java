@@ -27,7 +27,7 @@ public class MusicPageController {
     private CompositionService compositionService;
 
     @Autowired
-    private SOTYListService sotyListService;
+    private YearInMusicService yearInMusicService;
 
     @Autowired
     private MusicPeriodService musicPeriodService;
@@ -37,7 +37,8 @@ public class MusicPageController {
 
     @GetMapping()
     public String getMusicPage(Model model) {
-        model.addAttribute("SOTYLists", sotyListService.getAllSOTYLists());
+        List<YearInMusic> yearInMusicList = yearInMusicService.getAll();
+        model.addAttribute("yearInMusicList", yearInMusicService.getYearInMusicViewDTOList(yearInMusicList));
         model.addAttribute("musicPeriods", musicPeriodService.getFilteredMusicPeriods());
         model.addAttribute("classicalMusicGenres", musicGenreService.getFilteredClassicalGenres());
         model.addAttribute("contemporaryMusicGenres", musicGenreService.getFilteredContemporaryGenres());
@@ -45,11 +46,12 @@ public class MusicPageController {
     }
 
     @GetMapping("/lists-and-charts/{slug}")
-    public String getSOTYList(@PathVariable String slug, Model model) {
-        SOTYList sotyListBySlug = sotyListService.getSOTYListBySlug(slug);
-        model.addAttribute("SOTYList", sotyListBySlug);
-        model.addAttribute("compositions", compositionService.getAllCompositionsBySOTYList(sotyListBySlug));
-        return "music/soty-list";
+    public String getYearInMusic(@PathVariable String slug, Model model) {
+        YearInMusic yearInMusic = yearInMusicService.getYearInMusicBySlug(slug);
+        model.addAttribute("yearInMusic", yearInMusicService.getYearInMusicViewDTO(yearInMusic));
+        model.addAttribute("albums", albumService.getAllAlbumsForAOTYList(yearInMusic.getYear()));
+        model.addAttribute("compositions", compositionService.getAllCompositionsForSOTYList(yearInMusic.getYear()));
+        return "music/year-in-music";
     }
 
     @GetMapping("/timeline-of-music")

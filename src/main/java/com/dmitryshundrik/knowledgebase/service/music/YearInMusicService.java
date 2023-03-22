@@ -2,7 +2,9 @@ package com.dmitryshundrik.knowledgebase.service.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.YearInMusic;
 import com.dmitryshundrik.knowledgebase.model.music.dto.YearInMusicCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.music.dto.YearInMusicViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.music.YearInMusicRepository;
+import com.dmitryshundrik.knowledgebase.util.Formatter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -44,6 +47,34 @@ public class YearInMusicService {
 
     public void deleteYearInMusic(YearInMusic yearInMusic) {
         yearInMusicRepository.delete(yearInMusic);
+    }
+
+    public YearInMusicViewDTO getYearInMusicViewDTO(YearInMusic yearInMusic) {
+        return YearInMusicViewDTO.builder()
+                .created(Formatter.instantFormatterYMDHMS(yearInMusic.getCreated()))
+                .slug(yearInMusic.getSlug())
+                .title(yearInMusic.getTitle())
+                .year(yearInMusic.getYear())
+                .bestMaleSinger(yearInMusic.getBestMaleSinger() != null ? yearInMusic.getBestMaleSinger().getNickName() : null)
+                .bestMaleSingerSlug(yearInMusic.getBestMaleSinger() != null ? yearInMusic.getBestMaleSinger().getSlug() : null)
+                .bestFemaleSinger(yearInMusic.getBestFemaleSinger() != null ? yearInMusic.getBestFemaleSinger().getNickName() : null)
+                .bestFemaleSingerSlug(yearInMusic.getBestFemaleSinger() != null ? yearInMusic.getBestFemaleSinger().getSlug() : null)
+                .bestGroup(yearInMusic.getBestGroup() != null ? yearInMusic.getBestGroup().getNickName() : null)
+                .bestGroupSlug(yearInMusic.getBestGroup() != null ? yearInMusic.getBestGroup().getSlug() : null)
+                .bestComposer(yearInMusic.getBestComposer() != null ? yearInMusic.getBestComposer().getNickName() : null)
+                .bestComposerSlug(yearInMusic.getBestComposer() != null ? yearInMusic.getBestComposer().getSlug() : null)
+                .aotyListDescription(yearInMusic.getAotyListDescription())
+                .aotySpotifyLink(yearInMusic.getAotySpotifyLink())
+                .sotyListDescription(yearInMusic.getSotyListDescription())
+                .sotySpotifyLink(yearInMusic.getSotySpotifyLink())
+                .build();
+
+    }
+
+    public List<YearInMusicViewDTO> getYearInMusicViewDTOList(List<YearInMusic> yearInMusicList) {
+        return yearInMusicList.stream()
+                .map(yearInMusic -> getYearInMusicViewDTO(yearInMusic))
+                .collect(Collectors.toList());
     }
 
     public YearInMusicCreateEditDTO getYearInMusicCreateEditDTO(YearInMusic yearInMusic) {

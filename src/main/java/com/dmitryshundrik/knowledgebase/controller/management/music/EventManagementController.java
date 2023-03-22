@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.controller.management.music;
 
-import com.dmitryshundrik.knowledgebase.model.timeline.Event;
-import com.dmitryshundrik.knowledgebase.model.timeline.EventDTO;
-import com.dmitryshundrik.knowledgebase.service.EventService;
+import com.dmitryshundrik.knowledgebase.model.common.Event;
+import com.dmitryshundrik.knowledgebase.model.common.EventDTO;
+import com.dmitryshundrik.knowledgebase.service.common.EventService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

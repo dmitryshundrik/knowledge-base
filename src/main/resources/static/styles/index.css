@@ -39,3 +39,11 @@
 .latest-title {
     text-align: right;
 }
+
+.table-body-item-row {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    margin: 25px 0;
+    gap: 5px;
+}

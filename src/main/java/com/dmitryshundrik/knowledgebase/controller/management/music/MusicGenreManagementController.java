@@ -10,7 +10,10 @@ import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping()
@@ -43,7 +46,12 @@ public class MusicGenreManagementController {
     }
 
     @PostMapping("/management/music-genre/create")
-    public String postCreateMusicGenre(@ModelAttribute("dto") MusicGenreCreateEditDTO genreDTO) {
+    public String postCreateMusicGenre(@Valid @ModelAttribute("dto") MusicGenreCreateEditDTO genreDTO, BindingResult bindingResult,
+                                       Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("musicGenreTypes", MusicGenreType.values());
+            return "management/music-genre-create";
+        }
         String slug = musicGenreService.createMusicGenreByDTO(genreDTO);
         return "redirect:/management/music-genre/edit/" + slug;
     }
@@ -72,6 +80,6 @@ public class MusicGenreManagementController {
         compositionService.getAllCompositionsByGenre(genre)
                 .forEach(composition -> composition.getMusicGenres().remove(genre));
         musicGenreService.deleteMusicGenre(genre);
-        return "redirect:/management/music-genre/all/";
+        return "redirect:/management/music-genre/all";
     }
 }

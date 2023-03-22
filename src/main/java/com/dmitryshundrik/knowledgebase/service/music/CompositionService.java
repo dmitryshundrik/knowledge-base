@@ -53,8 +53,8 @@ public class CompositionService {
     }
 
 
-    public List<CompositionViewDTO> getAllCompositionsBySOTYList(SOTYList sotyList) {
-        return getCompositionViewDTOList(compositionRepository.getAllByYearAndYearEndRankNotNull(sotyList.getYear()))
+    public List<CompositionViewDTO> getAllCompositionsForSOTYList(Integer year) {
+        return getCompositionViewDTOList(compositionRepository.getAllByYearAndYearEndRankNotNull(year))
                 .stream().sorted(Comparator.comparing(CompositionViewDTO::getYearEndRank))
                 .collect(Collectors.toList());
     }
@@ -138,7 +138,7 @@ public class CompositionService {
 
     public CompositionViewDTO getCompositionViewDTO(Composition composition) {
         return CompositionViewDTO.builder()
-                .created(Formatter.instantFormatter(composition.getCreated()))
+                .created(Formatter.instantFormatterYMDHMS(composition.getCreated()))
                 .slug(composition.getSlug())
                 .title(composition.getTitle())
                 .catalogNumber(composition.getCatalogNumber())
@@ -205,4 +205,9 @@ public class CompositionService {
         composition.setLyrics(compositionDTO.getLyrics());
         composition.setTranslation(compositionDTO.getTranslation());
     }
+
+    public List<CompositionViewDTO> getLatestUpdate() {
+        return getCompositionViewDTOList(compositionRepository.findFirst10ByOrderByCreated());
+    }
+
 }

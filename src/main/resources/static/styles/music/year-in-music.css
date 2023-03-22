@@ -4,36 +4,29 @@
     text-align: center;
 }
 
-.table-title-description {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    padding-top: 15px;
-}
-
-.table-title-description a {
-    padding: 5px 0;
-}
-
 .table-body {
     display: flex;
     flex-direction: column;
-    padding: 0 250px;
+    padding: 0 300px;
     border: 1px solid gray;
 }
 
 .table-body-item {
+    text-align: center;
     margin: 20px 0px;
 }
 
 .table-body-item-row {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    text-align: center;
     margin: 15px 0px;
 }
 
-.song-genres {
+.soty-description {
+    display: flex;
+    flex-direction: column;
+}
+
+.row-genres {
     margin: 5px 0;
     font-style: italic;
 }

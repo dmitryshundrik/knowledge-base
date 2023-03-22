@@ -7,7 +7,7 @@ import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.dto.*;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
-import com.dmitryshundrik.knowledgebase.service.EventService;
+import com.dmitryshundrik.knowledgebase.service.common.EventService;
 import com.dmitryshundrik.knowledgebase.util.Constants;
 import com.dmitryshundrik.knowledgebase.util.Formatter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,7 +110,7 @@ public class MusicianService {
 
     public MusicianViewDTO getMusicianViewDTO(Musician musician) {
         return MusicianViewDTO.builder()
-                .created(Formatter.instantFormatter(musician.getCreated()))
+                .created(Formatter.instantFormatterYMDHMS(musician.getCreated()))
                 .slug(musician.getSlug())
                 .firstName(musician.getFirstName())
                 .lastName(musician.getLastName())
@@ -209,5 +209,9 @@ public class MusicianService {
         musician.setAlbumsSortType(musicianDTO.getAlbumsSortType());
         musician.setCompositionsSortType(musicianDTO.getCompositionsSortType());
         musician.setSpotifyLink(musicianDTO.getSpotifyLink());
+    }
+
+    public List<MusicianViewDTO> getLatestUpdate() {
+        return getMusicianViewDTOList(musicianRepository.findFirst10ByOrderByCreated());
     }
 }

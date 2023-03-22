@@ -26,8 +26,7 @@
                     <label>title</label>
                     <input type="text" th:field="*{title}" maxlength="255"/>
                 </section>
-                <p class="error" th:if="${#fields.hasErrors('title')}" th:errorclass="error"
-                   th:errors="*{title}"></p>
+                <p class="error" th:if="${#fields.hasErrors('title')}" th:errorclass="error" th:errors="*{title}"></p>
 
                 <section class="form-item">
                     <label>slug</label>

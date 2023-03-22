@@ -61,6 +61,10 @@ public class MusicianManagementController {
         String error = musicianValidationService.musicianSlugIsExist(musicianCreateEditDTO.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute("slug", error);
+            model.addAttribute("musicPeriods", musicPeriodService.getAll());
+            model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
+            model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
+            model.addAttribute("sortTypes", SortType.values());
             return "management/musician-create";
         }
         musicianService.createMusicianByMusicianDTO(musicianCreateEditDTO);

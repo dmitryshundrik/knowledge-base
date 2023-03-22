@@ -1,6 +1,6 @@
-package com.dmitryshundrik.knowledgebase.repository;
+package com.dmitryshundrik.knowledgebase.repository.common;
 
-import com.dmitryshundrik.knowledgebase.model.timeline.Event;
+import com.dmitryshundrik.knowledgebase.model.common.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

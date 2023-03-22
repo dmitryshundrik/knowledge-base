@@ -17,38 +17,38 @@
 
     <div class="table-body">
 
-        <section class="table-body-item">
+        <article class="table-body-item">
             <h3>Списки и графики</h3>
-            <span th:each="SOTYList : ${SOTYLists}">
-                <a th:text="${SOTYList.title}" th:href="'/music/lists-and-charts/' + ${SOTYList.slug}"></a>
+            <span th:each="yearInMusic : ${yearInMusicList}">
+                <a th:text="${yearInMusic.title}" th:href="'/music/lists-and-charts/' + ${yearInMusic.slug}"></a>
             </span>
             <a href="/music/musician/all">Все музыканты</a>
             <a href="/music/album/all">Все альбомы</a>
             <a href="/music/timeline-of-music">Краткая история музыки</a>
-        </section>
+        </article>
 
-        <section class="table-body-item">
+        <article class="table-body-item">
             <h3>Эпохи</h3>
             <span th:each="period : ${musicPeriods}">
                 <a th:text="${period.title}" th:href="'/music/period/' + ${period.slug}"></a>
             </span>
-        </section>
+        </article>
 
-        <section class="table-body-item">
+        <article class="table-body-item">
             <h3>Классические жанры</h3>
             <span th:each="genre : ${classicalMusicGenres}">
                 <a th:text="${genre.title} + ' (' + ${genre.count} + ') '"
                    th:href="'/music/genre/' + ${genre.slug}"></a>
             </span>
-        </section>
+        </article>
 
-        <section class="table-body-item">
+        <article class="table-body-item">
             <h3>Современные жанры</h3>
             <span th:each="genre : ${contemporaryMusicGenres}">
                 <a th:text="${genre.title} + ' (' + ${genre.count} + ') '"
                    th:href="'/music/genre/' + ${genre.slug}"></a>
             </span>
-        </section>
+        </article>
 
     </div>
 

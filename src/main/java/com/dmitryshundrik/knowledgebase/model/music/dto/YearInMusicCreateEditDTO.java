@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
@@ -17,6 +18,7 @@ public class YearInMusicCreateEditDTO {
     @NotBlank(message = "title may not be blank")
     private String title;
 
+    @NotNull(message = "year may not be null")
     private Integer year;
 
     private String bestMaleSingerId;
