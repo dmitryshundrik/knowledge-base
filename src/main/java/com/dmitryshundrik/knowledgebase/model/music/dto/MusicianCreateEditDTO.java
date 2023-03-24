@@ -3,7 +3,7 @@ package com.dmitryshundrik.knowledgebase.model.music.dto;
 import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
-import com.dmitryshundrik.knowledgebase.model.common.EventDTO;
+import com.dmitryshundrik.knowledgebase.model.common.dto.EventDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

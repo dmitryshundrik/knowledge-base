@@ -7,7 +7,6 @@ import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumSelectDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumViewDTO;
-import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
@@ -81,20 +80,13 @@ public class AlbumService {
         return getAlbumCreateEditDTO(createdAlbum);
     }
 
-    public void updateExistingAlbum(AlbumCreateEditDTO albumDTO, String slug) {
-        Album albumBySlug = getAlbumBySlug(slug);
+    public void updateAlbum(String albumSlug, AlbumCreateEditDTO albumDTO) {
+        Album albumBySlug = getAlbumBySlug(albumSlug);
         setFieldsFromDTO(albumBySlug, albumDTO);
     }
 
     public void deleteAlbumBySlug(String slug) {
         albumRepository.delete(getAlbumBySlug(slug));
-    }
-
-    public Album preparingAlbumById(CompositionCreateEditDTO compositionDTO) {
-        if (compositionDTO.getAlbumId().isBlank()) {
-            return null;
-        }
-        return getAlbumById(compositionDTO.getAlbumId());
     }
 
     public List<AlbumViewDTO> getEssentialAlbumsViewDTOList(List<Album> albumList) {
@@ -128,25 +120,6 @@ public class AlbumService {
     public List<AlbumViewDTO> getAlbumViewDTOList(List<Album> albumList) {
         return albumList.stream().map(album -> getAlbumViewDTO(album)).collect(Collectors.toList());
 
-    }
-
-    public List<AlbumViewDTO> getSortedAlbumViewDTOList(List<Album> albumList, SortType sortType) {
-        return getAlbumViewDTOList(albumList).stream()
-                .sorted((o1, o2) -> {
-                            if (SortType.CATALOGUE_NUMBER.equals(sortType)
-                                    && o1.getCatalogNumber() != null && o2.getCatalogNumber() != null) {
-                                return o1.getCatalogNumber().compareTo(o2.getCatalogNumber());
-                            } else if (SortType.YEAR.equals(sortType)
-                                    && o1.getYear() != null && o2.getYear() != null) {
-                                return o1.getYear().compareTo(o2.getYear());
-                            } else if (SortType.RATING.equals(sortType)
-                                    && o2.getRating() != null && o1.getRating() != null) {
-                                return o2.getRating().compareTo(o1.getRating());
-                            }
-                            return -1;
-                        }
-                )
-                .collect(Collectors.toList());
     }
 
     public AlbumCreateEditDTO getAlbumCreateEditDTO(Album album) {
@@ -183,6 +156,25 @@ public class AlbumService {
 
     public List<AlbumSelectDTO> getAlbumSelectDTOList(List<Album> albumList) {
         return albumList.stream().map(album -> getAlbumSelectDTO(album)).collect(Collectors.toList());
+    }
+
+    public List<AlbumViewDTO> getSortedAlbumViewDTOList(List<Album> albumList, SortType sortType) {
+        return getAlbumViewDTOList(albumList).stream()
+                .sorted((o1, o2) -> {
+                            if (SortType.CATALOGUE_NUMBER.equals(sortType)
+                                    && o1.getCatalogNumber() != null && o2.getCatalogNumber() != null) {
+                                return o1.getCatalogNumber().compareTo(o2.getCatalogNumber());
+                            } else if (SortType.YEAR.equals(sortType)
+                                    && o1.getYear() != null && o2.getYear() != null) {
+                                return o1.getYear().compareTo(o2.getYear());
+                            } else if (SortType.RATING.equals(sortType)
+                                    && o2.getRating() != null && o1.getRating() != null) {
+                                return o2.getRating().compareTo(o1.getRating());
+                            }
+                            return -1;
+                        }
+                )
+                .collect(Collectors.toList());
     }
 
     private void setFieldsFromDTO(Album album, AlbumCreateEditDTO albumDTO) {

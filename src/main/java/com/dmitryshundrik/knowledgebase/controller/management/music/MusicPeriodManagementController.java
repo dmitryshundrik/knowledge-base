@@ -30,13 +30,13 @@ public class MusicPeriodManagementController {
     @GetMapping("/management/music-period/all")
     public String getAllMusicPeriods(Model model) {
         model.addAttribute("musicPeriods", musicPeriodService.getAll());
-        return "management/music-period-all";
+        return "management/music/music-period-all";
     }
 
     @GetMapping("/management/music-period/create")
     public String getCreateMusicPeriod(Model model) {
         model.addAttribute("dto", new MusicPeriodCreateEditDTO());
-        return "management/music-period-create";
+        return "management/music/music-period-create";
     }
 
     @PostMapping("/management/music-period/create")
@@ -49,7 +49,7 @@ public class MusicPeriodManagementController {
     public String getEditMusicPeriod(@PathVariable String periodSlug, Model model) {
         MusicPeriod musicPeriodBySlug = musicPeriodService.getMusicPeriodBySlug(periodSlug);
         model.addAttribute("dto", musicPeriodService.getMusicPeriodCreateEditDTO(musicPeriodBySlug));
-        return "management/music-period-edit";
+        return "management/music/music-period-edit";
     }
 
     @PutMapping("management/music-period/edit/{periodSlug}")
@@ -68,6 +68,6 @@ public class MusicPeriodManagementController {
         compositionService.getAllCompositionsByPeriod(period)
                 .forEach(composition -> composition.getMusicPeriods().remove(period));
         musicPeriodService.deleteMusicPeriod(period);
-        return "redirect:/management/music-period/all/";
+        return "redirect:/music/management/music-period/all/";
     }
 }

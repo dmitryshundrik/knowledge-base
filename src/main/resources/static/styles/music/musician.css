@@ -50,6 +50,10 @@
     gap: 15px;
 }
 
+.timeline-text {
+    text-align: justify;
+}
+
 .rating {
     color: red;
 }

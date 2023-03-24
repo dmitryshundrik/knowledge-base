@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link th:href="@{/styles/management/entity-create-edit-management.css}" rel="stylesheet">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h4>измененить event</h4>
+    </header>
+
+    <div class="table-body">
+        <article class="table-body-item">
+            <form class="form" th:action="${'/management/musician/edit/' + slug +'/event/edit/' + eventDTO.id}"
+                  th:method="put"
+                  th:object="${eventDTO}">
+
+                <section class="form-item">
+                    <label>year</label>
+                    <input type="number" th:field="*{year}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>another_year</label>
+                    <input type="number" th:field="*{anotherYear}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>date</label>
+                    <input type="date" th:field="*{date}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>title</label>
+                    <input type="text" th:field="*{title}"/>
+                </section>
+
+                <section class="form-item major-field">
+                    <label>description</label>
+                    <textarea th:field="*{description}"></textarea>
+                </section>
+
+                <input class="input-submit" type="submit" value="Обновить"/>
+            </form>
+        </article>
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

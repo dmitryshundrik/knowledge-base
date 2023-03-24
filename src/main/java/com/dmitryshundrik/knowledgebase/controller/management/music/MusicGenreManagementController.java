@@ -35,14 +35,14 @@ public class MusicGenreManagementController {
     public String getAllMusicGenres(Model model) {
         model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
         model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
-        return "management/music-genre-all";
+        return "management/music/music-genre-all";
     }
 
     @GetMapping("/management/music-genre/create")
     public String getCreateMusicGenre(Model model) {
         model.addAttribute("dto", new MusicGenreCreateEditDTO());
         model.addAttribute("musicGenreTypes", MusicGenreType.values());
-        return "management/music-genre-create";
+        return "management/music/music-genre-create";
     }
 
     @PostMapping("/management/music-genre/create")
@@ -50,7 +50,7 @@ public class MusicGenreManagementController {
                                        Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("musicGenreTypes", MusicGenreType.values());
-            return "management/music-genre-create";
+            return "management/music/music-genre-create";
         }
         String slug = musicGenreService.createMusicGenreByDTO(genreDTO);
         return "redirect:/management/music-genre/edit/" + slug;
@@ -61,7 +61,7 @@ public class MusicGenreManagementController {
         MusicGenre musicGenreBySlug = musicGenreService.getMusicGenreBySlug(genreSlug);
         model.addAttribute("dto", musicGenreService.getMusicGenreCreateEditDTO(musicGenreBySlug));
         model.addAttribute("musicGenreTypes", MusicGenreType.values());
-        return "management/music-genre-edit";
+        return "management/music/music-genre-edit";
     }
 
     @PutMapping("management/music-genre/edit/{genreSlug}")

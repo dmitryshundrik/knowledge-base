@@ -9,11 +9,13 @@ public class MusicianValidationService {
     @Autowired
     private MusicianService musicianService;
 
-    public String musicianSlugIsExist(String musicianslug) {
+    public String musicianSlugIsExist(String musicianSlug) {
         String message = "";
-        if (musicianService.getMusicianBySlug(musicianslug) != null) {
+        if (musicianService.getMusicianBySlug(musicianSlug) != null) {
             message = "slug is already exist";
         }
         return message;
     }
+
 }
+

@@ -24,23 +24,12 @@ public class CompositionService {
     @Autowired
     private CompositionRepository compositionRepository;
 
-    public List<Composition> getAllCompositions() {
-        return compositionRepository.findAll();
-    }
-
     public Composition getCompositionBySlug(String slug) {
         return compositionRepository.getCompositionBySlug(slug);
     }
 
-    public List<Composition> getAllCompositionSortedByCreated() {
-        return getAllCompositions().stream()
-                .sorted((o1, o2) -> {
-                    if (o1.getCreated() != null && o2.getCreated() != null) {
-                        return o1.getCreated().compareTo(o2.getCreated());
-                    }
-                    return -1;
-                })
-                .collect(Collectors.toList());
+    public List<Composition> getAllCompositions() {
+        return compositionRepository.findAll();
     }
 
     public List<Composition> getAllCompositionsByPeriod(MusicPeriod period) {
@@ -74,7 +63,7 @@ public class CompositionService {
         return getCompositionCreateEditDTO(createdComposition);
     }
 
-    public void updateExistingComposition(CompositionCreateEditDTO compositionDTO, String compositionSlug, Album album) {
+    public void updateCompositionBySlug(CompositionCreateEditDTO compositionDTO, String compositionSlug, Album album) {
         Composition compositionBySlug = compositionRepository.getCompositionBySlug(compositionSlug);
         compositionBySlug.setAlbum(album);
         setFieldsFromDTO(compositionBySlug, compositionDTO);

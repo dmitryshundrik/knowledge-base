@@ -1,10 +1,11 @@
 package com.dmitryshundrik.knowledgebase.model.common;
 
+import com.dmitryshundrik.knowledgebase.model.common.enums.EraType;
+import com.dmitryshundrik.knowledgebase.model.common.enums.EventType;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
@@ -18,9 +19,15 @@ public class Event {
 
     private Instant created;
 
+    private EventType eventType;
+
+    private EraType eraType;
+
     private Integer year;
 
-    private LocalDate date;
+    private Integer anotherYear;
+
+    private String title;
 
     @Column(columnDefinition = "text")
     private String description;

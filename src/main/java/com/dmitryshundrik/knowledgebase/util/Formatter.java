@@ -19,4 +19,5 @@ public class Formatter {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PATTERN_YMD).withZone(ZoneId.systemDefault());
         return instant == null ? "" : formatter.format(instant);
     }
+
 }

@@ -14,12 +14,12 @@ public class IndexController {
     private YearInMusicService yearInMusicService;
 
     @Autowired
-    private EntityUpdateInfoService updateInfoService;
+    private EntityUpdateInfoService entityUpdateInfoService;
 
     @GetMapping("/")
     public String getIndex(Model model) {
         model.addAttribute("yearInMusicList", yearInMusicService.getAll());
-        model.addAttribute("latestUpdates", updateInfoService.getAll());
+        model.addAttribute("latestUpdates", entityUpdateInfoService.getAll());
         return "index";
     }
 }

@@ -18,17 +18,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/signup")
-    public String getSignup(Model model) {
-        model.addAttribute("userDTO", new UserSignupDTO());
-        return "security/signup";
-    }
-
-    @PostMapping("/signup")
-    public String postSignup(@ModelAttribute("userDTO") UserSignupDTO userDTO) {
-        userService.createUser(userDTO);
-        return "redirect:/login";
-    }
+//    @GetMapping("/signup")
+//    public String getSignup(Model model) {
+//        model.addAttribute("userDTO", new UserSignupDTO());
+//        return "security/signup";
+//    }
+//
+//    @PostMapping("/signup")
+//    public String postSignup(@ModelAttribute("userDTO") UserSignupDTO userDTO) {
+//        userService.createUser(userDTO);
+//        return "redirect:/login";
+//    }
 
     @GetMapping("/login")
     public String getLogin() {

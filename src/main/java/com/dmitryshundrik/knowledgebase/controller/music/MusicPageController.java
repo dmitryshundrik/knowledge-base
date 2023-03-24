@@ -1,8 +1,11 @@
 package com.dmitryshundrik.knowledgebase.controller.music;
 
+import com.dmitryshundrik.knowledgebase.model.common.enums.EraType;
+import com.dmitryshundrik.knowledgebase.model.common.enums.EventType;
 import com.dmitryshundrik.knowledgebase.model.music.*;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
+import com.dmitryshundrik.knowledgebase.service.common.EventService;
 import com.dmitryshundrik.knowledgebase.service.music.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +31,9 @@ public class MusicPageController {
 
     @Autowired
     private YearInMusicService yearInMusicService;
+
+    @Autowired
+    private EventService eventService;
 
     @Autowired
     private MusicPeriodService musicPeriodService;
@@ -56,6 +62,10 @@ public class MusicPageController {
 
     @GetMapping("/timeline-of-music")
     public String getTimelineOfMusic(Model model) {
+        model.addAttribute("events", eventService
+                .getEventDTOList(eventService
+                        .getAllEventsByType(EventType.TIMELINE_OF_MUSIC)));
+        model.addAttribute("eraTypes", EraType.values());
         return "music/timeline-of-music";
     }
 
@@ -80,9 +90,9 @@ public class MusicPageController {
         return "music/musician";
     }
 
-    @GetMapping("/period/{slug}")
-    public String getPeriodBySlug(@PathVariable String slug, Model model) {
-        MusicPeriod musicPeriod = musicPeriodService.getMusicPeriodBySlug(slug);
+    @GetMapping("/period/{periodSlug}")
+    public String getPeriodBySlug(@PathVariable String periodSlug, Model model) {
+        MusicPeriod musicPeriod = musicPeriodService.getMusicPeriodBySlug(periodSlug);
         List<Composition> allCompositionsByPeriod = compositionService.getAllCompositionsByPeriod(musicPeriod);
         model.addAttribute("musicPeriod", musicPeriod);
         model.addAttribute("compositions", compositionService
@@ -90,9 +100,9 @@ public class MusicPageController {
         return "music/music-period";
     }
 
-    @GetMapping("/genre/{slug}")
-    public String getClassicalGenreBySlug(@PathVariable String slug, Model model) {
-        MusicGenre musicGenre = musicGenreService.getMusicGenreBySlug(slug);
+    @GetMapping("/genre/{genreSlug}")
+    public String getGenreBySlug(@PathVariable String genreSlug, Model model) {
+        MusicGenre musicGenre = musicGenreService.getMusicGenreBySlug(genreSlug);
         model.addAttribute("musicGenre", musicGenre);
         model.addAttribute("classicalType", MusicGenreType.CLASSICAL);
         model.addAttribute("contemporaryType", MusicGenreType.CONTEMPORARY);

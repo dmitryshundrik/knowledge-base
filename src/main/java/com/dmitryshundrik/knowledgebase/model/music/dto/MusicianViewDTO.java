@@ -2,7 +2,7 @@ package com.dmitryshundrik.knowledgebase.model.music.dto;
 
 import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
-import com.dmitryshundrik.knowledgebase.model.common.EventDTO;
+import com.dmitryshundrik.knowledgebase.model.common.dto.EventDTO;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;

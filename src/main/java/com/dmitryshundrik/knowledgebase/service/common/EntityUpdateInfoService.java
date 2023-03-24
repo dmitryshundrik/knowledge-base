@@ -46,7 +46,7 @@ public class EntityUpdateInfoService {
         List<MusicianViewDTO> latestUpdate = musicianService.getLatestUpdate();
         for (MusicianViewDTO musician : latestUpdate) {
             musicianUpdateInfo.add(EntityUpdateInfo.builder()
-                    .created(musician.getCreated().split(" ")[0])
+                    .created(musician.getCreated())
                     .archiveSection("музыка:")
                     .description("добавлен музыкант " + musician.getNickName())
                     .link("music/musician/" + musician.getSlug())
@@ -56,30 +56,30 @@ public class EntityUpdateInfoService {
     }
 
     private List<EntityUpdateInfo> getAlbumUpdates() {
-        List<EntityUpdateInfo> musicianUpdateInfo = new ArrayList<>();
+        List<EntityUpdateInfo> albumUpdateInfo = new ArrayList<>();
         List<AlbumViewDTO> latestUpdate = albumService.getLatestUpdate();
         for (AlbumViewDTO album : latestUpdate) {
-            musicianUpdateInfo.add(EntityUpdateInfo.builder()
-                    .created(album.getCreated().split(" ")[0])
+            albumUpdateInfo.add(EntityUpdateInfo.builder()
+                    .created(album.getCreated())
                     .archiveSection("музыка:")
                     .description("добавлен альбом " + album.getTitle() + " в архив " + album.getMusicianNickname())
                     .link("music/musician/" + album.getMusicianSlug())
                     .build());
         }
-        return musicianUpdateInfo;
+        return albumUpdateInfo;
     }
 
     private List<EntityUpdateInfo> getCompositionUpdates() {
-        List<EntityUpdateInfo> musicianUpdateInfo = new ArrayList<>();
+        List<EntityUpdateInfo> compositionUpdateInfo = new ArrayList<>();
         List<CompositionViewDTO> latestUpdate = compositionService.getLatestUpdate();
         for (CompositionViewDTO composition : latestUpdate) {
-            musicianUpdateInfo.add(EntityUpdateInfo.builder()
-                    .created(composition.getCreated().split(" ")[0])
+            compositionUpdateInfo.add(EntityUpdateInfo.builder()
+                    .created(composition.getCreated())
                     .archiveSection("музыка:")
                     .description("добавлена композиция " + composition.getTitle() + " в архив " + composition.getMusicianNickname())
                     .link("music/musician/" + composition.getMusicianSlug())
                     .build());
         }
-        return musicianUpdateInfo;
+        return compositionUpdateInfo;
     }
 }

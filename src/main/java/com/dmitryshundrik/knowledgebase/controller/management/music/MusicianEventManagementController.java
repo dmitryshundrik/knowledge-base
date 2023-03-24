@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.controller.management.music;
 
 import com.dmitryshundrik.knowledgebase.model.common.Event;
-import com.dmitryshundrik.knowledgebase.model.common.EventDTO;
+import com.dmitryshundrik.knowledgebase.model.common.dto.EventDTO;
 import com.dmitryshundrik.knowledgebase.service.common.EventService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("")
-public class EventManagementController {
+public class MusicianEventManagementController {
 
     @Autowired
     private EventService eventService;
@@ -27,7 +27,7 @@ public class EventManagementController {
     public String getCreateEventForMusician(@PathVariable String musicianSlug, Model model) {
         model.addAttribute("eventDTO", new EventDTO());
         model.addAttribute("slug", musicianSlug);
-        return "management/event-create";
+        return "management/music/event-create";
     }
 
     @PostMapping("/management/musician/edit/{musicianSlug}/event/create")
@@ -36,25 +36,25 @@ public class EventManagementController {
                                              BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("slug", musicianSlug);
-            return "management/event-create";
+            return "management/music/event-create";
         }
-        UUID eventId = eventService.createMusicianEventByEventDTO(eventDTO, musicianService.getMusicianBySlug(musicianSlug));
+        UUID eventId = eventService.createEventForMusician(musicianService.getMusicianBySlug(musicianSlug), eventDTO);
         return "redirect:/management/musician/edit/" + musicianSlug + "/event/edit/" + eventId;
     }
 
     @GetMapping("/management/musician/edit/{musicianSlug}/event/edit/{id}")
     public String getEditMusicianEventById(@PathVariable String musicianSlug, @PathVariable UUID id, Model model) {
         Event eventById = eventService.getEventById(id);
-        model.addAttribute("eventDTO", eventService.eventToEventDTO(eventById));
+        model.addAttribute("eventDTO", eventService.getEventDTO(eventById));
         model.addAttribute("slug", musicianSlug);
-        return "management/event-edit";
+        return "management/music/event-edit";
     }
 
     @PutMapping("/management/musician/edit/{musicianSlug}/event/edit/{id}")
     public String putEditMusicianEventById(@PathVariable String musicianSlug,
                                            @PathVariable UUID id,
                                            @ModelAttribute("eventDTO") EventDTO eventDTO) {
-        eventService.updateEvent(eventDTO, id);
+        eventService.updateEvent(id, eventDTO);
         return "redirect:/management/musician/edit/" + musicianSlug + "/event/edit/" + eventDTO.getId();
     }
 

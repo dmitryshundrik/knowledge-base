@@ -35,18 +35,18 @@ public class AlbumManagementController {
     public String getAllAlbums(Model model) {
         List<Album> sortedAlbums = albumService.getAllAlbumsSortedByCreated();
         model.addAttribute("albumViewDTOList", albumService.getAlbumViewDTOList(sortedAlbums));
-        return "management/album-all";
+        return "management/music/album-all";
     }
 
     @GetMapping("/management/musician/edit/{musicianSlug}/album/create")
     public String getCreateAlbum(@PathVariable String musicianSlug, Model model) {
         AlbumCreateEditDTO albumDTO = new AlbumCreateEditDTO();
-        musicianService.setMusicianFieldsToAlbumDTO(albumDTO, musicianSlug);
+        musicianService.setFieldsToAlbumDTO(musicianSlug, albumDTO);
         model.addAttribute("albumCreateEditDTO", albumDTO);
         model.addAttribute("musicPeriods", musicPeriodService.getAll());
         model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
         model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
-        return "management/album-create";
+        return "management/music/album-create";
     }
 
     @PostMapping("/management/musician/edit/{musicianSlug}/album/create")
@@ -54,11 +54,11 @@ public class AlbumManagementController {
                                   @Valid @ModelAttribute("albumCreateEditDTO") AlbumCreateEditDTO albumDTO,
                                   BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            musicianService.setMusicianFieldsToAlbumDTO(albumDTO, musicianSlug);
+            musicianService.setFieldsToAlbumDTO(musicianSlug, albumDTO);
             model.addAttribute("musicPeriods", musicPeriodService.getAll());
             model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
             model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
-            return "management/album-create";
+            return "management/music/album-create";
         }
         AlbumCreateEditDTO DTOByCreated = albumService
                 .createAlbumByDTO(albumDTO, musicianService.getMusicianBySlug(musicianSlug));
@@ -72,13 +72,13 @@ public class AlbumManagementController {
         model.addAttribute("musicPeriods", musicPeriodService.getAll());
         model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
         model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
-        return "management/album-edit";
+        return "management/music/album-edit";
     }
 
     @PutMapping("management/musician/edit/{musicianSlug}/album/edit/{albumSlug}")
     public String putEditAlbumBySlug(@PathVariable String musicianSlug, @PathVariable String albumSlug,
                                      @ModelAttribute("albumCreateEditDTO") AlbumCreateEditDTO albumDTO) {
-        albumService.updateExistingAlbum(albumDTO, albumSlug);
+        albumService.updateAlbum(albumSlug, albumDTO);
         return "redirect:/management/musician/edit/" + musicianSlug + "/album/edit/" + albumDTO.getSlug();
     }
 

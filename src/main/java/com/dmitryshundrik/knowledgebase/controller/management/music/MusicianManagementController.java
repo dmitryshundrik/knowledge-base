@@ -39,7 +39,7 @@ public class MusicianManagementController {
     public String getAllMusicians(Model model) {
         List<Musician> allMusicians = musicianService.getAllMusicians();
         model.addAttribute("musicianViewDTOList", musicianService.getMusicianViewDTOList(allMusicians));
-        return "management/musician-all";
+        return "management/music/musician-all";
     }
 
     @GetMapping("/management/musician/create")
@@ -52,23 +52,23 @@ public class MusicianManagementController {
         model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
         model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
         model.addAttribute("sortTypes", SortType.values());
-        return "management/musician-create";
+        return "management/music/musician-create";
     }
 
     @PostMapping("/management/musician/create")
-    public String postCreateMusician(@Valid @ModelAttribute("musicianCreateEditDTO") MusicianCreateEditDTO musicianCreateEditDTO,
+    public String postCreateMusician(@Valid @ModelAttribute("musicianCreateEditDTO") MusicianCreateEditDTO musicianDTO,
                                      BindingResult bindingResult, Model model) {
-        String error = musicianValidationService.musicianSlugIsExist(musicianCreateEditDTO.getSlug());
+        String error = musicianValidationService.musicianSlugIsExist(musicianDTO.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute("slug", error);
             model.addAttribute("musicPeriods", musicPeriodService.getAll());
             model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
             model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
             model.addAttribute("sortTypes", SortType.values());
-            return "management/musician-create";
+            return "management/music/musician-create";
         }
-        musicianService.createMusicianByMusicianDTO(musicianCreateEditDTO);
-        return "redirect:/management/musician/edit/" + musicianCreateEditDTO.getSlug();
+        musicianService.createMusicianByMusicianDTO(musicianDTO);
+        return "redirect:/management/musician/edit/" + musicianDTO.getSlug();
     }
 
     @GetMapping("/management/musician/edit/{musicianSlug}")
@@ -79,14 +79,14 @@ public class MusicianManagementController {
         model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
         model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
         model.addAttribute("sortTypes", SortType.values());
-        return "management/musician-edit";
+        return "management/music/musician-edit";
     }
 
     @PutMapping("/management/musician/edit/{musicianSlug}")
     public String putEditMusicianBySlug(@PathVariable String musicianSlug,
-                                        @ModelAttribute("musicianCreateEditDTO") MusicianCreateEditDTO musicianCreateEditDTO) {
-        musicianService.updateExistingMusician(musicianCreateEditDTO, musicianSlug);
-        return "redirect:/management/musician/edit/" + musicianCreateEditDTO.getSlug();
+                                        @ModelAttribute("musicianCreateEditDTO") MusicianCreateEditDTO musicianDTO) {
+        musicianService.updateMusician(musicianSlug, musicianDTO);
+        return "redirect:/management/musician/edit/" + musicianDTO.getSlug();
     }
 
     @PostMapping("/management/musician/edit/{musicianSlug}/image/upload")

@@ -87,14 +87,14 @@ public class MusicianService {
         musicianRepository.save(musician);
     }
 
-    public void updateExistingMusician(MusicianCreateEditDTO musicianDTO, String slug) {
-        Musician musicianBySlug = getMusicianBySlug(slug);
+    public void updateMusician(String musicianSlug, MusicianCreateEditDTO musicianDTO) {
+        Musician musicianBySlug = getMusicianBySlug(musicianSlug);
         setFieldsFromDTO(musicianBySlug, musicianDTO);
     }
 
-    public void updateMusicianImageBySlug(String slug, byte[] bytes) {
+    public void updateMusicianImageBySlug(String musicianSlug, byte[] bytes) {
         if (bytes.length != 0) {
-            Musician musicianBySlug = getMusicianBySlug(slug);
+            Musician musicianBySlug = getMusicianBySlug(musicianSlug);
             musicianBySlug.setImage(new String(bytes));
         }
     }
@@ -104,8 +104,8 @@ public class MusicianService {
         musicianBySlug.setImage(Constants.DEFAULT_PLACEHOLDER);
     }
 
-    public void deleteMusicianBySlug(String slug) {
-        musicianRepository.deleteBySlug(slug);
+    public void deleteMusicianBySlug(String musicianSlug) {
+        musicianRepository.deleteBySlug(musicianSlug);
     }
 
     public MusicianViewDTO getMusicianViewDTO(Musician musician) {
@@ -124,7 +124,7 @@ public class MusicianService {
                 .musicPeriods(musician.getMusicPeriods())
                 .musicGenres(musician.getMusicGenres())
                 .spotifyLink(musician.getSpotifyLink())
-                .events(eventService.eventListToEventDTOList(musician.getEvents()))
+                .events(eventService.getEventDTOList(musician.getEvents()))
                 .albums(albumService.getSortedAlbumViewDTOList(musician.getAlbums(), musician.getAlbumsSortType()))
                 .essentialAlbums(albumService.getEssentialAlbumsViewDTOList(musician.getAlbums()))
                 .compositions(compositionService
@@ -159,17 +159,11 @@ public class MusicianService {
                 .albumsSortType(musician.getAlbumsSortType())
                 .compositionsSortType(musician.getCompositionsSortType())
                 .spotifyLink(musician.getSpotifyLink())
-                .events(eventService.eventListToEventDTOList(musician.getEvents()))
+                .events(eventService.getEventDTOList(musician.getEvents()))
                 .albums(albumService.getSortedAlbumViewDTOList(musician.getAlbums(), musician.getAlbumsSortType()))
                 .compositions(compositionService
                         .getSortedCompositionViewDTOList(musician.getCompositions(), musician.getCompositionsSortType()))
                 .build();
-    }
-
-    public void setMusicianFieldsToAlbumDTO(AlbumCreateEditDTO albumDTO, String musicianSlug) {
-        Musician musicianBySlug = getMusicianBySlug(musicianSlug);
-        albumDTO.setMusicianNickname(musicianBySlug.getNickName());
-        albumDTO.setMusicianSlug(musicianBySlug.getSlug());
     }
 
     public MusicianSelectDTO getMusicianSelectDTO(Musician musician) {
@@ -183,10 +177,16 @@ public class MusicianService {
         return musicianList.stream().map(musician -> getMusicianSelectDTO(musician)).collect(Collectors.toList());
     }
 
-    public void setMusicianFieldsToCompositionDTO(CompositionCreateEditDTO compositionDTO, String musicianSlug) {
+    public void setFieldsToCompositionDTO(String musicianSlug, CompositionCreateEditDTO compositionDTO) {
         Musician musicianBySlug = getMusicianBySlug(musicianSlug);
         compositionDTO.setMusicianNickname(musicianBySlug.getNickName());
         compositionDTO.setMusicianSlug(musicianBySlug.getSlug());
+    }
+
+    public void setFieldsToAlbumDTO(String musicianSlug, AlbumCreateEditDTO albumDTO) {
+        Musician musicianBySlug = getMusicianBySlug(musicianSlug);
+        albumDTO.setMusicianNickname(musicianBySlug.getNickName());
+        albumDTO.setMusicianSlug(musicianBySlug.getSlug());
     }
 
     private void setFieldsFromDTO(Musician musician, MusicianCreateEditDTO musicianDTO) {

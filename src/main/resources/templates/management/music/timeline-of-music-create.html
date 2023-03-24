@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link th:href="@{/styles/management/entity-create-edit-management.css}" rel="stylesheet">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h4>создать event</h4>
+    </header>
+
+    <div class="table-body">
+        <article class="table-body-item">
+            <form class="form" th:action="${'/management/timeline-of-music/event/create'}"
+                  th:method="post"
+                  th:object="${eventDTO}">
+
+                <section class="form-item">
+                    <label>era_type</label>
+                    <select th:field="*{eraType}">
+                        <option th:value="null" selected>выбрать эру</option>
+                        <option th:each="type : ${eraTypes}"
+                                th:value="${type}"
+                                th:text="${type.label}">
+                        </option>
+                    </select>
+                </section>
+
+                <section class="form-item">
+                    <label>year</label>
+                    <input type="number" th:field="*{year}"/>
+                </section>
+                <p class="error" th:if="${#fields.hasErrors('year')}" th:errorclass="error" th:errors="*{year}"></p>
+
+                <section class="form-item">
+                    <label>another_year</label>
+                    <input type="number" th:field="*{anotherYear}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>title</label>
+                    <input type="text" th:field="*{title}"/>
+                </section>
+
+                <section class="form-item major-field">
+                    <label>description</label>
+                    <textarea th:field="*{description}"></textarea>
+                </section>
+                <p class="error" th:if="${#fields.hasErrors('description')}" th:errorclass="error"
+                   th:errors="*{description}"></p>
+
+                <input class="input-submit" type="submit" value="Создать"/>
+            </form>
+        </article>
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

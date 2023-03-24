@@ -17,21 +17,41 @@
 
     <div class="table-body">
         <article class="table-body-item">
-            <form class="form" th:action="${'/management/musician/edit/' + slug +'/event/edit/' + eventDTO.id}"
+            <form class="form" th:action="${'/management/timeline-of-music/event/edit/' + eventDTO.id}"
                   th:method="put"
                   th:object="${eventDTO}">
+
+                <section class="form-item">
+                    <label>era_type</label>
+                    <select th:field="*{eraType}">
+                        <option th:value="null" selected>выбрать эру</option>
+                        <option th:each="type : ${eraTypes}"
+                                th:value="${type}"
+                                th:text="${type.label}">
+                        </option>
+                    </select>
+                </section>
+
                 <section class="form-item">
                     <label>year</label>
                     <input type="number" th:field="*{year}"/>
                 </section>
+
                 <section class="form-item">
-                    <label>date</label>
-                    <input type="date" th:field="*{date}"/>
+                    <label>another_year</label>
+                    <input type="number" th:field="*{anotherYear}"/>
                 </section>
+
+                <section class="form-item">
+                    <label>title</label>
+                    <input type="text" th:field="*{title}"/>
+                </section>
+
                 <section class="form-item major-field">
                     <label>description</label>
                     <textarea th:field="*{description}"></textarea>
                 </section>
+
                 <input class="input-submit" type="submit" value="Обновить"/>
             </form>
         </article>

@@ -25,12 +25,12 @@ public class MusicGenreService {
     @Autowired
     private CompositionRepository compositionRepository;
 
-    public List<MusicGenre> getAll() {
-        return musicGenreRepository.findAll();
-    }
-
     public MusicGenre getMusicGenreBySlug(String slug) {
         return musicGenreRepository.getBySlug(slug);
+    }
+
+    public List<MusicGenre> getAll() {
+        return musicGenreRepository.findAll();
     }
 
     public List<MusicGenre> getAllClassicalGenres() {

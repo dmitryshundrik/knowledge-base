@@ -24,14 +24,14 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void createUser(UserSignupDTO userDTO) {
-        User user = new User();
-        user.setName(userDTO.getName());
-        user.setUsername(userDTO.getUsername());
-        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        user.setUserRoles(Set.of(UserRole.USER));
-        userRepository.save(user);
-    }
+//    public void createUser(UserSignupDTO userDTO) {
+//        User user = new User();
+//        user.setName(userDTO.getName());
+//        user.setUsername(userDTO.getUsername());
+//        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+//        user.setUserRoles(Set.of(UserRole.USER));
+//        userRepository.save(user);
+//    }
 
     public static boolean isAuthenticated() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -25,20 +25,20 @@ public class YearInMusicManagementController {
     @GetMapping("/management/year-in-music/all")
     public String getAllYearsInMusic(Model model) {
         model.addAttribute("yearInMusicList", yearInMusicService.getAll());
-        return "management/year-in-music-all";
+        return "management/music/year-in-music-all";
     }
 
     @GetMapping("/management/year-in-music/create")
     public String getCreateYearInMusic(Model model) {
         model.addAttribute("yearInMusicDTO", new YearInMusicCreateEditDTO());
-        return "management/year-in-music-create";
+        return "management/music/year-in-music-create";
     }
 
     @PostMapping("/management/year-in-music/create")
     public String postCreateYearInMusic(@Valid @ModelAttribute("yearInMusicDTO") YearInMusicCreateEditDTO yearInMusicDTO,
                                         BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "management/year-in-music-create";
+            return "management/music/year-in-music-create";
         }
         YearInMusicCreateEditDTO DTOByCreated = yearInMusicService.createYearInMusic(yearInMusicDTO);
         return "redirect:/management/year-in-music/edit/" + DTOByCreated.getSlug();
@@ -52,7 +52,7 @@ public class YearInMusicManagementController {
         model.addAttribute("musicians", musicianService
                 .getMusicianSelectDTOList(musicianService
                         .getAllMusiciansWithWorksByYear(yearInMusicBySlug.getYear())));
-        return "management/year-in-music-edit";
+        return "management/music/year-in-music-edit";
     }
 
     @PutMapping("management/year-in-music/edit/{yearIMSlug}")

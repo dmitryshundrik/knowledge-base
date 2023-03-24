@@ -19,6 +19,7 @@
         <article class="table-body-item">
             <form class="form" th:action="${'/management/musician/edit/' + slug +'/event/create'}" th:method="post"
                   th:object="${eventDTO}">
+
                 <section class="form-item">
                     <label>year</label>
                     <input type="number" th:field="*{year}"/>
@@ -26,8 +27,18 @@
                 <p class="error" th:if="${#fields.hasErrors('year')}" th:errorclass="error" th:errors="*{year}"></p>
 
                 <section class="form-item">
+                    <label>another_year</label>
+                    <input type="number" th:field="*{anotherYear}"/>
+                </section>
+
+                <section class="form-item">
                     <label>date</label>
                     <input type="date" th:field="*{date}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>title</label>
+                    <input type="text" th:field="*{title}"/>
                 </section>
 
                 <section class="form-item major-field">

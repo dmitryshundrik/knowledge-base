@@ -22,12 +22,12 @@ public class MusicPeriodService {
     @Autowired
     private CompositionRepository compositionRepository;
 
-    public List<MusicPeriod> getAll() {
-        return musicPeriodRepository.findAll();
-    }
-
     public MusicPeriod getMusicPeriodBySlug(String slug) {
         return musicPeriodRepository.getBySlug(slug);
+    }
+
+    public List<MusicPeriod> getAll() {
+        return musicPeriodRepository.findAll();
     }
 
     public List<MusicPeriod> getFilteredMusicPeriods() {
