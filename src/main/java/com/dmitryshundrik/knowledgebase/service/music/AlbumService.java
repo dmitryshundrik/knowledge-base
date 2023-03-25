@@ -52,6 +52,10 @@ public class AlbumService {
                 .collect(Collectors.toList());
     }
 
+    public List<Album> getAllAlbumsByYear(Integer year) {
+        return albumRepository.getAllByYear(year);
+    }
+
     public List<Album> getAllAlbumsByMusician(Musician musician) {
         return albumRepository.getAllByMusician(musician);
     }
@@ -68,6 +72,10 @@ public class AlbumService {
         return getAlbumViewDTOList(albumRepository.getAllByYearAndYearEndRankNotNull(year).stream()
                 .sorted(Comparator.comparing(Album::getYearEndRank))
                 .collect(Collectors.toList()));
+    }
+
+    public List<Integer> getAllYearsFromAlbums() {
+        return albumRepository.getAllYearsFromAlbums();
     }
 
     public AlbumCreateEditDTO createAlbumByDTO(AlbumCreateEditDTO albumDTO, Musician musician) {

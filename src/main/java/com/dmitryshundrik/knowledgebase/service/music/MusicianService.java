@@ -79,7 +79,7 @@ public class MusicianService {
         return musicianRepository.getAllByMusicGenresIsContaining(genre);
     }
 
-    public void createMusicianByMusicianDTO(MusicianCreateEditDTO musicianDTO) {
+    public void createMusicianByDTO(MusicianCreateEditDTO musicianDTO) {
         Musician musician = new Musician();
         musician.setCreated(Instant.now());
         musician.setImage(Constants.DEFAULT_PLACEHOLDER);

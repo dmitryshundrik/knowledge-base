@@ -21,7 +21,7 @@ public class TimelineOfMusicManagementController {
     @GetMapping("/management/timeline-of-music/event/all")
     public String getAllEventsForTimelineOfMusic(Model model) {
         model.addAttribute("events", eventService
-                .getEventDTOList(eventService.getAllEventsByType(EventType.TIMELINE_OF_MUSIC)));
+                .getEventDTOList(eventService.getAllEventsByType(EventType.MUSIC_TIMELINE)));
         return "management/music/timeline-of-music-all";
     }
 

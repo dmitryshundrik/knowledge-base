@@ -46,6 +46,7 @@ public class MusicPageController {
         List<YearInMusic> yearInMusicList = yearInMusicService.getAll();
         model.addAttribute("yearInMusicList", yearInMusicService.getYearInMusicViewDTOList(yearInMusicList));
         model.addAttribute("musicPeriods", musicPeriodService.getFilteredMusicPeriods());
+        model.addAttribute("albumRatings", albumService.getAllYearsFromAlbums());
         model.addAttribute("classicalMusicGenres", musicGenreService.getFilteredClassicalGenres());
         model.addAttribute("contemporaryMusicGenres", musicGenreService.getFilteredContemporaryGenres());
         return "music/music-page";
@@ -60,11 +61,17 @@ public class MusicPageController {
         return "music/year-in-music";
     }
 
+    @GetMapping("/list-and-charts/albums-of-{year}")
+    public String getAllAlbumsByYear(@PathVariable String year, Model model) {
+        List<Album> allAlbumsByYear = albumService.getAllAlbumsByYear(Integer.valueOf(year));
+        model.addAttribute("albums", albumService.getSortedAlbumViewDTOList(allAlbumsByYear, SortType.RATING));
+        return "music/album-all";
+    }
+
     @GetMapping("/timeline-of-music")
     public String getTimelineOfMusic(Model model) {
-        model.addAttribute("events", eventService
-                .getEventDTOList(eventService
-                        .getAllEventsByType(EventType.TIMELINE_OF_MUSIC)));
+        model.addAttribute("eventsBCE", eventService.getAllMusicTimelineEventsBeforeCommon());
+        model.addAttribute("eventsCE", eventService.getAllMusicTimelineEventsByCommonEra());
         model.addAttribute("eraTypes", EraType.values());
         return "music/timeline-of-music";
     }

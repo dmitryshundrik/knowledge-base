@@ -67,7 +67,7 @@ public class MusicianManagementController {
             model.addAttribute("sortTypes", SortType.values());
             return "management/music/musician-create";
         }
-        musicianService.createMusicianByMusicianDTO(musicianDTO);
+        musicianService.createMusicianByDTO(musicianDTO);
         return "redirect:/management/musician/edit/" + musicianDTO.getSlug();
     }
 

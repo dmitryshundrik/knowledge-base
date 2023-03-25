@@ -1,9 +1,11 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
+import com.dmitryshundrik.knowledgebase.model.music.Album;
 import com.dmitryshundrik.knowledgebase.model.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicGenreCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
+import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
 import com.dmitryshundrik.knowledgebase.repository.music.CompositionRepository;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicGenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class MusicGenreService {
 
     @Autowired
     private MusicGenreRepository musicGenreRepository;
+
+    @Autowired
+    private AlbumRepository albumRepository;
 
     @Autowired
     private CompositionRepository compositionRepository;
@@ -46,29 +51,29 @@ public class MusicGenreService {
     }
 
     public List<MusicGenre> getFilteredClassicalGenres() {
-        return musicGenreRepository.findAll().stream()
+        return musicGenreRepository.getAllByMusicGenreType(MusicGenreType.CLASSICAL).stream()
                 .filter(musicGenre -> {
-                    List<Composition> compositions = compositionRepository.getAllByMusicGenresIsContaining(musicGenre);
-                    if (musicGenre.getMusicGenreType().equals(MusicGenreType.CLASSICAL) && !compositions.isEmpty()) {
-                        musicGenre.setCount(compositions.size());
+                    Integer count = compositionRepository.countAllByMusicGenresIsContaining(musicGenre);
+                    if (count != 0) {
+                        musicGenre.setCount(count);
                         return true;
                     }
                     return false;
                 })
-                .sorted(Comparator.comparing(MusicGenre::getCount)).collect(Collectors.toList());
+                .sorted((o1, o2) -> o2.getCount().compareTo(o1.getCount())).collect(Collectors.toList());
     }
 
     public List<MusicGenre> getFilteredContemporaryGenres() {
-        return musicGenreRepository.findAll().stream()
+        return musicGenreRepository.getAllByMusicGenreType(MusicGenreType.CONTEMPORARY).stream()
                 .filter(musicGenre -> {
-                    List<Composition> compositions = compositionRepository.getAllByMusicGenresIsContaining(musicGenre);
-                    if (musicGenre.getMusicGenreType().equals(MusicGenreType.CONTEMPORARY) && !compositions.isEmpty()) {
-                        musicGenre.setCount(compositions.size());
+                    Integer count = albumRepository.countAllByMusicGenresIsContaining(musicGenre);
+                    if (count != 0) {
+                        musicGenre.setCount(count);
                         return true;
                     }
                     return false;
                 })
-                .sorted(Comparator.comparing(MusicGenre::getCount)).collect(Collectors.toList());
+                .sorted((o1, o2) -> o2.getCount().compareTo(o1.getCount())).collect(Collectors.toList());
     }
 
     public String createMusicGenreByDTO(MusicGenreCreateEditDTO genreDTO) {

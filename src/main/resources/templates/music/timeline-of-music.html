@@ -16,8 +16,17 @@
     </header>
 
     <div class="table-body">
-        <article class="table-body-item" >
-            <section class="table-body-item-row" th:each="event : ${events}">
+        <article class="table-body-item" th:if="${not #lists.isEmpty(eventsBCE)}">
+            <h3>События до нашей эры</h3>
+            <section class="table-body-item-row" th:each="event : ${eventsBCE}">
+                <span th:text="${event.year}"></span>
+                <span th:text="${event.description}"></span>
+            </section>
+        </article>
+
+        <article class="table-body-item" th:if="${not #lists.isEmpty(eventsCE)}">
+            <h3>Наша эра</h3>
+            <section class="table-body-item-row" th:each="event : ${eventsCE}">
                 <span th:text="${event.year}"></span>
                 <span th:text="${event.description}"></span>
             </section>

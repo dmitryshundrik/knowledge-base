@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.common;
 
+import com.dmitryshundrik.knowledgebase.model.common.enums.EraType;
 import com.dmitryshundrik.knowledgebase.model.common.enums.EventType;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.common.Event;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -29,6 +31,20 @@ public class EventService {
 
     public List<Event> getAllEventsByType(EventType type) {
         return eventRepository.findAllByEventType(type);
+    }
+
+    public List<Event> getAllMusicTimelineEventsBeforeCommon() {
+        return getAllEventsByType(EventType.MUSIC_TIMELINE).stream()
+                .filter(event -> event.getEraType().equals(EraType.BEFORE_COMMON))
+                .sorted((o1, o2) -> o2.getYear().compareTo(o1.getYear()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Event> getAllMusicTimelineEventsByCommonEra() {
+        return getAllEventsByType(EventType.MUSIC_TIMELINE).stream()
+                .filter(event -> event.getEraType().equals(EraType.COMMON))
+                .sorted(Comparator.comparing(Event::getYear))
+                .collect(Collectors.toList());
     }
 
     public Event createEventByEventDTO(EventDTO eventDTO) {

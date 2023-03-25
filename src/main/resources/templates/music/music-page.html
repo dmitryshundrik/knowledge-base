@@ -35,9 +35,16 @@
         </article>
 
         <article class="table-body-item">
-            <h3>Эпохи</h3>
-            <span th:each="period : ${musicPeriods}">
-                <a th:text="${period.title}" th:href="'/music/period/' + ${period.slug}"></a>
+            <h3>Альбомные рейтинги</h3>
+            <span th:each="year : ${albumRatings}">
+                <a th:text="${year}" th:href="'/music/list-and-charts/albums-of-' + ${year}"></a>
+            </span>
+        </article>
+
+        <article class="table-body-item">
+            <h3>В разработке</h3>
+            <span th:each="item : ${items}">
+                <a th:text="${item}" th:href="'/music/list-and-charts/?' + ${item}"></a>
             </span>
         </article>
 
@@ -51,14 +58,6 @@
 
         <article class="table-body-item">
             <h3>Современные жанры</h3>
-            <span th:each="genre : ${contemporaryMusicGenres}">
-                <a th:text="${genre.title} + ' (' + ${genre.count} + ') '"
-                   th:href="'/music/genre/' + ${genre.slug}"></a>
-            </span>
-        </article>
-
-        <article class="table-body-item">
-            <h3></h3>
             <span th:each="genre : ${contemporaryMusicGenres}">
                 <a th:text="${genre.title} + ' (' + ${genre.count} + ') '"
                    th:href="'/music/genre/' + ${genre.slug}"></a>

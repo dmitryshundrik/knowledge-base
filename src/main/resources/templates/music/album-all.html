@@ -23,18 +23,8 @@
                 <span class="table-body-item-col rating" th:text="${album.rating}"></span>
                 <span class="table-body-item-col" th:text="${album.title}"></span>
                 <span class="table-body-item-col" th:text="${album.year}"></span>
-<!--                <span class="table-body-item-col">-->
-<!--                    <span th:each="genre : ${album.musicGenres}">-->
-<!--                        <span class="column-genre" th:if="${genreStat.index + 1  < album.musicGenres.size}"-->
-<!--                              th:text="${genre.title} + ','">-->
-<!--                        </span>-->
-<!--                        <span class="column-genre" th:if="${genreStat.index + 1  == album.musicGenres.size}"-->
-<!--                              th:text="${genre.title}">-->
-<!--                        </span>-->
-<!--                    </span>-->
-<!--                </span>-->
                 <span class="table-body-item-col">
-                        <a th:text="${album.musicianNickname}" th:href="'/music/musician/' + ${album.musicianSlug}"></a>
+                    <a th:text="${album.musicianNickname}" th:href="'/music/musician/' + ${album.musicianSlug}"></a>
                 </span>
             </section>
         </article>
