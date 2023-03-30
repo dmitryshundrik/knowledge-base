@@ -75,7 +75,6 @@ public class MusicGenreService {
                 })
                 .sorted((o1, o2) -> o2.getCount().compareTo(o1.getCount())).collect(Collectors.toList());
     }
-
     public String createMusicGenreByDTO(MusicGenreCreateEditDTO genreDTO) {
         MusicGenre genre = new MusicGenre();
         genre.setCreated(Instant.now());
@@ -110,6 +109,14 @@ public class MusicGenreService {
         genre.setTitleEn(genreDTO.getTitleEn());
         genre.setMusicGenreType(genreDTO.getMusicGenreType());
         genre.setDescription(genreDTO.getDescription());
+    }
+
+    public String musicGenreSlugIsExist(String musicGenreSlug) {
+        String message = "";
+        if (getMusicGenreBySlug(musicGenreSlug) != null) {
+            message = "slug is already exist";
+        }
+        return message;
     }
 
 }

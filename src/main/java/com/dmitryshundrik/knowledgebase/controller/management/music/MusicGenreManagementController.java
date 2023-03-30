@@ -48,7 +48,9 @@ public class MusicGenreManagementController {
     @PostMapping("/management/music-genre/create")
     public String postCreateMusicGenre(@Valid @ModelAttribute("dto") MusicGenreCreateEditDTO genreDTO, BindingResult bindingResult,
                                        Model model) {
-        if (bindingResult.hasErrors()) {
+        String error = musicGenreService.musicGenreSlugIsExist(genreDTO.getSlug());
+        if (!error.isEmpty() || bindingResult.hasErrors()) {
+            model.addAttribute("slug", error);
             model.addAttribute("musicGenreTypes", MusicGenreType.values());
             return "management/music/music-genre-create";
         }

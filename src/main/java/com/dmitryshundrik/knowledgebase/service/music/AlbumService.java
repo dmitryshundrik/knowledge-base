@@ -172,12 +172,11 @@ public class AlbumService {
                             if (SortType.CATALOGUE_NUMBER.equals(sortType)
                                     && o1.getCatalogNumber() != null && o2.getCatalogNumber() != null) {
                                 return o1.getCatalogNumber().compareTo(o2.getCatalogNumber());
-                            } else if (SortType.YEAR.equals(sortType)
-                                    && o1.getYear() != null && o2.getYear() != null) {
-                                return o1.getYear().compareTo(o2.getYear());
                             } else if (SortType.RATING.equals(sortType)
                                     && o2.getRating() != null && o1.getRating() != null) {
                                 return o2.getRating().compareTo(o1.getRating());
+                            } else if (o1.getYear() != null && o2.getYear() != null) {
+                                return o1.getYear().compareTo(o2.getYear());
                             }
                             return -1;
                         }

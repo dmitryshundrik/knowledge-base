@@ -65,7 +65,8 @@ public class MusicPageController {
     public String getAllAlbumsByYear(@PathVariable String year, Model model) {
         List<Album> allAlbumsByYear = albumService.getAllAlbumsByYear(Integer.valueOf(year));
         model.addAttribute("albums", albumService.getSortedAlbumViewDTOList(allAlbumsByYear, SortType.RATING));
-        return "music/album-all";
+        model.addAttribute("year", year);
+        return "music/albums-of-year";
     }
 
     @GetMapping("/timeline-of-music")

@@ -35,6 +35,10 @@ body {
     flex: 1 1 50%;
 }
 
+.table-body-item {
+    background-color: #f4f4f4;
+}
+
 .footer {
     display: flex;
     flex-direction: column;
