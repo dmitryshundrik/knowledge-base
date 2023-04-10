@@ -43,9 +43,9 @@
             <section class="table-body-item-row">
 
                 <span th:each="update : ${latestUpdates}">
-                    <span th:text="${update.created}"></span>
-                    <span th:text="${update.archiveSection}"></span>
-                    <a th:href="${update.link}" th:text="${update.description}"></a>
+<!--                    <span th:text="${update.created}"></span>-->
+                    <span class="update-section" th:text="${update.archiveSection}"></span>
+                    <a class="update-link-description" th:href="${update.link}" th:text="${update.description}"></a>
                 </span>
 
             </section>

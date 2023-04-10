@@ -43,7 +43,15 @@
 .table-body-item-row {
     display: flex;
     flex-direction: column;
-    text-align: right;
+    text-align: justify;
     margin: 25px 0;
-    gap: 5px;
+    gap: 10px;
+}
+
+.update-section {
+    /*font-weight: bold;*/
+}
+
+.update-link-description {
+    font-style: italic;
 }

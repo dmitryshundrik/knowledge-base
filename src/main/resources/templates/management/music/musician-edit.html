@@ -168,7 +168,6 @@
                 <tr>
                     <th>created</th>
                     <th>year</th>
-                    <th>date</th>
                     <th>description</th>
                     <th>edit</th>
                     <th>delete</th>
@@ -178,7 +177,6 @@
                 <tr th:each="event : ${musicianCreateEditDTO.events}">
                     <th th:text="${event.created}"></th>
                     <th th:text="${event.year}"></th>
-                    <th th:text="${event.date}"></th>
                     <th th:text="${event.description}"></th>
                     <th class="td-settings">
                         <a target="_blank"

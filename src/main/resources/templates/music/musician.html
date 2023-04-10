@@ -69,7 +69,6 @@
                 <h3>Таймлайн</h3>
             </header>
             <section class="table-body-item-row" th:each="event : ${musicianViewDTO.events}">
-                <span th:if="${event.year} != null" th:text="${event.year}"></span>
                 <span class="timeline-text" th:text="${event.description}"></span>
             </section>
         </article>

@@ -7,10 +7,12 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianViewDTO;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
+import com.dmitryshundrik.knowledgebase.util.Formatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +39,7 @@ public class EntityUpdateInfoService {
 
         return allUpdateInfos.stream()
                 .sorted((o1, o2) -> o2.getCreated().compareTo(o1.getCreated()))
-                .limit(10)
+                .limit(20)
                 .collect(Collectors.toList());
     }
 
