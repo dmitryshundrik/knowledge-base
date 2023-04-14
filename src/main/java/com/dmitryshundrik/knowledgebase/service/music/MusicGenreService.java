@@ -104,7 +104,7 @@ public class MusicGenreService {
     }
 
     public void setFieldsFromDTO(MusicGenre genre, MusicGenreCreateEditDTO genreDTO) {
-        genre.setSlug(genreDTO.getSlug());
+        genre.setSlug(genreDTO.getSlug().trim());
         genre.setTitle(genreDTO.getTitle());
         genre.setTitleEn(genreDTO.getTitleEn());
         genre.setMusicGenreType(genreDTO.getMusicGenreType());

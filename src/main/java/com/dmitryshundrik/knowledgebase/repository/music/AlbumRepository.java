@@ -31,4 +31,6 @@ public interface AlbumRepository extends JpaRepository<Album, UUID> {
     @Query("SELECT DISTINCT year FROM Album ORDER BY year")
     List<Integer> getAllYearsFromAlbums();
 
+    List<Album> getAllByRatingIsNotNull();
+
 }

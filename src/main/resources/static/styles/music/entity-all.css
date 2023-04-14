@@ -7,7 +7,7 @@
 .table-body {
     display: flex;
     flex-direction: column;
-    padding: 0 300px;
+    padding: 0 250px;
     border: 1px solid gray;
 }
 
@@ -28,8 +28,4 @@
 
 .rating {
     color: red;
-}
-
-.album-title {
-    font-style: italic;
 }

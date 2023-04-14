@@ -1,9 +1,12 @@
 
 .table-title {
-    padding-top: 50px;
-    padding-bottom: 10px;
+    padding-top: 40px;
     padding-right: 250px;
     padding-left: 250px;
+}
+
+.occupation {
+    font-style: italic;
 }
 
 .table-title-image {
@@ -48,6 +51,14 @@
     flex-direction: row;
     margin: 15px 0;
     gap: 15px;
+}
+
+.table-body-item-col {
+    min-width: fit-content;
+}
+
+.composition-description {
+    text-align: justify;
 }
 
 .timeline-text {

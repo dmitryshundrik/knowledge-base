@@ -1,9 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
-import com.dmitryshundrik.knowledgebase.model.music.Album;
-import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
-import com.dmitryshundrik.knowledgebase.model.music.Musician;
+import com.dmitryshundrik.knowledgebase.model.music.*;
 import com.dmitryshundrik.knowledgebase.model.music.dto.*;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
@@ -49,8 +46,10 @@ public class MusicianService {
     public List<Musician> getAllMusiciansSortedByBorn() {
         return getAllMusicians().stream()
                 .sorted((o1, o2) -> {
-                    if (o1.getBorn() != null && o2.getBorn() != null) {
-                        return o1.getBorn().compareTo(o2.getBorn());
+                    Integer o1Date = o1.getBorn() != null ? o1.getBorn() : o1.getFounded();
+                    Integer o2Date = o2.getBorn() != null ? o2.getBorn() : o2.getFounded();
+                    if (o1Date != null && o2Date != null) {
+                        return o1Date.compareTo(o2Date);
                     }
                     return -1;
                 })
@@ -75,8 +74,37 @@ public class MusicianService {
         return musicianRepository.getAllByMusicPeriodsIsContaining(period);
     }
 
-    public List<Musician> getAllMusiciansByGenre(MusicGenre genre) {
-        return musicianRepository.getAllByMusicGenresIsContaining(genre);
+    public List<Musician> getBestMusicianByPeriod(MusicPeriod period) {
+        List<Musician> allMusiciansByPeriod = getAllMusiciansByPeriod(period);
+        Map<Musician, Double> map = new HashMap<>();
+        for (Musician musician : allMusiciansByPeriod) {
+            List<Composition> compositions = musician.getCompositions();
+            double totalScore = 0.0;
+            for (Composition composition : compositions) {
+                totalScore = totalScore + (composition.getRating() != null ? composition.getRating() : 0);
+            }
+            double average = totalScore / compositions.size();
+            for (Composition composition : compositions) {
+                Double rating = composition.getRating();
+                if (rating == 5 || rating == 5.5) {
+                    average = average + 1;
+                } else if (rating == 6 || rating == 6.5) {
+                    average = average + 2;
+                } else if (rating == 7 || rating == 7.5) {
+                    average = average + 3;
+                } else if (rating == 8 || rating == 8.5) {
+                    average = average + 4;
+                } else if (rating == 9 || rating == 9.5) {
+                    average = average + 5;
+                }
+            }
+            map.put(musician, average);
+        }
+        List<Map.Entry<Musician, Double>> list = new ArrayList<>(map.entrySet());
+        list.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));
+        return list.stream()
+                .map(Map.Entry::getKey)
+                .limit(5).collect(Collectors.toList());
     }
 
     public void createMusicianByDTO(MusicianCreateEditDTO musicianDTO) {
@@ -118,11 +146,13 @@ public class MusicianService {
                 .image(musician.getImage())
                 .born(musician.getBorn())
                 .died(musician.getDied())
+                .founded(musician.getFounded())
                 .birthDate(musician.getBirthDate())
                 .deathDate(musician.getDeathDate())
                 .birthplace(musician.getBirthplace())
+                .occupation(musician.getOccupation())
                 .musicPeriods(musician.getMusicPeriods())
-                .musicGenres(musician.getMusicGenres())
+                .musicGenres(getSortedMusicGenresByMusisian(musician))
                 .spotifyLink(musician.getSpotifyLink())
                 .events(eventService.getEventDTOList(musician.getEvents()))
                 .albums(albumService.getSortedAlbumViewDTOList(musician.getAlbums(), musician.getAlbumsSortType()))
@@ -131,6 +161,25 @@ public class MusicianService {
                         .getSortedCompositionViewDTOList(musician.getCompositions(), musician.getCompositionsSortType()))
                 .essentialCompositions(compositionService.getEssentialCompositionsViewDTOList(musician.getCompositions()))
                 .build();
+    }
+
+    public List<MusicGenre> getSortedMusicGenresByMusisian(Musician musician) {
+        Map<MusicGenre, Integer> map = new HashMap<>();
+        for (Album album : musician.getAlbums()) {
+            for (MusicGenre musicGenre : album.getMusicGenres()) {
+                map.merge(musicGenre, 1, Integer::sum);
+            }
+        }
+        for (Composition composition : musician.getCompositions()) {
+            for (MusicGenre musicGenre : composition.getMusicGenres()) {
+                map.merge(musicGenre, 1, Integer::sum);
+            }
+        }
+        List<Map.Entry<MusicGenre, Integer>> list = new ArrayList<>(map.entrySet());
+        list.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));
+        return list.stream()
+                .map(Map.Entry::getKey)
+                .limit(10).collect(Collectors.toList());
     }
 
     public List<MusicianViewDTO> getMusicianViewDTOList(List<Musician> musicianList) {
@@ -146,16 +195,12 @@ public class MusicianService {
                 .image(musician.getImage())
                 .born(musician.getBorn())
                 .died(musician.getDied())
+                .founded(musician.getFounded())
                 .birthDate(musician.getBirthDate())
                 .deathDate(musician.getDeathDate())
                 .birthplace(musician.getBirthplace())
+                .occupation(musician.getOccupation())
                 .musicPeriods(musician.getMusicPeriods())
-                .classicalGenres(musician.getMusicGenres().stream()
-                        .filter(musicGenre -> musicGenre.getMusicGenreType().equals(MusicGenreType.CLASSICAL))
-                        .collect(Collectors.toList()))
-                .contemporaryGenres(musician.getMusicGenres().stream()
-                        .filter(musicGenre -> musicGenre.getMusicGenreType().equals(MusicGenreType.CONTEMPORARY))
-                        .collect(Collectors.toList()))
                 .albumsSortType(musician.getAlbumsSortType())
                 .compositionsSortType(musician.getCompositionsSortType())
                 .spotifyLink(musician.getSpotifyLink())
@@ -190,22 +235,18 @@ public class MusicianService {
     }
 
     private void setFieldsFromDTO(Musician musician, MusicianCreateEditDTO musicianDTO) {
-        musician.setSlug(musicianDTO.getSlug());
+        musician.setSlug(musicianDTO.getSlug().trim());
         musician.setFirstName(musicianDTO.getFirstName());
         musician.setLastName(musicianDTO.getLastName());
         musician.setNickName(musicianDTO.getNickName());
         musician.setBorn(musicianDTO.getBorn());
         musician.setDied(musicianDTO.getDied());
+        musician.setFounded(musicianDTO.getFounded());
         musician.setBirthDate(musicianDTO.getBirthDate());
         musician.setDeathDate(musicianDTO.getDeathDate());
         musician.setBirthplace(musicianDTO.getBirthplace());
+        musician.setOccupation(musicianDTO.getOccupation());
         musician.setMusicPeriods(musicianDTO.getMusicPeriods());
-
-        List<MusicGenre> musicGenres = new ArrayList<>();
-        musicGenres.addAll(musicianDTO.getClassicalGenres());
-        musicGenres.addAll(musicianDTO.getContemporaryGenres());
-
-        musician.setMusicGenres(musicGenres);
         musician.setAlbumsSortType(musicianDTO.getAlbumsSortType());
         musician.setCompositionsSortType(musicianDTO.getCompositionsSortType());
         musician.setSpotifyLink(musicianDTO.getSpotifyLink());

@@ -32,8 +32,6 @@ public class CompositionCreateEditDTO {
 
     private Integer year;
 
-    private List<MusicPeriod> musicPeriods;
-
     private List<MusicGenre> classicalGenres;
 
     private List<MusicGenre> contemporaryGenres;

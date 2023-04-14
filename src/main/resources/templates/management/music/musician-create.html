@@ -57,6 +57,11 @@
                 </section>
 
                 <section class="form-item">
+                    <label>founded</label>
+                    <input type="number" th:field="*{founded}"/>
+                </section>
+
+                <section class="form-item">
                     <label>birthday</label>
                     <input type="date" th:field="*{birthDate}"/>
                 </section>
@@ -71,32 +76,17 @@
                     <input type="text" th:field="*{birthplace}" maxlength="255"/>
                 </section>
 
+                <section class="form-item">
+                    <label>occupation</label>
+                    <input type="text" th:field="*{occupation}" maxlength="255"/>
+                </section>
+
                 <section class="form-item major-field">
                     <label>period</label>
                     <select th:field="*{musicPeriods}" multiple="multiple">
                         <option th:each="period : ${musicPeriods}"
                                 th:value="${period.id}"
                                 th:text="${period.title}"></option>
-                    </select>
-                </section>
-
-                <section class="form-item major-field">
-                    <label>classical_genres</label>
-                    <select th:field="*{classicalGenres}" multiple="multiple">
-                        <option th:each="genre : ${classicalGenres}"
-                                th:value="${genre.id}"
-                                th:text="${genre.title}">
-                        </option>
-                    </select>
-                </section>
-
-                <section class="form-item major-field">
-                    <label>contemporary_genres</label>
-                    <select th:field="*{contemporaryGenres}" multiple="multiple">
-                        <option th:each="genre : ${contemporaryGenres}"
-                                th:value="${genre.id}"
-                                th:text="${genre.title}">
-                        </option>
                     </select>
                 </section>
 

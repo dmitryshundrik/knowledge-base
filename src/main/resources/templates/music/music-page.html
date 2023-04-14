@@ -19,11 +19,9 @@
 
         <article class="table-body-item">
             <h3>Списки и графики</h3>
-            <span th:each="yearInMusic : ${yearInMusicList}">
-                <a th:text="${yearInMusic.title}" th:href="'/music/lists-and-charts/' + ${yearInMusic.slug}"></a>
-            </span>
-            <a href="/music/musician/all">Все музыканты</a>
+            <a href="/music/album/top100">Топ 100 лучших альбомов</a>
             <a href="/music/album/all">Все альбомы</a>
+            <a href="/music/musician/all">Все музыканты</a>
             <a href="/music/timeline-of-music">Краткая история музыки</a>
         </article>
 
@@ -35,18 +33,19 @@
         </article>
 
         <article class="table-body-item">
-            <h3>Альбомные рейтинги</h3>
-            <span th:each="year : ${albumRatings}">
-                <a th:text="${year}" th:href="'/music/list-and-charts/albums-of-' + ${year}"></a>
+            <h3>Итоги года</h3>
+            <span th:each="year : ${yearsInMusic}">
+                <a th:text="${year.title}" th:href="'/music/lists-and-charts/' + ${year.slug}"></a>
             </span>
         </article>
 
         <article class="table-body-item">
-            <h3>В разработке</h3>
-            <span th:each="item : ${items}">
-                <a th:text="${item}" th:href="'/music/list-and-charts/?' + ${item}"></a>
+            <h3>Альбомные рейтинги</h3>
+            <span th:each="year : ${albumRatings}">
+                <a th:text="${year}" th:href="'/music/lists-and-charts/albums-of-' + ${year}"></a>
             </span>
         </article>
+
 
         <article class="table-body-item">
             <h3>Классические жанры</h3>

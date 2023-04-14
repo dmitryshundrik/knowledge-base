@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -30,7 +31,8 @@ public class YearInMusicService {
     }
 
     public List<YearInMusic> getAll() {
-        return yearInMusicRepository.findAll();
+        return yearInMusicRepository.findAll().stream()
+                .sorted(Comparator.comparing(YearInMusic::getYear)).collect(Collectors.toList());
     }
 
     public YearInMusicCreateEditDTO createYearInMusic(YearInMusicCreateEditDTO yearInMusicDTO) {
@@ -77,6 +79,12 @@ public class YearInMusicService {
                 .collect(Collectors.toList());
     }
 
+    public List<YearInMusicViewDTO> getSortedYearInMusicViewDTOList() {
+        return getYearInMusicViewDTOList(getAll()).stream()
+                .sorted(Comparator.comparing(YearInMusicViewDTO::getYear))
+                .collect(Collectors.toList());
+    }
+
     public YearInMusicCreateEditDTO getYearInMusicCreateEditDTO(YearInMusic yearInMusic) {
         return YearInMusicCreateEditDTO.builder()
                 .slug(yearInMusic.getSlug())
@@ -94,7 +102,7 @@ public class YearInMusicService {
     }
 
     public void setFieldsFromDTO(YearInMusic yearInMusic, YearInMusicCreateEditDTO yearInMusicDTO) {
-        yearInMusic.setSlug(yearInMusicDTO.getSlug());
+        yearInMusic.setSlug(yearInMusicDTO.getSlug().trim());
         yearInMusic.setTitle(yearInMusicDTO.getTitle());
         yearInMusic.setYear(yearInMusicDTO.getYear());
         yearInMusic.setBestMaleSinger(!StringUtils.isBlank(yearInMusicDTO.getBestMaleSingerId()) ? musicianService

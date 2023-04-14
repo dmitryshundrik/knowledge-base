@@ -30,6 +30,8 @@ public class MusicianViewDTO {
 
     private Integer died;
 
+    private Integer founded;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
@@ -37,6 +39,8 @@ public class MusicianViewDTO {
     private LocalDate deathDate;
 
     private String birthplace;
+
+    private String occupation;
 
     private List<MusicPeriod> musicPeriods;
 

@@ -53,7 +53,6 @@ public class CompositionManagementController {
                                 .getMusicianBySlug(musicianSlug)));
         model.addAttribute("compositionCreateEditDTO", compositionDTO);
         model.addAttribute("albumSelectDTOList", albumSelectDTOList);
-        model.addAttribute("musicPeriods", musicPeriodService.getAll());
         model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
         model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
         return "management/music/composition-create";
@@ -70,7 +69,6 @@ public class CompositionManagementController {
                                     .getMusicianBySlug(musicianSlug)));
             musicianService.setFieldsToCompositionDTO(musicianSlug, compositionDTO);
             model.addAttribute("albumSelectDTOList", albumDTOList);
-            model.addAttribute("musicPeriods", musicPeriodService.getAll());
             model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
             model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
             return "management/music/composition-create";
@@ -92,7 +90,6 @@ public class CompositionManagementController {
                                 .getMusicianBySlug(musicianSlug)));
         model.addAttribute("compositionCreateEditDTO", compositionService.getCompositionCreateEditDTO(compositionBySlug));
         model.addAttribute("albumSelectDTOList", albumDTOList);
-        model.addAttribute("musicPeriods", musicPeriodService.getAll());
         model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
         model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
         return "management/music/composition-edit";

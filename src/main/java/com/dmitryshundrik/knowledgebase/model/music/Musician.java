@@ -39,17 +39,18 @@ public class Musician {
 
     private Integer died;
 
+    private Integer founded;
+
     private LocalDate birthDate;
 
     private LocalDate deathDate;
 
     private String birthplace;
 
-    @ManyToMany
-    private List<MusicPeriod> musicPeriods;
+    private String occupation;
 
     @ManyToMany
-    private List<MusicGenre> musicGenres;
+    private List<MusicPeriod> musicPeriods;
 
     @Enumerated(EnumType.STRING)
     private SortType albumsSortType;
@@ -71,6 +72,5 @@ public class Musician {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "musician")
     @OrderBy("created")
     private List<Composition> compositions;
-
 
 }

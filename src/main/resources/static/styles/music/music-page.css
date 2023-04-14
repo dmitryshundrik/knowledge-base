@@ -9,13 +9,14 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    justify-content: center;
     gap: 25px;
 }
 
 .table-body-item {
     display: flex;
     flex-direction: column;
-    width: 48%;
+    width: 46%;
     align-items: center;
     padding: 25px 0px;
     gap: 5px;

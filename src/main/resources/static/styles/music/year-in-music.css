@@ -7,13 +7,27 @@
 .table-body {
     display: flex;
     flex-direction: column;
-    padding: 0 300px;
+    padding: 0 250px;
     border: 1px solid gray;
 }
 
 .table-body-item {
     text-align: center;
     margin: 20px 0px;
+}
+
+.best-musicians {
+    padding: 15px 180px !important;
+}
+
+.best-musicians section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.table-body-item-title {
+    margin: 15px 0px;
 }
 
 .table-body-item-row {

@@ -20,18 +20,19 @@
         <table>
             <thead>
             <tr>
-                <th class="min-width-50">#</th>
+                <th>#</th>
                 <th>created</th>
                 <th>nick_name</th>
                 <th>slug</th>
-                <th class="min-width-50">born</th>
-                <th class="min-width-50">died</th>
-                <th class="min-width-50">birth_date</th>
-                <th class="min-width-50">death_date</th>
-                <th class="min-width-150">period</th>
-                <th class="min-width-150">genres</th>
-                <th class="min-width-50">edit</th>
-                <th class="min-width-50">delete</th>
+                <th>born</th>
+                <th>died</th>
+                <th>founded</th>
+                <th>birthplace</th>
+                <th>occupation</th>
+                <th>period</th>
+                <th>genres</th>
+                <th>edit</th>
+                <th>delete</th>
             </tr>
             </thead>
             <tbody>
@@ -42,8 +43,9 @@
                 <td th:text="${musician.slug}"></td>
                 <td th:text="${musician.born}"></td>
                 <td th:text="${musician.died}"></td>
-                <td th:text="${musician.birthDate}"></td>
-                <td th:text="${musician.deathDate}"></td>
+                <td th:text="${musician.founded}"></td>
+                <td th:text="${musician.birthplace}"></td>
+                <td th:text="${musician.occupation}"></td>
                 <td>
                     <span th:if="${not #lists.isEmpty(musician.musicPeriods)}"
                           th:each="period : ${musician.musicPeriods}">

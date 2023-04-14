@@ -32,8 +32,16 @@ public class CompositionService {
         return compositionRepository.findAll();
     }
 
-    public List<Composition> getAllCompositionsByPeriod(MusicPeriod period) {
-        return compositionRepository.getAllByMusicPeriodsIsContaining(period);
+    public List<Composition> getAllCompositionsByMsuician(String musicianSlug) {
+        return compositionRepository.getAllByMusician(musicianSlug);
+    }
+
+    public List<Composition> getAllCompositionsByPeriod(List<Musician> musicians) {
+        List<Composition> compositions = new ArrayList<>();
+        for (Musician musician : musicians) {
+            compositions.addAll(musician.getCompositions());
+        }
+        return compositions;
     }
 
 
@@ -74,7 +82,7 @@ public class CompositionService {
     }
 
     public void updateEssentialCompositions(CompositionCreateEditDTO compositionDTO) {
-        List<Composition> sortedEssentialCompositionsList = getAllCompositions()
+        List<Composition> sortedEssentialCompositionsList = getAllCompositionsByMsuician(compositionDTO.getMusicianSlug())
                 .stream().filter(composition -> composition.getEssentialCompositionsRank() != null)
                 .sorted(Comparator.comparing(Composition::getEssentialCompositionsRank))
                 .collect(Collectors.toList());
@@ -108,7 +116,6 @@ public class CompositionService {
                 .albumId(composition.getAlbum() == null ? null : composition.getAlbum().getId().toString())
                 .feature(composition.getFeature())
                 .year(composition.getYear())
-                .musicPeriods(composition.getMusicPeriods())
                 .classicalGenres(composition.getMusicGenres().stream()
                         .filter(musicGenre -> musicGenre.getMusicGenreType().equals(MusicGenreType.CLASSICAL))
                         .collect(Collectors.toList()))
@@ -136,7 +143,6 @@ public class CompositionService {
                 .albumTitle(composition.getAlbum() == null ? null : composition.getAlbum().getTitle())
                 .feature(composition.getFeature())
                 .year(composition.getYear())
-                .musicPeriods(composition.getMusicPeriods())
                 .musicGenres(composition.getMusicGenres())
                 .rating(composition.getRating())
                 .yearEndRank(composition.getYearEndRank())
@@ -174,12 +180,11 @@ public class CompositionService {
 
         updateEssentialCompositions(compositionDTO);
 
-        composition.setSlug(compositionDTO.getSlug());
+        composition.setSlug(compositionDTO.getSlug().trim());
         composition.setTitle(compositionDTO.getTitle());
         composition.setCatalogNumber(compositionDTO.getCatalogNumber());
         composition.setFeature(compositionDTO.getFeature());
         composition.setYear(compositionDTO.getYear());
-        composition.setMusicPeriods(compositionDTO.getMusicPeriods());
 
         List<MusicGenre> musicGenres = new ArrayList<>();
         musicGenres.addAll(compositionDTO.getClassicalGenres());

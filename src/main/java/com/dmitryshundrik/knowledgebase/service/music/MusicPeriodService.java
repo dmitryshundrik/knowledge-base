@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,9 +20,6 @@ public class MusicPeriodService {
     @Autowired
     private MusicPeriodRepository musicPeriodRepository;
 
-    @Autowired
-    private CompositionRepository compositionRepository;
-
     public MusicPeriod getMusicPeriodBySlug(String slug) {
         return musicPeriodRepository.getBySlug(slug);
     }
@@ -30,14 +28,9 @@ public class MusicPeriodService {
         return musicPeriodRepository.findAll();
     }
 
-    public List<MusicPeriod> getFilteredMusicPeriods() {
-        return musicPeriodRepository.findAll().stream()
-                .filter(period -> {
-                    if (!compositionRepository.getAllByMusicPeriodsIsContaining(period).isEmpty()) {
-                        return true;
-                    }
-                    return false;
-                }).collect(Collectors.toList());
+    public List<MusicPeriod> getAllSortedByStart() {
+        return getAll().stream()
+                .sorted(Comparator.comparing(MusicPeriod::getApproximateStart)).collect(Collectors.toList());
     }
 
     public String createMusicPeriodByDTO(MusicPeriodCreateEditDTO periodDTO) {
@@ -70,7 +63,7 @@ public class MusicPeriodService {
     }
 
     private void setFieldsFromDTO(MusicPeriod period, MusicPeriodCreateEditDTO periodDTO) {
-        period.setSlug(periodDTO.getSlug());
+        period.setSlug(periodDTO.getSlug().trim());
         period.setTitle(periodDTO.getTitle());
         period.setTitleEn(periodDTO.getTitleEn());
         period.setApproximateStart(periodDTO.getApproximateStart());

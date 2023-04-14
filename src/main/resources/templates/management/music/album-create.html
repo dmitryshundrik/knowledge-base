@@ -54,16 +54,6 @@
                     <input type="number" th:field="*{year}"/>
                 </section>
 
-                <section class="form-item">
-                    <label>period</label>
-                    <select th:field="*{musicPeriods}" multiple="multiple">
-                        <option th:each="period : ${musicPeriods}"
-                                th:value="${period.id}"
-                                th:text="${period.title}">
-                        </option>
-                    </select>
-                </section>
-
                 <section class="form-item major-field">
                     <label>classical_genres</label>
                     <select th:field="*{classicalGenres}" multiple="multiple">

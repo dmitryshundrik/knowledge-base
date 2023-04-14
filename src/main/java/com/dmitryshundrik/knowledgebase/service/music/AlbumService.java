@@ -41,6 +41,10 @@ public class AlbumService {
         return albumRepository.findAll();
     }
 
+    public List<Album> getAllWithRating() {
+        return albumRepository.getAllByRatingIsNotNull();
+    }
+
     public List<Album> getAllAlbumsSortedByCreated() {
         return getAllAlbums().stream()
                 .sorted((o1, o2) -> {
@@ -71,6 +75,20 @@ public class AlbumService {
     public List<AlbumViewDTO> getAllAlbumsForAOTYList(Integer year) {
         return getAlbumViewDTOList(albumRepository.getAllByYearAndYearEndRankNotNull(year).stream()
                 .sorted(Comparator.comparing(Album::getYearEndRank))
+                .collect(Collectors.toList()));
+    }
+
+    public List<AlbumViewDTO> get10BestAlbumsByYear(Integer year) {
+        return getAlbumViewDTOList(albumRepository.getAllByYear(year).stream()
+                .sorted((o1, o2) -> o2.getRating().compareTo(o1.getRating()))
+                .limit(10)
+                .collect(Collectors.toList()));
+    }
+
+    public List<AlbumViewDTO> getTop100BestAlbums() {
+        return getAlbumViewDTOList(getAllWithRating().stream()
+                .sorted((o1, o2) -> o2.getRating().compareTo(o1.getRating()))
+                .limit(100)
                 .collect(Collectors.toList()));
     }
 
@@ -185,7 +203,7 @@ public class AlbumService {
     }
 
     private void setFieldsFromDTO(Album album, AlbumCreateEditDTO albumDTO) {
-        album.setSlug(albumDTO.getSlug());
+        album.setSlug(albumDTO.getSlug().trim());
         album.setTitle(albumDTO.getTitle());
         album.setCatalogNumber(albumDTO.getCatalogNumber());
         album.setFeature(albumDTO.getFeature());

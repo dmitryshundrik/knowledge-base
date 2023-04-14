@@ -7,4 +7,9 @@
         <sqlFile path="v1.0.0/2023-04-10-initial-database.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <changeSet id="2" author="dmitryshundrik">
+        <sqlFile path="v1.0.0/2023-04-11-add-occupation-in-musician.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+
 </databaseChangeLog>

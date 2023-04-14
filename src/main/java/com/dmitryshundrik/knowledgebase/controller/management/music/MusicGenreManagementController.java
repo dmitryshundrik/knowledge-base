@@ -75,8 +75,6 @@ public class MusicGenreManagementController {
     @DeleteMapping("/management/music-genre/delete/{genreSlug}")
     public String deleteMusicGenre(@PathVariable String genreSlug) {
         MusicGenre genre = musicGenreService.getMusicGenreBySlug(genreSlug);
-        musicianService.getAllMusiciansByGenre(genre)
-                .forEach(musician -> musician.getMusicGenres().remove(genre));
         albumService.getAllAlbumsByGenre(genre)
                 .forEach(album -> album.getMusicGenres().remove(genre));
         compositionService.getAllCompositionsByGenre(genre)

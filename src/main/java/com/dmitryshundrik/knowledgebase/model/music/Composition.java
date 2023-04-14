@@ -34,9 +34,6 @@ public class Composition {
     private Album album;
 
     @ManyToMany
-    private List<MusicPeriod> musicPeriods;
-
-    @ManyToMany
     private List<MusicGenre> musicGenres;
 
     private Double rating;

@@ -8,6 +8,6 @@
 .table-body {
     display: flex;
     flex-direction: column;
-    padding: 10px 300px;
+    padding: 10px 250px;
     border: 1px solid gray;
 }

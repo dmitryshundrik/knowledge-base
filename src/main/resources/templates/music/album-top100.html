@@ -2,17 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:text="'Альбомы ' + ${year} + ' года'"></title>
+    <title>Топ 100 лучших альбомов</title>
     <link th:href="@{/styles/music/entity-all.css}" rel="stylesheet">
 </head>
 <body>
-
 <header th:insert="fragments/header.html"></header>
 
 <main class="table">
 
     <header class="table-title">
-        <h3 th:text="'Альбомы ' + ${year} + ' года'"></h3>
+        <h3>Топ 100 лучших альбомов</h3>
     </header>
 
     <div class="table-body">
@@ -34,7 +33,6 @@
 </main>
 
 <footer th:insert="fragments/footer.html"></footer>
-
 
 </body>
 </html>

@@ -67,6 +67,6 @@ public class YearInMusicManagementController {
     public String deleteYearInMusicBySlug(@PathVariable String yearIMSlug) {
         YearInMusic yearInMusicBySlug = yearInMusicService.getYearInMusicBySlug(yearIMSlug);
         yearInMusicService.deleteYearInMusic(yearInMusicBySlug);
-        return "redirect:/management/album/all";
+        return "redirect:/management/year-in-music/all";
     }
 }

@@ -53,6 +53,11 @@
                 </section>
 
                 <section class="form-item">
+                    <label>founded</label>
+                    <input type="number" th:field="*{founded}"/>
+                </section>
+
+                <section class="form-item">
                     <label>birthday</label>
                     <input type="date" th:field="*{birthDate}"/>
                 </section>
@@ -67,32 +72,17 @@
                     <input type="text" th:field="*{birthplace}" maxlength="255"/>
                 </section>
 
+                <section class="form-item">
+                    <label>occupation</label>
+                    <input type="text" th:field="*{occupation}" maxlength="255"/>
+                </section>
+
                 <section class="form-item major-field">
                     <label>period</label>
                     <select th:field="*{musicPeriods}" multiple="multiple">
                         <option th:each="period : ${musicPeriods}"
                                 th:value="${period.id}"
                                 th:text="${period.title}">
-                        </option>
-                    </select>
-                </section>
-
-                <section class="form-item major-field">
-                    <label>classical_genres</label>
-                    <select th:field="*{classicalGenres}" multiple="multiple">
-                        <option th:each="genre : ${classicalGenres}"
-                                th:value="${genre.id}"
-                                th:text="${genre.title}">
-                        </option>
-                    </select>
-                </section>
-
-                <section class="form-item major-field">
-                    <label>contemporary_genres</label>
-                    <select th:field="*{contemporaryGenres}" multiple="multiple">
-                        <option th:each="genre : ${contemporaryGenres}"
-                                th:value="${genre.id}"
-                                th:text="${genre.title}">
                         </option>
                     </select>
                 </section>
@@ -128,33 +118,33 @@
             </form>
         </article>
 
-        <header class="table-title">
-            <h4>изменить image</h4>
-        </header>
-        <article class="table-body-item">
-            <form class="form"
-                  th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/image/upload'}"
-                  th:method="post"
-                  enctype="multipart/form-data">
+<!--        <header class="table-title">-->
+<!--            <h4>изменить image</h4>-->
+<!--        </header>-->
+<!--        <article class="table-body-item">-->
+<!--            <form class="form"-->
+<!--                  th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/image/upload'}"-->
+<!--                  th:method="post"-->
+<!--                  enctype="multipart/form-data">-->
 
-                <section class="form-item">
-                    <label>image</label>
-                    <input type="file" name="file" accept="image/*">
-                </section>
+<!--                <section class="form-item">-->
+<!--                    <label>image</label>-->
+<!--                    <input type="file" name="file" accept="image/*">-->
+<!--                </section>-->
 
-                <button class="input-submit" type="submit">Загрузить</button>
-            </form>
+<!--                <button class="input-submit" type="submit">Загрузить</button>-->
+<!--            </form>-->
 
-            <section class="entity-image">
-                <img alt="" th:src="|data:image;base64,${musicianCreateEditDTO.image}|">
-            </section>
+<!--            <section class="entity-image">-->
+<!--                <img alt="" th:src="|data:image;base64,${musicianCreateEditDTO.image}|">-->
+<!--            </section>-->
 
-            <form class="form"
-                  th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/image/delete'}"
-                  th:method="delete">
-                <input class="input-submit" type="submit" value="Удалить">
-            </form>
-        </article>
+<!--            <form class="form"-->
+<!--                  th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/image/delete'}"-->
+<!--                  th:method="delete">-->
+<!--                <input class="input-submit" type="submit" value="Удалить">-->
+<!--            </form>-->
+<!--        </article>-->
 
         <header class="table-title">
             <h4>архив events</h4>

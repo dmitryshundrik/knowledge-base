@@ -60,6 +60,13 @@
                 <h3>Лучшие альбомы</h3>
             </header>
 
+            <section class="table-body-item-row soty-description">
+                <span th:text="${yearInMusic.aotyListDescription}"></span>
+                <span>
+                    <a th:href="${yearInMusic.aotySpotifyLink}">Слушать в Spotify</a>
+                </span>
+            </section>
+
             <section class="table-body-item-row" th:each="album : ${albums}">
                 <section class="row-title">
                     <span th:text="${albumStat.index + 1} + '.'"></span>

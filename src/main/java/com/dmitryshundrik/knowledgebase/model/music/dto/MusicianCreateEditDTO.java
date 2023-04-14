@@ -34,6 +34,8 @@ public class MusicianCreateEditDTO {
 
     private Integer died;
 
+    private Integer founded;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
@@ -42,11 +44,9 @@ public class MusicianCreateEditDTO {
 
     private String birthplace;
 
+    private String occupation;
+
     private List<MusicPeriod> musicPeriods;
-
-    private List<MusicGenre> classicalGenres;
-
-    private List<MusicGenre> contemporaryGenres;
 
     private SortType albumsSortType;
 

@@ -19,7 +19,15 @@
 
         <article class="table-body-item">
             <section class="table-body-item-row" th:each="musician : ${musicians}">
-                <span class="table-body-item-col" th:text="${musician.born}"></span>
+                <span class="table-body-item-col" th:if="${musician.born} != null"
+                      th:text="${musician.born}">
+                </span>
+                <span class="table-body-item-col" th:if="${musician.founded} != null"
+                      th:text="${musician.founded}">
+                </span>
+                <span class="table-body-item-col" th:if="${musician.born} == null and ${musician.founded} == null"
+                      th:text="'????'">
+                </span>
                 <span class="table-body-item-col">
                     <a th:text="${musician.nickName}" th:href="'/music/musician/' + ${musician.slug}"></a>
                 </span>

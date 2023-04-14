@@ -64,16 +64,6 @@
                     </select>
                 </section>
 
-                <section class="form-item">
-                    <label>period</label>
-                    <select th:field="*{musicPeriods}">
-                        <option th:value="null" selected>выбрать период</option>
-                        <option th:each="period : ${musicPeriods}"
-                                th:value="${period.id}"
-                                th:text="${period.title}"></option>
-                    </select>
-                </section>
-
                 <section class="form-item major-field">
                     <label>classical_genres</label>
                     <select th:field="*{classicalGenres}" multiple="multiple">
