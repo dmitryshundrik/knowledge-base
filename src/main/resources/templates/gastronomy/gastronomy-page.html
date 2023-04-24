@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Гастрономия</title>
+    <link th:href="@{/styles/music/section-main-page.css}" rel="stylesheet">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h3>Гастрономия</h3>
+    </header>
+
+    <div class="table-body">
+
+        <article class="table-body-item">
+            <h3>Библиотека рецептов</h3>
+            <span th:each="recipe : ${recipes}">
+                <a th:text="${recipe.title}" th:href="'/gastronomy/recipe/' + ${recipe.slug}"></a>
+            </span>
+        </article>
+
+        <article class="table-body-item">
+            <h3>Библиотека коктейлей</h3>
+            <span th:each="cocktail : ${cocktails}">
+                <a th:text="${cocktail.title}" th:href="'/gastronomy/coctail/' + ${cocktail.slug}"></a>
+            </span>
+        </article>
+
+        <article class="table-body-item">
+            <h3>Статьи</h3>
+            <span th:each="article : ${articles}">
+                <a th:text="${article.title}" th:href="'/gastronomy/article/' + ${article.slug}"></a>
+            </span>
+        </article>
+
+        <article class="table-body-item">
+            <h3>Страны</h3>
+            <div class="table-body-item-row">
+                <span th:each="country : ${countries}">
+                    <a th:text="${country.label}" th:href="'/gastronomy/country/' + ${country.label}"></a>
+                </span>
+            </div>
+        </article>
+
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

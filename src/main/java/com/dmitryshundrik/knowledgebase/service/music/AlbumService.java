@@ -102,7 +102,6 @@ public class AlbumService {
         album.setMusician(musician);
         setFieldsFromDTO(album, albumDTO);
         Album createdAlbum = albumRepository.save(album);
-        createdAlbum.setSlug(createdAlbum.getSlug() + "-" + createdAlbum.getId());
         return getAlbumCreateEditDTO(createdAlbum);
     }
 
@@ -124,7 +123,7 @@ public class AlbumService {
 
     public AlbumViewDTO getAlbumViewDTO(Album album) {
         return AlbumViewDTO.builder()
-                .created(Formatter.instantFormatterYMDHMS(album.getCreated()))
+                .created(Formatter.instantFormatterYMD(album.getCreated()))
                 .slug(album.getSlug())
                 .title(album.getTitle())
                 .catalogNumber(album.getCatalogNumber())
@@ -185,7 +184,7 @@ public class AlbumService {
     }
 
     public List<AlbumViewDTO> getSortedAlbumViewDTOList(List<Album> albumList, SortType sortType) {
-        return getAlbumViewDTOList(albumList).stream()
+        return getAlbumViewDTOList(albumList.stream()
                 .sorted((o1, o2) -> {
                             if (SortType.CATALOGUE_NUMBER.equals(sortType)
                                     && o1.getCatalogNumber() != null && o2.getCatalogNumber() != null) {
@@ -193,13 +192,16 @@ public class AlbumService {
                             } else if (SortType.RATING.equals(sortType)
                                     && o2.getRating() != null && o1.getRating() != null) {
                                 return o2.getRating().compareTo(o1.getRating());
+                            } else if (SortType.CREATED.equals(sortType)
+                                    && o2.getCreated() != null && (o1.getCreated() != null)) {
+                                return o2.getCreated().compareTo(o1.getCreated());
                             } else if (o1.getYear() != null && o2.getYear() != null) {
                                 return o1.getYear().compareTo(o2.getYear());
                             }
                             return -1;
                         }
                 )
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     private void setFieldsFromDTO(Album album, AlbumCreateEditDTO albumDTO) {

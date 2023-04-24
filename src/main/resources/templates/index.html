@@ -16,7 +16,7 @@
 
             <h2 class="table-body-item-title archive-title">Архив</h2>
             <section class="section">
-                <h3 class="section-title"><a href="music/">Музыка</a></h3>
+                <h3 class="section-title"><a href="/music/">Музыка</a></h3>
                 <div class="section-body">
                     <span th:each="yearInMusic : ${yearInMusicList}">
                         <a th:text="${yearInMusic.title}"
@@ -30,9 +30,10 @@
             </section>
 
             <section class="section">
-                <h3 class="section-title"><a href="music/gastronomy-page.html">Гастрономия</a></h3>
+                <h3 class="section-title"><a href="/gastronomy/">Гастрономия</a></h3>
                 <div class="section-body">
-                    <a href="#">Рецепты</a>
+                    <a href="/gastronomy/recipe/all">Рецепты</a>
+                    <a href="/gastronomy/cocktail/all">Коктейли</a>
                 </div>
             </section>
 
@@ -44,7 +45,6 @@
             <section class="table-body-item-row">
 
                 <span th:each="update : ${latestUpdates}">
-<!--                    <span th:text="${update.created}"></span>-->
                     <span class="update-section" th:text="${update.archiveSection}"></span>
                     <a class="update-link-description" th:href="${update.link}" th:text="${update.description}"></a>
                 </span>

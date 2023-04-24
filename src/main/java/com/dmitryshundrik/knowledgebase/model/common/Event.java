@@ -19,8 +19,10 @@ public class Event {
 
     private Instant created;
 
+    @Enumerated(EnumType.STRING)
     private EventType eventType;
 
+    @Enumerated(EnumType.STRING)
     private EraType eraType;
 
     private Integer year;

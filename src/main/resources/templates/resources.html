@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ресурсы</title>
+    <link th:href="@{/styles/music/entity-all.css}" rel="stylesheet">
+</head>
+<body>
+
+<div th:insert="fragments/header.html"></div>
+
+<main class="table">
+
+    <header class="table-title">
+        <h3>Ресурсы</h3>
+    </header>
+
+    <div class="table-body">
+
+        <article class="table-body-item">
+            <section class="table-body-item-row" th:each="resource : ${recources}">
+                <span class="table-body-item-col" th:text="${resource.description}">
+                </span>
+                <span class="table-body-item-col" th:text="${resource.link}">
+                </span>
+            </section>
+        </article>
+
+    </div>
+
+</main>
+
+<div th:insert="fragments/footer.html"></div>
+
+</body>
+</html>

@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.common.enums.EventType;
 import com.dmitryshundrik.knowledgebase.model.music.*;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionViewDTO;
+import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.service.common.EventService;
@@ -72,14 +73,20 @@ public class MusicPageController {
     @GetMapping("/album/all")
     public String getAllAlbums(Model model) {
         List<Album> albums = albumService.getAllAlbums();
-        model.addAttribute("albums", albumService.getSortedAlbumViewDTOList(albums, SortType.YEAR));
+        model.addAttribute("albums", albumService.getSortedAlbumViewDTOList(albums, SortType.CREATED));
         return "music/album-all";
     }
 
     @GetMapping("/musician/all")
     public String getAllMusicians(Model model) {
         List<Musician> sortedMusicians = musicianService.getAllMusiciansSortedByBorn();
-        model.addAttribute("musicians", musicianService.getMusicianViewDTOList(sortedMusicians));
+        List<MusicianViewDTO> musicianViewDTOList = musicianService.getMusicianViewDTOList(sortedMusicians);
+        for (MusicianViewDTO musicianViewDTO : musicianViewDTOList) {
+            musicianViewDTO.setMusicGenres(musicianViewDTO
+                    .getMusicGenres()
+                    .subList(0, Math.min(musicianViewDTO.getMusicGenres().size(), 5)));
+        }
+        model.addAttribute("musicians", musicianViewDTOList);
         return "music/musician-all";
     }
 

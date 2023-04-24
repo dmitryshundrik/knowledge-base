@@ -74,6 +74,8 @@ public class MusicianService {
         return musicianRepository.getAllByMusicPeriodsIsContaining(period);
     }
 
+
+
     public List<Musician> getBestMusicianByPeriod(MusicPeriod period) {
         List<Musician> allMusiciansByPeriod = getAllMusiciansByPeriod(period);
         Map<Musician, Double> map = new HashMap<>();
@@ -163,6 +165,10 @@ public class MusicianService {
                 .build();
     }
 
+    public List<MusicianViewDTO> getMusicianViewDTOList(List<Musician> musicianList) {
+        return musicianList.stream().map(musician -> getMusicianViewDTO(musician)).collect(Collectors.toList());
+    }
+
     public List<MusicGenre> getSortedMusicGenresByMusisian(Musician musician) {
         Map<MusicGenre, Integer> map = new HashMap<>();
         for (Album album : musician.getAlbums()) {
@@ -180,10 +186,6 @@ public class MusicianService {
         return list.stream()
                 .map(Map.Entry::getKey)
                 .limit(10).collect(Collectors.toList());
-    }
-
-    public List<MusicianViewDTO> getMusicianViewDTOList(List<Musician> musicianList) {
-        return musicianList.stream().map(musician -> getMusicianViewDTO(musician)).collect(Collectors.toList());
     }
 
     public MusicianCreateEditDTO getMusicianCreateEditDTO(Musician musician) {

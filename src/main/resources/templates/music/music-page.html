@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Музыка</title>
-    <link th:href="@{/styles/music/music-page.css}" rel="stylesheet">
+    <link th:href="@{/styles/music/section-main-page.css}" rel="stylesheet">
 </head>
 <body>
 
@@ -41,9 +41,11 @@
 
         <article class="table-body-item">
             <h3>Альбомные рейтинги</h3>
-            <span th:each="year : ${albumRatings}">
-                <a th:text="${year}" th:href="'/music/lists-and-charts/albums-of-' + ${year}"></a>
-            </span>
+            <div class="table-body-item-row">
+                <span th:each="year : ${albumRatings}">
+                    <a th:text="${year}" th:href="'/music/lists-and-charts/albums-of-' + ${year}"></a>
+                </span>
+            </div>
         </article>
 
 

@@ -67,7 +67,6 @@ public class CompositionService {
             album.getCompositions().add(composition);
         }
         Composition createdComposition = compositionRepository.save(composition);
-        createdComposition.setSlug(createdComposition.getSlug() + "-" + createdComposition.getId());
         return getCompositionCreateEditDTO(createdComposition);
     }
 
@@ -134,7 +133,7 @@ public class CompositionService {
 
     public CompositionViewDTO getCompositionViewDTO(Composition composition) {
         return CompositionViewDTO.builder()
-                .created(Formatter.instantFormatterYMDHMS(composition.getCreated()))
+                .created(Formatter.instantFormatterYMD(composition.getCreated()))
                 .slug(composition.getSlug())
                 .title(composition.getTitle())
                 .catalogNumber(composition.getCatalogNumber())

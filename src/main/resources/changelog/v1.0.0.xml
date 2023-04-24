@@ -11,5 +11,12 @@
         <sqlFile path="v1.0.0/2023-04-11-add-occupation-in-musician.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <changeSet id="3" author="dmitryshundrik">
+        <sqlFile path="v1.0.0/2023-04-24-add-recipe-and-cocktail.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="4" author="dmitryshundrik">
+        <sqlFile path="v1.0.0/2023-04-24-add-resources-table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
 </databaseChangeLog>

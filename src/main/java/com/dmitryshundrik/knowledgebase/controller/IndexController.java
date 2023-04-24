@@ -2,6 +2,7 @@ package com.dmitryshundrik.knowledgebase.controller;
 
 import com.dmitryshundrik.knowledgebase.model.music.YearInMusic;
 import com.dmitryshundrik.knowledgebase.service.common.EntityUpdateInfoService;
+import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
 import com.dmitryshundrik.knowledgebase.service.music.YearInMusicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,10 +20,19 @@ public class IndexController {
     @Autowired
     private EntityUpdateInfoService entityUpdateInfoService;
 
+    @Autowired
+    private ResourcesService resourcesService;
+
     @GetMapping("/")
     public String getIndex(Model model) {
         model.addAttribute("yearInMusicList", yearInMusicService.getSortedYearInMusicViewDTOList());
         model.addAttribute("latestUpdates", entityUpdateInfoService.getAll());
         return "index";
+    }
+
+    @GetMapping("/resources")
+    public String getResources(Model model) {
+        model.addAttribute("resources", resourcesService.getAll());
+        return "resources";
     }
 }
