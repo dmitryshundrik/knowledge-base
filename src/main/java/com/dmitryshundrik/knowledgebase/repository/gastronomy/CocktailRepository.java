@@ -7,4 +7,6 @@ import java.util.UUID;
 
 public interface CocktailRepository extends JpaRepository<Cocktail, UUID> {
 
+    Cocktail findBySlug(String slug);
+
 }

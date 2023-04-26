@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link th:href="@{/styles/management/entity-create-edit-management.css}" rel="stylesheet">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h4>создать recipe</h4>
+    </header>
+
+    <div class="table-body">
+        <article class="table-body-item">
+            <form class="form" th:action="${'/management/recipe/create'}" th:method="post"
+                  th:object="${recipeDTO}">
+
+                <section class="form-item">
+                    <label>title</label>
+                    <input type="text" th:field="*{title}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>slug</label>
+                    <input type="text" th:field="*{slug}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>country</label>
+                    <select th:field="*{country}">
+                        <option th:value="null" selected>выбрать страну</option>
+                        <option th:each="country : ${countries}"
+                                th:value="${country}"
+                                th:text="${country.label}">0
+                        </option>
+                    </select>
+                </section>
+
+                <section class="form-item major-field">
+                    <label>about</label>
+                    <textarea th:field="*{about}"></textarea>
+                </section>
+
+                <section class="form-item major-field">
+                    <label>ingredients</label>
+                    <textarea th:field="*{ingredients}"></textarea>
+                </section>
+
+                <section class="form-item major-field">
+                    <label>method</label>
+                    <textarea th:field="*{method}"></textarea>
+                </section>
+
+                <input class="input-submit" type="submit" value="Создать"/>
+            </form>
+        </article>
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

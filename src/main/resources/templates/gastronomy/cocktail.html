@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${cocktailDTO.title}"></title>
+    <link th:href="@{/styles/gastronomy/gastronomy-entity.css}" rel="stylesheet">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h2 th:text="${cocktail.title}"></h2>
+    </header>
+
+    <div class="table-body">
+
+        <article class="table-body-item">
+            <section class="table-body-item-row">
+                <header class="section-title">
+                    <h3>Описание</h3>
+                </header>
+                <span th:text="${cocktail.about}"></span>
+            </section>
+
+            <section class="table-body-item-row">
+                <header class="section-title">
+                    <h3>Базовые ингредиенты:</h3>
+                </header>
+                <span th:text="${cocktail.ingredients}"></span>
+            </section>
+
+            <section class="table-body-item-row">
+                <header class="section-title">
+                    <h3>Способ приготовления:</h3>
+                </header>
+                <span th:text="${cocktail.method}"></span>
+            </section>
+        </article>
+
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

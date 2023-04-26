@@ -1,0 +1,27 @@
+
+.table-title {
+    padding: 30px 275px;
+    text-align: center;
+}
+
+.table-body {
+    display: flex;
+    flex-direction: column;
+    padding: 0 250px;
+}
+
+.table-body-item {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.table-body-item-row {
+    text-align: justify;
+    line-height: 30px;
+}
+
+.section-title {
+    text-align: center;
+}

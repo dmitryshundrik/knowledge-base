@@ -8,4 +8,6 @@ import java.util.UUID;
 
 public interface RecipeRepository extends JpaRepository<Recipe, UUID> {
 
+    Recipe findBySlug(String slug);
+
 }

@@ -30,7 +30,9 @@ public class EventService {
     }
 
     public List<Event> getAllEventsByType(EventType type) {
-        return eventRepository.findAllByEventType(type);
+        return eventRepository.findAllByEventType(type).stream()
+                .sorted(Comparator.comparing(Event::getCreated))
+                .collect(Collectors.toList());
     }
 
     public List<Event> getAllMusicTimelineEventsBeforeCommon() {
