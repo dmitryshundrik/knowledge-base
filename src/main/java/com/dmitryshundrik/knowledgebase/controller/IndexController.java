@@ -1,7 +1,11 @@
 package com.dmitryshundrik.knowledgebase.controller;
 
-import com.dmitryshundrik.knowledgebase.model.music.YearInMusic;
+import com.dmitryshundrik.knowledgebase.model.common.Foundation;
+import com.dmitryshundrik.knowledgebase.model.common.Resource;
+import com.dmitryshundrik.knowledgebase.model.common.dto.FoundationDTO;
+import com.dmitryshundrik.knowledgebase.model.common.dto.ResourceDTO;
 import com.dmitryshundrik.knowledgebase.service.common.EntityUpdateInfoService;
+import com.dmitryshundrik.knowledgebase.service.common.FoundationService;
 import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
 import com.dmitryshundrik.knowledgebase.service.music.YearInMusicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,9 @@ public class IndexController {
     private EntityUpdateInfoService entityUpdateInfoService;
 
     @Autowired
+    private FoundationService foundationService;
+
+    @Autowired
     private ResourcesService resourcesService;
 
     @GetMapping("/")
@@ -30,9 +37,19 @@ public class IndexController {
         return "index";
     }
 
+    @GetMapping("/charity")
+    public String getCharity(Model model) {
+        List<Foundation> foundationList = foundationService.getAll();
+        List<FoundationDTO> foundationDTOList = foundationService.getFoundationDTOList(foundationList);
+        model.addAttribute("foundations", foundationDTOList);
+        return "charity";
+    }
+
     @GetMapping("/resources")
     public String getResources(Model model) {
-        model.addAttribute("resources", resourcesService.getAll());
+        List<Resource> resourceList = resourcesService.getAll();
+        List<ResourceDTO> resourceDTOList = resourcesService.getResourceDTOList(resourceList);
+        model.addAttribute("resources", resourceDTOList);
         return "resources";
     }
 }

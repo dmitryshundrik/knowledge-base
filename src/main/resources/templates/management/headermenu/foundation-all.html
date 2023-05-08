@@ -12,8 +12,8 @@
 <div class="table">
 
     <header class="table-title">
-        <h4>архив recipe</h4>
-        <a target="_blank" href="/management/recipe/create">создать recipe</a>
+        <h4>архив foundation</h4>
+        <a target="_blank" href="/management/foundation/create">создать foundation</a>
     </header>
 
     <main class="table-body">
@@ -23,30 +23,28 @@
                 <th>#</th>
                 <th>created</th>
                 <th>title</th>
-                <th>slug</th>
-                <th>country</th>
-                <th>ingredients</th>
+                <th>description</th>
+                <th>link</th>
                 <th>edit</th>
                 <th>delete</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="recipe : ${recipes}">
-                <th th:text="${recipeStat.index + 1}"></th>
-                <td th:text="${recipe.created}"></td>
-                <td th:text="${recipe.title}"></td>
-                <td th:text="${recipe.slug}"></td>
-                <td th:text="${recipe.country}"></td>
-                <td th:text="${recipe.ingredients}"></td>
+            <tr th:each="foundation : ${foundations}">
+                <th th:text="${foundationStat.index + 1}"></th>
+                <td th:text="${foundation.created}"></td>
+                <td th:text="${foundation.title}"></td>
+                <td th:text="${foundation.description}"></td>
+                <td th:text="${foundation.link}"></td>
                 <td class="td-settings">
                     <a target="_blank"
-                       th:href="${'/management/recipe/edit/' + recipe.slug}">edit</a>
+                       th:href="${'/management/foundation/edit/' + foundation.id}">edit</a>
                 </td>
                 <td class="td-settings">
-                    <form th:action="${'/management/recipe/delete/' + recipe.slug}"
+                    <form th:action="${'/management/foundation/delete/' + foundation.id}"
                           th:method="delete">
                         <input type="submit" value="delete"
-                               th:data-confirm-delete="|Are you sure you want to delete this recipe?|"
+                               th:data-confirm-delete="|Are you sure you want to delete this foundation?|"
                                onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
                     </form>
                 </td>

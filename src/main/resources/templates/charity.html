@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ресурсы</title>
+    <title>Благотворительность</title>
     <link th:href="@{/styles/charity-resources.css}" rel="stylesheet">
 </head>
 <body>
@@ -12,16 +12,16 @@
 <main class="table">
 
     <header class="table-title">
-        <h3>Ресурсы</h3>
+        <h3>Рекомендуемые благотворительные организации</h3>
     </header>
 
     <div class="table-body">
 
         <article class="table-body-item">
-            <section class="table-body-item-row" th:each="resource : ${resources}">
+            <section class="table-body-item-row" th:each="foundation : ${foundations}">
                 <span class="table-body-item-col">
-                    <a th:href="${resource.link}" th:text="${resource.title}" target="_blank"></a>
-                    <span th:text="${resource.description}"></span>
+                    <a th:href="${foundation.link}" th:text="${foundation.title}" target="_blank"></a>
+                    <span th:text="${foundation.description}"></span>
                 </span>
             </section>
         </article>

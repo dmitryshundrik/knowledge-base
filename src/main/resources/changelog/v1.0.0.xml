@@ -19,4 +19,8 @@
         <sqlFile path="v1.0.0/2023-04-24-add-resources-table.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <changeSet id="5" author="dmitryshundrik">
+        <sqlFile path="v1.0.0/2023-05-08-add-foundation-table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>

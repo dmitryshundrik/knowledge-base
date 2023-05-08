@@ -28,7 +28,7 @@ public class RecipeManagementController {
     }
 
     @GetMapping("/management/recipe/create")
-    public String getCreateRecipe(Model model) {
+    public String getRecipeCreate(Model model) {
         RecipeCreateEditDTO recipeCreateEditDTO = new RecipeCreateEditDTO();
         model.addAttribute("recipeDTO", recipeCreateEditDTO);
         model.addAttribute("countries", Country.values());
@@ -36,13 +36,13 @@ public class RecipeManagementController {
     }
 
     @PostMapping("/management/recipe/create")
-    public String postCreateRecipe(@ModelAttribute("recipeDTO") RecipeCreateEditDTO recipeDTO, Model model) {
+    public String postRecipeCreate(@ModelAttribute("recipeDTO") RecipeCreateEditDTO recipeDTO) {
         recipeService.createRecipe(recipeDTO);
         return "redirect:/management/recipe/edit/" + recipeDTO.getSlug();
     }
 
     @GetMapping("/management/recipe/edit/{recipeSlug}")
-    public String getEditRecipe(@PathVariable String recipeSlug, Model model) {
+    public String getRecipeEdit(@PathVariable String recipeSlug, Model model) {
         Recipe bySlug = recipeService.getBySlug(recipeSlug);
         RecipeCreateEditDTO recipeCreateEditDTO = recipeService.getRecipeCreateEditDTO(bySlug);
         model.addAttribute("recipeDTO", recipeCreateEditDTO);
@@ -51,7 +51,7 @@ public class RecipeManagementController {
     }
 
     @PutMapping("/management/recipe/edit/{recipeSlug}")
-    public String putEditRecipe(@PathVariable String recipeSlug,
+    public String putRecipeEdit(@PathVariable String recipeSlug,
                                 @ModelAttribute("recipeDTO") RecipeCreateEditDTO recipeDTO) {
         recipeService.updateRecipe(recipeSlug, recipeDTO);
         return "redirect:/management/recipe/edit/" + recipeDTO.getSlug();
