@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.controller.management.music;
 
-import com.dmitryshundrik.knowledgebase.model.common.Event;
-import com.dmitryshundrik.knowledgebase.model.common.dto.EventDTO;
-import com.dmitryshundrik.knowledgebase.service.common.EventService;
+import com.dmitryshundrik.knowledgebase.model.common.PersonEvent;
+import com.dmitryshundrik.knowledgebase.model.common.dto.PersonEventDTO;
+import com.dmitryshundrik.knowledgebase.service.common.PersonEventService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,56 +11,56 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("")
 public class MusicianEventManagementController {
 
     @Autowired
-    private EventService eventService;
+    private PersonEventService personEventService;
 
     @Autowired
     private MusicianService musicianService;
 
     @GetMapping("/management/musician/edit/{musicianSlug}/event/create")
     public String getCreateEventForMusician(@PathVariable String musicianSlug, Model model) {
-        model.addAttribute("eventDTO", new EventDTO());
+        model.addAttribute("personEventDTO", new PersonEventDTO());
         model.addAttribute("slug", musicianSlug);
-        return "management/music/event-create";
+        return "management/music/musician-event-create";
     }
 
     @PostMapping("/management/musician/edit/{musicianSlug}/event/create")
     public String postCreateEventForMusician(@PathVariable String musicianSlug,
-                                             @Valid @ModelAttribute("eventDTO") EventDTO eventDTO,
+                                             @Valid @ModelAttribute("personEventDTO") PersonEventDTO personEventDTO,
                                              BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("slug", musicianSlug);
-            return "management/music/event-create";
+            return "management/music/musician-event-create";
         }
-        UUID eventId = eventService.createEventForMusician(musicianService.getMusicianBySlug(musicianSlug), eventDTO);
-        return "redirect:/management/musician/edit/" + musicianSlug + "/event/edit/" + eventId;
+        String personEventId = personEventService
+                .createMusicianEvent(musicianService.getMusicianBySlug(musicianSlug), personEventDTO);
+        return "redirect:/management/musician/edit/" + musicianSlug + "/event/edit/" + personEventId;
     }
 
     @GetMapping("/management/musician/edit/{musicianSlug}/event/edit/{id}")
-    public String getEditMusicianEventById(@PathVariable String musicianSlug, @PathVariable UUID id, Model model) {
-        Event eventById = eventService.getEventById(id);
-        model.addAttribute("eventDTO", eventService.getEventDTO(eventById));
+    public String getEditMusicianEventById(@PathVariable String musicianSlug, @PathVariable String id, Model model) {
+        PersonEvent personEventById = personEventService.getPersonEventById(id);
+        model.addAttribute("personEventDTO", personEventService.getPersonEventDTO(personEventById));
         model.addAttribute("slug", musicianSlug);
-        return "management/music/event-edit";
+        return "management/music/musician-event-edit";
     }
 
     @PutMapping("/management/musician/edit/{musicianSlug}/event/edit/{id}")
     public String putEditMusicianEventById(@PathVariable String musicianSlug,
-                                           @PathVariable UUID id,
-                                           @ModelAttribute("eventDTO") EventDTO eventDTO) {
-        eventService.updateEvent(id, eventDTO);
-        return "redirect:/management/musician/edit/" + musicianSlug + "/event/edit/" + eventDTO.getId();
+                                           @PathVariable String id,
+                                           @ModelAttribute("personEventDTO") PersonEventDTO personEventDTO) {
+        String personEventId = personEventService.updatePersonEvent(id, personEventDTO).getId();
+        return "redirect:/management/musician/edit/" + musicianSlug + "/event/edit/" + personEventId;
     }
 
     @DeleteMapping(("/management/musician/edit/{musicianSlug}/event/delete/{id}"))
-    public String deleteMusisianEventById(@PathVariable String musicianSlug, @PathVariable UUID id) {
-        eventService.deleteMusicianEventById(musicianService.getMusicianBySlug(musicianSlug), id);
+    public String deleteMusisianEventById(@PathVariable String musicianSlug, @PathVariable String id) {
+        personEventService.deleteMusicianEventById(musicianService.getMusicianBySlug(musicianSlug), id);
         return "redirect:/management/musician/edit/" + musicianSlug;
     }
 

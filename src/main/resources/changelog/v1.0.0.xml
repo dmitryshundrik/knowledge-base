@@ -3,24 +3,8 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="1" author="dmitryshundrik">
-        <sqlFile path="v1.0.0/2023-04-10-initial-database.sql" relativeToChangelogFile="true"/>
-    </changeSet>
-
-    <changeSet id="2" author="dmitryshundrik">
-        <sqlFile path="v1.0.0/2023-04-11-add-occupation-in-musician.sql" relativeToChangelogFile="true"/>
-    </changeSet>
-
-    <changeSet id="3" author="dmitryshundrik">
-        <sqlFile path="v1.0.0/2023-04-24-add-recipe-and-cocktail.sql" relativeToChangelogFile="true"/>
-    </changeSet>
-
-    <changeSet id="4" author="dmitryshundrik">
-        <sqlFile path="v1.0.0/2023-04-24-add-resources-table.sql" relativeToChangelogFile="true"/>
-    </changeSet>
-
-    <changeSet id="5" author="dmitryshundrik">
-        <sqlFile path="v1.0.0/2023-05-08-add-foundation-table.sql" relativeToChangelogFile="true"/>
-    </changeSet>
+<!--<changeSet id="1" author="dmitryshundrik">-->
+<!--    <sqlFile path="v1.0.0/2023-04-10-initial-database.sql" relativeToChangelogFile="true"/>-->
+<!--</changeSet>-->
 
 </databaseChangeLog>

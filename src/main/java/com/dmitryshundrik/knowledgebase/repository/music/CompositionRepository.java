@@ -2,8 +2,6 @@ package com.dmitryshundrik.knowledgebase.repository.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
-import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

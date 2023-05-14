@@ -1,61 +1,60 @@
 package com.dmitryshundrik.knowledgebase.controller.management.music;
 
-import com.dmitryshundrik.knowledgebase.model.common.Event;
-import com.dmitryshundrik.knowledgebase.model.common.dto.EventDTO;
+import com.dmitryshundrik.knowledgebase.model.common.dto.TimelineEventDTO;
+import com.dmitryshundrik.knowledgebase.model.common.TimelineEvent;
 import com.dmitryshundrik.knowledgebase.model.common.enums.EraType;
-import com.dmitryshundrik.knowledgebase.model.common.enums.EventType;
-import com.dmitryshundrik.knowledgebase.service.common.EventService;
+import com.dmitryshundrik.knowledgebase.model.common.enums.TimelineEventType;
+import com.dmitryshundrik.knowledgebase.service.common.TimelineEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @Controller
 public class TimelineOfMusicManagementController {
 
     @Autowired
-    private EventService eventService;
+    private TimelineEventService timelineEventService;
 
     @GetMapping("/management/timeline-of-music/event/all")
     public String getAllEventsForTimelineOfMusic(Model model) {
-        model.addAttribute("events", eventService
-                .getEventDTOList(eventService.getAllEventsByType(EventType.MUSIC_TIMELINE)));
+        model.addAttribute("timelineEvents", timelineEventService
+                .getTimelineEventDTOList(timelineEventService.getAllEventsByType(TimelineEventType.MUSIC)));
         return "management/music/timeline-of-music-all";
     }
 
     @GetMapping("/management/timeline-of-music/event/create")
     public String getCreateEventForTimelineOfMusic(Model model) {
-        model.addAttribute("eventDTO", new EventDTO());
+        model.addAttribute("timelineEventDTO", new TimelineEventDTO());
         model.addAttribute("eraTypes", EraType.values());
         return "management/music/timeline-of-music-create";
     }
 
     @PostMapping("/management/timeline-of-music/event/create")
-    public String postCreateEventForTimelineOfMusic(@ModelAttribute("eventDTO") EventDTO eventDTO) {
-        UUID eventId = eventService.createEventForTimelineOfMusic(eventDTO);
-        return "redirect:/management/timeline-of-music/event/edit/" + eventId;
+    public String postCreateEventForTimelineOfMusic(@ModelAttribute("timelineEventDTO") TimelineEventDTO timelineEventDTO) {
+        String timelineEventId = timelineEventService.createEventForTimelineOfMusic(timelineEventDTO);
+        return "redirect:/management/timeline-of-music/event/edit/" + timelineEventId;
     }
 
     @GetMapping("/management/timeline-of-music/event/edit/{eventId}")
     public String getEditEventForTimelineOfMusic(@PathVariable String eventId, Model model) {
-        Event eventById = eventService.getEventById(UUID.fromString(eventId));
-        model.addAttribute("eventDTO", eventService.getEventDTO(eventById));
+        TimelineEvent timelineEventById = timelineEventService.getTimelineEventById(eventId);
+        model.addAttribute("timelineEventDTO", timelineEventService.getTimelineEventDTO(timelineEventById));
         model.addAttribute("eraTypes", EraType.values());
         return "management/music/timeline-of-music-edit";
     }
 
     @PutMapping("/management/timeline-of-music/event/edit/{eventId}")
     public String putEditEventForTimelineOfMusic(@PathVariable String eventId,
-                                                 @ModelAttribute("eventDTO") EventDTO eventDTO, Model model) {
-        eventService.updateEvent(UUID.fromString(eventId), eventDTO);
-        return "redirect:/management/timeline-of-music/event/edit/" + eventId;
+                                                 @ModelAttribute("timelineEventDTO") TimelineEventDTO timelineEventDTO) {
+        timelineEventDTO.setTimelineEventType(TimelineEventType.MUSIC);
+        String timelineEventId = timelineEventService.updateTimelineEvent(eventId, timelineEventDTO).getId();
+        return "redirect:/management/timeline-of-music/event/edit/" + timelineEventId;
     }
 
     @DeleteMapping("/management/timeline-of-music/event/delete/{eventId}")
     public String deleteEventFromTimelineOfMusic(@PathVariable String eventId) {
-        eventService.deleteEventFromTimelineOfMusic(UUID.fromString(eventId));
+        timelineEventService.deleteTimelineEvent(eventId);
         return "redirect:/management/timeline-of-music/event/all";
     }
 }

@@ -39,7 +39,7 @@ public class IndexController {
 
     @GetMapping("/charity")
     public String getCharity(Model model) {
-        List<Foundation> foundationList = foundationService.getAll();
+        List<Foundation> foundationList = foundationService.getAllSortedByCreated();
         List<FoundationDTO> foundationDTOList = foundationService.getFoundationDTOList(foundationList);
         model.addAttribute("foundations", foundationDTOList);
         return "charity";
@@ -47,7 +47,7 @@ public class IndexController {
 
     @GetMapping("/resources")
     public String getResources(Model model) {
-        List<Resource> resourceList = resourcesService.getAll();
+        List<Resource> resourceList = resourcesService.getAllSortedByCreated();
         List<ResourceDTO> resourceDTOList = resourcesService.getResourceDTOList(resourceList);
         model.addAttribute("resources", resourceDTOList);
         return "resources";

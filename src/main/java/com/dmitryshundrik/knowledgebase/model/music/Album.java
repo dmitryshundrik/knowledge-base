@@ -34,9 +34,6 @@ public class Album {
     private Integer year;
 
     @ManyToMany
-    private List<MusicPeriod> musicPeriods;
-
-    @ManyToMany
     private List<MusicGenre> musicGenres;
 
     private Double rating;

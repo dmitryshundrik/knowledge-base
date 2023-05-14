@@ -12,9 +12,6 @@
 <main class="table">
 
     <header class="table-title">
-        <!--<div class="table-title-image">-->
-        <!--<img th:src="|data:image;base64,${musicianViewDTO.image}|">-->
-        <!--</div>-->
         <h1 th:text="${musicianViewDTO.nickName}"></h1>
         <h3 class="occupation" th:if="${not #strings.isEmpty(musicianViewDTO.occupation)}"
             th:text="${musicianViewDTO.occupation}"></h3>
@@ -78,8 +75,8 @@
             <header class="table-body-item-title">
                 <h3>Таймлайн</h3>
             </header>
-            <section class="table-body-item-row" th:each="event : ${musicianViewDTO.events}">
-                <span class="timeline-text" th:text="${event.description}"></span>
+            <section class="table-body-item-row" th:each="timelineEvent : ${musicianViewDTO.events}">
+                <span class="timeline-text" th:text="${timelineEvent.description}"></span>
             </section>
         </article>
 
@@ -90,7 +87,8 @@
             <section class="table-body-item-row" th:each="composition : ${musicianViewDTO.essentialCompositions}">
                 <span th:text="${compositionStat.index + 1} + '.'"></span>
                 <span th:text="${composition.title}"></span>
-                <span th:if="${not #strings.isEmpty(composition.catalogNumber)}" th:text="${composition.catalogNumber}"></span>
+                <span th:if="${not #strings.isEmpty(composition.catalogNumber)}"
+                      th:text="${composition.catalogNumber}"></span>
                 <span class="rating" th:text="${composition.rating}"></span>
             </section>
         </article>

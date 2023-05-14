@@ -63,8 +63,6 @@ public class MusicPeriodManagementController {
         MusicPeriod period = musicPeriodService.getMusicPeriodBySlug(periodSlug);
         musicianService.getAllMusiciansByPeriod(period)
                 .forEach(musician -> musician.getMusicPeriods().remove(period));
-        albumService.getAllAlbumsByPeriod(period)
-                .forEach(album -> album.getMusicPeriods().remove(period));
         musicPeriodService.deleteMusicPeriod(period);
         return "redirect:/music/management/music-period/all/";
     }

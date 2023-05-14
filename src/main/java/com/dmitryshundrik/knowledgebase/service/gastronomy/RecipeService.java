@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.gastronomy;
 
+import com.dmitryshundrik.knowledgebase.model.common.enums.Country;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.RecipeCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.RecipeViewDTO;
@@ -22,6 +23,10 @@ public class RecipeService {
 
     public List<Recipe> getAll() {
         return recipeRepository.findAll();
+    }
+
+    public List<Recipe> getAllByCountry(Country country) {
+        return recipeRepository.findAllByCountry(country);
     }
 
     public Recipe getBySlug(String slug) {

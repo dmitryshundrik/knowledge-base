@@ -17,7 +17,7 @@
 
     <div class="table-body">
         <article class="table-body-item">
-            <form class="form" th:action="${'/management/foundation/edit' + foundationDTO.id}" th:method="put"
+            <form class="form" th:action="${'/management/foundation/edit/' + foundationDTO.id}" th:method="put"
                   th:object="${foundationDTO}">
 
                 <section class="form-item">
@@ -26,13 +26,13 @@
                 </section>
 
                 <section class="form-item major-field">
-                    <label>description</label>
-                    <textarea th:field="*{description}"></textarea>
+                    <label>link</label>
+                    <textarea th:field="*{link}"></textarea>
                 </section>
 
                 <section class="form-item major-field">
-                    <label>link</label>
-                    <textarea th:field="*{link}"></textarea>
+                    <label>description</label>
+                    <textarea th:field="*{description}"></textarea>
                 </section>
 
                 <input class="input-submit" type="submit" value="Обновить"/>

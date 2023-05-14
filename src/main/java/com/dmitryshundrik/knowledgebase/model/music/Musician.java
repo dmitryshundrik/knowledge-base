@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.model.music;
 
+import com.dmitryshundrik.knowledgebase.model.common.PersonEvent;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
-import com.dmitryshundrik.knowledgebase.model.common.Event;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,7 +14,6 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "musicians")
-//@ToString(exclude = {"albums", "compositions"})
 public class Musician {
 
     @Id
@@ -63,7 +62,7 @@ public class Musician {
 
     @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("created")
-    private List<Event> events = new ArrayList<>();
+    private List<PersonEvent> events = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "musician")
     @OrderBy("created")

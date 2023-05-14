@@ -29,3 +29,7 @@
 .rating {
     color: red;
 }
+
+.description {
+    text-align: justify;
+}

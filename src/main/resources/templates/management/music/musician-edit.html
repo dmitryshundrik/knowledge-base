@@ -164,16 +164,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="event : ${musicianCreateEditDTO.events}">
-                    <th th:text="${event.created}"></th>
-                    <th th:text="${event.year}"></th>
-                    <th th:text="${event.description}"></th>
+                <tr th:each="personEvent : ${musicianCreateEditDTO.events}">
+                    <th th:text="${personEvent.created}"></th>
+                    <th th:text="${personEvent.year}"></th>
+                    <th th:text="${personEvent.description}"></th>
                     <th class="td-settings">
                         <a target="_blank"
-                           th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/event/edit/' + event.id}">edit</a>
+                           th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/event/edit/' + personEvent.id}">edit</a>
                     </th>
                     <th class="td-settings">
-                        <form th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/event/delete/' + event.id}"
+                        <form th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/event/delete/' + personEvent.id}"
                               th:method="delete">
                             <input type="submit" value="delete">
                         </form>

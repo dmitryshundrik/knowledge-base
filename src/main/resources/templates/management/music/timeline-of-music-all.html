@@ -32,21 +32,21 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="event : ${events}">
-                <th th:text="${eventStat.index + 1}"></th>
-                <td th:text="${event.created}"></td>
-                <td th:text="${event.eraType}"> </td>
-                <td th:text="${event.year}"></td>
-                <td th:text="${event.anotherYear}"></td>
-                <td th:text="${event.title}"></td>
-                <td th:text="${event.description}"></td>
+            <tr th:each="timelineEvent : ${timelineEvents}">
+                <th th:text="${timelineEventStat.index + 1}"></th>
+                <td th:text="${timelineEvent.created}"></td>
+                <td th:text="${timelineEvent.eraType}"> </td>
+                <td th:text="${timelineEvent.year}"></td>
+                <td th:text="${timelineEvent.anotherYear}"></td>
+                <td th:text="${timelineEvent.title}"></td>
+                <td th:text="${timelineEvent.description}"></td>
                 <td class="td-settings">
-                    <a target="_blank" th:href="${'/management/timeline-of-music/event/edit/' + event.id}">edit</a>
+                    <a target="_blank" th:href="${'/management/timeline-of-music/event/edit/' + timelineEvent.id}">edit</a>
                 </td>
                 <td class="td-settings">
-                    <form th:action="${'/management/timeline-of-music/event/delete/' + event.id}" th:method="delete">
+                    <form th:action="${'/management/timeline-of-music/event/delete/' + timelineEvent.id}" th:method="delete">
                         <input type="submit" value="delete"
-                               th:data-confirm-delete="|Are you sure you want to delete this event?|"
+                               th:data-confirm-delete="|Are you sure you want to delete this timelineEvent?|"
                                onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
                     </form>
                 </td>

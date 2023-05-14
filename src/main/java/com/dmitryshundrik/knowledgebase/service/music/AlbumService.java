@@ -2,7 +2,6 @@ package com.dmitryshundrik.knowledgebase.service.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.Album;
 import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumSelectDTO;
@@ -64,18 +63,8 @@ public class AlbumService {
         return albumRepository.getAllByMusician(musician);
     }
 
-    public List<Album> getAllAlbumsByPeriod(MusicPeriod period) {
-        return albumRepository.getAllByMusicPeriodsIsContaining(period);
-    }
-
     public List<Album> getAllAlbumsByGenre(MusicGenre genre) {
         return albumRepository.getAllByMusicGenresIsContaining(genre);
-    }
-
-    public List<AlbumViewDTO> getAllAlbumsForAOTYList(Integer year) {
-        return getAlbumViewDTOList(albumRepository.getAllByYearAndYearEndRankNotNull(year).stream()
-                .sorted(Comparator.comparing(Album::getYearEndRank))
-                .collect(Collectors.toList()));
     }
 
     public List<AlbumViewDTO> get10BestAlbumsByYear(Integer year) {
@@ -132,7 +121,6 @@ public class AlbumService {
                 .feature(album.getFeature())
                 .artwork(album.getArtwork())
                 .year(album.getYear())
-                .musicPeriods(album.getMusicPeriods())
                 .musicGenres(album.getMusicGenres())
                 .rating(album.getRating())
                 .yearEndRank(album.getYearEndRank())
@@ -157,7 +145,6 @@ public class AlbumService {
                 .feature(album.getFeature())
                 .artwork(album.getArtwork())
                 .year(album.getYear())
-                .musicPeriods(album.getMusicPeriods())
                 .classicalGenres(album.getMusicGenres().stream()
                         .filter(musicGenre -> musicGenre.getMusicGenreType().equals(MusicGenreType.CLASSICAL))
                         .collect(Collectors.toList()))
@@ -210,7 +197,6 @@ public class AlbumService {
         album.setCatalogNumber(albumDTO.getCatalogNumber());
         album.setFeature(albumDTO.getFeature());
         album.setYear(albumDTO.getYear());
-        album.setMusicPeriods(albumDTO.getMusicPeriods());
 
         List<MusicGenre> musicGenres = new ArrayList<>();
         musicGenres.addAll(albumDTO.getClassicalGenres());

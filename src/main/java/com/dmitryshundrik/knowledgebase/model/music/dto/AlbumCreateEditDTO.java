@@ -1,7 +1,6 @@
 package com.dmitryshundrik.knowledgebase.model.music.dto;
 
 import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,8 +30,6 @@ public class AlbumCreateEditDTO {
     private String artwork;
 
     private Integer year;
-
-    private List<MusicPeriod> musicPeriods;
 
     private List<MusicGenre> classicalGenres;
 

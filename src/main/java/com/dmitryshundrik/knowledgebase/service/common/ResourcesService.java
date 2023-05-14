@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -26,6 +27,12 @@ public class ResourcesService {
 
     public List<Resource> getAll() {
         return resourcesRepository.findAll();
+    }
+
+    public List<Resource> getAllSortedByCreated() {
+        return getAll().stream()
+                .sorted(Comparator.comparing(Resource::getCreated))
+                .collect(Collectors.toList());
     }
 
     public Resource createResource(ResourceDTO resourceDTO) {

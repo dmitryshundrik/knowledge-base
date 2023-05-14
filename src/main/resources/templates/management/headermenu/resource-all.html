@@ -23,8 +23,8 @@
                 <th>#</th>
                 <th>created</th>
                 <th>title</th>
-                <th>description</th>
                 <th>link</th>
+                <th>description</th>
                 <th>edit</th>
                 <th>delete</th>
             </tr>
@@ -34,8 +34,8 @@
                 <th th:text="${resourceStat.index + 1}"></th>
                 <td th:text="${resource.created}"></td>
                 <td th:text="${resource.title}"></td>
-                <td th:text="${resource.description}"></td>
                 <td th:text="${resource.link}"></td>
+                <td th:text="${resource.description}"></td>
                 <td class="td-settings">
                     <a target="_blank"
                        th:href="${'/management/foundation/edit/' + resource.id}">edit</a>

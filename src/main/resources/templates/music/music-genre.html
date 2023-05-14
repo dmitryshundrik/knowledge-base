@@ -27,7 +27,8 @@
                         <a th:text="${album.musicianNickname}" th:href="'/music/musician/' + ${album.musicianSlug}"></a>
                 </span>
                 <span class="table-body-item-col title" th:text="${album.title}"></span>
-                <span class="table-body-item-col" th:text="'(' + ${album.year} + ')'"></span>
+                <span class="table-body-item-col" th:if="${album.year} != null"
+                      th:text="'(' + ${album.year} + ')'"></span>
                 <span class="table-body-item-col rating" th:text="${album.rating}"></span>
             </section>
         </article>
@@ -43,8 +44,10 @@
                            th:href="'/music/musician/' + ${composition.musicianSlug}"></a>
                 </span>
                 <span class="table-body-item-col title" th:text="${composition.title}"></span>
-                <span class="table-body-item-col" th:text="${composition.catalogNumber}"></span>
-                <span class="table-body-item-col" th:text="'(' + ${composition.year} + ')'"></span>
+                <span class="table-body-item-col" th:if="${not #strings.isEmpty(composition.catalogNumber)}"
+                      th:text="${composition.catalogNumber}"></span>
+                <span class="table-body-item-col" th:if="${composition.year} != null"
+                      th:text="'(' + ${composition.year} + ')'"></span>
                 <span class="table-body-item-col rating" th:text="${composition.rating}"></span>
             </section>
         </article>

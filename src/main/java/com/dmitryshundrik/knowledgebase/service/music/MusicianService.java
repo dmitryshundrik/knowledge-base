@@ -2,9 +2,8 @@ package com.dmitryshundrik.knowledgebase.service.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.*;
 import com.dmitryshundrik.knowledgebase.model.music.dto.*;
-import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
-import com.dmitryshundrik.knowledgebase.service.common.EventService;
+import com.dmitryshundrik.knowledgebase.service.common.PersonEventService;
 import com.dmitryshundrik.knowledgebase.util.Constants;
 import com.dmitryshundrik.knowledgebase.util.Formatter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class MusicianService {
     private MusicianRepository musicianRepository;
 
     @Autowired
-    private EventService eventService;
+    private PersonEventService personEventService;
 
     @Autowired
     private AlbumService albumService;
@@ -156,7 +155,7 @@ public class MusicianService {
                 .musicPeriods(musician.getMusicPeriods())
                 .musicGenres(getSortedMusicGenresByMusisian(musician))
                 .spotifyLink(musician.getSpotifyLink())
-                .events(eventService.getEventDTOList(musician.getEvents()))
+                .events(personEventService.getPersonEventDTOList(musician.getEvents()))
                 .albums(albumService.getSortedAlbumViewDTOList(musician.getAlbums(), musician.getAlbumsSortType()))
                 .essentialAlbums(albumService.getEssentialAlbumsViewDTOList(musician.getAlbums()))
                 .compositions(compositionService
@@ -206,7 +205,7 @@ public class MusicianService {
                 .albumsSortType(musician.getAlbumsSortType())
                 .compositionsSortType(musician.getCompositionsSortType())
                 .spotifyLink(musician.getSpotifyLink())
-                .events(eventService.getEventDTOList(musician.getEvents()))
+                .events(personEventService.getPersonEventDTOList(musician.getEvents()))
                 .albums(albumService.getSortedAlbumViewDTOList(musician.getAlbums(), musician.getAlbumsSortType()))
                 .compositions(compositionService
                         .getSortedCompositionViewDTOList(musician.getCompositions(), musician.getCompositionsSortType()))

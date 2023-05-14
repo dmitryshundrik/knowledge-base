@@ -33,6 +33,7 @@
 
         <article class="table-body-item">
             <h3>Статьи</h3>
+            <span style="font-style: italic">В разработке</span>
             <span th:each="article : ${articles}">
                 <a th:text="${article.title}" th:href="'/gastronomy/article/' + ${article.slug}"></a>
             </span>
@@ -42,7 +43,7 @@
             <h3>Страны</h3>
             <div class="table-body-item-row">
                 <span th:each="country : ${countries}">
-                    <a th:text="${country.label}" th:href="'/gastronomy/country/' + ${country.label}"></a>
+                    <a th:text="${country.label}" th:href="'/gastronomy/country/' + ${country.slug}"></a>
                 </span>
             </div>
         </article>

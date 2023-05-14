@@ -1,12 +1,12 @@
 package com.dmitryshundrik.knowledgebase.model.common.enums;
 
-public enum EventType {
+public enum TimelineEventType {
 
-    ENTITY_TIMELINE("История сущности"), MUSIC_TIMELINE("История музыки");
+    MUSIC("Музыка"), LITERATURE("Литература"), PAINTING("Живопись");
 
     private final String label;
 
-    EventType(String label) {
+    TimelineEventType(String label) {
         this.label = label;
     }
 

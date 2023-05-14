@@ -12,13 +12,13 @@
 <main class="table">
 
     <header class="table-title">
-        <h4>создать event</h4>
+        <h4>создать musician event</h4>
     </header>
 
     <div class="table-body">
         <article class="table-body-item">
             <form class="form" th:action="${'/management/musician/edit/' + slug +'/event/create'}" th:method="post"
-                  th:object="${eventDTO}">
+                  th:object="${personEventDTO}">
 
                 <section class="form-item">
                     <label>year</label>

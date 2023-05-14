@@ -50,7 +50,7 @@ public class EntityUpdateInfoService {
             musicianUpdateInfo.add(EntityUpdateInfo.builder()
                     .created(musician.getCreated())
                     .archiveSection("музыка:")
-                    .description("добавлен музыкант " + musician.getNickName())
+                    .description("музыкант " + musician.getNickName())
                     .link("music/musician/" + musician.getSlug())
                     .build());
         }
@@ -64,7 +64,7 @@ public class EntityUpdateInfoService {
             albumUpdateInfo.add(EntityUpdateInfo.builder()
                     .created(album.getCreated())
                     .archiveSection("музыка:")
-                    .description("добавлен альбом " + album.getTitle() + " в архив " + album.getMusicianNickname())
+                    .description("альбом " + album.getTitle() + " добавлен в архив " + album.getMusicianNickname())
                     .link("music/musician/" + album.getMusicianSlug())
                     .build());
         }
@@ -78,7 +78,7 @@ public class EntityUpdateInfoService {
             compositionUpdateInfo.add(EntityUpdateInfo.builder()
                     .created(composition.getCreated())
                     .archiveSection("музыка:")
-                    .description("добавлена композиция " + composition.getTitle() + " в архив " + composition.getMusicianNickname())
+                    .description("композиция " + composition.getTitle() + " добавлена в архив " + composition.getMusicianNickname())
                     .link("music/musician/" + composition.getMusicianSlug())
                     .build());
         }

@@ -19,7 +19,7 @@ public class FoundationManagementController {
 
     @GetMapping("/management/foundation/all")
     public String getAllFoundations(Model model) {
-        List<Foundation> foundationList = foundationService.getAll();
+        List<Foundation> foundationList = foundationService.getAllSortedByCreated();
         List<FoundationDTO> foundationDTOList = foundationService.getFoundationDTOList(foundationList);
         model.addAttribute("foundations", foundationDTOList);
         return "management/headermenu/foundation-all";

@@ -3,8 +3,6 @@ package com.dmitryshundrik.knowledgebase.model.music.dto;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.Instant;
-
 @Data
 @Builder
 public class YearInMusicViewDTO {

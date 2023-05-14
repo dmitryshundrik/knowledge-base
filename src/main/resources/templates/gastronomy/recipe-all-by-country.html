@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${country.label}"></title>
+    <link th:href="@{/styles/gastronomy/gastronomy-entity-all.css}" rel="stylesheet">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h3 th:text="${country.label}"></h3>
+    </header>
+
+    <div class="table-body">
+
+        <article class="table-body-item">
+            <section class="table-body-item-row" th:each="recipe : ${recipes}">
+                <h3 class="table-body-item-col">
+                    <a th:text="${recipe.title}" th:href="'/gastronomy/recipe/' + ${recipe.slug}"></a>
+                </h3>
+            </section>
+        </article>
+
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

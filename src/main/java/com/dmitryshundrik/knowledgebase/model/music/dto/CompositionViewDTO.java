@@ -31,8 +31,6 @@ public class CompositionViewDTO {
 
     private Integer year;
 
-    private List<MusicPeriod> musicPeriods;
-
     private List<MusicGenre> musicGenres;
 
     private Double rating;

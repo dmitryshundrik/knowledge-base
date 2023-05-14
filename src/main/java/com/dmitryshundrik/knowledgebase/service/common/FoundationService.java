@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -26,6 +27,12 @@ public class FoundationService {
 
     public List<Foundation> getAll() {
         return foundationRepository.findAll();
+    }
+
+    public List<Foundation> getAllSortedByCreated() {
+        return getAll().stream()
+                .sorted(Comparator.comparing(Foundation::getCreated))
+                .collect(Collectors.toList());
     }
 
     public Foundation createFoundation(FoundationDTO foundationDTO) {

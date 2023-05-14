@@ -1,14 +1,13 @@
 package com.dmitryshundrik.knowledgebase.controller.music;
 
 import com.dmitryshundrik.knowledgebase.model.common.enums.EraType;
-import com.dmitryshundrik.knowledgebase.model.common.enums.EventType;
 import com.dmitryshundrik.knowledgebase.model.music.*;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
-import com.dmitryshundrik.knowledgebase.service.common.EventService;
+import com.dmitryshundrik.knowledgebase.service.common.TimelineEventService;
 import com.dmitryshundrik.knowledgebase.service.music.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,7 +35,7 @@ public class MusicPageController {
     private YearInMusicService yearInMusicService;
 
     @Autowired
-    private EventService eventService;
+    private TimelineEventService timelineEventService;
 
     @Autowired
     private MusicPeriodService musicPeriodService;
@@ -99,8 +98,8 @@ public class MusicPageController {
 
     @GetMapping("/timeline-of-music")
     public String getTimelineOfMusic(Model model) {
-        model.addAttribute("eventsBCE", eventService.getAllMusicTimelineEventsBeforeCommon());
-        model.addAttribute("eventsCE", eventService.getAllMusicTimelineEventsByCommonEra());
+        model.addAttribute("eventsBCE", timelineEventService.getAllMusicTimelineEventsBeforeCommon());
+        model.addAttribute("eventsCE", timelineEventService.getAllMusicTimelineEventsByCommonEra());
         model.addAttribute("eraTypes", EraType.values());
         return "music/timeline-of-music";
     }

@@ -12,14 +12,14 @@
 <main class="table">
 
     <header class="table-title">
-        <h4>измененить event</h4>
+        <h4>измененить musician event</h4>
     </header>
 
     <div class="table-body">
         <article class="table-body-item">
-            <form class="form" th:action="${'/management/musician/edit/' + slug +'/event/edit/' + eventDTO.id}"
+            <form class="form" th:action="${'/management/musician/edit/' + slug +'/event/edit/' + personEventDTO.id}"
                   th:method="put"
-                  th:object="${eventDTO}">
+                  th:object="${personEventDTO}">
 
                 <section class="form-item">
                     <label>year</label>

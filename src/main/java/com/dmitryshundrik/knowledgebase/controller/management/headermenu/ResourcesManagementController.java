@@ -19,7 +19,7 @@ public class ResourcesManagementController {
 
     @GetMapping("/management/resource/all")
     public String getAllResources(Model model) {
-        List<Resource> resourceList = resourcesService.getAll();
+        List<Resource> resourceList = resourcesService.getAllSortedByCreated();
         List<ResourceDTO> resourceDTOList = resourcesService.getResourceDTOList(resourceList);
         model.addAttribute("resources", resourceDTOList);
         return "management/headermenu/resource-all";

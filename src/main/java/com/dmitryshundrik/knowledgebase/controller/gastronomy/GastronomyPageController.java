@@ -1,10 +1,13 @@
 package com.dmitryshundrik.knowledgebase.controller.gastronomy;
 
+import com.dmitryshundrik.knowledgebase.model.common.Article;
+import com.dmitryshundrik.knowledgebase.model.common.dto.ArticleDTO;
 import com.dmitryshundrik.knowledgebase.model.common.enums.Country;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.CocktailDTO;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.RecipeViewDTO;
+import com.dmitryshundrik.knowledgebase.service.common.ArticleService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,9 @@ public class GastronomyPageController {
 
     @Autowired
     private CocktailService cocktailService;
+
+    @Autowired
+    private ArticleService articleService;
 
     @GetMapping()
     public String getGastronomyPage(Model model) {
@@ -66,6 +72,23 @@ public class GastronomyPageController {
         CocktailDTO cocktailDTO = cocktailService.getCocktailViewDTO(bySlug);
         model.addAttribute("cocktail", cocktailDTO);
         return "gastronomy/recipe";
+    }
+
+    @GetMapping("/article/{id}")
+    public String getArticle(@PathVariable String id, Model model) {
+        Article byId = articleService.getById(id);
+        ArticleDTO articleDTO = articleService.getArticleDTO(byId);
+        model.addAttribute("article", articleDTO);
+        return "gastronomy/article";
+    }
+
+    @GetMapping("/country/{slug}")
+    public String getRecipesByCountry(@PathVariable String slug, Model model) {
+        List<Recipe> allByCountry = recipeService.getAllByCountry(Country.valueOf(slug.toUpperCase()));
+        List<RecipeViewDTO> recipeViewDTOList = recipeService.getRecipeViewDTOList(allByCountry);
+        model.addAttribute("country", Country.valueOf(slug.toUpperCase()));
+        model.addAttribute("recipes", recipeViewDTOList);
+        return "gastronomy/recipe-all-by-country";
     }
 
 }

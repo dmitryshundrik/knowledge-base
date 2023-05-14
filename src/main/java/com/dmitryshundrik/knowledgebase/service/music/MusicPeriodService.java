@@ -2,7 +2,6 @@ package com.dmitryshundrik.knowledgebase.service.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicPeriodCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.repository.music.CompositionRepository;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicPeriodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

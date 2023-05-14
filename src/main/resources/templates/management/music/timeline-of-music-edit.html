@@ -12,14 +12,14 @@
 <main class="table">
 
     <header class="table-title">
-        <h4>измененить event</h4>
+        <h4>изменить event</h4>
     </header>
 
     <div class="table-body">
         <article class="table-body-item">
-            <form class="form" th:action="${'/management/timeline-of-music/event/edit/' + eventDTO.id}"
+            <form class="form" th:action="${'/management/timeline-of-music/event/edit/' + timelineEventDTO.id}"
                   th:method="put"
-                  th:object="${eventDTO}">
+                  th:object="${timelineEventDTO}">
 
                 <section class="form-item">
                     <label>era_type</label>
