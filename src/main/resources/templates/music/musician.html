@@ -112,8 +112,10 @@
                 <h3>Все произведения</h3>
             </header>
             <section class="table-body-item-row" th:each="composition : ${musicianViewDTO.compositions}">
-                <span class="table-body-item-col" th:if="${composition.year} != null" th:text=" ${composition.year}"></span>
-                <span class="table-body-item-col" th:if="${not #strings.isEmpty(composition.catalogNumber)}" th:text="${composition.catalogNumber}"></span>
+                <span class="table-body-item-col" th:if="${composition.year} != null"
+                      th:text=" ${composition.year}"></span>
+                <span class="table-body-item-col" th:if="${composition.catalogNumber} != null"
+                      th:text="${musicianViewDTO.catalogTitle + ' ' + composition.catalogNumber}"></span>
                 <span class="table-body-item-col" th:text="${composition.title}"></span>
                 <span class="table-body-item-col rating" th:text="${composition.rating}"></span>
                 <span class="composition-description" th:text="${composition.highlights}"></span>

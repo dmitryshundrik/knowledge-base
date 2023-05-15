@@ -28,12 +28,12 @@ public class AlbumService {
     @Autowired
     private AlbumRepository albumRepository;
 
-    public Album getAlbumById(String id) {
-        return albumRepository.findById(UUID.fromString(id)).orElse(null);
+    public Album getAlbumById(String albumId) {
+        return albumRepository.findById(UUID.fromString(albumId)).orElse(null);
     }
 
-    public Album getAlbumBySlug(String slug) {
-        return albumRepository.getAlbumBySlug(slug);
+    public Album getAlbumBySlug(String albumSlug) {
+        return albumRepository.getAlbumBySlug(albumSlug);
     }
 
     public List<Album> getAllAlbums() {
@@ -85,18 +85,19 @@ public class AlbumService {
         return albumRepository.getAllYearsFromAlbums();
     }
 
-    public AlbumCreateEditDTO createAlbumByDTO(AlbumCreateEditDTO albumDTO, Musician musician) {
+    public AlbumViewDTO createAlbum(AlbumCreateEditDTO albumDTO, Musician musician) {
         Album album = new Album();
         album.setCreated(Instant.now());
         album.setMusician(musician);
         setFieldsFromDTO(album, albumDTO);
-        Album createdAlbum = albumRepository.save(album);
-        return getAlbumCreateEditDTO(createdAlbum);
+        album.setSlug(album.getMusician().getSlug() + "-" + album.getSlug());
+        return getAlbumViewDTO(albumRepository.save(album));
     }
 
-    public void updateAlbum(String albumSlug, AlbumCreateEditDTO albumDTO) {
+    public AlbumViewDTO updateAlbum(String albumSlug, AlbumCreateEditDTO albumDTO) {
         Album albumBySlug = getAlbumBySlug(albumSlug);
         setFieldsFromDTO(albumBySlug, albumDTO);
+        return getAlbumViewDTO(albumBySlug);
     }
 
     public void deleteAlbumBySlug(String slug) {
@@ -104,7 +105,7 @@ public class AlbumService {
     }
 
     public List<AlbumViewDTO> getEssentialAlbumsViewDTOList(List<Album> albumList) {
-        return albumList.stream().map(album -> getAlbumViewDTO(album))
+        return albumList.stream().map(this::getAlbumViewDTO)
                 .filter(albumViewDTO -> albumViewDTO.getEssentialAlbumsRank() != null)
                 .sorted(Comparator.comparing(AlbumViewDTO::getEssentialAlbumsRank))
                 .collect(Collectors.toList());
@@ -131,7 +132,7 @@ public class AlbumService {
     }
 
     public List<AlbumViewDTO> getAlbumViewDTOList(List<Album> albumList) {
-        return albumList.stream().map(album -> getAlbumViewDTO(album)).collect(Collectors.toList());
+        return albumList.stream().map(this::getAlbumViewDTO).collect(Collectors.toList());
 
     }
 
@@ -167,7 +168,7 @@ public class AlbumService {
     }
 
     public List<AlbumSelectDTO> getAlbumSelectDTOList(List<Album> albumList) {
-        return albumList.stream().map(album -> getAlbumSelectDTO(album)).collect(Collectors.toList());
+        return albumList.stream().map(this::getAlbumSelectDTO).collect(Collectors.toList());
     }
 
     public List<AlbumViewDTO> getSortedAlbumViewDTOList(List<Album> albumList, SortType sortType) {
@@ -210,8 +211,8 @@ public class AlbumService {
         album.setDescription(albumDTO.getDescription());
     }
 
-    public List<AlbumViewDTO> getLatestUpdate() {
-        return getAlbumViewDTOList(albumRepository.findFirst10ByOrderByCreated());
+    public List<Album> getLatestUpdate() {
+        return albumRepository.findFirst10ByOrderByCreated();
     }
 
 }

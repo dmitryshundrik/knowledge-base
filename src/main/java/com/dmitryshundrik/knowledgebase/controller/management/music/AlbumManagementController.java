@@ -60,9 +60,9 @@ public class AlbumManagementController {
             model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
             return "management/music/album-create";
         }
-        AlbumCreateEditDTO DTOByCreated = albumService
-                .createAlbumByDTO(albumDTO, musicianService.getMusicianBySlug(musicianSlug));
-        return "redirect:/management/musician/edit/" + musicianSlug + "/album/edit/" + DTOByCreated.getSlug();
+        String albumDTOSlug = albumService
+                .createAlbum(albumDTO, musicianService.getMusicianBySlug(musicianSlug)).getSlug();
+        return "redirect:/management/musician/edit/" + musicianSlug + "/album/edit/" + albumDTOSlug;
     }
 
     @GetMapping("management/musician/edit/{musicianSlug}/album/edit/{albumSlug}")
@@ -78,8 +78,8 @@ public class AlbumManagementController {
     @PutMapping("management/musician/edit/{musicianSlug}/album/edit/{albumSlug}")
     public String putEditAlbumBySlug(@PathVariable String musicianSlug, @PathVariable String albumSlug,
                                      @ModelAttribute("albumCreateEditDTO") AlbumCreateEditDTO albumDTO) {
-        albumService.updateAlbum(albumSlug, albumDTO);
-        return "redirect:/management/musician/edit/" + musicianSlug + "/album/edit/" + albumDTO.getSlug();
+        String albumDTOSlug = albumService.updateAlbum(albumSlug, albumDTO).getSlug();
+        return "redirect:/management/musician/edit/" + musicianSlug + "/album/edit/" + albumDTOSlug;
     }
 
     @DeleteMapping("management/musician/edit/{musicianSlug}/album/delete/{albumSlug}")

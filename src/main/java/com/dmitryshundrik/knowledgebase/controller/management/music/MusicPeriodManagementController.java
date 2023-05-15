@@ -41,7 +41,7 @@ public class MusicPeriodManagementController {
 
     @PostMapping("/management/music-period/create")
     public String postCreateMusicPeriod(@ModelAttribute("dto") MusicPeriodCreateEditDTO periodDTO) {
-        String slug = musicPeriodService.createMusicPeriodByDTO(periodDTO);
+        String slug = musicPeriodService.createMusicPeriod(periodDTO);
         return "redirect:/management/music-period/edit/" + slug;
     }
 

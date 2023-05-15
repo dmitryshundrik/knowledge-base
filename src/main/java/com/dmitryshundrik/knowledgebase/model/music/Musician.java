@@ -48,6 +48,8 @@ public class Musician {
 
     private String occupation;
 
+    private String catalogTitle;
+
     @ManyToMany
     private List<MusicPeriod> musicPeriods;
 

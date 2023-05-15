@@ -19,8 +19,8 @@ public class MusicPeriodService {
     @Autowired
     private MusicPeriodRepository musicPeriodRepository;
 
-    public MusicPeriod getMusicPeriodBySlug(String slug) {
-        return musicPeriodRepository.getBySlug(slug);
+    public MusicPeriod getMusicPeriodBySlug(String musicPeriodSlug) {
+        return musicPeriodRepository.getBySlug(musicPeriodSlug);
     }
 
     public List<MusicPeriod> getAll() {
@@ -32,7 +32,7 @@ public class MusicPeriodService {
                 .sorted(Comparator.comparing(MusicPeriod::getApproximateStart)).collect(Collectors.toList());
     }
 
-    public String createMusicPeriodByDTO(MusicPeriodCreateEditDTO periodDTO) {
+    public String createMusicPeriod(MusicPeriodCreateEditDTO periodDTO) {
         MusicPeriod period = new MusicPeriod();
         period.setCreated(Instant.now());
         setFieldsFromDTO(period, periodDTO);
@@ -69,4 +69,5 @@ public class MusicPeriodService {
         period.setApproximateEnd(periodDTO.getApproximateEnd());
         period.setDescription(periodDTO.getDescription());
     }
+
 }

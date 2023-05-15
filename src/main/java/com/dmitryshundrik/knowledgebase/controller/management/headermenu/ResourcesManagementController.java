@@ -28,29 +28,29 @@ public class ResourcesManagementController {
     @GetMapping("/management/resource/create")
     public String getResourceCreate(Model model) {
         ResourceDTO resourceDTO = new ResourceDTO();
-        model.addAttribute("resourceDTO", resourceDTO);
+        model.addAttribute("resource", resourceDTO);
         return "management/headermenu/resource-create";
     }
 
     @PostMapping("/management/resource/create")
-    public String postResourceCreate(@ModelAttribute("resourceDTO") ResourceDTO resourceDTO) {
-        Resource resource = resourcesService.createResource(resourceDTO);
-        return "redirect:/management/resource/edit/" + resource.getId();
+    public String postResourceCreate(@ModelAttribute("resource") ResourceDTO resourceDTO) {
+        String resourceDTOId = resourcesService.createResource(resourceDTO).getId();
+        return "redirect:/management/resource/edit/" + resourceDTOId;
     }
 
     @GetMapping("/management/resource/edit/{resourceId}")
     public String getResourceEdit(@PathVariable String resourceId, Model model) {
         Resource byId = resourcesService.getById(resourceId);
         ResourceDTO resourceDTO = resourcesService.getResourceDTO(byId);
-        model.addAttribute("resourceDTO", resourceDTO);
+        model.addAttribute("resource", resourceDTO);
         return "management/headermenu/resource-edit";
     }
 
     @PutMapping("/management/resource/edit/{resourceId}")
     public String putResourceEdit(@PathVariable String resourceId,
-                                    @ModelAttribute("resourceDTO") ResourceDTO resourceDTO) {
-        Resource resource = resourcesService.updateResource(resourceId, resourceDTO);
-        return "redirect:/management/resource/edit/" + resource.getId();
+                                    @ModelAttribute("resource") ResourceDTO resourceDTO) {
+        String resourceDTOId = resourcesService.updateResource(resourceId, resourceDTO).getId();
+        return "redirect:/management/resource/edit/" + resourceDTOId;
     }
 
     @DeleteMapping("/management/resource/delete/{resourceId}")

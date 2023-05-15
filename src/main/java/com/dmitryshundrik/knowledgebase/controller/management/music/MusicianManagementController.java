@@ -67,8 +67,8 @@ public class MusicianManagementController {
             model.addAttribute("sortTypes", SortType.values());
             return "management/music/musician-create";
         }
-        musicianService.createMusicianByDTO(musicianDTO);
-        return "redirect:/management/musician/edit/" + musicianDTO.getSlug();
+        String musicianDTOSlug = musicianService.createMusician(musicianDTO).getSlug();
+        return "redirect:/management/musician/edit/" + musicianDTOSlug;
     }
 
     @GetMapping("/management/musician/edit/{musicianSlug}")
@@ -85,8 +85,8 @@ public class MusicianManagementController {
     @PutMapping("/management/musician/edit/{musicianSlug}")
     public String putEditMusicianBySlug(@PathVariable String musicianSlug,
                                         @ModelAttribute("musicianCreateEditDTO") MusicianCreateEditDTO musicianDTO) {
-        musicianService.updateMusician(musicianSlug, musicianDTO);
-        return "redirect:/management/musician/edit/" + musicianDTO.getSlug();
+        String musicianDTOSlug = musicianService.updateMusician(musicianSlug, musicianDTO).getSlug();
+        return "redirect:/management/musician/edit/" + musicianDTOSlug;
     }
 
     @PostMapping("/management/musician/edit/{musicianSlug}/image/upload")

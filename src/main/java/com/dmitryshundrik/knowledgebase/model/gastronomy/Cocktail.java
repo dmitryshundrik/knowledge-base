@@ -22,9 +22,6 @@ public class Cocktail {
 
     private String title;
 
-    @Enumerated(EnumType.STRING)
-    private Country country;
-
     @Column(columnDefinition = "text")
     private String about;
 

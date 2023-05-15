@@ -21,7 +21,7 @@ public class Composition {
 
     private String title;
 
-    private String catalogNumber;
+    private Integer catalogNumber;
 
     @ManyToOne
     private Musician musician;

@@ -1,7 +1,6 @@
 package com.dmitryshundrik.knowledgebase.model.music.dto;
 
 import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +19,7 @@ public class CompositionCreateEditDTO {
     @NotBlank(message = "title may not be blank")
     private String title;
 
-    private String catalogNumber;
+    private Integer catalogNumber;
 
     private String musicianNickname;
 

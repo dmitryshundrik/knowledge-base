@@ -29,24 +29,26 @@ public class RecipeService {
         return recipeRepository.findAllByCountry(country);
     }
 
-    public Recipe getBySlug(String slug) {
-        return recipeRepository.findBySlug(slug);
+    public Recipe getBySlug(String recipeSlug) {
+        return recipeRepository.findBySlug(recipeSlug);
     }
 
-    public void createRecipe(RecipeCreateEditDTO recipeCreateEditDTO) {
+    public RecipeViewDTO createRecipe(RecipeCreateEditDTO recipeCreateEditDTO) {
         Recipe recipe = new Recipe();
         recipe.setCreated(Instant.now());
         setFieldsFromDTO(recipe, recipeCreateEditDTO);
-        recipeRepository.save(recipe);
+        return getRecipeViewDTO(recipeRepository.save(recipe));
     }
 
-    public void updateRecipe(String recipeSlug, RecipeCreateEditDTO recipeDTO) {
+    public RecipeViewDTO updateRecipe(String recipeSlug, RecipeCreateEditDTO recipeDTO) {
         Recipe bySlug = getBySlug(recipeSlug);
         setFieldsFromDTO(bySlug, recipeDTO);
+        return getRecipeViewDTO(bySlug);
     }
 
-    public void deleteRecipe(Recipe recipe) {
-        recipeRepository.delete(recipe);
+    public void deleteRecipe(String recipeSlug) {
+        Recipe bySlug = getBySlug(recipeSlug);
+        recipeRepository.delete(bySlug);
     }
 
     public RecipeViewDTO getRecipeViewDTO(Recipe recipe) {

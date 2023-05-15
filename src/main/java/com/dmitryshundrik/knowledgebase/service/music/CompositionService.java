@@ -24,8 +24,8 @@ public class CompositionService {
     @Autowired
     private CompositionRepository compositionRepository;
 
-    public Composition getCompositionBySlug(String slug) {
-        return compositionRepository.getCompositionBySlug(slug);
+    public Composition getCompositionBySlug(String compositionSlug) {
+        return compositionRepository.getCompositionBySlug(compositionSlug);
     }
 
     public List<Composition> getAllCompositions() {
@@ -56,8 +56,7 @@ public class CompositionService {
                 .collect(Collectors.toList());
     }
 
-    public CompositionCreateEditDTO createCompositionByDTO(CompositionCreateEditDTO compositionDTO,
-                                                           Musician musician, Album album) {
+    public CompositionViewDTO createComposition(CompositionCreateEditDTO compositionDTO, Musician musician, Album album) {
         Composition composition = new Composition();
         composition.setCreated(Instant.now());
         composition.setMusician(musician);
@@ -66,14 +65,16 @@ public class CompositionService {
         if (album != null) {
             album.getCompositions().add(composition);
         }
-        Composition createdComposition = compositionRepository.save(composition);
-        return getCompositionCreateEditDTO(createdComposition);
+        compositionRepository.save(composition);
+        composition.setSlug(composition.getSlug() + "-" + composition.getId());
+        return getCompositionViewDTO(composition);
     }
 
-    public void updateCompositionBySlug(CompositionCreateEditDTO compositionDTO, String compositionSlug, Album album) {
+    public CompositionViewDTO updateComposition(CompositionCreateEditDTO compositionDTO, String compositionSlug, Album album) {
         Composition compositionBySlug = compositionRepository.getCompositionBySlug(compositionSlug);
         compositionBySlug.setAlbum(album);
         setFieldsFromDTO(compositionBySlug, compositionDTO);
+        return getCompositionViewDTO(compositionBySlug);
     }
 
     public void deleteCompositionBySlug(String slug) {
@@ -98,10 +99,55 @@ public class CompositionService {
         }
     }
 
+    public CompositionViewDTO getCompositionViewDTO(Composition composition) {
+        return CompositionViewDTO.builder()
+                .created(Formatter.instantFormatterYMD(composition.getCreated()))
+                .slug(composition.getSlug())
+                .title(composition.getTitle())
+                .catalogTitle(composition.getMusician().getCatalogTitle())
+                .catalogNumber(composition.getCatalogNumber())
+                .musicianNickname(composition.getMusician().getNickName())
+                .musicianSlug(composition.getMusician().getSlug())
+                .albumTitle(composition.getAlbum() == null ? null : composition.getAlbum().getTitle())
+                .feature(composition.getFeature())
+                .year(composition.getYear())
+                .musicGenres(composition.getMusicGenres())
+                .rating(composition.getRating())
+                .yearEndRank(composition.getYearEndRank())
+                .essentialCompositionsRank(composition.getEssentialCompositionsRank())
+                .highlights(composition.getHighlights())
+                .description(composition.getDescription())
+                .build();
+    }
+
+    public List<CompositionViewDTO> getCompositionViewDTOList(List<Composition> compositionList) {
+        return compositionList.stream().map(this::getCompositionViewDTO)
+                .collect(Collectors.toList());
+    }
+
     public List<CompositionViewDTO> getEssentialCompositionsViewDTOList(List<Composition> compositionList) {
-        return compositionList.stream().map(composition -> getCompositionViewDTO(composition))
+        return compositionList.stream().map(this::getCompositionViewDTO)
                 .filter(compositionViewDTO -> compositionViewDTO.getEssentialCompositionsRank() != null)
                 .sorted(Comparator.comparing(CompositionViewDTO::getEssentialCompositionsRank))
+                .collect(Collectors.toList());
+    }
+
+    public List<CompositionViewDTO> getSortedCompositionViewDTOList(List<Composition> compositionList, SortType sortType) {
+        return getCompositionViewDTOList(compositionList).stream()
+                .sorted((o1, o2) -> {
+                            if (SortType.CATALOGUE_NUMBER.equals(sortType)
+                                    && o1.getCatalogNumber() != null && o2.getCatalogNumber() != null) {
+                                return o1.getCatalogNumber().compareTo(o2.getCatalogNumber());
+                            } else if (SortType.YEAR.equals(sortType)
+                                    && o1.getYear() != null && o2.getYear() != null) {
+                                return o1.getYear().compareTo(o2.getYear());
+                            } else if (SortType.RATING.equals(sortType)
+                                    && o2.getRating() != null && o1.getRating() != null) {
+                                return o2.getRating().compareTo(o1.getRating());
+                            }
+                            return -1;
+                        }
+                )
                 .collect(Collectors.toList());
     }
 
@@ -131,50 +177,6 @@ public class CompositionService {
                 .build();
     }
 
-    public CompositionViewDTO getCompositionViewDTO(Composition composition) {
-        return CompositionViewDTO.builder()
-                .created(Formatter.instantFormatterYMD(composition.getCreated()))
-                .slug(composition.getSlug())
-                .title(composition.getTitle())
-                .catalogNumber(composition.getCatalogNumber())
-                .musicianNickname(composition.getMusician().getNickName())
-                .musicianSlug(composition.getMusician().getSlug())
-                .albumTitle(composition.getAlbum() == null ? null : composition.getAlbum().getTitle())
-                .feature(composition.getFeature())
-                .year(composition.getYear())
-                .musicGenres(composition.getMusicGenres())
-                .rating(composition.getRating())
-                .yearEndRank(composition.getYearEndRank())
-                .essentialCompositionsRank(composition.getEssentialCompositionsRank())
-                .highlights(composition.getHighlights())
-                .description(composition.getDescription())
-                .build();
-    }
-
-    public List<CompositionViewDTO> getCompositionViewDTOList(List<Composition> compositionList) {
-        return compositionList.stream().map(composition -> getCompositionViewDTO(composition))
-                .collect(Collectors.toList());
-    }
-
-    public List<CompositionViewDTO> getSortedCompositionViewDTOList(List<Composition> compositionList, SortType sortType) {
-        return getCompositionViewDTOList(compositionList).stream()
-                .sorted((o1, o2) -> {
-                            if (SortType.CATALOGUE_NUMBER.equals(sortType)
-                                    && o1.getCatalogNumber() != null && o2.getCatalogNumber() != null) {
-                                return o1.getCatalogNumber().compareTo(o2.getCatalogNumber());
-                            } else if (SortType.YEAR.equals(sortType)
-                                    && o1.getYear() != null && o2.getYear() != null) {
-                                return o1.getYear().compareTo(o2.getYear());
-                            } else if (SortType.RATING.equals(sortType)
-                                    && o2.getRating() != null && o1.getRating() != null) {
-                                return o2.getRating().compareTo(o1.getRating());
-                            }
-                            return -1;
-                        }
-                )
-                .collect(Collectors.toList());
-    }
-
     private void setFieldsFromDTO(Composition composition, CompositionCreateEditDTO compositionDTO) {
 
         updateEssentialCompositions(compositionDTO);
@@ -199,8 +201,8 @@ public class CompositionService {
         composition.setTranslation(compositionDTO.getTranslation());
     }
 
-    public List<CompositionViewDTO> getLatestUpdate() {
-        return getCompositionViewDTOList(compositionRepository.findFirst10ByOrderByCreated());
+    public List<Composition> getLatestUpdate() {
+        return compositionRepository.findFirst10ByOrderByCreated();
     }
 
 }

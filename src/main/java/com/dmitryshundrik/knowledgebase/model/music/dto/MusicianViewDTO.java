@@ -42,6 +42,8 @@ public class MusicianViewDTO {
 
     private String occupation;
 
+    private String catalogTitle;
+
     private List<MusicPeriod> musicPeriods;
 
     private List<MusicGenre> musicGenres;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Библиотека котейлей</title>
-    <link th:href="@{/styles/music/music-entity-all.css}" rel="stylesheet">
+    <link th:href="@{/styles/gastronomy/gastronomy-entity-all.css}" rel="stylesheet">
 </head>
 <body>
 
@@ -19,7 +19,9 @@
 
         <article class="table-body-item">
             <section class="table-body-item-row" th:each="cocktail : ${cocktails}">
-                <span class="table-body-item-col title" th:text="${cocktail.title}"></span>
+                <h3 class="table-body-item-col">
+                    <a th:text="${cocktail.title}" th:href="'/gastronomy/cocktail/' + ${cocktail.slug}"></a>
+                </h3>
             </section>
         </article>
 

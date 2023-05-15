@@ -54,7 +54,7 @@ public class MusicGenreManagementController {
             model.addAttribute("musicGenreTypes", MusicGenreType.values());
             return "management/music/music-genre-create";
         }
-        String slug = musicGenreService.createMusicGenreByDTO(genreDTO);
+        String slug = musicGenreService.createMusicGenre(genreDTO);
         return "redirect:/management/music-genre/edit/" + slug;
     }
 

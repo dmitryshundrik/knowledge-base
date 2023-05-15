@@ -29,6 +29,7 @@
                 <th>founded</th>
                 <th>birthplace</th>
                 <th>occupation</th>
+                <th>catalog_title</th>
                 <th>period</th>
                 <th>genres</th>
                 <th>edit</th>
@@ -46,6 +47,7 @@
                 <td th:text="${musician.founded}"></td>
                 <td th:text="${musician.birthplace}"></td>
                 <td th:text="${musician.occupation}"></td>
+                <td th:text="${musician.catalogTitle}"></td>
                 <td>
                     <span th:if="${not #lists.isEmpty(musician.musicPeriods)}"
                           th:each="period : ${musician.musicPeriods}">

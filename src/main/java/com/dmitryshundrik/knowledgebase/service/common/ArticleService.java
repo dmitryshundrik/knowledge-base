@@ -16,8 +16,8 @@ public class ArticleService {
     @Autowired
     private ArticleRepository articleRepository;
 
-    public Article getById(String id) {
-        return articleRepository.findById(UUID.fromString(id)).orElse(null);
+    public Article getById(String articleId) {
+        return articleRepository.findById(UUID.fromString(articleId)).orElse(null);
     }
 
     public ArticleDTO getArticleDTO(Article article) {

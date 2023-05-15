@@ -8,15 +8,13 @@ import java.time.Instant;
 
 @Data
 @Builder
-public class CocktailDTO {
+public class CocktailViewDTO {
 
-    private Instant created;
+    private String created;
 
     private String slug;
 
     private String title;
-
-    private Country country;
 
     private String about;
 

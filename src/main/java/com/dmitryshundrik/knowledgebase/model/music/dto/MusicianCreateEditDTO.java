@@ -45,6 +45,8 @@ public class MusicianCreateEditDTO {
 
     private String occupation;
 
+    private String catalogTitle;
+
     private List<MusicPeriod> musicPeriods;
 
     private SortType albumsSortType;

@@ -52,7 +52,7 @@ public class PersonEventService {
     public PersonEventDTO getPersonEventDTO(PersonEvent personEvent) {
         return PersonEventDTO.builder()
                 .id(personEvent.getId().toString())
-                .created(Formatter.instantFormatterYMDHMS(personEvent.getCreated()))
+                .created(Formatter.instantFormatterYMD(personEvent.getCreated()))
                 .year(personEvent.getYear())
                 .anotherYear(personEvent.getAnotherYear())
                 .title(personEvent.getTitle())

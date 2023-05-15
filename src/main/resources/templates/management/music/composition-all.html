@@ -28,7 +28,6 @@
                 <th>feature</th>
                 <th>year</th>
                 <th>album</th>
-                <th>period</th>
                 <th>genres</th>
                 <th>rating</th>
                 <th>YER</th>
@@ -50,12 +49,6 @@
                 <td th:text="${composition.feature}"></td>
                 <td th:text="${composition.year}"></td>
                 <td th:text="${composition.albumTitle}"></td>
-                <td>
-                        <span th:if="${not #lists.isEmpty(composition.musicPeriods)}"
-                              th:text="period ${composition.musicPeriods}">
-                            <span th:text="${period.title}"></span>
-                        </span>
-                </td>
                 <td>
                         <span th:if="${not #lists.isEmpty(composition.musicGenres)}"
                               th:each="genre : ${composition.musicGenres}">

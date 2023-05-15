@@ -26,8 +26,8 @@ public class YearInMusicService {
     @Autowired
     private MusicianService musicianService;
 
-    public YearInMusic getYearInMusicBySlug(String slug) {
-        return yearInMusicRepository.findBySlug(slug);
+    public YearInMusic getYearInMusicBySlug(String yearInMusicSlug) {
+        return yearInMusicRepository.findBySlug(yearInMusicSlug);
     }
 
     public List<YearInMusic> getAll() {
@@ -35,16 +35,17 @@ public class YearInMusicService {
                 .sorted(Comparator.comparing(YearInMusic::getYear)).collect(Collectors.toList());
     }
 
-    public YearInMusicCreateEditDTO createYearInMusic(YearInMusicCreateEditDTO yearInMusicDTO) {
+    public YearInMusicViewDTO createYearInMusic(YearInMusicCreateEditDTO yearInMusicDTO) {
         YearInMusic yearInMusic = new YearInMusic();
         yearInMusic.setCreated(Instant.now());
         setFieldsFromDTO(yearInMusic, yearInMusicDTO);
         YearInMusic createdYearInMusic = yearInMusicRepository.save(yearInMusic);
-        return getYearInMusicCreateEditDTO(createdYearInMusic);
+        return getYearInMusicViewDTO(createdYearInMusic);
     }
 
-    public void updateYearInMusic(YearInMusic yearInMusic, YearInMusicCreateEditDTO yearInMusicDTO) {
+    public YearInMusicViewDTO updateYearInMusic(YearInMusic yearInMusic, YearInMusicCreateEditDTO yearInMusicDTO) {
         setFieldsFromDTO(yearInMusic, yearInMusicDTO);
+        return getYearInMusicViewDTO(yearInMusic);
     }
 
     public void deleteYearInMusic(YearInMusic yearInMusic) {
@@ -75,7 +76,7 @@ public class YearInMusicService {
 
     public List<YearInMusicViewDTO> getYearInMusicViewDTOList(List<YearInMusic> yearInMusicList) {
         return yearInMusicList.stream()
-                .map(yearInMusic -> getYearInMusicViewDTO(yearInMusic))
+                .map(this::getYearInMusicViewDTO)
                 .collect(Collectors.toList());
     }
 
@@ -118,4 +119,5 @@ public class YearInMusicService {
         yearInMusic.setSotyListDescription(yearInMusicDTO.getSotyListDescription());
         yearInMusic.setSotySpotifyLink(yearInMusicDTO.getSotySpotifyLink());
     }
+
 }

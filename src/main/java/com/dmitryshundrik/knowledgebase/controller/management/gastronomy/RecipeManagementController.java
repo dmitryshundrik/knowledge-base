@@ -24,7 +24,7 @@ public class RecipeManagementController {
         List<Recipe> recipeList = recipeService.getAll();
         List<RecipeViewDTO> recipeViewDTOList = recipeService.getRecipeViewDTOList(recipeList);
         model.addAttribute("recipes", recipeViewDTOList);
-        return "management/gastronomy/recipe-all";
+        return "management/gastronomy/recipe-archive";
     }
 
     @GetMapping("/management/recipe/create")
@@ -37,8 +37,8 @@ public class RecipeManagementController {
 
     @PostMapping("/management/recipe/create")
     public String postRecipeCreate(@ModelAttribute("recipeDTO") RecipeCreateEditDTO recipeDTO) {
-        recipeService.createRecipe(recipeDTO);
-        return "redirect:/management/recipe/edit/" + recipeDTO.getSlug();
+        String recipeDTOSlug = recipeService.createRecipe(recipeDTO).getSlug();
+        return "redirect:/management/recipe/edit/" + recipeDTOSlug;
     }
 
     @GetMapping("/management/recipe/edit/{recipeSlug}")
@@ -53,14 +53,13 @@ public class RecipeManagementController {
     @PutMapping("/management/recipe/edit/{recipeSlug}")
     public String putRecipeEdit(@PathVariable String recipeSlug,
                                 @ModelAttribute("recipeDTO") RecipeCreateEditDTO recipeDTO) {
-        recipeService.updateRecipe(recipeSlug, recipeDTO);
-        return "redirect:/management/recipe/edit/" + recipeDTO.getSlug();
+        String recipeDTOSlug = recipeService.updateRecipe(recipeSlug, recipeDTO).getSlug();
+        return "redirect:/management/recipe/edit/" + recipeDTOSlug;
     }
 
     @DeleteMapping("/management/recipe/delete/{recipeSlug}")
     public String deleteRecipeBySlug(@PathVariable String recipeSlug) {
-        Recipe bySlug = recipeService.getBySlug(recipeSlug);
-        recipeService.deleteRecipe(bySlug);
+        recipeService.deleteRecipe(recipeSlug);
         return "redirect:/management/recipe/all";
     }
 

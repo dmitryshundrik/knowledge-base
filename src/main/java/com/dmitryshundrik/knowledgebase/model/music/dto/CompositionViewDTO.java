@@ -17,7 +17,9 @@ public class CompositionViewDTO {
 
     private String title;
 
-    private String catalogNumber;
+    private String catalogTitle;
+
+    private Integer catalogNumber;
 
     private String musicianNickname;
 

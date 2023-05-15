@@ -26,7 +26,6 @@
                 <th>catalog_number</th>
                 <th>musician</th>
                 <th>year</th>
-                <th>period</th>
                 <th>genres</th>
                 <th>rating</th>
                 <th>YER</th>
@@ -44,12 +43,6 @@
                 <td th:text="${album.catalogNumber}"></td>
                 <td th:text="${album.musicianNickname}"></td>
                 <td th:text="${album.year}"></td>
-                <td>
-                    <span th:if="${not #lists.isEmpty(album.musicPeriods)}"
-                          th:each="period : ${album.musicPeriods}">
-                        <span th:text="${period.title}"></span>
-                    </span>
-                </td>
                 <td>
                     <span th:if="${not #lists.isEmpty(album.musicGenres)}" th:each="genre : ${album.musicGenres}">
                         <span th:text="${genre.title}"></span>

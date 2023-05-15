@@ -35,17 +35,17 @@ public class ResourcesService {
                 .collect(Collectors.toList());
     }
 
-    public Resource createResource(ResourceDTO resourceDTO) {
+    public ResourceDTO createResource(ResourceDTO resourceDTO) {
         Resource resource = new Resource();
         resource.setCreated(Instant.now());
         setFieldsFromDTO(resource, resourceDTO);
-        return resourcesRepository.save(resource);
+        return getResourceDTO(resourcesRepository.save(resource));
     }
 
-    public Resource updateResource(String resourceId, ResourceDTO resourceDTO) {
+    public ResourceDTO updateResource(String resourceId, ResourceDTO resourceDTO) {
         Resource byId = getById(resourceId);
         setFieldsFromDTO(byId, resourceDTO);
-        return byId;
+        return getResourceDTO(byId);
     }
 
     public void deleteResource(String resourceId) {

@@ -75,9 +75,8 @@ public class CompositionManagementController {
         }
         Musician musicianBySlug = musicianService.getMusicianBySlug(musicianSlug);
         Album albumById = (!compositionDTO.getAlbumId().isBlank() ? albumService.getAlbumById(compositionDTO.getAlbumId()) : null);
-        CompositionCreateEditDTO DTOByCreatedComposition = compositionService
-                .createCompositionByDTO(compositionDTO, musicianBySlug, albumById);
-        return "redirect:/management/musician/edit/" + musicianSlug + "/composition/edit/" + DTOByCreatedComposition.getSlug();
+        String compositionDTOSlug = compositionService.createComposition(compositionDTO, musicianBySlug, albumById).getSlug();
+        return "redirect:/management/musician/edit/" + musicianSlug + "/composition/edit/" + compositionDTOSlug;
     }
 
     @GetMapping("/management/musician/edit/{musicianSlug}/composition/edit/{compositionSlug}")
@@ -100,8 +99,8 @@ public class CompositionManagementController {
                                            @PathVariable String compositionSlug,
                                            @ModelAttribute("compositionCreateEditDTO") CompositionCreateEditDTO compositionDTO) {
         Album albumById = (!compositionDTO.getAlbumId().isBlank() ? albumService.getAlbumById(compositionDTO.getAlbumId()) : null);
-        compositionService.updateCompositionBySlug(compositionDTO, compositionSlug, albumById);
-        return "redirect:/management/musician/edit/" + musicianSlug + "/composition/edit/" + compositionDTO.getSlug();
+        String compositionDTOSlug = compositionService.updateComposition(compositionDTO, compositionSlug, albumById).getSlug();
+        return "redirect:/management/musician/edit/" + musicianSlug + "/composition/edit/" + compositionDTOSlug;
     }
 
     @DeleteMapping("/management/musician/edit/{musicianSlug}/composition/delete/{compositionSlug}")

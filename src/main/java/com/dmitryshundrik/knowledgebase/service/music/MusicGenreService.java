@@ -1,7 +1,5 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
-import com.dmitryshundrik.knowledgebase.model.music.Album;
-import com.dmitryshundrik.knowledgebase.model.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicGenreCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,8 +27,8 @@ public class MusicGenreService {
     @Autowired
     private CompositionRepository compositionRepository;
 
-    public MusicGenre getMusicGenreBySlug(String slug) {
-        return musicGenreRepository.getBySlug(slug);
+    public MusicGenre getMusicGenreBySlug(String musicGenreSlug) {
+        return musicGenreRepository.getBySlug(musicGenreSlug);
     }
 
     public List<MusicGenre> getAll() {
@@ -75,7 +72,7 @@ public class MusicGenreService {
                 })
                 .sorted((o1, o2) -> o2.getCount().compareTo(o1.getCount())).collect(Collectors.toList());
     }
-    public String createMusicGenreByDTO(MusicGenreCreateEditDTO genreDTO) {
+    public String createMusicGenre(MusicGenreCreateEditDTO genreDTO) {
         MusicGenre genre = new MusicGenre();
         genre.setCreated(Instant.now());
         setFieldsFromDTO(genre, genreDTO);
