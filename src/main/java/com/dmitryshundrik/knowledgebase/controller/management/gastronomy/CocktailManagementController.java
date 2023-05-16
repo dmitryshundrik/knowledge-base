@@ -7,8 +7,10 @@ import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -34,13 +36,19 @@ public class CocktailManagementController {
     }
 
     @PostMapping("/management/cocktail/create")
-    public String postCocktailCreate(@ModelAttribute("cocktailDTO") CocktailCreateEditDTO cocktailDTO) {
+    public String postCocktailCreate(@Valid @ModelAttribute("cocktailDTO") CocktailCreateEditDTO cocktailDTO, BindingResult bindingResult,
+                                     Model model) {
+        String error = cocktailService.cocktailSlugIsExist(cocktailDTO.getSlug());
+        model.addAttribute("slug", error);
+        if (!error.isEmpty() || bindingResult.hasErrors()) {
+            return "management/gastronomy/cocktail-create";
+        }
         String cocktailDTOSlug = cocktailService.createCocktail(cocktailDTO).getSlug();
         return "redirect:/management/cocktail/edit/" + cocktailDTOSlug;
     }
 
     @GetMapping("/management/cocktail/edit/{cocktailSlug}")
-    public String getCocktailEdit(@PathVariable String cocktailSlug, Model model){
+    public String getCocktailEdit(@PathVariable String cocktailSlug, Model model) {
         Cocktail bySlug = cocktailService.getBySlug(cocktailSlug);
         CocktailCreateEditDTO cocktailCreateEditDTO = cocktailService.getCocktailCreateEditDTO(bySlug);
         model.addAttribute("cocktailDTO", cocktailCreateEditDTO);

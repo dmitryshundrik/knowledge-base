@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicPeriodService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
-import com.dmitryshundrik.knowledgebase.service.music.MusicianValidationService;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,9 +24,6 @@ public class MusicianManagementController {
 
     @Autowired
     private MusicianService musicianService;
-
-    @Autowired
-    private MusicianValidationService musicianValidationService;
 
     @Autowired
     private MusicPeriodService musicPeriodService;
@@ -58,7 +54,7 @@ public class MusicianManagementController {
     @PostMapping("/management/musician/create")
     public String postCreateMusician(@Valid @ModelAttribute("musicianCreateEditDTO") MusicianCreateEditDTO musicianDTO,
                                      BindingResult bindingResult, Model model) {
-        String error = musicianValidationService.musicianSlugIsExist(musicianDTO.getSlug());
+        String error = musicianService.musicianSlugIsExist(musicianDTO.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute("slug", error);
             model.addAttribute("musicPeriods", musicPeriodService.getAll());

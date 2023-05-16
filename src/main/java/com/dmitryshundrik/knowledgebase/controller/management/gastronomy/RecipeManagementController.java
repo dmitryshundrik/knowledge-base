@@ -8,8 +8,10 @@ import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -36,7 +38,14 @@ public class RecipeManagementController {
     }
 
     @PostMapping("/management/recipe/create")
-    public String postRecipeCreate(@ModelAttribute("recipeDTO") RecipeCreateEditDTO recipeDTO) {
+    public String postRecipeCreate(@Valid @ModelAttribute("recipeDTO") RecipeCreateEditDTO recipeDTO, BindingResult bindingResult,
+                                   Model model) {
+        String error = recipeService.recipeSlugIsExist(recipeDTO.getSlug());
+        if (!error.isEmpty() || bindingResult.hasErrors()) {
+            model.addAttribute("slug", error);
+            model.addAttribute("countries", Country.values());
+            return "management/gastronomy/recipe-create";
+        }
         String recipeDTOSlug = recipeService.createRecipe(recipeDTO).getSlug();
         return "redirect:/management/recipe/edit/" + recipeDTOSlug;
     }

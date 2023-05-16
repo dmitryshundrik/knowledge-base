@@ -54,7 +54,7 @@ public class YearInMusicService {
 
     public YearInMusicViewDTO getYearInMusicViewDTO(YearInMusic yearInMusic) {
         return YearInMusicViewDTO.builder()
-                .created(Formatter.instantFormatterYMDHMS(yearInMusic.getCreated()))
+                .created(Formatter.instantFormatterYMD(yearInMusic.getCreated()))
                 .slug(yearInMusic.getSlug())
                 .title(yearInMusic.getTitle())
                 .year(yearInMusic.getYear())

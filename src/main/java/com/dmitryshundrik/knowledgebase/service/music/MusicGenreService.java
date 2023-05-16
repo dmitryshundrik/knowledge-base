@@ -2,10 +2,12 @@ package com.dmitryshundrik.knowledgebase.service.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicGenreCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.music.dto.MusicGenreViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
 import com.dmitryshundrik.knowledgebase.repository.music.CompositionRepository;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicGenreRepository;
+import com.dmitryshundrik.knowledgebase.util.Formatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -88,6 +90,22 @@ public class MusicGenreService {
 
     public void deleteMusicGenre(MusicGenre genre) {
         musicGenreRepository.delete(genre);
+    }
+
+    public MusicGenreViewDTO getMusicGenreViewDTO(MusicGenre genre) {
+        return MusicGenreViewDTO.builder()
+                .created(Formatter.instantFormatterYMD(genre.getCreated()))
+                .slug(genre.getSlug())
+                .title(genre.getTitle())
+                .titleEn(genre.getTitleEn())
+                .musicGenreType(genre.getMusicGenreType().getLabel())
+                .count(genre.getCount())
+                .description(genre.getDescription())
+                .build();
+    }
+
+    public List<MusicGenreViewDTO> getMusicGenreViewDTOList(List<MusicGenre> musicGenreList) {
+        return musicGenreList.stream().map(this::getMusicGenreViewDTO).collect(Collectors.toList());
     }
 
     public MusicGenreCreateEditDTO getMusicGenreCreateEditDTO(MusicGenre genre) {

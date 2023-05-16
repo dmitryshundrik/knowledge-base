@@ -35,7 +35,7 @@
                 <p class="error" th:if="${#fields.hasErrors('slug')}" th:errorclass="error" th:errors="*{slug}"></p>
 
                 <section class="form-item">
-                    <label>catalog_number</label>
+                    <label>catalog number</label>
                     <input type="number" th:field="*{catalogNumber}"/>
                 </section>
 
@@ -65,7 +65,7 @@
                 </section>
 
                 <section class="form-item major-field">
-                    <label>classical_genres</label>
+                    <label>classical genres</label>
                     <select th:field="*{classicalGenres}" multiple="multiple">
                         <option th:each="genre : ${classicalGenres}"
                                 th:value="${genre.id}"
@@ -74,7 +74,7 @@
                 </section>
 
                 <section class="form-item major-field">
-                    <label>contemporary_genres</label>
+                    <label>contemporary genres</label>
                     <select th:field="*{contemporaryGenres}" multiple="multiple">
                         <option th:each="genre : ${contemporaryGenres}"
                                 th:value="${genre.id}"
@@ -88,12 +88,12 @@
                 </section>
 
                 <section class="form-item">
-                    <label>year_end_rank</label>
+                    <label>year end rank (YER)</label>
                     <input type="number" th:field="*{yearEndRank}"/>
                 </section>
 
                 <section class="form-item">
-                    <label>essential_compositions_rank</label>
+                    <label>essential compositions rank (ECR)</label>
                     <input type="number" th:field="*{essentialCompositionsRank}"/>
                 </section>
 

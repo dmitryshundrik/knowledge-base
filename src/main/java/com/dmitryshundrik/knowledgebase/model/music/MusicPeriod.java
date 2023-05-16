@@ -17,6 +17,7 @@ public class MusicPeriod {
 
     private Instant created;
 
+    @Column(unique = true)
     private String slug;
 
     private String title;

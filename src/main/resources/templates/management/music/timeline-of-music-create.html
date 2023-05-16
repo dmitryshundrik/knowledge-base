@@ -22,7 +22,7 @@
                   th:object="${timelineEventDTO}">
 
                 <section class="form-item">
-                    <label>era_type</label>
+                    <label>era type</label>
                     <select th:field="*{eraType}">
                         <option th:value="null" selected>выбрать эру</option>
                         <option th:each="type : ${eraTypes}"
@@ -39,7 +39,7 @@
                 <p class="error" th:if="${#fields.hasErrors('year')}" th:errorclass="error" th:errors="*{year}"></p>
 
                 <section class="form-item">
-                    <label>another_year</label>
+                    <label>another year</label>
                     <input type="number" th:field="*{anotherYear}"/>
                 </section>
 

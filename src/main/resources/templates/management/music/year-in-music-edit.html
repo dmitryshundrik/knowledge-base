@@ -40,18 +40,7 @@
                 </section>
 
                 <section class="form-item">
-                    <label>best_male_singer</label>
-                    <select th:field="*{bestMaleSingerId}">
-                        <option th:value="null" selected>выбрать мужской вокал</option>
-                        <option th:each="maleSinger : ${musicians}"
-                                th:value="${maleSinger.id}"
-                                th:text="${maleSinger.nickName}">
-                        </option>
-                    </select>
-                </section>
-
-                <section class="form-item">
-                    <label>best_female_singer</label>
+                    <label>best female singer</label>
                     <select th:field="*{bestFemaleSingerId}">
                         <option th:value="null" selected>выбрать женский вокал</option>
                         <option th:each="femaleSinger : ${musicians}"
@@ -62,7 +51,18 @@
                 </section>
 
                 <section class="form-item">
-                    <label>best_group</label>
+                    <label>best male singer</label>
+                    <select th:field="*{bestMaleSingerId}">
+                        <option th:value="null" selected>выбрать мужской вокал</option>
+                        <option th:each="maleSinger : ${musicians}"
+                                th:value="${maleSinger.id}"
+                                th:text="${maleSinger.nickName}">
+                        </option>
+                    </select>
+                </section>
+
+                <section class="form-item">
+                    <label>best group</label>
                     <select th:field="*{bestGroupId}">
                         <option th:value="null" selected>выбрать музыкальную группу</option>
                         <option th:each="group : ${musicians}"
@@ -73,7 +73,7 @@
                 </section>
 
                 <section class="form-item">
-                    <label>best_composer</label>
+                    <label>best composer</label>
                     <select th:field="*{bestComposerId}">
                         <option th:value="null" selected>выбрать композитора</option>
                         <option th:each="composer : ${musicians}"
@@ -84,22 +84,22 @@
                 </section>
 
                 <section class="form-item major-field">
-                    <label>aoty_list_description</label>
+                    <label>aoty list description</label>
                     <textarea th:field="*{aotyListDescription}"></textarea>
                 </section>
 
                 <section class="form-item">
-                    <label>aoty_spotify_link</label>
+                    <label>aoty spotify link</label>
                     <input type="text" th:field="*{aotySpotifyLink}" maxlength="255"/>
                 </section>
 
                 <section class="form-item major-field">
-                    <label>soty_list_description</label>
+                    <label>soty list description</label>
                     <textarea th:field="*{sotyListDescription}"></textarea>
                 </section>
 
                 <section class="form-item">
-                    <label>soty_spotify_link</label>
+                    <label>soty spotify link</label>
                     <input type="text" th:field="*{sotySpotifyLink}" maxlength="255"/>
                 </section>
 

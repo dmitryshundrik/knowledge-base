@@ -41,7 +41,7 @@
                 </section>
 
                 <section class="form-item">
-                    <label>music_genre_type</label>
+                    <label>music genre type</label>
                     <select th:field="*{musicGenreType}">
                         <option th:value="null" selected>выбрать тип музыкального жанра</option>
                         <option th:each="genreType : ${musicGenreTypes}"

@@ -79,4 +79,17 @@ public class CocktailService {
         cocktail.setIngredients(cocktailDTO.getIngredients());
         cocktail.setMethod(cocktailDTO.getMethod());
     }
+
+    public String cocktailSlugIsExist(String cocktailSlug) {
+        String message = "";
+        if (getBySlug(cocktailSlug) != null) {
+            message = "slug is already exist";
+        }
+        return message;
+    }
+
+    public List<Cocktail> getLatestUpdate() {
+        return cocktailRepository.findFirst10ByOrderByCreated();
+    }
+
 }

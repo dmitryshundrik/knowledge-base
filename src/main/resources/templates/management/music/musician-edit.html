@@ -93,7 +93,7 @@
                 </section>
 
                 <section class="form-item">
-                    <label>album_sort_type</label>
+                    <label>album sort type</label>
                     <select th:field="*{albumsSortType}">
                         <option th:value="null" selected>выбрать тип сортировки альбомов</option>
                         <option th:each="sortType : ${sortTypes}"
@@ -104,7 +104,7 @@
                 </section>
 
                 <section class="form-item">
-                    <label>compositions_sort_type</label>
+                    <label>compositions sort type</label>
                     <select th:field="*{compositionsSortType}">
                         <option th:value="null" selected>выбрать тип сортировки композиций</option>
                         <option th:each="sortType : ${sortTypes}"
@@ -115,7 +115,7 @@
                 </section>
 
                 <section class="form-item">
-                    <label>spotify_link</label>
+                    <label>spotify link</label>
                     <input type="text" th:field="*{spotifyLink}" maxlength="255"/>
                 </section>
 

@@ -2,14 +2,17 @@ package com.dmitryshundrik.knowledgebase.controller.management.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicPeriodCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
-import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
+import com.dmitryshundrik.knowledgebase.model.music.dto.MusicPeriodViewDTO;
 import com.dmitryshundrik.knowledgebase.service.music.MusicPeriodService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping()
@@ -21,15 +24,11 @@ public class MusicPeriodManagementController {
     @Autowired
     private MusicianService musicianService;
 
-    @Autowired
-    private AlbumService albumService;
-
-    @Autowired
-    private CompositionService compositionService;
-
     @GetMapping("/management/music-period/all")
     public String getAllMusicPeriods(Model model) {
-        model.addAttribute("musicPeriods", musicPeriodService.getAll());
+        List<MusicPeriod> musicPeriodList = musicPeriodService.getAll();
+        List<MusicPeriodViewDTO> musicPeriodViewDTOList = musicPeriodService.getMusicPeriodViewDTOList(musicPeriodList);
+        model.addAttribute("musicPeriods", musicPeriodViewDTOList);
         return "management/music/music-period-all";
     }
 
@@ -40,7 +39,13 @@ public class MusicPeriodManagementController {
     }
 
     @PostMapping("/management/music-period/create")
-    public String postCreateMusicPeriod(@ModelAttribute("dto") MusicPeriodCreateEditDTO periodDTO) {
+    public String postCreateMusicPeriod(@Valid @ModelAttribute("dto") MusicPeriodCreateEditDTO periodDTO, BindingResult bindingResult,
+                                        Model model) {
+        String error = musicPeriodService.musicPeriodSlugIsExist(periodDTO.getSlug());
+        if (!error.isEmpty() || bindingResult.hasErrors()) {
+            model.addAttribute("slug", error);
+            return "management/music/music-period-create";
+        }
         String slug = musicPeriodService.createMusicPeriod(periodDTO);
         return "redirect:/management/music-period/edit/" + slug;
     }
@@ -64,6 +69,7 @@ public class MusicPeriodManagementController {
         musicianService.getAllMusiciansByPeriod(period)
                 .forEach(musician -> musician.getMusicPeriods().remove(period));
         musicPeriodService.deleteMusicPeriod(period);
-        return "redirect:/music/management/music-period/all/";
+        return "redirect:/management/music-period/all/";
     }
+
 }

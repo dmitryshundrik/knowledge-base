@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
-import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping()
@@ -23,9 +23,6 @@ public class MusicGenreManagementController {
     private MusicGenreService musicGenreService;
 
     @Autowired
-    private MusicianService musicianService;
-
-    @Autowired
     private AlbumService albumService;
 
     @Autowired
@@ -33,8 +30,10 @@ public class MusicGenreManagementController {
 
     @GetMapping("/management/music-genre/all")
     public String getAllMusicGenres(Model model) {
-        model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
-        model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
+        List<MusicGenre> classicalGenresList = musicGenreService.getAllClassicalGenres();
+        List<MusicGenre> contemporaryGenresList = musicGenreService.getAllContemporaryGenres();
+        model.addAttribute("classicalGenres", musicGenreService.getMusicGenreViewDTOList(classicalGenresList));
+        model.addAttribute("contemporaryGenres", musicGenreService.getMusicGenreViewDTOList(contemporaryGenresList));
         return "management/music/music-genre-all";
     }
 
@@ -82,4 +81,5 @@ public class MusicGenreManagementController {
         musicGenreService.deleteMusicGenre(genre);
         return "redirect:/management/music-genre/all";
     }
+
 }

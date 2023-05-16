@@ -2,7 +2,9 @@ package com.dmitryshundrik.knowledgebase.service.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicPeriodCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.music.dto.MusicPeriodViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicPeriodRepository;
+import com.dmitryshundrik.knowledgebase.util.Formatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,6 +52,22 @@ public class MusicPeriodService {
         musicPeriodRepository.delete(period);
     }
 
+    public MusicPeriodViewDTO getMusicPeriodViewDTO(MusicPeriod musicPeriod) {
+        return MusicPeriodViewDTO.builder()
+                .created(Formatter.instantFormatterYMD(musicPeriod.getCreated()))
+                .slug(musicPeriod.getSlug())
+                .title(musicPeriod.getTitle())
+                .titleEn(musicPeriod.getTitleEn())
+                .approximateStart(musicPeriod.getApproximateStart())
+                .approximateEnd(musicPeriod.getApproximateEnd())
+                .description(musicPeriod.getDescription())
+                .build();
+    }
+
+    public List<MusicPeriodViewDTO> getMusicPeriodViewDTOList(List<MusicPeriod> musicPeriodList) {
+        return musicPeriodList.stream().map(this::getMusicPeriodViewDTO).collect(Collectors.toList());
+    }
+
     public MusicPeriodCreateEditDTO getMusicPeriodCreateEditDTO(MusicPeriod musicPeriod) {
         return MusicPeriodCreateEditDTO.builder()
                 .slug(musicPeriod.getSlug())
@@ -68,6 +86,14 @@ public class MusicPeriodService {
         period.setApproximateStart(periodDTO.getApproximateStart());
         period.setApproximateEnd(periodDTO.getApproximateEnd());
         period.setDescription(periodDTO.getDescription());
+    }
+
+    public String musicPeriodSlugIsExist(String musicPeriodSlug) {
+        String message = "";
+        if (getMusicPeriodBySlug(musicPeriodSlug) != null) {
+            message = "slug is already exist";
+        }
+        return message;
     }
 
 }

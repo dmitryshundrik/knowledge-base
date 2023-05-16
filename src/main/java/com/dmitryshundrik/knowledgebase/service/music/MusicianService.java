@@ -263,7 +263,16 @@ public class MusicianService {
         musician.setSpotifyLink(musicianDTO.getSpotifyLink());
     }
 
+    public String musicianSlugIsExist(String musicianSlug) {
+        String message = "";
+        if (getMusicianBySlug(musicianSlug) != null) {
+            message = "slug is already exist";
+        }
+        return message;
+    }
+
     public List<Musician> getLatestUpdate() {
         return musicianRepository.findFirst10ByOrderByCreated();
     }
+
 }

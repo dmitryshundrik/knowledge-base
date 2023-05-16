@@ -2,6 +2,7 @@ package com.dmitryshundrik.knowledgebase.controller.management.music;
 
 import com.dmitryshundrik.knowledgebase.model.music.YearInMusic;
 import com.dmitryshundrik.knowledgebase.model.music.dto.YearInMusicCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.music.dto.YearInMusicViewDTO;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import com.dmitryshundrik.knowledgebase.service.music.YearInMusicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping()
@@ -24,7 +26,9 @@ public class YearInMusicManagementController {
 
     @GetMapping("/management/year-in-music/all")
     public String getAllYearsInMusic(Model model) {
-        model.addAttribute("yearInMusicList", yearInMusicService.getAll());
+        List<YearInMusic> yearInMusicList = yearInMusicService.getAll();
+        List<YearInMusicViewDTO> yearInMusicViewDTOList = yearInMusicService.getYearInMusicViewDTOList(yearInMusicList);
+        model.addAttribute("yearInMusicList", yearInMusicViewDTOList);
         return "management/music/year-in-music-all";
     }
 

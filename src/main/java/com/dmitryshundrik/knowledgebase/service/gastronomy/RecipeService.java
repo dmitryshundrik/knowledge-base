@@ -87,4 +87,16 @@ public class RecipeService {
         recipe.setMethod(recipeDTO.getMethod());
     }
 
+    public String recipeSlugIsExist(String recipeSlug) {
+        String message = "";
+        if (getBySlug(recipeSlug) != null) {
+            message = "slug is already exist";
+        }
+        return message;
+    }
+
+    public List<Recipe> getLatestUpdate() {
+        return recipeRepository.findFirst10ByOrderByCreated();
+    }
+
 }
