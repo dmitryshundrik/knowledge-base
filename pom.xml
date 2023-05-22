@@ -17,6 +17,9 @@
     <properties>
         <java.version>11</java.version>
     </properties>
+    <scm>
+        <developerConnection>scm:git:https://github.com/dmitryshundrik/knowledge-base.git</developerConnection>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
