@@ -18,25 +18,25 @@
     <div class="table-body">
 
         <article class="table-body-item">
-            <section class="table-body-item-row">
+            <section class="table-body-item-row about">
                 <header class="section-title">
                     <h3>Описание</h3>
                 </header>
-                <span th:text="${cocktail.about}"></span>
+                <span th:utext="${cocktail.about}"></span>
             </section>
 
-            <section class="table-body-item-row">
+            <section class="table-body-item-row ingredients">
                 <header class="section-title">
                     <h3>Базовые ингредиенты:</h3>
                 </header>
-                <span th:text="${cocktail.ingredients}"></span>
+                <span th:utext="${cocktail.ingredients}"></span>
             </section>
 
-            <section class="table-body-item-row">
+            <section class="table-body-item-row method">
                 <header class="section-title">
                     <h3>Способ приготовления:</h3>
                 </header>
-                <span th:text="${cocktail.method}"></span>
+                <span th:utext="${cocktail.method}"></span>
             </section>
         </article>
 

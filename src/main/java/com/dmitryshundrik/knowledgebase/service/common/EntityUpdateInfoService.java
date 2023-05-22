@@ -60,7 +60,7 @@ public class EntityUpdateInfoService {
             musicianUpdateInfo.add(EntityUpdateInfo.builder()
                     .created(musician.getCreated())
                     .archiveSection("музыка:")
-                    .description("добавилен музыкант " + musician.getNickName())
+                    .description("добавлен музыкант " + musician.getNickName())
                     .link("music/musician/" + musician.getSlug())
                     .build());
         }

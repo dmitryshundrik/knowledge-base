@@ -4,6 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.common.enums.EraType;
 import com.dmitryshundrik.knowledgebase.model.music.*;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionViewDTO;
+import com.dmitryshundrik.knowledgebase.model.music.dto.MusicPeriodViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
@@ -115,12 +116,13 @@ public class MusicPageController {
     @GetMapping("/period/{periodSlug}")
     public String getPeriodBySlug(@PathVariable String periodSlug, Model model) {
         MusicPeriod musicPeriod = musicPeriodService.getMusicPeriodBySlug(periodSlug);
+        MusicPeriodViewDTO musicPeriodViewDTO = musicPeriodService.getMusicPeriodViewDTO(musicPeriod);
         List<Musician> bestMusicianByPeriod = musicianService.getBestMusicianByPeriod(musicPeriod);
         List<CompositionViewDTO> allCompositionsByPeriod = compositionService
                 .getSortedCompositionViewDTOList(compositionService
                         .getAllCompositionsByPeriod(musicianService
                                 .getAllMusiciansByPeriod(musicPeriod)), SortType.RATING);
-        model.addAttribute("musicPeriod", musicPeriod);
+        model.addAttribute("musicPeriod", musicPeriodViewDTO);
         model.addAttribute("musicians", bestMusicianByPeriod);
         model.addAttribute("compositions", allCompositionsByPeriod);
         return "music/music-period";

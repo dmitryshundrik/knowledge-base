@@ -18,12 +18,12 @@ import java.util.Set;
 @Transactional
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
+//    @Autowired
+//    private UserRepository userRepository;
+//
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
+//
 //    public void createUser(UserSignupDTO userDTO) {
 //        User user = new User();
 //        user.setName(userDTO.getName());

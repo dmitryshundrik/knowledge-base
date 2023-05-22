@@ -19,9 +19,13 @@
 
 .table-body-item-row {
     text-align: justify;
-    line-height: 30px;
+    line-height: 26px;
 }
 
 .section-title {
+    text-align: center;
+}
+
+.ingredients span{
     text-align: center;
 }
