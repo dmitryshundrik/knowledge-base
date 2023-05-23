@@ -40,10 +40,30 @@
     text-align: right;
 }
 
+@media (max-width: 768px) {
+    .latest-title {
+        text-align: left;
+    }
+}
+
 .table-body-item-row {
     display: flex;
     flex-direction: column;
     text-align: justify;
     margin: 25px 0;
     gap: 10px;
+}
+
+@media (max-width: 768px) {
+    .table-body {
+        display: flex;
+        flex-direction: column;
+        padding: 46px 50px;
+        align-items: center;
+        gap: 50px;
+    }
+
+    .table-body-item {
+        width: 100%;
+    }
 }

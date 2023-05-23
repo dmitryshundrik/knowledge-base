@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title th:text="${yearInMusic.title}"></title>
     <link th:href="@{/styles/music/year-in-music.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
 </head>
 <body>
 
@@ -61,8 +62,9 @@
             </header>
 
             <section class="table-body-item-row soty-description">
-                <span th:text="${yearInMusic.aotyListDescription}"></span>
-                <span>
+                <span th:if="${not #strings.isEmpty(yearInMusic.aotyListDescription)}"
+                      th:text="${yearInMusic.aotyListDescription}"></span>
+                <span th:if="${not #strings.isEmpty(yearInMusic.aotySpotifyLink)}">
                     <a th:href="${yearInMusic.aotySpotifyLink}">Слушать в Spotify</a>
                 </span>
             </section>
@@ -95,8 +97,9 @@
             </header>
 
             <section class="table-body-item-row soty-description">
-                <span th:text="${yearInMusic.sotyListDescription}"></span>
-                <span>
+                <span th:if="${not #strings.isEmpty(yearInMusic.sotyListDescription)}"
+                      th:text="${yearInMusic.sotyListDescription}"></span>
+                <span th:if="${not #strings.isEmpty(yearInMusic.sotySpotifyLink)}">
                     <a th:href="${yearInMusic.sotySpotifyLink}">Слушать в Spotify</a>
                 </span>
             </section>

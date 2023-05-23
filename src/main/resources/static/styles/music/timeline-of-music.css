@@ -23,3 +23,23 @@
     line-height: 20px;
     text-align: justify;
 }
+
+@media (max-width: 768px) {
+    .table-title {
+        padding: 30px 0;
+        font-size: large;
+    }
+    .table-body {
+        padding: 0 35px;
+        border: none;
+    }
+    .table-body-item {
+        margin: 0;
+    }
+    .table-body-item-row {
+        flex-direction: column;
+        padding: 3px;
+        text-align: justify;
+        gap: 0;
+    }
+}

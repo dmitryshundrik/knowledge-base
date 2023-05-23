@@ -32,6 +32,10 @@ public class CompositionService {
         return compositionRepository.findAll();
     }
 
+    public List<Composition> getAllCompositionOrderedByCreatedDesc() {
+        return compositionRepository.getAllByOrderByCreatedDesc();
+    }
+
     public List<Composition> getAllCompositionsByMsuician(String musicianSlug) {
         return compositionRepository.getAllByMusician(musicianSlug);
     }
@@ -202,7 +206,7 @@ public class CompositionService {
     }
 
     public List<Composition> getLatestUpdate() {
-        return compositionRepository.findFirst10ByOrderByCreated();
+        return compositionRepository.findFirst10ByOrderByCreatedDesc();
     }
 
 }

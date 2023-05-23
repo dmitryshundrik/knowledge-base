@@ -30,8 +30,8 @@ public class MusicGenreManagementController {
 
     @GetMapping("/management/music-genre/all")
     public String getAllMusicGenres(Model model) {
-        List<MusicGenre> classicalGenresList = musicGenreService.getAllClassicalGenres();
-        List<MusicGenre> contemporaryGenresList = musicGenreService.getAllContemporaryGenres();
+        List<MusicGenre> classicalGenresList = musicGenreService.getAllClassicalGenresSortedByTitle();
+        List<MusicGenre> contemporaryGenresList = musicGenreService.getAllContemporaryGenresSortedByTitle();
         model.addAttribute("classicalGenres", musicGenreService.getMusicGenreViewDTOList(classicalGenresList));
         model.addAttribute("contemporaryGenres", musicGenreService.getMusicGenreViewDTOList(contemporaryGenresList));
         return "management/music/music-genre-all";

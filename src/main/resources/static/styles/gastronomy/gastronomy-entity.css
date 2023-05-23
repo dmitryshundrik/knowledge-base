@@ -29,3 +29,19 @@
 .ingredients span{
     text-align: center;
 }
+
+@media (max-width: 768px) {
+    .table-title {
+        padding: 30px 35px;
+        font-size: large;
+    }
+    .table-body {
+        padding: 0 35px;
+        gap: 30px;
+        border: none;
+    }
+    .table-body-item {
+        margin: 0;
+    }
+
+}

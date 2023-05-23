@@ -38,7 +38,7 @@
             </thead>
             <tbody>
             <tr th:each="musician : ${musicianViewDTOList}">
-                <th th:text="${musicianStat.index + 1}"></th>
+                <th th:text="${musicianViewDTOList.size - musicianStat.index}"></th>
                 <td th:text="${musician.created}"></td>
                 <td th:text="${musician.nickName}"></td>
                 <td th:text="${musician.slug}"></td>

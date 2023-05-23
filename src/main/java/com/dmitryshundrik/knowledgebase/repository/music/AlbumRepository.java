@@ -21,11 +21,13 @@ public interface AlbumRepository extends JpaRepository<Album, UUID> {
 
     Integer countAllByMusicGenresIsContaining(MusicGenre genre);
 
-    List<Album> findFirst10ByOrderByCreated();
+    List<Album> findFirst10ByOrderByCreatedDesc();
 
     @Query("SELECT DISTINCT year FROM Album ORDER BY year")
     List<Integer> getAllYearsFromAlbums();
 
     List<Album> getAllByRatingIsNotNull();
+
+    List<Album> getAllByOrderByCreatedDesc();
 
 }

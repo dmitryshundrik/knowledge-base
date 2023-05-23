@@ -23,3 +23,18 @@
     gap: 15px;
     font-style: italic;
 }
+
+@media (max-width: 768px) {
+    .table-title {
+        padding: 30px 35px;
+        font-size: large;
+    }
+    .table-body {
+        padding: 0 35px;
+        border: none;
+    }
+    .table-body-item {
+        margin: 0;
+    }
+
+}

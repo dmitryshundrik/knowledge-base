@@ -29,15 +29,12 @@ public class CompositionManagementController {
     private MusicianService musicianService;
 
     @Autowired
-    private MusicPeriodService musicPeriodService;
-
-    @Autowired
     private MusicGenreService musicGenreService;
 
 
     @GetMapping("/management/composition/all")
     public String getAllCompositions(Model model) {
-        List<Composition> allCompositions = compositionService.getAllCompositions();
+        List<Composition> allCompositions = compositionService.getAllCompositionOrderedByCreatedDesc();
         model.addAttribute("compositionViewDTOList", compositionService
                 .getCompositionViewDTOList(allCompositions));
         return "management/music/composition-all";

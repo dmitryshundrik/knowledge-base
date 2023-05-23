@@ -1,6 +1,5 @@
 package com.dmitryshundrik.knowledgebase.repository.music;
 
-import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,9 +14,10 @@ public interface MusicianRepository extends JpaRepository<Musician, UUID> {
     List<Musician> getAllByMusicPeriodsIsContaining(MusicPeriod period);
 
     List<Musician> getAllByOrderByCreated();
+    List<Musician> getAllByOrderByCreatedDesc();
 
     void deleteBySlug(String slug);
 
-    List<Musician> findFirst10ByOrderByCreated();
+    List<Musician> findFirst10ByOrderByCreatedDesc();
 
 }

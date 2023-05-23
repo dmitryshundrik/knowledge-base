@@ -42,19 +42,19 @@
                 <td th:text="${yearInMusic.year}"></td>
                 <td>
                     <span th:if="${yearInMusic.bestMaleSinger != null}"
-                          th:text="${yearInMusic.bestMaleSinger.nickName}"></span>
+                          th:text="${yearInMusic.bestMaleSinger}"></span>
                 </td>
                 <td>
                     <span th:if="${yearInMusic.bestFemaleSinger != null}"
-                          th:text="${yearInMusic.bestFemaleSinger.nickName}"></span>
+                          th:text="${yearInMusic.bestFemaleSinger}"></span>
                 </td>
                 <td>
                     <span th:if="${yearInMusic.bestGroup != null}"
-                          th:text="${yearInMusic.bestGroup.nickName}"></span>
+                          th:text="${yearInMusic.bestGroup}"></span>
                 </td>
                 <td>
                     <span th:if="${yearInMusic.bestComposer !=null}"
-                          th:text="${yearInMusic.bestComposer.nickName}"></span>
+                          th:text="${yearInMusic.bestComposer}"></span>
                 </td>
                 <td class="td-settings">
                     <a target="_blank" th:href="${'/management/year-in-music/edit/' + yearInMusic.slug}">edit</a>

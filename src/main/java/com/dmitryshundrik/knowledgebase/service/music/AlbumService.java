@@ -55,6 +55,11 @@ public class AlbumService {
                 .collect(Collectors.toList());
     }
 
+    public List<Album> getAllAlbumsSortedByCreatedDesc() {
+        return albumRepository.getAllByOrderByCreatedDesc();
+    }
+
+
     public List<Album> getAllAlbumsByYear(Integer year) {
         return albumRepository.getAllByYear(year);
     }
@@ -212,7 +217,7 @@ public class AlbumService {
     }
 
     public List<Album> getLatestUpdate() {
-        return albumRepository.findFirst10ByOrderByCreated();
+        return albumRepository.findFirst10ByOrderByCreatedDesc();
     }
 
 }

@@ -33,3 +33,25 @@
 .description {
     text-align: justify;
 }
+
+@media (max-width: 768px) {
+    .table-title {
+        padding: 30px 0;
+        font-size: large;
+    }
+    .table-body {
+        padding: 0 35px;
+        border: none;
+    }
+    .table-body-item {
+        padding: 0 15px !important;
+        margin: 0;
+    }
+    .table-body-item-row {
+        flex-direction: column;
+        padding: 3px;
+        text-align: center;
+        border: 1px solid gray;
+        gap: 0;
+    }
+}

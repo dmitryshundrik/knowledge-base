@@ -42,9 +42,13 @@ public class MusicianService {
         return musicianRepository.getAllByOrderByCreated();
     }
 
+    public List<Musician> getAllMusiciansOrderedByCreatedDesc() {
+        return musicianRepository.getAllByOrderByCreatedDesc();
+    }
+
     public List<Musician> getAllMusiciansSortedByBorn() {
         return getAllMusicians().stream()
-                .filter(musician -> musician.getBorn() != null)
+                .filter(musician -> musician.getBorn() != null || musician.getFounded() != null)
                 .sorted((o1, o2) -> {
                     Integer o1Date = o1.getBorn() != null ? o1.getBorn() : o1.getFounded();
                     Integer o2Date = o2.getBorn() != null ? o2.getBorn() : o2.getFounded();
@@ -275,7 +279,7 @@ public class MusicianService {
     }
 
     public List<Musician> getLatestUpdate() {
-        return musicianRepository.findFirst10ByOrderByCreated();
+        return musicianRepository.findFirst10ByOrderByCreatedDesc();
     }
 
 }

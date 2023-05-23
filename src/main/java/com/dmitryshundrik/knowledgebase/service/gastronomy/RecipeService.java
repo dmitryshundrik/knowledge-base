@@ -96,7 +96,7 @@ public class RecipeService {
     }
 
     public List<Recipe> getLatestUpdate() {
-        return recipeRepository.findFirst10ByOrderByCreated();
+        return recipeRepository.findFirst10ByOrderByCreatedDesc();
     }
 
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,9 +44,21 @@ public class MusicGenreService {
                 .collect(Collectors.toList());
     }
 
+    public List<MusicGenre> getAllClassicalGenresSortedByTitle() {
+        return getAllClassicalGenres().stream()
+                .sorted(Comparator.comparing(MusicGenre::getTitle))
+                .collect(Collectors.toList());
+    }
+
     public List<MusicGenre> getAllContemporaryGenres() {
         return musicGenreRepository.findAll().stream()
                 .filter(musicGenre -> musicGenre.getMusicGenreType().equals(MusicGenreType.CONTEMPORARY))
+                .collect(Collectors.toList());
+    }
+
+    public List<MusicGenre> getAllContemporaryGenresSortedByTitle() {
+        return getAllContemporaryGenres().stream()
+                .sorted(Comparator.comparing(MusicGenre::getTitle))
                 .collect(Collectors.toList());
     }
 

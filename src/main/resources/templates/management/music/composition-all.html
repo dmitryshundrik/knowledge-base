@@ -22,7 +22,6 @@
                 <th>#</th>
                 <th>created</th>
                 <th>title</th>
-                <th>slug</th>
                 <th>catalog_number</th>
                 <th>musician</th>
                 <th>feature</th>
@@ -32,18 +31,15 @@
                 <th>rating</th>
                 <th>YER</th>
                 <th>ECR</th>
-                <th>highlights</th>
-                <th>description</th>
                 <th>edit</th>
                 <th>delete</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="composition : ${compositionViewDTOList}">
-                <th th:text="${compositionStat.index + 1}"></th>
+                <th th:text="${compositionViewDTOList.size + compositionStat.index}"></th>
                 <td th:text="${composition.created}"></td>
                 <td th:text="${composition.title}"></td>
-                <td th:text="${composition.slug}"></td>
                 <td th:text="${composition.catalogNumber}"></td>
                 <td th:text="${composition.musicianNickname}"></td>
                 <td th:text="${composition.feature}"></td>
@@ -58,8 +54,6 @@
                 <td th:text="${composition.rating}"></td>
                 <td th:text="${composition.yearEndRank}"></td>
                 <th th:text="${composition.essentialCompositionsRank}"></th>
-                <td th:text="${composition.highlights}"></td>
-                <td th:text="${composition.description}"></td>
                 <td class="td-settings">
                     <a target="_blank"
                        th:href="${'/management/musician/edit/' + composition.musicianSlug + '/composition/edit/' + composition.slug}">edit</a>

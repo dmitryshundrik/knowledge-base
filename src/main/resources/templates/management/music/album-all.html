@@ -23,7 +23,6 @@
                 <th>created</th>
                 <th>title</th>
                 <th>slug</th>
-                <th>catalog_number</th>
                 <th>musician</th>
                 <th>year</th>
                 <th>genres</th>
@@ -36,11 +35,10 @@
             </thead>
             <tbody>
             <tr th:each="album : ${albumViewDTOList}">
-                <th th:text="${albumStat.index + 1}"></th>
+                <th th:text="${albumViewDTOList.size - albumStat.index}"></th>
                 <td th:text="${album.created}"></td>
                 <td th:text="${album.title}"></td>
                 <td th:text="${album.slug}"></td>
-                <td th:text="${album.catalogNumber}"></td>
                 <td th:text="${album.musicianNickname}"></td>
                 <td th:text="${album.year}"></td>
                 <td>

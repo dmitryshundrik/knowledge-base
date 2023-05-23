@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.repository.music;
 
+import com.dmitryshundrik.knowledgebase.model.music.Album;
 import com.dmitryshundrik.knowledgebase.model.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,9 +21,11 @@ public interface CompositionRepository extends JpaRepository<Composition, UUID> 
 
     List<Composition> getAllByYearAndYearEndRankNotNull(Integer year);
 
-    List<Composition> findFirst10ByOrderByCreated();
+    List<Composition> findFirst10ByOrderByCreatedDesc();
 
     @Query("from Composition composition where composition.musician.slug = ?1")
     List<Composition> getAllByMusician(String musicianSlug);
+
+    List<Composition> getAllByOrderByCreatedDesc();
 
 }

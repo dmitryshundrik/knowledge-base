@@ -26,7 +26,7 @@ public class MusicPeriodManagementController {
 
     @GetMapping("/management/music-period/all")
     public String getAllMusicPeriods(Model model) {
-        List<MusicPeriod> musicPeriodList = musicPeriodService.getAll();
+        List<MusicPeriod> musicPeriodList = musicPeriodService.getAllSortedByStart();
         List<MusicPeriodViewDTO> musicPeriodViewDTOList = musicPeriodService.getMusicPeriodViewDTOList(musicPeriodList);
         model.addAttribute("musicPeriods", musicPeriodViewDTOList);
         return "management/music/music-period-all";

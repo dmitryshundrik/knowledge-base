@@ -1,4 +1,3 @@
-
 .table-title {
     padding-top: 40px;
     padding-right: 250px;
@@ -70,3 +69,17 @@
     color: red;
 }
 
+@media (max-width: 768px) {
+    .table-title {
+        padding: 30px 35px;
+    }
+    .table-body {
+        padding: 0 35px;
+        gap: 30px;
+        border: none;
+    }
+    .table-body-item {
+        margin: 0;
+    }
+
+}
