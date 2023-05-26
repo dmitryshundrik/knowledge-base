@@ -23,8 +23,7 @@
                 <span class="table-body-item-col">
                     <a th:text="${album.musicianNickname}" th:href="'/music/musician/' + ${album.musicianSlug}"></a>
                 </span>
-                <span class="table-body-item-col album-title" th:text="${album.title}"></span>
-                <span class="table-body-item-col" th:text="'(' + ${album.year} + ')'"></span>
+                <span class="table-body-item-col album-title" th:text="${album.title} + ' (' + ${album.year} + ')'"></span>
                 <span class="table-body-item-col rating" th:text="${album.rating}"></span>
             </section>
         </article>

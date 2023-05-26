@@ -7,7 +7,7 @@ import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
 import com.dmitryshundrik.knowledgebase.repository.music.CompositionRepository;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicGenreRepository;
-import com.dmitryshundrik.knowledgebase.util.Formatter;
+import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -107,7 +107,7 @@ public class MusicGenreService {
 
     public MusicGenreViewDTO getMusicGenreViewDTO(MusicGenre genre) {
         return MusicGenreViewDTO.builder()
-                .created(Formatter.instantFormatterYMD(genre.getCreated()))
+                .created(InstantFormatter.instantFormatterYMD(genre.getCreated()))
                 .slug(genre.getSlug())
                 .title(genre.getTitle())
                 .titleEn(genre.getTitleEn())
@@ -133,8 +133,8 @@ public class MusicGenreService {
 
     public void setFieldsFromDTO(MusicGenre genre, MusicGenreCreateEditDTO genreDTO) {
         genre.setSlug(genreDTO.getSlug().trim());
-        genre.setTitle(genreDTO.getTitle());
-        genre.setTitleEn(genreDTO.getTitleEn());
+        genre.setTitle(genreDTO.getTitle().trim());
+        genre.setTitleEn(genreDTO.getTitleEn().trim());
         genre.setMusicGenreType(genreDTO.getMusicGenreType());
         genre.setDescription(genreDTO.getDescription());
     }

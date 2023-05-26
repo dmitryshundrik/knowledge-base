@@ -5,7 +5,8 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.*;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
 import com.dmitryshundrik.knowledgebase.service.common.PersonEventService;
 import com.dmitryshundrik.knowledgebase.util.Constants;
-import com.dmitryshundrik.knowledgebase.util.Formatter;
+import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -118,6 +119,7 @@ public class MusicianService {
         Musician musician = new Musician();
         musician.setCreated(Instant.now());
         setFieldsFromDTO(musician, musicianDTO);
+        musician.setSlug(SlugFormatter.slugFormatter(musician.getSlug()));
         return getMusicianViewDTO(musicianRepository.save(musician));
     }
 
@@ -145,7 +147,7 @@ public class MusicianService {
 
     public MusicianViewDTO getMusicianViewDTO(Musician musician) {
         return MusicianViewDTO.builder()
-                .created(Formatter.instantFormatterYMDHMS(musician.getCreated()))
+                .created(InstantFormatter.instantFormatterYMDHMS(musician.getCreated()))
                 .slug(musician.getSlug())
                 .firstName(musician.getFirstName())
                 .lastName(musician.getLastName())

@@ -4,7 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.music.YearInMusic;
 import com.dmitryshundrik.knowledgebase.model.music.dto.YearInMusicCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.YearInMusicViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.music.YearInMusicRepository;
-import com.dmitryshundrik.knowledgebase.util.Formatter;
+import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,7 +54,7 @@ public class YearInMusicService {
 
     public YearInMusicViewDTO getYearInMusicViewDTO(YearInMusic yearInMusic) {
         return YearInMusicViewDTO.builder()
-                .created(Formatter.instantFormatterYMD(yearInMusic.getCreated()))
+                .created(InstantFormatter.instantFormatterYMD(yearInMusic.getCreated()))
                 .slug(yearInMusic.getSlug())
                 .title(yearInMusic.getTitle())
                 .year(yearInMusic.getYear())
@@ -104,7 +104,7 @@ public class YearInMusicService {
 
     public void setFieldsFromDTO(YearInMusic yearInMusic, YearInMusicCreateEditDTO yearInMusicDTO) {
         yearInMusic.setSlug(yearInMusicDTO.getSlug().trim());
-        yearInMusic.setTitle(yearInMusicDTO.getTitle());
+        yearInMusic.setTitle(yearInMusicDTO.getTitle().trim());
         yearInMusic.setYear(yearInMusicDTO.getYear());
         yearInMusic.setBestMaleSinger(!StringUtils.isBlank(yearInMusicDTO.getBestMaleSingerId()) ? musicianService
                 .getMusicianById(UUID.fromString(yearInMusicDTO.getBestMaleSingerId())) : null);

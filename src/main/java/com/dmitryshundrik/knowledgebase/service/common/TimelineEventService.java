@@ -5,7 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.common.TimelineEvent;
 import com.dmitryshundrik.knowledgebase.model.common.enums.EraType;
 import com.dmitryshundrik.knowledgebase.model.common.enums.TimelineEventType;
 import com.dmitryshundrik.knowledgebase.repository.common.TimelineEventRepository;
-import com.dmitryshundrik.knowledgebase.util.Formatter;
+import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,7 +75,7 @@ public class TimelineEventService {
     public TimelineEventDTO getTimelineEventDTO(TimelineEvent timelineEvent) {
         return TimelineEventDTO.builder()
                 .id(timelineEvent.getId().toString())
-                .created(Formatter.instantFormatterYMDHMS(timelineEvent.getCreated()))
+                .created(InstantFormatter.instantFormatterYMDHMS(timelineEvent.getCreated()))
                 .year(timelineEvent.getYear())
                 .anotherYear(timelineEvent.getAnotherYear())
                 .eraType(timelineEvent.getEraType())

@@ -4,7 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicPeriodCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicPeriodViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicPeriodRepository;
-import com.dmitryshundrik.knowledgebase.util.Formatter;
+import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,7 +54,7 @@ public class MusicPeriodService {
 
     public MusicPeriodViewDTO getMusicPeriodViewDTO(MusicPeriod musicPeriod) {
         return MusicPeriodViewDTO.builder()
-                .created(Formatter.instantFormatterYMD(musicPeriod.getCreated()))
+                .created(InstantFormatter.instantFormatterYMD(musicPeriod.getCreated()))
                 .slug(musicPeriod.getSlug())
                 .title(musicPeriod.getTitle())
                 .titleEn(musicPeriod.getTitleEn())
@@ -81,8 +81,8 @@ public class MusicPeriodService {
 
     private void setFieldsFromDTO(MusicPeriod period, MusicPeriodCreateEditDTO periodDTO) {
         period.setSlug(periodDTO.getSlug().trim());
-        period.setTitle(periodDTO.getTitle());
-        period.setTitleEn(periodDTO.getTitleEn());
+        period.setTitle(periodDTO.getTitle().trim());
+        period.setTitleEn(periodDTO.getTitleEn().trim());
         period.setApproximateStart(periodDTO.getApproximateStart());
         period.setApproximateEnd(periodDTO.getApproximateEnd());
         period.setDescription(periodDTO.getDescription());

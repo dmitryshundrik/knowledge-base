@@ -56,12 +56,14 @@
     min-width: fit-content;
 }
 
-.composition-description {
+.highlights {
+    min-width: auto;
     text-align: justify;
     font-style: italic;
 }
 
 .timeline-text {
+    min-width: auto;
     text-align: justify;
 }
 
@@ -71,15 +73,21 @@
 
 @media (max-width: 768px) {
     .table-title {
-        padding: 30px 35px;
+        padding: 30px 30px;
     }
     .table-body {
-        padding: 0 35px;
+        padding: 0 30px;
         gap: 30px;
         border: none;
     }
     .table-body-item {
         margin: 0;
+    }
+    .table-body-item-col {
+        min-width: auto;
+    }
+    .catalog-number {
+        min-width: fit-content;
     }
 
 }

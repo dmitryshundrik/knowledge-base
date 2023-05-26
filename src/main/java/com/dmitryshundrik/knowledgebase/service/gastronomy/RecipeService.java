@@ -5,7 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.RecipeCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.RecipeViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.gastronomy.RecipeRepository;
-import com.dmitryshundrik.knowledgebase.util.Formatter;
+import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,7 +53,7 @@ public class RecipeService {
 
     public RecipeViewDTO getRecipeViewDTO(Recipe recipe) {
         return RecipeViewDTO.builder()
-                .created(Formatter.instantFormatterYMD(recipe.getCreated()))
+                .created(InstantFormatter.instantFormatterYMD(recipe.getCreated()))
                 .slug(recipe.getSlug())
                 .title(recipe.getTitle())
                 .country(recipe.getCountry())

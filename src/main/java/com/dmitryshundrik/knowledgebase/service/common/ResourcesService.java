@@ -3,7 +3,7 @@ package com.dmitryshundrik.knowledgebase.service.common;
 import com.dmitryshundrik.knowledgebase.model.common.Resource;
 import com.dmitryshundrik.knowledgebase.model.common.dto.ResourceDTO;
 import com.dmitryshundrik.knowledgebase.repository.common.ResourcesRepository;
-import com.dmitryshundrik.knowledgebase.util.Formatter;
+import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,7 +55,7 @@ public class ResourcesService {
     public ResourceDTO getResourceDTO(Resource resource) {
         return ResourceDTO.builder()
                 .id(resource.getId().toString())
-                .created(Formatter.instantFormatterYMD(resource.getCreated()))
+                .created(InstantFormatter.instantFormatterYMD(resource.getCreated()))
                 .title(resource.getTitle())
                 .description(resource.getDescription())
                 .link(resource.getLink())

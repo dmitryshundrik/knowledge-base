@@ -4,7 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.CocktailCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.CocktailViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.gastronomy.CocktailRepository;
-import com.dmitryshundrik.knowledgebase.util.Formatter;
+import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,7 +48,7 @@ public class CocktailService {
 
     public CocktailViewDTO getCocktailViewDTO(Cocktail cocktail) {
         return CocktailViewDTO.builder()
-                .created(Formatter.instantFormatterYMD(cocktail.getCreated()))
+                .created(InstantFormatter.instantFormatterYMD(cocktail.getCreated()))
                 .slug(cocktail.getSlug())
                 .title(cocktail.getTitle())
                 .about(cocktail.getAbout())

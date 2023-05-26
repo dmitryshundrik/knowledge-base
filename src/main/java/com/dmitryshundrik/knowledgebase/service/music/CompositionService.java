@@ -6,7 +6,8 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.repository.music.CompositionRepository;
-import com.dmitryshundrik.knowledgebase.util.Formatter;
+import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,7 +71,7 @@ public class CompositionService {
             album.getCompositions().add(composition);
         }
         compositionRepository.save(composition);
-        composition.setSlug(composition.getSlug() + "-" + composition.getId());
+        composition.setSlug(SlugFormatter.slugFormatter(composition.getSlug()) + "-" + composition.getId());
         return getCompositionViewDTO(composition);
     }
 
@@ -105,7 +106,7 @@ public class CompositionService {
 
     public CompositionViewDTO getCompositionViewDTO(Composition composition) {
         return CompositionViewDTO.builder()
-                .created(Formatter.instantFormatterYMD(composition.getCreated()))
+                .created(InstantFormatter.instantFormatterYMD(composition.getCreated()))
                 .slug(composition.getSlug())
                 .title(composition.getTitle())
                 .catalogTitle(composition.getMusician().getCatalogTitle())
@@ -186,9 +187,9 @@ public class CompositionService {
         updateEssentialCompositions(compositionDTO);
 
         composition.setSlug(compositionDTO.getSlug().trim());
-        composition.setTitle(compositionDTO.getTitle());
+        composition.setTitle(compositionDTO.getTitle().trim());
         composition.setCatalogNumber(compositionDTO.getCatalogNumber());
-        composition.setFeature(compositionDTO.getFeature());
+        composition.setFeature(compositionDTO.getFeature().trim());
         composition.setYear(compositionDTO.getYear());
 
         List<MusicGenre> musicGenres = new ArrayList<>();

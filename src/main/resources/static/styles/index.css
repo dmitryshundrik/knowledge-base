@@ -58,9 +58,9 @@
     .table-body {
         display: flex;
         flex-direction: column;
-        padding: 46px 50px;
+        padding: 46px 46px;
         align-items: center;
-        gap: 50px;
+        gap: 46px;
     }
 
     .table-body-item {

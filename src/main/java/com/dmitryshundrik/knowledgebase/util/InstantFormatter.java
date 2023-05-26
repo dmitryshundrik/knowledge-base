@@ -4,7 +4,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
-public class Formatter {
+public class InstantFormatter {
 
     private static final String PATTERN_YMD_HMS = "yyyy-MM-dd HH:mm:ss";
 

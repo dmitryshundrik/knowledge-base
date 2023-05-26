@@ -9,7 +9,8 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
-import com.dmitryshundrik.knowledgebase.util.Formatter;
+import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -95,7 +96,7 @@ public class AlbumService {
         album.setCreated(Instant.now());
         album.setMusician(musician);
         setFieldsFromDTO(album, albumDTO);
-        album.setSlug(album.getMusician().getSlug() + "-" + album.getSlug());
+        album.setSlug(album.getMusician().getSlug() + "-" + SlugFormatter.slugFormatter(album.getSlug()));
         return getAlbumViewDTO(albumRepository.save(album));
     }
 
@@ -118,7 +119,7 @@ public class AlbumService {
 
     public AlbumViewDTO getAlbumViewDTO(Album album) {
         return AlbumViewDTO.builder()
-                .created(Formatter.instantFormatterYMD(album.getCreated()))
+                .created(InstantFormatter.instantFormatterYMD(album.getCreated()))
                 .slug(album.getSlug())
                 .title(album.getTitle())
                 .catalogNumber(album.getCatalogNumber())
@@ -199,9 +200,9 @@ public class AlbumService {
 
     private void setFieldsFromDTO(Album album, AlbumCreateEditDTO albumDTO) {
         album.setSlug(albumDTO.getSlug().trim());
-        album.setTitle(albumDTO.getTitle());
+        album.setTitle(albumDTO.getTitle().trim());
         album.setCatalogNumber(albumDTO.getCatalogNumber());
-        album.setFeature(albumDTO.getFeature());
+        album.setFeature(albumDTO.getFeature().trim());
         album.setYear(albumDTO.getYear());
 
         List<MusicGenre> musicGenres = new ArrayList<>();

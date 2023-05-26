@@ -3,7 +3,7 @@ package com.dmitryshundrik.knowledgebase.service.common;
 import com.dmitryshundrik.knowledgebase.model.common.Foundation;
 import com.dmitryshundrik.knowledgebase.model.common.dto.FoundationDTO;
 import com.dmitryshundrik.knowledgebase.repository.common.FoundationRepository;
-import com.dmitryshundrik.knowledgebase.util.Formatter;
+import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,7 +55,7 @@ public class FoundationService {
     public FoundationDTO getFoundationDTO(Foundation foundation) {
         return FoundationDTO.builder()
                 .id(foundation.getId().toString())
-                .created(Formatter.instantFormatterYMD(foundation.getCreated()))
+                .created(InstantFormatter.instantFormatterYMD(foundation.getCreated()))
                 .title(foundation.getTitle())
                 .description(foundation.getDescription())
                 .link(foundation.getLink())

@@ -4,7 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.common.PersonEvent;
 import com.dmitryshundrik.knowledgebase.model.common.dto.PersonEventDTO;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.repository.common.PersonEventRepository;
-import com.dmitryshundrik.knowledgebase.util.Formatter;
+import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,7 +52,7 @@ public class PersonEventService {
     public PersonEventDTO getPersonEventDTO(PersonEvent personEvent) {
         return PersonEventDTO.builder()
                 .id(personEvent.getId().toString())
-                .created(Formatter.instantFormatterYMD(personEvent.getCreated()))
+                .created(InstantFormatter.instantFormatterYMD(personEvent.getCreated()))
                 .year(personEvent.getYear())
                 .anotherYear(personEvent.getAnotherYear())
                 .title(personEvent.getTitle())

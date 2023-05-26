@@ -50,8 +50,8 @@ public class CompositionManagementController {
                                 .getMusicianBySlug(musicianSlug)));
         model.addAttribute("compositionCreateEditDTO", compositionDTO);
         model.addAttribute("albumSelectDTOList", albumSelectDTOList);
-        model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
-        model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
+        model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenresSortedByTitle());
+        model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenresSortedByTitle());
         return "management/music/composition-create";
     }
 
@@ -66,8 +66,8 @@ public class CompositionManagementController {
                                     .getMusicianBySlug(musicianSlug)));
             musicianService.setFieldsToCompositionDTO(musicianSlug, compositionDTO);
             model.addAttribute("albumSelectDTOList", albumDTOList);
-            model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
-            model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
+            model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenresSortedByTitle());
+            model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenresSortedByTitle());
             return "management/music/composition-create";
         }
         Musician musicianBySlug = musicianService.getMusicianBySlug(musicianSlug);
@@ -86,8 +86,8 @@ public class CompositionManagementController {
                                 .getMusicianBySlug(musicianSlug)));
         model.addAttribute("compositionCreateEditDTO", compositionService.getCompositionCreateEditDTO(compositionBySlug));
         model.addAttribute("albumSelectDTOList", albumDTOList);
-        model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
-        model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
+        model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenresSortedByTitle());
+        model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenresSortedByTitle());
         return "management/music/composition-edit";
     }
 

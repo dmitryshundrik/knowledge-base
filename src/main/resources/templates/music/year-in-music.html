@@ -61,10 +61,9 @@
                 <h3>Лучшие альбомы</h3>
             </header>
 
-            <section class="table-body-item-row soty-description">
-                <span th:if="${not #strings.isEmpty(yearInMusic.aotyListDescription)}"
-                      th:text="${yearInMusic.aotyListDescription}"></span>
-                <span th:if="${not #strings.isEmpty(yearInMusic.aotySpotifyLink)}">
+            <section class="table-body-item-row soty-description" th:if="${not #strings.isEmpty(yearInMusic.aotySpotifyLink)}">
+                <span th:text="${yearInMusic.aotyListDescription}"></span>
+                <span>
                     <a th:href="${yearInMusic.aotySpotifyLink}">Слушать в Spotify</a>
                 </span>
             </section>
@@ -96,10 +95,9 @@
                 <h3>Лучшие композиции</h3>
             </header>
 
-            <section class="table-body-item-row soty-description">
-                <span th:if="${not #strings.isEmpty(yearInMusic.sotyListDescription)}"
-                      th:text="${yearInMusic.sotyListDescription}"></span>
-                <span th:if="${not #strings.isEmpty(yearInMusic.sotySpotifyLink)}">
+            <section class="table-body-item-row soty-description" th:if="${not #strings.isEmpty(yearInMusic.sotySpotifyLink)}">
+                <span th:text="${yearInMusic.sotyListDescription}"></span>
+                <span>
                     <a th:href="${yearInMusic.sotySpotifyLink}">Слушать в Spotify</a>
                 </span>
             </section>
