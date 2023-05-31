@@ -24,7 +24,15 @@
     flex-direction: row;
     justify-content: left;
     margin: 15px 0;
-    gap: 15px;
+    gap: 10px;
+}
+
+.nickname {
+    min-width: fit-content;
+}
+
+.catalogtitle {
+    min-width: fit-content;
 }
 
 .rating {
@@ -46,7 +54,7 @@
     }
     .table-body-item-row {
         flex-direction: column;
-        padding: 3px;
+        padding: 5px;
         text-align: center;
         border: 1px solid gray;
         gap: 0;

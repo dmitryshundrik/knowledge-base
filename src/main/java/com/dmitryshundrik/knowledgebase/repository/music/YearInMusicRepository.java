@@ -9,4 +9,6 @@ public interface YearInMusicRepository extends JpaRepository<YearInMusic, UUID> 
 
     YearInMusic findBySlug(String slug);
 
+    YearInMusic findByYear(Integer year);
+
 }

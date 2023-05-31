@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="description" th:content="'Articles and reviews of works by ' + ${musicianViewDTO.nickName}">
+    <meta name="keywords" th:content="${musicianViewDTO.nickName}">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <title th:text="${musicianViewDTO.nickName}"></title>
     <link th:href="@{/styles/music/musician.css}" rel="stylesheet">
     <meta name="viewport" content="width=device-width">
@@ -46,10 +50,16 @@
                 <span th:text="${musicianViewDTO.birthplace}"></span>
             </section>
 
-            <section class="table-title-item-row" th:if="${not #lists.isEmpty(musicianViewDTO.musicPeriods)}">
+            <section class="table-title-item-row period" th:if="${not #lists.isEmpty(musicianViewDTO.musicPeriods)}">
                 <span>Период:</span>
                 <span th:each="period : ${musicianViewDTO.musicPeriods}">
-                    <a th:href="'/music/period/' + ${period.slug}" th:text="${period.title}"></a>
+                    <a th:if="${periodStat.index + 1 < musicianViewDTO.musicPeriods.size}"
+                       th:href="'/music/period/' + ${period.slug}"
+                       th:text="${period.title} + ', '"></a>
+
+                    <a th:if="${periodStat.index + 1 == musicianViewDTO.musicPeriods.size}"
+                       th:href="'/music/period/' + ${period.slug}"
+                       th:text="${period.title}"></a>
                 </span>
             </section>
 
@@ -113,11 +123,12 @@
                 <h3>Все произведения</h3>
             </header>
             <section class="table-body-item-row" th:each="composition : ${musicianViewDTO.compositions}">
-                <span class="table-body-item-col year" th:if="${composition.year} != null"
-                      th:text=" ${composition.year}"></span>
+                <span th:text="${compositionStat.index + 1} + '.'"></span>
                 <span class="table-body-item-col catalog-number" th:if="${composition.catalogNumber} != null"
                       th:text="${musicianViewDTO.catalogTitle + ' ' + composition.catalogNumber}"></span>
                 <span class="table-body-item-col title" th:text="${composition.title}"></span>
+                <span class="table-body-item-col year" th:if="${composition.year} != null"
+                      th:text="'(' + ${composition.year} + ')'"></span>
                 <span class="table-body-item-col rating" th:text="${composition.rating}"></span>
                 <span class="table-body-item-col highlights" th:text="${composition.highlights}"></span>
             </section>

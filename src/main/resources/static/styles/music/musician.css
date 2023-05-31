@@ -25,6 +25,12 @@
     border-bottom: 1px solid gray;
 }
 
+.period {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
 .genre {
     display: flex;
     flex-wrap: wrap;
@@ -49,7 +55,7 @@
     display: flex;
     flex-direction: row;
     margin: 15px 0;
-    gap: 15px;
+    gap: 10px;
 }
 
 .table-body-item-col {

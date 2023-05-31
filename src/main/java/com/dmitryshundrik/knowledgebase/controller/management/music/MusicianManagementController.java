@@ -44,7 +44,7 @@ public class MusicianManagementController {
         musicianDTO.setAlbumsSortType(SortType.YEAR);
         musicianDTO.setCompositionsSortType(SortType.YEAR);
         model.addAttribute("musicianCreateEditDTO", musicianDTO);
-        model.addAttribute("musicPeriods", musicPeriodService.getAll());
+        model.addAttribute("musicPeriods", musicPeriodService.getAllSortedByStart());
         model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
         model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
         model.addAttribute("sortTypes", SortType.values());
@@ -57,7 +57,7 @@ public class MusicianManagementController {
         String error = musicianService.musicianSlugIsExist(musicianDTO.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute("slug", error);
-            model.addAttribute("musicPeriods", musicPeriodService.getAll());
+            model.addAttribute("musicPeriods", musicPeriodService.getAllSortedByStart());
             model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
             model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
             model.addAttribute("sortTypes", SortType.values());
@@ -71,7 +71,7 @@ public class MusicianManagementController {
     public String getEditMusicianBySlug(@PathVariable String musicianSlug, Model model) {
         Musician musicianBySlug = musicianService.getMusicianBySlug(musicianSlug);
         model.addAttribute("musicianCreateEditDTO", musicianService.getMusicianCreateEditDTO(musicianBySlug));
-        model.addAttribute("musicPeriods", musicPeriodService.getAll());
+        model.addAttribute("musicPeriods", musicPeriodService.getAllSortedByStart());
         model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
         model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
         model.addAttribute("sortTypes", SortType.values());

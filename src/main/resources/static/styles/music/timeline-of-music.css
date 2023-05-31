@@ -38,7 +38,7 @@
     }
     .table-body-item-row {
         flex-direction: column;
-        padding: 3px;
+        padding: 5px;
         text-align: justify;
         gap: 0;
     }

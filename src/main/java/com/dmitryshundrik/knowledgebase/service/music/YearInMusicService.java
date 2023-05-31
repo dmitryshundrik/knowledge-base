@@ -30,6 +30,10 @@ public class YearInMusicService {
         return yearInMusicRepository.findBySlug(yearInMusicSlug);
     }
 
+    public YearInMusic getYearInMusicByYear(Integer year) {
+        return yearInMusicRepository.findByYear(year);
+    }
+
     public List<YearInMusic> getAll() {
         return yearInMusicRepository.findAll().stream()
                 .sorted(Comparator.comparing(YearInMusic::getYear)).collect(Collectors.toList());

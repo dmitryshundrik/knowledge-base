@@ -1,5 +1,7 @@
 
 .table-title {
+    display: flex;
+    justify-content: space-between;
     padding: 30px 250px;
     text-align: center;
 }

@@ -53,7 +53,7 @@
     }
     .table-body-item-row {
         flex-direction: column;
-        padding: 3px;
+        padding: 5px;
         text-align: center;
         border: 1px solid gray;
         gap: 0;

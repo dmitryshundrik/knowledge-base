@@ -57,7 +57,15 @@ public class MusicPageController {
     @GetMapping("/lists-and-charts/{slug}")
     public String getYearInMusic(@PathVariable String slug, Model model) {
         YearInMusic yearInMusic = yearInMusicService.getYearInMusicBySlug(slug);
-        model.addAttribute("yearInMusic", yearInMusicService.getYearInMusicViewDTO(yearInMusic));
+        YearInMusic previousYear = yearInMusicService.getYearInMusicByYear(yearInMusic.getYear() - 1);
+        if (previousYear != null) {
+            model.addAttribute("previousYear", yearInMusicService.getYearInMusicViewDTO(previousYear));
+        }
+        YearInMusic nextYear = yearInMusicService.getYearInMusicByYear(yearInMusic.getYear() + 1);
+        if(nextYear != null) {
+            model.addAttribute("nextYear", yearInMusicService.getYearInMusicViewDTO(nextYear));
+        }
+        model.addAttribute("currentYear", yearInMusicService.getYearInMusicViewDTO(yearInMusic));
         model.addAttribute("albums", albumService.get10BestAlbumsByYear(yearInMusic.getYear()));
         model.addAttribute("compositions", compositionService.getAllCompositionsForSOTYList(yearInMusic.getYear()));
         return "music/year-in-music";
@@ -93,7 +101,9 @@ public class MusicPageController {
     @GetMapping("/musician/{slug}")
     public String getMusicianBySlug(@PathVariable String slug, Model model) {
         Musician musicianBySlug = musicianService.getMusicianBySlug(slug);
-        model.addAttribute("musicianViewDTO", musicianService.getMusicianViewDTO(musicianBySlug));
+        MusicianViewDTO musicianViewDTO = musicianService.getMusicianViewDTO(musicianBySlug);
+        musicianViewDTO.setMusicPeriods(musicPeriodService.getSortedByStart(musicianViewDTO.getMusicPeriods()));
+        model.addAttribute("musicianViewDTO", musicianViewDTO);
         return "music/musician";
     }
 

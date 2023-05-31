@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${yearInMusic.title}"></title>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title th:text="${currentYear.title}"></title>
     <link th:href="@{/styles/music/year-in-music.css}" rel="stylesheet">
     <meta name="viewport" content="width=device-width">
 </head>
@@ -13,45 +15,57 @@
 <main class="table">
 
     <header class="table-title">
-        <h3 th:text="${yearInMusic.title}"></h3>
+        <h3 th:if="${previousYear} != null">
+            <a th:text="${previousYear.year}" th:href="'/music/lists-and-charts/' + ${previousYear.slug}"></a>
+        </h3>
+        <h3 th:if="${previousYear} == null">
+            <a th:text="${currentYear.year - 1}"></a>
+        </h3>
+        <h3 th:text="${currentYear.title}"></h3>
+        <h3 th:if="${nextYear} != null">
+            <a th:text="${nextYear.year}" th:href="'/music/lists-and-charts/' + ${nextYear.slug}"></a>
+        </h3>
+        <h3 th:if="${nextYear} == null">
+            <a th:text="${currentYear.year + 1}"></a>
+        </h3>
     </header>
 
     <div class="table-body">
 
-        <article class="table-body-item best-musicians" th:if="${not #strings.isEmpty(yearInMusic.bestFemaleSinger)}">
+        <article class="table-body-item best-musicians" th:if="${not #strings.isEmpty(currentYear.bestFemaleSinger)}">
             <header class="table-body-item-title">
                 <h3>Лучшие исполнители</h3>
             </header>
 
-            <section class="table-body-item-row" th:if="${not #strings.isEmpty(yearInMusic.bestFemaleSinger)}">
+            <section class="table-body-item-row" th:if="${not #strings.isEmpty(currentYear.bestFemaleSinger)}">
                 <span>Женский вокал:</span>
                 <span>
-                    <a th:text="${yearInMusic.bestFemaleSinger}"
-                       th:href="'/music/musician/' + ${yearInMusic.bestFemaleSingerSlug}"></a>
+                    <a th:text="${currentYear.bestFemaleSinger}"
+                       th:href="'/music/musician/' + ${currentYear.bestFemaleSingerSlug}"></a>
                 </span>
             </section>
 
-            <section class="table-body-item-row" th:if="${not #strings.isEmpty(yearInMusic.bestMaleSinger)}">
+            <section class="table-body-item-row" th:if="${not #strings.isEmpty(currentYear.bestMaleSinger)}">
                 <span>Мужской вокал:</span>
                 <span>
-                    <a th:text="${yearInMusic.bestMaleSinger}"
-                       th:href="'/music/musician/' + ${yearInMusic.bestMaleSingerSlug}"></a>
+                    <a th:text="${currentYear.bestMaleSinger}"
+                       th:href="'/music/musician/' + ${currentYear.bestMaleSingerSlug}"></a>
                 </span>
             </section>
 
-            <section class="table-body-item-row" th:if="${not #strings.isEmpty(yearInMusic.bestGroup)}">
+            <section class="table-body-item-row" th:if="${not #strings.isEmpty(currentYear.bestGroup)}">
                 <span>Музыкальная группа:</span>
                 <span>
-                    <a th:text="${yearInMusic.bestGroup}"
-                       th:href="'/music/musician/' + ${yearInMusic.bestGroupSlug}"></a>
+                    <a th:text="${currentYear.bestGroup}"
+                       th:href="'/music/musician/' + ${currentYear.bestGroupSlug}"></a>
                 </span>
             </section>
 
-            <section class="table-body-item-row" th:if="${not #strings.isEmpty(yearInMusic.bestComposer)}">
+            <section class="table-body-item-row" th:if="${not #strings.isEmpty(currentYear.bestComposer)}">
                 <span>Композитор:</span>
                 <span>
-                    <a th:text="${yearInMusic.bestComposer}"
-                       th:href="'/music/musician/' + ${yearInMusic.bestComposerSlug}"></a>
+                    <a th:text="${currentYear.bestComposer}"
+                       th:href="'/music/musician/' + ${currentYear.bestComposerSlug}"></a>
                 </span>
             </section>
         </article>
@@ -61,10 +75,11 @@
                 <h3>Лучшие альбомы</h3>
             </header>
 
-            <section class="table-body-item-row soty-description" th:if="${not #strings.isEmpty(yearInMusic.aotySpotifyLink)}">
-                <span th:text="${yearInMusic.aotyListDescription}"></span>
+            <section class="table-body-item-row soty-description"
+                     th:if="${not #strings.isEmpty(currentYear.aotySpotifyLink)}">
+                <span th:text="${currentYear.aotyListDescription}"></span>
                 <span>
-                    <a th:href="${yearInMusic.aotySpotifyLink}">Слушать в Spotify</a>
+                    <a th:href="${currentYear.aotySpotifyLink}">Слушать в Spotify</a>
                 </span>
             </section>
 
@@ -95,10 +110,11 @@
                 <h3>Лучшие композиции</h3>
             </header>
 
-            <section class="table-body-item-row soty-description" th:if="${not #strings.isEmpty(yearInMusic.sotySpotifyLink)}">
-                <span th:text="${yearInMusic.sotyListDescription}"></span>
+            <section class="table-body-item-row soty-description"
+                     th:if="${not #strings.isEmpty(currentYear.sotySpotifyLink)}">
+                <span th:text="${currentYear.sotyListDescription}"></span>
                 <span>
-                    <a th:href="${yearInMusic.sotySpotifyLink}">Слушать в Spotify</a>
+                    <a th:href="${currentYear.sotySpotifyLink}">Слушать в Spotify</a>
                 </span>
             </section>
 

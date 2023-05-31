@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <title th:text="${musicPeriod.title}"></title>
     <link th:href="@{/styles/music/genre-period.css}" rel="stylesheet">
     <meta name="viewport" content="width=device-width">
@@ -19,7 +21,7 @@
     <div class="table-body">
         <article class="table-body-item">
             <header class="table-body-item-title">
-                <h3>Музыканты</h3>
+                <h3>Главные музыканты</h3>
             </header>
             <section class="table-body-item-row" th:each="musician : ${musicians}">
                 <span class="table-body-item-col" th:text="${musicianStat.index + 1} + '.'"></span>
@@ -32,16 +34,16 @@
 
         <article class="table-body-item">
             <header class="table-body-item-title">
-                <h3>Произведения (лучшее)</h3>
+                <h3>Лучшие произведения</h3>
             </header>
             <section class="table-body-item-row" th:each="composition : ${compositions}">
                 <span class="table-body-item-col" th:text="${compositionStat.index + 1} + '.'"></span>
-                <span class="table-body-item-col">
+                <span class="table-body-item-col nickname">
                         <a th:text="${composition.musicianNickname}"
                            th:href="'/music/musician/' + ${composition.musicianSlug}"></a>
                 </span>
                 <span class="table-body-item-col title" th:text="${composition.title}"></span>
-                <span class="table-body-item-col" th:if="${composition.catalogNumber} != null"
+                <span class="table-body-item-col catalogtitle" th:if="${composition.catalogNumber} != null"
                       th:text="${composition.catalogTitle + ' ' + composition.catalogNumber}"></span>
                 <span class="table-body-item-col" th:if="${composition.year} != null"
                       th:text="'(' + ${composition.year} + ')'"></span>

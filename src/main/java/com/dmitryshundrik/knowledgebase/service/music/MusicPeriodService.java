@@ -34,6 +34,12 @@ public class MusicPeriodService {
                 .sorted(Comparator.comparing(MusicPeriod::getApproximateStart)).collect(Collectors.toList());
     }
 
+    public List<MusicPeriod> getSortedByStart(List<MusicPeriod> musicPeriodList) {
+        return musicPeriodList.stream()
+                .sorted(Comparator.comparing(MusicPeriod::getApproximateStart))
+                .collect(Collectors.toList());
+    }
+
     public String createMusicPeriod(MusicPeriodCreateEditDTO periodDTO) {
         MusicPeriod period = new MusicPeriod();
         period.setCreated(Instant.now());
