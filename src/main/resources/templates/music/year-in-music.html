@@ -15,17 +15,19 @@
 <main class="table">
 
     <header class="table-title">
-        <h3 th:if="${previousYear} != null">
+        <h3 class="another-year" th:if="${previousYear} != null">
             <a th:text="${previousYear.year}" th:href="'/music/lists-and-charts/' + ${previousYear.slug}"></a>
         </h3>
-        <h3 th:if="${previousYear} == null">
+        <h3 class="another-year" th:if="${previousYear} == null">
             <a th:text="${currentYear.year - 1}"></a>
         </h3>
+
         <h3 th:text="${currentYear.title}"></h3>
-        <h3 th:if="${nextYear} != null">
+
+        <h3 class="another-year" th:if="${nextYear} != null">
             <a th:text="${nextYear.year}" th:href="'/music/lists-and-charts/' + ${nextYear.slug}"></a>
         </h3>
-        <h3 th:if="${nextYear} == null">
+        <h3 class="another-year" th:if="${nextYear} == null">
             <a th:text="${currentYear.year + 1}"></a>
         </h3>
     </header>

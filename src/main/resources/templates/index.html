@@ -27,7 +27,8 @@
                 <div class="section-body">
                     <span th:each="yearInMusic : ${yearInMusicList}">
                         <a th:text="${yearInMusic.title}"
-                           th:href="'/music/lists-and-charts/' + ${yearInMusic.slug}"></a>
+                           th:href="'/music/lists-and-charts/' + ${yearInMusic.slug}">
+                        </a>
                     </span>
                     <a href="/music/album/top100">Топ 100 лучших альбомов</a>
                     <a href="/music/album/all">Все альбомы</a>

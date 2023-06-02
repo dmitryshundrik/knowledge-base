@@ -3,7 +3,6 @@
     display: flex;
     justify-content: space-between;
     padding: 30px 250px;
-    text-align: center;
 }
 
 .table-body {
@@ -47,6 +46,7 @@
 
 @media (max-width: 768px) {
     .table-title {
+        justify-content: center;
         padding: 30px 30px;
         font-size: large;
     }
@@ -64,5 +64,7 @@
     .row-genres {
         margin: 0;
     }
-
+    .another-year {
+        display: none;
+    }
 }

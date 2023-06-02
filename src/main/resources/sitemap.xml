@@ -1,0 +1,860 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+<url>
+  <loc>http://dmitryshundrik.com/</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/gastronomy</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/resources</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/charity</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/lists-and-charts/best-of-2020</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/lists-and-charts/best-of-2021</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/lists-and-charts/best-of-2022</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/album/top100</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/album/all</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/all</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/timeline-of-music</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/gastronomy/</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/gastronomy/recipe/all</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/gastronomy/cocktail/all</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/jan-pieterszoon-sweelinck</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/jacopo-peri</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/lets-eat-grandma</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/marina-herlop</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/huma-utku</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/megan-thee-stallion</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/kelly-lee-owens</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/period/medieval</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/period/renaissance</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/period/baroque</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/period/classical</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/period/romantic</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/period/modernism</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/lists-and-charts/albums-of-2018</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/lists-and-charts/albums-of-2020</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/lists-and-charts/albums-of-2021</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/lists-and-charts/albums-of-2022</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/lists-and-charts/albums-of-2023</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/aria</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/motet</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/sacred-music</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/chorale</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/opera</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/keyboard-music</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/electronic</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/hip-hop-rap</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/experimental-pop</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/experimental</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/indie-rock</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/rock</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/ambient</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/jazz</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/dance-pop</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/house</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/folk-rock</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/rhythm-and-blues</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/chamber-pop</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/techno</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/folk</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/pop</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/disco</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/industrial</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/avant-garde-jazz</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/art-rock</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/avant-garde</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/indie-pop</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/folk-pop</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/synth-pop</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/minimal</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/dream-pop</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/spoken-word</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/country</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/hyperpop</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/baroque-pop</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/electropop</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/americana</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/world-music</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/country-rock</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/countr-pop</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/alternative-rhythm-and-blues</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/rock-and-roll</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/pop-rock</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/ethnic-electronica</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/footwork</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/rap-rock</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/drone</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/alternative-reggaeton</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/folktronica</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/electro-industrial</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/nu-disco</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/afrofuturism</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/neo-soul</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/acoustic-music</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/nu-metal</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/hardcore-punk</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/pop-punk</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/ambient-folk</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/pagan-folk</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/neoclassical</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/trip-hop</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/afrobeat</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/tishoumaren-desert-blues</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/flamenco</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/bachata</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/reggaeton</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/deep-house</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/breakbeat</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/psychedelic-pop</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/gastronomy/country/russia</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/gastronomy/country/france</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/jessie-ware</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/perfume-genius</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/the-chicks</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/arca</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/charli-xcx</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/laura-marling</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/adrianne-lenker</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/waxahatchee</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/roisin-murphy</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/run-the-jewels</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/phoebe-bridgers</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/cardi-b</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/dua-lipa</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/dorian-electra</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/harry-styles</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/bruce-springsteen</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/cakes-da-killa</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/645ar</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/arooj-aftab</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/nick-cave</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/iceage</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/floating-points</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/mdou-moctar</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/the-weather-station</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/cassandra-jenkins</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/lingua-ignota</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/nala-sinephro</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/perila</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/smerz</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/arushi-jain</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/erika-de-casier</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/snail-mail</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/big-thief</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/sons-of-kemet</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/jlin</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/sharon-van-etten</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/azealia-banks</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/arlo-parks</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/normani</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/sophie-xeon</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/tirzah</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/fka-twigs</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/the-war-on-drugs</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/diamanda-galas</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/moor-mother</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/soul-glo</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/alabaster-deplume</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/beth-orton</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/rosalia</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/charlotte-adigery</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/angel-olsen</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/beach-house</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/glorilla</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/beyonce</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/sza</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/safety-trance</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/fever-ray</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/inigo-montoya</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/ice-spice</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/musician/kelela</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/shoegaze</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/glitch</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/squeak-rap</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/post-punk</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>http://dmitryshundrik.com/music/genre/heartland-rock</loc>
+  <lastmod>2023-06-01T10:44:07+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+
+</urlset>
