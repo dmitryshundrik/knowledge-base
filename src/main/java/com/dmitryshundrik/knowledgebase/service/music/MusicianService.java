@@ -79,12 +79,11 @@ public class MusicianService {
         return musicianRepository.getAllByMusicPeriodsIsContaining(period);
     }
 
-
     public List<Musician> getBestMusicianByPeriod(MusicPeriod period) {
         List<Musician> allMusiciansByPeriod = getAllMusiciansByPeriod(period);
         Map<Musician, Double> map = new HashMap<>();
         for (Musician musician : allMusiciansByPeriod) {
-            List<Composition> compositions = musician.getCompositions();
+            List<Composition> compositions = compositionService.getAllCompositionsByMsuicianWithRating(musician.getSlug());
             double totalScore = 0.0;
             for (Composition composition : compositions) {
                 totalScore = totalScore + (composition.getRating() != null ? composition.getRating() : 0);
@@ -190,7 +189,7 @@ public class MusicianService {
                 }
             }
         }
-        if (musician.getCompositions() != null) {
+        if (musician.getAlbums().isEmpty() && musician.getCompositions() != null) {
             for (Composition composition : musician.getCompositions()) {
                 for (MusicGenre musicGenre : composition.getMusicGenres()) {
                     map.merge(musicGenre, 1, Integer::sum);

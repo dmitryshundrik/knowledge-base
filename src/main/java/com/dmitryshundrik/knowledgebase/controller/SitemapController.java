@@ -1,14 +1,12 @@
 package com.dmitryshundrik.knowledgebase.controller;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 @Controller
 public class SitemapController {
@@ -17,8 +15,8 @@ public class SitemapController {
     public void getSitemap(HttpServletResponse response) {
         String sitemap = "";
         try {
-            File file = ResourceUtils.getFile("classpath:sitemap.xml");
-            sitemap = Files.readString(Path.of(file.getPath()));
+            sitemap = IOUtils.toString(new InputStreamReader(this.getClass().getClassLoader().
+                    getResourceAsStream("sitemap.xml")));
 
             response.setContentType("application/xml");
             ServletOutputStream outStream = response.getOutputStream();

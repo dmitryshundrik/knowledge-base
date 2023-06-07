@@ -26,6 +26,9 @@ public interface CompositionRepository extends JpaRepository<Composition, UUID> 
     @Query("from Composition composition where composition.musician.slug = ?1")
     List<Composition> getAllByMusician(String musicianSlug);
 
+    @Query("from Composition composition where composition.musician.slug = ?1 and composition.rating is not null")
+    List<Composition> getAllByMusicianWithRating(String musicianSlug);
+
     List<Composition> getAllByOrderByCreatedDesc();
 
 }

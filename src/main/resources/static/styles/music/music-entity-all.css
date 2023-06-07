@@ -15,6 +15,10 @@
     margin: 20px 0px;
 }
 
+.table-body-item-guide {
+    text-align: center;
+}
+
 .table-body-item-row {
     display: flex;
     flex-direction: row;

@@ -41,6 +41,10 @@ public class CompositionService {
         return compositionRepository.getAllByMusician(musicianSlug);
     }
 
+    public List<Composition> getAllCompositionsByMsuicianWithRating(String musicianSlug) {
+        return compositionRepository.getAllByMusicianWithRating(musicianSlug);
+    }
+
     public List<Composition> getAllCompositionsByPeriod(List<Musician> musicians) {
         List<Composition> compositions = new ArrayList<>();
         for (Musician musician : musicians) {
@@ -48,7 +52,6 @@ public class CompositionService {
         }
         return compositions;
     }
-
 
     public List<Composition> getAllCompositionsByGenre(MusicGenre genre) {
         return compositionRepository.getAllByMusicGenresIsContaining(genre);

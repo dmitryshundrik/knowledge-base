@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Encryption Application</title>
+    <link th:href="@{/styles/management/entity-create-edit-management.css}" rel="stylesheet">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h4>Encryption Application</h4>
+    </header>
+
+    <div class="table-body">
+        <article class="table-body-item">
+            <form class="form" th:action="${'/management/encryption-application'}" th:method="post" th:object="${encryption}">
+
+                <section class="form-item major-field">
+                    <label>Текст</label>
+                    <textarea th:field="*{text}"></textarea>
+                </section>
+
+                <section class="form-item">
+                    <label>Операция</label>
+                    <select th:field="*{operationType}">
+                        <option th:value="null" selected>выбрать тип операции</option>
+                        <option th:each="type : ${operationTypes}"
+                                th:value="${type}"
+                                th:text="${type}">
+                        </option>
+                    </select>
+                </section>
+
+                <section class="form-item">
+                    <label>Тип шифрования</label>
+                    <select th:field="*{encryptionType}">
+                        <option th:value="null" selected>выбрать тип шифрования</option>
+                        <option th:each="type : ${encryptionTypes}"
+                                th:value="${type}"
+                                th:text="${type}">
+                        </option>
+                    </select>
+                </section>
+
+                <section class="form-item">
+                    <label>Ключ</label>
+                    <input type="text" th:field="*{key}"/>
+                </section>
+
+                <section class="form-item major-field">
+                    <label>Результат</label>
+                    <span th:text="${encryption.result}"></span>
+                </section>
+
+                <input class="input-submit" type="submit" value="Запустить"/>
+            </form>
+        </article>
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

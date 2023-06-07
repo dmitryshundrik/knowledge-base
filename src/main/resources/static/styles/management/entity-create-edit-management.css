@@ -68,6 +68,13 @@
     height: 150px;
 }
 
+.major-field span {
+    width: 60%;
+    min-height: 200px;
+    background-color: white;
+    white-space: break-spaces;
+}
+
 .input-submit {
     width: 60%;
     align-self: end;
