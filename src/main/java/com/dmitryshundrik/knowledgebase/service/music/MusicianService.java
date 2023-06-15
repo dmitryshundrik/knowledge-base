@@ -83,7 +83,7 @@ public class MusicianService {
         List<Musician> allMusiciansByPeriod = getAllMusiciansByPeriod(period);
         Map<Musician, Double> map = new HashMap<>();
         for (Musician musician : allMusiciansByPeriod) {
-            List<Composition> compositions = compositionService.getAllCompositionsByMsuicianWithRating(musician.getSlug());
+            List<Composition> compositions = compositionService.getAllByMsuicianWithRating(musician.getSlug());
             double totalScore = 0.0;
             for (Composition composition : compositions) {
                 totalScore = totalScore + (composition.getRating() != null ? composition.getRating() : 0);
@@ -182,14 +182,16 @@ public class MusicianService {
 
     public List<MusicGenre> getSortedMusicGenresByMusisian(Musician musician) {
         Map<MusicGenre, Integer> map = new HashMap<>();
-        if (musician.getAlbums() != null) {
+        List<Album> albums = musician.getAlbums();
+        List<Composition> compositions = musician.getCompositions();
+        if (albums != null) {
             for (Album album : musician.getAlbums()) {
                 for (MusicGenre musicGenre : album.getMusicGenres()) {
                     map.merge(musicGenre, 1, Integer::sum);
                 }
             }
         }
-        if (musician.getAlbums().isEmpty() && musician.getCompositions() != null) {
+        if (albums != null && albums.isEmpty() && compositions != null) {
             for (Composition composition : musician.getCompositions()) {
                 for (MusicGenre musicGenre : composition.getMusicGenres()) {
                     map.merge(musicGenre, 1, Integer::sum);

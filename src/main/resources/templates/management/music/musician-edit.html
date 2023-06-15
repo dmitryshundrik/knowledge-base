@@ -206,6 +206,7 @@
                     <th>rating</th>
                     <th>YER</th>
                     <th>EAR</th>
+                    <th>genres</th>
                     <th>edit</th>
                     <th>delete</th>
                 </tr>
@@ -218,6 +219,11 @@
                     <th th:text="${album.rating}"></th>
                     <th th:text="${album.yearEndRank}"></th>
                     <th th:text="${album.essentialAlbumsRank}"></th>
+                    <td>
+                    <span th:if="${not #lists.isEmpty(album.musicGenres)}" th:each="genre : ${album.musicGenres}">
+                        <p th:text="${genre.title}"></p>
+                    </span>
+                    </td>
                     <th class="td-settings">
                         <a target="_blank"
                            th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/album/edit/' + album.slug}">edit</a>
@@ -253,6 +259,7 @@
                     <th>rating</th>
                     <th>YER</th>
                     <th>ECR</th>
+                    <th>genres</th>
                     <th>edit</th>
                     <th>delete</th>
                 </tr>
@@ -267,6 +274,11 @@
                     <th th:text="${composition.rating}"></th>
                     <th th:text="${composition.yearEndRank}"></th>
                     <th th:text="${composition.essentialCompositionsRank}"></th>
+                    <td>
+                    <span th:if="${not #lists.isEmpty(composition.musicGenres)}" th:each="genre : ${composition.musicGenres}">
+                        <p th:text="${genre.title}"></p>
+                    </span>
+                    </td>
                     <th class="td-settings">
                         <a target="_blank"
                            th:href="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/composition/edit/' + composition.slug}">edit</a>

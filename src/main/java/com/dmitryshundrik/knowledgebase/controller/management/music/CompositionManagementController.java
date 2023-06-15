@@ -34,7 +34,7 @@ public class CompositionManagementController {
 
     @GetMapping("/management/composition/all")
     public String getAllCompositions(Model model) {
-        List<Composition> allCompositions = compositionService.getAllCompositionOrderedByCreatedDesc();
+        List<Composition> allCompositions = compositionService.getAllOrderedByCreatedDesc();
         model.addAttribute("compositionViewDTOList", compositionService
                 .getCompositionViewDTOList(allCompositions));
         return "management/music/composition-all";

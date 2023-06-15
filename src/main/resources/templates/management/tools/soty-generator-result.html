@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SOTY Generator</title>
+    <link th:href="@{/styles/management/tools-management.css}" rel="stylesheet">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h4>SOTY Generator</h4>
+    </header>
+
+    <div class="table-body">
+        <article class="table-body-item">
+            <section class="form">
+                <section class="form-item" th:each="entry : ${result}">
+                    <span th:text="${entry.value + '. ' + entry.key.musician.nickName + ' - ' + entry.key.title}"></span>
+                </section>
+            </section>
+        </article>
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+
+</body>
+</html>

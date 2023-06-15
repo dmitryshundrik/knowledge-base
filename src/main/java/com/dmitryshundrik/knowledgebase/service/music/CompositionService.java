@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
+import com.dmitryshundrik.knowledgebase.model.tools.SotyPair;
 import com.dmitryshundrik.knowledgebase.repository.music.CompositionRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
@@ -13,9 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,19 +32,15 @@ public class CompositionService {
         return compositionRepository.findAll();
     }
 
-    public List<Composition> getAllCompositionOrderedByCreatedDesc() {
-        return compositionRepository.getAllByOrderByCreatedDesc();
+    public List<Composition> getAllByYear(Integer year) {
+        return compositionRepository.getAllByYear(year);
     }
 
-    public List<Composition> getAllCompositionsByMsuician(String musicianSlug) {
+    public List<Composition> getAllByMsuician(String musicianSlug) {
         return compositionRepository.getAllByMusician(musicianSlug);
     }
 
-    public List<Composition> getAllCompositionsByMsuicianWithRating(String musicianSlug) {
-        return compositionRepository.getAllByMusicianWithRating(musicianSlug);
-    }
-
-    public List<Composition> getAllCompositionsByPeriod(List<Musician> musicians) {
+    public List<Composition> getAllByPeriod(List<Musician> musicians) {
         List<Composition> compositions = new ArrayList<>();
         for (Musician musician : musicians) {
             compositions.addAll(musician.getCompositions());
@@ -53,15 +48,55 @@ public class CompositionService {
         return compositions;
     }
 
-    public List<Composition> getAllCompositionsByGenre(MusicGenre genre) {
+    public List<Composition> getAllByGenre(MusicGenre genre) {
         return compositionRepository.getAllByMusicGenresIsContaining(genre);
     }
 
+    public List<Composition> getAllOrderedByCreatedDesc() {
+        return compositionRepository.getAllByOrderByCreatedDesc();
+    }
 
-    public List<CompositionViewDTO> getAllCompositionsForSOTYList(Integer year) {
+    public List<Composition> getAllByMsuicianWithRating(String musicianSlug) {
+        return compositionRepository.getAllByMusicianWithRating(musicianSlug);
+    }
+
+    public List<Integer> getAllYearsFromCompositions() {
+        return compositionRepository.getAllYearsFromCompositions();
+    }
+
+    public List<CompositionViewDTO> getAllForSOTYList(Integer year) {
         return getCompositionViewDTOList(compositionRepository.getAllByYearAndYearEndRankNotNull(year))
                 .stream().sorted(Comparator.comparing(CompositionViewDTO::getYearEndRank))
                 .collect(Collectors.toList());
+    }
+
+    public List<SotyPair> getPairListForSotyGenerator(List<Composition> compositionList) {
+        List<SotyPair> sotyPairList = new ArrayList<>();
+        for (int i = 0; i < compositionList.size(); i++) {
+            for (int j = i; j < compositionList.size() - 1; j++) {
+                SotyPair pair = new SotyPair();
+                pair.setFirstComposition(compositionList.get(i));
+                pair.setSecondComposition(compositionList.get(j + 1));
+                sotyPairList.add(pair);
+            }
+        }
+        Collections.shuffle(sotyPairList);
+        return sotyPairList;
+    }
+
+    public List<Map.Entry<Composition, Double>> getTopForSotyGenerator(List<SotyPair> staticPairList, List<SotyPair> pairList) {
+        Map<Composition, Double> map = new HashMap<>();
+        for (int i = 0; i < pairList.size(); i++) {
+            if (pairList.get(i).isFirstResult()) {
+                map.merge(staticPairList.get(i).getFirstComposition(), 1.0, Double::sum);
+            }
+            if (pairList.get(i).isSecondResult()) {
+                map.merge(staticPairList.get(i).getSecondComposition(), 1.0, Double::sum);
+            }
+        }
+
+        return map.entrySet()
+                .stream().sorted((o1, o2) -> o2.getValue().compareTo(o1.getValue())).collect(Collectors.toList());
     }
 
     public CompositionViewDTO createComposition(CompositionCreateEditDTO compositionDTO, Musician musician, Album album) {
@@ -90,7 +125,7 @@ public class CompositionService {
     }
 
     public void updateEssentialCompositions(CompositionCreateEditDTO compositionDTO) {
-        List<Composition> sortedEssentialCompositionsList = getAllCompositionsByMsuician(compositionDTO.getMusicianSlug())
+        List<Composition> sortedEssentialCompositionsList = getAllByMsuician(compositionDTO.getMusicianSlug())
                 .stream().filter(composition -> composition.getEssentialCompositionsRank() != null)
                 .sorted(Comparator.comparing(Composition::getEssentialCompositionsRank))
                 .collect(Collectors.toList());

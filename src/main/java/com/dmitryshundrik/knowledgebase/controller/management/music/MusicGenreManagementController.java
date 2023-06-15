@@ -76,7 +76,7 @@ public class MusicGenreManagementController {
         MusicGenre genre = musicGenreService.getMusicGenreBySlug(genreSlug);
         albumService.getAllAlbumsByGenre(genre)
                 .forEach(album -> album.getMusicGenres().remove(genre));
-        compositionService.getAllCompositionsByGenre(genre)
+        compositionService.getAllByGenre(genre)
                 .forEach(composition -> composition.getMusicGenres().remove(genre));
         musicGenreService.deleteMusicGenre(genre);
         return "redirect:/management/music-genre/all";

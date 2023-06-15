@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SOTY Generator</title>
+    <link th:href="@{/styles/management/tools-management.css}" rel="stylesheet">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h4>SOTY Generator</h4>
+    </header>
+
+    <div class="table-body">
+        <article class="table-body-item">
+            <form class="form" th:action="${'/management/soty-generator/generate/' + year}" th:method="post"
+                  th:object="${soty}">
+
+                <section class="form-item" th:each="pair, itemStat : *{pairList}">
+                    <section class="form-item-composition right-composition">
+                        <span th:text="${pair.firstComposition.musician.nickName + ' - ' + pair.firstComposition.title}"></span>
+                        <input class="checkbox" type="checkbox" th:field="*{pairList[__${itemStat.index}__].firstResult}"/>
+                    </section>
+                    <section class="form-item-composition left-composition">
+                        <input class="checkbox" type="checkbox"
+                               th:field="*{pairList[__${itemStat.index}__].secondResult}"/>
+                        <span th:text="${pair.secondComposition.musician.nickName + ' - ' + pair.secondComposition.title}"></span>
+                    </section>
+                </section>
+
+                <input class="input-submit" type="submit" value="Создать"/>
+            </form>
+        </article>
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>
