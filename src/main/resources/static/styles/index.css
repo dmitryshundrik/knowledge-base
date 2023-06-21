@@ -10,6 +10,8 @@
     display: flex;
     flex-direction: column;
     width: 35%;
+    background-color: #f9f7ff;
+    padding: 15px;
 }
 
 .table-body-item-title {
@@ -22,7 +24,6 @@
     flex-direction: column;
     margin: 25px 0;
     gap: 10px;
-    font-size: 17px;
 }
 
 .section-body {
@@ -49,7 +50,6 @@
 .table-body-item-row {
     display: flex;
     flex-direction: column;
-    text-align: justify;
     margin: 25px 0;
     gap: 10px;
 }

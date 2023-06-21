@@ -19,7 +19,13 @@
 
 .table-body-item-row {
     text-align: justify;
-    line-height: 26px;
+    line-height: 1.6em;
+}
+
+.table-body-item-row div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .section-title {

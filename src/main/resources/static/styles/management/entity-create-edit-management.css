@@ -33,11 +33,10 @@
 }
 
 .entity-image {
-    width: 46%;
+    width: 98%;
     height: 150px;
-    padding: 20px 100px 0 0;
-    align-self: end;
-    text-align: left;
+    padding: 20px 0;
+    text-align: center;
 }
 
 .entity-image img {

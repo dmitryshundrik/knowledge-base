@@ -17,6 +17,9 @@
 <main class="table">
 
     <header class="table-title">
+        <section class="table-title-image" th:if="${musicianViewDTO.image} != null">
+            <img th:src="|data:image;base64,${musicianViewDTO.image}|">
+        </section>
         <h1 th:text="${musicianViewDTO.nickName}"></h1>
         <h3 class="occupation" th:if="${not #strings.isEmpty(musicianViewDTO.occupation)}"
             th:text="${musicianViewDTO.occupation}"></h3>
@@ -123,7 +126,6 @@
                 <h3>Все произведения</h3>
             </header>
             <section class="table-body-item-row" th:each="composition : ${musicianViewDTO.compositions}">
-                <span th:text="${compositionStat.index + 1} + '.'"></span>
                 <span class="table-body-item-col catalog-number" th:if="${composition.catalogNumber} != null"
                       th:text="${musicianViewDTO.catalogTitle + ' ' + composition.catalogNumber}"></span>
                 <span class="table-body-item-col title" th:text="${composition.title}"></span>

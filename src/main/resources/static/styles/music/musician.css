@@ -4,16 +4,12 @@
     padding-left: 250px;
 }
 
-.occupation {
-    font-style: italic;
+.table-title-image {
+    display: none;
 }
 
-.table-title-image {
-    width: 30%;
-    max-width: 30%;
-    padding: 10px;
-    text-align: center;
-    border: 1px solid gray;
+.occupation {
+    font-style: italic;
 }
 
 .table-title-item-row {
@@ -94,6 +90,19 @@
     }
     .catalog-number {
         min-width: fit-content;
+    }
+
+    .table-title-image {
+        display: block;
+        padding: 10px;
+        border: 1px solid gray;
+        margin-bottom: 25px;
+    }
+
+    .table-title-image img {
+        display: block;
+        margin-top: auto;
+        margin-bottom: auto;
     }
 
 }

@@ -137,7 +137,7 @@ public class MusicianService {
 
     public void deleteMuscianImage(String musicianSlug) {
         Musician musicianBySlug = getMusicianBySlug(musicianSlug);
-        musicianBySlug.setImage(Constants.DEFAULT_PLACEHOLDER);
+        musicianBySlug.setImage(null);
     }
 
     public void deleteMusicianBySlug(String musicianSlug) {

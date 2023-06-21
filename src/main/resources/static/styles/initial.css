@@ -35,11 +35,6 @@ body {
     flex: 1 1 50%;
 }
 
-.table-body-item {
-    background-color: #f9f7ff;
-    padding: 15px;
-}
-
 .footer {
     display: flex;
     flex-direction: column;
@@ -58,6 +53,15 @@ body {
     color: red;
 }
 
+.archive-images {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
 @media (max-width: 1200px) {
     body {
         max-width: 970px;
@@ -74,8 +78,7 @@ body {
     body {
         max-width: none;
     }
-
     .header-menu ul {
-        gap: 30px;
+        gap: 25px;
     }
 }

@@ -22,24 +22,21 @@
 
         <article class="table-body-item">
             <section class="table-body-item-row about">
-                <header class="section-title">
-                    <h3>Описание</h3>
-                </header>
-                <span th:utext="${recipe.about}"></span>
+                <div th:utext="${recipe.about}"></div>
             </section>
 
             <section class="table-body-item-row ingredients">
                 <header class="section-title">
                     <h3>Базовые ингредиенты:</h3>
                 </header>
-                <span th:utext="${recipe.ingredients}"></span>
+                <div th:utext="${recipe.ingredients}"></div>
             </section>
 
             <section class="table-body-item-row method">
                 <header class="section-title">
                     <h3>Способ приготовления:</h3>
                 </header>
-                <span th:utext="${recipe.method}"></span>
+                <div th:utext="${recipe.method}"></div>
             </section>
         </article>
 

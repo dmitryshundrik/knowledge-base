@@ -15,10 +15,11 @@
 .table-body-item {
     display: flex;
     flex-direction: column;
-    padding: 25px 0;
     width: 46%;
     text-align: center;
     gap: 5px;
+    background-color: #f9f7ff;
+    padding: 15px;
 }
 
 .table-body-item-row {
@@ -34,6 +35,6 @@
     }
 
     .table-body-item {
-        width: 76%;
+        width: 78%;
     }
 }

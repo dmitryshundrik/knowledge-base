@@ -59,4 +59,7 @@
         border: 1px solid gray;
         gap: 0;
     }
+    .table-body-item-title {
+        border-bottom: none;
+    }
 }

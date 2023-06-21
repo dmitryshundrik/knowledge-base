@@ -123,33 +123,33 @@
             </form>
         </article>
 
-        <!--        <header class="table-title">-->
-        <!--            <h4>изменить image</h4>-->
-        <!--        </header>-->
-        <!--        <article class="table-body-item">-->
-        <!--            <form class="form"-->
-        <!--                  th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/image/upload'}"-->
-        <!--                  th:method="post"-->
-        <!--                  enctype="multipart/form-data">-->
+        <header class="table-title">
+            <h4>изменить image</h4>
+        </header>
+        <article class="table-body-item">
+            <form class="form"
+                  th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/image/upload'}"
+                  th:method="post"
+                  enctype="multipart/form-data">
 
-        <!--                <section class="form-item">-->
-        <!--                    <label>image</label>-->
-        <!--                    <input type="file" name="file" accept="image/*">-->
-        <!--                </section>-->
+                <section class="form-item">
+                    <label>image</label>
+                    <input type="file" name="file" accept="image/*">
+                </section>
 
-        <!--                <button class="input-submit" type="submit">Загрузить</button>-->
-        <!--            </form>-->
+                <button class="input-submit" type="submit">Загрузить</button>
+            </form>
 
-        <!--            <section class="entity-image">-->
-        <!--                <img alt="" th:src="|data:image;base64,${musicianCreateEditDTO.image}|">-->
-        <!--            </section>-->
+            <section class="entity-image">
+                <img alt="" th:src="|data:image;base64,${musicianCreateEditDTO.image}|">
+            </section>
 
-        <!--            <form class="form"-->
-        <!--                  th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/image/delete'}"-->
-        <!--                  th:method="delete">-->
-        <!--                <input class="input-submit" type="submit" value="Удалить">-->
-        <!--            </form>-->
-        <!--        </article>-->
+            <form class="form"
+                  th:action="${'/management/musician/edit/' + musicianCreateEditDTO.slug + '/image/delete'}"
+                  th:method="delete">
+                <input class="input-submit" type="submit" value="Удалить">
+            </form>
+        </article>
 
         <header class="table-title">
             <h4>архив events</h4>
@@ -275,7 +275,8 @@
                     <th th:text="${composition.yearEndRank}"></th>
                     <th th:text="${composition.essentialCompositionsRank}"></th>
                     <td>
-                    <span th:if="${not #lists.isEmpty(composition.musicGenres)}" th:each="genre : ${composition.musicGenres}">
+                    <span th:if="${not #lists.isEmpty(composition.musicGenres)}"
+                          th:each="genre : ${composition.musicGenres}">
                         <p th:text="${genre.title}"></p>
                     </span>
                     </td>
