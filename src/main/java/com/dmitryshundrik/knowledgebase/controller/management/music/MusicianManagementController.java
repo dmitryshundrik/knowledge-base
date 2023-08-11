@@ -95,7 +95,7 @@ public class MusicianManagementController {
 
     @DeleteMapping("/management/musician/edit/{musicianSlug}/image/delete")
     public String deleteMusicianImage(@PathVariable String musicianSlug) {
-        musicianService.deleteMuscianImage(musicianSlug);
+        musicianService.deleteMusicianImage(musicianSlug);
         return "redirect:/management/musician/edit/" + musicianSlug;
     }
 

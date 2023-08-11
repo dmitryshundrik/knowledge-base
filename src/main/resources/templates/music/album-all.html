@@ -22,13 +22,13 @@
 
         <article class="table-body-item">
             <section class="table-body-item-row" th:each="album : ${albums}">
-                    <span class="table-body-item-col" th:text="${album.created}"></span>
-                    <span class="table-body-item-col">
+                <span class="table-body-item-col" th:text="${album.created}"></span>
+                <span class="table-body-item-col">
                     <a th:text="${album.musicianNickname}"
                        th:href="'/music/musician/' + ${album.musicianSlug}"></a></span>
-                    <span class="table-body-item-col album-title"
-                          th:text="${album.title} + ' (' + ${album.year} + ')'"></span>
-                    <span class="table-body-item-col rating" th:text="${album.rating}"></span>
+                <span class="table-body-item-col album-title"
+                      th:text="${album.title} + ' (' + ${album.year} + ')'"></span>
+                <span class="table-body-item-col rating" th:text="${album.rating}"></span>
             </section>
         </article>
 

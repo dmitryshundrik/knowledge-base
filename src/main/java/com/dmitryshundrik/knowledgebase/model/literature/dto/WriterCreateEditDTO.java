@@ -1,8 +1,6 @@
-package com.dmitryshundrik.knowledgebase.model.music.dto;
+package com.dmitryshundrik.knowledgebase.model.literature.dto;
 
 import com.dmitryshundrik.knowledgebase.model.common.dto.PersonEventDTO;
-import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
-import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +13,7 @@ import java.util.List;
 @Data
 @Builder
 @AllArgsConstructor
-public class MusicianCreateEditDTO {
+public class WriterCreateEditDTO {
 
     @NotBlank(message = "slug may not be blank")
     private String slug;
@@ -33,8 +31,6 @@ public class MusicianCreateEditDTO {
 
     private Integer died;
 
-    private Integer founded;
-
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
@@ -45,23 +41,13 @@ public class MusicianCreateEditDTO {
 
     private String occupation;
 
-    private String catalogTitle;
-
-    private List<MusicPeriod> musicPeriods;
-
-    private SortType albumsSortType;
-
-    private SortType compositionsSortType;
-
-    private String spotifyLink;
-
     private List<PersonEventDTO> events;
 
-    private List<AlbumViewDTO> albums;
+    protected List<ProseViewDTO> proseList;
 
-    private List<CompositionViewDTO> compositions;
+    private List<QuoteViewDTO> quoteList;
 
-    public MusicianCreateEditDTO() {
+    public WriterCreateEditDTO() {
 
     }
 

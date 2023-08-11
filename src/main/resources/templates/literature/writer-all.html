@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>Все писатели</title>
+    <link th:href="@{/styles/literature/literature-entity-all.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h3>Все писатели</h3>
+    </header>
+
+    <div class="table-body">
+
+        <article class="table-body-item">
+            <section class="table-body-item-row" th:each="writer : ${writerList}">
+                <span class="table-body-item-col" th:if="${writer.born} != null"
+                      th:text="${writer.born}">
+                </span>
+                <span class="table-body-item-col nickname">
+                    <a th:text="${writer.nickName}" th:href="'/literature/writer/' + ${writer.slug}"></a>
+                </span>
+            </section>
+        </article>
+
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

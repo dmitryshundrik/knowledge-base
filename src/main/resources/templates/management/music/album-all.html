@@ -7,15 +7,15 @@
 </head>
 <body>
 
-<div th:insert="fragments/header.html"></div>
+<header th:insert="fragments/header.html"></header>
 
-<div class="table">
+<main class="table">
 
     <header class="table-title">
         <h4>архив album</h4>
     </header>
 
-    <main class="table-body">
+    <div class="table-body">
         <table>
             <thead>
             <tr>
@@ -64,9 +64,9 @@
             </tr>
             </tbody>
         </table>
-    </main>
+    </div>
 
-</div>
+</main>
 
 <footer th:insert="fragments/footer.html"></footer>
 

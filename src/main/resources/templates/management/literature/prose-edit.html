@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link th:href="@{/styles/management/entity-create-edit-management.css}" rel="stylesheet">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h4>изменить prose</h4>
+    </header>
+
+    <div class="table-body">
+        <article class="table-body-item">
+            <form class="form"
+                  th:action="${'/management/writer/edit/' + proseDTO.writerSlug + '/prose/edit/' + proseDTO.slug}"
+                  th:method="put"
+                  th:object="${proseDTO}">
+
+                <section class="form-item">
+                    <label>title</label>
+                    <input type="text" th:field="*{title}" maxlength="255"/>
+                </section>
+
+                <section class="form-item">
+                    <label>slug</label>
+                    <input type="text" th:field="*{slug}" maxlength="255"/>
+                </section>
+
+                <section class="form-item">
+                    <label>writer</label>
+                    <input disabled type="text" th:field="*{writerNickname}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>year</label>
+                    <input type="number" th:field="*{year}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>rating</label>
+                    <input type="number" step="0.5" th:field="*{rating}"/>
+                </section>
+
+                <section class="form-item major-field">
+                    <label>description</label>
+                    <textarea th:field="*{description}"></textarea>
+                </section>
+
+                <input class="input-submit" type="submit" value="Обновить"/>
+            </form>
+        </article>
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

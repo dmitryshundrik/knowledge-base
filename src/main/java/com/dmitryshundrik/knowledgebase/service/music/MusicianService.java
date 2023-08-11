@@ -4,7 +4,6 @@ import com.dmitryshundrik.knowledgebase.model.music.*;
 import com.dmitryshundrik.knowledgebase.model.music.dto.*;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
 import com.dmitryshundrik.knowledgebase.service.common.PersonEventService;
-import com.dmitryshundrik.knowledgebase.util.Constants;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,7 +134,7 @@ public class MusicianService {
         }
     }
 
-    public void deleteMuscianImage(String musicianSlug) {
+    public void deleteMusicianImage(String musicianSlug) {
         Musician musicianBySlug = getMusicianBySlug(musicianSlug);
         musicianBySlug.setImage(null);
     }

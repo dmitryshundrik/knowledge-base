@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>Проза</title>
+    <link th:href="@{/styles/literature/literature-entity-all.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h3>Проза</h3>
+    </header>
+
+    <div class="table-body">
+
+        <article class="table-body-item">
+            <section class="table-body-item-row" th:each="prose : ${proseList}">
+                <span th:text="${prose.created}"></span>
+                <a th:text="${prose.writerNickname}" th:href="'/literature/writer/' + ${prose.writerSlug}"></a>
+                <span th:text="${prose.title}"></span>
+                <span class="table-body-item-col year" th:if="${prose.year} != null"
+                      th:text="'(' + ${prose.year} + ')'"></span>
+            </section>
+        </article>
+
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

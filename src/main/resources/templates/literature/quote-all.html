@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>Цитаты</title>
+    <link th:href="@{/styles/literature/literature-entity-all.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h3>Цитаты</h3>
+    </header>
+
+    <div class="table-body">
+
+        <article class="table-body-item">
+            <section class="table-body-item-row quote-all" th:each="quote : ${quoteList}">
+                <span th:text="${quote.created}"></span>
+                <div class="description">
+                    <span th:text="${quote.description}"></span>
+                </div>
+                <div class="author">
+                    <a th:text="${quote.writerNickname}"
+                          th:href="'/literature/writer/' + ${quote.writerSlug}"></a>
+                    <span th:text="'«' + ${quote.proseTitle} + '»'"></span>
+                    <span th:if="${not #strings.isEmpty(quote.location)}" th:text="', ' + ${quote.location}"></span>
+                </div>
+            </section>
+        </article>
+
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

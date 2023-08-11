@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link th:href="@{/styles/management/entity-create-edit-management.css}" rel="stylesheet">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h4>изменить writer</h4>
+    </header>
+
+    <div class="table-body">
+        <article class="table-body-item">
+            <form class="form"
+                  th:action="${'/management/writer/edit/' + writerDTO.slug}"
+                  th:method="put"
+                  th:object="${writerDTO}">
+
+                <section class="form-item">
+                    <label>nick_name</label>
+                    <input type="text" th:field="*{nickName}" maxlength="255"/>
+                </section>
+
+                <section class="form-item">
+                    <label>slug</label>
+                    <input type="text" th:field="*{slug}" maxlength="255"/>
+                </section>
+
+                <section class="form-item">
+                    <label>first name</label>
+                    <input type="text" th:field="*{firstName}" maxlength="255"/>
+                </section>
+
+                <section class="form-item">
+                    <label>last name</label>
+                    <input type="text" th:field="*{lastName}" maxlength="255"/>
+                </section>
+
+                <section class="form-item">
+                    <label>born</label>
+                    <input type="number" th:field="*{born}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>died</label>
+                    <input type="number" th:field="*{died}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>birthday</label>
+                    <input type="date" th:field="*{birthDate}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>deathday</label>
+                    <input type="date" th:field="*{deathDate}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>birthplace</label>
+                    <input type="text" th:field="*{birthplace}" maxlength="255"/>
+                </section>
+
+                <section class="form-item">
+                    <label>occupation</label>
+                    <input type="text" th:field="*{occupation}" maxlength="255"/>
+                </section>
+
+                <input class="input-submit" type="submit" value="Обновить"/>
+            </form>
+        </article>
+
+        <header class="table-title">
+            <h4>изменить image</h4>
+        </header>
+        <article class="table-body-item">
+            <form class="form"
+                  th:action="${'/management/writer/edit/' + writerDTO.slug + '/image/upload'}"
+                  th:method="post"
+                  enctype="multipart/form-data">
+
+                <section class="form-item">
+                    <label>image</label>
+                    <input type="file" name="file" accept="image/*">
+                </section>
+
+                <button class="input-submit" type="submit">Загрузить</button>
+            </form>
+
+            <section class="entity-image">
+                <img alt="" th:src="|data:image;base64,${writerDTO.image}|">
+            </section>
+
+            <form class="form"
+                  th:action="${'/management/writer/edit/' + writerDTO.slug + '/image/delete'}"
+                  th:method="delete">
+                <input class="input-submit" type="submit" value="Удалить">
+            </form>
+        </article>
+
+        <header class="table-title">
+            <h4>архив events</h4>
+            <a target="_blank"
+               th:href="${'/management/writer/edit/' + writerDTO.slug + '/event/create'}">создать
+                event</a>
+        </header>
+        <article class="table-body-item">
+            <table>
+                <thead>
+                <tr>
+                    <th>created</th>
+                    <th>year</th>
+                    <th>description</th>
+                    <th>edit</th>
+                    <th>delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="personEvent : ${writerDTO.events}">
+                    <th th:text="${personEvent.created}"></th>
+                    <th th:text="${personEvent.year}"></th>
+                    <th th:text="${personEvent.description}"></th>
+                    <th class="td-settings">
+                        <a target="_blank"
+                           th:href="${'/management/writer/edit/' + writerDTO.slug + '/event/edit/' + personEvent.id}">edit</a>
+                    </th>
+                    <th class="td-settings">
+                        <form th:action="${'/management/writer/edit/' + writerDTO.slug + '/event/delete/' + personEvent.id}"
+                              th:method="delete">
+                            <input type="submit" value="delete"
+                                   th:data-confirm-delete="|Are you sure you want to delete this event?|"
+                                   onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
+                        </form>
+                    </th>
+                </tr>
+                </tbody>
+            </table>
+        </article>
+
+        <header class="table-title">
+            <h4>архив prose</h4>
+            <a target="_blank"
+               th:href="${'/management/writer/edit/' + writerDTO.slug + '/prose/create'}">создать
+                prose</a>
+        </header>
+        <article class="table-body-item">
+            <table>
+                <thead>
+                <tr>
+                    <th>created</th>
+                    <th>year</th>
+                    <th>title</th>
+                    <th>rating</th>
+                    <th>edit</th>
+                    <th>delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="prose : ${writerDTO.proseList}">
+                    <th th:text="${prose.created}"></th>
+                    <th th:text="${prose.year}"></th>
+                    <th th:text="${prose.title}"></th>
+                    <th th:text="${prose.rating}"></th>
+                    <th class="td-settings">
+                        <a target="_blank"
+                           th:href="${'/management/writer/edit/' + writerDTO.slug + '/prose/edit/' + prose.slug}">edit</a>
+                    </th>
+                    <th class="td-settings">
+                        <form th:action="${'/management/writer/edit/' + writerDTO.slug + '/prose/delete/' + prose.slug}"
+                              th:method="delete">
+                            <input type="submit" value="delete"
+                                   th:data-confirm-delete="|Are you sure you want to delete this prose?|"
+                                   onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
+                        </form>
+                    </th>
+                </tr>
+                </tbody>
+            </table>
+        </article>
+
+        <header class="table-title">
+            <h4>архив quotes</h4>
+            <a target="_blank"
+               th:href="${'/management/writer/edit/' + writerDTO.slug + '/quote/create'}">создать
+                quote</a>
+        </header>
+        <article class="table-body-item">
+            <table>
+                <thead>
+                <tr>
+                    <th>created</th>
+                    <th>prose</th>
+                    <th>description</th>
+                    <th>edit</th>
+                    <th>delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="quote : ${writerDTO.quoteList}">
+                    <th th:text="${quote.created}"></th>
+                    <th th:text="${quote.proseTitle}"></th>
+                    <th th:text="${quote.description}"></th>
+                    <th class="td-settings">
+                        <a target="_blank"
+                           th:href="${'/management/writer/edit/' + writerDTO.slug + '/quote/edit/' + quote.id}">edit</a>
+                    </th>
+                    <th class="td-settings">
+                        <form th:action="${'/management/writer/edit/' + writerDTO.slug + '/quote/delete/' + quote.id}"
+                              th:method="delete">
+                            <input type="submit" value="delete"
+                                   th:data-confirm-delete="|Are you sure you want to delete this quote?|"
+                                   onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
+                        </form>
+                    </th>
+                </tr>
+                </tbody>
+            </table>
+        </article>
+
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>
