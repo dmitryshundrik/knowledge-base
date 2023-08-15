@@ -11,6 +11,24 @@ import java.io.*;
 @Controller
 public class SitemapController {
 
+    @GetMapping("/robots.txt")
+    public void getRobots(HttpServletResponse response) {
+        String sitemap = "";
+        try {
+            sitemap = IOUtils.toString(new InputStreamReader(this.getClass().getClassLoader().
+                    getResourceAsStream("robots.txt")));
+
+            response.setContentType("text/plain");
+            ServletOutputStream outStream = response.getOutputStream();
+            outStream.println(sitemap);
+            outStream.flush();
+            outStream.close();
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     @GetMapping("/sitemap.xml")
     public void getSitemap(HttpServletResponse response) {
         String sitemap = "";
