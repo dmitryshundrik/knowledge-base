@@ -24,6 +24,7 @@
                 <th>writer</th>
                 <th>prose</th>
                 <th>location</th>
+                <th>page</th>
                 <th>description</th>
                 <th>edit</th>
                 <th>delete</th>
@@ -31,11 +32,12 @@
             </thead>
             <tbody>
             <tr th:each="quote : ${quoteList}">
-                <th th:text="${quoteStat.index + 1}"></th>
+                <th th:text="${quoteList.size - quoteStat.index}"></th>
                 <td th:text="${quote.created}"></td>
                 <td th:text="${quote.writerNickname}"></td>
                 <td th:text="${quote.proseTitle}"></td>
                 <td th:text="${quote.location}"></td>
+                <td th:text="${quote.page}"></td>
                 <td th:text="${quote.description}"></td>
                 <td class="td-settings">
                     <a target="_blank"

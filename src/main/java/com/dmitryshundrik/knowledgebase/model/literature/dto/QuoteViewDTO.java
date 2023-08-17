@@ -21,6 +21,8 @@ public class QuoteViewDTO {
 
     private String location;
 
+    private Integer page;
+
     private String description;
 
 }

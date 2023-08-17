@@ -24,9 +24,9 @@ public class WriterManagementController {
 
     @GetMapping("/management/writer/all")
     public String getAllWriters(Model model) {
-        List<Writer> writerList = writerService.getAll();
+        List<Writer> writerList = writerService.getAllSortedByCreatedDesc();
         List<WriterViewDTO> writerViewDTOList = writerService.getWriterViewDTOList(writerList);
-        model.addAttribute("writers", writerViewDTOList);
+        model.addAttribute("writerList", writerViewDTOList);
         return "management/literature/writer-archive";
     }
 

@@ -27,7 +27,7 @@ public class QuoteService {
         return quoteRepository.findAll();
     }
 
-    public List<Quote> getAllByOrderByCreatedDesc() {
+    public List<Quote> getAllSortedByCreatedDesc() {
         return quoteRepository.getAllByOrderByCreatedDesc();
     }
 
@@ -41,6 +41,7 @@ public class QuoteService {
         quote.setWriter(writer);
         quote.setProse(prose);
         quote.setLocation(quoteDTO.getLocation());
+        quote.setPage(quoteDTO.getPage());
         quote.setDescription(quoteDTO.getDescription());
         return quoteRepository.save(quote);
     }
@@ -49,6 +50,7 @@ public class QuoteService {
         Quote byId = getById(quoteId);
         byId.setProse(prose);
         byId.setLocation(quoteDTO.getLocation().trim());
+        byId.setPage(quoteDTO.getPage());
         byId.setDescription(quoteDTO.getDescription().trim());
         return byId;
     }
@@ -67,6 +69,7 @@ public class QuoteService {
                 .proseTitle(!(quote.getProse() == null) ? quote.getProse().getTitle() : null)
                 .proseSlug(!(quote.getProse() == null) ? quote.getProse().getSlug() : null)
                 .location(quote.getLocation())
+                .page(quote.getPage())
                 .description(quote.getDescription())
                 .build();
     }
@@ -84,8 +87,13 @@ public class QuoteService {
                 .writerSlug(quote.getWriter().getSlug())
                 .proseId(quote.getProse() == null ? null : quote.getProse().getId().toString())
                 .location(quote.getLocation())
+                .page(quote.getPage())
                 .description(quote.getDescription())
                 .build();
+    }
+
+    public List<Quote> getLatestUpdate() {
+        return quoteRepository.findFirst10ByOrderByCreatedDesc();
     }
 
 }

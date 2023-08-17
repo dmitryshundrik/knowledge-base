@@ -25,6 +25,8 @@ public class Quote {
 
     private String location;
 
+    private Integer page;
+
     @Column(columnDefinition = "text")
     private String description;
 

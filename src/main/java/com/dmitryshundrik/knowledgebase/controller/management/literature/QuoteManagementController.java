@@ -30,8 +30,8 @@ public class QuoteManagementController {
 
 
     @GetMapping("/management/quote/all")
-    public String getAllWQuotes(Model model) {
-        List<Quote> quoteList = quoteService.getAllByOrderByCreatedDesc();
+    public String getAllQuotes(Model model) {
+        List<Quote> quoteList = quoteService.getAllSortedByCreatedDesc();
         List<QuoteViewDTO> quoteViewDTOList = quoteService.getQuoteViewDTOList(quoteList);
         model.addAttribute("quoteList", quoteViewDTOList);
         return "management/literature/quote-archive";

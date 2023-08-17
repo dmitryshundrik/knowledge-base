@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -45,6 +46,17 @@ public class LiteraturePageController {
         return "literature/writer-all";
     }
 
+    @GetMapping("/writer/{slug}")
+    public String getWriter(@PathVariable String slug, Model model) {
+        Writer bySlug = writerService.getBySlug(slug);
+        WriterViewDTO writerViewDTO = writerService.getWriterViewDTO(bySlug);
+        List<Prose> allByWriterSortedByRating = proseService.getAllByWriterSortedByRating(bySlug);
+        List<ProseViewDTO> sortedProseViewDTOList = proseService.getProseViewDTOList(allByWriterSortedByRating);
+        model.addAttribute("writerDTO", writerViewDTO);
+        model.addAttribute("bestProseList", sortedProseViewDTOList);
+        return "literature/writer";
+    }
+
     @GetMapping("/prose/all")
     public String getAllProse(Model model) {
         List<Prose> proseList = proseService.getAll();
@@ -55,7 +67,7 @@ public class LiteraturePageController {
 
     @GetMapping("/quote/all")
     public String getAllQuotes(Model model) {
-        List<Quote> quoteList = quoteService.getAllByOrderByCreatedDesc();
+        List<Quote> quoteList = quoteService.getAllSortedByCreatedDesc();
         List<QuoteViewDTO> quoteViewDTOList = quoteService.getQuoteViewDTOList(quoteList);
         model.addAttribute("quoteList", quoteViewDTOList);
         return "literature/quote-all";

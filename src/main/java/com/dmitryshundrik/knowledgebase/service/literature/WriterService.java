@@ -36,6 +36,10 @@ public class WriterService {
         return writerRepository.findAll();
     }
 
+    public List<Writer> getAllSortedByCreatedDesc() {
+        return writerRepository.getAllByOrderByCreatedDesc();
+    }
+
     public Writer getBySlug(String writerSlug) {
         return writerRepository.findBySlug(writerSlug);
     }
@@ -85,7 +89,7 @@ public class WriterService {
                 .birthplace(writer.getBirthplace())
                 .occupation(writer.getOccupation())
                 .events(personEventService.getPersonEventDTOList(writer.getEvents()))
-                .proseList(proseService.getProseViewDTOList(writer.getProseList()))
+                .proseList(proseService.getProseViewDTOList(proseService.getAllByWriterSortedByYear(writer)))
                 .quoteList(quoteService.getQuoteViewDTOList(writer.getQuoteList()))
                 .build();
     }
@@ -134,4 +138,9 @@ public class WriterService {
         }
         return message;
     }
+
+    public List<Writer> getLatestUpdate() {
+        return writerRepository.findFirst10ByOrderByCreatedDesc();
+    }
+
 }

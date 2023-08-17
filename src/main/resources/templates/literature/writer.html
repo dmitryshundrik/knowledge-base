@@ -3,8 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <title th:text="${writerDTO.nickName}"></title>
+    <link th:href="@{/styles/literature/writer.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
 </head>
 <body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <section class="table-title-image" th:if="${writerDTO.image} != null">
+            <img th:src="|data:image;base64,${writerDTO.image}|">
+        </section>
+        <h1 th:text="${writerDTO.nickName}"></h1>
+        <h3 class="occupation" th:if="${not #strings.isEmpty(writerDTO.occupation)}"
+            th:text="${writerDTO.occupation}"></h3>
+    </header>
+
+    <div class="table-body">
+        <article class="table-body-item">
+            <header class="table-body-item-title">
+                <h3>Инфо</h3>
+            </header>
+
+            <section class="table-title-item-row"
+                     th:if="${writerDTO.born} != null and ${writerDTO.died} == null">
+                <span>Дата рождения:</span>
+                <span th:text="${writerDTO.born}"></span>
+            </section>
+
+            <section class="table-title-item-row"
+                     th:if="${writerDTO.born} != null and ${writerDTO.died} != null">
+                <span>Годы жизни:</span>
+                <span th:text="${writerDTO.born} + ' - ' + ${writerDTO.died}"></span>
+            </section>
+
+
+            <section class="table-title-item-row" th:if="${not #strings.isEmpty(writerDTO.birthplace)}">
+                <span>Место рождения:</span>
+                <span th:text="${writerDTO.birthplace}"></span>
+            </section>
+        </article>
+
+        <article class="table-body-item" th:if="${not #lists.isEmpty(writerDTO.events)}">
+            <header class="table-body-item-title">
+                <h3>Таймлайн</h3>
+            </header>
+            <section class="table-body-item-row" th:each="timelineEvent : ${writerDTO.events}">
+                <span class="timeline-text" th:text="${timelineEvent.description}"></span>
+            </section>
+        </article>
+
+        <article class="table-body-item" th:if="${not #lists.isEmpty(bestProseList)}">
+            <header class="table-body-item-title">
+                <h3>Лучшее</h3>
+            </header>
+            <section class="table-body-item-row" th:each="prose : ${bestProseList}">
+                <span th:text="${proseStat.index + 1} + '.'"></span>
+                <span th:text="${prose.title}"></span>
+                <span class="rating" th:text="${prose.rating}"></span>
+            </section>
+        </article>
+
+        <article class="table-body-item" th:if="${not #lists.isEmpty(writerDTO.proseList)}">
+            <header class="table-body-item-title">
+                <h3>Произведения</h3>
+            </header>
+            <section class="table-body-item-row" th:each="prose : ${writerDTO.proseList}">
+                <span th:if="${prose.year} != null" th:text="${prose.year}"></span>
+                <span th:if="${prose.year} == null">????</span>
+                <span th:text="${prose.title}"></span>
+            </section>
+        </article>
+
+        <article class="table-body-item" th:if="${not #lists.isEmpty(writerDTO.quoteList)}">
+            <header class="table-body-item-title">
+                <h3>Цитаты</h3>
+            </header>
+            <section class="table-body-item-row quote-all" th:each="quote : ${writerDTO.quoteList}">
+                <div class="description">
+                    <span th:text="${quote.description}"></span>
+                </div>
+                <div class="author">
+                    <span th:text="'«' + ${quote.proseTitle} + '»'"></span>
+                    <span th:if="${not #strings.isEmpty(quote.location)}" th:text="', ' + ${quote.location}"></span>
+                </div>
+            </section>
+        </article>
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
 
 </body>
 </html>

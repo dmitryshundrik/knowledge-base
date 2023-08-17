@@ -3,11 +3,17 @@ package com.dmitryshundrik.knowledgebase.service.common;
 import com.dmitryshundrik.knowledgebase.model.common.EntityUpdateInfo;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.Recipe;
+import com.dmitryshundrik.knowledgebase.model.literature.Prose;
+import com.dmitryshundrik.knowledgebase.model.literature.Quote;
+import com.dmitryshundrik.knowledgebase.model.literature.Writer;
 import com.dmitryshundrik.knowledgebase.model.music.Album;
 import com.dmitryshundrik.knowledgebase.model.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
+import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
+import com.dmitryshundrik.knowledgebase.service.literature.QuoteService;
+import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
@@ -38,16 +44,28 @@ public class EntityUpdateInfoService {
     @Autowired
     private CocktailService cocktailService;
 
+    @Autowired
+    private WriterService writerService;
+
+    @Autowired
+    private ProseService proseService;
+
+    @Autowired
+    private QuoteService quoteService;
+
     public List<EntityUpdateInfo> getAll() {
-        List<EntityUpdateInfo> allUpdateInfos = new ArrayList<>();
+        List<EntityUpdateInfo> allUpdateInfo = new ArrayList<>();
 
-        allUpdateInfos.addAll(getMusicianUpdates());
-        allUpdateInfos.addAll(getAlbumUpdates());
-        allUpdateInfos.addAll(getCompositionUpdates());
-        allUpdateInfos.addAll(getRecipeUpdates());
-        allUpdateInfos.addAll(getCocktailUpdates());
+        allUpdateInfo.addAll(getMusicianUpdates());
+        allUpdateInfo.addAll(getAlbumUpdates());
+        allUpdateInfo.addAll(getCompositionUpdates());
+        allUpdateInfo.addAll(getRecipeUpdates());
+        allUpdateInfo.addAll(getCocktailUpdates());
+        allUpdateInfo.addAll(getWriterUpdates());
+        allUpdateInfo.addAll(getProseUpdates());
+        allUpdateInfo.addAll(getQuoteUpdates());
 
-        return allUpdateInfos.stream()
+        return allUpdateInfo.stream()
                 .sorted((o1, o2) -> o2.getCreated().compareTo(o1.getCreated()))
                 .limit(20)
                 .collect(Collectors.toList());
@@ -121,6 +139,48 @@ public class EntityUpdateInfoService {
                     .build());
         }
         return cocktailUpdateInfo;
+    }
+
+    private List<EntityUpdateInfo> getWriterUpdates() {
+        List<EntityUpdateInfo> writerUpdateInfo = new ArrayList<>();
+        List<Writer> latestUpdate = writerService.getLatestUpdate();
+        for (Writer writer : latestUpdate) {
+            writerUpdateInfo.add(EntityUpdateInfo.builder()
+                    .created(writer.getCreated())
+                    .archiveSection("литература:")
+                    .description("писатель " + writer.getNickName())
+                    .link("literature/writer/" + writer.getSlug())
+                    .build());
+        }
+        return writerUpdateInfo;
+    }
+
+    private List<EntityUpdateInfo> getProseUpdates() {
+        List<EntityUpdateInfo> proseUpdateInfo = new ArrayList<>();
+        List<Prose> latestUpdate = proseService.getLatestUpdate();
+        for (Prose prose : latestUpdate) {
+            proseUpdateInfo.add(EntityUpdateInfo.builder()
+                    .created(prose.getCreated())
+                    .archiveSection("литература:")
+                    .description("произведение " + prose.getTitle() + " добавлено в архив " + prose.getWriter().getNickName())
+                    .link("literature/writer/" + prose.getWriter().getSlug())
+                    .build());
+        }
+        return proseUpdateInfo;
+    }
+
+    private List<EntityUpdateInfo> getQuoteUpdates() {
+        List<EntityUpdateInfo> quoteUpdateInfo = new ArrayList<>();
+        List<Quote> latestUpdate = quoteService.getLatestUpdate();
+        for (Quote quote : latestUpdate) {
+            quoteUpdateInfo.add(EntityUpdateInfo.builder()
+                    .created(quote.getCreated())
+                    .archiveSection("литература:")
+                    .description("цитата из «" + quote.getProse().getTitle() + "» добавлена в архив " + quote.getWriter().getNickName())
+                    .link("literature/writer/" + quote.getWriter().getSlug())
+                    .build());
+        }
+        return quoteUpdateInfo;
     }
 
 }

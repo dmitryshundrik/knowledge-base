@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -41,9 +42,24 @@ public class ProseService {
         return proseRepository.getAllByWriter(writer);
     }
 
+    public List<Prose> getAllByWriterSortedByRating(Writer writer) {
+        List<Prose> allByWriter = getAllByWriter(writer);
+        return allByWriter.stream()
+                .sorted((o1, o2) -> o2.getYear().compareTo(o1.getYear()))
+                .limit(5)
+                .collect(Collectors.toList());
+    }
+
+    public List<Prose> getAllByWriterSortedByYear(Writer writer) {
+        return writer.getProseList().stream()
+                .sorted(Comparator.comparing(Prose::getYear))
+                .collect(Collectors.toList());
+    }
+
     public List<ProseViewDTO> getAllProseSortedByCreatedDesc() {
         return getProseViewDTOList(proseRepository.getAllByOrderByCreatedDesc());
     }
+
 
     public Prose createProse(Writer writer, ProseCreateEditDTO proseDTO) {
         Prose prose = new Prose();
@@ -122,5 +138,9 @@ public class ProseService {
             message = "slug is already exist";
         }
         return message;
+    }
+
+    public List<Prose> getLatestUpdate() {
+        return proseRepository.findFirst10ByOrderByCreatedDesc();
     }
 }

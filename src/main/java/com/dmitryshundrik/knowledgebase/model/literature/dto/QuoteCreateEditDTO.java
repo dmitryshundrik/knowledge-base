@@ -19,6 +19,8 @@ public class QuoteCreateEditDTO {
 
     private String location;
 
+    private Integer page;
+
     private String description;
 
     public QuoteCreateEditDTO () {

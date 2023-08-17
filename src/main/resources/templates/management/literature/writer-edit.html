@@ -196,6 +196,7 @@
                 <tr>
                     <th>created</th>
                     <th>prose</th>
+                    <th>page</th>
                     <th>description</th>
                     <th>edit</th>
                     <th>delete</th>
@@ -205,6 +206,7 @@
                 <tr th:each="quote : ${writerDTO.quoteList}">
                     <th th:text="${quote.created}"></th>
                     <th th:text="${quote.proseTitle}"></th>
+                    <th th:text="${quote.page}"></th>
                     <th th:text="${quote.description}"></th>
                     <th class="td-settings">
                         <a target="_blank"

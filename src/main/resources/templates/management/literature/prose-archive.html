@@ -32,7 +32,7 @@
             </thead>
             <tbody>
             <tr th:each="prose : ${proseList}">
-                <th th:text="${proseStat.index + 1}"></th>
+                <th th:text="${proseList.size - proseStat.index}"></th>
                 <td th:text="${prose.created}"></td>
                 <td th:text="${prose.title}"></td>
                 <td th:text="${prose.slug}"></td>

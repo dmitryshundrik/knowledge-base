@@ -2,7 +2,6 @@ package com.dmitryshundrik.knowledgebase.repository.literature;
 
 import com.dmitryshundrik.knowledgebase.model.literature.Prose;
 import com.dmitryshundrik.knowledgebase.model.literature.Writer;
-import com.dmitryshundrik.knowledgebase.model.music.Album;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -19,4 +18,5 @@ public interface ProseRepository extends JpaRepository<Prose, UUID> {
 
     List<Prose> getAllByWriter(Writer writer);
 
+    List<Prose>findFirst10ByOrderByCreatedDesc();
 }
