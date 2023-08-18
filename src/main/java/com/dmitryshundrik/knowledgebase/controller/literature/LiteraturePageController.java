@@ -59,7 +59,7 @@ public class LiteraturePageController {
 
     @GetMapping("/prose/all")
     public String getAllProse(Model model) {
-        List<Prose> proseList = proseService.getAll();
+        List<Prose> proseList = proseService.getAllSortedByYear();
         List<ProseViewDTO> proseViewDTOList = proseService.getProseViewDTOList(proseList);
         model.addAttribute("proseList", proseViewDTOList);
         return "literature/prose-all";

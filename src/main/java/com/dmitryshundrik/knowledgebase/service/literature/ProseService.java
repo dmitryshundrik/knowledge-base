@@ -30,6 +30,13 @@ public class ProseService {
         return proseRepository.findAll();
     }
 
+    public List<Prose> getAllSortedByYear() {
+        List<Prose> all = getAll();
+        return all.stream()
+                .sorted(Comparator.comparing(Prose::getYear))
+                .collect(Collectors.toList());
+    }
+
     public Prose getBySlug(String proseSlug) {
         return proseRepository.getBySlug(proseSlug);
     }

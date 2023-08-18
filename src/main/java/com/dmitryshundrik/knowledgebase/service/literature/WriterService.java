@@ -90,7 +90,7 @@ public class WriterService {
                 .occupation(writer.getOccupation())
                 .events(personEventService.getPersonEventDTOList(writer.getEvents()))
                 .proseList(proseService.getProseViewDTOList(proseService.getAllByWriterSortedByYear(writer)))
-                .quoteList(quoteService.getQuoteViewDTOList(writer.getQuoteList()))
+                .quoteList(quoteService.getQuoteViewDTOList(quoteService.getAllByWriterSortedByYearAndPage(writer)))
                 .build();
     }
 
@@ -113,8 +113,8 @@ public class WriterService {
                 .birthplace(writer.getBirthplace())
                 .occupation(writer.getOccupation())
                 .events(personEventService.getPersonEventDTOList(writer.getEvents()))
-                .proseList(proseService.getProseViewDTOList(writer.getProseList()))
-                .quoteList(quoteService.getQuoteViewDTOList(writer.getQuoteList()))
+                .proseList(proseService.getProseViewDTOList(proseService.getAllByWriterSortedByYear(writer)))
+                .quoteList(quoteService.getQuoteViewDTOList(quoteService.getAllByWriterSortedByCreated(writer)))
                 .build();
     }
 

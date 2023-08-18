@@ -1,6 +1,7 @@
 package com.dmitryshundrik.knowledgebase.repository.literature;
 
 import com.dmitryshundrik.knowledgebase.model.literature.Quote;
+import com.dmitryshundrik.knowledgebase.model.literature.Writer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -10,6 +11,8 @@ public interface QuoteRepository extends JpaRepository<Quote, UUID> {
 
     List<Quote> getAllByOrderByCreatedDesc();
 
-    List<Quote>findFirst10ByOrderByCreatedDesc();
+    List<Quote> findFirst10ByOrderByCreatedDesc();
+
+    List<Quote> findAllByWriter(Writer writer);
 
 }

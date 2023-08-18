@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -29,6 +30,20 @@ public class QuoteService {
 
     public List<Quote> getAllSortedByCreatedDesc() {
         return quoteRepository.getAllByOrderByCreatedDesc();
+    }
+
+    public List<Quote> getAllByWriterSortedByYearAndPage(Writer writer) {
+        List<Quote> allByWriter = quoteRepository.findAllByWriter(writer);
+        return allByWriter.stream()
+                .sorted(Comparator.comparing(o -> o.getProse().getYear()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Quote> getAllByWriterSortedByCreated(Writer writer) {
+        List<Quote> allByWriter = quoteRepository.findAllByWriter(writer);
+        return allByWriter.stream()
+                .sorted((o1, o2) -> o2.getCreated().compareTo(o1.getCreated()))
+                .collect(Collectors.toList());
     }
 
     public Quote getById(String quoteId) {
