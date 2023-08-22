@@ -15,6 +15,8 @@ public class EntityUpdateInfo {
 
     private String description;
 
+    private boolean isNew;
+
     private String link;
 
 }

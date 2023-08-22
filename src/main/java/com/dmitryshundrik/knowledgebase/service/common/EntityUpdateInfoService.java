@@ -21,6 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +30,8 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class EntityUpdateInfoService {
+
+    private static final Integer DAYS_UPDATES = 3;
 
     @Autowired
     private MusicianService musicianService;
@@ -64,6 +68,11 @@ public class EntityUpdateInfoService {
         allUpdateInfo.addAll(getWriterUpdates());
         allUpdateInfo.addAll(getProseUpdates());
         allUpdateInfo.addAll(getQuoteUpdates());
+
+        Instant instant = Instant.now().minus(DAYS_UPDATES, ChronoUnit.DAYS);
+        for (EntityUpdateInfo entityUpdateInfo : allUpdateInfo) {
+            entityUpdateInfo.setNew(entityUpdateInfo.getCreated().isAfter(instant));
+        }
 
         return allUpdateInfo.stream()
                 .sorted((o1, o2) -> o2.getCreated().compareTo(o1.getCreated()))
@@ -176,7 +185,7 @@ public class EntityUpdateInfoService {
             quoteUpdateInfo.add(EntityUpdateInfo.builder()
                     .created(quote.getCreated())
                     .archiveSection("литература:")
-                    .description("цитата из «" + quote.getProse().getTitle() + "» добавлена в архив " + quote.getWriter().getNickName())
+                    .description("цитата " + (quote.getProse() == null ? "" : "из «" + quote.getProse().getTitle() + "» ") + "добавлена в архив " + quote.getWriter().getNickName())
                     .link("literature/writer/" + quote.getWriter().getSlug())
                     .build());
         }

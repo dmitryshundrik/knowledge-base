@@ -140,7 +140,7 @@ public class WriterService {
     }
 
     public List<Writer> getLatestUpdate() {
-        return writerRepository.findFirst10ByOrderByCreatedDesc();
+        return writerRepository.findFirst20ByOrderByCreatedDesc();
     }
 
 }

@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
-import java.util.Comparator;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,10 +31,19 @@ public class QuoteService {
     }
 
     public List<Quote> getAllByWriterSortedByYearAndPage(Writer writer) {
-        List<Quote> allByWriter = quoteRepository.findAllByWriter(writer);
-        return allByWriter.stream()
-                .sorted(Comparator.comparing(o -> o.getProse().getYear()))
-                .collect(Collectors.toList());
+        List<Quote> allQuotes = quoteRepository.findAllByWriter(writer);
+        List<Prose> allSortedProse = allQuotes.stream()
+                .filter(quote -> quote.getProse() != null)
+                .map(Quote::getProse).distinct()
+                .sorted(Comparator.comparing(Prose::getYear)).collect(Collectors.toList());
+
+        List<Quote> allSortedQuotes = new ArrayList<>();
+        for (Prose prose : allSortedProse) {
+            prose.getQuoteList().sort(Comparator.comparing(Quote::getPage));
+            allSortedQuotes.addAll(prose.getQuoteList());
+        }
+        allSortedQuotes.addAll(allQuotes.stream().filter(quote -> quote.getProse() == null).collect(Collectors.toList()));
+        return allSortedQuotes;
     }
 
     public List<Quote> getAllByWriterSortedByCreated(Writer writer) {
@@ -108,7 +115,7 @@ public class QuoteService {
     }
 
     public List<Quote> getLatestUpdate() {
-        return quoteRepository.findFirst10ByOrderByCreatedDesc();
+        return quoteRepository.findFirst20ByOrderByCreatedDesc();
     }
 
 }

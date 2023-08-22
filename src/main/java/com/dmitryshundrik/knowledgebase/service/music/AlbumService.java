@@ -218,7 +218,7 @@ public class AlbumService {
     }
 
     public List<Album> getLatestUpdate() {
-        return albumRepository.findFirst10ByOrderByCreatedDesc();
+        return albumRepository.findFirst20ByOrderByCreatedDesc();
     }
 
 }

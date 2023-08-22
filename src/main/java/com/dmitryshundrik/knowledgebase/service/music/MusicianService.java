@@ -281,7 +281,7 @@ public class MusicianService {
     }
 
     public List<Musician> getLatestUpdate() {
-        return musicianRepository.findFirst10ByOrderByCreatedDesc();
+        return musicianRepository.findFirst20ByOrderByCreatedDesc();
     }
 
 }

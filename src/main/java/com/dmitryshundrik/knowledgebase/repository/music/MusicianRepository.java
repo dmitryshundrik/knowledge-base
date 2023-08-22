@@ -18,6 +18,6 @@ public interface MusicianRepository extends JpaRepository<Musician, UUID> {
 
     void deleteBySlug(String slug);
 
-    List<Musician> findFirst10ByOrderByCreatedDesc();
+    List<Musician> findFirst20ByOrderByCreatedDesc();
 
 }

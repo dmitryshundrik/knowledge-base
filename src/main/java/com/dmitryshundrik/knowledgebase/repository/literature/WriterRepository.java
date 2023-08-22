@@ -14,6 +14,6 @@ public interface WriterRepository extends JpaRepository<Writer, UUID> {
 
     List<Writer> getAllByOrderByCreatedDesc();
 
-    List<Writer>findFirst10ByOrderByCreatedDesc();
+    List<Writer> findFirst20ByOrderByCreatedDesc();
 
 }

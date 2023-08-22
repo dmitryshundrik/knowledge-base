@@ -64,6 +64,7 @@
                 <span th:each="update : ${latestUpdates}">
                     <span class="update-section" th:text="${update.archiveSection}"></span>
                     <a class="update-link-description" th:href="${update.link}" th:text="${update.description}"></a>
+                    <span class="update-is-new" th:if="${update.isNew}" th:text=" NEW "></span>
                 </span>
 
             </section>

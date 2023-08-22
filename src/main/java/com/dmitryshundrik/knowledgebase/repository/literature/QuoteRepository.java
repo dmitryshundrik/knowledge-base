@@ -11,7 +11,7 @@ public interface QuoteRepository extends JpaRepository<Quote, UUID> {
 
     List<Quote> getAllByOrderByCreatedDesc();
 
-    List<Quote> findFirst10ByOrderByCreatedDesc();
+    List<Quote> findFirst20ByOrderByCreatedDesc();
 
     List<Quote> findAllByWriter(Writer writer);
 

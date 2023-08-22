@@ -10,6 +10,6 @@ public interface CocktailRepository extends JpaRepository<Cocktail, UUID> {
 
     Cocktail findBySlug(String slug);
 
-    List<Cocktail> findFirst10ByOrderByCreatedDesc();
+    List<Cocktail> findFirst20ByOrderByCreatedDesc();
 
 }

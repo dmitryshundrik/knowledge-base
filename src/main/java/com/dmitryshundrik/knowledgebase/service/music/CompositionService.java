@@ -245,7 +245,7 @@ public class CompositionService {
     }
 
     public List<Composition> getLatestUpdate() {
-        return compositionRepository.findFirst10ByOrderByCreatedDesc();
+        return compositionRepository.findFirst20ByOrderByCreatedDesc();
     }
 
 }

@@ -148,6 +148,6 @@ public class ProseService {
     }
 
     public List<Prose> getLatestUpdate() {
-        return proseRepository.findFirst10ByOrderByCreatedDesc();
+        return proseRepository.findFirst20ByOrderByCreatedDesc();
     }
 }

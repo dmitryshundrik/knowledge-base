@@ -41,6 +41,10 @@
     text-align: right;
 }
 
+.update-is-new {
+    color:red;
+}
+
 @media (max-width: 768px) {
     .latest-title {
         text-align: left;

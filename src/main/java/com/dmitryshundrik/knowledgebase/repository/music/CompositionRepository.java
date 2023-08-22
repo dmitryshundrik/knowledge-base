@@ -20,7 +20,7 @@ public interface CompositionRepository extends JpaRepository<Composition, UUID> 
 
     List<Composition> getAllByYearAndYearEndRankNotNull(Integer year);
 
-    List<Composition> findFirst10ByOrderByCreatedDesc();
+    List<Composition> findFirst20ByOrderByCreatedDesc();
 
     @Query("from Composition composition where composition.musician.slug = ?1")
     List<Composition> getAllByMusician(String musicianSlug);

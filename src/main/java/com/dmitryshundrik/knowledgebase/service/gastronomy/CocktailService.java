@@ -89,7 +89,7 @@ public class CocktailService {
     }
 
     public List<Cocktail> getLatestUpdate() {
-        return cocktailRepository.findFirst10ByOrderByCreatedDesc();
+        return cocktailRepository.findFirst20ByOrderByCreatedDesc();
     }
 
 }

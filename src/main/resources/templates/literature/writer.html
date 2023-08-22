@@ -87,8 +87,8 @@
                     <span th:text="${quote.description}"></span>
                 </div>
                 <div class="author">
-                    <span th:text="'«' + ${quote.proseTitle} + '»'"></span>
-                    <span th:if="${not #strings.isEmpty(quote.location)}" th:text="', ' + ${quote.location}"></span>
+                    <span th:if="${not #strings.isEmpty(quote.proseTitle)}" th:text="'«' + ${quote.proseTitle} + '», '"></span>
+                    <span th:if="${not #strings.isEmpty(quote.location)}" th:text="${quote.location}"></span>
                 </div>
             </section>
         </article>

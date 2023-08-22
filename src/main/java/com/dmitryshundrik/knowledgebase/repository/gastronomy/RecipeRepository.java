@@ -13,6 +13,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, UUID> {
 
     List<Recipe> findAllByCountry(Country country);
 
-    List<Recipe> findFirst10ByOrderByCreatedDesc();
+    List<Recipe> findFirst20ByOrderByCreatedDesc();
 
 }

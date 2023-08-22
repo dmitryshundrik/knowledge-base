@@ -21,7 +21,7 @@ public interface AlbumRepository extends JpaRepository<Album, UUID> {
 
     Integer countAllByMusicGenresIsContaining(MusicGenre genre);
 
-    List<Album> findFirst10ByOrderByCreatedDesc();
+    List<Album> findFirst20ByOrderByCreatedDesc();
 
     @Query("SELECT DISTINCT year FROM Album ORDER BY year")
     List<Integer> getAllYearsFromAlbums();
