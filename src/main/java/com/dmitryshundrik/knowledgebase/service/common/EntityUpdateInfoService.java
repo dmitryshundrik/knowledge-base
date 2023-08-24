@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class EntityUpdateInfoService {
 
-    private static final Integer DAYS_UPDATES = 3;
+    private static final Integer DAYS_UPDATES = 1;
 
     @Autowired
     private MusicianService musicianService;
@@ -171,7 +171,7 @@ public class EntityUpdateInfoService {
             proseUpdateInfo.add(EntityUpdateInfo.builder()
                     .created(prose.getCreated())
                     .archiveSection("литература:")
-                    .description("произведение " + prose.getTitle() + " добавлено в архив " + prose.getWriter().getNickName())
+                    .description("произведение «" + prose.getTitle() + "» добавлено в архив " + prose.getWriter().getNickName())
                     .link("literature/writer/" + prose.getWriter().getSlug())
                     .build());
         }

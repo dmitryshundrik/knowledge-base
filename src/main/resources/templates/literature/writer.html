@@ -63,7 +63,6 @@
             <section class="table-body-item-row" th:each="prose : ${bestProseList}">
                 <span th:text="${proseStat.index + 1} + '.'"></span>
                 <span th:text="${prose.title}"></span>
-                <span class="rating" th:text="${prose.rating}"></span>
             </section>
         </article>
 
@@ -75,6 +74,7 @@
                 <span th:if="${prose.year} != null" th:text="${prose.year}"></span>
                 <span th:if="${prose.year} == null">????</span>
                 <span th:text="${prose.title}"></span>
+                <span class="rating" th:text="${prose.rating}"></span>
             </section>
         </article>
 
