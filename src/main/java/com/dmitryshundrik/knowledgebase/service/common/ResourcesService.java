@@ -74,4 +74,8 @@ public class ResourcesService {
         resource.setLink(resourceDTO.getLink());
     }
 
+    public List<Resource> getLatestUpdate() {
+        return resourcesRepository.findFirst20ByOrderByCreatedDesc();
+    }
+
 }

@@ -11,6 +11,8 @@ public class EntityUpdateInfo {
 
     private Instant created;
 
+    private String timeStamp;
+
     private String archiveSection;
 
     private String description;

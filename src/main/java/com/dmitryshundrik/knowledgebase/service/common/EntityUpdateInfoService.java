@@ -1,6 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.common;
 
 import com.dmitryshundrik.knowledgebase.model.common.EntityUpdateInfo;
+import com.dmitryshundrik.knowledgebase.model.common.Resource;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.model.literature.Prose;
@@ -17,6 +18,7 @@ import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
+import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,9 +59,17 @@ public class EntityUpdateInfoService {
     @Autowired
     private QuoteService quoteService;
 
-    public List<EntityUpdateInfo> getAll() {
-        List<EntityUpdateInfo> allUpdateInfo = new ArrayList<>();
+    @Autowired
+    private ResourcesService resourcesService;
 
+    public List<EntityUpdateInfo> getBriefUpdates() {
+        return getAllUpdates().stream()
+                .limit(20)
+                .collect(Collectors.toList());
+    }
+
+    public List<EntityUpdateInfo> getAllUpdates() {
+        List<EntityUpdateInfo> allUpdateInfo = new ArrayList<>();
         allUpdateInfo.addAll(getMusicianUpdates());
         allUpdateInfo.addAll(getAlbumUpdates());
         allUpdateInfo.addAll(getCompositionUpdates());
@@ -68,15 +78,19 @@ public class EntityUpdateInfoService {
         allUpdateInfo.addAll(getWriterUpdates());
         allUpdateInfo.addAll(getProseUpdates());
         allUpdateInfo.addAll(getQuoteUpdates());
+        allUpdateInfo.addAll(getResourcesUpdates());
 
         Instant instant = Instant.now().minus(DAYS_UPDATES, ChronoUnit.DAYS);
         for (EntityUpdateInfo entityUpdateInfo : allUpdateInfo) {
             entityUpdateInfo.setNew(entityUpdateInfo.getCreated().isAfter(instant));
         }
 
+        for (EntityUpdateInfo entityUpdateInfo : allUpdateInfo) {
+            entityUpdateInfo.setTimeStamp(InstantFormatter.instantFormatterYMDHMS(entityUpdateInfo.getCreated()));
+        }
+
         return allUpdateInfo.stream()
                 .sorted((o1, o2) -> o2.getCreated().compareTo(o1.getCreated()))
-                .limit(20)
                 .collect(Collectors.toList());
     }
 
@@ -187,6 +201,20 @@ public class EntityUpdateInfoService {
                     .archiveSection("литература:")
                     .description("цитата " + (quote.getProse() == null ? "" : "из «" + quote.getProse().getTitle() + "» ") + "добавлена в архив " + quote.getWriter().getNickName())
                     .link("literature/writer/" + quote.getWriter().getSlug())
+                    .build());
+        }
+        return quoteUpdateInfo;
+    }
+
+    private List<EntityUpdateInfo> getResourcesUpdates() {
+        List<EntityUpdateInfo> quoteUpdateInfo = new ArrayList<>();
+        List<Resource> latestUpdate = resourcesService.getLatestUpdate();
+        for (Resource resource : latestUpdate) {
+            quoteUpdateInfo.add(EntityUpdateInfo.builder()
+                    .created(resource.getCreated())
+                    .archiveSection("ресурсы:")
+                    .description("издание «" + resource.getTitle() + "»")
+                    .link(resource.getLink())
                     .build());
         }
         return quoteUpdateInfo;

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>История обновлений</title>
+    <link th:href="@{/styles/latest-updates-all.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h3>История обновлений</h3>
+    </header>
+
+    <div class="table-body">
+
+        <article class="table-body-item">
+            <section class="table-body-item-row" th:each="update : ${allUpdates}">
+                <div class="table-body-item-col update-timestamp">
+                    <span th:text="${update.timeStamp}"></span>
+                    <span th:text="${update.archiveSection}"></span>
+                </div>
+                <div class="table-body-item-col update-description">
+                    <a th:href="${update.link}" th:text="${update.description}"></a>
+                    <span class="update-is-new" th:if="${update.isNew}" th:text=" NEW "></span>
+                </div>
+            </section>
+        </article>
+
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+
+</body>
+</html>

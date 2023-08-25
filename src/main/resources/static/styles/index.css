@@ -45,6 +45,10 @@
     color:red;
 }
 
+.see-all-updates {
+    text-align: -webkit-center;
+}
+
 @media (max-width: 768px) {
     .latest-title {
         text-align: left;

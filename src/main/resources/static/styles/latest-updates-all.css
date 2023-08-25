@@ -22,18 +22,12 @@
     gap: 15px;
 }
 
-.quote-all {
-    flex-direction: column;
+.update-timestamp {
+    min-width: 225px;
 }
 
-.description {
-    text-align: justify;
-}
-
-.author {
-    padding-bottom: 10px;
-    text-align: right;
-    border-bottom: 1px solid #d5d1d1;
+.update-is-new {
+    color:red;
 }
 
 @media (max-width: 768px) {
@@ -49,18 +43,10 @@
         margin: 0;
     }
     .table-body-item-row {
-        flex-direction: column;
-        padding: 5px;
-        text-align: center;
-        border: 1px solid gray;
-        gap: 0;
-    }
-    .created {
-        text-align: left;
-    }
-    .quote-all {
-        padding: 0px;
-        border: none;
-        gap: 15px;
-    }
+            flex-direction: column;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid gray;
+            gap: 0;
+     }
 }

@@ -50,7 +50,9 @@ public class ProseService {
     }
 
     public List<Prose> getAllByWriterSortedByRating(Writer writer) {
-        List<Prose> allByWriter = getAllByWriter(writer);
+        List<Prose> allByWriter = getAllByWriter(writer).stream()
+                .filter(prose -> prose.getRating() != null)
+                .collect(Collectors.toList());
         return allByWriter.stream()
                 .sorted((o1, o2) -> o2.getYear().compareTo(o1.getYear()))
                 .limit(5)

@@ -61,10 +61,14 @@
             <h2 class="table-body-item-title latest-title">Последнее</h2>
             <section class="table-body-item-row">
 
-                <span th:each="update : ${latestUpdates}">
+                <span th:each="update : ${briefUpdates}">
                     <span class="update-section" th:text="${update.archiveSection}"></span>
                     <a class="update-link-description" th:href="${update.link}" th:text="${update.description}"></a>
                     <span class="update-is-new" th:if="${update.isNew}" th:text=" NEW "></span>
+                </span>
+
+                <span class="see-all-updates">
+                    <a href="/latest-updates/all">все обновления</a>
                 </span>
 
             </section>
