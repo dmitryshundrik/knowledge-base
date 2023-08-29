@@ -19,4 +19,5 @@ public interface ProseRepository extends JpaRepository<Prose, UUID> {
     List<Prose> getAllByWriter(Writer writer);
 
     List<Prose> findFirst20ByOrderByCreatedDesc();
+
 }

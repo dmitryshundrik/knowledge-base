@@ -33,7 +33,7 @@ public class IndexController {
     @GetMapping("/")
     public String getIndex(Model model) {
         model.addAttribute("yearInMusicList", yearInMusicService.getSortedYearInMusicViewDTOList());
-        model.addAttribute("briefUpdates", entityUpdateInfoService.getBriefUpdates());
+        model.addAttribute("latestUpdates", entityUpdateInfoService.getLatestUpdates());
         return "index";
     }
 
@@ -53,9 +53,4 @@ public class IndexController {
         return "resources";
     }
 
-    @GetMapping("/latest-updates/all")
-    public String getAllLatestUpdate(Model model) {
-        model.addAttribute("allUpdates", entityUpdateInfoService.getAllUpdates());
-        return "latest-updates-all";
-    }
 }

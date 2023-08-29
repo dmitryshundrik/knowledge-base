@@ -33,7 +33,8 @@ import java.util.stream.Collectors;
 @Transactional
 public class EntityUpdateInfoService {
 
-    private static final Integer DAYS_UPDATES = 1;
+    @Autowired
+    private SettingService settingService;
 
     @Autowired
     private MusicianService musicianService;
@@ -62,13 +63,7 @@ public class EntityUpdateInfoService {
     @Autowired
     private ResourcesService resourcesService;
 
-    public List<EntityUpdateInfo> getBriefUpdates() {
-        return getAllUpdates().stream()
-                .limit(20)
-                .collect(Collectors.toList());
-    }
-
-    public List<EntityUpdateInfo> getAllUpdates() {
+    public List<EntityUpdateInfo> getLatestUpdates() {
         List<EntityUpdateInfo> allUpdateInfo = new ArrayList<>();
         allUpdateInfo.addAll(getMusicianUpdates());
         allUpdateInfo.addAll(getAlbumUpdates());
@@ -80,7 +75,7 @@ public class EntityUpdateInfoService {
         allUpdateInfo.addAll(getQuoteUpdates());
         allUpdateInfo.addAll(getResourcesUpdates());
 
-        Instant instant = Instant.now().minus(DAYS_UPDATES, ChronoUnit.DAYS);
+        Instant instant = Instant.now().minus(settingService.getTimeIntervalForUpdates(), ChronoUnit.DAYS);
         for (EntityUpdateInfo entityUpdateInfo : allUpdateInfo) {
             entityUpdateInfo.setNew(entityUpdateInfo.getCreated().isAfter(instant));
         }
@@ -91,6 +86,7 @@ public class EntityUpdateInfoService {
 
         return allUpdateInfo.stream()
                 .sorted((o1, o2) -> o2.getCreated().compareTo(o1.getCreated()))
+                .limit(settingService.getLimitForUpdates())
                 .collect(Collectors.toList());
     }
 

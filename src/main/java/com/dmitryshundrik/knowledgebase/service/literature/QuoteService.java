@@ -64,7 +64,7 @@ public class QuoteService {
         quote.setProse(prose);
         quote.setLocation(quoteDTO.getLocation());
         quote.setPage(quoteDTO.getPage());
-        quote.setDescription(quoteDTO.getDescription());
+        quote.setDescription(quoteDTO.getDescription().trim());
         return quoteRepository.save(quote);
     }
 

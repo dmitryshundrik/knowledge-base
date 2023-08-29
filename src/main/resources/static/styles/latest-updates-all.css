@@ -7,7 +7,7 @@
 .table-body {
     display: flex;
     flex-direction: column;
-    padding: 0 250px;
+    padding: 0 120px;
     border: 1px solid gray;
 }
 
@@ -18,12 +18,13 @@
 .table-body-item-row {
     display: flex;
     flex-direction: row;
-    margin: 15px 0;
+    margin: 10px 0;
     gap: 15px;
 }
 
 .update-timestamp {
     min-width: 225px;
+    background-color: #f9f7ff;
 }
 
 .update-is-new {
@@ -49,4 +50,7 @@
             border: 1px solid gray;
             gap: 0;
      }
+    .update-timestamp {
+        background-color: unset;
+    }
 }

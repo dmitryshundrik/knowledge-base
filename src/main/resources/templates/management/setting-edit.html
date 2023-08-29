@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link th:href="@{/styles/management/entity-create-edit-management.css}" rel="stylesheet">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h4>изменить setting</h4>
+    </header>
+
+    <div class="table-body">
+        <article class="table-body-item">
+            <form class="form"
+                  th:action="${'/management/setting/edit/' + settingDTO.id}"
+                  th:method="put"
+                  th:object="${settingDTO}">
+
+                <section class="form-item">
+                    <label>name</label>
+                    <input type="text" th:field="*{name}" maxlength="255"/>
+                </section>
+
+                <section class="form-item">
+                    <label>value</label>
+                    <input type="text" th:field="*{value}" maxlength="255"/>
+                </section>
+
+                <input class="input-submit" type="submit" value="Обновить"/>
+            </form>
+        </article>
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>
