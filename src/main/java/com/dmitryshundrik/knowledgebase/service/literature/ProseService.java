@@ -54,7 +54,7 @@ public class ProseService {
                 .filter(prose -> prose.getRating() != null)
                 .collect(Collectors.toList());
         return allByWriter.stream()
-                .sorted((o1, o2) -> o2.getYear().compareTo(o1.getYear()))
+                .sorted((o1, o2) -> o2.getRating().compareTo(o1.getRating()))
                 .limit(5)
                 .collect(Collectors.toList());
     }
