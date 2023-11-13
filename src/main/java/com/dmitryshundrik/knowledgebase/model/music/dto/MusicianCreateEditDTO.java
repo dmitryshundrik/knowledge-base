@@ -43,6 +43,8 @@ public class MusicianCreateEditDTO {
 
     private String birthplace;
 
+    private String based;
+
     private String occupation;
 
     private String catalogTitle;

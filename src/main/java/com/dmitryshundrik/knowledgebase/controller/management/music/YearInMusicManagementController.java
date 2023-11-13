@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.YearInMusicCreateEditDTO
 import com.dmitryshundrik.knowledgebase.model.music.dto.YearInMusicViewDTO;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import com.dmitryshundrik.knowledgebase.service.music.YearInMusicService;
+import com.dmitryshundrik.knowledgebase.util.MusicianDTOTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,7 +54,7 @@ public class YearInMusicManagementController {
         YearInMusic yearInMusicBySlug = yearInMusicService.getYearInMusicBySlug(yearIMSlug);
         model.addAttribute("yearInMusicDTO", yearInMusicService
                 .getYearInMusicCreateEditDTO(yearInMusicBySlug));
-        model.addAttribute("musicians", musicianService
+        model.addAttribute("musicians", MusicianDTOTransformer
                 .getMusicianSelectDTOList(musicianService
                         .getAllMusiciansWithWorksByYear(yearInMusicBySlug.getYear())));
         return "management/music/year-in-music-edit";

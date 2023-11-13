@@ -53,6 +53,11 @@
                 <span th:text="${musicianViewDTO.birthplace}"></span>
             </section>
 
+            <section class="table-title-item-row" th:if="${not #strings.isEmpty(musicianViewDTO.based)}">
+                <span>Расположение:</span>
+                <span th:text="${musicianViewDTO.based}"></span>
+            </section>
+
             <section class="table-title-item-row period" th:if="${not #lists.isEmpty(musicianViewDTO.musicPeriods)}">
                 <span>Период:</span>
                 <span th:each="period : ${musicianViewDTO.musicPeriods}">
@@ -115,8 +120,41 @@
                 <span th:if="${album.year} != null" th:text="${album.year}"></span>
                 <span th:if="${album.year} == null">????</span>
                 <span th:text="${album.title}"></span>
+                <span th:if="${not #lists.isEmpty(album.collaborators)}">
+                    <span>(with </span>
+                    <span th:each="collaborator : ${album.collaborators}">
+                        <a th:href="'/music/musician/' + ${collaborator.slug}"
+                           th:text="${collaborator.nickName}">
+                        </a>
+                    </span>
+                    <span>)</span>
+                </span>
                 <span class="rating" th:text="${album.rating}"></span>
                 <span th:text="${album.highlights}"></span>
+            </section>
+        </article>
+
+        <article class="table-body-item" th:if="${not #lists.isEmpty(musicianViewDTO.collaborations)}">
+            <header class="table-body-item-title">
+                <h3>Сотрудничества</h3>
+            </header>
+            <section class="table-body-item-row" th:each="collaboration : ${musicianViewDTO.collaborations}">
+                <span th:if="${collaboration.year} != null" th:text="${collaboration.year}"></span>
+                <span th:if="${collaboration.year} == null">????</span>
+                <span>
+                    <a th:text="${collaboration.musicianNickname}"
+                       th:href="'/music/musician/' + ${collaboration.musicianSlug}">
+                    </a>
+                </span>
+                <span th:text="${collaboration.title}"></span>
+                <span th:if="${not #lists.isEmpty(collaboration.collaborators)}">
+                    <span>(with </span>
+                    <span th:each="collaborator : ${collaboration.collaborators}">
+                        <span th:text="${collaborator.nickName}"></span>
+                    </span>
+                    <span>)</span>
+                </span>
+                <span class="rating" th:text="${collaboration.rating}"></span>
             </section>
         </article>
 

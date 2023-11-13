@@ -26,6 +26,9 @@ public class Album {
     @ManyToOne
     private Musician musician;
 
+    @ManyToMany
+    private List<Musician> collaborators;
+
     private String feature;
 
     @Column(columnDefinition = "text")

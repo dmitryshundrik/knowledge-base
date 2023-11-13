@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
+import com.dmitryshundrik.knowledgebase.util.MusicianDTOTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +40,8 @@ public class AlbumManagementController {
         AlbumCreateEditDTO albumDTO = new AlbumCreateEditDTO();
         musicianService.setFieldsToAlbumDTO(musicianSlug, albumDTO);
         model.addAttribute("albumCreateEditDTO", albumDTO);
+        model.addAttribute("collaborators", MusicianDTOTransformer
+                .getMusicianSelectDTOList(musicianService.getAllMusicians()));
         model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenresSortedByTitle());
         model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenresSortedByTitle());
         return "management/music/album-create";
@@ -55,7 +58,8 @@ public class AlbumManagementController {
             return "management/music/album-create";
         }
         String albumDTOSlug = albumService
-                .createAlbum(albumDTO, musicianService.getMusicianBySlug(musicianSlug)).getSlug();
+                .createAlbum(albumDTO, musicianService.getMusicianBySlug(musicianSlug),
+                        musicianService.getAllMusiciansByUUIDList(albumDTO.getCollaboratorsUUID())).getSlug();
         return "redirect:/management/musician/edit/" + musicianSlug + "/album/edit/" + albumDTOSlug;
     }
 
@@ -63,6 +67,8 @@ public class AlbumManagementController {
     public String getEditAlbumBySlug(@PathVariable String musicianSlug, @PathVariable String albumSlug, Model model) {
         Album albumBySlug = albumService.getAlbumBySlug(albumSlug);
         model.addAttribute("albumCreateEditDTO", albumService.getAlbumCreateEditDTO(albumBySlug));
+        model.addAttribute("collaborators", MusicianDTOTransformer
+                .getMusicianSelectDTOList(musicianService.getAllMusicians()));
         model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenresSortedByTitle());
         model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenresSortedByTitle());
         return "management/music/album-edit";
@@ -71,7 +77,8 @@ public class AlbumManagementController {
     @PutMapping("management/musician/edit/{musicianSlug}/album/edit/{albumSlug}")
     public String putEditAlbumBySlug(@PathVariable String musicianSlug, @PathVariable String albumSlug,
                                      @ModelAttribute("albumCreateEditDTO") AlbumCreateEditDTO albumDTO) {
-        String albumDTOSlug = albumService.updateAlbum(albumSlug, albumDTO).getSlug();
+        String albumDTOSlug = albumService.updateAlbum(albumSlug, albumDTO,
+                musicianService.getAllMusiciansByUUIDList(albumDTO.getCollaboratorsUUID())).getSlug();
         return "redirect:/management/musician/edit/" + musicianSlug + "/album/edit/" + albumDTOSlug;
     }
 

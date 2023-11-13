@@ -27,7 +27,17 @@
                 <span class="table-body-item-col">
                     <a th:text="${album.musicianNickname}" th:href="'/music/musician/' + ${album.musicianSlug}"></a>
                 </span>
-                <span class="table-body-item-col album-title" th:text="${album.title} + ' (' + ${album.year} + ')'"></span>
+                <span class="table-body-item-col album-title" th:text="${album.title}"></span>
+                <span class="table-body-item-col" th:if="${not #lists.isEmpty(album.collaborators)}">
+                    <span>(with </span>
+                    <span th:each="collaborator : ${album.collaborators}">
+                        <a th:href="'/music/musician/' + ${collaborator.slug}"
+                           th:text="${collaborator.nickName}">
+                        </a>
+                    </span>
+                    <span>)</span>
+                </span>
+                <span class="table-body-item-col" th:text="'(' + ${album.year} + ')'"></span>
                 <span class="table-body-item-col rating" th:text="${album.rating}"></span>
             </section>
         </article>

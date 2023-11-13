@@ -24,9 +24,9 @@
             <section class="table-body-item-guide">
                 <span>
                     Руководство:
-                    10 - величайшее произведение всех времен;
+                    10 - величайший альбом всех времен;
                     9 - абсолютный шедевр;
-                    8 - культовое произведение жанра;
+                    8 - фундаментальное произведение;
                     7 - послушай немедленно;
                     6 - послушай в итоге;
                     5 - филлер;
@@ -38,7 +38,17 @@
                     <a th:text="${album.musicianNickname}"
                        th:href="'/music/musician/' + ${album.musicianSlug}"></a></span>
                 <span class="table-body-item-col album-title"
-                      th:text="${album.title} + ' (' + ${album.year} + ')'"></span>
+                      th:text="${album.title}"></span>
+                <span class="table-body-item-col" th:if="${not #lists.isEmpty(album.collaborators)}">
+                    <span>(with </span>
+                    <span th:each="collaborator : ${album.collaborators}">
+                        <a th:href="'/music/musician/' + ${collaborator.slug}"
+                           th:text="${collaborator.nickName}">
+                        </a>
+                    </span>
+                    <span>)</span>
+                </span>
+                <span lass="table-body-item-col" th:text="'(' + ${album.year} + ')'"></span>
                 <span class="table-body-item-col rating" th:text="${album.rating}"></span>
             </section>
         </article>

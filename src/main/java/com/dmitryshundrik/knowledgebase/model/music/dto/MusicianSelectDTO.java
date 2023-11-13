@@ -9,6 +9,8 @@ public class MusicianSelectDTO {
 
     private String id;
 
+    private String slug;
+
     private String nickName;
 
 }

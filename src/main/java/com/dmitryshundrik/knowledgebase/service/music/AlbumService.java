@@ -6,10 +6,12 @@ import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumSelectDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumViewDTO;
+import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianSelectDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import com.dmitryshundrik.knowledgebase.util.MusicianDTOTransformer;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -91,17 +93,19 @@ public class AlbumService {
         return albumRepository.getAllYearsFromAlbums();
     }
 
-    public AlbumViewDTO createAlbum(AlbumCreateEditDTO albumDTO, Musician musician) {
+    public AlbumViewDTO createAlbum(AlbumCreateEditDTO albumDTO, Musician musician, List<Musician> collaborators) {
         Album album = new Album();
         album.setCreated(Instant.now());
         album.setMusician(musician);
+        album.setCollaborators(collaborators);
         setFieldsFromDTO(album, albumDTO);
         album.setSlug(album.getMusician().getSlug() + "-" + SlugFormatter.slugFormatter(album.getSlug()));
         return getAlbumViewDTO(albumRepository.save(album));
     }
 
-    public AlbumViewDTO updateAlbum(String albumSlug, AlbumCreateEditDTO albumDTO) {
+    public AlbumViewDTO updateAlbum(String albumSlug, AlbumCreateEditDTO albumDTO, List<Musician> collaborators) {
         Album albumBySlug = getAlbumBySlug(albumSlug);
+        albumBySlug.setCollaborators(collaborators);
         setFieldsFromDTO(albumBySlug, albumDTO);
         return getAlbumViewDTO(albumBySlug);
     }
@@ -125,6 +129,7 @@ public class AlbumService {
                 .catalogNumber(album.getCatalogNumber())
                 .musicianNickname(album.getMusician().getNickName())
                 .musicianSlug(album.getMusician().getSlug())
+                .collaborators(MusicianDTOTransformer.getMusicianSelectDTOList(album.getCollaborators()))
                 .feature(album.getFeature())
                 .artwork(album.getArtwork())
                 .year(album.getYear())
@@ -149,6 +154,7 @@ public class AlbumService {
                 .catalogNumber(album.getCatalogNumber())
                 .musicianNickname(album.getMusician().getNickName())
                 .musicianSlug(album.getMusician().getSlug())
+                .collaboratorsUUID(album.getCollaborators().stream().map(Musician::getId).collect(Collectors.toList()))
                 .feature(album.getFeature())
                 .artwork(album.getArtwork())
                 .year(album.getYear())

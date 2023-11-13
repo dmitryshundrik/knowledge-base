@@ -46,6 +46,8 @@ public class Musician {
 
     private String birthplace;
 
+    private String based;
+
     private String occupation;
 
     private String catalogTitle;
@@ -69,6 +71,12 @@ public class Musician {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "musician")
     @OrderBy("created")
     private List<Album> albums;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @OrderBy("created")
+    @JoinTable(name = "albums_collaborators", joinColumns = @JoinColumn(name = "collaborators_id"),
+            inverseJoinColumns = @JoinColumn(name = "album_id"))
+    private List<Album> collaborations;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "musician")
     @OrderBy("created")

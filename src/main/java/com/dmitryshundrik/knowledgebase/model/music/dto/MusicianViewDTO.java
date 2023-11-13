@@ -40,6 +40,8 @@ public class MusicianViewDTO {
 
     private String birthplace;
 
+    private String based;
+
     private String occupation;
 
     private String catalogTitle;
@@ -53,6 +55,8 @@ public class MusicianViewDTO {
     private List<PersonEventDTO> events;
 
     private List<AlbumViewDTO> albums;
+
+    private List<AlbumViewDTO> collaborations;
 
     private List<AlbumViewDTO> essentialAlbums;
 

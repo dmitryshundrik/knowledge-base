@@ -22,6 +22,8 @@ public class AlbumViewDTO {
 
     private String musicianSlug;
 
+    private List<MusicianSelectDTO> collaborators;
+
     private String feature;
 
     private String artwork;

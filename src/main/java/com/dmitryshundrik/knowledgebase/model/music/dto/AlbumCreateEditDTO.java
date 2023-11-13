@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -24,6 +25,8 @@ public class AlbumCreateEditDTO {
     private String musicianNickname;
 
     private String musicianSlug;
+
+    private List<UUID> collaboratorsUUID;
 
     private String feature;
 
