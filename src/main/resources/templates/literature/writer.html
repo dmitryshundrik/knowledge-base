@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <title th:text="${writerDTO.nickName}"></title>
     <link th:href="@{/styles/literature/writer.css}" rel="stylesheet">
     <meta name="viewport" content="width=device-width">
@@ -74,6 +75,7 @@
                 <span th:if="${prose.year} != null" th:text="${prose.year}"></span>
                 <span th:if="${prose.year} == null">????</span>
                 <span th:text="${prose.title}"></span>
+                <span class="current-book" th:if="${prose.rating} == null">(в процессе)</span>
                 <span class="rating" th:text="${prose.rating}"></span>
             </section>
         </article>

@@ -47,6 +47,10 @@
     text-align: justify;
 }
 
+.current-book {
+    font-style: italic;
+}
+
 .rating {
     color: red;
 }

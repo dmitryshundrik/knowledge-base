@@ -69,6 +69,22 @@
     text-align: justify;
 }
 
+.lead-performer {
+    margin-right: 5px;
+}
+
+.title {
+    margin-right: 5px;
+}
+
+.collaborators {
+    margin-right: 5px;
+}
+
+.year {
+    margin-right: 5px;
+}
+
 .rating {
     color: red;
 }
@@ -77,17 +93,21 @@
     .table-title {
         padding: 30px 30px;
     }
+
     .table-body {
         padding: 0 30px;
         gap: 30px;
         border: none;
     }
+
     .table-body-item {
         margin: 0;
     }
+
     .table-body-item-col {
         min-width: auto;
     }
+
     .catalog-number {
         min-width: fit-content;
     }

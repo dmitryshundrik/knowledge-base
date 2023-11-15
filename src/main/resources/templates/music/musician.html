@@ -119,18 +119,20 @@
             <section class="table-body-item-row" th:each="album : ${musicianViewDTO.albums}">
                 <span th:if="${album.year} != null" th:text="${album.year}"></span>
                 <span th:if="${album.year} == null">????</span>
-                <span th:text="${album.title}"></span>
-                <span th:if="${not #lists.isEmpty(album.collaborators)}">
-                    <span>(with </span>
-                    <span th:each="collaborator : ${album.collaborators}">
-                        <a th:href="'/music/musician/' + ${collaborator.slug}"
-                           th:text="${collaborator.nickName}">
-                        </a>
+                <div>
+                    <span class="title" th:text="${album.title}"></span>
+                    <span class="collaborators" th:if="${not #lists.isEmpty(album.collaborators)}">
+                        <span>(with </span>
+                        <span th:each="collaborator : ${album.collaborators}">
+                            <a th:href="'/music/musician/' + ${collaborator.slug}"
+                               th:text="${collaborator.nickName}">
+                            </a>
+                        </span>
+                        <span>)</span>
                     </span>
-                    <span>)</span>
-                </span>
-                <span class="rating" th:text="${album.rating}"></span>
-                <span th:text="${album.highlights}"></span>
+                    <span class="rating" th:text="${album.rating}"></span>
+                    <span th:text="${album.highlights}"></span>
+                </div>
             </section>
         </article>
 
@@ -141,20 +143,22 @@
             <section class="table-body-item-row" th:each="collaboration : ${musicianViewDTO.collaborations}">
                 <span th:if="${collaboration.year} != null" th:text="${collaboration.year}"></span>
                 <span th:if="${collaboration.year} == null">????</span>
-                <span>
-                    <a th:text="${collaboration.musicianNickname}"
-                       th:href="'/music/musician/' + ${collaboration.musicianSlug}">
-                    </a>
-                </span>
-                <span th:text="${collaboration.title}"></span>
-                <span th:if="${not #lists.isEmpty(collaboration.collaborators)}">
-                    <span>(with </span>
-                    <span th:each="collaborator : ${collaboration.collaborators}">
-                        <span th:text="${collaborator.nickName}"></span>
+                <div>
+                    <span class="lead-performer">
+                        <a th:text="${collaboration.musicianNickname}"
+                           th:href="'/music/musician/' + ${collaboration.musicianSlug}">
+                        </a>
                     </span>
-                    <span>)</span>
-                </span>
-                <span class="rating" th:text="${collaboration.rating}"></span>
+                    <span class="title" th:text="${collaboration.title}"></span>
+                    <span class="collaborators" th:if="${not #lists.isEmpty(collaboration.collaborators)}">
+                        <span>(with </span>
+                        <span th:each="collaborator : ${collaboration.collaborators}">
+                            <span th:text="${collaborator.nickName}"></span>
+                        </span>
+                        <span>)</span>
+                    </span>
+                    <span class="rating" th:text="${collaboration.rating}"></span>
+                </div>
             </section>
         </article>
 
@@ -166,11 +170,13 @@
             <section class="table-body-item-row" th:each="composition : ${musicianViewDTO.compositions}">
                 <span class="table-body-item-col catalog-number" th:if="${composition.catalogNumber} != null"
                       th:text="${musicianViewDTO.catalogTitle + ' ' + composition.catalogNumber}"></span>
-                <span class="table-body-item-col title" th:text="${composition.title}"></span>
-                <span class="table-body-item-col year" th:if="${composition.year} != null"
-                      th:text="'(' + ${composition.year} + ')'"></span>
-                <span class="table-body-item-col rating" th:text="${composition.rating}"></span>
-                <span class="table-body-item-col highlights" th:text="${composition.highlights}"></span>
+                <div>
+                    <span class="table-body-item-col title" th:text="${composition.title}"></span>
+                    <span class="table-body-item-col year" th:if="${composition.year} != null"
+                          th:text="'(' + ${composition.year} + ')'"></span>
+                    <span class="table-body-item-col rating" th:text="${composition.rating}"></span>
+                    <span class="table-body-item-col highlights" th:text="${composition.highlights}"></span>
+                </div>
             </section>
         </article>
     </div>

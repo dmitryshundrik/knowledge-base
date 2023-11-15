@@ -196,7 +196,7 @@ public class EntityUpdateInfoService {
                     .created(quote.getCreated())
                     .archiveSection("литература:")
                     .description("цитата " + (quote.getProse() == null ? "" : "из «" + quote.getProse().getTitle() + "» ") + "добавлена в архив " + quote.getWriter().getNickName())
-                    .link("literature/writer/" + quote.getWriter().getSlug())
+                    .link("literature/quote/all")
                     .build());
         }
         return quoteUpdateInfo;
