@@ -65,8 +65,8 @@ public class ProseService {
                 .collect(Collectors.toList());
     }
 
-    public List<ProseViewDTO> getAllProseSortedByCreatedDesc() {
-        return getProseViewDTOList(proseRepository.getAllByOrderByCreatedDesc());
+    public List<Prose> getAllProseSortedByCreatedDesc() {
+        return proseRepository.getAllByOrderByCreatedDesc();
     }
 
 

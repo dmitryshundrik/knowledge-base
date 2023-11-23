@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-    <title>Все цитаты</title>
+    <title>Цитаты писателя</title>
     <link th:href="@{/styles/literature/literature-entity-all.css}" rel="stylesheet">
     <meta name="viewport" content="width=device-width">
 </head>
@@ -15,11 +15,11 @@
 <main class="table">
 
     <header class="table-title">
-        <h3>Все цитаты</h3>
+        <h3 th:text="${writerDTO.nickName}"></h3>
+        <h4>ЦИТАТЫ ПИСАТЕЛЯ</h4>
     </header>
 
     <div class="table-body">
-
         <article class="table-body-item">
             <section class="table-body-item-row quote-all" th:each="quote : ${quoteList}">
                 <span class="created" th:text="${quote.created}"></span>
@@ -33,7 +33,6 @@
                 </div>
             </section>
         </article>
-
     </div>
 
 </main>

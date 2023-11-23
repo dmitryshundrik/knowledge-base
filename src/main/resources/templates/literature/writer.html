@@ -69,7 +69,7 @@
 
         <article class="table-body-item" th:if="${not #lists.isEmpty(writerDTO.proseList)}">
             <header class="table-body-item-title">
-                <h3>Произведения</h3>
+                <h3>Все произведения</h3>
             </header>
             <section class="table-body-item-row" th:each="prose : ${writerDTO.proseList}">
                 <span th:if="${prose.year} != null" th:text="${prose.year}"></span>
@@ -85,13 +85,35 @@
                 <h3>Цитаты</h3>
             </header>
             <section class="table-body-item-row quote-all" th:each="quote : ${writerDTO.quoteList}">
+                <span class="created" th:text="${quote.created}"></span>
                 <div class="description">
                     <span th:text="${quote.description}"></span>
                 </div>
                 <div class="author">
-                    <span th:if="${not #strings.isEmpty(quote.proseTitle)}" th:text="'«' + ${quote.proseTitle} + '», '"></span>
+                    <span th:if="${not #strings.isEmpty(quote.proseTitle)}"
+                          th:text="'«' + ${quote.proseTitle} + '», '"></span>
                     <span th:if="${not #strings.isEmpty(quote.location)}" th:text="${quote.location}"></span>
                 </div>
+            </section>
+            <section>
+                <span>
+                    <a th:href="'/literature/writer/' + ${writerDTO.slug} + '/quote/all'">Весь список</a>
+                </span>
+            </section>
+        </article>
+
+        <article class="table-body-item" th:if="${not #lists.isEmpty(writerDTO.wordList)}">
+            <header class="table-body-item-title">
+                <h3>Словарь языка писателя</h3>
+            </header>
+            <section class="table-body-item-row word-all" th:each="word : ${writerDTO.wordList}">
+                <span class="word-all-title" th:text="${word.title}"></span>
+                <span class="word-all-description" th:text="${word.description}"></span>
+            </section>
+            <section>
+                <span>
+                    <a th:href="'/literature/writer/' + ${writerDTO.slug} + '/word/all'">Весь список</a>
+                </span>
             </section>
         </article>
     </div>

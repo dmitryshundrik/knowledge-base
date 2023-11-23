@@ -42,6 +42,19 @@
     gap: 10px;
 }
 
+.word-all {
+    gap: 0;
+}
+
+.word-all-title {
+    font-weight: bold;
+    min-width: 25%;
+}
+
+.word-all-description {
+    text-align: justify;
+}
+
 .timeline-text {
     min-width: auto;
     text-align: justify;

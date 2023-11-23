@@ -2,12 +2,15 @@ package com.dmitryshundrik.knowledgebase.controller.literature;
 
 import com.dmitryshundrik.knowledgebase.model.literature.Prose;
 import com.dmitryshundrik.knowledgebase.model.literature.Quote;
+import com.dmitryshundrik.knowledgebase.model.literature.Word;
 import com.dmitryshundrik.knowledgebase.model.literature.Writer;
 import com.dmitryshundrik.knowledgebase.model.literature.dto.ProseViewDTO;
 import com.dmitryshundrik.knowledgebase.model.literature.dto.QuoteViewDTO;
+import com.dmitryshundrik.knowledgebase.model.literature.dto.WordDTO;
 import com.dmitryshundrik.knowledgebase.model.literature.dto.WriterViewDTO;
 import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
 import com.dmitryshundrik.knowledgebase.service.literature.QuoteService;
+import com.dmitryshundrik.knowledgebase.service.literature.WordService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +33,9 @@ public class LiteraturePageController {
 
     @Autowired
     private QuoteService quoteService;
+
+    @Autowired
+    private WordService wordService;
 
 
     @GetMapping()
@@ -57,9 +63,31 @@ public class LiteraturePageController {
         return "literature/writer";
     }
 
+    @GetMapping("/writer/{slug}/quote/all")
+    public String getWriterAllQuotes(@PathVariable String slug, Model model) {
+        Writer writerBySlug = writerService.getBySlug(slug);
+        WriterViewDTO writerViewDTO = writerService.getWriterViewDTO(writerBySlug);
+        List<Quote> allByWriterSortedByYearAndPage = quoteService.getAllByWriterSortedByYearAndPage(writerBySlug);
+        List<QuoteViewDTO> quoteViewDTOList = quoteService.getQuoteViewDTOList(allByWriterSortedByYearAndPage);
+        model.addAttribute("quoteList", quoteViewDTOList);
+        model.addAttribute("writerDTO", writerViewDTO);
+        return "literature/writer-quote-all";
+    }
+
+    @GetMapping("/writer/{slug}/word/all")
+    public String getWriterAllWords(@PathVariable String slug, Model model) {
+        Writer writerBySlug = writerService.getBySlug(slug);
+        WriterViewDTO writerViewDTO = writerService.getWriterViewDTO(writerBySlug);
+        List<Word> allByWriterSortedByTitle = wordService.getAllByWriterSortedByTitle(writerBySlug);
+        List<WordDTO> wordDTOList = wordService.getWordDTOList(allByWriterSortedByTitle);
+        model.addAttribute("wordList", wordDTOList);
+        model.addAttribute("writerDTO", writerViewDTO);
+        return "literature/writer-word-all";
+    }
+
     @GetMapping("/prose/all")
     public String getAllProse(Model model) {
-        List<Prose> proseList = proseService.getAllSortedByYear();
+        List<Prose> proseList = proseService.getAllProseSortedByCreatedDesc();
         List<ProseViewDTO> proseViewDTOList = proseService.getProseViewDTOList(proseList);
         model.addAttribute("proseList", proseViewDTOList);
         return "literature/prose-all";

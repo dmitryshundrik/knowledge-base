@@ -15,4 +15,6 @@ public interface QuoteRepository extends JpaRepository<Quote, UUID> {
 
     List<Quote> findAllByWriter(Writer writer);
 
+    List<Quote> getAllByWriterOrderByCreatedDesc(Writer writer);
+
 }

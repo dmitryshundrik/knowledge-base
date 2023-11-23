@@ -29,6 +29,9 @@ public class WriterService {
     private QuoteService quoteService;
 
     @Autowired
+    private WordService wordService;
+
+    @Autowired
     private PersonEventService personEventService;
 
 
@@ -74,6 +77,7 @@ public class WriterService {
         writerRepository.deleteBySlug(writerSlug);
     }
 
+
     public WriterViewDTO getWriterViewDTO(Writer writer) {
         return WriterViewDTO.builder()
                 .created(InstantFormatter.instantFormatterYMD(writer.getCreated()))
@@ -90,7 +94,10 @@ public class WriterService {
                 .occupation(writer.getOccupation())
                 .events(personEventService.getPersonEventDTOList(writer.getEvents()))
                 .proseList(proseService.getProseViewDTOList(proseService.getAllByWriterSortedByYear(writer)))
-                .quoteList(quoteService.getQuoteViewDTOList(quoteService.getAllByWriterSortedByYearAndPage(writer)))
+                .quoteList(quoteService.getQuoteViewDTOList(quoteService.getAllByWriterSortedByCreatedDesc(writer).stream()
+                        .limit(10).collect(Collectors.toList())))
+                .wordList(wordService.getWordDTOList(wordService.getAllByWriterSortedByCreatedDesc(writer).stream()
+                        .limit(20).collect(Collectors.toList())))
                 .build();
     }
 
@@ -114,7 +121,8 @@ public class WriterService {
                 .occupation(writer.getOccupation())
                 .events(personEventService.getPersonEventDTOList(writer.getEvents()))
                 .proseList(proseService.getProseViewDTOList(proseService.getAllByWriterSortedByYear(writer)))
-                .quoteList(quoteService.getQuoteViewDTOList(quoteService.getAllByWriterSortedByCreated(writer)))
+                .quoteList(quoteService.getQuoteViewDTOList(quoteService.getAllByWriterSortedByCreatedDesc(writer)))
+                .wordList(wordService.getWordDTOList(wordService.getAllByWriterSortedByCreatedDesc(writer)))
                 .build();
     }
 

@@ -24,7 +24,8 @@ public class ProseManagementController {
 
     @GetMapping("/management/prose/all")
     public String getAllProse(Model model) {
-        List<ProseViewDTO> proseViewDTOList = proseService.getAllProseSortedByCreatedDesc();
+        List<Prose> proseList = proseService.getAllProseSortedByCreatedDesc();
+        List<ProseViewDTO> proseViewDTOList = proseService.getProseViewDTOList(proseList);
         model.addAttribute("proseList", proseViewDTOList);
         return "management/literature/prose-archive";
     }

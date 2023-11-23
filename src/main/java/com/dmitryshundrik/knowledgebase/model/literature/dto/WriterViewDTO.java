@@ -6,7 +6,9 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @Builder
@@ -43,5 +45,7 @@ public class WriterViewDTO {
     protected List<ProseViewDTO> proseList;
 
     private List<QuoteViewDTO> quoteList;
+
+    private List<WordDTO> wordList;
 
 }

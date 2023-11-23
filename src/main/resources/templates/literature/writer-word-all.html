@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-    <title>Вся проза</title>
+    <title>Словарь языка писателя</title>
     <link th:href="@{/styles/literature/literature-entity-all.css}" rel="stylesheet">
     <meta name="viewport" content="width=device-width">
 </head>
@@ -15,21 +15,17 @@
 <main class="table">
 
     <header class="table-title">
-        <h3>Вся проза</h3>
+        <h3 th:text="${writerDTO.nickName}"></h3>
+        <h4>СЛОВАРЬ ЯЗЫКА ПИСАТЕЛЯ</h4>
     </header>
 
     <div class="table-body">
-
         <article class="table-body-item">
-            <section class="table-body-item-row" th:each="prose : ${proseList}">
-                <span th:text="${prose.created}"></span>
-                <a th:text="${prose.writerNickname}" th:href="'/literature/writer/' + ${prose.writerSlug}"></a>
-                <span th:text="${prose.title}"></span>
-                <span class="table-body-item-col year" th:if="${prose.year} != null"
-                      th:text="'(' + ${prose.year} + ')'"></span>
+            <section class="table-body-item-row word-all" th:each="word : ${wordList}">
+                <span class="word-all-title" th:text="${word.title}"></span>
+                <span class="word-all-description" th:text="${word.description}"></span>
             </section>
         </article>
-
     </div>
 
 </main>

@@ -8,7 +8,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @Builder
@@ -46,6 +48,8 @@ public class WriterCreateEditDTO {
     protected List<ProseViewDTO> proseList;
 
     private List<QuoteViewDTO> quoteList;
+
+    private List<WordDTO> wordList;
 
     public WriterCreateEditDTO() {
 

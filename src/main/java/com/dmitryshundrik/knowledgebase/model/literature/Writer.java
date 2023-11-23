@@ -6,9 +6,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Data
 @Entity
@@ -56,5 +54,9 @@ public class Writer {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "writer")
     @OrderBy("created")
     private List<Quote> quoteList = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "writer")
+    @OrderBy("created")
+    private List<Word> wordList = new ArrayList<>();
 
 }

@@ -46,11 +46,8 @@ public class QuoteService {
         return allSortedQuotes;
     }
 
-    public List<Quote> getAllByWriterSortedByCreated(Writer writer) {
-        List<Quote> allByWriter = quoteRepository.findAllByWriter(writer);
-        return allByWriter.stream()
-                .sorted((o1, o2) -> o2.getCreated().compareTo(o1.getCreated()))
-                .collect(Collectors.toList());
+    public List<Quote> getAllByWriterSortedByCreatedDesc(Writer writer) {
+        return quoteRepository.getAllByWriterOrderByCreatedDesc(writer);
     }
 
     public Quote getById(String quoteId) {
