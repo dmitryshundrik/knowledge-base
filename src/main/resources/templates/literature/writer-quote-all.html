@@ -16,7 +16,7 @@
 
     <header class="table-title">
         <h3 th:text="${writerDTO.nickName}"></h3>
-        <h4>ЦИТАТЫ ПИСАТЕЛЯ</h4>
+        <h4>цитаты писателя</h4>
     </header>
 
     <div class="table-body">
@@ -27,7 +27,6 @@
                     <span th:text="${quote.description}"></span>
                 </div>
                 <div class="author">
-                    <a th:text="${quote.writerNickname}" th:href="'/literature/writer/' + ${quote.writerSlug}"></a>
                     <span th:text="'«' + ${quote.proseTitle} + '»'"></span>
                     <span th:if="${not #strings.isEmpty(quote.location)}" th:text="', ' + ${quote.location}"></span>
                 </div>

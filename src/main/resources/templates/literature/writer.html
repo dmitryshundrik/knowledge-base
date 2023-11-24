@@ -81,15 +81,16 @@
         </article>
 
         <article class="table-body-item" th:if="${not #lists.isEmpty(writerDTO.quoteList)}">
-            <header class="table-body-item-title">
+            <header class="table-body-item-title quote-title">
                 <h3>Цитаты</h3>
+                <p>последние обновления</p>
             </header>
             <section class="table-body-item-row quote-all" th:each="quote : ${writerDTO.quoteList}">
-                <span class="created" th:text="${quote.created}"></span>
-                <div class="description">
+                <span th:text="${quote.created}"></span>
+                <div class="quote-all-description">
                     <span th:text="${quote.description}"></span>
                 </div>
-                <div class="author">
+                <div class="quote-all-author">
                     <span th:if="${not #strings.isEmpty(quote.proseTitle)}"
                           th:text="'«' + ${quote.proseTitle} + '», '"></span>
                     <span th:if="${not #strings.isEmpty(quote.location)}" th:text="${quote.location}"></span>
@@ -103,8 +104,9 @@
         </article>
 
         <article class="table-body-item" th:if="${not #lists.isEmpty(writerDTO.wordList)}">
-            <header class="table-body-item-title">
+            <header class="table-body-item-title word-title">
                 <h3>Словарь языка писателя</h3>
+                <p>последние обновления</p>
             </header>
             <section class="table-body-item-row word-all" th:each="word : ${writerDTO.wordList}">
                 <span class="word-all-title" th:text="${word.title}"></span>

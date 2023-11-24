@@ -42,19 +42,6 @@
     gap: 10px;
 }
 
-.word-all {
-    gap: 0;
-}
-
-.word-all-title {
-    font-weight: bold;
-    min-width: 25%;
-}
-
-.word-all-description {
-    text-align: justify;
-}
-
 .timeline-text {
     min-width: auto;
     text-align: justify;
@@ -68,18 +55,57 @@
     color: red;
 }
 
+.quote-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.quote-title p {
+    display: flex;
+    flex-direction: column-reverse;
+    font-size: small;
+    font-style: italic;
+}
+
 .quote-all {
     flex-direction: column;
 }
 
-.description {
+.quote-all-description {
     text-align: justify;
 }
 
-.author {
+.quote-all-author {
     padding-bottom: 10px;
     text-align: right;
     border-bottom: 1px solid #d5d1d1;
+}
+
+.word-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.word-title p {
+    display: flex;
+    flex-direction: column-reverse;
+    font-size: small;
+    font-style: italic;
+}
+
+.word-all {
+    gap: 0;
+}
+
+.word-all-title {
+    min-width: 25%;
+    font-style: italic;
+}
+
+.word-all-description {
+    text-align: justify;
 }
 
 @media (max-width: 768px) {
@@ -88,7 +114,7 @@
     }
     .table-body {
         padding: 0 30px;
-        gap: 30px;
+        gap: 35px;
         border: none;
     }
     .table-body-item {
@@ -97,18 +123,24 @@
     .table-body-item-col {
         min-width: auto;
     }
-
     .table-title-image {
         display: block;
         padding: 10px;
         border: 1px solid gray;
         margin-bottom: 25px;
     }
-
     .table-title-image img {
         display: block;
         margin-top: auto;
         margin-bottom: auto;
+    }
+    .word-all-title {
+        width: 35%;
+        word-wrap: break-word;
+    }
+    .word-all-description {
+        width: 65%;
+        text-align: unset;
     }
 
 }

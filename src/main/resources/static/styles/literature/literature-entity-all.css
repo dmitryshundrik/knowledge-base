@@ -26,21 +26,6 @@
     flex-direction: column;
 }
 
-.word-all {
-    gap: 0;
-    display: flex;
-    flex-direction: row;
-}
-
-.word-all-title {
-    font-weight: bold;
-    min-width: 25%;
-}
-
-.word-all-description {
-    text-align: justify;
-}
-
 .description {
     text-align: justify;
 }
@@ -49,6 +34,21 @@
     padding-bottom: 10px;
     text-align: right;
     border-bottom: 1px solid #d5d1d1;
+}
+
+.word-all {
+    gap: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.word-all-title {
+    min-width: 25%;
+    font-style: italic;
+}
+
+.word-all-description {
+    text-align: justify;
 }
 
 @media (max-width: 768px) {
@@ -83,5 +83,14 @@
         flex-direction: row;
         text-align: left;
         border: none;
+        background-color: #cbcbcb25;
+    }
+    .word-all-title {
+        width: 35%;
+        word-wrap: break-word;
+    }
+    .word-all-description {
+        width: 65%;
+        text-align: unset;
     }
 }
