@@ -75,7 +75,7 @@ public class ProseService {
         prose.setCreated(Instant.now());
         prose.setWriter(writer);
         setFieldsFromDTO(prose, proseDTO);
-        prose.setSlug(SlugFormatter.slugFormatter(prose.getSlug()));
+        prose.setSlug(writer.getSlug() + "-" + SlugFormatter.slugFormatter(prose.getSlug()));
         return proseRepository.save(prose);
     }
 
@@ -103,7 +103,7 @@ public class ProseService {
 
     public ProseViewDTO getProseViewDTO(Prose prose) {
         return ProseViewDTO.builder()
-                .created(InstantFormatter.instantFormatterYMD(prose.getCreated()))
+                .created(InstantFormatter.instantFormatterDMY(prose.getCreated()))
                 .slug(prose.getSlug())
                 .title(prose.getTitle())
                 .writerNickname(prose.getWriter().getNickName())

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link th:href="@{/styles/management/entity-create-edit-management.css}" rel="stylesheet">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h4>создать painter</h4>
+    </header>
+
+    <div class="table-body">
+        <article class="table-body-item">
+            <form class="form"
+                  th:action="${'/management/painter/create'}"
+                  th:method="post"`
+                  th:object="${painterDTO}">
+
+                <section class="form-item">
+                    <label>nickname</label>
+                    <input type="text" th:field="*{nickName}" maxlength="255"/>
+                </section>
+                <p class="error" th:if="${#fields.hasErrors('nickName')}" th:errorclass="error"
+                   th:errors="*{nickName}"></p>
+
+                <section class="form-item">
+                    <label>slug</label>
+                    <input type="text" th:field="*{slug}" maxlength="255"/>
+                </section>
+                <p class="error" th:if="${#fields.hasErrors('slug')}" th:errorclass="error"
+                   th:errors="*{slug}"></p>
+                <p class="error" th:if="${not #strings.isEmpty('slug')}" th:text="${slug}"></p>
+
+                <section class="form-item">
+                    <label>first name</label>
+                    <input type="text" th:field="*{firstName}" maxlength="255"/>
+                </section>
+
+                <section class="form-item">
+                    <label>last name</label>
+                    <input type="text" th:field="*{lastName}" maxlength="255"/>
+                </section>
+
+                <section class="form-item">
+                    <label>born</label>
+                    <input type="number" th:field="*{born}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>died</label>
+                    <input type="number" th:field="*{died}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>birthday</label>
+                    <input type="date" th:field="*{birthDate}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>deathday</label>
+                    <input type="date" th:field="*{deathDate}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>approximate years</label>
+                    <input type="text" th:field="*{approximateYears}" maxlength="255"/>
+                </section>
+
+                <section class="form-item">
+                    <label>birthplace</label>
+                    <input type="text" th:field="*{birthplace}" maxlength="255"/>
+                </section>
+
+                <section class="form-item">
+                    <label>occupation</label>
+                    <input type="text" th:field="*{occupation}" maxlength="255"/>
+                </section>
+
+                <input class="input-submit" type="submit" value="Создать"/>
+            </form>
+        </article>
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

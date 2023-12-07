@@ -1,7 +1,13 @@
 package com.dmitryshundrik.knowledgebase.service.common;
 
+import com.dmitryshundrik.knowledgebase.model.art.Painting;
 import com.dmitryshundrik.knowledgebase.model.common.Image;
+import com.dmitryshundrik.knowledgebase.model.common.dto.ImageDTO;
+import com.dmitryshundrik.knowledgebase.model.gastronomy.Cocktail;
+import com.dmitryshundrik.knowledgebase.model.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.repository.common.ImageRepository;
+import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import liquibase.pro.packaged.S;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +20,6 @@ import java.util.stream.Collectors;
 @Transactional
 public class ImageService {
 
-
     @Autowired
     private ImageRepository imageRepository;
 
@@ -22,8 +27,12 @@ public class ImageService {
         return imageRepository.findAll();
     }
 
-    public List<Image> getAllSortedByCreated() {
-        return getAll().stream()
+    public List<Image> getAllSortedByCreatedDesc() {
+        return imageRepository.getAllByOrderByCreatedDesc();
+    }
+
+    public List<Image> getSortedByCreatedDesc(List<Image> imageList) {
+        return imageList.stream()
                 .sorted((o1, o2) -> o2.getCreated().compareTo(o1.getCreated()))
                 .collect(Collectors.toList());
     }
@@ -32,17 +41,21 @@ public class ImageService {
         return imageRepository.getBySlug(imageSlug);
     }
 
-    public Image createImage(Image image) {
+    public ImageDTO createImage(ImageDTO imageDTO) {
+        Image image = new Image();
         image.setCreated(Instant.now());
-        return imageRepository.save(image);
+        image.setTitle(imageDTO.getTitle().trim());
+        image.setSlug(InstantFormatter.instantFormatterYMD(image.getCreated()) + "-" + imageDTO.getSlug());
+        image.setDescription(imageDTO.getDescription());
+        return getImageDTO(imageRepository.save(image));
     }
 
-    public Image updateImage(String imageSlug, Image imageDTO) {
+    public ImageDTO updateImage(String imageSlug, ImageDTO imageDTO) {
         Image bySlug = getBySlug(imageSlug);
-        bySlug.setTitle(imageDTO.getTitle());
-        bySlug.setSlug(imageDTO.getSlug());
+        bySlug.setTitle(imageDTO.getTitle().trim());
+        bySlug.setSlug(imageDTO.getSlug().trim());
         bySlug.setDescription(imageDTO.getDescription());
-        return bySlug;
+        return getImageDTO(bySlug);
     }
 
     public void deleteImage(String imageSlug) {
@@ -60,6 +73,56 @@ public class ImageService {
     public void deleteFile(String imageSlug) {
         Image bySlug = getBySlug(imageSlug);
         bySlug.setData("");
+    }
+
+    public ImageDTO getImageDTO(Image image) {
+        return image != null ? ImageDTO.builder()
+                .id(image.getId().toString())
+                .created(InstantFormatter.instantFormatterYMDHMS(image.getCreated()))
+                .title(image.getTitle())
+                .slug(image.getSlug())
+                .description(image.getDescription())
+                .data(image.getData())
+                .build()
+                : null;
+    }
+
+    public List<ImageDTO> getImageDTOList(List<Image> imageList) {
+        return imageList.stream()
+                .map(this::getImageDTO).collect(Collectors.toList());
+    }
+
+    public ImageDTO createRecipeImage(ImageDTO imageDTO, Recipe recipe) {
+        ImageDTO createdImageDTO = createImage(imageDTO);
+        recipe.getImageList().add(getBySlug(createdImageDTO.getSlug()));
+        return createdImageDTO;
+    }
+
+    public void deleteRecipeImage(String imageSlug, Recipe recipe) {
+        recipe.getImageList().remove(getBySlug(imageSlug));
+        deleteImage(imageSlug);
+    }
+
+    public ImageDTO createCocktailImage(ImageDTO imageDTO, Cocktail cocktail) {
+        ImageDTO createdImageDTO = createImage(imageDTO);
+        cocktail.getImageList().add(getBySlug(createdImageDTO.getSlug()));
+        return createdImageDTO;
+    }
+
+    public void deleteCocktailImage(String imageSlug, Cocktail cocktail) {
+        cocktail.getImageList().remove(getBySlug(imageSlug));
+        deleteImage(imageSlug);
+    }
+
+    public ImageDTO createPaintingImage(ImageDTO imageDTO, Painting painting) {
+        ImageDTO createdImageDTO = createImage(imageDTO);
+        painting.setImage(getBySlug(createdImageDTO.getSlug()));
+        return createdImageDTO;
+    }
+
+    public void deletePaintingImage(String imageSlug, Painting painting) {
+        painting.setImage(null);
+        deleteImage(imageSlug);
     }
 
 }

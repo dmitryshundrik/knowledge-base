@@ -17,55 +17,77 @@
 
     <div class="table-body">
 
-        <article class="table-body-item">
-            <h3>Статистика</h3>
-            <span>музыканты: <span th:text="${musicianCount}"></span></span>
-            <span>альбомы: <span th:text="${albumCount}"></span></span>
-            <span>композиции: <span th:text="${compositionCount}"></span></span>
-        </article>
+        <div class="table-body-item">
+            <article class="table-body-item-col">
+                <h3>Статистика</h3>
+                <section class="table-body-item-col statistic">
+                    <span>музыканты: <span th:text="${musicianCount}"></span></span>
+                    <span>альбомы: <span th:text="${albumCount}"></span></span>
+                    <span>композиции: <span th:text="${compositionCount}"></span></span>
+                    <span>рецепты: <span th:text="${recipeCount}"></span></span>
+                    <span>коктейли: <span th:text="${cocktailCount}"></span></span>
+                    <span>писатели: <span th:text="${writerCount}"></span></span>
+                    <span>проза/поэзия: <span th:text="${proseCount}"></span></span>
+                    <span>цитаты: <span th:text="${quoteCount}"></span></span>
+                    <span>художники: <span th:text="${painterCount}"></span></span>
+                    <span>картины: <span th:text="${paintingCount}"></span></span>
+                </section>
+            </article>
 
-        <article class="table-body-item">
-            <h3>Хранилище</h3>
-            <a href="/management/storage/image/all">Изображения</a>
-        </article>
+            <article class="table-body-item-col">
+                <h3>Хранилище</h3>
+                <a href="/management/storage/image/all">Изображения</a>
+            </article>
 
-        <article class="table-body-item">
-            <h3>Инструменты</h3>
-            <a href="/management/setting/all">Настройки</a>
-            <a href="/management/encryption-application">Encryption Application</a>
-            <a href="/management/soty-generator">SOTY Generator</a>
-        </article>
+            <article class="table-body-item-col">
+                <h3>Инструменты</h3>
+                <a href="/management/setting/all">Настройки</a>
+                <a href="/management/encryption-application">Encryption Application</a>
+                <a href="/management/soty-generator">SOTY Generator</a>
+            </article>
 
-        <article class="table-body-item">
-            <h3>Шапка</h3>
-            <a href="/management/foundation/all">Благотворительность</a>
-            <a href="/management/resource/all">Ресурсы</a>
-        </article>
+            <article class="table-body-item-col">
+                <h3>Шапка</h3>
+                <a href="/management/foundation/all">Благотворительность</a>
+                <a href="/management/resource/all">Ресурсы</a>
+            </article>
+        </div>
 
-        <article class="table-body-item">
-            <h3>Музыка</h3>
-            <a href="/management/musician/all">Музыканты</a>
-            <a href="/management/album/all">Альбомы</a>
-            <a href="/management/composition/all">Произведения</a>
-            <a href="/management/year-in-music/all">Итоги года</a>
-            <a href="/management/music-period/all">Периоды</a>
-            <a href="/management/music-genre/all">Жанры</a>
-            <a href="/management/timeline-of-music/event/all">Краткая история музыки</a>
-        </article>
+        <div class="table-body-item">
+            <article class="table-body-item-col">
+                <h3>Музыка</h3>
+                <a href="/management/musician/all">Музыканты</a>
+                <a href="/management/album/all">Альбомы</a>
+                <a href="/management/composition/all">Произведения</a>
+                <a href="/management/year-in-music/all">Итоги года</a>
+                <a href="/management/music-period/all">Периоды</a>
+                <a href="/management/music-genre/all">Жанры</a>
+                <a href="/management/timeline-of-music/event/all">Краткая история музыки</a>
+            </article>
 
-        <article class="table-body-item">
-            <h3>Гастрономия</h3>
-            <a href="/management/recipe/all">Рецепты</a>
-            <a href="/management/cocktail/all">Коктейли</a>
-        </article>
+            <article class="table-body-item-col">
+                <h3>Гастрономия</h3>
+                <a href="/management/recipe/all">Рецепты</a>
+                <a href="/management/cocktail/all">Коктейли</a>
+            </article>
 
-        <article class="table-body-item">
-            <h3>Литература</h3>
-            <a href="/management/writer/all">Писатели</a>
-            <a href="/management/prose/all">Проза</a>
-            <a href="/management/quote/all">Цитаты</a>
-            <a href="/management/word/all">Словарь</a>
-        </article>
+            <article class="table-body-item-col">
+                <h3>Литература</h3>
+                <a href="/management/writer/all">Писатели</a>
+                <a href="/management/prose/all">Проза</a>
+                <a href="/management/quote/all">Цитаты</a>
+                <a href="/management/word/all">Словарь</a>
+            </article>
+
+            <article class="table-body-item-col">
+                <h3>Искусство</h3>
+                <a href="/management/painter/all">Художники</a>
+                <a href="/management/painting/all">Картины</a>
+                <a href="/management/gallery/all">Галереи</a>
+                <a href="/management/museum/all">Музеи</a>
+                <a href="/management/theatre/all">Театры</a>
+            </article>
+        </div>
 
     </div>
 

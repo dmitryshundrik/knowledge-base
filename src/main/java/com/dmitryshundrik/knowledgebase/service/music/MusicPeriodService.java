@@ -60,7 +60,7 @@ public class MusicPeriodService {
 
     public MusicPeriodViewDTO getMusicPeriodViewDTO(MusicPeriod musicPeriod) {
         return MusicPeriodViewDTO.builder()
-                .created(InstantFormatter.instantFormatterYMD(musicPeriod.getCreated()))
+                .created(InstantFormatter.instantFormatterDMY(musicPeriod.getCreated()))
                 .slug(musicPeriod.getSlug())
                 .title(musicPeriod.getTitle())
                 .titleEn(musicPeriod.getTitleEn())

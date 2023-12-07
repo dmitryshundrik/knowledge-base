@@ -38,6 +38,10 @@
     color: red;
 }
 
+.album-genres {
+    display: none;
+}
+
 .description {
     text-align: justify;
 }
@@ -60,5 +64,8 @@
         text-align: center;
         border: 1px solid gray;
         gap: 0;
+    }
+    .album-genres {
+        display: unset;
     }
 }

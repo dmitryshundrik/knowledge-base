@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="9" author="dmitryshundrik">
+        <sqlFile path="v3.0.0/2023-11-30-add-recipes-image-list-table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="10" author="dmitryshundrik">
+        <sqlFile path="v3.0.0/2023-11-30-add-cocktails-image-list-table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="11" author="dmitryshundrik">
+        <sqlFile path="v3.0.0/2023-11-30-add-art-tables.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+</databaseChangeLog>

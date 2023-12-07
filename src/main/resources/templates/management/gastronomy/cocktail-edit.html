@@ -14,7 +14,6 @@
     <header class="table-title">
         <h4>изменить cocktail</h4>
     </header>
-
     <div class="table-body">
         <article class="table-body-item">
             <form class="form" th:action="${'/management/cocktail/edit/' + cocktailDTO.slug}" th:method="put"
@@ -47,6 +46,46 @@
 
                 <input class="input-submit" type="submit" value="Обновить"/>
             </form>
+        </article>
+
+        <header class="table-title">
+            <h4>архив image</h4>
+            <a target="_blank"
+               th:href="${'/management/cocktail/edit/' + cocktailDTO.slug + '/image/create'}">создать image</a>
+        </header>
+        <article class="table-body-item">
+            <table>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>created</th>
+                    <th>title</th>
+                    <th>slug</th>
+                    <th>edit</th>
+                    <th>delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="image : ${cocktailDTO.imageList}">
+                    <th th:text="${cocktailDTO.imageList.size - imageStat.index}"></th>
+                    <td th:text="${image.created}"></td>
+                    <td th:text="${image.title}"></td>
+                    <td th:text="${image.slug}"></td>
+                    <td class="td-settings">
+                        <a target="_blank"
+                           th:href="${'/management/cocktail/edit/' + cocktailDTO.slug + '/image/edit/' + image.slug}">edit</a>
+                    </td>
+                    <td class="td-settings">
+                        <form th:action="${'/management/cocktail/edit/' + cocktailDTO.slug + '/image/delete/' + image.slug}"
+                              th:method="delete">
+                            <input type="submit" value="delete"
+                                   th:data-confirm-delete="|Are you sure you want to delete this image?|"
+                                   onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </article>
     </div>
 

@@ -14,11 +14,11 @@
     <header class="table-title">
         <h4>изменить image</h4>
     </header>
-
     <div class="table-body">
         <article class="table-body-item">
-            <form class="form" th:action="${'/management/storage/image/edit/' + image.slug}" th:method="put"
-                  th:object="${image}">
+            <form class="form" th:action="${'/management/recipe/edit/' + recipeSlug +'/image/edit/' + imageDTO.slug}"
+                  th:method="put"
+                  th:object="${imageDTO}">
 
                 <section class="form-item">
                     <label>title</label>
@@ -44,9 +44,12 @@
             </form>
         </article>
 
+        <header class="table-title">
+            <h4>загрузить файл</h4>
+        </header>
         <article class="table-body-item">
             <form class="form"
-                  th:action="${'/management/storage/image/edit/' + image.slug + '/file/upload'}"
+                  th:action="${'/management/recipe/edit/' + recipeSlug + '/image/edit/' + imageDTO.slug + '/file/upload'}"
                   th:method="post"
                   enctype="multipart/form-data">
 
@@ -59,16 +62,15 @@
             </form>
 
             <section class="entity-image">
-                <img alt="" th:src="|data:image;base64,${image.data}|">
+                <img alt="" th:src="|data:image;base64,${imageDTO.data}|">
             </section>
 
             <form class="form"
-                  th:action="${'/management/storage/image/edit/' + image.slug + '/file/delete'}"
+                  th:action="${'/management/recipe/edit/' + recipeSlug + '/image/edit/' + imageDTO.slug + '/file/delete'}"
                   th:method="delete">
                 <input class="input-submit" type="submit" value="Удалить">
             </form>
         </article>
-
     </div>
 
 </main>

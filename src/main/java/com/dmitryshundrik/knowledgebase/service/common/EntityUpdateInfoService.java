@@ -1,5 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.common;
 
+import com.dmitryshundrik.knowledgebase.model.art.Painter;
+import com.dmitryshundrik.knowledgebase.model.art.Painting;
 import com.dmitryshundrik.knowledgebase.model.common.EntityUpdateInfo;
 import com.dmitryshundrik.knowledgebase.model.common.Resource;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.Cocktail;
@@ -10,6 +12,8 @@ import com.dmitryshundrik.knowledgebase.model.literature.Writer;
 import com.dmitryshundrik.knowledgebase.model.music.Album;
 import com.dmitryshundrik.knowledgebase.model.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
+import com.dmitryshundrik.knowledgebase.service.art.PainterService;
+import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
 import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
@@ -61,6 +65,12 @@ public class EntityUpdateInfoService {
     private QuoteService quoteService;
 
     @Autowired
+    private PainterService painterService;
+
+    @Autowired
+    private PaintingService paintingService;
+
+    @Autowired
     private ResourcesService resourcesService;
 
     public List<EntityUpdateInfo> getLatestUpdates() {
@@ -73,6 +83,8 @@ public class EntityUpdateInfoService {
         allUpdateInfo.addAll(getWriterUpdates());
         allUpdateInfo.addAll(getProseUpdates());
         allUpdateInfo.addAll(getQuoteUpdates());
+        allUpdateInfo.addAll(getPainterUpdates());
+        allUpdateInfo.addAll(getPaintingUpdates());
         allUpdateInfo.addAll(getResourcesUpdates());
 
         Instant instant = Instant.now().minus(settingService.getTimeIntervalForUpdates(), ChronoUnit.DAYS);
@@ -200,6 +212,34 @@ public class EntityUpdateInfoService {
                     .build());
         }
         return quoteUpdateInfo;
+    }
+
+    private List<EntityUpdateInfo> getPainterUpdates() {
+        List<EntityUpdateInfo> painterUpdateInfo = new ArrayList<>();
+        List<Painter> latestUpdate = painterService.getLatestUpdate();
+        for (Painter painter : latestUpdate) {
+            painterUpdateInfo.add(EntityUpdateInfo.builder()
+                    .created(painter.getCreated())
+                    .archiveSection("искусство:")
+                    .description("художник " + painter.getNickName())
+                    .link("art/painter/" + painter.getSlug())
+                    .build());
+        }
+        return painterUpdateInfo;
+    }
+
+    private List<EntityUpdateInfo> getPaintingUpdates() {
+        List<EntityUpdateInfo> paintingUpdateInfo = new ArrayList<>();
+        List<Painting> latestUpdate = paintingService.getLatestUpdate();
+        for (Painting painting : latestUpdate) {
+            paintingUpdateInfo.add(EntityUpdateInfo.builder()
+                    .created(painting.getCreated())
+                    .archiveSection("искусство:")
+                    .description("картина «" + painting.getTitle() + "» добавлена в архив " + painting.getPainter().getNickName())
+                    .link("art/painter/" + painting.getPainter().getSlug())
+                    .build());
+        }
+        return paintingUpdateInfo;
     }
 
     private List<EntityUpdateInfo> getResourcesUpdates() {

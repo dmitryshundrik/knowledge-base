@@ -33,15 +33,13 @@
 }
 
 .entity-image {
-    width: 98%;
-    height: 150px;
-    padding: 20px 0;
-    text-align: center;
+    padding: 20px 100px;
+    width: 78%;
+    text-align: right;
 }
 
 .entity-image img {
-    width: auto;
-    max-height: 100%;
+    max-width: 60%;
 }
 
 .form label {
@@ -61,6 +59,11 @@
 .major-field textarea {
     width: 60%;
     height: 100px;
+}
+
+.major-field-recipe textarea {
+    width: 60%;
+    height: 200px;
 }
 
 .major-field select {

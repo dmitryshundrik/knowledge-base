@@ -32,10 +32,10 @@ public class ProseManagementController {
 
     @GetMapping("/management/writer/edit/{writerSlug}/prose/create")
     public String getProseCreate(@PathVariable String writerSlug, Model model) {
-        ProseCreateEditDTO proseCreateEditDTO = new ProseCreateEditDTO();
-        proseCreateEditDTO.setWriterNickname(writerService.getBySlug(writerSlug).getNickName());
-        proseCreateEditDTO.setWriterSlug(writerSlug);
-        model.addAttribute("proseDTO", proseCreateEditDTO);
+        ProseCreateEditDTO proseDTO = new ProseCreateEditDTO();
+        proseDTO.setWriterNickname(writerService.getBySlug(writerSlug).getNickName());
+        proseDTO.setWriterSlug(writerSlug);
+        model.addAttribute("proseDTO", proseDTO);
         return "management/literature/prose-create";
     }
 

@@ -1,0 +1,10 @@
+
+.temporal-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.temporal-image img {
+    max-height: 500px;
+}

@@ -33,18 +33,13 @@
                 </section>
 
                 <section class="form-item">
-                    <label>catalog number</label>
-                    <input type="text" th:field="*{catalogNumber}" maxlength="255"/>
+                    <label>year</label>
+                    <input type="number" th:field="*{year}"/>
                 </section>
 
                 <section class="form-item">
                     <label>musician</label>
                     <input disabled type="text" th:field="*{musicianNickname}"/>
-                </section>
-
-                <section class="form-item">
-                    <label>feature</label>
-                    <input type="text" th:field="*{feature}" maxlength="255"/>
                 </section>
 
                 <section class="form-item major-field">
@@ -55,11 +50,6 @@
                                 th:text="${collaborator.nickName}">
                         </option>
                     </select>
-                </section>
-
-                <section class="form-item">
-                    <label>year</label>
-                    <input type="number" th:field="*{year}"/>
                 </section>
 
                 <section class="form-item major-field">

@@ -24,12 +24,12 @@ public class CompositionService {
     @Autowired
     private CompositionRepository compositionRepository;
 
-    public Composition getCompositionBySlug(String compositionSlug) {
-        return compositionRepository.getCompositionBySlug(compositionSlug);
+    public List<Composition> getAll() {
+        return compositionRepository.findAll();
     }
 
-    public List<Composition> getAllCompositions() {
-        return compositionRepository.findAll();
+    public Composition getCompositionBySlug(String compositionSlug) {
+        return compositionRepository.getCompositionBySlug(compositionSlug);
     }
 
     public List<Composition> getAllByYear(Integer year) {
@@ -56,7 +56,7 @@ public class CompositionService {
         return compositionRepository.getAllByOrderByCreatedDesc();
     }
 
-    public List<Composition> getAllByMsuicianWithRating(String musicianSlug) {
+    public List<Composition> getAllByMusicianWithRating(String musicianSlug) {
         return compositionRepository.getAllByMusicianWithRating(musicianSlug);
     }
 
@@ -144,7 +144,7 @@ public class CompositionService {
 
     public CompositionViewDTO getCompositionViewDTO(Composition composition) {
         return CompositionViewDTO.builder()
-                .created(InstantFormatter.instantFormatterYMD(composition.getCreated()))
+                .created(InstantFormatter.instantFormatterDMY(composition.getCreated()))
                 .slug(composition.getSlug())
                 .title(composition.getTitle())
                 .catalogTitle(composition.getMusician().getCatalogTitle())

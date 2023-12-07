@@ -42,11 +42,13 @@
                         <a th:text="${composition.musicianNickname}"
                            th:href="'/music/musician/' + ${composition.musicianSlug}"></a>
                 </span>
-                <span class="table-body-item-col title" th:text="${composition.title}"></span>
-                <span class="table-body-item-col catalogtitle" th:if="${composition.catalogNumber} != null"
-                      th:text="${composition.catalogTitle + ' ' + composition.catalogNumber}"></span>
-                <span class="table-body-item-col" th:if="${composition.year} != null"
-                      th:text="'(' + ${composition.year} + ')'"></span>
+                <span class="table-body-item-col title">
+                    <span class="table-body-item-col title" th:text="${composition.title}"></span>
+                    <span class="table-body-item-col catalogtitle" th:if="${composition.catalogNumber} != null"
+                          th:text="${composition.catalogTitle + ' ' + composition.catalogNumber}"></span>
+                    <span class="table-body-item-col" th:if="${composition.year} != null"
+                          th:text="'(' + ${composition.year} + ')'"></span>
+                </span>
                 <span class="table-body-item-col rating" th:text="${composition.rating}"></span>
             </section>
         </article>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>Искусство</title>
+    <link th:href="@{/styles/section-main-page.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h3>Искусство</h3>
+    </header>
+
+    <div class="table-body">
+
+        <article class="table-body-item">
+            <h3>Списки и графики:</h3>
+            <a href="/art/painter/all">Художники</a>
+            <a href="/art/painting/all">Картины</a>
+            <a href="/art/painting/top20">Топ 20 лучших произведений живописи</a>
+            <a href="/art/gallery/all">Галереи</a>
+            <a href="/art/theatre/all">Театры</a>
+        </article>
+
+        <article class="table-body-item">
+            <h3>Стили живописи:</h3>
+            <div class="table-body-item-row">
+                <span style="font-style: italic">В разработке</span>
+            </div>
+        </article>
+
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

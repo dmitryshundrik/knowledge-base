@@ -8,15 +8,18 @@
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <title>Топ 100 лучших альбомов</title>
     <link th:href="@{/styles/music/music-entity-all.css}" rel="stylesheet">
+    <link th:href="@{/styles/title-note.css}" rel="stylesheet">
     <meta name="viewport" content="width=device-width">
 </head>
 <body>
+
 <header th:insert="fragments/header.html"></header>
 
 <main class="table">
 
     <header class="table-title">
         <h3>Топ 100 лучших альбомов</h3>
+        <p class="table-title-note">в процессе...</p>
     </header>
 
     <div class="table-body">
@@ -27,8 +30,9 @@
                 <span class="table-body-item-col">
                     <a th:text="${album.musicianNickname}" th:href="'/music/musician/' + ${album.musicianSlug}"></a>
                 </span>
-                <span class="table-body-item-col album-title" th:text="${album.title}"></span>
-                <span class="table-body-item-col" th:if="${not #lists.isEmpty(album.collaborators)}">
+                <span>
+                    <span class="table-body-item-col album-title" th:text="${album.title}"></span>
+                    <span class="table-body-item-col" th:if="${not #lists.isEmpty(album.collaborators)}">
                     <span>(with </span>
                     <span th:each="collaborator : ${album.collaborators}">
                         <a th:href="'/music/musician/' + ${collaborator.slug}"
@@ -38,6 +42,7 @@
                     <span>)</span>
                 </span>
                 <span class="table-body-item-col" th:text="'(' + ${album.year} + ')'"></span>
+                </span>
                 <span class="table-body-item-col rating" th:text="${album.rating}"></span>
             </section>
         </article>

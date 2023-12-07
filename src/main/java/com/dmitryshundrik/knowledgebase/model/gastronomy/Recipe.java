@@ -1,10 +1,12 @@
 package com.dmitryshundrik.knowledgebase.model.gastronomy;
 
+import com.dmitryshundrik.knowledgebase.model.common.Image;
 import com.dmitryshundrik.knowledgebase.model.common.enums.Country;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -34,5 +36,9 @@ public class Recipe {
 
     @Column(columnDefinition = "text")
     private String method;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @OrderBy("created")
+    private List<Image> imageList;
 
 }

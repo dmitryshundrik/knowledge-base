@@ -80,7 +80,7 @@ public class MusicPageController {
 
     @GetMapping("/album/all")
     public String getAllAlbums(Model model) {
-        List<Album> albums = albumService.getAllAlbums();
+        List<Album> albums = albumService.getAll();
         model.addAttribute("albums", albumService.getSortedAlbumViewDTOList(albums, SortType.CREATED));
         return "music/album-all";
     }

@@ -6,6 +6,7 @@
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <title>Вся проза</title>
     <link th:href="@{/styles/literature/literature-entity-all.css}" rel="stylesheet">
+    <link th:href="@{/styles/title-note.css}" rel="stylesheet">
     <meta name="viewport" content="width=device-width">
 </head>
 <body>
@@ -16,6 +17,7 @@
 
     <header class="table-title">
         <h3>Вся проза</h3>
+        <p class="table-title-note">последние обновления</p>
     </header>
 
     <div class="table-body">
@@ -24,9 +26,11 @@
             <section class="table-body-item-row" th:each="prose : ${proseList}">
                 <span th:text="${prose.created}"></span>
                 <a th:text="${prose.writerNickname}" th:href="'/literature/writer/' + ${prose.writerSlug}"></a>
-                <span th:text="${prose.title}"></span>
-                <span class="table-body-item-col year" th:if="${prose.year} != null"
-                      th:text="'(' + ${prose.year} + ')'"></span>
+                <span>
+                    <span th:text="${prose.title}"></span>
+                    <span class="table-body-item-col year" th:if="${prose.year} != null"
+                          th:text="'(' + ${prose.year} + ')'"></span>
+                </span>
             </section>
         </article>
 

@@ -29,7 +29,7 @@ public class ProseCreateEditDTO {
 
     private String description;
 
-    private List<QuoteViewDTO> quoteList = new ArrayList<>();
+    private List<QuoteViewDTO> quoteList;
 
     public ProseCreateEditDTO() {
 

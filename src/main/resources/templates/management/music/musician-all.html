@@ -32,6 +32,7 @@
                 <th>catalog_title</th>
                 <th>period</th>
                 <th>genres</th>
+                <th>image</th>
                 <th>edit</th>
                 <th>delete</th>
             </tr>
@@ -59,6 +60,9 @@
                           th:each="genre : ${musician.musicGenres}">
                         <span th:text="${genre.title}"></span>
                     </span>
+                </td>
+                <td>
+                    <span th:if="${musician.image} != null">pic</span>
                 </td>
                 <td class="td-settings">
                     <a target="_blank" th:href="${'/management/musician/edit/' + musician.slug}">edit</a>

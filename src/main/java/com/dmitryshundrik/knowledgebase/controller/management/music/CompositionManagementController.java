@@ -16,7 +16,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping()
 public class CompositionManagementController {
 
     @Autowired

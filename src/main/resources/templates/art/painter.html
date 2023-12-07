@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title th:text="${painterDTO.nickName}"></title>
+    <link th:href="@{/styles/art/painter.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <section class="table-title-image" th:if="${painterDTO.image} != null">
+            <img th:src="|data:image;base64,${painterDTO.image}|">
+        </section>
+        <h1 th:text="${painterDTO.nickName}"></h1>
+        <h3 class="occupation" th:if="${not #strings.isEmpty(painterDTO.occupation)}"
+            th:text="${painterDTO.occupation}"></h3>
+    </header>
+
+    <div class="table-body">
+        <article class="table-body-item">
+            <header class="table-body-item-title">
+                <h3>Инфо</h3>
+            </header>
+
+            <section class="table-title-item-row"
+                     th:if="${painterDTO.born} != null and ${painterDTO.died} == null">
+                <span>Дата рождения:</span>
+                <span th:text="${painterDTO.born} + ${painterDTO.approximateYears}"></span>
+            </section>
+
+            <section class="table-title-item-row"
+                     th:if="${painterDTO.born} != null and ${painterDTO.died} != null">
+                <span>Годы жизни:</span>
+                <span th:text="${painterDTO.born} + ${painterDTO.approximateYears} + ' - ' + ${painterDTO.died}"></span>
+            </section>
+
+            <section class="table-title-item-row" th:if="${not #strings.isEmpty(painterDTO.birthplace)}">
+                <span>Место рождения:</span>
+                <span th:text="${painterDTO.birthplace}"></span>
+            </section>
+        </article>
+
+        <article class="table-body-item" th:if="${not #lists.isEmpty(painterDTO.events)}">
+            <header class="table-body-item-title">
+                <h3>Таймлайн</h3>
+            </header>
+            <section class="table-body-item-row" th:each="timelineEvent : ${painterDTO.events}">
+                <span class="timeline-text" th:text="${timelineEvent.description}"></span>
+            </section>
+        </article>
+
+        <article class="table-body-item" th:if="${not #lists.isEmpty(bestPaintingList)}">
+            <header class="table-body-item-title">
+                <h3>Лучшее</h3>
+            </header>
+            <section class="table-body-item-row" th:each="painting : ${bestPaintingList}">
+                <span th:text="${paintingStat.index + 1} + '.'"></span>
+                <span th:text="${painting.title}"></span>
+            </section>
+        </article>
+
+        <article class="table-body-item" th:if="${not #lists.isEmpty(painterDTO.paintingList)}">
+            <header class="table-body-item-title painting-title">
+                <h3>Вся живопись</h3>
+                <p>хронологический порядок</p>
+            </header>
+            <section class="table-body-item-row painting-item-row" th:each="painting : ${painterDTO.paintingList}">
+                <div class="painting-description">
+                    <span th:text="${painting.year1}"></span>
+                    <span th:text="${painting.title}"></span>
+                    <span class="painting-based" th:if="${not #strings.isEmpty(painting.based)}"
+                          th:text="'(' + ${painting.based} + ')'"></span>
+                </div>
+                <div class="painting-image" th:if="${painting.image} != null">
+                    <img th:src="|data:image;base64,${painting.image.data}|" th:alt="${painting.title}">
+                </div>
+            </section>
+            <section>
+                <span>
+                    <a th:href="'/art/painter/' + ${painterDTO.slug} + '/painting/all'">Весь список</a>
+                </span>
+            </section>
+        </article>
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

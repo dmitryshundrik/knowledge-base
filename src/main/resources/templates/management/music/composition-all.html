@@ -24,7 +24,6 @@
                 <th>title</th>
                 <th>catalog_number</th>
                 <th>musician</th>
-                <th>feature</th>
                 <th>year</th>
                 <th>album</th>
                 <th>genres</th>
@@ -37,12 +36,11 @@
             </thead>
             <tbody>
             <tr th:each="composition : ${compositionViewDTOList}">
-                <th th:text="${compositionViewDTOList.size + compositionStat.index}"></th>
+                <th th:text="${compositionViewDTOList.size - compositionStat.index}"></th>
                 <td th:text="${composition.created}"></td>
                 <td th:text="${composition.title}"></td>
                 <td th:text="${composition.catalogNumber}"></td>
                 <td th:text="${composition.musicianNickname}"></td>
-                <td th:text="${composition.feature}"></td>
                 <td th:text="${composition.year}"></td>
                 <td th:text="${composition.albumTitle}"></td>
                 <td>

@@ -4,6 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.CocktailCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.CocktailViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.gastronomy.CocktailRepository;
+import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,15 @@ public class CocktailService {
     @Autowired
     private CocktailRepository cocktailRepository;
 
+    @Autowired
+    private ImageService imageService;
+
     public List<Cocktail> getAll() {
         return cocktailRepository.findAll();
+    }
+
+    public List<Cocktail> getAllBySortedByCreatedDesc() {
+        return cocktailRepository.getAllByOrderByCreatedDesc();
     }
 
     public Cocktail getBySlug(String cocktailSLug) {
@@ -48,12 +56,15 @@ public class CocktailService {
 
     public CocktailViewDTO getCocktailViewDTO(Cocktail cocktail) {
         return CocktailViewDTO.builder()
-                .created(InstantFormatter.instantFormatterYMD(cocktail.getCreated()))
+                .created(InstantFormatter.instantFormatterDMY(cocktail.getCreated()))
                 .slug(cocktail.getSlug())
                 .title(cocktail.getTitle())
                 .about(cocktail.getAbout())
                 .ingredients(cocktail.getIngredients())
                 .method(cocktail.getMethod())
+                .imageList(cocktail.getImageList() != null ? imageService
+                        .getImageDTOList(imageService
+                                .getSortedByCreatedDesc(cocktail.getImageList())) : null)
                 .build();
     }
 
@@ -69,6 +80,9 @@ public class CocktailService {
                 .about(cocktail.getAbout())
                 .ingredients(cocktail.getIngredients())
                 .method(cocktail.getMethod())
+                .imageList(cocktail.getImageList() != null ? imageService
+                        .getImageDTOList(imageService
+                                .getSortedByCreatedDesc(cocktail.getImageList())) : null)
                 .build();
     }
 

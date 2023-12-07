@@ -39,7 +39,7 @@ public class LiteraturePageController {
 
 
     @GetMapping()
-    public String getLiteraturePage(Model model) {
+    public String getLiteraturePage() {
         return "literature/literature-page";
     }
 

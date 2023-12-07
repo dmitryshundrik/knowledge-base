@@ -18,11 +18,11 @@ public class WriterViewDTO {
 
     private String slug;
 
+    private String nickName;
+
     private String firstName;
 
     private String lastName;
-
-    private String nickName;
 
     private String image;
 

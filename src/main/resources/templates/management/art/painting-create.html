@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link th:href="@{/styles/management/entity-create-edit-management.css}" rel="stylesheet">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h4>создать painting</h4>
+    </header>
+
+    <div class="table-body">
+        <article class="table-body-item">
+            <form class="form"
+                  th:action="${'/management/painter/edit/' + paintingDTO.painterSlug + '/painting/create'}"
+                  th:method="post"
+                  th:object="${paintingDTO}">
+
+                <section class="form-item">
+                    <label>title</label>
+                    <input type="text" th:field="*{title}" maxlength="255"/>
+                </section>
+                <p class="error" th:if="${#fields.hasErrors('title')}" th:errorclass="error" th:errors="*{title}"></p>
+
+                <section class="form-item">
+                    <label>slug</label>
+                    <input type="text" th:field="*{slug}" maxlength="255"/>
+                </section>
+                <p class="error" th:if="${#fields.hasErrors('slug')}" th:errorclass="error"
+                   th:errors="*{slug}"></p>
+                <p class="error" th:if="${not #strings.isEmpty('slug')}" th:text="${slug}"></p>
+
+                <section class="form-item">
+                    <label>painter</label>
+                    <input disabled type="text" th:field="*{painterNickname}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>year1</label>
+                    <input type="number" th:field="*{year1}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>year2</label>
+                    <input type="number" th:field="*{year2}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>approximate years</label>
+                    <input type="text" th:field="*{approximateYears}" maxlength="255"/>
+                </section>
+
+                <section class="form-item major-field">
+                    <label>based</label>
+                    <textarea th:field="*{based}"></textarea>
+                </section>
+
+                <section class="form-item">
+                    <label>PTR</label>
+                    <input type="number" th:field="*{painterTopRank}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>ATTR</label>
+                    <input type="number" th:field="*{allTimeTopRank}"/>
+                </section>
+
+
+                <section class="form-item major-field">
+                    <label>description</label>
+                    <textarea th:field="*{description}"></textarea>
+                </section>
+                <input class="input-submit" type="submit" value="Создать"/>
+            </form>
+        </article>
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

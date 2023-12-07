@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,9 +29,10 @@ public class Prose {
 
     private Double rating;
 
+    @Column(columnDefinition = "text")
     private String description;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "prose")
-    private List<Quote> quoteList = new ArrayList<>();
+    private List<Quote> quoteList;
 
 }

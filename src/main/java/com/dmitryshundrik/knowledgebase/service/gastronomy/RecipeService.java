@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.RecipeCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.RecipeViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.gastronomy.RecipeRepository;
+import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,15 @@ public class RecipeService {
     @Autowired
     private RecipeRepository recipeRepository;
 
+    @Autowired
+    private ImageService imageService;
+
     public List<Recipe> getAll() {
         return recipeRepository.findAll();
+    }
+
+    public List<Recipe> getAllBySortedByCreatedDesc() {
+        return recipeRepository.getAllByOrderByCreatedDesc();
     }
 
     public List<Recipe> getAllByCountry(Country country) {
@@ -53,13 +61,16 @@ public class RecipeService {
 
     public RecipeViewDTO getRecipeViewDTO(Recipe recipe) {
         return RecipeViewDTO.builder()
-                .created(InstantFormatter.instantFormatterYMD(recipe.getCreated()))
+                .created(InstantFormatter.instantFormatterDMY(recipe.getCreated()))
                 .slug(recipe.getSlug())
                 .title(recipe.getTitle())
                 .country(recipe.getCountry())
                 .about(recipe.getAbout())
                 .ingredients(recipe.getIngredients())
                 .method(recipe.getMethod())
+                .imageList(recipe.getImageList() != null ? imageService
+                        .getImageDTOList(imageService
+                                .getSortedByCreatedDesc(recipe.getImageList())) : null)
                 .build();
     }
 
@@ -75,6 +86,9 @@ public class RecipeService {
                 .about(recipe.getAbout())
                 .ingredients(recipe.getIngredients())
                 .method(recipe.getMethod())
+                .imageList(recipe.getImageList() != null ? imageService
+                        .getImageDTOList(imageService
+                                .getSortedByCreatedDesc(recipe.getImageList())) : null)
                 .build();
     }
 

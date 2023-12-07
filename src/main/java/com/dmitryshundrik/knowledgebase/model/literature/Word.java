@@ -22,6 +22,7 @@ public class Word {
 
     private String title;
 
+    @Column(columnDefinition = "text")
     private String description;
 
 }

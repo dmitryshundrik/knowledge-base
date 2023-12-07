@@ -14,7 +14,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping
 public class CocktailManagementController {
 
     @Autowired
@@ -22,9 +21,9 @@ public class CocktailManagementController {
 
     @GetMapping("/management/cocktail/all")
     public String getAllCocktails(Model model) {
-        List<Cocktail> cocktailList = cocktailService.getAll();
-        List<CocktailViewDTO> cocktailViewDTOList = cocktailService.getCocktailViewDTOList(cocktailList);
-        model.addAttribute("cocktails", cocktailViewDTOList);
+        List<Cocktail> cocktailList = cocktailService.getAllBySortedByCreatedDesc();
+        List<CocktailViewDTO> cocktailDTOList = cocktailService.getCocktailViewDTOList(cocktailList);
+        model.addAttribute("cocktails", cocktailDTOList);
         return "management/gastronomy/cocktail-archive";
     }
 
@@ -36,7 +35,8 @@ public class CocktailManagementController {
     }
 
     @PostMapping("/management/cocktail/create")
-    public String postCocktailCreate(@Valid @ModelAttribute("cocktailDTO") CocktailCreateEditDTO cocktailDTO, BindingResult bindingResult,
+    public String postCocktailCreate(@Valid @ModelAttribute("cocktailDTO") CocktailCreateEditDTO cocktailDTO,
+                                     BindingResult bindingResult,
                                      Model model) {
         String error = cocktailService.cocktailSlugIsExist(cocktailDTO.getSlug());
         model.addAttribute("slug", error);

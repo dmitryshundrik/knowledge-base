@@ -60,7 +60,7 @@ public class WordService {
     public WordDTO getWordDTO(Word word) {
         return WordDTO.builder()
                 .id(word.getId().toString())
-                .created(InstantFormatter.instantFormatterYMD(word.getCreated()))
+                .created(InstantFormatter.instantFormatterDMY(word.getCreated()))
                 .writerNickname(word.getWriter().getNickName())
                 .writerSlug(word.getWriter().getSlug())
                 .title(word.getTitle())

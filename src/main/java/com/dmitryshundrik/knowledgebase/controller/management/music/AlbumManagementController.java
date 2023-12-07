@@ -16,7 +16,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping()
 public class AlbumManagementController {
 
     @Autowired
@@ -41,7 +40,7 @@ public class AlbumManagementController {
         musicianService.setFieldsToAlbumDTO(musicianSlug, albumDTO);
         model.addAttribute("albumCreateEditDTO", albumDTO);
         model.addAttribute("collaborators", MusicianDTOTransformer
-                .getMusicianSelectDTOList(musicianService.getAllMusicians()));
+                .getMusicianSelectDTOList(musicianService.getAll()));
         model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenresSortedByTitle());
         model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenresSortedByTitle());
         return "management/music/album-create";
@@ -68,7 +67,7 @@ public class AlbumManagementController {
         Album albumBySlug = albumService.getAlbumBySlug(albumSlug);
         model.addAttribute("albumCreateEditDTO", albumService.getAlbumCreateEditDTO(albumBySlug));
         model.addAttribute("collaborators", MusicianDTOTransformer
-                .getMusicianSelectDTOList(musicianService.getAllMusicians()));
+                .getMusicianSelectDTOList(musicianService.getAll()));
         model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenresSortedByTitle());
         model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenresSortedByTitle());
         return "management/music/album-edit";

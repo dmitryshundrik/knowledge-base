@@ -1,0 +1,36 @@
+package com.dmitryshundrik.knowledgebase.controller.management.storage;
+
+import com.dmitryshundrik.knowledgebase.model.common.Image;
+import com.dmitryshundrik.knowledgebase.model.common.dto.ImageDTO;
+import com.dmitryshundrik.knowledgebase.service.common.ImageService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@Controller
+public class StorageManagementController {
+
+    @Autowired
+    private ImageService imageService;
+
+    @GetMapping("/management/storage/image/all")
+    public String getAllImages(Model model) {
+        List<Image> imageList = imageService.getAllSortedByCreatedDesc();
+        List<ImageDTO> imageDTOList = imageService.getImageDTOList(imageList);
+        model.addAttribute("imageDTOList", imageDTOList);
+        return "management/storage/image-all";
+    }
+
+    @GetMapping("/storage/images/{imageSlug}")
+    public ResponseEntity<byte[]> getImageFromArchive(@PathVariable String imageSlug) {
+        String base64Image = imageService.getBySlug(imageSlug).getData();
+        byte[] bytes = javax.xml.bind.DatatypeConverter.parseBase64Binary(base64Image);
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(bytes);
+    }
+
+}

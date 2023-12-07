@@ -80,7 +80,7 @@ public class WriterService {
 
     public WriterViewDTO getWriterViewDTO(Writer writer) {
         return WriterViewDTO.builder()
-                .created(InstantFormatter.instantFormatterYMD(writer.getCreated()))
+                .created(InstantFormatter.instantFormatterDMY(writer.getCreated()))
                 .slug(writer.getSlug())
                 .firstName(writer.getFirstName())
                 .lastName(writer.getLastName())

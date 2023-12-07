@@ -30,6 +30,10 @@ public class MusicianService {
     @Autowired
     private CompositionService compositionService;
 
+    public List<Musician> getAll() {
+        return musicianRepository.getAllByOrderByCreated();
+    }
+
     public Musician getMusicianById(UUID musicianID) {
         return musicianRepository.findById(musicianID).orElse(null);
     }
@@ -46,16 +50,12 @@ public class MusicianService {
         return musicianRepository.getMusicianBySlug(musicianSlug);
     }
 
-    public List<Musician> getAllMusicians() {
-        return musicianRepository.getAllByOrderByCreated();
-    }
-
     public List<Musician> getAllMusiciansOrderedByCreatedDesc() {
         return musicianRepository.getAllByOrderByCreatedDesc();
     }
 
     public List<Musician> getAllMusiciansSortedByBorn() {
-        return getAllMusicians().stream()
+        return getAll().stream()
                 .filter(musician -> musician.getBorn() != null || musician.getFounded() != null)
                 .sorted((o1, o2) -> {
                     Integer o1Date = o1.getBorn() != null ? o1.getBorn() : o1.getFounded();
@@ -90,7 +90,7 @@ public class MusicianService {
         List<Musician> allMusiciansByPeriod = getAllMusiciansByPeriod(period);
         Map<Musician, Double> map = new HashMap<>();
         for (Musician musician : allMusiciansByPeriod) {
-            List<Composition> compositions = compositionService.getAllByMsuicianWithRating(musician.getSlug());
+            List<Composition> compositions = compositionService.getAllByMusicianWithRating(musician.getSlug());
             double totalScore = 0.0;
             for (Composition composition : compositions) {
                 totalScore = totalScore + (composition.getRating() != null ? composition.getRating() : 0);
@@ -153,7 +153,7 @@ public class MusicianService {
 
     public MusicianViewDTO getMusicianViewDTO(Musician musician) {
         return MusicianViewDTO.builder()
-                .created(InstantFormatter.instantFormatterYMDHMS(musician.getCreated()))
+                .created(InstantFormatter.instantFormatterDMY(musician.getCreated()))
                 .slug(musician.getSlug())
                 .firstName(musician.getFirstName())
                 .lastName(musician.getLastName())

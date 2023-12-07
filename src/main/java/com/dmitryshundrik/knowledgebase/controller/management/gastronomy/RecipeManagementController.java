@@ -15,7 +15,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping
 public class RecipeManagementController {
 
     @Autowired
@@ -23,9 +22,9 @@ public class RecipeManagementController {
 
     @GetMapping("/management/recipe/all")
     public String getAllRecipes(Model model) {
-        List<Recipe> recipeList = recipeService.getAll();
-        List<RecipeViewDTO> recipeViewDTOList = recipeService.getRecipeViewDTOList(recipeList);
-        model.addAttribute("recipes", recipeViewDTOList);
+        List<Recipe> recipeList = recipeService.getAllBySortedByCreatedDesc();
+        List<RecipeViewDTO> recipeDTOList = recipeService.getRecipeViewDTOList(recipeList);
+        model.addAttribute("recipes", recipeDTOList);
         return "management/gastronomy/recipe-archive";
     }
 
@@ -38,7 +37,8 @@ public class RecipeManagementController {
     }
 
     @PostMapping("/management/recipe/create")
-    public String postRecipeCreate(@Valid @ModelAttribute("recipeDTO") RecipeCreateEditDTO recipeDTO, BindingResult bindingResult,
+    public String postRecipeCreate(@Valid @ModelAttribute("recipeDTO") RecipeCreateEditDTO recipeDTO,
+                                   BindingResult bindingResult,
                                    Model model) {
         String error = recipeService.recipeSlugIsExist(recipeDTO.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {

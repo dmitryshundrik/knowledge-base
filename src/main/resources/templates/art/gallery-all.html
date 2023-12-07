@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>Все галереи</title>
+    <link th:href="@{/styles/art/art-entity-all.css}" rel="stylesheet">
+    <link th:href="@{/styles/temporal.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h3>Все галереи</h3>
+        <p>в разработке...</p>
+    </header>
+
+    <div class="table-body">
+        <article class="table-body-item">
+            <section class="table-body-item-row">
+                <div class="temporal-image">
+                    <img src="/images/gallery.jpg" alt="gallery">
+                </div>
+            </section>
+        </article>
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

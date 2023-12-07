@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>Топ 20 лучших произведений живописи</title>
+    <link th:href="@{/styles/art/art-entity-all.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h3>Топ 20 лучших произведений живописи</h3>
+        <p>в процессе...</p>
+    </header>
+
+    <div class="table-body">
+
+        <article class="table-body-item">
+            <section class="table-body-item-row painting-top20" th:each="painting : ${paintingList}">
+                <div class="painting-description">
+                    <span class="painting-index" th:text="${paintingStat.index + 1} + '.'"></span>
+                    <span><a th:text="${painting.painterNickname}"
+                             th:href="'/art/painter/' + ${painting.painterSlug}"></a></span>
+                    <span th:text="${painting.title}"></span>
+                    <span th:text="'(' + ${painting.year1} + ')'"></span>
+                </div>
+                <div class="painting-image" th:if="${painting.image} != null">
+                    <img th:src="|data:image;base64,${painting.image.data}|" th:alt="${painting.title}">
+                </div>
+            </section>
+        </article>
+
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

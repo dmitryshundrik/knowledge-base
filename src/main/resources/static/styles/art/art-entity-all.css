@@ -1,0 +1,126 @@
+
+.table-title {
+    padding: 30px 300px;
+    text-align: center;
+}
+
+.table-title p {
+    font-size: smaller;
+    font-style: italic;
+}
+
+.table-body {
+    display: flex;
+    flex-direction: column;
+    padding: 0 250px;
+    border: 1px solid gray;
+}
+
+.table-body-item {
+    margin: 20px 0;
+}
+
+.table-body-item-row {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    gap: 10px;
+}
+
+.painter-painting-all {
+    margin-bottom: 50px;
+}
+
+.painting-all {
+    margin-bottom: 50px;
+}
+
+.painting-all p {
+    margin-bottom: 10px;
+}
+
+.painting-top20 {
+    margin-bottom: 50px;
+}
+
+.painting-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border: 0.5px solid black;
+    background-color: darkred;
+}
+
+.painting-image img {
+    max-height: 500px;
+    border: 0.5px solid saddlebrown;
+    box-shadow: 0px 0px 15px 5px rgb(40 5 5 / 70%);
+}
+
+.painting-based {
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .table-title {
+        padding: 30px 30px;
+        font-size: large;
+    }
+
+    .table-body {
+        padding: 0 30px;
+        border: none;
+    }
+
+    .table-body-item {
+        margin: 0;
+        gap: 0;
+    }
+
+    .table-body-item-row {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid gray;
+        gap: 5px;
+        margin: 15px 0;
+    }
+
+    .painter-painting-all {
+        padding: 0;
+        text-align: left;
+        border: none;
+        gap: 10px;
+        margin-bottom: 45px;
+    }
+
+    .painting-all {
+        padding: 0;
+        text-align: left;
+        border: none;
+        gap: 10px;
+        margin-bottom: 45px;
+    }
+
+    .painting-all p {
+        margin-bottom: 5px;
+    }
+
+    .painting-top20 {
+        padding: 0;
+        text-align: left;
+        border: none;
+        gap: 10px;
+        margin-bottom: 45px;
+    }
+
+    .painting-image {
+        padding: 15px;
+    }
+
+    .painting-image img {
+        max-height: 600px;
+        box-shadow: none;
+    }
+
+}

@@ -30,7 +30,7 @@
             </thead>
             <tbody>
             <tr th:each="cocktail : ${cocktails}">
-                <th th:text="${cocktailStat.index + 1}"></th>
+                <th th:text="${cocktails.size - cocktailStat.index}"></th>
                 <td th:text="${cocktail.created}"></td>
                 <td th:text="${cocktail.title}"></td>
                 <td th:text="${cocktail.slug}"></td>

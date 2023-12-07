@@ -26,6 +26,6 @@ public class ProseViewDTO {
 
     private String description;
 
-    private List<QuoteViewDTO> quoteList = new ArrayList<>();
+    private List<QuoteViewDTO> quoteList;
 
 }

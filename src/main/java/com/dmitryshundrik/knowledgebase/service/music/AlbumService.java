@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumSelectDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumViewDTO;
-import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianSelectDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
@@ -31,6 +30,10 @@ public class AlbumService {
     @Autowired
     private AlbumRepository albumRepository;
 
+    public List<Album> getAll() {
+        return albumRepository.findAll();
+    }
+
     public Album getAlbumById(String albumId) {
         return albumRepository.findById(UUID.fromString(albumId)).orElse(null);
     }
@@ -39,16 +42,12 @@ public class AlbumService {
         return albumRepository.getAlbumBySlug(albumSlug);
     }
 
-    public List<Album> getAllAlbums() {
-        return albumRepository.findAll();
-    }
-
     public List<Album> getAllWithRating() {
         return albumRepository.getAllByRatingIsNotNull();
     }
 
     public List<Album> getAllAlbumsSortedByCreated() {
-        return getAllAlbums().stream()
+        return getAll().stream()
                 .sorted((o1, o2) -> {
                     if (o1.getCreated() != null && o2.getCreated() != null) {
                         return o1.getCreated().compareTo(o2.getCreated());
@@ -99,7 +98,7 @@ public class AlbumService {
         album.setMusician(musician);
         album.setCollaborators(collaborators);
         setFieldsFromDTO(album, albumDTO);
-        album.setSlug(album.getMusician().getSlug() + "-" + SlugFormatter.slugFormatter(album.getSlug()));
+        album.setSlug(musician.getSlug() + "-" + SlugFormatter.slugFormatter(album.getSlug()));
         return getAlbumViewDTO(albumRepository.save(album));
     }
 
@@ -123,7 +122,7 @@ public class AlbumService {
 
     public AlbumViewDTO getAlbumViewDTO(Album album) {
         return AlbumViewDTO.builder()
-                .created(InstantFormatter.instantFormatterYMD(album.getCreated()))
+                .created(InstantFormatter.instantFormatterDMY(album.getCreated()))
                 .slug(album.getSlug())
                 .title(album.getTitle())
                 .catalogNumber(album.getCatalogNumber())

@@ -45,18 +45,18 @@ public class Writer {
 
     @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("created")
-    private List<PersonEvent> events = new ArrayList<>();
+    private List<PersonEvent> events;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "writer")
     @OrderBy("created")
-    private List<Prose> proseList = new ArrayList<>();
+    private List<Prose> proseList;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "writer")
     @OrderBy("created")
-    private List<Quote> quoteList = new ArrayList<>();
+    private List<Quote> quoteList;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "writer")
     @OrderBy("created")
-    private List<Word> wordList = new ArrayList<>();
+    private List<Word> wordList;
 
 }

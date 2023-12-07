@@ -82,7 +82,7 @@ public class QuoteService {
     public QuoteViewDTO getQuoteViewDTO(Quote quote) {
         return QuoteViewDTO.builder()
                 .id(quote.getId().toString())
-                .created(InstantFormatter.instantFormatterYMD(quote.getCreated()))
+                .created(InstantFormatter.instantFormatterDMY(quote.getCreated()))
                 .writerNickname(quote.getWriter().getNickName())
                 .writerSlug(quote.getWriter().getSlug())
                 .proseTitle(!(quote.getProse() == null) ? quote.getProse().getTitle() : null)

@@ -17,8 +17,8 @@
 
     <div class="table-body">
         <article class="table-body-item">
-            <form class="form" th:action="${'/management/storage/image/create'}" th:method="post"
-                  th:object="${image}">
+            <form class="form" th:action="${'/management/recipe/edit/' + recipeSlug + '/image/create'}" th:method="post"
+                  th:object="${imageDTO}">
 
                 <section class="form-item">
                     <label>title</label>

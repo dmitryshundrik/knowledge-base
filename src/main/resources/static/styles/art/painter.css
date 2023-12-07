@@ -1,0 +1,134 @@
+.table-title {
+    padding-top: 40px;
+    padding-right: 250px;
+    padding-left: 250px;
+}
+
+.table-title-image {
+    display: none;
+}
+
+.occupation {
+    font-style: italic;
+}
+
+.table-title-item-row {
+    margin: 15px 0;
+}
+
+.nickname {
+    margin-top: 0;
+    border-bottom: 1px solid gray;
+}
+
+.table-body {
+    display: flex;
+    flex-direction: column;
+    padding: 0 250px;
+}
+
+.table-body-item {
+    margin: 20px 0;
+}
+
+.table-body-item-title {
+    border-bottom: 1px solid gray;
+}
+
+.table-body-item-row {
+    display: flex;
+    flex-direction: row;
+    margin: 15px 0;
+    gap: 10px;
+}
+
+.timeline-text {
+    min-width: auto;
+    text-align: justify;
+}
+
+.painting-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.painting-title p {
+    display: flex;
+    flex-direction: column-reverse;
+    font-size: small;
+    font-style: italic;
+}
+
+.painting-item-row {
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.painting-based {
+    font-style: italic;
+}
+
+.painting-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border: 0.5px solid black;
+    background-color: darkred;
+}
+
+.painting-image img {
+    max-height: 500px;
+    border: 0.5px solid saddlebrown;
+    box-shadow: 0px 0px 15px 5px rgb(40 5 5 / 70%);
+}
+
+
+@media (max-width: 768px) {
+    .table-title {
+        padding: 30px 30px;
+    }
+
+    .table-body {
+        padding: 0 30px;
+        gap: 35px;
+        border: none;
+    }
+
+    .table-body-item {
+        margin: 0;
+    }
+
+    .table-body-item-col {
+        min-width: auto;
+    }
+
+    .table-title-image {
+        display: block;
+        padding: 10px;
+        border: 1px solid gray;
+        margin-bottom: 25px;
+    }
+
+    .table-title-image img {
+        display: block;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .painting-item-row {
+        margin-bottom: 45px;
+    }
+
+    .painting-image {
+        padding: 15px;
+    }
+
+    .painting-image img {
+        max-height: 600px;
+        box-shadow: none;
+    }
+
+}

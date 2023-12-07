@@ -66,7 +66,7 @@ public class Musician {
 
     @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("created")
-    private List<PersonEvent> events = new ArrayList<>();
+    private List<PersonEvent> events;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "musician")
     @OrderBy("created")

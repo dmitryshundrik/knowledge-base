@@ -29,7 +29,8 @@
                 <span class="table-body-item-col nickname">
                         <a th:text="${album.musicianNickname}" th:href="'/music/musician/' + ${album.musicianSlug}"></a>
                 </span>
-                <span class="table-body-item-col album-title" th:text="${album.title} + ' (' + ${album.year} + ')'"></span>
+                <span class="table-body-item-col album-title"
+                      th:text="${album.title} + ' (' + ${album.year} + ')'"></span>
                 <span class="table-body-item-col rating" th:text="${album.rating}"></span>
             </section>
         </article>
@@ -44,11 +45,13 @@
                         <a th:text="${composition.musicianNickname}"
                            th:href="'/music/musician/' + ${composition.musicianSlug}"></a>
                 </span>
-                <span class="table-body-item-col title" th:text="${composition.title}"></span>
-                <span class="table-body-item-col catalogtitle" th:if="${composition.catalogNumber} != null"
-                      th:text="${composition.catalogTitle + ' ' + composition.catalogNumber}"></span>
-                <span class="table-body-item-col" th:if="${composition.year} != null"
-                      th:text="'(' + ${composition.year} + ')'"></span>
+                <span class="table-body-item-col">
+                    <span class="table-body-item-col title" th:text="${composition.title}"></span>
+                    <span class="table-body-item-col catalogtitle" th:if="${composition.catalogNumber} != null"
+                          th:text="${composition.catalogTitle + ' ' + composition.catalogNumber}"></span>
+                    <span class="table-body-item-col" th:if="${composition.year} != null"
+                          th:text="'(' + ${composition.year} + ')'"></span>
+                </span>
                 <span class="table-body-item-col rating" th:text="${composition.rating}"></span>
             </section>
         </article>

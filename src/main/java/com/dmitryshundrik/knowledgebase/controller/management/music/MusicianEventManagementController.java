@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("")
 public class MusicianEventManagementController {
 
     @Autowired
@@ -59,7 +58,7 @@ public class MusicianEventManagementController {
     }
 
     @DeleteMapping(("/management/musician/edit/{musicianSlug}/event/delete/{id}"))
-    public String deleteMusisianEventById(@PathVariable String musicianSlug, @PathVariable String id) {
+    public String deleteMusicianEventById(@PathVariable String musicianSlug, @PathVariable String id) {
         personEventService.deleteMusicianEventById(musicianService.getMusicianBySlug(musicianSlug), id);
         return "redirect:/management/musician/edit/" + musicianSlug;
     }

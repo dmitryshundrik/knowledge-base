@@ -45,7 +45,7 @@ public class WriterCreateEditDTO {
 
     private List<PersonEventDTO> events;
 
-    protected List<ProseViewDTO> proseList;
+    private List<ProseViewDTO> proseList;
 
     private List<QuoteViewDTO> quoteList;
 

@@ -107,7 +107,7 @@ public class MusicGenreService {
 
     public MusicGenreViewDTO getMusicGenreViewDTO(MusicGenre genre) {
         return MusicGenreViewDTO.builder()
-                .created(InstantFormatter.instantFormatterYMD(genre.getCreated()))
+                .created(InstantFormatter.instantFormatterDMY(genre.getCreated()))
                 .slug(genre.getSlug())
                 .title(genre.getTitle())
                 .titleEn(genre.getTitleEn())

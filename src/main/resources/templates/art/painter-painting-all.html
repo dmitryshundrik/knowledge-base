@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>Картины художника</title>
+    <link th:href="@{/styles/art/art-entity-all.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h3 th:text="${painterDTO.nickName}"></h3>
+        <p>картины художника</p>
+    </header>
+
+    <div class="table-body">
+        <article class="table-body-item">
+            <section class="table-body-item-row painter-painting-all" th:each="painting : ${paintingList}">
+                <div class="painting-description">
+                    <span th:if="${painting.year1} != null"
+                          th:text="${painting.year1}"></span>
+                    <span th:text="${painting.title}"></span>
+                    <span class="painting-based" th:if="${not #strings.isEmpty(painting.based)}"
+                          th:text="'(' + ${painting.based} + ')'"></span>
+                </div>
+                <div class="painting-image" th:if="${painting.image} != null">
+                    <img th:src="|data:image;base64,${painting.image.data}|" th:alt="${painting.title}">
+                </div>
+            </section>
+        </article>
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>
