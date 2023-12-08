@@ -81,8 +81,9 @@ public class PainterService {
                 .approximateYears(painter.getApproximateYears())
                 .birthplace(painter.getBirthplace())
                 .occupation(painter.getOccupation())
-                .paintingList(painter.getPaintingList() != null ? paintingService
-                        .getPaintingViewDTOList(painter.getPaintingList()) : null)
+                .paintingList(paintingService
+                        .getPaintingViewDTOList(paintingService
+                                .getAllByPainterSortedByYear2(painter)))
                 .build();
     }
 
@@ -106,8 +107,9 @@ public class PainterService {
                 .approximateYears(painter.getApproximateYears())
                 .birthplace(painter.getBirthplace())
                 .occupation(painter.getOccupation())
-                .paintingList(painter.getPaintingList() != null ? paintingService
-                        .getPaintingViewDTOList(painter.getPaintingList()) : null)
+                .paintingList(paintingService
+                        .getPaintingViewDTOList(paintingService
+                                .getAllByPainterSortedByYear2(painter)))
                 .build();
     }
 

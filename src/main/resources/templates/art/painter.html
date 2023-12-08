@@ -62,7 +62,10 @@
             </header>
             <section class="table-body-item-row" th:each="painting : ${bestPaintingList}">
                 <span th:text="${paintingStat.index + 1} + '.'"></span>
-                <span th:text="${painting.title}"></span>
+                <span>
+                    <span th:text="${painting.title}"></span>
+                    <span th:if="${painting.year2} != null" th:text="${'(' + painting.year2 + ')'}"></span>
+                </span>
             </section>
         </article>
 
@@ -73,7 +76,7 @@
             </header>
             <section class="table-body-item-row painting-item-row" th:each="painting : ${painterDTO.paintingList}">
                 <div class="painting-description">
-                    <span th:text="${painting.year1}"></span>
+                    <span th:if="${painting.year2} != null" th:text="${painting.year2}"></span>
                     <span th:text="${painting.title}"></span>
                     <span class="painting-based" th:if="${not #strings.isEmpty(painting.based)}"
                           th:text="'(' + ${painting.based} + ')'"></span>

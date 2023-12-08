@@ -42,6 +42,14 @@ public class PaintingService {
         return paintingRepository.getAllByOrderByCreatedDesc();
     }
 
+    public List<Painting> getAllByPainterSortedByYear2(Painter painter) {
+        return paintingRepository.getAllByPainterOrderByYear2(painter);
+    }
+
+    public List<Painting> getAllByPainterSortedByCreatedDesk(Painter painter) {
+        return paintingRepository.getAllByPainterOrderByCreatedDesc(painter);
+    }
+
     public List<Painting> getBestPaintingsByPainter(Painter painter) {
         List<Painting> paintingList = paintingRepository.getAllByPainterAndPainterTopRankNotNull(painter);
         return paintingList.stream()

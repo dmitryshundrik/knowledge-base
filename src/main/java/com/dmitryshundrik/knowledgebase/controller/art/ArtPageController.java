@@ -56,7 +56,7 @@ public class ArtPageController {
     public String getPainterAllPaintings(@PathVariable String painterSlug, Model model) {
         Painter bySlug = painterService.getBySlug(painterSlug);
         PainterViewDTO painterViewDTO = painterService.getPainterViewDTO(bySlug);
-        List<Painting> paintingList = bySlug.getPaintingList();
+        List<Painting> paintingList = paintingService.getAllByPainterSortedByYear2(bySlug);
         List<PaintingViewDTO> paintingViewDTOList = paintingService.getPaintingViewDTOList(paintingList);
         model.addAttribute("painterDTO", painterViewDTO);
         model.addAttribute("paintingList", paintingViewDTOList);
@@ -65,7 +65,7 @@ public class ArtPageController {
 
     @GetMapping("/painting/all")
     public String getAllPainting(Model model) {
-        List<Painting> paintingList = paintingService.getAll();
+        List<Painting> paintingList = paintingService.getAllSortedByCreatedDesc();
         List<PaintingViewDTO> paintingViewDTOList = paintingService.getPaintingViewDTOList(paintingList);
         model.addAttribute("paintingList", paintingViewDTOList);
         return "art/painting-all";
@@ -79,10 +79,10 @@ public class ArtPageController {
         return "art/painting-top20";
     }
 
-    @GetMapping("/gallery/all")
-    public String getAllGalleries(Model model) {
+    @GetMapping("/museum/all")
+    public String getAllMuseums(Model model) {
         //
-        return "art/gallery-all";
+        return "art/museum-all";
     }
 
     @GetMapping("/theatre/all")

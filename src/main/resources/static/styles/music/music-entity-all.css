@@ -4,6 +4,11 @@
     text-align: center;
 }
 
+.table-title p {
+    font-size: smaller;
+    font-style: italic;
+}
+
 .table-body {
     display: flex;
     flex-direction: column;
