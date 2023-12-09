@@ -28,7 +28,7 @@
                     <span><a th:text="${painting.painterNickname}"
                              th:href="'/art/painter/' + ${painting.painterSlug}"></a></span>
                     <span th:text="${painting.title}"></span>
-                    <span th:text="'(' + ${painting.year1} + ')'"></span>
+                    <span th:if="${painting.year2} != null" th:text="'(' + ${painting.year2} + ')'"></span>
                 </div>
                 <div class="painting-image" th:if="${painting.image} != null">
                     <img th:src="|data:image;base64,${painting.image.data}|" th:alt="${painting.title}">
