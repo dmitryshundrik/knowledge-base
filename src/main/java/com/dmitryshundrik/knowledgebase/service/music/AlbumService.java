@@ -207,7 +207,7 @@ public class AlbumService {
         album.setSlug(albumDTO.getSlug().trim());
         album.setTitle(albumDTO.getTitle().trim());
         album.setCatalogNumber(albumDTO.getCatalogNumber());
-        album.setFeature(albumDTO.getFeature().trim());
+        album.setFeature(albumDTO.getFeature());
         album.setYear(albumDTO.getYear());
 
         List<MusicGenre> musicGenres = new ArrayList<>();

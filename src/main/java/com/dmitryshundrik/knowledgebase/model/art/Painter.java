@@ -48,6 +48,11 @@ public class Painter {
 
     @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("created")
+    @JoinTable(
+            name = "painters_events",
+            joinColumns = {@JoinColumn(name = "painters_id")},
+            inverseJoinColumns = {@JoinColumn(name = "events_id")}
+    )
     private List<PersonEvent> events;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "painter")
