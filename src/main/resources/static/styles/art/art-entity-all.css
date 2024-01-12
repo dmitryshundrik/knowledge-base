@@ -27,7 +27,7 @@
     gap: 10px;
 }
 
-.painter-painting-all {
+.artist-painting-all {
     margin-bottom: 50px;
 }
 
@@ -86,7 +86,7 @@
         margin: 15px 0;
     }
 
-    .painter-painting-all {
+    .artist-painting-all {
         padding: 0;
         text-align: left;
         border: none;

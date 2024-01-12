@@ -16,9 +16,9 @@ public class PaintingViewDTO {
 
     private String title;
 
-    private String painterNickname;
+    private String artistNickname;
 
-    private String painterSlug;
+    private String artistSlug;
 
     private Integer year1;
 
@@ -30,7 +30,7 @@ public class PaintingViewDTO {
 
     private String based;
 
-    private Integer painterTopRank;
+    private Integer artistTopRank;
 
     private Integer allTimeTopRank;
 

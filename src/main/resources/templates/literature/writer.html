@@ -87,7 +87,8 @@
             <section class="table-body-item-row quote-all" th:each="quote : ${writerDTO.quoteList}">
                 <span th:text="${quote.created}"></span>
                 <div class="quote-all-description">
-                    <span th:text="${quote.description}"></span>
+                    <span th:if="${not #strings.isEmpty(quote.description)}" th:text="${quote.description}"></span>
+                    <span th:if="${not #strings.isEmpty(quote.descriptionHtml)}" th:utext="${quote.descriptionHtml}"></span>
                 </div>
                 <div class="quote-all-author">
                     <span th:if="${not #strings.isEmpty(quote.proseTitle)}"

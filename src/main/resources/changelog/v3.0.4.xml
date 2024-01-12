@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="12" author="dmitryshundrik">
+        <sqlFile path="v3.0.4/2024-01-12-add-descriptionhtml-field.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="13" author="dmitryshundrik">
+        <sqlFile path="v3.0.4/2024-01-12-alter-words-description-type.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="14" author="dmitryshundrik">
+        <sqlFile path="v3.0.4/2024-01-12-alter-painter-entity-name-to-artist.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+
+</databaseChangeLog>

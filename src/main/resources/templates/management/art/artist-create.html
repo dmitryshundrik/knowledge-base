@@ -12,15 +12,15 @@
 <main class="table">
 
     <header class="table-title">
-        <h4>создать painter</h4>
+        <h4>создать artist</h4>
     </header>
 
     <div class="table-body">
         <article class="table-body-item">
             <form class="form"
-                  th:action="${'/management/painter/create'}"
+                  th:action="${'/management/artist/create'}"
                   th:method="post"`
-                  th:object="${painterDTO}">
+                  th:object="${artistDTO}">
 
                 <section class="form-item">
                     <label>nickname</label>

@@ -19,9 +19,9 @@ public class PaintingCreateEditDTO {
     @NotBlank(message = "nickname may not be blank")
     private String title;
 
-    private String painterNickname;
+    private String artistNickname;
 
-    private String painterSlug;
+    private String artistSlug;
 
     private Integer year1;
 
@@ -33,7 +33,7 @@ public class PaintingCreateEditDTO {
 
     private String based;
 
-    private Integer painterTopRank;
+    private Integer artistTopRank;
 
     private Integer allTimeTopRank;
 

@@ -46,7 +46,7 @@ public class LiteraturePageController {
 
     @GetMapping("/writer/all")
     public String getAllWriters(Model model) {
-        List<Writer> writerList = writerService.getAll();
+        List<Writer> writerList = writerService.getAllSortedByBorn();
         List<WriterViewDTO> writerViewDTOList = writerService.getWriterViewDTOList(writerList);
         model.addAttribute("writerList", writerViewDTOList);
         return "literature/writer-all";

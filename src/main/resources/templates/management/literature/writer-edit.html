@@ -243,28 +243,29 @@
                 </thead>
                 <tbody>
                 <tr th:each="quote : ${writerDTO.quoteList}">
-                    <th th:text="${quote.created}"></th>
-                    <th th:text="${quote.proseTitle}"></th>
-                    <th th:text="${quote.page}"></th>
-                    <th th:text="${quote.description}"></th>
-                    <th class="td-settings">
+                    <td th:text="${quote.created}"></td>
+                    <td th:text="${quote.proseTitle}"></td>
+                    <td th:text="${quote.page}"></td>
+                    <td>
+                        <span th:if="${not #strings.isEmpty(quote.description)}" th:text="${quote.description}"></span>
+                        <span th:if="${not #strings.isEmpty(quote.descriptionHtml)}" th:utext="${quote.descriptionHtml}"></span>
+                    </td>
+                    <td class="td-settings">
                         <a target="_blank"
                            th:href="${'/management/writer/edit/' + writerDTO.slug + '/quote/edit/' + quote.id}">edit</a>
-                    </th>
-                    <th class="td-settings">
+                    </td>
+                    <td class="td-settings">
                         <form th:action="${'/management/writer/edit/' + writerDTO.slug + '/quote/delete/' + quote.id}"
                               th:method="delete">
                             <input type="submit" value="delete"
                                    th:data-confirm-delete="|Are you sure you want to delete this quote?|"
                                    onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
                         </form>
-                    </th>
+                    </td>
                 </tr>
                 </tbody>
             </table>
         </article>
-
-
     </div>
 
 </main>

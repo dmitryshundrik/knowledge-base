@@ -34,7 +34,7 @@
             </thead>
             <tbody>
             <tr th:each="writer : ${writerList}">
-                <th th:text="${writerList.size - writerStat.index}"></th>
+                <td th:text="${writerList.size - writerStat.index}"></td>
                 <td th:text="${writer.created}"></td>
                 <td th:text="${writer.nickName}"></td>
                 <td th:text="${writer.slug}"></td>

@@ -12,14 +12,14 @@
 <main class="table">
 
     <header class="table-title">
-        <h4>изменить painter</h4>
+        <h4>изменить artist</h4>
     </header>
     <div class="table-body">
         <article class="table-body-item">
             <form class="form"
-                  th:action="${'/management/painter/edit/' + painterDTO.slug}"
+                  th:action="${'/management/artist/edit/' + artistDTO.slug}"
                   th:method="put" `
-                  th:object="${painterDTO}">
+                  th:object="${artistDTO}">
 
                 <section class="form-item">
                     <label>nickname</label>
@@ -90,7 +90,7 @@
         </header>
         <article class="table-body-item">
             <form class="form"
-                  th:action="${'/management/painter/edit/' + painterDTO.slug + '/image/upload'}"
+                  th:action="${'/management/artist/edit/' + artistDTO.slug + '/image/upload'}"
                   th:method="post"
                   enctype="multipart/form-data">
 
@@ -103,11 +103,11 @@
             </form>
 
             <section class="entity-image">
-                <img alt="" th:src="|data:image;base64,${painterDTO.image}|">
+                <img alt="" th:src="|data:image;base64,${artistDTO.image}|">
             </section>
 
             <form class="form"
-                  th:action="${'/management/painter/edit/' + painterDTO.slug + '/image/delete'}"
+                  th:action="${'/management/artist/edit/' + artistDTO.slug + '/image/delete'}"
                   th:method="delete">
                 <input class="input-submit" type="submit" value="Удалить">
             </form>
@@ -116,7 +116,7 @@
         <header class="table-title">
             <h4>архив events</h4>
             <a target="_blank"
-               th:href="${'/management/painter/edit/' + painterDTO.slug + '/event/create'}">создать
+               th:href="${'/management/artist/edit/' + artistDTO.slug + '/event/create'}">создать
                 event</a>
         </header>
         <article class="table-body-item">
@@ -131,16 +131,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="personEvent : ${painterDTO.events}">
+                <tr th:each="personEvent : ${artistDTO.events}">
                     <th th:text="${personEvent.created}"></th>
                     <th th:text="${personEvent.year}"></th>
                     <th th:text="${personEvent.description}"></th>
                     <th class="td-settings">
                         <a target="_blank"
-                           th:href="${'/management/painter/edit/' + painterDTO.slug + '/event/edit/' + personEvent.id}">edit</a>
+                           th:href="${'/management/artist/edit/' + artistDTO.slug + '/event/edit/' + personEvent.id}">edit</a>
                     </th>
                     <th class="td-settings">
-                        <form th:action="${'/management/painter/edit/' + painterDTO.slug + '/event/delete/' + personEvent.id}"
+                        <form th:action="${'/management/artist/edit/' + artistDTO.slug + '/event/delete/' + personEvent.id}"
                               th:method="delete">
                             <input type="submit" value="delete"
                                    th:data-confirm-delete="|Are you sure you want to delete this event?|"
@@ -155,7 +155,7 @@
         <header class="table-title">
             <h4>архив paintings</h4>
             <a target="_blank"
-               th:href="${'/management/painter/edit/' + painterDTO.slug + '/painting/create'}">создать painting</a>
+               th:href="${'/management/artist/edit/' + artistDTO.slug + '/painting/create'}">создать painting</a>
         </header>
         <article class="table-body-item">
             <table>
@@ -175,22 +175,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="painting : ${painterDTO.paintingList}">
-                    <th th:text="${painterDTO.paintingList.size - paintingStat.index}"></th>
+                <tr th:each="painting : ${artistDTO.paintingList}">
+                    <th th:text="${artistDTO.paintingList.size - paintingStat.index}"></th>
                     <td th:text="${painting.created}"></td>
                     <td th:text="${painting.title}"></td>
                     <td th:text="${painting.year1}"></td>
                     <td th:text="${painting.year2}"></td>
                     <td th:text="${painting.approximateYears}"></td>
                     <td th:text="${painting.based}"></td>
-                    <td th:text="${painting.painterTopRank}"></td>
+                    <td th:text="${painting.artistTopRank}"></td>
                     <td th:text="${painting.allTimeTopRank}"></td>
                     <td class="td-settings">
                         <a target="_blank"
-                           th:href="${'/management/painter/edit/' + painterDTO.slug + '/painting/edit/' + painting.slug}">edit</a>
+                           th:href="${'/management/artist/edit/' + artistDTO.slug + '/painting/edit/' + painting.slug}">edit</a>
                     </td>
                     <td class="td-settings">
-                        <form th:action="${'/management/painter/edit/' + painterDTO.slug + '/painting/delete/' + painting.slug}"
+                        <form th:action="${'/management/artist/edit/' + artistDTO.slug + '/painting/delete/' + painting.slug}"
                               th:method="delete">
                             <input type="submit" value="delete"
                                    th:data-confirm-delete="|Are you sure you want to delete this painting?|"

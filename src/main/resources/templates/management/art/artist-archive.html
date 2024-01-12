@@ -12,8 +12,8 @@
 <main class="table">
 
     <header class="table-title">
-        <h4>архив painter</h4>
-        <a target="_blank" href="/management/painter/create">создать painter</a>
+        <h4>архив artist</h4>
+        <a target="_blank" href="/management/artist/create">создать artist</a>
     </header>
 
     <div class="table-body">
@@ -34,25 +34,25 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="painter : ${painterList}">
-                <th th:text="${painterList.size - painterStat.index}"></th>
-                <td th:text="${painter.created}"></td>
-                <td th:text="${painter.nickName}"></td>
-                <td th:text="${painter.slug}"></td>
-                <td th:text="${painter.born}"></td>
-                <td th:text="${painter.died}"></td>
-                <th th:text="${painter.approximateYears}"></th>
-                <td th:text="${painter.birthplace}"></td>
-                <td th:text="${painter.occupation}"></td>
+            <tr th:each="artist : ${artistList}">
+                <th th:text="${artistList.size - artistStat.index}"></th>
+                <td th:text="${artist.created}"></td>
+                <td th:text="${artist.nickName}"></td>
+                <td th:text="${artist.slug}"></td>
+                <td th:text="${artist.born}"></td>
+                <td th:text="${artist.died}"></td>
+                <th th:text="${artist.approximateYears}"></th>
+                <td th:text="${artist.birthplace}"></td>
+                <td th:text="${artist.occupation}"></td>
                 <td class="td-settings">
                     <a target="_blank"
-                       th:href="${'/management/painter/edit/' + painter.slug}">edit</a>
+                       th:href="${'/management/artist/edit/' + artist.slug}">edit</a>
                 </td>
                 <td class="td-settings">
-                    <form th:action="${'/management/painter/delete/' + painter.slug}"
+                    <form th:action="${'/management/artist/delete/' + artist.slug}"
                           th:method="delete">
                         <input type="submit" value="delete"
-                               th:data-confirm-delete="|Are you sure you want to delete this painter?|"
+                               th:data-confirm-delete="|Are you sure you want to delete this artist?|"
                                onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
                     </form>
                 </td>

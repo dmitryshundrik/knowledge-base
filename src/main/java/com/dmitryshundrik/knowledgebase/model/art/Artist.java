@@ -11,8 +11,8 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "painters")
-public class Painter {
+@Table(name = "artists")
+public class Artist {
 
     @Id
     @GeneratedValue
@@ -49,13 +49,13 @@ public class Painter {
     @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("created")
     @JoinTable(
-            name = "painters_events",
-            joinColumns = {@JoinColumn(name = "painters_id")},
+            name = "artists_events",
+            joinColumns = {@JoinColumn(name = "artists_id")},
             inverseJoinColumns = {@JoinColumn(name = "events_id")}
     )
     private List<PersonEvent> events;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "painter")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "artist")
     @OrderBy("created")
     private List<Painting> paintingList;
 

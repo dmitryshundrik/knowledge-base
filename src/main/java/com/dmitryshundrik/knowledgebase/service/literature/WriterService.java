@@ -39,6 +39,10 @@ public class WriterService {
         return writerRepository.findAll();
     }
 
+    public List<Writer> getAllSortedByBorn() {
+        return writerRepository.findAllByOrderByBorn();
+    }
+
     public List<Writer> getAllSortedByCreatedDesc() {
         return writerRepository.getAllByOrderByCreatedDesc();
     }

@@ -18,7 +18,7 @@
     <div class="table-body">
         <article class="table-body-item">
             <form class="form"
-                  th:action="${'/management/painter/edit/' + paintingDTO.painterSlug + '/painting/edit/' + paintingDTO.slug}"
+                  th:action="${'/management/artist/edit/' + paintingDTO.artistSlug + '/painting/edit/' + paintingDTO.slug}"
                   th:method="put"
                   th:object="${paintingDTO}">
 
@@ -37,8 +37,8 @@
                 <p class="error" th:if="${not #strings.isEmpty('slug')}" th:text="${slug}"></p>
 
                 <section class="form-item">
-                    <label>painter</label>
-                    <input disabled type="text" th:field="*{painterNickname}"/>
+                    <label>artist</label>
+                    <input disabled type="text" th:field="*{artistNickname}"/>
                 </section>
 
                 <section class="form-item">
@@ -63,7 +63,7 @@
 
                 <section class="form-item">
                     <label>PTR</label>
-                    <input type="number" th:field="*{painterTopRank}"/>
+                    <input type="number" th:field="*{artistTopRank}"/>
                 </section>
 
                 <section class="form-item">
@@ -82,7 +82,7 @@
         <header class="table-title">
             <h4>архив image</h4>
             <a th:if="${paintingDTO.image} == null" target="_blank"
-               th:href="${'/management/painter/edit/' + paintingDTO.painterSlug + '/painting/edit/' + paintingDTO.slug + '/image/create'}">создать
+               th:href="${'/management/artist/edit/' + paintingDTO.artistSlug + '/painting/edit/' + paintingDTO.slug + '/image/create'}">создать
                 image</a>
         </header>
         <article class="table-body-item">
@@ -103,10 +103,10 @@
                     <td th:text="${paintingDTO.image.slug}"></td>
                     <td class="td-settings">
                         <a target="_blank"
-                           th:href="${'/management/painter/edit/' + paintingDTO.painterSlug + '/painting/edit/' + paintingDTO.slug + '/image/edit/' + paintingDTO.image.slug}">edit</a>
+                           th:href="${'/management/artist/edit/' + paintingDTO.artistSlug + '/painting/edit/' + paintingDTO.slug + '/image/edit/' + paintingDTO.image.slug}">edit</a>
                     </td>
                     <td class="td-settings">
-                        <form th:action="${'/management/painter/edit/' + paintingDTO.painterSlug + '/painting/edit/' + paintingDTO.slug + '/image/delete/' + paintingDTO.image.slug}"
+                        <form th:action="${'/management/artist/edit/' + paintingDTO.artistSlug + '/painting/edit/' + paintingDTO.slug + '/image/delete/' + paintingDTO.image.slug}"
                               th:method="delete">
                             <input type="submit" value="delete"
                                    th:data-confirm-delete="|Are you sure you want to delete this image?|"

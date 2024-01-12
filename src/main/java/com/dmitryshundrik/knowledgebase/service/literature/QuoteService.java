@@ -62,6 +62,7 @@ public class QuoteService {
         quote.setLocation(quoteDTO.getLocation());
         quote.setPage(quoteDTO.getPage());
         quote.setDescription(quoteDTO.getDescription().trim());
+        quote.setDescriptionHtml(quoteDTO.getDescriptionHtml().trim());
         return quoteRepository.save(quote);
     }
 
@@ -71,6 +72,7 @@ public class QuoteService {
         byId.setLocation(quoteDTO.getLocation().trim());
         byId.setPage(quoteDTO.getPage());
         byId.setDescription(quoteDTO.getDescription().trim());
+        byId.setDescriptionHtml(quoteDTO.getDescriptionHtml().trim());
         return byId;
     }
 
@@ -90,6 +92,7 @@ public class QuoteService {
                 .location(quote.getLocation())
                 .page(quote.getPage())
                 .description(quote.getDescription())
+                .descriptionHtml(quote.getDescriptionHtml())
                 .build();
     }
 
@@ -108,6 +111,7 @@ public class QuoteService {
                 .location(quote.getLocation())
                 .page(quote.getPage())
                 .description(quote.getDescription())
+                .descriptionHtml(quote.getDescriptionHtml())
                 .build();
     }
 

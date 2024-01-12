@@ -23,6 +23,8 @@ public class QuoteCreateEditDTO {
 
     private String description;
 
+    private String descriptionHtml;
+
     public QuoteCreateEditDTO () {
 
     }

@@ -30,7 +30,7 @@
             </thead>
             <tbody>
             <tr th:each="word : ${wordList}">
-                <th th:text="${wordList.size - wordStat.index}"></th>
+                <td th:text="${wordList.size - wordStat.index}"></td>
                 <td th:text="${word.created}"></td>
                 <td th:text="${word.writerNickname}"></td>
                 <td th:text="${word.title}"></td>

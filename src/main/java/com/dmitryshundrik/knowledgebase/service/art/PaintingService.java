@@ -1,11 +1,9 @@
 package com.dmitryshundrik.knowledgebase.service.art;
 
-import com.dmitryshundrik.knowledgebase.model.art.Painter;
+import com.dmitryshundrik.knowledgebase.model.art.Artist;
 import com.dmitryshundrik.knowledgebase.model.art.Painting;
 import com.dmitryshundrik.knowledgebase.model.art.dto.PaintingCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.art.dto.PaintingViewDTO;
-import com.dmitryshundrik.knowledgebase.model.common.Image;
-import com.dmitryshundrik.knowledgebase.model.common.dto.ImageDTO;
 import com.dmitryshundrik.knowledgebase.repository.art.PaintingRepository;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
@@ -14,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.awt.*;
 import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
@@ -42,18 +39,18 @@ public class PaintingService {
         return paintingRepository.getAllByOrderByCreatedDesc();
     }
 
-    public List<Painting> getAllByPainterSortedByYear2(Painter painter) {
-        return paintingRepository.getAllByPainterOrderByYear2(painter);
+    public List<Painting> getAllByArtistSortedByYear2(Artist artist) {
+        return paintingRepository.getAllByArtistOrderByYear2(artist);
     }
 
-    public List<Painting> getAllByPainterSortedByCreatedDesk(Painter painter) {
-        return paintingRepository.getAllByPainterOrderByCreatedDesc(painter);
+    public List<Painting> getAllByArtistSortedByCreatedDesk(Artist artist) {
+        return paintingRepository.getAllByArtistOrderByCreatedDesc(artist);
     }
 
-    public List<Painting> getBestPaintingsByPainter(Painter painter) {
-        List<Painting> paintingList = paintingRepository.getAllByPainterAndPainterTopRankNotNull(painter);
+    public List<Painting> getBestPaintingsByArtist(Artist artist) {
+        List<Painting> paintingList = paintingRepository.getAllByArtistAndArtistTopRankNotNull(artist);
         return paintingList.stream()
-                .sorted(Comparator.comparing(Painting::getPainterTopRank))
+                .sorted(Comparator.comparing(Painting::getArtistTopRank))
                 .collect(Collectors.toList());
     }
 
@@ -64,12 +61,12 @@ public class PaintingService {
                 .collect(Collectors.toList());
     }
 
-    public PaintingViewDTO createPainting(Painter painter, PaintingCreateEditDTO paintingDTO) {
+    public PaintingViewDTO createPainting(Artist artist, PaintingCreateEditDTO paintingDTO) {
         Painting painting = new Painting();
         painting.setCreated(Instant.now());
-        painting.setPainter(painter);
+        painting.setArtist(artist);
         setFieldsFromDTO(painting, paintingDTO);
-        painting.setSlug(painter.getSlug() + "-" + SlugFormatter.slugFormatter(paintingDTO.getSlug()));
+        painting.setSlug(artist.getSlug() + "-" + SlugFormatter.slugFormatter(paintingDTO.getSlug()));
         return getPaintingViewDTO(paintingRepository.save(painting));
     }
 
@@ -89,14 +86,14 @@ public class PaintingService {
                 .created(InstantFormatter.instantFormatterDMY(painting.getCreated()))
                 .slug(painting.getSlug())
                 .title(painting.getTitle())
-                .painterNickname(painting.getPainter().getNickName())
-                .painterSlug(painting.getPainter().getSlug())
+                .artistNickname(painting.getArtist().getNickName())
+                .artistSlug(painting.getArtist().getSlug())
                 .year1(painting.getYear1())
                 .year2(painting.getYear2())
                 .approximateYears(painting.getApproximateYears())
                 .paintingStyles(null)
                 .based(painting.getBased())
-                .painterTopRank(painting.getPainterTopRank())
+                .artistTopRank(painting.getArtistTopRank())
                 .allTimeTopRank(painting.getAllTimeTopRank())
                 .description(painting.getDescription())
                 .image(imageService.getImageDTO(painting.getImage()))
@@ -109,18 +106,18 @@ public class PaintingService {
                 .collect(Collectors.toList());
     }
 
-    public PaintingCreateEditDTO getPainterCreateEditDTO(Painting painting) {
+    public PaintingCreateEditDTO getArtistCreateEditDTO(Painting painting) {
         return PaintingCreateEditDTO.builder()
                 .slug(painting.getSlug())
                 .title(painting.getTitle())
-                .painterNickname(painting.getPainter().getNickName())
-                .painterSlug(painting.getPainter().getSlug())
+                .artistNickname(painting.getArtist().getNickName())
+                .artistSlug(painting.getArtist().getSlug())
                 .year1(painting.getYear1())
                 .year2(painting.getYear2())
                 .approximateYears(painting.getApproximateYears())
                 .paintingStyles(null)
                 .based(painting.getBased())
-                .painterTopRank(painting.getPainterTopRank())
+                .artistTopRank(painting.getArtistTopRank())
                 .allTimeTopRank(painting.getAllTimeTopRank())
                 .description(painting.getDescription())
                 .image(imageService.getImageDTO(painting.getImage()))
@@ -142,7 +139,7 @@ public class PaintingService {
         painting.setYear2(paintingDTO.getYear2());
         painting.setApproximateYears(paintingDTO.getApproximateYears().trim());
         painting.setBased(paintingDTO.getBased().trim());
-        painting.setPainterTopRank(paintingDTO.getPainterTopRank());
+        painting.setArtistTopRank(paintingDTO.getArtistTopRank());
         painting.setAllTimeTopRank(paintingDTO.getAllTimeTopRank());
         painting.setDescription(paintingDTO.getDescription());
     }

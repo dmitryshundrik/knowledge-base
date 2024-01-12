@@ -16,16 +16,17 @@
 
     <header class="table-title">
         <h3>Все художники</h3>
+        <p class="table-title-note">хронологический порядок</p>
     </header>
 
     <div class="table-body">
 
         <article class="table-body-item">
-            <section class="table-body-item-row" th:each="painter : ${painterList}">
-                <span class="table-body-item-col" th:if="${painter.born} != null"
-                      th:text="${painter.born}"></span>
+            <section class="table-body-item-row" th:each="artist : ${artistList}">
+                <span class="table-body-item-col" th:if="${artist.born} != null"
+                      th:text="${artist.born}"></span>
                 <span class="table-body-item-col nickname">
-                    <a th:text="${painter.nickName}" th:href="'/art/painter/' + ${painter.slug}"></a>
+                    <a th:text="${artist.nickName}" th:href="'/art/artist/' + ${artist.slug}"></a>
                 </span>
             </section>
         </article>

@@ -18,7 +18,7 @@
     <div class="table-body">
         <article class="table-body-item">
             <form class="form"
-                  th:action="${'/management/painter/edit/' + paintingDTO.painterSlug + '/painting/create'}"
+                  th:action="${'/management/artist/edit/' + paintingDTO.artistSlug + '/painting/create'}"
                   th:method="post"
                   th:object="${paintingDTO}">
 
@@ -37,8 +37,8 @@
                 <p class="error" th:if="${not #strings.isEmpty('slug')}" th:text="${slug}"></p>
 
                 <section class="form-item">
-                    <label>painter</label>
-                    <input disabled type="text" th:field="*{painterNickname}"/>
+                    <label>artist</label>
+                    <input disabled type="text" th:field="*{artistNickname}"/>
                 </section>
 
                 <section class="form-item">
@@ -63,7 +63,7 @@
 
                 <section class="form-item">
                     <label>PTR</label>
-                    <input type="number" th:field="*{painterTopRank}"/>
+                    <input type="number" th:field="*{artistTopRank}"/>
                 </section>
 
                 <section class="form-item">

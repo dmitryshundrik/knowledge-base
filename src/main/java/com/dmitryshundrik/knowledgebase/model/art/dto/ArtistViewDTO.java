@@ -1,25 +1,21 @@
 package com.dmitryshundrik.knowledgebase.model.art.dto;
 
 import com.dmitryshundrik.knowledgebase.model.common.PersonEvent;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Builder
-@AllArgsConstructor
-public class PainterCreateEditDTO {
+public class ArtistViewDTO {
 
-    @NotBlank(message = "slug may not be blank")
+    private String created;
+
     private String slug;
 
-    @NotBlank(message = "nickname may not be blank")
     private String nickName;
 
     private String firstName;
@@ -48,7 +44,4 @@ public class PainterCreateEditDTO {
 
     private List<PaintingViewDTO> paintingList;
 
-    public PainterCreateEditDTO() {
-
-    }
 }

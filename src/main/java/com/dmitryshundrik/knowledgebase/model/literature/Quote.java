@@ -30,4 +30,7 @@ public class Quote {
     @Column(columnDefinition = "text")
     private String description;
 
+    @Column(columnDefinition = "text", name = "description_html")
+    private String descriptionHtml;
+
 }

@@ -17,7 +17,7 @@
     <div class="table-body">
         <article class="table-body-item">
             <form class="form"
-                  th:action="${'/management/painter/edit/' + painterSlug + '/painting/edit/' + paintingSlug + '/image/edit/' + imageDTO.slug}"
+                  th:action="${'/management/artist/edit/' + artistSlug + '/painting/edit/' + paintingSlug + '/image/edit/' + imageDTO.slug}"
                   th:method="put"
                   th:object="${imageDTO}">
 
@@ -50,7 +50,7 @@
         </header>
         <article class="table-body-item">
             <form class="form"
-                  th:action="${'/management/painter/edit/' + painterSlug + '/painting/edit/' + paintingSlug + '/image/edit/' + imageDTO.slug + '/file/upload'}"
+                  th:action="${'/management/artist/edit/' + artistSlug + '/painting/edit/' + paintingSlug + '/image/edit/' + imageDTO.slug + '/file/upload'}"
                   th:method="post"
                   enctype="multipart/form-data">
 
@@ -67,7 +67,7 @@
             </section>
 
             <form class="form"
-                  th:action="${'/management/painter/edit/' + painterSlug + '/painting/edit/' + paintingSlug + '/image/edit/' + imageDTO.slug + '/file/delete'}"
+                  th:action="${'/management/artist/edit/' + artistSlug + '/painting/edit/' + paintingSlug + '/image/edit/' + imageDTO.slug + '/file/delete'}"
                   th:method="delete">
                 <input class="input-submit" type="submit" value="Удалить">
             </form>

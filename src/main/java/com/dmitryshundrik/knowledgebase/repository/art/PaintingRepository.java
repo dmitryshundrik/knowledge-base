@@ -1,10 +1,9 @@
 package com.dmitryshundrik.knowledgebase.repository.art;
 
-import com.dmitryshundrik.knowledgebase.model.art.Painter;
+import com.dmitryshundrik.knowledgebase.model.art.Artist;
 import com.dmitryshundrik.knowledgebase.model.art.Painting;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.awt.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,12 +15,12 @@ public interface PaintingRepository extends JpaRepository<Painting, UUID> {
 
     List<Painting> findFirst20ByOrderByCreatedDesc();
 
-    List<Painting> getAllByPainterAndPainterTopRankNotNull(Painter painter);
+    List<Painting> getAllByArtistAndArtistTopRankNotNull(Artist artist);
 
     List<Painting> getAllByAndAllTimeTopRankNotNull();
 
-    List<Painting> getAllByPainterOrderByCreatedDesc(Painter painter);
+    List<Painting> getAllByArtistOrderByCreatedDesc(Artist artist);
 
-    List<Painting> getAllByPainterOrderByYear2(Painter painter);
+    List<Painting> getAllByArtistOrderByYear2(Artist artist);
 
 }

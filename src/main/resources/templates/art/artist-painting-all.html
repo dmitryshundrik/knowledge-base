@@ -15,13 +15,13 @@
 <main class="table">
 
     <header class="table-title">
-        <h3 th:text="${painterDTO.nickName}"></h3>
+        <h3 th:text="${artistDTO.nickName}"></h3>
         <p>вся живопись</p>
     </header>
 
     <div class="table-body">
         <article class="table-body-item">
-            <section class="table-body-item-row painter-painting-all" th:each="painting : ${paintingList}">
+            <section class="table-body-item-row artist-painting-all" th:each="painting : ${paintingList}">
                 <div class="painting-description">
                     <span th:if="${painting.year2} != null" th:text="${painting.year2}"></span>
                     <span th:text="${painting.title}"></span>

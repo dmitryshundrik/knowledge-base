@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.common;
 
-import com.dmitryshundrik.knowledgebase.model.art.Painter;
+import com.dmitryshundrik.knowledgebase.model.art.Artist;
 import com.dmitryshundrik.knowledgebase.model.art.Painting;
 import com.dmitryshundrik.knowledgebase.model.common.EntityUpdateInfo;
 import com.dmitryshundrik.knowledgebase.model.common.Resource;
@@ -12,7 +12,7 @@ import com.dmitryshundrik.knowledgebase.model.literature.Writer;
 import com.dmitryshundrik.knowledgebase.model.music.Album;
 import com.dmitryshundrik.knowledgebase.model.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
-import com.dmitryshundrik.knowledgebase.service.art.PainterService;
+import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
@@ -65,7 +65,7 @@ public class EntityUpdateInfoService {
     private QuoteService quoteService;
 
     @Autowired
-    private PainterService painterService;
+    private ArtistService artistService;
 
     @Autowired
     private PaintingService paintingService;
@@ -83,7 +83,7 @@ public class EntityUpdateInfoService {
         allUpdateInfo.addAll(getWriterUpdates());
         allUpdateInfo.addAll(getProseUpdates());
         allUpdateInfo.addAll(getQuoteUpdates());
-        allUpdateInfo.addAll(getPainterUpdates());
+        allUpdateInfo.addAll(getArtistUpdates());
         allUpdateInfo.addAll(getPaintingUpdates());
         allUpdateInfo.addAll(getResourcesUpdates());
 
@@ -137,7 +137,7 @@ public class EntityUpdateInfoService {
             compositionUpdateInfo.add(EntityUpdateInfo.builder()
                     .created(composition.getCreated())
                     .archiveSection("музыка:")
-                    .description("композиция " + composition.getTitle() + " добавлена в архив " + composition.getMusician().getNickName())
+                    .description("произведение " + composition.getTitle() + " добавлено в архив " + composition.getMusician().getNickName())
                     .link("music/musician/" + composition.getMusician().getSlug())
                     .build());
         }
@@ -214,18 +214,18 @@ public class EntityUpdateInfoService {
         return quoteUpdateInfo;
     }
 
-    private List<EntityUpdateInfo> getPainterUpdates() {
-        List<EntityUpdateInfo> painterUpdateInfo = new ArrayList<>();
-        List<Painter> latestUpdate = painterService.getLatestUpdate();
-        for (Painter painter : latestUpdate) {
-            painterUpdateInfo.add(EntityUpdateInfo.builder()
-                    .created(painter.getCreated())
+    private List<EntityUpdateInfo> getArtistUpdates() {
+        List<EntityUpdateInfo> artistUpdateInfo = new ArrayList<>();
+        List<Artist> latestUpdate = artistService.getLatestUpdate();
+        for (Artist artist : latestUpdate) {
+            artistUpdateInfo.add(EntityUpdateInfo.builder()
+                    .created(artist.getCreated())
                     .archiveSection("искусство:")
-                    .description("художник " + painter.getNickName())
-                    .link("art/painter/" + painter.getSlug())
+                    .description("художник " + artist.getNickName())
+                    .link("art/artist/" + artist.getSlug())
                     .build());
         }
-        return painterUpdateInfo;
+        return artistUpdateInfo;
     }
 
     private List<EntityUpdateInfo> getPaintingUpdates() {
@@ -235,8 +235,8 @@ public class EntityUpdateInfoService {
             paintingUpdateInfo.add(EntityUpdateInfo.builder()
                     .created(painting.getCreated())
                     .archiveSection("искусство:")
-                    .description("картина «" + painting.getTitle() + "» добавлена в архив " + painting.getPainter().getNickName())
-                    .link("art/painter/" + painting.getPainter().getSlug())
+                    .description("картина «" + painting.getTitle() + "» добавлена в архив " + painting.getArtist().getNickName())
+                    .link("art/artist/" + painting.getArtist().getSlug())
                     .build());
         }
         return paintingUpdateInfo;

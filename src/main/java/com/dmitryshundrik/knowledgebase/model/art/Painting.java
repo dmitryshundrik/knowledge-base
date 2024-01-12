@@ -24,7 +24,7 @@ public class Painting {
     private String title;
 
     @ManyToOne
-    private Painter painter;
+    private Artist artist;
 
     @Column(name = "year1")
     private Integer year1;
@@ -44,7 +44,7 @@ public class Painting {
 
     private String based;
 
-    private Integer painterTopRank;
+    private Integer artistTopRank;
 
     private Integer allTimeTopRank;
 

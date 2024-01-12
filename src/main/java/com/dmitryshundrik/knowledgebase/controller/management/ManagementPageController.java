@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.controller.management;
 
-import com.dmitryshundrik.knowledgebase.service.art.PainterService;
+import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
@@ -44,7 +44,7 @@ public class ManagementPageController {
     private QuoteService quoteService;
 
     @Autowired
-    private PainterService painterService;
+    private ArtistService artistService;
 
     @Autowired
     private PaintingService paintingService;
@@ -59,7 +59,7 @@ public class ManagementPageController {
         model.addAttribute("writerCount", writerService.getAll().size());
         model.addAttribute("proseCount", proseService.getAll().size());
         model.addAttribute("quoteCount", quoteService.getAll().size());
-        model.addAttribute("painterCount", painterService.getAll().size());
+        model.addAttribute("artistCount", artistService.getAll().size());
         model.addAttribute("paintingCount", paintingService.getAll().size());
         return "management/management-page";
     }

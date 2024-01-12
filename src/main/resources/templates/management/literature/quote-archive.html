@@ -32,13 +32,14 @@
             </thead>
             <tbody>
             <tr th:each="quote : ${quoteList}">
-                <th th:text="${quoteList.size - quoteStat.index}"></th>
+                <td th:text="${quoteList.size - quoteStat.index}"></td>
                 <td th:text="${quote.created}"></td>
                 <td th:text="${quote.writerNickname}"></td>
                 <td th:text="${quote.proseTitle}"></td>
                 <td th:text="${quote.location}"></td>
                 <td th:text="${quote.page}"></td>
-                <td th:text="${quote.description}"></td>
+                <td th:if="${not #strings.isEmpty(quote.description)}" th:text="${quote.description}"></td>
+                <td th:if="${not #strings.isEmpty(quote.descriptionHtml)}" th:utext="${quote.descriptionHtml}"></td>
                 <td class="td-settings">
                     <a target="_blank"
                        th:href="${'/management/writer/edit/' + quote.writerSlug + '/quote/edit/' + quote.id}">edit</a>
