@@ -50,6 +50,10 @@ public class MusicianService {
         return musicianRepository.getMusicianBySlug(musicianSlug);
     }
 
+    public Musician getMusicianByNickname(String nickName) {
+        return musicianRepository.getMusicianByNickNameIgnoreCase(nickName);
+    }
+
     public List<Musician> getAllMusiciansOrderedByCreatedDesc() {
         return musicianRepository.getAllByOrderByCreatedDesc();
     }

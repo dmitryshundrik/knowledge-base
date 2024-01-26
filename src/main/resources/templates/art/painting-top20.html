@@ -25,8 +25,8 @@
             <section class="table-body-item-row painting-top20" th:each="painting : ${paintingList}">
                 <div class="painting-description">
                     <span class="painting-index" th:text="${paintingStat.index + 1} + '.'"></span>
-                    <span><a th:text="${painting.artistNickname}"
-                             th:href="'/art/artist/' + ${painting.artistSlug}"></a></span>
+                    <a th:text="${painting.artistNickname}" th:href="'/art/artist/' + ${painting.artistSlug}"></a>
+                    <span class="artist-nickname-colon">: </span>
                     <span th:text="${painting.title}"></span>
                     <span th:if="${painting.year2} != null" th:text="'(' + ${painting.year2} + ')'"></span>
                 </div>

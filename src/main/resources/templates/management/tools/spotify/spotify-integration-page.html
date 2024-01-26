@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link th:href="@{/styles/management/spotify-integration.css}" rel="stylesheet">
+    <script th:src="@{/library/jquery-3.7.1.min.js}"></script>
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<script th:inline="javascript">
+    var currentSong = function () {
+        $.post({
+            url: "/management/spotify-integration/current-song-name"
+        }).then(function (result) {
+            var object = $.parseJSON(result);
+            if (object.playing) {
+                $('#current-song-id').css("display", "block");
+                $('#current-song-artists-id').text(object.artists);
+                $('#current-song-name-id').text(object.name);
+                $('#current-song-image-id').attr("src", object.images);
+            } else {
+                $('#current-song-id').css("display", "none");
+            }
+        });
+    }
+    currentSong();
+    setInterval(currentSong, 6000);
+</script>
+
+<main class="table">
+
+    <header class="table-title">
+        <h4>управление spotify integration</h4>
+    </header>
+
+    <div class="table-body">
+
+        <article class="table-body-item">
+            <section class="table-body-item-col">
+                <div class="current-song" th:id="current-song-id" style="display: none">
+                    <div class="current-song-image">
+                        <img th:id="current-song-image-id" alt="Current song image">
+                    </div>
+                    <div class="current-song-title">
+                        <span th:id="current-song-artists-id"></span>
+                        <span> - </span>
+                        <span th:id="current-song-name-id"></span>
+                        <img class="now-playing-gif" src="/images/nowplaying.gif" alt="Now playing">
+                    </div>
+                </div>
+            </section>
+        </article>
+
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

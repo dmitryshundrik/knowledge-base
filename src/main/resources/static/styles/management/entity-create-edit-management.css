@@ -77,6 +77,14 @@
     white-space: break-spaces;
 }
 
+.manual-sheet {
+    max-width: 59%;
+    font-size: smaller;
+    padding: 10px 0;
+    padding-left: 7px;
+    background-color: blanchedalmond;
+}
+
 .input-submit {
     width: 60%;
     align-self: end;

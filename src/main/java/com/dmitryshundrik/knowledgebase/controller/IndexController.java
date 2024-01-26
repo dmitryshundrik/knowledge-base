@@ -8,11 +8,17 @@ import com.dmitryshundrik.knowledgebase.service.common.EntityUpdateInfoService;
 import com.dmitryshundrik.knowledgebase.service.common.FoundationService;
 import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
 import com.dmitryshundrik.knowledgebase.service.music.YearInMusicService;
+import com.dmitryshundrik.knowledgebase.service.tools.spotify.SpotifyIntegrationService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -29,6 +35,12 @@ public class IndexController {
 
     @Autowired
     private ResourcesService resourcesService;
+
+    @Autowired
+    private SpotifyIntegrationService spotifyIntegrationService;
+
+    @Getter
+    private static String version = "4.0.0";
 
     @GetMapping("/")
     public String getIndex(Model model) {
@@ -51,6 +63,12 @@ public class IndexController {
         List<ResourceDTO> resourceDTOList = resourcesService.getResourceDTOList(resourceList);
         model.addAttribute("resources", resourceDTOList);
         return "resources";
+    }
+
+    @PostMapping("/current-song-name")
+    @ResponseBody
+    public String getCurrentSongName() throws IOException, InterruptedException {
+        return spotifyIntegrationService.getCurrentSong();
     }
 
 }

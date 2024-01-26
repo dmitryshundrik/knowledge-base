@@ -25,6 +25,7 @@
                 <div class="painting-description">
                     <p th:text="${painting.created}"></p>
                     <a th:text="${painting.artistNickname}" th:href="'/art/artist/' + ${painting.artistSlug}"></a>
+                    <span class="artist-nickname-colon">: </span>
                     <span th:text="${painting.title}"></span>
                     <span class="table-body-item-col year" th:if="${painting.year2} != null"
                           th:text="'(' + ${painting.year2} + ')'"></span>

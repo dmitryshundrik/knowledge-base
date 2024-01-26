@@ -9,7 +9,6 @@
 
     <nav class="footer-menu">
         <ul>
-            <li><a href="https://www.instagram.com/dmitryshundrik" target="_blank">Instagram</a></li>
             <li><a href="https://www.last.fm/user/dmitryshundrik" target="_blank">Last.fm</a></li>
             <li><a href="/resources">Ресурсы</a></li>
             <li><a href="/charity">БО</a></li>
@@ -18,6 +17,7 @@
 
     <div class="footer-logo">
         <span th:text="'© Дмитрий Шундрик 2022-' + ${T(com.dmitryshundrik.knowledgebase.util.DateTime).getCurrentYear()}"></span>
+        <span th:text="'версия: ' + ${T(com.dmitryshundrik.knowledgebase.controller.IndexController).getVersion()}"></span>
     </div>
 
 </footer>

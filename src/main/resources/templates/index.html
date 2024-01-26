@@ -10,11 +10,34 @@
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <title>Дмитрий Шундрик</title>
     <link th:href="@{/styles/index.css}" rel="stylesheet">
+    <script th:src="@{/library/jquery-3.7.1.min.js}"></script>
     <meta name="viewport" content="width=device-width">
 </head>
 <body>
 
 <header th:insert="fragments/header.html"></header>
+
+<script th:inline="javascript">
+    var currentSong = function () {
+        $.post({
+            url: "/current-song-name"
+        }).then(function (result) {
+            var object = $.parseJSON(result);
+            if (object.playing) {
+                $('#section-now-playing-id').css("display", "flex");
+                $('#current-song-image-id').attr("src", object.images);
+                $('#current-song-artists-id').text(object.artists);
+                $('#current-song-artists-id').attr("href", object.artistSlug);
+                $('#current-song-name-id').text(object.name);
+                $('#current-song-music-genres').text(object.musicGenres);
+            } else {
+                $('#current-song-id').css("display", "none");
+            }
+        });
+    }
+    currentSong();
+    setInterval(currentSong, 6000);
+</script>
 
 <main class="table">
 
@@ -62,6 +85,22 @@
                     <a href="/art/painting/top20">Топ 20 лучших произведений живописи</a>
                     <a href="/art/museum/all">Музеи</a>
                     <a href="/art/theatre/all">Театры</a>
+                </div>
+            </section>
+
+            <section class="section" id="section-now-playing-id" style="display: none">
+                <h3 class="section-title">Играет в Spotify:</h3>
+                <div class="section-body section-body-current-song">
+                    <div class="current-song-image">
+                        <img th:id="current-song-image-id" alt="Current song image">
+                    </div>
+                    <div class="current-song-title">
+                        <a th:id="current-song-artists-id"></a>
+                        <span> - </span>
+                        <span th:id="current-song-name-id"></span>
+                        <img class="now-playing-gif" src="/images/nowplaying.gif" alt="Now playing">
+                        <p th:id="current-song-music-genres"></p>
+                    </div>
                 </div>
             </section>
 

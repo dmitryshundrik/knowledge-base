@@ -30,6 +30,10 @@ public class AlbumService {
     @Autowired
     private AlbumRepository albumRepository;
 
+    public static final String DECADE_2010s = "2010";
+
+    public static final String DECADE_2020s = "2020";
+
     public List<Album> getAll() {
         return albumRepository.findAll();
     }
@@ -64,6 +68,18 @@ public class AlbumService {
 
     public List<Album> getAllAlbumsByYear(Integer year) {
         return albumRepository.getAllByYear(year);
+    }
+
+    public List<Album> getAllAlbumByDecade(String decade) {
+        List<Album> albumsByDecade = new ArrayList<>();
+        if (DECADE_2010s.equals(decade)) {
+            albumsByDecade.addAll(albumRepository.getAllBy2010s(2009, 2020).stream()
+                    .sorted(Comparator.comparing(Album::getRating).reversed()).collect(Collectors.toList()));
+        } else if (DECADE_2020s.equals(decade)) {
+            albumsByDecade.addAll(albumRepository.getAllBy2010s(2019, 2030).stream()
+                    .sorted(Comparator.comparing(Album::getRating).reversed()).collect(Collectors.toList()));
+        }
+        return albumsByDecade;
     }
 
     public List<Album> getAllAlbumsByMusician(Musician musician) {

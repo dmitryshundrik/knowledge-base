@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class EncryptionAppManagementController {
+public class EncryptionApplicationManagementController {
 
     @Autowired
     private EncryptionApplicationService encryptionApplicationService;

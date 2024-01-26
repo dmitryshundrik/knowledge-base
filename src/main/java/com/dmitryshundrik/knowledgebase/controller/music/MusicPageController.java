@@ -62,7 +62,7 @@ public class MusicPageController {
             model.addAttribute("previousYear", yearInMusicService.getYearInMusicViewDTO(previousYear));
         }
         YearInMusic nextYear = yearInMusicService.getYearInMusicByYear(yearInMusic.getYear() + 1);
-        if(nextYear != null) {
+        if (nextYear != null) {
             model.addAttribute("nextYear", yearInMusicService.getYearInMusicViewDTO(nextYear));
         }
         model.addAttribute("currentYear", yearInMusicService.getYearInMusicViewDTO(yearInMusic));
@@ -121,6 +121,19 @@ public class MusicPageController {
         model.addAttribute("albums", albumService.getSortedAlbumViewDTOList(allAlbumsByYear, SortType.RATING));
         model.addAttribute("year", year);
         return "music/albums-of-year";
+    }
+
+    @GetMapping("/lists-and-charts/albums-of-{decade}s")
+    public String getAllAlbumsByDecade(@PathVariable String decade, Model model) {
+        List<Album> allAlbumByDecade = albumService.getAllAlbumByDecade(decade);
+        List<AlbumViewDTO> albumViewDTOList = albumService.getAlbumViewDTOList(allAlbumByDecade);
+        model.addAttribute("albums", albumViewDTOList);
+        if (AlbumService.DECADE_2010s.equals(decade)) {
+            model.addAttribute("decade", "2010-x");
+        } else if (AlbumService.DECADE_2020s.equals(decade)) {
+            model.addAttribute("decade", "2020-x");
+        }
+        return "music/albums-of-decade";
     }
 
     @GetMapping("/period/{periodSlug}")

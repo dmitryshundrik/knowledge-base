@@ -29,6 +29,10 @@
     gap: 10px;
 }
 
+.decades {
+    margin-top: 15px;
+}
+
 @media (max-width: 768px) {
     .table-title {
         font-size: large;
