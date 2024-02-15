@@ -1,6 +1,6 @@
-package com.dmitryshundrik.knowledgebase.controller.management.tools.spotify;
+package com.dmitryshundrik.knowledgebase.controller.management.spotify;
 
-import com.dmitryshundrik.knowledgebase.service.tools.spotify.SpotifyIntegrationService;
+import com.dmitryshundrik.knowledgebase.service.spotify.SpotifyIntegrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

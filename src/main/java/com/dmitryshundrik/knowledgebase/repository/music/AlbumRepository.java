@@ -30,7 +30,7 @@ public interface AlbumRepository extends JpaRepository<Album, UUID> {
 
     List<Album> getAllByOrderByCreatedDesc();
 
-    @Query("FROM Album WHERE year > :start AND year < :end")
+    @Query("FROM Album WHERE year > :start AND year < :end AND rating is not null")
     List<Album> getAllBy2010s(Integer start, Integer end);
 
 }

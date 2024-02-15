@@ -18,11 +18,13 @@ public class MusicianViewDTO {
 
     private String slug;
 
+    private String nickName;
+
+    private String nickNameEn;
+
     private String firstName;
 
     private String lastName;
-
-    private String nickName;
 
     private String image;
 

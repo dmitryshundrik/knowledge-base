@@ -12,7 +12,10 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -153,6 +156,22 @@ public class WriterService {
 
     public List<Writer> getLatestUpdate() {
         return writerRepository.findFirst20ByOrderByCreatedDesc();
+    }
+
+    public Set<Writer> getAllWithCurrentBirth() {
+        Set<Writer> writerBirthList = new HashSet<>();
+        for (int i = 0; i < 10; i++) {
+            writerBirthList.addAll(writerRepository.findAllWithCurrentBirth(LocalDate.now().plusDays(i)));
+        }
+        return writerBirthList;
+    }
+
+    public Set<Writer> getAllWithCurrentDeath() {
+        Set<Writer> writerDeathList = new HashSet<>();
+        for (int i = 0; i < 10; i++) {
+            writerDeathList.addAll(writerRepository.findAllWithCurrentDeath(LocalDate.now().plusDays(i)));
+        }
+        return writerDeathList;
     }
 
 }

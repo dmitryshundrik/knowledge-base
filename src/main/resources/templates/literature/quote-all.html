@@ -33,6 +33,7 @@
                     <a th:text="${quote.writerNickname}" th:href="'/literature/writer/' + ${quote.writerSlug}"></a>
                     <span th:text="'«' + ${quote.proseTitle} + '»'"></span>
                     <span th:if="${not #strings.isEmpty(quote.location)}" th:text="', ' + ${quote.location}"></span>
+                    <p th:if="${not #strings.isEmpty(quote.publication)}" th:text="${quote.publication}"></p>
                 </div>
             </section>
         </article>

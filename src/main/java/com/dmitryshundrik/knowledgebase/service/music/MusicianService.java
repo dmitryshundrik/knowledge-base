@@ -51,7 +51,11 @@ public class MusicianService {
     }
 
     public Musician getMusicianByNickname(String nickName) {
-        return musicianRepository.getMusicianByNickNameIgnoreCase(nickName);
+        Musician musicianByNickName = musicianRepository.getMusicianByNickNameIgnoreCase(nickName);
+        if (musicianByNickName == null) {
+            musicianByNickName = musicianRepository.getMusicianByNickNameEnIgnoreCase(nickName);
+        }
+        return musicianByNickName;
     }
 
     public List<Musician> getAllMusiciansOrderedByCreatedDesc() {
@@ -162,6 +166,7 @@ public class MusicianService {
                 .firstName(musician.getFirstName())
                 .lastName(musician.getLastName())
                 .nickName(musician.getNickName())
+                .nickNameEn(musician.getNickNameEn())
                 .image(musician.getImage())
                 .born(musician.getBorn())
                 .died(musician.getDied())
@@ -227,6 +232,7 @@ public class MusicianService {
                 .firstName(musician.getFirstName())
                 .lastName(musician.getLastName())
                 .nickName(musician.getNickName())
+                .nickNameEn(musician.getNickNameEn())
                 .image(musician.getImage())
                 .born(musician.getBorn())
                 .died(musician.getDied())
@@ -273,6 +279,7 @@ public class MusicianService {
         musician.setFirstName(musicianDTO.getFirstName());
         musician.setLastName(musicianDTO.getLastName());
         musician.setNickName(musicianDTO.getNickName());
+        musician.setNickNameEn(musicianDTO.getNickNameEn());
         musician.setBorn(musicianDTO.getBorn());
         musician.setDied(musicianDTO.getDied());
         musician.setFounded(musicianDTO.getFounded());

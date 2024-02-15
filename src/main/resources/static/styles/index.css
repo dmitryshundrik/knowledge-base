@@ -33,6 +33,16 @@
     gap: 5px;
 }
 
+.section-body-current-events {
+    padding-left: unset;
+    gap: 20px;
+
+}
+
+.current-events-date {
+    font-weight: bold;
+}
+
 .archive-title {
     text-align: left;
 }

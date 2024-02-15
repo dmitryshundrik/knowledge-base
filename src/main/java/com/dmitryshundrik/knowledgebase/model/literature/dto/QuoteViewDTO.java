@@ -19,6 +19,8 @@ public class QuoteViewDTO {
 
     private String proseSlug;
 
+    private String publication;
+
     private String location;
 
     private Integer page;

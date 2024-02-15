@@ -94,6 +94,7 @@
                     <span th:if="${not #strings.isEmpty(quote.proseTitle)}"
                           th:text="'«' + ${quote.proseTitle} + '», '"></span>
                     <span th:if="${not #strings.isEmpty(quote.location)}" th:text="${quote.location}"></span>
+                    <p th:if="${not #strings.isEmpty(quote.publication)}" th:text="${quote.publication}"></p>
                 </div>
             </section>
             <section>

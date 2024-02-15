@@ -20,7 +20,7 @@
 <script th:inline="javascript">
     var currentSong = function () {
         $.post({
-            url: "/current-song-name"
+            url: "/current-song"
         }).then(function (result) {
             var object = $.parseJSON(result);
             if (object.playing) {
@@ -30,8 +30,9 @@
                 $('#current-song-artists-id').attr("href", object.artistSlug);
                 $('#current-song-name-id').text(object.name);
                 $('#current-song-music-genres').text(object.musicGenres);
+                $('#current-song-year-end-rank').text(object.yearEndRank);
             } else {
-                $('#current-song-id').css("display", "none");
+                $('#section-now-playing-id').css("display", "none");
             }
         });
     }
@@ -43,7 +44,6 @@
 
     <div class="table-body">
         <article class="table-body-item">
-
             <h2 class="table-body-item-title archive-title">Архив</h2>
             <section class="section">
                 <h3 class="section-title"><a href="/music/">Музыка</a></h3>
@@ -88,11 +88,23 @@
                 </div>
             </section>
 
+            <section class="section" th:if="${not #lists.isEmpty(currentEvents)}">
+                <h3 class="section-title">Календарь событий:</h3>
+                <div class="section-body section-body-current-events">
+                    <div th:each="event : ${currentEvents}">
+                        <span class="current-events-date" th:text="${event.date}"></span>
+                        <span th:text="${event.dateType}"></span>
+                        <span th:text="${event.occupation}"></span>
+                        <a th:href="${event.personLink}" th:text="${event.personNickname}"></a>
+                    </div>
+                </div>
+            </section>
+
             <section class="section" id="section-now-playing-id" style="display: none">
                 <h3 class="section-title">Играет в Spotify:</h3>
                 <div class="section-body section-body-current-song">
                     <div class="current-song-image">
-                        <img th:id="current-song-image-id" alt="Current song image">
+                        <img th:id="current-song-image-id" alt="Current song artwork">
                     </div>
                     <div class="current-song-title">
                         <a th:id="current-song-artists-id"></a>
@@ -101,24 +113,22 @@
                         <img class="now-playing-gif" src="/images/nowplaying.gif" alt="Now playing">
                         <p th:id="current-song-music-genres"></p>
                     </div>
+                    <div class="current-song-achievements">
+                        <span th:id="current-song-year-end-rank"></span>
+                    </div>
                 </div>
             </section>
-
         </article>
 
         <aside class="table-body-item">
-
             <h2 class="table-body-item-title latest-title">Последнее</h2>
             <section class="table-body-item-row">
-
                 <span th:each="update : ${latestUpdates}">
                     <span class="update-section" th:text="${update.archiveSection}"></span>
                     <a class="update-link-description" th:href="${update.link}" th:text="${update.description}"></a>
                     <span class="update-is-new" th:if="${update.isNew}" th:text=" NEW "></span>
                 </span>
-
             </section>
-
         </aside>
 
     </div>

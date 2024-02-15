@@ -1,4 +1,4 @@
-package com.dmitryshundrik.knowledgebase.model.tools.spotify;
+package com.dmitryshundrik.knowledgebase.model.spotify;
 
 import lombok.Data;
 
@@ -14,6 +14,10 @@ public class CurrentSong {
     private String artistSlug;
 
     private String musicGenres;
+
+    private Integer year;
+
+    private String yearEndRank;
 
     private String images;
 

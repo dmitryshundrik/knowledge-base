@@ -23,6 +23,7 @@
                 <th>created</th>
                 <th>writer</th>
                 <th>prose</th>
+                <th>publication</th>
                 <th>location</th>
                 <th>page</th>
                 <th>description</th>
@@ -36,6 +37,7 @@
                 <td th:text="${quote.created}"></td>
                 <td th:text="${quote.writerNickname}"></td>
                 <td th:text="${quote.proseTitle}"></td>
+                <td th:text="${quote.publication}"></td>
                 <td th:text="${quote.location}"></td>
                 <td th:text="${quote.page}"></td>
                 <td th:if="${not #strings.isEmpty(quote.description)}" th:text="${quote.description}"></td>

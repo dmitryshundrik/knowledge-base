@@ -27,6 +27,9 @@ public class Musician {
 
     private String nickName;
 
+    @Column(name = "nick_name_en")
+    private String nickNameEn;
+
     private String firstName;
 
     private String lastName;

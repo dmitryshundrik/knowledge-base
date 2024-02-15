@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Data
@@ -58,5 +59,4 @@ public class Artist {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "artist")
     @OrderBy("created")
     private List<Painting> paintingList;
-
 }

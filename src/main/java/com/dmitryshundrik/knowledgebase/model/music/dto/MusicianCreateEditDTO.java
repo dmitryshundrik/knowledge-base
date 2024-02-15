@@ -23,6 +23,8 @@ public class MusicianCreateEditDTO {
     @NotBlank(message = "nickname may not be blank")
     private String nickName;
 
+    private String nickNameEn;
+
     private String firstName;
 
     private String lastName;

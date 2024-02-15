@@ -17,6 +17,8 @@ public class QuoteCreateEditDTO {
 
     private String proseId;
 
+    private String publication;
+
     private String location;
 
     private Integer page;

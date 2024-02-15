@@ -1,4 +1,4 @@
-package com.dmitryshundrik.knowledgebase.model.tools.spotify.player;
+package com.dmitryshundrik.knowledgebase.model.spotify.player;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

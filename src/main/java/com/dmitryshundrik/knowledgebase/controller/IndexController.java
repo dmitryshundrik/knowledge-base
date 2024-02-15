@@ -4,14 +4,14 @@ import com.dmitryshundrik.knowledgebase.model.common.Foundation;
 import com.dmitryshundrik.knowledgebase.model.common.Resource;
 import com.dmitryshundrik.knowledgebase.model.common.dto.FoundationDTO;
 import com.dmitryshundrik.knowledgebase.model.common.dto.ResourceDTO;
+import com.dmitryshundrik.knowledgebase.service.common.CurrentEventService;
 import com.dmitryshundrik.knowledgebase.service.common.EntityUpdateInfoService;
 import com.dmitryshundrik.knowledgebase.service.common.FoundationService;
 import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
 import com.dmitryshundrik.knowledgebase.service.music.YearInMusicService;
-import com.dmitryshundrik.knowledgebase.service.tools.spotify.SpotifyIntegrationService;
+import com.dmitryshundrik.knowledgebase.service.spotify.SpotifyIntegrationService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,15 +37,19 @@ public class IndexController {
     private ResourcesService resourcesService;
 
     @Autowired
+    private CurrentEventService currentEventService;
+
+    @Autowired
     private SpotifyIntegrationService spotifyIntegrationService;
 
     @Getter
-    private static String version = "4.0.0";
+    private static String version = "4.1.0";
 
     @GetMapping("/")
     public String getIndex(Model model) {
         model.addAttribute("yearInMusicList", yearInMusicService.getSortedYearInMusicViewDTOList());
         model.addAttribute("latestUpdates", entityUpdateInfoService.getLatestUpdates());
+        model.addAttribute("currentEvents", currentEventService.getCurrentEvents());
         return "index";
     }
 
@@ -65,7 +69,7 @@ public class IndexController {
         return "resources";
     }
 
-    @PostMapping("/current-song-name")
+    @PostMapping("/current-song")
     @ResponseBody
     public String getCurrentSongName() throws IOException, InterruptedException {
         return spotifyIntegrationService.getCurrentSong();

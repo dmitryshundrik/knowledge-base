@@ -1,12 +1,13 @@
-package com.dmitryshundrik.knowledgebase.service.tools.spotify;
+package com.dmitryshundrik.knowledgebase.service.spotify;
 
 import com.dmitryshundrik.knowledgebase.model.music.Album;
+import com.dmitryshundrik.knowledgebase.model.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
-import com.dmitryshundrik.knowledgebase.model.tools.spotify.CurrentSong;
-import com.dmitryshundrik.knowledgebase.model.tools.spotify.RefreshToken;
-import com.dmitryshundrik.knowledgebase.model.tools.spotify.player.ItemArtistResponse;
-import com.dmitryshundrik.knowledgebase.model.tools.spotify.player.PlayerResponse;
+import com.dmitryshundrik.knowledgebase.model.spotify.CurrentSong;
+import com.dmitryshundrik.knowledgebase.model.spotify.RefreshToken;
+import com.dmitryshundrik.knowledgebase.model.spotify.player.ItemArtistResponse;
+import com.dmitryshundrik.knowledgebase.model.spotify.player.PlayerResponse;
 import com.dmitryshundrik.knowledgebase.repository.tools.RefreshTokenRepository;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -184,26 +185,48 @@ public class SpotifyIntegrationService {
 
     public CurrentSong createCurrentSong(PlayerResponse playerResponse) {
         CurrentSong currentSong = new CurrentSong();
+        String songName = playerResponse.getItem().getSongName();
         String albumName = playerResponse.getItem().getItemAlbumResponse().getName();
         String artists = StringUtils.join(playerResponse.getItem().getArtists().stream()
                 .map(ItemArtistResponse::getName).collect(Collectors.toList()), ", ");
         String[] artistArray = artists.split(",");
         String musicianNickname = artistArray[0];
         Musician musicianByNickname = musicianService.getMusicianByNickname(musicianNickname);
+
+        currentSong.setImages(playerResponse.getItem().getItemAlbumResponse().getItemAlbumImageResponseList().get(0).getUrl());
+        currentSong.setArtists(musicianNickname);
+        if (musicianByNickname != null) {
+            currentSong.setArtistSlug("/music/musician/" + musicianByNickname.getSlug());
+        }
+        currentSong.setName(songName);
+        currentSong.setAlbumName(albumName);
+
+        if (musicianByNickname != null && !musicianByNickname.getCompositions().isEmpty()) {
+            for (Composition composition : musicianByNickname.getCompositions()) {
+                String compositionFullTitle = composition.getTitle() + " " + composition.getFeature();
+                if (songName.equalsIgnoreCase(compositionFullTitle.trim())) {
+                    currentSong.setMusicGenres(StringUtils.join(composition.getMusicGenres().stream()
+                            .map(MusicGenre::getTitle).collect(Collectors.toList()), ", "));
+                    if (composition.getYearEndRank() != null) {
+                        currentSong.setYearEndRank("Лучшие композиции " + composition.getYear() + " года: " +
+                                "#" + composition.getYearEndRank());
+                    }
+                }
+            }
+        }
+
         if (musicianByNickname != null && !musicianByNickname.getAlbums().isEmpty()) {
             for (Album album : musicianByNickname.getAlbums()) {
-                if (album.getTitle().equalsIgnoreCase(albumName)) {
+                String albumTitle = album.getTitle();
+                if (album.getTitle().endsWith("EP")) {
+                    albumTitle = album.getTitle().substring(0, album.getTitle().length() - 2);
+                }
+                if (albumName.toLowerCase().contains(albumTitle.trim().toLowerCase())) {
                     currentSong.setMusicGenres(StringUtils.join(album.getMusicGenres().stream()
                             .map(MusicGenre::getTitle).collect(Collectors.toList()), ", "));
                 }
             }
         }
-        currentSong.setName(playerResponse.getItem().getSongName());
-        currentSong.setArtists(artists);
-        if (musicianByNickname != null) {
-            currentSong.setArtistSlug("/music/musician/" + musicianByNickname.getSlug());
-        }
-        currentSong.setImages(playerResponse.getItem().getItemAlbumResponse().getItemAlbumImageResponseList().get(0).getUrl());
         currentSong.setPlaying(true);
         return currentSong;
     }

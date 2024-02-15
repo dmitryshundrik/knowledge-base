@@ -59,6 +59,7 @@ public class QuoteService {
         quote.setCreated(Instant.now());
         quote.setWriter(writer);
         quote.setProse(prose);
+        quote.setPublication(quoteDTO.getPublication());
         quote.setLocation(quoteDTO.getLocation());
         quote.setPage(quoteDTO.getPage());
         quote.setDescription(quoteDTO.getDescription().trim());
@@ -69,6 +70,7 @@ public class QuoteService {
     public Quote updateQuote(QuoteCreateEditDTO quoteDTO, String quoteId, Prose prose) {
         Quote byId = getById(quoteId);
         byId.setProse(prose);
+        byId.setPublication(quoteDTO.getPublication().trim());
         byId.setLocation(quoteDTO.getLocation().trim());
         byId.setPage(quoteDTO.getPage());
         byId.setDescription(quoteDTO.getDescription().trim());
@@ -89,6 +91,7 @@ public class QuoteService {
                 .writerSlug(quote.getWriter().getSlug())
                 .proseTitle(!(quote.getProse() == null) ? quote.getProse().getTitle() : null)
                 .proseSlug(!(quote.getProse() == null) ? quote.getProse().getSlug() : null)
+                .publication(quote.getPublication())
                 .location(quote.getLocation())
                 .page(quote.getPage())
                 .description(quote.getDescription())
@@ -108,6 +111,7 @@ public class QuoteService {
                 .writerNickname(quote.getWriter().getNickName())
                 .writerSlug(quote.getWriter().getSlug())
                 .proseId(quote.getProse() == null ? null : quote.getProse().getId().toString())
+                .publication(quote.getPublication())
                 .location(quote.getLocation())
                 .page(quote.getPage())
                 .description(quote.getDescription())

@@ -23,6 +23,8 @@ public class Quote {
     @ManyToOne
     private Prose prose;
 
+    private String publication;
+
     private String location;
 
     private Integer page;

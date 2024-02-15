@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.repository.tools;
 
-import com.dmitryshundrik.knowledgebase.model.tools.spotify.RefreshToken;
+import com.dmitryshundrik.knowledgebase.model.spotify.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
