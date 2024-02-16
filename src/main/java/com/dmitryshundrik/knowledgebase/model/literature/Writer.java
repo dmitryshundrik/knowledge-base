@@ -1,6 +1,7 @@
 package com.dmitryshundrik.knowledgebase.model.literature;
 
 import com.dmitryshundrik.knowledgebase.model.common.PersonEvent;
+import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -27,6 +28,9 @@ public class Writer {
     private String firstName;
 
     private String lastName;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     @Column(columnDefinition = "text")
     private String image;

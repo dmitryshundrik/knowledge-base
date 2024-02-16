@@ -50,17 +50,20 @@ body {
     gap: 5px;
 }
 
+.footer-logo {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
 .error {
     color: red;
 }
 
 .archive-images {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 25px auto;
     width: 100%;
-    margin-top: 25px;
-    margin-bottom: 25px;
 }
 
 @media (max-width: 1200px) {

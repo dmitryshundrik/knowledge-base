@@ -11,7 +11,10 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -77,6 +80,7 @@ public class ArtistService {
                 .nickName(artist.getNickName())
                 .firstName(artist.getFirstName())
                 .lastName(artist.getLastName())
+                .gender(artist.getGender())
                 .image(artist.getImage())
                 .born(artist.getBorn())
                 .died(artist.getDied())
@@ -103,6 +107,7 @@ public class ArtistService {
                 .nickName(artist.getNickName())
                 .firstName(artist.getFirstName())
                 .lastName(artist.getLastName())
+                .gender(artist.getGender())
                 .image(artist.getImage())
                 .born(artist.getBorn())
                 .died(artist.getDied())
@@ -122,6 +127,7 @@ public class ArtistService {
         artist.setNickName(artistDTO.getNickName().trim());
         artist.setFirstName(artistDTO.getFirstName().trim());
         artist.setLastName(artistDTO.getLastName().trim());
+        artist.setGender(artistDTO.getGender());
         artist.setBorn(artistDTO.getBorn());
         artist.setDied(artistDTO.getDied());
         artist.setBirthDate(artistDTO.getBirthDate());
@@ -142,6 +148,22 @@ public class ArtistService {
 
     public List<Artist> getLatestUpdate() {
         return artistRepository.findFirst20ByOrderByCreatedDesc();
+    }
+
+    public Set<Artist> getAllWithCurrentBirth() {
+        Set<Artist> artistBirthList = new HashSet<>();
+        for (int i = 0; i < 10; i++) {
+            artistBirthList.addAll(artistRepository.findAllWithCurrentBirth(LocalDate.now().plusDays(i)));
+        }
+        return artistBirthList;
+    }
+
+    public Set<Artist> getAllWithCurrentDeath() {
+        Set<Artist> artistDeathList = new HashSet<>();
+        for (int i = 0; i < 10; i++) {
+            artistDeathList.addAll(artistRepository.findAllWithCurrentDeath(LocalDate.now().plusDays(i)));
+        }
+        return artistDeathList;
     }
 
 }

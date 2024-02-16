@@ -1,6 +1,7 @@
 package com.dmitryshundrik.knowledgebase.model.literature.dto;
 
 import com.dmitryshundrik.knowledgebase.model.common.dto.PersonEventDTO;
+import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,6 +24,8 @@ public class WriterViewDTO {
     private String firstName;
 
     private String lastName;
+
+    private Gender gender;
 
     private String image;
 

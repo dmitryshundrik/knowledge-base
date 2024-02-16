@@ -1,6 +1,7 @@
 package com.dmitryshundrik.knowledgebase.model.music.dto;
 
 import com.dmitryshundrik.knowledgebase.model.common.dto.PersonEventDTO;
+import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import lombok.Builder;
@@ -25,6 +26,8 @@ public class MusicianViewDTO {
     private String firstName;
 
     private String lastName;
+
+    private Gender gender;
 
     private String image;
 

@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.controller.management.literature;
 
+import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import com.dmitryshundrik.knowledgebase.model.literature.Writer;
 import com.dmitryshundrik.knowledgebase.model.literature.dto.WriterCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.literature.dto.WriterViewDTO;
@@ -34,6 +35,7 @@ public class WriterManagementController {
     public String getWriterCreate(Model model) {
         WriterCreateEditDTO writerCreateEditDTO = new WriterCreateEditDTO();
         model.addAttribute("writerDTO", writerCreateEditDTO);
+        model.addAttribute("genders", Gender.values());
         return "management/literature/writer-create";
     }
 
@@ -43,6 +45,7 @@ public class WriterManagementController {
         String error = writerService.writerSlugIsExist(writerDTO.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute("slug", error);
+            model.addAttribute("genders", Gender.values());
             return "management/literature/writer-create";
         }
         String writerSlug = writerService.createWriter(writerDTO).getSlug();
@@ -54,6 +57,7 @@ public class WriterManagementController {
         Writer bySlug = writerService.getBySlug(writerSlug);
         WriterCreateEditDTO writerCreateEditDTO = writerService.getWriterCreateEditDTO(bySlug);
         model.addAttribute("writerDTO", writerCreateEditDTO);
+        model.addAttribute("genders", Gender.values());
         return "management/literature/writer-edit";
     }
 

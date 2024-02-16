@@ -1,6 +1,7 @@
 package com.dmitryshundrik.knowledgebase.model.music.dto;
 
 import com.dmitryshundrik.knowledgebase.model.common.dto.PersonEventDTO;
+import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,8 @@ public class MusicianCreateEditDTO {
     private String firstName;
 
     private String lastName;
+
+    private Gender gender;
 
     private String image;
 

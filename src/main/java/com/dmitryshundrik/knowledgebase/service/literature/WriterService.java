@@ -92,6 +92,7 @@ public class WriterService {
                 .firstName(writer.getFirstName())
                 .lastName(writer.getLastName())
                 .nickName(writer.getNickName())
+                .gender(writer.getGender())
                 .image(writer.getImage())
                 .born(writer.getBorn())
                 .died(writer.getDied())
@@ -119,6 +120,7 @@ public class WriterService {
                 .firstName(writer.getFirstName())
                 .lastName(writer.getLastName())
                 .nickName(writer.getNickName())
+                .gender(writer.getGender())
                 .image(writer.getImage())
                 .born(writer.getBorn())
                 .died(writer.getDied())
@@ -138,6 +140,7 @@ public class WriterService {
         writer.setNickName(writerDTO.getNickName().trim());
         writer.setFirstName(writerDTO.getFirstName().trim());
         writer.setLastName(writerDTO.getLastName().trim());
+        writer.setGender(writerDTO.getGender());
         writer.setBorn(writerDTO.getBorn());
         writer.setDied(writerDTO.getDied());
         writer.setBirthDate(writerDTO.getBirthDate());

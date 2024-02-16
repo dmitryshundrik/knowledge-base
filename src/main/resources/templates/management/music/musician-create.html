@@ -52,6 +52,17 @@
                 </section>
 
                 <section class="form-item">
+                    <label>gender</label>
+                    <select th:field="*{gender}">
+                        <option th:value="null" selected>выбрать гендер</option>
+                        <option th:each="gender : ${genders}"
+                                th:value="${gender}"
+                                th:text="${gender.label}">0
+                        </option>
+                    </select>
+                </section>
+
+                <section class="form-item">
                     <label>born</label>
                     <input type="number" th:field="*{born}"/>
                 </section>

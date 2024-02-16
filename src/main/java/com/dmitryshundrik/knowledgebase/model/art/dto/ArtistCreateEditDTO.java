@@ -1,6 +1,7 @@
 package com.dmitryshundrik.knowledgebase.model.art.dto;
 
 import com.dmitryshundrik.knowledgebase.model.common.PersonEvent;
+import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,6 +25,8 @@ public class ArtistCreateEditDTO {
     private String firstName;
 
     private String lastName;
+
+    private Gender gender;
 
     private String image;
 

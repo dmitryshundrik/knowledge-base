@@ -3,6 +3,7 @@ package com.dmitryshundrik.knowledgebase.controller.management.art;
 import com.dmitryshundrik.knowledgebase.model.art.Artist;
 import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistViewDTO;
+import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ public class ArtistManagementController {
     public String getArtistCreate(Model model) {
         ArtistCreateEditDTO artistCreateEditDTO = new ArtistCreateEditDTO();
         model.addAttribute("artistDTO", artistCreateEditDTO);
+        model.addAttribute("genders", Gender.values());
         return "management/art/artist-create";
     }
 
@@ -43,6 +45,7 @@ public class ArtistManagementController {
         String error = artistService.artistSlugIsExist(artistDTO.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute("slug", error);
+            model.addAttribute("genders", Gender.values());
             return "management/art/artist-create";
         }
         String artistSlug = artistService.createArtist(artistDTO).getSlug();
@@ -54,6 +57,7 @@ public class ArtistManagementController {
         Artist bySlug = artistService.getBySlug(artistSlug);
         ArtistCreateEditDTO artistCreateEditDTO = artistService.getArtistCreateEditDTO(bySlug);
         model.addAttribute("artistDTO", artistCreateEditDTO);
+        model.addAttribute("genders", Gender.values());
         return "management/art/artist-edit";
     }
 

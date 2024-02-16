@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.controller.management.music;
 
+import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
@@ -47,6 +48,7 @@ public class MusicianManagementController {
         model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
         model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
         model.addAttribute("sortTypes", SortType.values());
+        model.addAttribute("genders", Gender.values());
         return "management/music/musician-create";
     }
 
@@ -60,6 +62,7 @@ public class MusicianManagementController {
             model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
             model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
             model.addAttribute("sortTypes", SortType.values());
+            model.addAttribute("genders", Gender.values());
             return "management/music/musician-create";
         }
         String musicianDTOSlug = musicianService.createMusician(musicianDTO).getSlug();
@@ -74,6 +77,7 @@ public class MusicianManagementController {
         model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
         model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
         model.addAttribute("sortTypes", SortType.values());
+        model.addAttribute("genders", Gender.values());
         return "management/music/musician-edit";
     }
 

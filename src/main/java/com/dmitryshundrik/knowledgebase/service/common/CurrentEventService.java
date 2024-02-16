@@ -1,8 +1,13 @@
 package com.dmitryshundrik.knowledgebase.service.common;
 
+import com.dmitryshundrik.knowledgebase.model.art.Artist;
 import com.dmitryshundrik.knowledgebase.model.common.CurrentEventInfo;
+import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import com.dmitryshundrik.knowledgebase.model.literature.Writer;
+import com.dmitryshundrik.knowledgebase.model.music.Musician;
+import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
+import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,12 +25,53 @@ import java.util.stream.Collectors;
 public class CurrentEventService {
 
     @Autowired
+    private MusicianService musicianService;
+
+    @Autowired
     private WriterService writerService;
+
+    @Autowired
+    private ArtistService artistService;
+
+    private final static String MALE_BORN = " родился ";
+
+    private final static String FEMALE_BORN = " родилась ";
+
+    private final static String MALE_DIE = " умер ";
+
+    private final static String FEMALE_DIE = " умерла ";
 
 
     public List<CurrentEventInfo> getCurrentEvents() {
-        List<CurrentEventInfo> currentEventInfoList = new ArrayList<>(getWriterEvents());
-        return currentEventInfoList;
+        List<CurrentEventInfo> currentEventInfoList = new ArrayList<>();
+        currentEventInfoList.addAll(getWriterEvents());
+        currentEventInfoList.addAll(getArtistEvents());
+        currentEventInfoList.addAll(getMusicianEvents());
+        return currentEventInfoList.stream()
+                .sorted(Comparator.comparing(CurrentEventInfo::getDate)).collect(Collectors.toList());
+    }
+
+    public List<CurrentEventInfo> getMusicianEvents() {
+        List<CurrentEventInfo> musicianEventInfoList = new ArrayList<>();
+        Set<Musician> musicianBirthList = musicianService.getAllWithCurrentBirth();
+        Set<Musician> musicianDeathList = musicianService.getAllWithCurrentDeath();
+        for (Musician musician : musicianBirthList) {
+            musicianEventInfoList.add(CurrentEventInfo.builder()
+                    .personNickname(musician.getNickName())
+                    .personLink("/music/musician/" + musician.getSlug())
+                    .date(getDateForCurrentEvent(musician.getBirthDate()))
+                    .dateType(getBirthTypeForGender(musician.getGender()))
+                    .occupation(musician.getOccupation()).build());
+        }
+        for (Musician musician : musicianDeathList) {
+            musicianEventInfoList.add(CurrentEventInfo.builder()
+                    .personNickname(musician.getNickName())
+                    .personLink("/music/musician/" + musician.getSlug())
+                    .date(getDateForCurrentEvent(musician.getDeathDate()))
+                    .dateType(getDeathTypeForGender(musician.getGender()))
+                    .occupation(musician.getOccupation()).build());
+        }
+        return musicianEventInfoList;
     }
 
     public List<CurrentEventInfo> getWriterEvents() {
@@ -34,24 +80,66 @@ public class CurrentEventService {
         Set<Writer> writerDeathList = writerService.getAllWithCurrentDeath();
         for (Writer writer : writerBirthList) {
             writerEventInfoList.add(CurrentEventInfo.builder()
-                    .personLink("/literature/writer/" + writer.getSlug())
                     .personNickname(writer.getNickName())
-                    .personImage(writer.getImage())
+                    .personLink("/literature/writer/" + writer.getSlug())
                     .date(getDateForCurrentEvent(writer.getBirthDate()))
-                    .dateType(" родился ")
+                    .dateType(getBirthTypeForGender(writer.getGender()))
                     .occupation(writer.getOccupation()).build());
         }
         for (Writer writer : writerDeathList) {
             writerEventInfoList.add(CurrentEventInfo.builder()
-                    .personLink("/literature/writer/" + writer.getSlug())
                     .personNickname(writer.getNickName())
-                    .personImage(writer.getImage())
+                    .personLink("/literature/writer/" + writer.getSlug())
                     .date(getDateForCurrentEvent(writer.getDeathDate()))
-                    .dateType(" умер ")
+                    .dateType(getDeathTypeForGender(writer.getGender()))
                     .occupation(writer.getOccupation()).build());
         }
-        return writerEventInfoList.stream()
-                .sorted(Comparator.comparing(CurrentEventInfo::getDate)).collect(Collectors.toList());
+        return writerEventInfoList;
+    }
+
+    public List<CurrentEventInfo> getArtistEvents() {
+        List<CurrentEventInfo> artistEventInfoList = new ArrayList<>();
+        Set<Artist> artistBirthList = artistService.getAllWithCurrentBirth();
+        Set<Artist> artistDeathList = artistService.getAllWithCurrentDeath();
+        for (Artist artist : artistBirthList) {
+            artistEventInfoList.add(CurrentEventInfo.builder()
+                    .personLink("/art/artist/" + artist.getSlug())
+                    .personNickname(artist.getNickName())
+                    .personImage(artist.getImage())
+                    .date(getDateForCurrentEvent(artist.getBirthDate()))
+                    .dateType(getBirthTypeForGender(artist.getGender()))
+                    .occupation(artist.getOccupation()).build());
+        }
+        for (Artist artist : artistDeathList) {
+            artistEventInfoList.add(CurrentEventInfo.builder()
+                    .personLink("/art/artist/" + artist.getSlug())
+                    .personNickname(artist.getNickName())
+                    .personImage(artist.getImage())
+                    .date(getDateForCurrentEvent(artist.getDeathDate()))
+                    .dateType(getDeathTypeForGender(artist.getGender()))
+                    .occupation(artist.getOccupation()).build());
+        }
+        return artistEventInfoList;
+    }
+
+    public String getBirthTypeForGender(Gender gender) {
+        String birthType = "";
+        if (gender == Gender.FEMALE) {
+            birthType = FEMALE_BORN;
+        } else {
+            birthType = MALE_BORN;
+        }
+        return birthType;
+    }
+
+    public String getDeathTypeForGender(Gender gender) {
+        String deathType = "";
+        if (gender == Gender.FEMALE) {
+            deathType = FEMALE_DIE;
+        } else {
+            deathType = MALE_DIE;
+        }
+        return deathType;
     }
 
     public String getDateForCurrentEvent(LocalDate localDate) {

@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
+import com.dmitryshundrik.knowledgebase.model.literature.Writer;
 import com.dmitryshundrik.knowledgebase.model.music.*;
 import com.dmitryshundrik.knowledgebase.model.music.dto.*;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -167,6 +169,7 @@ public class MusicianService {
                 .lastName(musician.getLastName())
                 .nickName(musician.getNickName())
                 .nickNameEn(musician.getNickNameEn())
+                .gender(musician.getGender())
                 .image(musician.getImage())
                 .born(musician.getBorn())
                 .died(musician.getDied())
@@ -233,6 +236,7 @@ public class MusicianService {
                 .lastName(musician.getLastName())
                 .nickName(musician.getNickName())
                 .nickNameEn(musician.getNickNameEn())
+                .gender(musician.getGender())
                 .image(musician.getImage())
                 .born(musician.getBorn())
                 .died(musician.getDied())
@@ -280,6 +284,7 @@ public class MusicianService {
         musician.setLastName(musicianDTO.getLastName());
         musician.setNickName(musicianDTO.getNickName());
         musician.setNickNameEn(musicianDTO.getNickNameEn());
+        musician.setGender(musicianDTO.getGender());
         musician.setBorn(musicianDTO.getBorn());
         musician.setDied(musicianDTO.getDied());
         musician.setFounded(musicianDTO.getFounded());
@@ -307,4 +312,19 @@ public class MusicianService {
         return musicianRepository.findFirst20ByOrderByCreatedDesc();
     }
 
+    public Set<Musician> getAllWithCurrentBirth() {
+        Set<Musician> musicianBirthList = new HashSet<>();
+        for (int i = 0; i < 10; i++) {
+            musicianBirthList.addAll(musicianRepository.findAllWithCurrentBirth(LocalDate.now().plusDays(i)));
+        }
+        return musicianBirthList;
+    }
+
+    public Set<Musician> getAllWithCurrentDeath() {
+        Set<Musician> musicianDeathList = new HashSet<>();
+        for (int i = 0; i < 10; i++) {
+            musicianDeathList.addAll(musicianRepository.findAllWithCurrentDeath(LocalDate.now().plusDays(i)));
+        }
+        return musicianDeathList;
+    }
 }

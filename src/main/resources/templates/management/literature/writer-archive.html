@@ -5,7 +5,7 @@
     <title></title>
     <link th:href="@{/styles/management/entity-all-management.css}" rel="stylesheet">
 </head>
-<body>
+<body class="body-archive">
 
 <header th:insert="fragments/header.html"></header>
 
@@ -24,8 +24,11 @@
                 <th>created</th>
                 <th>nick_name</th>
                 <th>slug</th>
+                <th>gender</th>
                 <th>born</th>
                 <th>died</th>
+                <th>birth date</th>
+                <th>death date</th>
                 <th>birthplace</th>
                 <th>occupation</th>
                 <th>edit</th>
@@ -38,8 +41,11 @@
                 <td th:text="${writer.created}"></td>
                 <td th:text="${writer.nickName}"></td>
                 <td th:text="${writer.slug}"></td>
+                <td th:text="${writer.gender}"></td>
                 <td th:text="${writer.born}"></td>
                 <td th:text="${writer.died}"></td>
+                <td th:text="${writer.birthDate}"></td>
+                <td th:text="${writer.deathDate}"></td>
                 <td th:text="${writer.birthplace}"></td>
                 <td th:text="${writer.occupation}"></td>
                 <td class="td-settings">

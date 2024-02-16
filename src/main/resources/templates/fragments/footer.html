@@ -17,7 +17,7 @@
 
     <div class="footer-logo">
         <span th:text="'© Дмитрий Шундрик 2022-' + ${T(com.dmitryshundrik.knowledgebase.util.DateTime).getCurrentYear()}"></span>
-        <span th:text="'версия: ' + ${T(com.dmitryshundrik.knowledgebase.controller.IndexController).getVersion()}"></span>
+        <p th:text="'версия: ' + ${T(com.dmitryshundrik.knowledgebase.controller.IndexController).getVersion()}"></p>
     </div>
 
 </footer>

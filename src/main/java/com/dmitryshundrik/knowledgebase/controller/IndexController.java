@@ -43,7 +43,7 @@ public class IndexController {
     private SpotifyIntegrationService spotifyIntegrationService;
 
     @Getter
-    private static String version = "4.1.0";
+    private static String version = "4.2.0";
 
     @GetMapping("/")
     public String getIndex(Model model) {

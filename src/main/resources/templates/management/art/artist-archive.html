@@ -5,7 +5,7 @@
     <title></title>
     <link th:href="@{/styles/management/entity-all-management.css}" rel="stylesheet">
 </head>
-<body>
+<body class="body-archive">
 
 <header th:insert="fragments/header.html"></header>
 
@@ -24,8 +24,11 @@
                 <th>created</th>
                 <th>nick name</th>
                 <th>slug</th>
+                <th>gender</th>
                 <th>born</th>
                 <th>died</th>
+                <th>birth date</th>
+                <th>death date</th>
                 <th>approximate years</th>
                 <th>birthplace</th>
                 <th>occupation</th>
@@ -39,8 +42,11 @@
                 <td th:text="${artist.created}"></td>
                 <td th:text="${artist.nickName}"></td>
                 <td th:text="${artist.slug}"></td>
+                <td th:text="${artist.gender}"></td>
                 <td th:text="${artist.born}"></td>
                 <td th:text="${artist.died}"></td>
+                <td th:text="${artist.birthDate}"></td>
+                <td th:text="${artist.deathDate}"></td>
                 <th th:text="${artist.approximateYears}"></th>
                 <td th:text="${artist.birthplace}"></td>
                 <td th:text="${artist.occupation}"></td>

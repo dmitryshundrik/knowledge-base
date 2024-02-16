@@ -1,6 +1,7 @@
 package com.dmitryshundrik.knowledgebase.model.literature.dto;
 
 import com.dmitryshundrik.knowledgebase.model.common.dto.PersonEventDTO;
+import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +27,8 @@ public class WriterCreateEditDTO {
     private String firstName;
 
     private String lastName;
+
+    private Gender gender;
 
     private String image;
 

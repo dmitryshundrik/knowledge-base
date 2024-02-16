@@ -1,6 +1,7 @@
 package com.dmitryshundrik.knowledgebase.model.music;
 
 import com.dmitryshundrik.knowledgebase.model.common.PersonEvent;
+import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import lombok.Data;
 
@@ -33,6 +34,9 @@ public class Musician {
     private String firstName;
 
     private String lastName;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     @Column(columnDefinition = "text")
     private String image;
