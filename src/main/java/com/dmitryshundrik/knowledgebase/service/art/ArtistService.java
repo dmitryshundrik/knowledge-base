@@ -14,6 +14,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -28,15 +29,21 @@ public class ArtistService {
     private PaintingService paintingService;
 
     public List<Artist> getAll() {
-        return artistRepository.findAll();
+        return unknownFilter(artistRepository.findAll());
     }
 
     public List<Artist> getAllSortedByBorn() {
-        return artistRepository.getAllByOrderByBorn();
+        return unknownFilter(artistRepository.getAllByOrderByBorn());
     }
 
     public List<Artist> getAllSortedByCreatedDesc() {
-        return artistRepository.getAllByOrderByCreatedDesc();
+        return unknownFilter(artistRepository.getAllByOrderByCreatedDesc());
+    }
+
+    public List<Artist> unknownFilter(List<Artist> artistList) {
+        return artistList.stream()
+                .filter(artist -> !Objects.equals(artist.getSlug(), "unknown"))
+                .collect(Collectors.toList());
     }
 
     public Artist getBySlug(String artistSlug) {
@@ -147,7 +154,7 @@ public class ArtistService {
     }
 
     public List<Artist> getLatestUpdate() {
-        return artistRepository.findFirst20ByOrderByCreatedDesc();
+        return unknownFilter(artistRepository.findFirst20ByOrderByCreatedDesc());
     }
 
     public Set<Artist> getAllWithCurrentBirth() {

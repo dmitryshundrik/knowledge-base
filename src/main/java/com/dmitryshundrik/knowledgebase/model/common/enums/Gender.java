@@ -2,7 +2,7 @@ package com.dmitryshundrik.knowledgebase.model.common.enums;
 
 public enum Gender {
 
-    MALE("Мужчина"), FEMALE("Женщина"), NON_BINARY("Небинарная персона");
+    MALE("Мужчина"), FEMALE("Женщина"), NON_BINARY("Небинарная персона"), GROUP("Группа людей");
 
     private final String label;
 

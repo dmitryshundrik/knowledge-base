@@ -170,17 +170,42 @@
             <section class="table-body-item-row" th:each="composition : ${musicianViewDTO.compositions}">
                 <span class="table-body-item-col catalog-number" th:if="${composition.catalogNumber} != null"
                       th:text="${musicianViewDTO.catalogTitle + ' ' + composition.catalogNumber}"></span>
-                <div>
+                <div class="table-body-item-col-container">
                     <span class="table-body-item-col title" th:text="${composition.title}"></span>
                     <span class="table-body-item-col year" th:if="${composition.year} != null"
                           th:text="'(' + ${composition.year} + ')'"></span>
                     <span class="table-body-item-col rating" th:text="${composition.rating}"></span>
                     <span class="table-body-item-col highlights" th:text="${composition.highlights}"></span>
+                    <span th:if="${not #lists.isEmpty(composition.lyrics)}">
+                        <button type="button" class="lyrics">текст</button>
+                        <span class="content">
+                            <p th:utext="${composition.lyrics}"></p>
+                            <br>
+                            <p th:utext="${composition.translation}"></p>
+                        </span>
+                    </span>
                 </div>
             </section>
         </article>
     </div>
 </main>
+
+<script th:inline="javascript">
+    var coll = document.getElementsByClassName("lyrics");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
+</script>
 
 <footer th:insert="fragments/footer.html"></footer>
 

@@ -235,8 +235,9 @@ public class EntityUpdateInfoService {
             paintingUpdateInfo.add(EntityUpdateInfo.builder()
                     .created(painting.getCreated())
                     .archiveSection("искусство:")
-                    .description("картина «" + painting.getTitle() + "» добавлена в архив " + painting.getArtist().getNickName())
-                    .link("art/artist/" + painting.getArtist().getSlug())
+                    .description("картина «" + painting.getTitle() + "» добавлена в архив " +
+                            (painting.getArtist().getNickName().equals("Неизвестен")? "" : painting.getArtist().getNickName()))
+                    .link("art/painting/all")
                     .build());
         }
         return paintingUpdateInfo;

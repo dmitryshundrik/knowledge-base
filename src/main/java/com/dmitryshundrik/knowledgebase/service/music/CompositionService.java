@@ -160,6 +160,8 @@ public class CompositionService {
                 .essentialCompositionsRank(composition.getEssentialCompositionsRank())
                 .highlights(composition.getHighlights())
                 .description(composition.getDescription())
+                .lyrics(composition.getLyrics())
+                .translation(composition.getTranslation())
                 .build();
     }
 
@@ -217,6 +219,8 @@ public class CompositionService {
                 .description(composition.getDescription())
                 .lyrics(composition.getLyrics())
                 .translation(composition.getTranslation())
+                .lyrics(composition.getLyrics())
+                .translation(composition.getTranslation())
                 .build();
     }
 
@@ -240,6 +244,8 @@ public class CompositionService {
         composition.setEssentialCompositionsRank(compositionDTO.getEssentialCompositionsRank());
         composition.setHighlights(compositionDTO.getHighlights());
         composition.setDescription(compositionDTO.getDescription());
+        composition.setLyrics(compositionDTO.getLyrics());
+        composition.setTranslation(compositionDTO.getTranslation());
         composition.setLyrics(compositionDTO.getLyrics());
         composition.setTranslation(compositionDTO.getTranslation());
     }

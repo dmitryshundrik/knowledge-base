@@ -18,6 +18,10 @@ public class CurrentEventInfo {
 
     private String date;
 
+    private Integer month;
+
+    private Integer day;
+
     private String dateType;
 
     private String occupation;

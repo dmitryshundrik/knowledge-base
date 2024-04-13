@@ -42,6 +42,9 @@ public class ArtPageController {
     @GetMapping("/artist/{artistSlug}")
     public String getArtist(@PathVariable String artistSlug, Model model) {
         Artist bySlug = artistService.getBySlug(artistSlug);
+        if(artistSlug.equals("unknown") || bySlug == null) {
+            return "error";
+        }
         ArtistViewDTO artistViewDTO = artistService.getArtistViewDTO(bySlug);
         artistViewDTO.setPaintingList(artistViewDTO.getPaintingList().stream()
                 .limit(10).collect(Collectors.toList()));

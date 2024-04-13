@@ -45,4 +45,8 @@ public class CompositionViewDTO {
 
     private String description;
 
+    private String lyrics;
+
+    private String translation;
+
 }

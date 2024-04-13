@@ -44,11 +44,12 @@ public class CurrentEventService {
 
     public List<CurrentEventInfo> getCurrentEvents() {
         List<CurrentEventInfo> currentEventInfoList = new ArrayList<>();
+        currentEventInfoList.addAll(getMusicianEvents());
         currentEventInfoList.addAll(getWriterEvents());
         currentEventInfoList.addAll(getArtistEvents());
-        currentEventInfoList.addAll(getMusicianEvents());
         return currentEventInfoList.stream()
-                .sorted(Comparator.comparing(CurrentEventInfo::getDate)).collect(Collectors.toList());
+                .sorted(Comparator.comparing(CurrentEventInfo::getMonth).thenComparing(CurrentEventInfo::getDay))
+                .collect(Collectors.toList());
     }
 
     public List<CurrentEventInfo> getMusicianEvents() {
@@ -60,6 +61,8 @@ public class CurrentEventService {
                     .personNickname(musician.getNickName())
                     .personLink("/music/musician/" + musician.getSlug())
                     .date(getDateForCurrentEvent(musician.getBirthDate()))
+                    .month(musician.getBirthDate().getMonthValue())
+                    .day(musician.getBirthDate().getDayOfMonth())
                     .dateType(getBirthTypeForGender(musician.getGender()))
                     .occupation(musician.getOccupation()).build());
         }
@@ -68,6 +71,8 @@ public class CurrentEventService {
                     .personNickname(musician.getNickName())
                     .personLink("/music/musician/" + musician.getSlug())
                     .date(getDateForCurrentEvent(musician.getDeathDate()))
+                    .month(musician.getDeathDate().getMonthValue())
+                    .day(musician.getDeathDate().getDayOfMonth())
                     .dateType(getDeathTypeForGender(musician.getGender()))
                     .occupation(musician.getOccupation()).build());
         }
@@ -83,6 +88,8 @@ public class CurrentEventService {
                     .personNickname(writer.getNickName())
                     .personLink("/literature/writer/" + writer.getSlug())
                     .date(getDateForCurrentEvent(writer.getBirthDate()))
+                    .month(writer.getBirthDate().getMonthValue())
+                    .day(writer.getBirthDate().getDayOfMonth())
                     .dateType(getBirthTypeForGender(writer.getGender()))
                     .occupation(writer.getOccupation()).build());
         }
@@ -91,6 +98,8 @@ public class CurrentEventService {
                     .personNickname(writer.getNickName())
                     .personLink("/literature/writer/" + writer.getSlug())
                     .date(getDateForCurrentEvent(writer.getDeathDate()))
+                    .month(writer.getDeathDate().getMonthValue())
+                    .day(writer.getDeathDate().getDayOfMonth())
                     .dateType(getDeathTypeForGender(writer.getGender()))
                     .occupation(writer.getOccupation()).build());
         }
@@ -107,6 +116,8 @@ public class CurrentEventService {
                     .personNickname(artist.getNickName())
                     .personImage(artist.getImage())
                     .date(getDateForCurrentEvent(artist.getBirthDate()))
+                    .month(artist.getBirthDate().getMonthValue())
+                    .day(artist.getBirthDate().getDayOfMonth())
                     .dateType(getBirthTypeForGender(artist.getGender()))
                     .occupation(artist.getOccupation()).build());
         }
@@ -116,6 +127,8 @@ public class CurrentEventService {
                     .personNickname(artist.getNickName())
                     .personImage(artist.getImage())
                     .date(getDateForCurrentEvent(artist.getDeathDate()))
+                    .month(artist.getDeathDate().getMonthValue())
+                    .day(artist.getDeathDate().getDayOfMonth())
                     .dateType(getDeathTypeForGender(artist.getGender()))
                     .occupation(artist.getOccupation()).build());
         }
