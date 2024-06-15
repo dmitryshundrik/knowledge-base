@@ -94,11 +94,11 @@
 }
 
 .lyrics {
-    background-color: #eee;
+    /*background-color: #eee;*/
     color: #444;
-    cursor: pointer;
-    border: none;
-    outline: none;
+    /*cursor: pointer;*/
+    /*border: none;*/
+    /*outline: none;*/
 }
 
 .content {
