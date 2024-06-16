@@ -21,25 +21,34 @@ import java.util.stream.Collectors;
 @Transactional
 public class CompositionService {
 
-    @Autowired
-    private CompositionRepository compositionRepository;
+    private final CompositionRepository compositionRepository;
 
+    @Autowired
+    public CompositionService(CompositionRepository compositionRepository) {
+        this.compositionRepository = compositionRepository;
+    }
+
+    @Transactional(readOnly = true)
     public List<Composition> getAll() {
         return compositionRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Composition getCompositionBySlug(String compositionSlug) {
         return compositionRepository.getCompositionBySlug(compositionSlug);
     }
 
+    @Transactional(readOnly = true)
     public List<Composition> getAllByYear(Integer year) {
         return compositionRepository.getAllByYear(year);
     }
 
-    public List<Composition> getAllByMsuician(String musicianSlug) {
+    @Transactional(readOnly = true)
+    public List<Composition> getAllByMusician(String musicianSlug) {
         return compositionRepository.getAllByMusician(musicianSlug);
     }
 
+    @Transactional(readOnly = true)
     public List<Composition> getAllByPeriod(List<Musician> musicians) {
         List<Composition> compositions = new ArrayList<>();
         for (Musician musician : musicians) {
@@ -48,18 +57,22 @@ public class CompositionService {
         return compositions;
     }
 
+    @Transactional(readOnly = true)
     public List<Composition> getAllByGenre(MusicGenre genre) {
         return compositionRepository.getAllByMusicGenresIsContaining(genre);
     }
 
+    @Transactional(readOnly = true)
     public List<Composition> getAllOrderedByCreatedDesc() {
         return compositionRepository.getAllByOrderByCreatedDesc();
     }
 
+    @Transactional(readOnly = true)
     public List<Composition> getAllByMusicianWithRating(String musicianSlug) {
         return compositionRepository.getAllByMusicianWithRating(musicianSlug);
     }
 
+    @Transactional(readOnly = true)
     public List<Integer> getAllYearsFromCompositions() {
         return compositionRepository.getAllYearsFromCompositions();
     }
@@ -125,7 +138,7 @@ public class CompositionService {
     }
 
     public void updateEssentialCompositions(CompositionCreateEditDTO compositionDTO) {
-        List<Composition> sortedEssentialCompositionsList = getAllByMsuician(compositionDTO.getMusicianSlug())
+        List<Composition> sortedEssentialCompositionsList = getAllByMusician(compositionDTO.getMusicianSlug())
                 .stream().filter(composition -> composition.getEssentialCompositionsRank() != null)
                 .sorted(Comparator.comparing(Composition::getEssentialCompositionsRank))
                 .collect(Collectors.toList());

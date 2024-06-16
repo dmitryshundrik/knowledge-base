@@ -1,6 +1,5 @@
 package com.dmitryshundrik.knowledgebase.repository.music;
 
-import com.dmitryshundrik.knowledgebase.model.literature.Writer;
 import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import org.springframework.data.jpa.repository.JpaRepository;

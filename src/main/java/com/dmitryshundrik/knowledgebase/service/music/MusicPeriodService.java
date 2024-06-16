@@ -18,22 +18,30 @@ import java.util.stream.Collectors;
 @Transactional
 public class MusicPeriodService {
 
-    @Autowired
-    private MusicPeriodRepository musicPeriodRepository;
+    private final MusicPeriodRepository musicPeriodRepository;
 
-    public MusicPeriod getMusicPeriodBySlug(String musicPeriodSlug) {
-        return musicPeriodRepository.getBySlug(musicPeriodSlug);
+    @Autowired
+    public MusicPeriodService(MusicPeriodRepository musicPeriodRepository) {
+        this.musicPeriodRepository = musicPeriodRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<MusicPeriod> getAll() {
         return musicPeriodRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<MusicPeriod> getAllSortedByStart() {
         return getAll().stream()
                 .sorted(Comparator.comparing(MusicPeriod::getApproximateStart)).collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public MusicPeriod getMusicPeriodBySlug(String musicPeriodSlug) {
+        return musicPeriodRepository.getBySlug(musicPeriodSlug);
+    }
+
+    @Transactional(readOnly = true)
     public List<MusicPeriod> getSortedByStart(List<MusicPeriod> musicPeriodList) {
         return musicPeriodList.stream()
                 .sorted(Comparator.comparing(MusicPeriod::getApproximateStart))

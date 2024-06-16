@@ -1,6 +1,5 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
-import com.dmitryshundrik.knowledgebase.model.literature.Writer;
 import com.dmitryshundrik.knowledgebase.model.music.*;
 import com.dmitryshundrik.knowledgebase.model.music.dto.*;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
@@ -20,26 +19,34 @@ import java.util.stream.Collectors;
 @Transactional
 public class MusicianService {
 
-    @Autowired
-    private MusicianRepository musicianRepository;
+    private final MusicianRepository musicianRepository;
+
+    private final AlbumService albumService;
+
+    private final CompositionService compositionService;
+
+    private final PersonEventService personEventService;
 
     @Autowired
-    private PersonEventService personEventService;
+    public MusicianService(MusicianRepository musicianRepository, AlbumService albumService,
+                           CompositionService compositionService, PersonEventService personEventService) {
+        this.musicianRepository = musicianRepository;
+        this.albumService = albumService;
+        this.compositionService = compositionService;
+        this.personEventService = personEventService;
+    }
 
-    @Autowired
-    private AlbumService albumService;
-
-    @Autowired
-    private CompositionService compositionService;
-
+    @Transactional(readOnly = true)
     public List<Musician> getAll() {
         return musicianRepository.getAllByOrderByCreated();
     }
 
+    @Transactional(readOnly = true)
     public Musician getMusicianById(UUID musicianID) {
         return musicianRepository.findById(musicianID).orElse(null);
     }
 
+    @Transactional(readOnly = true)
     public List<Musician> getAllMusiciansByUUIDList(List<UUID> uuidList) {
         List<Musician> musicianList = new ArrayList<>();
         for (UUID uuid : uuidList) {
@@ -48,10 +55,12 @@ public class MusicianService {
         return musicianList;
     }
 
+    @Transactional(readOnly = true)
     public Musician getMusicianBySlug(String musicianSlug) {
         return musicianRepository.getMusicianBySlug(musicianSlug);
     }
 
+    @Transactional(readOnly = true)
     public Musician getMusicianByNickname(String nickName) {
         Musician musicianByNickName = musicianRepository.getMusicianByNickNameIgnoreCase(nickName);
         if (musicianByNickName == null) {
@@ -60,10 +69,12 @@ public class MusicianService {
         return musicianByNickName;
     }
 
+    @Transactional(readOnly = true)
     public List<Musician> getAllMusiciansOrderedByCreatedDesc() {
         return musicianRepository.getAllByOrderByCreatedDesc();
     }
 
+    @Transactional(readOnly = true)
     public List<Musician> getAllMusiciansSortedByBorn() {
         return getAll().stream()
                 .filter(musician -> musician.getBorn() != null || musician.getFounded() != null)
@@ -78,6 +89,7 @@ public class MusicianService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<Musician> getAllMusiciansWithWorksByYear(Integer year) {
         return musicianRepository.findAll().stream()
                 .filter(musician -> {
@@ -92,10 +104,12 @@ public class MusicianService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<Musician> getAllMusiciansByPeriod(MusicPeriod period) {
         return musicianRepository.getAllByMusicPeriodsIsContaining(period);
     }
 
+    @Transactional(readOnly = true)
     public List<Musician> getBestMusicianByPeriod(MusicPeriod period) {
         List<Musician> allMusiciansByPeriod = getAllMusiciansByPeriod(period);
         Map<Musician, Double> map = new HashMap<>();

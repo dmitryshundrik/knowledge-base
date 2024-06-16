@@ -1,36 +1,35 @@
 package com.dmitryshundrik.knowledgebase.model.music;
 
+import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.time.Instant;
-import java.util.UUID;
 
-@Data
 @Entity
 @Table(name = "musicgenres")
-public class MusicGenre {
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class MusicGenre extends AbstractEntity {
 
-    @Id
-    @GeneratedValue
-    private UUID id;
-
-    private Instant created;
-
-    @Column(unique = true)
+    @Column(name = "SLUG", unique = true)
     private String slug;
 
+    @Column(name = "TITLE")
     private String title;
 
+    @Column(name = "TITLE_EN")
     private String titleEn;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "MUSIC_GENRE_TYPE")
     private MusicGenreType musicGenreType;
 
+    @Column(name = "COUNT")
     private Integer count;
 
-    @Column(columnDefinition = "text")
+    @Column(name = "DESCRIPTION", columnDefinition = "text")
     private String description;
 
 }

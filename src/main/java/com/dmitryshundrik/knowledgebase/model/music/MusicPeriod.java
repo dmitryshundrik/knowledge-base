@@ -1,21 +1,16 @@
 package com.dmitryshundrik.knowledgebase.model.music;
 
+import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.time.Instant;
-import java.util.UUID;
 
-@Data
 @Entity
 @Table(name = "musicperiods")
-public class MusicPeriod {
-
-    @Id
-    @GeneratedValue
-    private UUID id;
-
-    private Instant created;
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class MusicPeriod extends AbstractEntity {
 
     @Column(unique = true)
     private String slug;

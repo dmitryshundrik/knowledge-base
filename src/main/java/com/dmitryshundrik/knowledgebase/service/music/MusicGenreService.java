@@ -21,47 +21,59 @@ import java.util.stream.Collectors;
 @Transactional
 public class MusicGenreService {
 
-    @Autowired
-    private MusicGenreRepository musicGenreRepository;
+    private final MusicGenreRepository musicGenreRepository;
+
+    private final AlbumRepository albumRepository;
+
+    private final CompositionRepository compositionRepository;
 
     @Autowired
-    private AlbumRepository albumRepository;
-
-    @Autowired
-    private CompositionRepository compositionRepository;
-
-    public MusicGenre getMusicGenreBySlug(String musicGenreSlug) {
-        return musicGenreRepository.getBySlug(musicGenreSlug);
+    public MusicGenreService(MusicGenreRepository musicGenreRepository, AlbumRepository albumRepository,
+                             CompositionRepository compositionRepository) {
+        this.musicGenreRepository = musicGenreRepository;
+        this.albumRepository = albumRepository;
+        this.compositionRepository = compositionRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<MusicGenre> getAll() {
         return musicGenreRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
+    public MusicGenre getMusicGenreBySlug(String musicGenreSlug) {
+        return musicGenreRepository.getBySlug(musicGenreSlug);
+    }
+
+    @Transactional(readOnly = true)
     public List<MusicGenre> getAllClassicalGenres() {
         return musicGenreRepository.findAll().stream()
                 .filter(musicGenre -> musicGenre.getMusicGenreType().equals(MusicGenreType.CLASSICAL))
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<MusicGenre> getAllClassicalGenresSortedByTitle() {
         return getAllClassicalGenres().stream()
                 .sorted(Comparator.comparing(MusicGenre::getTitle))
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<MusicGenre> getAllContemporaryGenres() {
         return musicGenreRepository.findAll().stream()
                 .filter(musicGenre -> musicGenre.getMusicGenreType().equals(MusicGenreType.CONTEMPORARY))
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<MusicGenre> getAllContemporaryGenresSortedByTitle() {
         return getAllContemporaryGenres().stream()
                 .sorted(Comparator.comparing(MusicGenre::getTitle))
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<MusicGenre> getFilteredClassicalGenres() {
         return musicGenreRepository.getAllByMusicGenreType(MusicGenreType.CLASSICAL).stream()
                 .filter(musicGenre -> {
@@ -75,6 +87,7 @@ public class MusicGenreService {
                 .sorted((o1, o2) -> o2.getCount().compareTo(o1.getCount())).collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<MusicGenre> getFilteredContemporaryGenres() {
         return musicGenreRepository.getAllByMusicGenreType(MusicGenreType.CONTEMPORARY).stream()
                 .filter(musicGenre -> {
@@ -87,6 +100,7 @@ public class MusicGenreService {
                 })
                 .sorted((o1, o2) -> o2.getCount().compareTo(o1.getCount())).collect(Collectors.toList());
     }
+
     public String createMusicGenre(MusicGenreCreateEditDTO genreDTO) {
         MusicGenre genre = new MusicGenre();
         genre.setCreated(Instant.now());

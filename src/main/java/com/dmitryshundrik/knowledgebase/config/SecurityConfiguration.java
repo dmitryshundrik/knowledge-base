@@ -1,4 +1,4 @@
-package com.dmitryshundrik.knowledgebase.configuration;
+package com.dmitryshundrik.knowledgebase.config;
 
 import com.dmitryshundrik.knowledgebase.security.service.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -27,49 +27,48 @@ import java.util.stream.Collectors;
 @Transactional
 public class AlbumService {
 
-    @Autowired
-    private AlbumRepository albumRepository;
+    private final AlbumRepository albumRepository;
 
     public static final String DECADE_2010s = "2010";
 
     public static final String DECADE_2020s = "2020";
 
+    @Autowired
+    public AlbumService(AlbumRepository albumRepository) {
+        this.albumRepository = albumRepository;
+    }
+
+    @Transactional(readOnly = true)
     public List<Album> getAll() {
         return albumRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Album getAlbumById(String albumId) {
         return albumRepository.findById(UUID.fromString(albumId)).orElse(null);
     }
 
+    @Transactional(readOnly = true)
     public Album getAlbumBySlug(String albumSlug) {
         return albumRepository.getAlbumBySlug(albumSlug);
     }
 
+    @Transactional(readOnly = true)
     public List<Album> getAllWithRating() {
         return albumRepository.getAllByRatingIsNotNull();
     }
 
-    public List<Album> getAllAlbumsSortedByCreated() {
-        return getAll().stream()
-                .sorted((o1, o2) -> {
-                    if (o1.getCreated() != null && o2.getCreated() != null) {
-                        return o1.getCreated().compareTo(o2.getCreated());
-                    }
-                    return -1;
-                })
-                .collect(Collectors.toList());
-    }
-
+    @Transactional(readOnly = true)
     public List<Album> getAllAlbumsSortedByCreatedDesc() {
         return albumRepository.getAllByOrderByCreatedDesc();
     }
 
-
+    @Transactional(readOnly = true)
     public List<Album> getAllAlbumsByYear(Integer year) {
         return albumRepository.getAllByYear(year);
     }
 
+    @Transactional(readOnly = true)
     public List<Album> getAllAlbumByDecade(String decade) {
         List<Album> albumsByDecade = new ArrayList<>();
         if (DECADE_2010s.equals(decade)) {
@@ -82,14 +81,17 @@ public class AlbumService {
         return albumsByDecade;
     }
 
+    @Transactional(readOnly = true)
     public List<Album> getAllAlbumsByMusician(Musician musician) {
         return albumRepository.getAllByMusician(musician);
     }
 
+    @Transactional(readOnly = true)
     public List<Album> getAllAlbumsByGenre(MusicGenre genre) {
         return albumRepository.getAllByMusicGenresIsContaining(genre);
     }
 
+    @Transactional(readOnly = true)
     public List<AlbumViewDTO> get10BestAlbumsByYear(Integer year) {
         return getAlbumViewDTOList(albumRepository.getAllByYear(year).stream()
                 .sorted((o1, o2) -> o2.getRating().compareTo(o1.getRating()))
@@ -97,6 +99,7 @@ public class AlbumService {
                 .collect(Collectors.toList()));
     }
 
+    @Transactional(readOnly = true)
     public List<AlbumViewDTO> getTop100BestAlbums() {
         return getAlbumViewDTOList(getAllWithRating().stream()
                 .sorted((o1, o2) -> o2.getRating().compareTo(o1.getRating()))
@@ -104,6 +107,7 @@ public class AlbumService {
                 .collect(Collectors.toList()));
     }
 
+    @Transactional(readOnly = true)
     public List<Integer> getAllYearsFromAlbums() {
         return albumRepository.getAllYearsFromAlbums();
     }

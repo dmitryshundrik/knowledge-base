@@ -20,23 +20,30 @@ import java.util.stream.Collectors;
 @Transactional
 public class YearInMusicService {
 
-    @Autowired
-    private YearInMusicRepository yearInMusicRepository;
+    private final YearInMusicRepository yearInMusicRepository;
+
+    private final MusicianService musicianService;
 
     @Autowired
-    private MusicianService musicianService;
+    public YearInMusicService(YearInMusicRepository yearInMusicRepository, MusicianService musicianService) {
+        this.yearInMusicRepository = yearInMusicRepository;
+        this.musicianService = musicianService;
+    }
 
+    @Transactional(readOnly = true)
+    public List<YearInMusic> getAll() {
+        return yearInMusicRepository.findAll().stream()
+                .sorted(Comparator.comparing(YearInMusic::getYear)).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
     public YearInMusic getYearInMusicBySlug(String yearInMusicSlug) {
         return yearInMusicRepository.findBySlug(yearInMusicSlug);
     }
 
+    @Transactional(readOnly = true)
     public YearInMusic getYearInMusicByYear(Integer year) {
         return yearInMusicRepository.findByYear(year);
-    }
-
-    public List<YearInMusic> getAll() {
-        return yearInMusicRepository.findAll().stream()
-                .sorted(Comparator.comparing(YearInMusic::getYear)).collect(Collectors.toList());
     }
 
     public YearInMusicViewDTO createYearInMusic(YearInMusicCreateEditDTO yearInMusicDTO) {

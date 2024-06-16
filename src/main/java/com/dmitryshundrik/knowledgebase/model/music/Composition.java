@@ -1,33 +1,34 @@
 package com.dmitryshundrik.knowledgebase.model.music;
 
+import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import lombok.Data;
-import javax.persistence.*;
-import java.time.Instant;
-import java.util.List;
-import java.util.UUID;
+import lombok.EqualsAndHashCode;
 
-@Data
+import javax.persistence.*;
+import java.util.List;
+
 @Entity
 @Table(name = "compositions")
-public class Composition {
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class Composition extends AbstractEntity {
 
-    @Id
-    @GeneratedValue
-    private UUID id;
-
-    private Instant created;
-
+    @Column(name = "SLUG")
     private String slug;
 
+    @Column(name = "TITLE")
     private String title;
 
+    @Column(name = "CATALOG_NUMBER")
     private Integer catalogNumber;
 
     @ManyToOne
     private Musician musician;
 
+    @Column(name = "FEATURE")
     private String feature;
 
+    @Column(name = "YEAR")
     private Integer year;
 
     @ManyToOne
@@ -36,22 +37,25 @@ public class Composition {
     @ManyToMany
     private List<MusicGenre> musicGenres;
 
+    @Column(name = "RATING")
     private Double rating;
 
+    @Column(name = "YEAR_END_RANK")
     private Integer yearEndRank;
 
+    @Column(name = "ESSENTIAL_COMPOSITIONS_RANK")
     private Integer essentialCompositionsRank;
 
-    @Column(columnDefinition = "text")
+    @Column(name = "HIGHLIGHTS", columnDefinition = "text")
     private String highlights;
 
-    @Column(columnDefinition = "text")
+    @Column(name = "DESCRIPTION", columnDefinition = "text")
     private String description;
 
-    @Column(columnDefinition = "text")
+    @Column(name = "LYRICS", columnDefinition = "text")
     private String lyrics;
 
-    @Column(columnDefinition = "text")
+    @Column(name = "TRANSLATION", columnDefinition = "text")
     private String translation;
 
 }
