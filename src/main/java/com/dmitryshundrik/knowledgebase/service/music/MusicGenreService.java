@@ -8,7 +8,6 @@ import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
 import com.dmitryshundrik.knowledgebase.repository.music.CompositionRepository;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicGenreRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +26,6 @@ public class MusicGenreService {
 
     private final CompositionRepository compositionRepository;
 
-    @Autowired
     public MusicGenreService(MusicGenreRepository musicGenreRepository, AlbumRepository albumRepository,
                              CompositionRepository compositionRepository) {
         this.musicGenreRepository = musicGenreRepository;

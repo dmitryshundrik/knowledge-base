@@ -5,10 +5,9 @@ import com.dmitryshundrik.knowledgebase.model.literature.Writer;
 import com.dmitryshundrik.knowledgebase.model.literature.dto.WordDTO;
 import com.dmitryshundrik.knowledgebase.repository.literature.WordRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
@@ -18,25 +17,33 @@ import java.util.stream.Collectors;
 @Transactional
 public class WordService {
 
-    @Autowired
-    private WordRepository wordRepository;
+    private final WordRepository wordRepository;
 
+    public WordService(WordRepository wordRepository) {
+        this.wordRepository = wordRepository;
+    }
+
+    @Transactional(readOnly = true)
     public List<Word> getAll() {
         return wordRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<Word> getAllSortedByCreatedDesc() {
         return wordRepository.getAllByOrderByCreatedDesc();
     }
 
+    @Transactional(readOnly = true)
     public List<Word> getAllByWriterSortedByCreatedDesc(Writer writer) {
         return wordRepository.getAllByWriterOrderByCreatedDesc(writer);
     }
 
+    @Transactional(readOnly = true)
     public List<Word> getAllByWriterSortedByTitle(Writer writer) {
         return wordRepository.getAllByWriterOrderByTitle(writer);
     }
 
+    @Transactional(readOnly = true)
     public Word getById(String wordId) {
         return wordRepository.getById(UUID.fromString(wordId));
     }

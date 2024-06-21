@@ -4,7 +4,6 @@ import com.dmitryshundrik.knowledgebase.model.common.PersonEvent;
 import com.dmitryshundrik.knowledgebase.model.common.dto.PersonEventDTO;
 import com.dmitryshundrik.knowledgebase.service.common.PersonEventService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,11 +14,14 @@ import javax.validation.Valid;
 @Controller
 public class MusicianEventManagementController {
 
-    @Autowired
-    private PersonEventService personEventService;
+    private final PersonEventService personEventService;
 
-    @Autowired
-    private MusicianService musicianService;
+    private final MusicianService musicianService;
+
+    public MusicianEventManagementController(PersonEventService personEventService, MusicianService musicianService) {
+        this.personEventService = personEventService;
+        this.musicianService = musicianService;
+    }
 
     @GetMapping("/management/musician/edit/{musicianSlug}/event/create")
     public String getCreateEventForMusician(@PathVariable String musicianSlug, Model model) {

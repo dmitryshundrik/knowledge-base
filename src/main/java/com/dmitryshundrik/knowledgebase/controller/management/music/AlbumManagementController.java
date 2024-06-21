@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import com.dmitryshundrik.knowledgebase.util.MusicianDTOTransformer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,14 +17,18 @@ import java.util.List;
 @Controller
 public class AlbumManagementController {
 
-    @Autowired
-    private AlbumService albumService;
+    private final AlbumService albumService;
 
-    @Autowired
-    private MusicianService musicianService;
+    private final MusicianService musicianService;
 
-    @Autowired
-    private MusicGenreService musicGenreService;
+    private final MusicGenreService musicGenreService;
+
+    public AlbumManagementController(AlbumService albumService, MusicianService musicianService,
+                                     MusicGenreService musicGenreService) {
+        this.albumService = albumService;
+        this.musicianService = musicianService;
+        this.musicGenreService = musicGenreService;
+    }
 
     @GetMapping("/management/album/all")
     public String getAllAlbums(Model model) {

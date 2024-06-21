@@ -7,10 +7,9 @@ import com.dmitryshundrik.knowledgebase.repository.literature.WriterRepository;
 import com.dmitryshundrik.knowledgebase.service.common.PersonEventService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -22,34 +21,41 @@ import java.util.stream.Collectors;
 @Transactional
 public class WriterService {
 
-    @Autowired
-    private WriterRepository writerRepository;
+    private final WriterRepository writerRepository;
 
-    @Autowired
-    private ProseService proseService;
+    private final ProseService proseService;
 
-    @Autowired
-    private QuoteService quoteService;
+    private final QuoteService quoteService;
 
-    @Autowired
-    private WordService wordService;
+    private final WordService wordService;
 
-    @Autowired
-    private PersonEventService personEventService;
+    private final PersonEventService personEventService;
 
+    public WriterService(WriterRepository writerRepository, ProseService proseService, QuoteService quoteService,
+                         WordService wordService, PersonEventService personEventService) {
+        this.writerRepository = writerRepository;
+        this.proseService = proseService;
+        this.quoteService = quoteService;
+        this.wordService = wordService;
+        this.personEventService = personEventService;
+    }
 
+    @Transactional(readOnly = true)
     public List<Writer> getAll() {
         return writerRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<Writer> getAllSortedByBorn() {
         return writerRepository.findAllByOrderByBorn();
     }
 
+    @Transactional(readOnly = true)
     public List<Writer> getAllSortedByCreatedDesc() {
         return writerRepository.getAllByOrderByCreatedDesc();
     }
 
+    @Transactional(readOnly = true)
     public Writer getBySlug(String writerSlug) {
         return writerRepository.findBySlug(writerSlug);
     }
@@ -161,6 +167,7 @@ public class WriterService {
         return writerRepository.findFirst20ByOrderByCreatedDesc();
     }
 
+    @Transactional(readOnly = true)
     public Set<Writer> getAllWithCurrentBirth() {
         Set<Writer> writerBirthList = new HashSet<>();
         for (int i = 0; i < 10; i++) {
@@ -169,6 +176,7 @@ public class WriterService {
         return writerBirthList;
     }
 
+    @Transactional(readOnly = true)
     public Set<Writer> getAllWithCurrentDeath() {
         Set<Writer> writerDeathList = new HashSet<>();
         for (int i = 0; i < 10; i++) {

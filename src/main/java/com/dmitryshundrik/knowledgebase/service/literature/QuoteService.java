@@ -7,10 +7,9 @@ import com.dmitryshundrik.knowledgebase.model.literature.dto.QuoteCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.literature.dto.QuoteViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.literature.QuoteRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,17 +18,28 @@ import java.util.stream.Collectors;
 @Transactional
 public class QuoteService {
 
-    @Autowired
-    private QuoteRepository quoteRepository;
+    private final QuoteRepository quoteRepository;
 
+    public QuoteService(QuoteRepository quoteRepository) {
+        this.quoteRepository = quoteRepository;
+    }
+
+    @Transactional(readOnly = true)
     public List<Quote> getAll() {
         return quoteRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
+    public Quote getById(String quoteId) {
+        return quoteRepository.getById(UUID.fromString(quoteId));
+    }
+
+    @Transactional(readOnly = true)
     public List<Quote> getAllSortedByCreatedDesc() {
         return quoteRepository.getAllByOrderByCreatedDesc();
     }
 
+    @Transactional(readOnly = true)
     public List<Quote> getAllByWriterSortedByYearAndPage(Writer writer) {
         List<Quote> allQuotes = quoteRepository.findAllByWriter(writer);
         List<Prose> allSortedProse = allQuotes.stream()
@@ -46,12 +56,9 @@ public class QuoteService {
         return allSortedQuotes;
     }
 
+    @Transactional(readOnly = true)
     public List<Quote> getAllByWriterSortedByCreatedDesc(Writer writer) {
         return quoteRepository.getAllByWriterOrderByCreatedDesc(writer);
-    }
-
-    public Quote getById(String quoteId) {
-        return quoteRepository.getById(UUID.fromString(quoteId));
     }
 
     public Quote createQuote(QuoteCreateEditDTO quoteDTO, Writer writer, Prose prose) {

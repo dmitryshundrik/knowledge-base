@@ -3,10 +3,12 @@ package com.dmitryshundrik.knowledgebase.model.literature.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class WordDTO {
 
     private String id;
@@ -21,7 +23,4 @@ public class WordDTO {
 
     private String description;
 
-    public WordDTO() {
-
-    }
 }

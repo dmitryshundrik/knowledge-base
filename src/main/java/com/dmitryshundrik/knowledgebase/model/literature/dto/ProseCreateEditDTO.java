@@ -3,6 +3,7 @@ package com.dmitryshundrik.knowledgebase.model.literature.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class ProseCreateEditDTO {
 
     @NotBlank(message = "slug may not be blank")
@@ -30,9 +32,5 @@ public class ProseCreateEditDTO {
     private String description;
 
     private List<QuoteViewDTO> quoteList;
-
-    public ProseCreateEditDTO() {
-
-    }
 
 }

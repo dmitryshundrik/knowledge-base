@@ -1,28 +1,24 @@
 package com.dmitryshundrik.knowledgebase.model.literature;
 
+import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.UUID;
 
-@Data
 @Entity
 @Table(name = "words")
-public class Word {
-
-    @Id
-    @GeneratedValue
-    private UUID id;
-
-    private Instant created;
+@Data
+public class Word extends AbstractEntity {
 
     @ManyToOne
     private Writer writer;
 
+    @Column(name = "TITLE")
     private String title;
 
-    @Column(columnDefinition = "text")
+    @Column(name = "DESCRIPTION", columnDefinition = "text")
     private String description;
 
 }

@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.YearInMusicViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.music.YearInMusicRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +23,6 @@ public class YearInMusicService {
 
     private final MusicianService musicianService;
 
-    @Autowired
     public YearInMusicService(YearInMusicRepository yearInMusicRepository, MusicianService musicianService) {
         this.yearInMusicRepository = yearInMusicRepository;
         this.musicianService = musicianService;

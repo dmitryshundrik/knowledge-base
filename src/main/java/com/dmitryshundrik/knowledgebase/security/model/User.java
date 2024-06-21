@@ -10,9 +10,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-@Data
 @Entity
 @Table(name = "users")
+@Data
 public class User implements UserDetails {
 
     @Id

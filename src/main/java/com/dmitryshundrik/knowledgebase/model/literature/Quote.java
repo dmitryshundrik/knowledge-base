@@ -1,21 +1,14 @@
 package com.dmitryshundrik.knowledgebase.model.literature;
 
+import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.Instant;
-import java.util.UUID;
 
-@Data
 @Entity
 @Table(name = "quotes")
-public class Quote {
-
-    @Id
-    @GeneratedValue
-    private UUID id;
-
-    private Instant created;
+@Data
+public class Quote extends AbstractEntity {
 
     @ManyToOne
     private Writer writer;
@@ -23,16 +16,19 @@ public class Quote {
     @ManyToOne
     private Prose prose;
 
+    @Column(name = "PUBLICATION")
     private String publication;
 
+    @Column(name = "LOCATION")
     private String location;
 
+    @Column(name = "PAGE")
     private Integer page;
 
-    @Column(columnDefinition = "text")
+    @Column(name = "DESCRIPTION", columnDefinition = "text")
     private String description;
 
-    @Column(columnDefinition = "text", name = "description_html")
+    @Column(name = "DESCRIPTION_HTML", columnDefinition = "text")
     private String descriptionHtml;
 
 }

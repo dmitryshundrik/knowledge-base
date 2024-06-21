@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
 import com.dmitryshundrik.knowledgebase.service.common.PersonEventService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +26,6 @@ public class MusicianService {
 
     private final PersonEventService personEventService;
 
-    @Autowired
     public MusicianService(MusicianRepository musicianRepository, AlbumService albumService,
                            CompositionService compositionService, PersonEventService personEventService) {
         this.musicianRepository = musicianRepository;

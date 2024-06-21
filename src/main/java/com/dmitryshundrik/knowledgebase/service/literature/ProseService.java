@@ -8,10 +8,10 @@ import com.dmitryshundrik.knowledgebase.model.literature.dto.ProseViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.literature.ProseRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+
 import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
@@ -22,14 +22,18 @@ import java.util.stream.Collectors;
 @Transactional
 public class ProseService {
 
-    @Autowired
-    private ProseRepository proseRepository;
+    private final ProseRepository proseRepository;
 
+    public ProseService(ProseRepository proseRepository) {
+        this.proseRepository = proseRepository;
+    }
 
+    @Transactional(readOnly = true)
     public List<Prose> getAll() {
         return proseRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<Prose> getAllSortedByYear() {
         List<Prose> all = getAll();
         return all.stream()
@@ -37,18 +41,22 @@ public class ProseService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public Prose getBySlug(String proseSlug) {
         return proseRepository.getBySlug(proseSlug);
     }
 
+    @Transactional(readOnly = true)
     public Prose getById(String id) {
         return proseRepository.getById(UUID.fromString(id));
     }
 
+    @Transactional(readOnly = true)
     public List<Prose> getAllByWriter(Writer writer) {
         return proseRepository.getAllByWriter(writer);
     }
 
+    @Transactional(readOnly = true)
     public List<Prose> getAllByWriterSortedByRating(Writer writer) {
         List<Prose> allByWriter = getAllByWriter(writer).stream()
                 .filter(prose -> prose.getRating() != null)
@@ -59,16 +67,17 @@ public class ProseService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<Prose> getAllByWriterSortedByYear(Writer writer) {
         return writer.getProseList().stream()
                 .sorted(Comparator.comparing(Prose::getYear))
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<Prose> getAllProseSortedByCreatedDesc() {
         return proseRepository.getAllByOrderByCreatedDesc();
     }
-
 
     public Prose createProse(Writer writer, ProseCreateEditDTO proseDTO) {
         Prose prose = new Prose();
@@ -152,4 +161,5 @@ public class ProseService {
     public List<Prose> getLatestUpdate() {
         return proseRepository.findFirst20ByOrderByCreatedDesc();
     }
+
 }

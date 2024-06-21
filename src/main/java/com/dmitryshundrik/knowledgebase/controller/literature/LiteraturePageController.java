@@ -12,7 +12,6 @@ import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
 import com.dmitryshundrik.knowledgebase.service.literature.QuoteService;
 import com.dmitryshundrik.knowledgebase.service.literature.WordService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,18 +24,21 @@ import java.util.List;
 @RequestMapping("/literature")
 public class LiteraturePageController {
 
-    @Autowired
-    private WriterService writerService;
+    private final WriterService writerService;
 
-    @Autowired
-    private ProseService proseService;
+    private final ProseService proseService;
 
-    @Autowired
-    private QuoteService quoteService;
+    private final QuoteService quoteService;
 
-    @Autowired
-    private WordService wordService;
+    private final WordService wordService;
 
+    public LiteraturePageController(WriterService writerService, ProseService proseService, QuoteService quoteService,
+                                    WordService wordService) {
+        this.writerService = writerService;
+        this.proseService = proseService;
+        this.quoteService = quoteService;
+        this.wordService = wordService;
+    }
 
     @GetMapping()
     public String getLiteraturePage() {

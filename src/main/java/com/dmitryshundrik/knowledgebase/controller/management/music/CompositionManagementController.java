@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumSelectDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.service.music.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,17 +17,21 @@ import java.util.List;
 @Controller
 public class CompositionManagementController {
 
-    @Autowired
-    private CompositionService compositionService;
+    private final CompositionService compositionService;
 
-    @Autowired
-    private AlbumService albumService;
+    private final AlbumService albumService;
 
-    @Autowired
-    private MusicianService musicianService;
+    private final MusicianService musicianService;
 
-    @Autowired
-    private MusicGenreService musicGenreService;
+    private final MusicGenreService musicGenreService;
+
+    public CompositionManagementController(CompositionService compositionService, AlbumService albumService,
+                                           MusicianService musicianService, MusicGenreService musicGenreService) {
+        this.compositionService = compositionService;
+        this.albumService = albumService;
+        this.musicianService = musicianService;
+        this.musicGenreService = musicGenreService;
+    }
 
 
     @GetMapping("/management/composition/all")

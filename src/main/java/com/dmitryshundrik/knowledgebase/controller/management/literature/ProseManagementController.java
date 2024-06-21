@@ -5,7 +5,6 @@ import com.dmitryshundrik.knowledgebase.model.literature.dto.ProseCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.literature.dto.ProseViewDTO;
 import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,11 +15,14 @@ import java.util.List;
 @Controller
 public class ProseManagementController {
 
-    @Autowired
-    private ProseService proseService;
+    private final ProseService proseService;
 
-    @Autowired
-    private WriterService writerService;
+    private final WriterService writerService;
+
+    public ProseManagementController(ProseService proseService, WriterService writerService) {
+        this.proseService = proseService;
+        this.writerService = writerService;
+    }
 
     @GetMapping("/management/prose/all")
     public String getAllProse(Model model) {

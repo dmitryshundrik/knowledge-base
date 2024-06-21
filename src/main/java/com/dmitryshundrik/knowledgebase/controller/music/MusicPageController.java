@@ -10,7 +10,6 @@ import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.service.common.TimelineEventService;
 import com.dmitryshundrik.knowledgebase.service.music.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,28 +22,33 @@ import java.util.List;
 @RequestMapping("/music")
 public class MusicPageController {
 
-    @Autowired
-    private MusicianService musicianService;
+    private final MusicianService musicianService;
 
-    @Autowired
-    private AlbumService albumService;
+    private final AlbumService albumService;
 
-    @Autowired
-    private CompositionService compositionService;
+    private final CompositionService compositionService;
 
-    @Autowired
-    private YearInMusicService yearInMusicService;
+    private final YearInMusicService yearInMusicService;
 
-    @Autowired
-    private TimelineEventService timelineEventService;
+    private final TimelineEventService timelineEventService;
 
-    @Autowired
-    private MusicPeriodService musicPeriodService;
+    private final MusicPeriodService musicPeriodService;
 
-    @Autowired
-    private MusicGenreService musicGenreService;
+    private final MusicGenreService musicGenreService;
 
-    @GetMapping()
+    public MusicPageController(MusicianService musicianService, AlbumService albumService, CompositionService compositionService,
+                               YearInMusicService yearInMusicService, TimelineEventService timelineEventService,
+                               MusicPeriodService musicPeriodService, MusicGenreService musicGenreService) {
+        this.musicianService = musicianService;
+        this.albumService = albumService;
+        this.compositionService = compositionService;
+        this.yearInMusicService = yearInMusicService;
+        this.timelineEventService = timelineEventService;
+        this.musicPeriodService = musicPeriodService;
+        this.musicGenreService = musicGenreService;
+    }
+
+    @GetMapping
     public String getMusicPage(Model model) {
         model.addAttribute("yearsInMusic", yearInMusicService.getSortedYearInMusicViewDTOList());
         model.addAttribute("musicPeriods", musicPeriodService.getAllSortedByStart());

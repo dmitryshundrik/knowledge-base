@@ -9,7 +9,6 @@ import com.dmitryshundrik.knowledgebase.model.literature.dto.QuoteViewDTO;
 import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
 import com.dmitryshundrik.knowledgebase.service.literature.QuoteService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,15 +18,17 @@ import java.util.List;
 @Controller
 public class QuoteManagementController {
 
-    @Autowired
-    private QuoteService quoteService;
+    private final QuoteService quoteService;
 
-    @Autowired
-    private WriterService writerService;
+    private final WriterService writerService;
 
-    @Autowired
-    private ProseService proseService;
+    private final ProseService proseService;
 
+    public QuoteManagementController(QuoteService quoteService, WriterService writerService, ProseService proseService) {
+        this.quoteService = quoteService;
+        this.writerService = writerService;
+        this.proseService = proseService;
+    }
 
     @GetMapping("/management/quote/all")
     public String getAllQuotes(Model model) {

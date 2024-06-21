@@ -8,7 +8,6 @@ import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicPeriodService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,14 +21,18 @@ import java.util.List;
 @Controller
 public class MusicianManagementController {
 
-    @Autowired
-    private MusicianService musicianService;
+    private final MusicianService musicianService;
 
-    @Autowired
-    private MusicPeriodService musicPeriodService;
+    private final MusicPeriodService musicPeriodService;
 
-    @Autowired
-    private MusicGenreService musicGenreService;
+    private final MusicGenreService musicGenreService;
+
+    public MusicianManagementController(MusicianService musicianService, MusicPeriodService musicPeriodService,
+                                        MusicGenreService musicGenreService) {
+        this.musicianService = musicianService;
+        this.musicPeriodService = musicPeriodService;
+        this.musicGenreService = musicGenreService;
+    }
 
     @GetMapping("/management/musician/all")
     public String getAllMusicians(Model model) {

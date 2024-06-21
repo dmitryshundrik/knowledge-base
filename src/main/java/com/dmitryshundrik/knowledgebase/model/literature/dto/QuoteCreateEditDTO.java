@@ -3,10 +3,12 @@ package com.dmitryshundrik.knowledgebase.model.literature.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class QuoteCreateEditDTO {
 
     private String id;
@@ -26,9 +28,5 @@ public class QuoteCreateEditDTO {
     private String description;
 
     private String descriptionHtml;
-
-    public QuoteCreateEditDTO () {
-
-    }
 
 }

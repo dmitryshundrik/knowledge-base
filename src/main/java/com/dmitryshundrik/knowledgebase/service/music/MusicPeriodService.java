@@ -5,7 +5,6 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.MusicPeriodCreateEditDTO
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicPeriodViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicPeriodRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +19,6 @@ public class MusicPeriodService {
 
     private final MusicPeriodRepository musicPeriodRepository;
 
-    @Autowired
     public MusicPeriodService(MusicPeriodRepository musicPeriodRepository) {
         this.musicPeriodRepository = musicPeriodRepository;
     }

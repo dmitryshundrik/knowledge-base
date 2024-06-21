@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,14 +17,18 @@ import java.util.List;
 @Controller
 public class MusicGenreManagementController {
 
-    @Autowired
-    private MusicGenreService musicGenreService;
+    private final MusicGenreService musicGenreService;
 
-    @Autowired
-    private AlbumService albumService;
+    private final AlbumService albumService;
 
-    @Autowired
-    private CompositionService compositionService;
+    private final CompositionService compositionService;
+
+    public MusicGenreManagementController(MusicGenreService musicGenreService, AlbumService albumService,
+                                          CompositionService compositionService) {
+        this.musicGenreService = musicGenreService;
+        this.albumService = albumService;
+        this.compositionService = compositionService;
+    }
 
     @GetMapping("/management/music-genre/all")
     public String getAllMusicGenres(Model model) {

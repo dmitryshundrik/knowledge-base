@@ -5,7 +5,6 @@ import com.dmitryshundrik.knowledgebase.model.literature.Writer;
 import com.dmitryshundrik.knowledgebase.model.literature.dto.WordDTO;
 import com.dmitryshundrik.knowledgebase.service.literature.WordService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +14,14 @@ import java.util.List;
 @Controller
 public class WordManagementController {
 
-    @Autowired
-    private WordService wordService;
+    private final WordService wordService;
 
-    @Autowired
-    private WriterService writerService;
+    private final WriterService writerService;
+
+    public WordManagementController(WordService wordService, WriterService writerService) {
+        this.wordService = wordService;
+        this.writerService = writerService;
+    }
 
     @GetMapping("/management/word/all")
     public String getAllWords(Model model) {
@@ -54,7 +56,7 @@ public class WordManagementController {
         return "management/literature/word-edit";
     }
 
-    @PutMapping ("/management/writer/edit/{writerSlug}/word/edit/{wordId}")
+    @PutMapping("/management/writer/edit/{writerSlug}/word/edit/{wordId}")
     public String putWordEdit(@PathVariable String writerSlug, @PathVariable String wordId,
                               @ModelAttribute("wordDTO") WordDTO wordDTO) {
         Word updatedWord = wordService.updateWord(wordDTO, wordId);

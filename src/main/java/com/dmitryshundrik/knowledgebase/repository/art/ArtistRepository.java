@@ -1,7 +1,6 @@
 package com.dmitryshundrik.knowledgebase.repository.art;
 
 import com.dmitryshundrik.knowledgebase.model.art.Artist;
-import com.dmitryshundrik.knowledgebase.model.literature.Writer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -9,7 +9,6 @@ import com.dmitryshundrik.knowledgebase.model.tools.SotyPair;
 import com.dmitryshundrik.knowledgebase.repository.music.CompositionRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +22,6 @@ public class CompositionService {
 
     private final CompositionRepository compositionRepository;
 
-    @Autowired
     public CompositionService(CompositionRepository compositionRepository) {
         this.compositionRepository = compositionRepository;
     }

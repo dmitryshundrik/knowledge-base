@@ -33,7 +33,6 @@ public class AlbumService {
 
     public static final String DECADE_2020s = "2020";
 
-    @Autowired
     public AlbumService(AlbumRepository albumRepository) {
         this.albumRepository = albumRepository;
     }

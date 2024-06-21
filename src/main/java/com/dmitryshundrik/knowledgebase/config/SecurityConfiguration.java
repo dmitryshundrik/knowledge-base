@@ -17,8 +17,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableScheduling
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private final UserDetailServiceImpl userDetailService;
+
     @Autowired
-    private UserDetailServiceImpl userDetailService;
+    public SecurityConfiguration(UserDetailServiceImpl userDetailService) {
+        this.userDetailService = userDetailService;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -45,4 +49,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
     }
+
 }

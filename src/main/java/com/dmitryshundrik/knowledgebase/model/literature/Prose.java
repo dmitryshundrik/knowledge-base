@@ -1,35 +1,32 @@
 package com.dmitryshundrik.knowledgebase.model.literature;
 
+import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
 
-@Data
 @Entity
 @Table(name = "prose")
-public class Prose {
+@Data
+public class Prose extends AbstractEntity {
 
-    @Id
-    @GeneratedValue
-    private UUID id;
-
-    private Instant created;
-
+    @Column(name = "SLUG")
     private String slug;
 
+    @Column(name = "TITLE")
     private String title;
 
     @ManyToOne
     private Writer writer;
 
+    @Column(name = "YEAR")
     private Integer year;
 
+    @Column(name = "RATING")
     private Double rating;
 
-    @Column(columnDefinition = "text")
+    @Column(name = "DESCRIPTION", columnDefinition = "text")
     private String description;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "prose")

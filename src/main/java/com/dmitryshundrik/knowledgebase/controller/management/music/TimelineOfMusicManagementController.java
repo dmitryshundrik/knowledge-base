@@ -5,7 +5,6 @@ import com.dmitryshundrik.knowledgebase.model.common.TimelineEvent;
 import com.dmitryshundrik.knowledgebase.model.common.enums.EraType;
 import com.dmitryshundrik.knowledgebase.model.common.enums.TimelineEventType;
 import com.dmitryshundrik.knowledgebase.service.common.TimelineEventService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +12,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class TimelineOfMusicManagementController {
 
-    @Autowired
-    private TimelineEventService timelineEventService;
+    private final TimelineEventService timelineEventService;
+
+    public TimelineOfMusicManagementController(TimelineEventService timelineEventService) {
+        this.timelineEventService = timelineEventService;
+    }
 
     @GetMapping("/management/timeline-of-music/event/all")
     public String getAllEventsForTimelineOfMusic(Model model) {
@@ -57,4 +59,5 @@ public class TimelineOfMusicManagementController {
         timelineEventService.deleteTimelineEvent(eventId);
         return "redirect:/management/timeline-of-music/event/all";
     }
+
 }
