@@ -4,6 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import com.dmitryshundrik.knowledgebase.model.common.Image;
 import com.dmitryshundrik.knowledgebase.model.common.enums.Country;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "recipes")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class Recipe extends AbstractEntity {
 
     @Column(unique = true)

@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistViewDTO;
 import com.dmitryshundrik.knowledgebase.model.art.dto.PaintingViewDTO;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +19,14 @@ import java.util.stream.Collectors;
 @RequestMapping("/art")
 public class ArtPageController {
 
-    @Autowired
-    private ArtistService artistService;
+    private final ArtistService artistService;
 
-    @Autowired
-    private PaintingService paintingService;
+    private final PaintingService paintingService;
+
+    public ArtPageController(ArtistService artistService, PaintingService paintingService) {
+        this.artistService = artistService;
+        this.paintingService = paintingService;
+    }
 
     @GetMapping()
     public String getArtPage() {
@@ -92,4 +94,5 @@ public class ArtPageController {
         //
         return "art/theatre-all";
     }
+
 }

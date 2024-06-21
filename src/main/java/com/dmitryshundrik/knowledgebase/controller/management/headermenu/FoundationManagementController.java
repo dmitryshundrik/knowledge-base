@@ -3,7 +3,6 @@ package com.dmitryshundrik.knowledgebase.controller.management.headermenu;
 import com.dmitryshundrik.knowledgebase.model.common.Foundation;
 import com.dmitryshundrik.knowledgebase.model.common.dto.FoundationDTO;
 import com.dmitryshundrik.knowledgebase.service.common.FoundationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping
 public class FoundationManagementController {
 
-    @Autowired
-    private FoundationService foundationService;
+    private final FoundationService foundationService;
+
+    public FoundationManagementController(FoundationService foundationService) {
+        this.foundationService = foundationService;
+    }
 
     @GetMapping("/management/foundation/all")
     public String getAllFoundations(Model model) {

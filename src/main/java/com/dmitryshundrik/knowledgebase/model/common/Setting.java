@@ -1,27 +1,23 @@
 package com.dmitryshundrik.knowledgebase.model.common;
 
+import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.Instant;
-import java.util.UUID;
 
-@Data
 @Entity
 @Table(name = "settings")
-public class Setting {
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class Setting extends AbstractEntity {
 
-    @Id
-    @GeneratedValue
-    private UUID id;
-
-    private Instant created;
-
+    @Column(name = "NAME")
     private String name;
 
+    @Column(name = "VALUE")
     private String value;
 
 }

@@ -3,7 +3,6 @@ package com.dmitryshundrik.knowledgebase.security.service;
 import com.dmitryshundrik.knowledgebase.security.model.User;
 import com.dmitryshundrik.knowledgebase.security.model.UserRole;
 import com.dmitryshundrik.knowledgebase.security.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +19,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    @Autowired
     public UserDetailServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

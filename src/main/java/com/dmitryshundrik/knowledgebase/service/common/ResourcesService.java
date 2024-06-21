@@ -4,7 +4,6 @@ import com.dmitryshundrik.knowledgebase.model.common.Resource;
 import com.dmitryshundrik.knowledgebase.model.common.dto.ResourceDTO;
 import com.dmitryshundrik.knowledgebase.repository.common.ResourcesRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,17 +17,23 @@ import java.util.stream.Collectors;
 @Transactional
 public class ResourcesService {
 
-    @Autowired
-    private ResourcesRepository resourcesRepository;
+    private final ResourcesRepository resourcesRepository;
 
+    public ResourcesService(ResourcesRepository resourcesRepository) {
+        this.resourcesRepository = resourcesRepository;
+    }
+
+    @Transactional(readOnly = true)
     public Resource getById(String id) {
         return resourcesRepository.findById(UUID.fromString(id)).orElse(null);
     }
 
+    @Transactional(readOnly = true)
     public List<Resource> getAll() {
         return resourcesRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<Resource> getAllSortedByCreated() {
         return getAll().stream()
                 .sorted(Comparator.comparing(Resource::getCreated))

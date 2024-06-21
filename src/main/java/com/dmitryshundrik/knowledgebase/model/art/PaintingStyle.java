@@ -1,21 +1,16 @@
 package com.dmitryshundrik.knowledgebase.model.art;
 
+import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.time.Instant;
-import java.util.UUID;
 
-@Data
 @Entity
 @Table(name = "painting_styles")
-public class PaintingStyle {
-
-    @Id
-    @GeneratedValue
-    private UUID id;
-
-    private Instant created;
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class PaintingStyle extends AbstractEntity {
 
     @Column(unique = true)
     private String slug;

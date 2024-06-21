@@ -3,6 +3,7 @@ package com.dmitryshundrik.knowledgebase.model.gastronomy;
 import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import com.dmitryshundrik.knowledgebase.model.common.Image;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "cocktails")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class Cocktail extends AbstractEntity {
 
     @Column(unique = true)

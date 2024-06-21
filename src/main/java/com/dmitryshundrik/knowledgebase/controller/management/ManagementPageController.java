@@ -10,7 +10,6 @@ import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,35 +18,41 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/management")
 public class ManagementPageController {
 
-    @Autowired
-    private MusicianService musicianService;
+    private final MusicianService musicianService;
 
-    @Autowired
-    private AlbumService albumService;
+    private final AlbumService albumService;
 
-    @Autowired
-    private CompositionService compositionService;
+    private final CompositionService compositionService;
 
-    @Autowired
-    private RecipeService recipeService;
+    private final RecipeService recipeService;
 
-    @Autowired
-    private CocktailService cocktailService;
+    private final CocktailService cocktailService;
 
-    @Autowired
-    private WriterService writerService;
+    private final WriterService writerService;
 
-    @Autowired
-    private ProseService proseService;
+    private final ProseService proseService;
 
-    @Autowired
-    private QuoteService quoteService;
+    private final QuoteService quoteService;
 
-    @Autowired
-    private ArtistService artistService;
+    private final ArtistService artistService;
 
-    @Autowired
-    private PaintingService paintingService;
+    private final PaintingService paintingService;
+
+    public ManagementPageController(MusicianService musicianService, AlbumService albumService, CompositionService compositionService,
+                                    RecipeService recipeService, CocktailService cocktailService, WriterService writerService,
+                                    ProseService proseService, QuoteService quoteService, ArtistService artistService,
+                                    PaintingService paintingService) {
+        this.musicianService = musicianService;
+        this.albumService = albumService;
+        this.compositionService = compositionService;
+        this.recipeService = recipeService;
+        this.cocktailService = cocktailService;
+        this.writerService = writerService;
+        this.proseService = proseService;
+        this.quoteService = quoteService;
+        this.artistService = artistService;
+        this.paintingService = paintingService;
+    }
 
     @GetMapping()
     public String getManagementPage(Model model) {

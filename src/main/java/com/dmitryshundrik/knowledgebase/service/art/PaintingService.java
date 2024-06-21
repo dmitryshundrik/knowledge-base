@@ -8,10 +8,9 @@ import com.dmitryshundrik.knowledgebase.repository.art.PaintingRepository;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
@@ -21,32 +20,41 @@ import java.util.stream.Collectors;
 @Transactional
 public class PaintingService {
 
-    @Autowired
-    private PaintingRepository paintingRepository;
+    private final PaintingRepository paintingRepository;
 
-    @Autowired
-    private ImageService imageService;
+    private final ImageService imageService;
 
+    public PaintingService(PaintingRepository paintingRepository, ImageService imageService) {
+        this.paintingRepository = paintingRepository;
+        this.imageService = imageService;
+    }
+
+    @Transactional(readOnly = true)
     public List<Painting> getAll() {
         return paintingRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Painting getBySlug(String paintingSlug) {
         return paintingRepository.getBySlug(paintingSlug);
     }
 
+    @Transactional(readOnly = true)
     public List<Painting> getAllSortedByCreatedDesc() {
         return paintingRepository.getAllByOrderByCreatedDesc();
     }
 
+    @Transactional(readOnly = true)
     public List<Painting> getAllByArtistSortedByYear2(Artist artist) {
         return paintingRepository.getAllByArtistOrderByYear2(artist);
     }
 
+    @Transactional(readOnly = true)
     public List<Painting> getAllByArtistSortedByCreatedDesk(Artist artist) {
         return paintingRepository.getAllByArtistOrderByCreatedDesc(artist);
     }
 
+    @Transactional(readOnly = true)
     public List<Painting> getBestPaintingsByArtist(Artist artist) {
         List<Painting> paintingList = paintingRepository.getAllByArtistAndArtistTopRankNotNull(artist);
         return paintingList.stream()
@@ -54,6 +62,7 @@ public class PaintingService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<Painting> getAllTimeBestPaintings() {
         List<Painting> paintingList = paintingRepository.getAllByAndAllTimeTopRankNotNull();
         return paintingList.stream()

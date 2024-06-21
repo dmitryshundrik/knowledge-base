@@ -1,25 +1,20 @@
 package com.dmitryshundrik.knowledgebase.model.common;
 
+import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.time.Instant;
-import java.util.UUID;
-
-@Data
 @Entity
 @Table(name = "articles")
-public class Article {
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class Article extends AbstractEntity {
 
-    @Id
-    @GeneratedValue
-    private UUID id;
-
-    private Instant created;
-
+    @Column(name = "TITLE")
     private String title;
 
-    @Column(columnDefinition = "text")
+    @Column(name = "DESCRIPTION", columnDefinition = "text")
     private String description;
 
 }

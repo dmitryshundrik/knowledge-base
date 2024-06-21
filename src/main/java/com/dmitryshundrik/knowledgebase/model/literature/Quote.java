@@ -2,12 +2,14 @@ package com.dmitryshundrik.knowledgebase.model.literature;
 
 import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "quotes")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class Quote extends AbstractEntity {
 
     @ManyToOne

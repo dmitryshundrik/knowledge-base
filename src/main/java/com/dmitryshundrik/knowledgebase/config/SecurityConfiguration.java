@@ -1,7 +1,6 @@
 package com.dmitryshundrik.knowledgebase.config;
 
 import com.dmitryshundrik.knowledgebase.security.service.UserDetailServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -19,7 +18,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserDetailServiceImpl userDetailService;
 
-    @Autowired
     public SecurityConfiguration(UserDetailServiceImpl userDetailService) {
         this.userDetailService = userDetailService;
     }

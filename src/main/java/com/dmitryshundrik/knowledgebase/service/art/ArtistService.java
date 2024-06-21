@@ -6,10 +6,9 @@ import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.art.ArtistRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -22,20 +21,26 @@ import java.util.stream.Collectors;
 @Transactional
 public class ArtistService {
 
-    @Autowired
-    private ArtistRepository artistRepository;
+    private final ArtistRepository artistRepository;
 
-    @Autowired
-    private PaintingService paintingService;
+    private final PaintingService paintingService;
 
+    public ArtistService(ArtistRepository artistRepository, PaintingService paintingService) {
+        this.artistRepository = artistRepository;
+        this.paintingService = paintingService;
+    }
+
+    @Transactional(readOnly = true)
     public List<Artist> getAll() {
         return unknownFilter(artistRepository.findAll());
     }
 
+    @Transactional(readOnly = true)
     public List<Artist> getAllSortedByBorn() {
         return unknownFilter(artistRepository.getAllByOrderByBorn());
     }
 
+    @Transactional(readOnly = true)
     public List<Artist> getAllSortedByCreatedDesc() {
         return unknownFilter(artistRepository.getAllByOrderByCreatedDesc());
     }
@@ -46,6 +51,7 @@ public class ArtistService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public Artist getBySlug(String artistSlug) {
         return artistRepository.getBySlug(artistSlug);
     }

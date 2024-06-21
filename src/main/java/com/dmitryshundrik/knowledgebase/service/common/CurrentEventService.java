@@ -8,7 +8,6 @@ import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,14 +23,11 @@ import java.util.stream.Collectors;
 @Transactional
 public class CurrentEventService {
 
-    @Autowired
-    private MusicianService musicianService;
+    private final MusicianService musicianService;
 
-    @Autowired
-    private WriterService writerService;
+    private final WriterService writerService;
 
-    @Autowired
-    private ArtistService artistService;
+    private final ArtistService artistService;
 
     private final static String MALE_BORN = " родился ";
 
@@ -40,6 +36,12 @@ public class CurrentEventService {
     private final static String MALE_DIE = " умер ";
 
     private final static String FEMALE_DIE = " умерла ";
+
+    public CurrentEventService(MusicianService musicianService, WriterService writerService, ArtistService artistService) {
+        this.musicianService = musicianService;
+        this.writerService = writerService;
+        this.artistService = artistService;
+    }
 
 
     public List<CurrentEventInfo> getCurrentEvents() {
@@ -52,6 +54,7 @@ public class CurrentEventService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<CurrentEventInfo> getMusicianEvents() {
         List<CurrentEventInfo> musicianEventInfoList = new ArrayList<>();
         Set<Musician> musicianBirthList = musicianService.getAllWithCurrentBirth();
@@ -79,6 +82,7 @@ public class CurrentEventService {
         return musicianEventInfoList;
     }
 
+    @Transactional(readOnly = true)
     public List<CurrentEventInfo> getWriterEvents() {
         List<CurrentEventInfo> writerEventInfoList = new ArrayList<>();
         Set<Writer> writerBirthList = writerService.getAllWithCurrentBirth();
@@ -106,6 +110,7 @@ public class CurrentEventService {
         return writerEventInfoList;
     }
 
+    @Transactional(readOnly = true)
     public List<CurrentEventInfo> getArtistEvents() {
         List<CurrentEventInfo> artistEventInfoList = new ArrayList<>();
         Set<Artist> artistBirthList = artistService.getAllWithCurrentBirth();

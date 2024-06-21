@@ -3,7 +3,6 @@ package com.dmitryshundrik.knowledgebase.controller.management.headermenu;
 import com.dmitryshundrik.knowledgebase.model.common.Resource;
 import com.dmitryshundrik.knowledgebase.model.common.dto.ResourceDTO;
 import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping
 public class ResourcesManagementController {
 
-    @Autowired
-    private ResourcesService resourcesService;
+    private final ResourcesService resourcesService;
+
+    public ResourcesManagementController(ResourcesService resourcesService) {
+        this.resourcesService = resourcesService;
+    }
 
     @GetMapping("/management/resource/all")
     public String getAllResources(Model model) {
@@ -48,7 +49,7 @@ public class ResourcesManagementController {
 
     @PutMapping("/management/resource/edit/{resourceId}")
     public String putResourceEdit(@PathVariable String resourceId,
-                                    @ModelAttribute("resource") ResourceDTO resourceDTO) {
+                                  @ModelAttribute("resource") ResourceDTO resourceDTO) {
         String resourceDTOId = resourcesService.updateResource(resourceId, resourceDTO).getId();
         return "redirect:/management/resource/edit/" + resourceDTOId;
     }

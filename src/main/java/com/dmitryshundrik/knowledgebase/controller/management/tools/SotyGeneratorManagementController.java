@@ -4,7 +4,6 @@ import com.dmitryshundrik.knowledgebase.model.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.tools.Soty;
 import com.dmitryshundrik.knowledgebase.model.tools.SotyPair;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -15,8 +14,11 @@ import java.util.*;
 @Controller
 public class SotyGeneratorManagementController {
 
-    @Autowired
-    private CompositionService compositionService;
+    private final CompositionService compositionService;
+
+    public SotyGeneratorManagementController(CompositionService compositionService) {
+        this.compositionService = compositionService;
+    }
 
     private static List<SotyPair> staticPairList = new ArrayList<>();
 

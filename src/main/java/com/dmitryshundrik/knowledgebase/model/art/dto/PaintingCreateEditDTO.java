@@ -4,6 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.common.dto.ImageDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class PaintingCreateEditDTO {
 
     @NotBlank(message = "slug may not be blank")
@@ -41,7 +43,4 @@ public class PaintingCreateEditDTO {
 
     private ImageDTO image;
 
-    public PaintingCreateEditDTO() {
-
-    }
 }

@@ -23,7 +23,6 @@ import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,41 +36,48 @@ import java.util.stream.Collectors;
 @Transactional
 public class EntityUpdateInfoService {
 
-    @Autowired
-    private SettingService settingService;
+    private final SettingService settingService;
 
-    @Autowired
-    private MusicianService musicianService;
+    private final MusicianService musicianService;
 
-    @Autowired
-    private AlbumService albumService;
+    private final AlbumService albumService;
 
-    @Autowired
-    private CompositionService compositionService;
+    private final CompositionService compositionService;
 
-    @Autowired
-    private RecipeService recipeService;
+    private final RecipeService recipeService;
 
-    @Autowired
-    private CocktailService cocktailService;
+    private final CocktailService cocktailService;
 
-    @Autowired
-    private WriterService writerService;
+    private final WriterService writerService;
 
-    @Autowired
-    private ProseService proseService;
+    private final ProseService proseService;
 
-    @Autowired
-    private QuoteService quoteService;
+    private final QuoteService quoteService;
 
-    @Autowired
-    private ArtistService artistService;
+    private final ArtistService artistService;
 
-    @Autowired
-    private PaintingService paintingService;
+    private final PaintingService paintingService;
 
-    @Autowired
-    private ResourcesService resourcesService;
+    private final ResourcesService resourcesService;
+
+    public EntityUpdateInfoService(SettingService settingService, MusicianService musicianService, AlbumService albumService,
+                                   CompositionService compositionService, RecipeService recipeService,
+                                   CocktailService cocktailService, WriterService writerService, ProseService proseService,
+                                   QuoteService quoteService, ArtistService artistService, PaintingService paintingService,
+                                   ResourcesService resourcesService) {
+        this.settingService = settingService;
+        this.musicianService = musicianService;
+        this.albumService = albumService;
+        this.compositionService = compositionService;
+        this.recipeService = recipeService;
+        this.cocktailService = cocktailService;
+        this.writerService = writerService;
+        this.proseService = proseService;
+        this.quoteService = quoteService;
+        this.artistService = artistService;
+        this.paintingService = paintingService;
+        this.resourcesService = resourcesService;
+    }
 
     public List<EntityUpdateInfo> getLatestUpdates() {
         List<EntityUpdateInfo> allUpdateInfo = new ArrayList<>();
@@ -236,7 +242,7 @@ public class EntityUpdateInfoService {
                     .created(painting.getCreated())
                     .archiveSection("искусство:")
                     .description("картина «" + painting.getTitle() + "» добавлена в архив " +
-                            (painting.getArtist().getNickName().equals("Неизвестен")? "" : painting.getArtist().getNickName()))
+                            (painting.getArtist().getNickName().equals("Неизвестен") ? "" : painting.getArtist().getNickName()))
                     .link("art/painting/all")
                     .build());
         }

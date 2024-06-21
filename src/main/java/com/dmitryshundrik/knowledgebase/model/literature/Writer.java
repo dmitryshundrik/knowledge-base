@@ -4,6 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import com.dmitryshundrik.knowledgebase.model.common.PersonEvent;
 import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import java.util.*;
 @Entity
 @Table(name = "writers")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class Writer extends AbstractEntity {
 
     @Column(name = "SLUG", unique = true)

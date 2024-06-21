@@ -12,7 +12,6 @@ import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.MusicianDTOTransformer;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

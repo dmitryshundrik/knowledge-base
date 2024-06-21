@@ -4,7 +4,6 @@ import com.dmitryshundrik.knowledgebase.model.tools.Encryption;
 import com.dmitryshundrik.knowledgebase.model.tools.EncryptionType;
 import com.dmitryshundrik.knowledgebase.model.tools.OperationType;
 import com.dmitryshundrik.knowledgebase.service.tools.EncryptionApplicationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class EncryptionApplicationManagementController {
 
-    @Autowired
-    private EncryptionApplicationService encryptionApplicationService;
+    private final EncryptionApplicationService encryptionApplicationService;
+
+    public EncryptionApplicationManagementController(EncryptionApplicationService encryptionApplicationService) {
+        this.encryptionApplicationService = encryptionApplicationService;
+    }
 
     @GetMapping("/management/encryption-application")
     public String getEncryptionApplication(Model model) {

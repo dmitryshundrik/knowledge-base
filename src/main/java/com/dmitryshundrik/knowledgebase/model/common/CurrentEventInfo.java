@@ -1,10 +1,7 @@
 package com.dmitryshundrik.knowledgebase.model.common;
 
-import com.dmitryshundrik.knowledgebase.model.common.enums.DateType;
 import lombok.Builder;
 import lombok.Data;
-
-import java.time.LocalDate;
 
 @Data
 @Builder

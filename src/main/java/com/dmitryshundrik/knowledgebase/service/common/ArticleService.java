@@ -3,7 +3,6 @@ package com.dmitryshundrik.knowledgebase.service.common;
 import com.dmitryshundrik.knowledgebase.model.common.Article;
 import com.dmitryshundrik.knowledgebase.model.common.dto.ArticleDTO;
 import com.dmitryshundrik.knowledgebase.repository.common.ArticleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,9 +12,13 @@ import java.util.UUID;
 @Transactional
 public class ArticleService {
 
-    @Autowired
-    private ArticleRepository articleRepository;
+    private final ArticleRepository articleRepository;
 
+    public ArticleService(ArticleRepository articleRepository) {
+        this.articleRepository = articleRepository;
+    }
+
+    @Transactional(readOnly = true)
     public Article getById(String articleId) {
         return articleRepository.findById(UUID.fromString(articleId)).orElse(null);
     }

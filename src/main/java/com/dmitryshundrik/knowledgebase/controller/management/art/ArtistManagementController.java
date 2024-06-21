@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistViewDTO;
 import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,8 +19,11 @@ import java.util.List;
 @Controller
 public class ArtistManagementController {
 
-    @Autowired
-    private ArtistService artistService;
+    private final ArtistService artistService;
+
+    public ArtistManagementController(ArtistService artistService) {
+        this.artistService = artistService;
+    }
 
     @GetMapping("/management/artist/all")
     public String getAllArtists(Model model) {
@@ -87,4 +89,5 @@ public class ArtistManagementController {
         artistService.deleteArtistBySlug(artistSlug);
         return "redirect:/management/artist/all";
     }
+
 }

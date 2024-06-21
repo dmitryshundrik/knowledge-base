@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
@@ -14,6 +15,7 @@ import java.util.List;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class ArtistCreateEditDTO {
 
     @NotBlank(message = "slug may not be blank")
@@ -50,7 +52,4 @@ public class ArtistCreateEditDTO {
 
     private List<PaintingViewDTO> paintingList;
 
-    public ArtistCreateEditDTO() {
-
-    }
 }

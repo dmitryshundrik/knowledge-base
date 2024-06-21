@@ -16,7 +16,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.utils.URIBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -71,11 +70,14 @@ public class SpotifyIntegrationService {
 
     private String refreshToken;
 
-    @Autowired
     private RefreshTokenRepository refreshTokenRepository;
 
-    @Autowired
-    private MusicianService musicianService;
+    private final MusicianService musicianService;
+
+    public SpotifyIntegrationService(RefreshTokenRepository refreshTokenRepository, MusicianService musicianService) {
+        this.refreshTokenRepository = refreshTokenRepository;
+        this.musicianService = musicianService;
+    }
 
     public String getURLAuthorize() throws URISyntaxException, MalformedURLException {
         URIBuilder uriBuilder = new URIBuilder(URI_AUTHORIZE);

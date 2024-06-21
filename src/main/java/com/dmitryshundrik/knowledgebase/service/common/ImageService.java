@@ -7,8 +7,6 @@ import com.dmitryshundrik.knowledgebase.model.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.repository.common.ImageRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
-import liquibase.pro.packaged.S;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,23 +18,30 @@ import java.util.stream.Collectors;
 @Transactional
 public class ImageService {
 
-    @Autowired
-    private ImageRepository imageRepository;
+    private final ImageRepository imageRepository;
 
+    public ImageService(ImageRepository imageRepository) {
+        this.imageRepository = imageRepository;
+    }
+
+    @Transactional(readOnly = true)
     public List<Image> getAll() {
         return imageRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<Image> getAllSortedByCreatedDesc() {
         return imageRepository.getAllByOrderByCreatedDesc();
     }
 
+    @Transactional(readOnly = true)
     public List<Image> getSortedByCreatedDesc(List<Image> imageList) {
         return imageList.stream()
                 .sorted((o1, o2) -> o2.getCreated().compareTo(o1.getCreated()))
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public Image getBySlug(String imageSlug) {
         return imageRepository.getBySlug(imageSlug);
     }

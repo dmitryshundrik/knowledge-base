@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.model.common.enums.EraType;
 import com.dmitryshundrik.knowledgebase.model.common.enums.TimelineEventType;
 import com.dmitryshundrik.knowledgebase.repository.common.TimelineEventRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,19 +20,25 @@ import java.util.stream.Collectors;
 @Transactional
 public class TimelineEventService {
 
-    @Autowired
-    private TimelineEventRepository timelineEventRepository;
+    private final TimelineEventRepository timelineEventRepository;
 
+    public TimelineEventService(TimelineEventRepository timelineEventRepository) {
+        this.timelineEventRepository = timelineEventRepository;
+    }
+
+    @Transactional(readOnly = true)
     public TimelineEvent getTimelineEventById(String id) {
         return timelineEventRepository.findById(UUID.fromString(id)).orElse(null);
     }
 
+    @Transactional(readOnly = true)
     public List<TimelineEvent> getAllEventsByType(TimelineEventType type) {
         return timelineEventRepository.findAllByTimelineEventType(type).stream()
                 .sorted(Comparator.comparing(TimelineEvent::getCreated))
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<TimelineEvent> getAllMusicTimelineEventsBeforeCommon() {
         return getAllEventsByType(TimelineEventType.MUSIC).stream()
                 .filter(timelineEvent -> timelineEvent.getEraType().equals(EraType.BEFORE_COMMON))
@@ -41,6 +46,7 @@ public class TimelineEventService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<TimelineEvent> getAllMusicTimelineEventsByCommonEra() {
         return getAllEventsByType(TimelineEventType.MUSIC).stream()
                 .filter(timelineEvent -> timelineEvent.getEraType().equals(EraType.COMMON))
@@ -97,4 +103,5 @@ public class TimelineEventService {
         timelineEvent.setTitle(timelineEventDTO.getTitle());
         timelineEvent.setDescription(timelineEventDTO.getDescription());
     }
+
 }

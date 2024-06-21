@@ -1,23 +1,18 @@
 package com.dmitryshundrik.knowledgebase.model.art;
 
+import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import com.dmitryshundrik.knowledgebase.model.common.Image;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
 
-@Data
 @Entity
 @Table(name = "paintings")
-public class Painting {
-
-    @Id
-    @GeneratedValue
-    private UUID id;
-
-    private Instant created;
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class Painting extends AbstractEntity {
 
     private String slug;
 

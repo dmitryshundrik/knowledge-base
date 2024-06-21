@@ -2,6 +2,7 @@ package com.dmitryshundrik.knowledgebase.model.literature;
 
 import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "prose")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class Prose extends AbstractEntity {
 
     @Column(name = "SLUG")

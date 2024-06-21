@@ -5,10 +5,9 @@ import com.dmitryshundrik.knowledgebase.model.common.dto.SettingCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.common.dto.SettingViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.common.SettingRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -17,13 +16,18 @@ import java.util.stream.Collectors;
 @Transactional
 public class SettingService {
 
-    @Autowired
-    private SettingRepository settingRepository;
+    private final SettingRepository settingRepository;
 
+    public SettingService(SettingRepository settingRepository) {
+        this.settingRepository = settingRepository;
+    }
+
+    @Transactional(readOnly = true)
     public List<Setting> getAll() {
         return settingRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Setting getById(String settingId) {
         return settingRepository.getById(UUID.fromString(settingId));
     }

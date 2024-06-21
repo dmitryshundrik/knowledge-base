@@ -5,7 +5,6 @@ import com.dmitryshundrik.knowledgebase.model.common.dto.PersonEventDTO;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.repository.common.PersonEventRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,9 +17,13 @@ import java.util.stream.Collectors;
 @Transactional
 public class PersonEventService {
 
-    @Autowired
-    private PersonEventRepository personEventRepository;
+    private final PersonEventRepository personEventRepository;
 
+    public PersonEventService(PersonEventRepository personEventRepository) {
+        this.personEventRepository = personEventRepository;
+    }
+
+    @Transactional(readOnly = true)
     public PersonEvent getPersonEventById(String id) {
         return personEventRepository.findById(UUID.fromString(id)).orElse(null);
     }

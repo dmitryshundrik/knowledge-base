@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.model.common.dto.ImageDTO;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +16,14 @@ import java.io.IOException;
 @Controller
 public class PaintingImageManagementController {
 
-    @Autowired
-    private ImageService imageService;
+    private final ImageService imageService;
 
-    @Autowired
-    private PaintingService paintingService;
+    private final PaintingService paintingService;
+
+    public PaintingImageManagementController(ImageService imageService, PaintingService paintingService) {
+        this.imageService = imageService;
+        this.paintingService = paintingService;
+    }
 
     @GetMapping("/management/artist/edit/{artistSlug}/painting/edit/{paintingSlug}/image/create")
     public String getPaintingImageCreate(Model model, @PathVariable String artistSlug, @PathVariable String paintingSlug) {

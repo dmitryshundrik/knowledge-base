@@ -1,32 +1,29 @@
 package com.dmitryshundrik.knowledgebase.model.art;
 
+import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import com.dmitryshundrik.knowledgebase.model.common.Image;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-@Data
 @Entity
-@Table(name = "museums")
-public class Museum {
+@Table(name = "museum")
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class Museum extends AbstractEntity {
 
-    @Id
-    @GeneratedValue
-    private UUID id;
-
-    private Instant created;
-
+    @Column(name = "TITLE")
     private String title;
 
+    @Column(name = "BASED")
     private String based;
 
+    @Column(name = "FOUNDED")
     private Integer founded;
 
-    @Column(columnDefinition = "text")
+    @Column(name = "DESCRIPTION", columnDefinition = "text")
     private String description;
 
     @OneToMany

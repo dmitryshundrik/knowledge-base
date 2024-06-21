@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.model.art.dto.PaintingCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.art.dto.PaintingViewDTO;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,11 +17,14 @@ import java.util.List;
 @Controller
 public class PaintingManagementController {
 
-    @Autowired
-    private PaintingService paintingService;
+    private final PaintingService paintingService;
 
-    @Autowired
-    private ArtistService artistService;
+    private final ArtistService artistService;
+
+    public PaintingManagementController(PaintingService paintingService, ArtistService artistService) {
+        this.paintingService = paintingService;
+        this.artistService = artistService;
+    }
 
     @GetMapping("/management/painting/all")
     public String getAllPaintings(Model model) {

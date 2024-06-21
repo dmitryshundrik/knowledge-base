@@ -2,6 +2,7 @@ package com.dmitryshundrik.knowledgebase.model.literature;
 
 import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -10,6 +11,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "words")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class Word extends AbstractEntity {
 
     @ManyToOne

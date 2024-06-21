@@ -1,7 +1,6 @@
 package com.dmitryshundrik.knowledgebase.controller.management.spotify;
 
 import com.dmitryshundrik.knowledgebase.service.spotify.SpotifyIntegrationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,24 +16,27 @@ import java.net.URISyntaxException;
 @Controller
 public class SpotifyIntegrationManagementController {
 
-    @Autowired
-    private SpotifyIntegrationService integrationService;
+    private final SpotifyIntegrationService spotifyIntegrationService;
+
+    public SpotifyIntegrationManagementController(SpotifyIntegrationService spotifyIntegrationService) {
+        this.spotifyIntegrationService = spotifyIntegrationService;
+    }
 
     @GetMapping("/management/spotify-integration/login")
     public void getSpotifyIntegrationLogin(HttpServletResponse response) throws URISyntaxException, IOException {
-        String urlAuthorize = integrationService.getURLAuthorize();
+        String urlAuthorize = spotifyIntegrationService.getURLAuthorize();
         response.sendRedirect(urlAuthorize);
     }
 
     @GetMapping("/management/spotify-integration/login/get-access-token")
     public String getSpotifyIntegrationAccessToken(@RequestParam("code") String code, Model model) throws IOException, InterruptedException {
-        integrationService.getAccessToken(code);
+        spotifyIntegrationService.getAccessToken(code);
         return "redirect:/management/spotify-integration";
     }
 
     @GetMapping("/management/spotify-integration")
     public String getSpotifyIntegrationPage(HttpServletResponse response) throws IOException {
-        if (integrationService.getAccessToken() == null) {
+        if (spotifyIntegrationService.getAccessToken() == null) {
             response.sendRedirect("/management/spotify-integration/login");
         }
         return "management/tools/spotify/spotify-integration-page";
@@ -43,7 +45,7 @@ public class SpotifyIntegrationManagementController {
     @PostMapping("/management/spotify-integration/current-song-name")
     @ResponseBody
     public String getCurrentSongName() throws IOException, InterruptedException {
-        return integrationService.getCurrentSong();
+        return spotifyIntegrationService.getCurrentSong();
     }
 
 }

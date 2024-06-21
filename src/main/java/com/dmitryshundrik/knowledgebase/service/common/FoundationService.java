@@ -4,7 +4,6 @@ import com.dmitryshundrik.knowledgebase.model.common.Foundation;
 import com.dmitryshundrik.knowledgebase.model.common.dto.FoundationDTO;
 import com.dmitryshundrik.knowledgebase.repository.common.FoundationRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,17 +17,23 @@ import java.util.stream.Collectors;
 @Transactional
 public class FoundationService {
 
-    @Autowired
-    private FoundationRepository foundationRepository;
+    private final FoundationRepository foundationRepository;
 
+    public FoundationService(FoundationRepository foundationRepository) {
+        this.foundationRepository = foundationRepository;
+    }
+
+    @Transactional(readOnly = true)
     public Foundation getById(String id) {
         return foundationRepository.findById(UUID.fromString(id)).orElse(null);
     }
 
+    @Transactional(readOnly = true)
     public List<Foundation> getAll() {
         return foundationRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<Foundation> getAllSortedByCreated() {
         return getAll().stream()
                 .sorted(Comparator.comparing(Foundation::getCreated))
