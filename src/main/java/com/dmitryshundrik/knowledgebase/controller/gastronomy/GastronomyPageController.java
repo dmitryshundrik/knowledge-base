@@ -10,7 +10,6 @@ import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.RecipeViewDTO;
 import com.dmitryshundrik.knowledgebase.service.common.ArticleService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,14 +22,18 @@ import java.util.List;
 @RequestMapping("/gastronomy")
 public class GastronomyPageController {
 
-    @Autowired
-    private RecipeService recipeService;
+    private final RecipeService recipeService;
 
-    @Autowired
-    private CocktailService cocktailService;
+    private final CocktailService cocktailService;
 
-    @Autowired
-    private ArticleService articleService;
+    private final ArticleService articleService;
+
+    public GastronomyPageController(RecipeService recipeService, CocktailService cocktailService,
+                                    ArticleService articleService) {
+        this.recipeService = recipeService;
+        this.cocktailService = cocktailService;
+        this.articleService = articleService;
+    }
 
     @GetMapping()
     public String getGastronomyPage(Model model) {

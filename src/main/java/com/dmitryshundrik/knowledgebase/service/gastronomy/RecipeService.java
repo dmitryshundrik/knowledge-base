@@ -7,7 +7,6 @@ import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.RecipeViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.gastronomy.RecipeRepository;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,24 +18,31 @@ import java.util.stream.Collectors;
 @Transactional
 public class RecipeService {
 
-    @Autowired
-    private RecipeRepository recipeRepository;
+    private final RecipeRepository recipeRepository;
 
-    @Autowired
-    private ImageService imageService;
+    private final ImageService imageService;
 
+    public RecipeService(RecipeRepository recipeRepository, ImageService imageService) {
+        this.recipeRepository = recipeRepository;
+        this.imageService = imageService;
+    }
+
+    @Transactional(readOnly = true)
     public List<Recipe> getAll() {
         return recipeRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<Recipe> getAllBySortedByCreatedDesc() {
         return recipeRepository.getAllByOrderByCreatedDesc();
     }
 
+    @Transactional(readOnly = true)
     public List<Recipe> getAllByCountry(Country country) {
         return recipeRepository.findAllByCountry(country);
     }
 
+    @Transactional(readOnly = true)
     public Recipe getBySlug(String recipeSlug) {
         return recipeRepository.findBySlug(recipeSlug);
     }

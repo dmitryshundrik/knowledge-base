@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.CocktailViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.gastronomy.CocktailRepository;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,20 +17,26 @@ import java.util.stream.Collectors;
 @Transactional
 public class CocktailService {
 
-    @Autowired
-    private CocktailRepository cocktailRepository;
+    private final CocktailRepository cocktailRepository;
 
-    @Autowired
-    private ImageService imageService;
+    private final ImageService imageService;
 
+    public CocktailService(CocktailRepository cocktailRepository, ImageService imageService) {
+        this.cocktailRepository = cocktailRepository;
+        this.imageService = imageService;
+    }
+
+    @Transactional(readOnly = true)
     public List<Cocktail> getAll() {
         return cocktailRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<Cocktail> getAllBySortedByCreatedDesc() {
         return cocktailRepository.getAllByOrderByCreatedDesc();
     }
 
+    @Transactional(readOnly = true)
     public Cocktail getBySlug(String cocktailSLug) {
         return cocktailRepository.findBySlug(cocktailSLug);
     }

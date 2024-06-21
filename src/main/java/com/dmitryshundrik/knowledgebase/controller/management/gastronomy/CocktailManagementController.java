@@ -4,7 +4,6 @@ import com.dmitryshundrik.knowledgebase.model.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.CocktailCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.CocktailViewDTO;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,8 +15,11 @@ import java.util.List;
 @Controller
 public class CocktailManagementController {
 
-    @Autowired
-    private CocktailService cocktailService;
+    private final CocktailService cocktailService;
+
+    public CocktailManagementController(CocktailService cocktailService) {
+        this.cocktailService = cocktailService;
+    }
 
     @GetMapping("/management/cocktail/all")
     public String getAllCocktails(Model model) {

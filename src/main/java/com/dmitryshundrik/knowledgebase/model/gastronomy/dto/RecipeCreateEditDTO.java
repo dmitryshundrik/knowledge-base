@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.common.enums.Country;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import java.time.Instant;
@@ -13,6 +14,7 @@ import java.util.List;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class RecipeCreateEditDTO {
 
     private Instant created;
@@ -32,9 +34,5 @@ public class RecipeCreateEditDTO {
     private String method;
 
     private List<ImageDTO> imageList;
-
-    public RecipeCreateEditDTO() {
-
-    }
 
 }

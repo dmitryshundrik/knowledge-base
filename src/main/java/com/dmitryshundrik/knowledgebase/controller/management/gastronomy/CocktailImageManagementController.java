@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.model.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +16,14 @@ import java.io.IOException;
 @Controller
 public class CocktailImageManagementController {
 
-    @Autowired
-    private ImageService imageService;
+    private final ImageService imageService;
 
-    @Autowired
-    private CocktailService cocktailService;
+    private final CocktailService cocktailService;
+
+    public CocktailImageManagementController(ImageService imageService, CocktailService cocktailService) {
+        this.imageService = imageService;
+        this.cocktailService = cocktailService;
+    }
 
     @GetMapping("/management/cocktail/edit/{cocktailSlug}/image/create")
     public String getRecipeImageCreate(Model model, @PathVariable String cocktailSlug) {

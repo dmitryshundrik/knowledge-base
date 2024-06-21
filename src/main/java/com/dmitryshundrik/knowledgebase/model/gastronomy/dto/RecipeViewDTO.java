@@ -1,6 +1,5 @@
 package com.dmitryshundrik.knowledgebase.model.gastronomy.dto;
 
-import com.dmitryshundrik.knowledgebase.model.common.Image;
 import com.dmitryshundrik.knowledgebase.model.common.dto.ImageDTO;
 import com.dmitryshundrik.knowledgebase.model.common.enums.Country;
 import lombok.Builder;

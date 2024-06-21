@@ -5,7 +5,6 @@ import com.dmitryshundrik.knowledgebase.model.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.RecipeCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.RecipeViewDTO;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,8 +16,11 @@ import java.util.List;
 @Controller
 public class RecipeManagementController {
 
-    @Autowired
-    private RecipeService recipeService;
+    private final RecipeService recipeService;
+
+    public RecipeManagementController(RecipeService recipeService) {
+        this.recipeService = recipeService;
+    }
 
     @GetMapping("/management/recipe/all")
     public String getAllRecipes(Model model) {

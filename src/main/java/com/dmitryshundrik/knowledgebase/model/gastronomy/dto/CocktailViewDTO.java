@@ -1,15 +1,17 @@
 package com.dmitryshundrik.knowledgebase.model.gastronomy.dto;
 
 import com.dmitryshundrik.knowledgebase.model.common.dto.ImageDTO;
-import com.dmitryshundrik.knowledgebase.model.common.enums.Country;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.Instant;
 import java.util.List;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CocktailViewDTO {
 
     private String created;

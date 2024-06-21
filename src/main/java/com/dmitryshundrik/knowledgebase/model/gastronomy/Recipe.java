@@ -1,24 +1,17 @@
 package com.dmitryshundrik.knowledgebase.model.gastronomy;
 
+import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import com.dmitryshundrik.knowledgebase.model.common.Image;
 import com.dmitryshundrik.knowledgebase.model.common.enums.Country;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
 
-@Data
 @Entity
 @Table(name = "recipes")
-public class Recipe {
-
-    @Id
-    @GeneratedValue
-    private UUID id;
-
-    private Instant created;
+@Data
+public class Recipe extends AbstractEntity {
 
     @Column(unique = true)
     private String slug;

@@ -4,6 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class AlbumCreateEditDTO {
 
     @NotBlank(message = "slug may not be blank")
@@ -50,7 +52,4 @@ public class AlbumCreateEditDTO {
 
     private List<CompositionViewDTO> compositions;
 
-    public AlbumCreateEditDTO() {
-
-    }
 }

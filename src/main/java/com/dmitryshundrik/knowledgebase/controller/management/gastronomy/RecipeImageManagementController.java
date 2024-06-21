@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.model.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +16,14 @@ import java.io.IOException;
 @Controller
 public class RecipeImageManagementController {
 
-    @Autowired
-    private ImageService imageService;
+    private final ImageService imageService;
 
-    @Autowired
-    private RecipeService recipeService;
+    private final RecipeService recipeService;
+
+    public RecipeImageManagementController(ImageService imageService, RecipeService recipeService) {
+        this.imageService = imageService;
+        this.recipeService = recipeService;
+    }
 
 
     @GetMapping("/management/recipe/edit/{recipeSlug}/image/create")

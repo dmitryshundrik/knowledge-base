@@ -7,6 +7,7 @@ import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
@@ -16,6 +17,7 @@ import java.util.List;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class MusicianCreateEditDTO {
 
     @NotBlank(message = "slug may not be blank")
@@ -67,9 +69,5 @@ public class MusicianCreateEditDTO {
     private List<AlbumViewDTO> albums;
 
     private List<CompositionViewDTO> compositions;
-
-    public MusicianCreateEditDTO() {
-
-    }
 
 }
