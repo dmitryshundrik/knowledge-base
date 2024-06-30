@@ -9,24 +9,27 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "paintings")
+@Table(name = "painting")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Painting extends AbstractEntity {
 
+    @Column(name = "SLUG")
     private String slug;
 
+    @Column(name = "TITLE")
     private String title;
 
     @ManyToOne
     private Artist artist;
 
-    @Column(name = "year1")
+    @Column(name = "YEAR1")
     private Integer year1;
 
-    @Column(name = "year2")
+    @Column(name = "YEAR2")
     private Integer year2;
 
+    @Column(name = "APPROXIMATE_YEARS")
     private String approximateYears;
 
     @ManyToMany
@@ -37,13 +40,16 @@ public class Painting extends AbstractEntity {
     )
     private List<PaintingStyle> paintingStyles;
 
+    @Column(name = "BASED")
     private String based;
 
+    @Column(name = "ARTIST_TOP_RANK")
     private Integer artistTopRank;
 
+    @Column(name = "ALL_TIME_TOP_RANK")
     private Integer allTimeTopRank;
 
-    @Column(columnDefinition = "text")
+    @Column(name = "DESCRIPTION", columnDefinition = "text")
     private String description;
 
     @OneToOne(cascade = CascadeType.ALL)

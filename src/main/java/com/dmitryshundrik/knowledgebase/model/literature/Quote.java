@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "quotes")
+@Table(name = "quote")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Quote extends AbstractEntity {

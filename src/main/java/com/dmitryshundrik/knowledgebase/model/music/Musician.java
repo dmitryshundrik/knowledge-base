@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "musicians")
+@Table(name = "musician")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Musician extends AbstractEntity {
@@ -90,7 +90,7 @@ public class Musician extends AbstractEntity {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @OrderBy("created")
-    @JoinTable(name = "albums_collaborators", joinColumns = @JoinColumn(name = "collaborators_id"),
+    @JoinTable(name = "album_collaborators", joinColumns = @JoinColumn(name = "collaborators_id"),
             inverseJoinColumns = @JoinColumn(name = "album_id"))
     private List<Album> collaborations;
 

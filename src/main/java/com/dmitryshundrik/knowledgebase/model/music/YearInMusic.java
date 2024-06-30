@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "yearinmusic")
+@Table(name = "year_in_music")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class YearInMusic extends AbstractEntity {

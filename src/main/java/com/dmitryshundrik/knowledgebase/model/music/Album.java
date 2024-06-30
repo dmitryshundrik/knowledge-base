@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "albums")
+@Table(name = "album")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Album extends AbstractEntity {

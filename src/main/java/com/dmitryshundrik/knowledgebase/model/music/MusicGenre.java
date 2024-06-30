@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "musicgenres")
+@Table(name = "music_genre")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class MusicGenre extends AbstractEntity {

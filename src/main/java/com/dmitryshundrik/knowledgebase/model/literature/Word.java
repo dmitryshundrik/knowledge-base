@@ -5,11 +5,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.time.Instant;
-import java.util.UUID;
 
 @Entity
-@Table(name = "words")
+@Table(name = "word")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Word extends AbstractEntity {

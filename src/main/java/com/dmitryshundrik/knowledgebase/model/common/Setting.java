@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "settings")
+@Table(name = "setting")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Setting extends AbstractEntity {

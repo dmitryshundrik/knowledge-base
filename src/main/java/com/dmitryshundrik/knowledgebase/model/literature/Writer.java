@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Entity
-@Table(name = "writers")
+@Table(name = "writer")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Writer extends AbstractEntity {

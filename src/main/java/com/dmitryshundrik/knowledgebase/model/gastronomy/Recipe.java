@@ -10,26 +10,28 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "recipes")
+@Table(name = "recipe")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Recipe extends AbstractEntity {
 
-    @Column(unique = true)
+    @Column(name = "SLUG", unique = true)
     private String slug;
 
+    @Column(name = "TITLE")
     private String title;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "COUNTRY")
     private Country country;
 
-    @Column(columnDefinition = "text")
+    @Column(name = "ABOUT", columnDefinition = "text")
     private String about;
 
-    @Column(columnDefinition = "text")
+    @Column(name = "INGREDIENTS", columnDefinition = "text")
     private String ingredients;
 
-    @Column(columnDefinition = "text")
+    @Column(name = "METHOD", columnDefinition = "text")
     private String method;
 
     @OneToMany(cascade = CascadeType.ALL)

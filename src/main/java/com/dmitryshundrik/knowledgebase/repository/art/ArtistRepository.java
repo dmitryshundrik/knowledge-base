@@ -18,10 +18,10 @@ public interface ArtistRepository extends JpaRepository<Artist, UUID> {
 
     List<Artist> getAllByOrderByBorn();
 
-    @Query(value = "select * from artists where extract( month from birth_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) and extract( day from birth_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)
+    @Query(value = "select * from artist where extract( month from birth_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) and extract( day from birth_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)
     List<Artist> findAllWithCurrentBirth(LocalDate date);
 
-    @Query(value = "select * from artists where extract( month from death_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) and extract( day from death_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)
+    @Query(value = "select * from artist where extract( month from death_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) and extract( day from death_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)
     List<Artist> findAllWithCurrentDeath(LocalDate date);
 
 }

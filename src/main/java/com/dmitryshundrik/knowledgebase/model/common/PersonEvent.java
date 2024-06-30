@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "personevents")
+@Table(name = "person_event")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class PersonEvent extends AbstractEntity {

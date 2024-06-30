@@ -26,10 +26,10 @@ public interface MusicianRepository extends JpaRepository<Musician, UUID> {
 
     List<Musician> findFirst20ByOrderByCreatedDesc();
 
-    @Query(value = "select * from musicians where extract( month from birth_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) and extract( day from birth_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)
+    @Query(value = "select * from musician where extract( month from birth_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) and extract( day from birth_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)
     List<Musician> findAllWithCurrentBirth(LocalDate date);
 
-    @Query(value = "select * from musicians where extract( month from death_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) and extract( day from death_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)
+    @Query(value = "select * from musician where extract( month from death_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) and extract( day from death_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)
     List<Musician> findAllWithCurrentDeath(LocalDate date);
 
 }

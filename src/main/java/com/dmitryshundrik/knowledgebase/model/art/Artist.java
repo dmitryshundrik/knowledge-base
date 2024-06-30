@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "artists")
+@Table(name = "artist")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Artist extends AbstractEntity {

@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "timelineevents")
+@Table(name = "timeline_event")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class TimelineEvent extends AbstractEntity {

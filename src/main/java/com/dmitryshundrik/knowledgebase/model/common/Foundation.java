@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "foundations")
+@Table(name = "foundation")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Foundation extends AbstractEntity {

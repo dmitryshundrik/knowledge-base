@@ -7,23 +7,27 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "musicperiods")
+@Table(name = "music_period")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class MusicPeriod extends AbstractEntity {
 
-    @Column(unique = true)
+    @Column(name = "SLUG", unique = true)
     private String slug;
 
+    @Column(name = "TITLE")
     private String title;
 
+    @Column(name = "TITLE_EN")
     private String titleEn;
 
+    @Column(name = "APPROXIMATE_START")
     private Integer approximateStart;
 
+    @Column(name = "APPROXIMATE_END")
     private Integer approximateEnd;
 
-    @Column(columnDefinition = "text")
+    @Column(name = "DESCRIPTION", columnDefinition = "text")
     private String description;
 
 }
