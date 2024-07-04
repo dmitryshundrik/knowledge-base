@@ -59,7 +59,7 @@ public class Artist extends AbstractEntity {
     @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("created")
     @JoinTable(
-            name = "artists_events",
+            name = "artist_events",
             joinColumns = {@JoinColumn(name = "artists_id")},
             inverseJoinColumns = {@JoinColumn(name = "events_id")}
     )

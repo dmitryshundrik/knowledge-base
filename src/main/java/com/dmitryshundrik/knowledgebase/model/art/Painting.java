@@ -34,7 +34,7 @@ public class Painting extends AbstractEntity {
 
     @ManyToMany
     @JoinTable(
-            name = "paintings_painting_styles",
+            name = "painting_painting_styles",
             joinColumns = {@JoinColumn(name = "paintings_id")},
             inverseJoinColumns = {@JoinColumn(name = "painting_styles_id")}
     )

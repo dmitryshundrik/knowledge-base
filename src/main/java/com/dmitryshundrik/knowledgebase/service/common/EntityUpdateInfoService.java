@@ -213,7 +213,8 @@ public class EntityUpdateInfoService {
             quoteUpdateInfo.add(EntityUpdateInfo.builder()
                     .created(quote.getCreated())
                     .archiveSection("литература:")
-                    .description("цитата " + (quote.getProse() == null ? "" : "из «" + quote.getProse().getTitle() + "» ") + "добавлена в архив " + quote.getWriter().getNickName())
+                    .description("цитата " + (quote.getProse() == null ? "" : "из «" + quote.getProse().getTitle() + "» ")
+                            + "добавлена в архив " + (quote.getWriter() == null ? "" : quote.getWriter().getNickName()))
                     .link("literature/quote/all")
                     .build());
         }
