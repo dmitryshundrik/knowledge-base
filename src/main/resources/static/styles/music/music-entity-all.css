@@ -24,12 +24,22 @@
     text-align: center;
 }
 
+.table-body-item-section {
+    margin-bottom: 25px;
+}
+
 .table-body-item-row {
     display: flex;
     flex-direction: row;
-    margin: 15px 0;
+    margin-top: 15px;
+    margin-bottom: 15px;;
     gap: 10px;
 }
+
+/*.album-row {*/
+/*    margin-top: 5px;*/
+/*    margin-bottom: 15px;*/
+/*}*/
 
 .nickname {
     min-width: fit-content;

@@ -123,6 +123,34 @@ public class MusicPageController {
     public String getAllAlbumsByYear(@PathVariable String year, Model model) {
         List<Album> allAlbumsByYear = albumService.getAllAlbumsByYear(Integer.valueOf(year));
         model.addAttribute("albums", albumService.getSortedAlbumViewDTOList(allAlbumsByYear, SortType.RATING));
+//        model.addAttribute("albums95", albumService.getSortedAlbumViewDTOList(albumService
+//                .getAllAlbumsFilteredByRating(allAlbumsByYear, 9.5), SortType.RATING));
+//        model.addAttribute("albums90", albumService.getSortedAlbumViewDTOList(albumService
+//                .getAllAlbumsFilteredByRating(allAlbumsByYear, 9.0), SortType.RATING));
+//        model.addAttribute("albums85", albumService.getSortedAlbumViewDTOList(albumService
+//                .getAllAlbumsFilteredByRating(allAlbumsByYear, 8.5), SortType.RATING));
+//        model.addAttribute("albums80", albumService.getSortedAlbumViewDTOList(albumService
+//                .getAllAlbumsFilteredByRating(allAlbumsByYear, 8.0), SortType.RATING));
+//        model.addAttribute("albums75", albumService.getSortedAlbumViewDTOList(albumService
+//                .getAllAlbumsFilteredByRating(allAlbumsByYear, 7.5), SortType.RATING));
+//        model.addAttribute("albums70", albumService.getSortedAlbumViewDTOList(albumService
+//                .getAllAlbumsFilteredByRating(allAlbumsByYear, 7.0), SortType.RATING));
+//        model.addAttribute("albums65", albumService.getSortedAlbumViewDTOList(albumService
+//                .getAllAlbumsFilteredByRating(allAlbumsByYear, 6.5), SortType.RATING));
+//        model.addAttribute("albums60", albumService.getSortedAlbumViewDTOList(albumService
+//                .getAllAlbumsFilteredByRating(allAlbumsByYear, 6.0), SortType.RATING));
+//        model.addAttribute("albums55", albumService.getSortedAlbumViewDTOList(albumService
+//                .getAllAlbumsFilteredByRating(allAlbumsByYear, 5.5), SortType.RATING));
+//        model.addAttribute("albums50", albumService.getSortedAlbumViewDTOList(albumService
+//                .getAllAlbumsFilteredByRating(allAlbumsByYear, 5.0), SortType.RATING));
+//        model.addAttribute("albums45", albumService.getSortedAlbumViewDTOList(albumService
+//                .getAllAlbumsFilteredByRating(allAlbumsByYear, 4.5), SortType.RATING));
+//        model.addAttribute("albums40", albumService.getSortedAlbumViewDTOList(albumService
+//                .getAllAlbumsFilteredByRating(allAlbumsByYear, 4.0), SortType.RATING));
+//        model.addAttribute("albums35", albumService.getSortedAlbumViewDTOList(albumService
+//                .getAllAlbumsFilteredByRating(allAlbumsByYear, 3.5), SortType.RATING));
+//        model.addAttribute("albums30", albumService.getSortedAlbumViewDTOList(albumService
+//                .getAllAlbumsFilteredByRating(allAlbumsByYear, 3.0), SortType.RATING));
         model.addAttribute("year", year);
         return "music/albums-of-year";
     }

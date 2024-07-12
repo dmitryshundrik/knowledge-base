@@ -35,7 +35,7 @@ public class IndexController {
     private final SpotifyIntegrationService spotifyIntegrationService;
 
     @Getter
-    private static final String version = "5.0.1";
+    private static final String version = "5.0.2";
 
     public IndexController(YearInMusicService yearInMusicService, EntityUpdateInfoService entityUpdateInfoService,
                            FoundationService foundationService, ResourcesService resourcesService,
