@@ -73,9 +73,18 @@
             <section class="table-body-item-row" th:each="prose : ${writerDTO.proseList}">
                 <span th:if="${prose.year} != null" th:text="${prose.year}"></span>
                 <span th:if="${prose.year} == null">????</span>
-                <span th:text="${prose.title}"></span>
-                <span class="current-book" th:if="${prose.rating} == null">(в процессе)</span>
-                <span class="rating" th:text="${prose.rating}"></span>
+                <div class="table-body-item-col-container">
+                    <span th:text="${prose.title}"></span>
+                    <span class="current-book" th:if="${prose.rating} == null">(в процессе)</span>
+                    <span class="rating" th:text="${prose.rating}"></span>
+                    <span th:if="${not #lists.isEmpty(prose.playCharactersSchema) || not #lists.isEmpty(prose.synopsis)}">
+                        <button type="button" class="schema-and-synopsis">детали</button>
+                        <span class="content">
+                            <img th:src="|data:image;base64,${prose.playCharactersSchema}|">
+                            <p th:utext="${prose.synopsis}"></p>
+                        </span>
+                    </span>
+                </div>
             </section>
         </article>
 
@@ -88,7 +97,8 @@
                 <span th:text="${quote.created}"></span>
                 <div class="quote-all-description">
                     <span th:if="${not #strings.isEmpty(quote.description)}" th:text="${quote.description}"></span>
-                    <span th:if="${not #strings.isEmpty(quote.descriptionHtml)}" th:utext="${quote.descriptionHtml}"></span>
+                    <span th:if="${not #strings.isEmpty(quote.descriptionHtml)}"
+                          th:utext="${quote.descriptionHtml}"></span>
                 </div>
                 <div class="quote-all-author">
                     <span th:if="${not #strings.isEmpty(quote.proseTitle)}"
@@ -120,8 +130,24 @@
             </section>
         </article>
     </div>
-
 </main>
+
+<script th:inline="javascript">
+    var coll = document.getElementsByClassName("schema-and-synopsis");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
+</script>
 
 <footer th:insert="fragments/footer.html"></footer>
 

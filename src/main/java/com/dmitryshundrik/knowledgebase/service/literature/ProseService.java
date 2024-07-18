@@ -98,6 +98,18 @@ public class ProseService {
         proseRepository.delete(bySlug);
     }
 
+    public void updateSynopsisSchemaBySlug(String proseSlug, byte[] bytes) {
+        if (bytes.length != 0) {
+            Prose bySlug = getBySlug(proseSlug);
+            bySlug.setPlayCharactersSchema(new String(bytes));
+        }
+    }
+
+    public void deleteSynopsisSchema(String proseSlug) {
+        Prose bySlug = getBySlug(proseSlug);
+        bySlug.setPlayCharactersSchema(null);
+    }
+
     public ProseCreateEditDTO getProseCreateEditDTO(Prose prose) {
         return ProseCreateEditDTO.builder()
                 .slug(prose.getSlug())
@@ -106,6 +118,8 @@ public class ProseService {
                 .writerSlug(prose.getWriter().getSlug())
                 .year(prose.getYear())
                 .rating(prose.getRating())
+                .playCharactersSchema(prose.getPlayCharactersSchema())
+                .synopsis(prose.getSynopsis())
                 .description(prose.getDescription())
                 .build();
     }
@@ -119,6 +133,8 @@ public class ProseService {
                 .writerSlug(prose.getWriter().getSlug())
                 .year(prose.getYear())
                 .rating(prose.getRating())
+                .playCharactersSchema(prose.getPlayCharactersSchema())
+                .synopsis(prose.getSynopsis())
                 .description(prose.getDescription())
                 .build();
     }
@@ -147,6 +163,7 @@ public class ProseService {
         prose.setTitle(proseDTO.getTitle().trim());
         prose.setYear(proseDTO.getYear());
         prose.setRating(proseDTO.getRating());
+        prose.setSynopsis(proseDTO.getSynopsis());
         prose.setDescription(proseDTO.getDescription().trim());
     }
 

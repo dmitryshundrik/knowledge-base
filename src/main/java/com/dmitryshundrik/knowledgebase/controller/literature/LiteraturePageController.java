@@ -70,7 +70,8 @@ public class LiteraturePageController {
         Writer writerBySlug = writerService.getBySlug(slug);
         WriterViewDTO writerViewDTO = writerService.getWriterViewDTO(writerBySlug);
         List<Quote> allByWriterSortedByYearAndPage = quoteService.getAllByWriterSortedByYearAndPage(writerBySlug);
-        List<QuoteViewDTO> quoteViewDTOList = quoteService.getQuoteViewDTOList(allByWriterSortedByYearAndPage);
+        List<Quote> allByWriterSortedByCreatedDesc = quoteService.getAllByWriterSortedByCreatedDesc(writerBySlug);
+        List<QuoteViewDTO> quoteViewDTOList = quoteService.getQuoteViewDTOList(allByWriterSortedByCreatedDesc);
         model.addAttribute("quoteList", quoteViewDTOList);
         model.addAttribute("writerDTO", writerViewDTO);
         return "literature/writer-quote-all";

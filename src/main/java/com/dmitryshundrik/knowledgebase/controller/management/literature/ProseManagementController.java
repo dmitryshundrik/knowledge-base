@@ -5,11 +5,14 @@ import com.dmitryshundrik.knowledgebase.model.literature.dto.ProseCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.literature.dto.ProseViewDTO;
 import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -70,6 +73,20 @@ public class ProseManagementController {
         Prose bySlug = proseService.getBySlug(proseSlug);
         String proseDTOSlug = proseService.updateProse(bySlug, proseDTO).getSlug();
         return "redirect:/management/writer/edit/" + writerSlug + "/prose/edit/" + proseDTOSlug;
+    }
+
+    @PostMapping("/management/writer/edit/{writerSlug}/prose/edit/{proseSlug}/schema/upload")
+    public String postUploadSynopsisSchema(@PathVariable String writerSlug, @PathVariable String proseSlug,
+                                        @RequestParam("file") MultipartFile file) throws IOException {
+        byte[] bytes = Base64.encodeBase64(file.getBytes());
+        proseService.updateSynopsisSchemaBySlug(proseSlug, bytes);
+        return "redirect:/management/writer/edit/" + writerSlug + "/prose/edit/" + proseSlug;
+    }
+
+    @DeleteMapping("/management/writer/edit/{writerSlug}/prose/edit/{proseSlug}/schema/delete")
+    public String deleteSynopsisSchema(@PathVariable String writerSlug, @PathVariable String proseSlug) {
+        proseService.deleteSynopsisSchema(proseSlug);
+        return "redirect:/management/writer/edit/" + writerSlug + "/prose/edit/" + proseSlug;
     }
 
     @DeleteMapping("/management/writer/edit/{writerSlug}/prose/delete/{proseSlug}")

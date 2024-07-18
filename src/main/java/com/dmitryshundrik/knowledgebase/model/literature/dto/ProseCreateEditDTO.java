@@ -29,6 +29,10 @@ public class ProseCreateEditDTO {
 
     private Double rating;
 
+    private String playCharactersSchema;
+
+    private String synopsis;
+
     private String description;
 
     private List<QuoteViewDTO> quoteList;

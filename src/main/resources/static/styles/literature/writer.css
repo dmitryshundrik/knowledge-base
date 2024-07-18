@@ -112,6 +112,18 @@
     text-align: justify;
 }
 
+.table-body-item-col-container {
+    width: 100%;
+}
+
+.content {
+    padding: 5px 10px;
+    display: none;
+    overflow: hidden;
+    background-color: #ff980026;
+    white-space: pre-line;
+}
+
 @media (max-width: 768px) {
     .table-title {
         padding: 30px 30px;

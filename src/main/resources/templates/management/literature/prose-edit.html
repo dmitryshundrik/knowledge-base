@@ -48,11 +48,41 @@
                 </section>
 
                 <section class="form-item major-field">
+                    <label>synopsis</label>
+                    <textarea th:field="*{synopsis}"></textarea>
+                </section>
+
+                <section class="form-item major-field">
                     <label>description</label>
                     <textarea th:field="*{description}"></textarea>
                 </section>
 
                 <input class="input-submit" type="submit" value="Обновить"/>
+            </form>
+        </article>
+
+        <article class="table-body-item schema-upload-form">
+            <form class="form"
+                  th:action="${'/management/writer/edit/' + proseDTO.writerSlug + '/prose/edit/' + proseDTO.slug + '/schema/upload'}"
+                  th:method="post"
+                  enctype="multipart/form-data">
+
+                <section class="form-item">
+                    <label>playCharactersSchema</label>
+                    <input type="file" name="file" accept="image/*">
+                </section>
+
+                <button class="input-submit" type="submit">Загрузить</button>
+            </form>
+
+            <section class="entity-image">
+                <img alt="" th:src="|data:image;base64,${proseDTO.playCharactersSchema}|">
+            </section>
+
+            <form class="form"
+                  th:action="${'/management/writer/edit/' + proseDTO.writerSlug + '/prose/edit/' + proseDTO.slug + '/schema/delete'}"
+                  th:method="delete">
+                <input class="input-submit" type="submit" value="Удалить">
             </form>
         </article>
     </div>

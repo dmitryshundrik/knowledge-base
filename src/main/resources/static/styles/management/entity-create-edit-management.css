@@ -58,7 +58,7 @@
 
 .major-field textarea {
     width: 60%;
-    height: 100px;
+    height: 150px;
 }
 
 .major-field-recipe textarea {
@@ -83,6 +83,10 @@
     padding: 10px 0;
     padding-left: 7px;
     background-color: blanchedalmond;
+}
+
+.schema-upload-form {
+    margin-top: 40px;
 }
 
 .input-submit {

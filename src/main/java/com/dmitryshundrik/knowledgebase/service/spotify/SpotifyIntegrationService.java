@@ -140,14 +140,16 @@ public class SpotifyIntegrationService {
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .build();
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
+//        System.out.println(response.body());
         JsonNode node = new ObjectMapper().readTree(response.body());
         if (node.has("access_token")) {
             accessToken = node.get("access_token").asText();
         }
         if (node.has("refresh_token")) {
             refreshToken = node.get("refresh_token").asText();
-            System.out.println(refreshToken);
+            refreshTokenRepository.deleteAll();
+            refreshTokenRepository.save(createRefreshTokenEntity(refreshToken));
+//            System.out.println(refreshToken);
         }
     }
 

@@ -28,6 +28,12 @@ public class Prose extends AbstractEntity {
     @Column(name = "RATING")
     private Double rating;
 
+    @Column(name = "PLAY_CHARACTERS_SCHEMA", columnDefinition = "text")
+    private String playCharactersSchema;
+
+    @Column(name = "SYNOPSIS", columnDefinition = "text")
+    private String synopsis;
+
     @Column(name = "DESCRIPTION", columnDefinition = "text")
     private String description;
 
