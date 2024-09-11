@@ -2,6 +2,7 @@ package com.dmitryshundrik.knowledgebase.service.literature;
 
 import com.dmitryshundrik.knowledgebase.model.literature.Writer;
 import com.dmitryshundrik.knowledgebase.model.literature.dto.WriterCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.literature.dto.WriterEntityUpdateInfoDTO;
 import com.dmitryshundrik.knowledgebase.model.literature.dto.WriterViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.literature.WriterRepository;
 import com.dmitryshundrik.knowledgebase.service.common.PersonEventService;
@@ -163,7 +164,7 @@ public class WriterService {
         return message;
     }
 
-    public List<Writer> getLatestUpdate() {
+    public List<WriterEntityUpdateInfoDTO> getLatestUpdate() {
         return writerRepository.findFirst20ByOrderByCreatedDesc();
     }
 

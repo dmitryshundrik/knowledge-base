@@ -71,32 +71,16 @@ public class MusicGenreService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public List<MusicGenre> getFilteredClassicalGenres() {
-        return musicGenreRepository.getAllByMusicGenreType(MusicGenreType.CLASSICAL).stream()
-                .filter(musicGenre -> {
-                    Integer count = compositionRepository.countAllByMusicGenresIsContaining(musicGenre);
-                    if (count != 0) {
-                        musicGenre.setCount(count);
-                        return true;
-                    }
-                    return false;
-                })
-                .sorted((o1, o2) -> o2.getCount().compareTo(o1.getCount())).collect(Collectors.toList());
+        musicGenreRepository.updateClassicalMusicGenreSetCount();
+        return musicGenreRepository.getAllByMusicGenreTypeAndCountIsNotNullOrderByCountDesc(MusicGenreType.CLASSICAL);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public List<MusicGenre> getFilteredContemporaryGenres() {
-        return musicGenreRepository.getAllByMusicGenreType(MusicGenreType.CONTEMPORARY).stream()
-                .filter(musicGenre -> {
-                    Integer count = albumRepository.countAllByMusicGenresIsContaining(musicGenre);
-                    if (count != 0) {
-                        musicGenre.setCount(count);
-                        return true;
-                    }
-                    return false;
-                })
-                .sorted((o1, o2) -> o2.getCount().compareTo(o1.getCount())).collect(Collectors.toList());
+        musicGenreRepository.updateContemporaryMusicGenreSetCount();
+        return musicGenreRepository.getAllByMusicGenreTypeAndCountIsNotNullOrderByCountDesc(MusicGenreType.CONTEMPORARY);
     }
 
     public String createMusicGenre(MusicGenreCreateEditDTO genreDTO) {

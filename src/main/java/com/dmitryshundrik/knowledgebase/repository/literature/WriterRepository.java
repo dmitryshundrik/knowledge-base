@@ -1,6 +1,7 @@
 package com.dmitryshundrik.knowledgebase.repository.literature;
 
 import com.dmitryshundrik.knowledgebase.model.literature.Writer;
+import com.dmitryshundrik.knowledgebase.model.literature.dto.WriterEntityUpdateInfoDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -16,7 +17,7 @@ public interface WriterRepository extends JpaRepository<Writer, UUID> {
 
     List<Writer> getAllByOrderByCreatedDesc();
 
-    List<Writer> findFirst20ByOrderByCreatedDesc();
+    List<WriterEntityUpdateInfoDTO> findFirst20ByOrderByCreatedDesc();
 
     @Query(value = "select * from writer where extract( month from birth_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) and extract( day from birth_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)
     List<Writer> findAllWithCurrentBirth(LocalDate date);

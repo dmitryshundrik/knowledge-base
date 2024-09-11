@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -35,7 +36,7 @@ public class IndexController {
     private final SpotifyIntegrationService spotifyIntegrationService;
 
     @Getter
-    private static final String version = "5.0.3";
+    private static final String version = "5.0.4";
 
     public IndexController(YearInMusicService yearInMusicService, EntityUpdateInfoService entityUpdateInfoService,
                            FoundationService foundationService, ResourcesService resourcesService,

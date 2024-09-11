@@ -8,10 +8,10 @@ import com.dmitryshundrik.knowledgebase.model.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.model.literature.Prose;
 import com.dmitryshundrik.knowledgebase.model.literature.Quote;
-import com.dmitryshundrik.knowledgebase.model.literature.Writer;
+import com.dmitryshundrik.knowledgebase.model.literature.dto.WriterEntityUpdateInfoDTO;
 import com.dmitryshundrik.knowledgebase.model.music.Album;
 import com.dmitryshundrik.knowledgebase.model.music.Composition;
-import com.dmitryshundrik.knowledgebase.model.music.Musician;
+import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianEntityUpdateInfoDTO;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
@@ -94,12 +94,10 @@ public class EntityUpdateInfoService {
         allUpdateInfo.addAll(getResourcesUpdates());
 
         Instant instant = Instant.now().minus(settingService.getTimeIntervalForUpdates(), ChronoUnit.DAYS);
-        for (EntityUpdateInfo entityUpdateInfo : allUpdateInfo) {
-            entityUpdateInfo.setNew(entityUpdateInfo.getCreated().isAfter(instant));
-        }
 
         for (EntityUpdateInfo entityUpdateInfo : allUpdateInfo) {
             entityUpdateInfo.setTimeStamp(InstantFormatter.instantFormatterYMDHMS(entityUpdateInfo.getCreated()));
+            entityUpdateInfo.setNew(entityUpdateInfo.getCreated().isAfter(instant));
         }
 
         return allUpdateInfo.stream()
@@ -110,13 +108,13 @@ public class EntityUpdateInfoService {
 
     private List<EntityUpdateInfo> getMusicianUpdates() {
         List<EntityUpdateInfo> musicianUpdateInfo = new ArrayList<>();
-        List<Musician> latestUpdate = musicianService.getLatestUpdate();
-        for (Musician musician : latestUpdate) {
+        List<MusicianEntityUpdateInfoDTO> latestUpdate = musicianService.getLatestUpdate();
+        for (MusicianEntityUpdateInfoDTO musicianDTO : latestUpdate) {
             musicianUpdateInfo.add(EntityUpdateInfo.builder()
-                    .created(musician.getCreated())
+                    .created(musicianDTO.getCreated())
                     .archiveSection("музыка:")
-                    .description("музыкант " + musician.getNickName())
-                    .link("music/musician/" + musician.getSlug())
+                    .description("музыкант " + musicianDTO.getNickName())
+                    .link("music/musician/" + musicianDTO.getSlug())
                     .build());
         }
         return musicianUpdateInfo;
@@ -180,8 +178,8 @@ public class EntityUpdateInfoService {
 
     private List<EntityUpdateInfo> getWriterUpdates() {
         List<EntityUpdateInfo> writerUpdateInfo = new ArrayList<>();
-        List<Writer> latestUpdate = writerService.getLatestUpdate();
-        for (Writer writer : latestUpdate) {
+        List<WriterEntityUpdateInfoDTO> latestUpdate = writerService.getLatestUpdate();
+        for (WriterEntityUpdateInfoDTO writer : latestUpdate) {
             writerUpdateInfo.add(EntityUpdateInfo.builder()
                     .created(writer.getCreated())
                     .archiveSection("литература:")

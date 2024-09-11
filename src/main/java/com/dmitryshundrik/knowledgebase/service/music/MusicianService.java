@@ -320,7 +320,7 @@ public class MusicianService {
         return message;
     }
 
-    public List<Musician> getLatestUpdate() {
+    public List<MusicianEntityUpdateInfoDTO> getLatestUpdate() {
         return musicianRepository.findFirst20ByOrderByCreatedDesc();
     }
 
