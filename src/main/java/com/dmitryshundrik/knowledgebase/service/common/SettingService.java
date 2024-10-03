@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.LIMIT_FOR_UPDATES;
+import static com.dmitryshundrik.knowledgebase.util.Constants.TIME_INTERVAL_FOR_UPDATES;
+
 @Service
 @Transactional
 public class SettingService {
@@ -50,7 +53,7 @@ public class SettingService {
 
     public List<SettingViewDTO> getSettingViewDTOList(List<Setting> settingList) {
         return settingList.stream()
-                .map(setting -> getSettingViewDTO(setting))
+                .map(this::getSettingViewDTO)
                 .collect(Collectors.toList());
     }
 
@@ -63,11 +66,11 @@ public class SettingService {
     }
 
     public Integer getTimeIntervalForUpdates() {
-        return Integer.valueOf(settingRepository.getByName("TIME_INTERVAL_FOR_UPDATES").getValue());
+        return Integer.valueOf(settingRepository.getByName(TIME_INTERVAL_FOR_UPDATES).getValue());
     }
 
     public Integer getLimitForUpdates() {
-        return Integer.valueOf(settingRepository.getByName("LIMIT_FOR_UPDATES").getValue());
+        return Integer.valueOf(settingRepository.getByName(LIMIT_FOR_UPDATES).getValue());
     }
 
     public void deleteSettingById(String settingId) {

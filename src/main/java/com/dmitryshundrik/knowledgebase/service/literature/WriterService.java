@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
+
 @Service
 @Transactional
 public class WriterService {
@@ -159,7 +161,7 @@ public class WriterService {
     public String writerSlugIsExist(String writerSlug) {
         String message = "";
         if (getBySlug(writerSlug) != null) {
-            message = "slug is already exist";
+            message = SLUG_IS_ALREADY_EXIST;
         }
         return message;
     }

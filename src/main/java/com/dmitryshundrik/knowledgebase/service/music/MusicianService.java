@@ -143,6 +143,20 @@ public class MusicianService {
                 .limit(10).collect(Collectors.toList());
     }
 
+//    public MusicianAllDto getMusicianAllDto(Musician musician) {
+//        return MusicianAllDto.builder()
+//                .slug(musician.getSlug())
+//                .nickName(musician.getNickName())
+//                .born(musician.getBorn())
+//                .founded(musician.getFounded())
+//                .musicGenres(getSortedMusicGenresByMusician(musician))
+//                .build();
+//    }
+
+    public List<MusicianAllDto> getAllMusicianAllDto() {
+        return musicianRepository.getAllMusicianAllDto();
+    }
+
     public MusicianViewDTO createMusician(MusicianCreateEditDTO musicianDTO) {
         Musician musician = new Musician();
         musician.setCreated(Instant.now());

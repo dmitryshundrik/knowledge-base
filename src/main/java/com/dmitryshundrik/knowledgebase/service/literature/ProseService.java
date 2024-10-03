@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
+
 @Service
 @Transactional
 public class ProseService {
@@ -170,7 +172,7 @@ public class ProseService {
     public String proseSlugIsExist(String proseSlug) {
         String message = "";
         if (getBySlug(proseSlug) != null) {
-            message = "slug is already exist";
+            message = SLUG_IS_ALREADY_EXIST;
         }
         return message;
     }

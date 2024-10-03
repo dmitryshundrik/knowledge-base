@@ -8,5 +8,4 @@ public class DateTime {
     public static String getCurrentYear() {
         return String.valueOf(LocalDateTime.now().getYear());
     }
-
 }

@@ -69,7 +69,6 @@ public class LiteraturePageController {
     public String getWriterAllQuotes(@PathVariable String slug, Model model) {
         Writer writerBySlug = writerService.getBySlug(slug);
         WriterViewDTO writerViewDTO = writerService.getWriterViewDTO(writerBySlug);
-        List<Quote> allByWriterSortedByYearAndPage = quoteService.getAllByWriterSortedByYearAndPage(writerBySlug);
         List<Quote> allByWriterSortedByCreatedDesc = quoteService.getAllByWriterSortedByCreatedDesc(writerBySlug);
         List<QuoteViewDTO> quoteViewDTOList = quoteService.getQuoteViewDTOList(allByWriterSortedByCreatedDesc);
         model.addAttribute("quoteList", quoteViewDTOList);

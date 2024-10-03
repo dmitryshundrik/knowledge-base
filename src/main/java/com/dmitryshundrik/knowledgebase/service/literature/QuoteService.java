@@ -43,8 +43,8 @@ public class QuoteService {
     public List<Quote> getAllByWriterSortedByYearAndPage(Writer writer) {
         List<Quote> allQuotes = quoteRepository.findAllByWriter(writer);
         List<Prose> allSortedProse = allQuotes.stream()
-                .filter(quote -> quote.getProse() != null)
-                .map(Quote::getProse).distinct()
+                .map(Quote::getProse)
+                .filter(Objects::nonNull).distinct()
                 .sorted(Comparator.comparing(Prose::getYear)).collect(Collectors.toList());
 
         List<Quote> allSortedQuotes = new ArrayList<>();

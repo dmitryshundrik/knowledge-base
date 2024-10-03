@@ -33,14 +33,14 @@
                     <a th:text="${musician.nickName}" th:href="'/music/musician/' + ${musician.slug}"></a>
                 </span>
                 <span class="table-body-item-col">
-                    <span th:each="genre : ${musician.musicGenres}">
-                        <span class="column-genre" th:if="${genreStat.index + 1  < musician.musicGenres.size}"
-                              th:text="${genre.title} + ', '">
-                        </span>
-                        <span class="column-genre" th:if="${genreStat.index + 1  == musician.musicGenres.size}"
-                              th:text="${genre.title}">
-                        </span>
-                    </span>
+<!--                    <span th:each="genre : ${musician.musicGenres}">-->
+<!--                        <span class="column-genre" th:if="${genreStat.index + 1  < musician.musicGenres.size}"-->
+<!--                              th:text="${genre.title} + ', '">-->
+<!--                        </span>-->
+<!--                        <span class="column-genre" th:if="${genreStat.index + 1  == musician.musicGenres.size}"-->
+<!--                              th:text="${genre.title}">-->
+<!--                        </span>-->
+<!--                    </span>-->
                 </span>
             </section>
         </article>

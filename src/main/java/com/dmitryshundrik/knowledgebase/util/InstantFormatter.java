@@ -26,5 +26,4 @@ public class InstantFormatter {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PATTERN_DMY).withZone(ZoneId.systemDefault());
         return instant == null ? "" : formatter.format(instant);
     }
-
 }

@@ -70,7 +70,7 @@ public class SpotifyIntegrationService {
 
     private String refreshToken;
 
-    private RefreshTokenRepository refreshTokenRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     private final MusicianService musicianService;
 

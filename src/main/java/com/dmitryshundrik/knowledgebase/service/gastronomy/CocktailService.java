@@ -13,6 +13,8 @@ import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
+
 @Service
 @Transactional
 public class CocktailService {
@@ -102,7 +104,7 @@ public class CocktailService {
     public String cocktailSlugIsExist(String cocktailSlug) {
         String message = "";
         if (getBySlug(cocktailSlug) != null) {
-            message = "slug is already exist";
+            message = SLUG_IS_ALREADY_EXIST;
         }
         return message;
     }

@@ -20,5 +20,4 @@ public class MusicianDTOTransformer {
     public static List<MusicianSelectDTO> getMusicianSelectDTOList(List<Musician> musicianList) {
         return musicianList.stream().map(MusicianDTOTransformer::getMusicianSelectDTO).collect(Collectors.toList());
     }
-
 }

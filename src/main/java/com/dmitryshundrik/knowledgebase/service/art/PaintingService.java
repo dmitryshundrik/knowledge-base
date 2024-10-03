@@ -16,6 +16,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
+
 @Service
 @Transactional
 public class PaintingService {
@@ -136,7 +138,7 @@ public class PaintingService {
     public String paintingSlugIsExist(String paintingSlug) {
         String message = "";
         if (getBySlug(paintingSlug) != null) {
-            message = "slug is already exist";
+            message = SLUG_IS_ALREADY_EXIST;
         }
         return message;
     }

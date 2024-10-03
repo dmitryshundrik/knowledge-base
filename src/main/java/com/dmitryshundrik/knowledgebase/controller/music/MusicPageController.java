@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.music.*;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicPeriodViewDTO;
+import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianAllDto;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
@@ -91,14 +92,8 @@ public class MusicPageController {
 
     @GetMapping("/musician/all")
     public String getAllMusicians(Model model) {
-        List<Musician> sortedMusicians = musicianService.getAllMusiciansSortedByBorn();
-        List<MusicianViewDTO> musicianViewDTOList = musicianService.getMusicianViewDTOList(sortedMusicians);
-        for (MusicianViewDTO musicianViewDTO : musicianViewDTOList) {
-            musicianViewDTO.setMusicGenres(musicianViewDTO
-                    .getMusicGenres()
-                    .subList(0, Math.min(musicianViewDTO.getMusicGenres().size(), 5)));
-        }
-        model.addAttribute("musicians", musicianViewDTOList);
+        List<MusicianAllDto> allMusicianAllDto = musicianService.getAllMusicianAllDto();
+        model.addAttribute("musicians", allMusicianAllDto);
         return "music/musician-all";
     }
 
@@ -201,5 +196,4 @@ public class MusicPageController {
         }
         return "music/music-genre";
     }
-
 }

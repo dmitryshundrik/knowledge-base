@@ -17,6 +17,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.UNKNOWN;
+
 @Service
 @Transactional
 public class ArtistService {
@@ -47,7 +50,7 @@ public class ArtistService {
 
     public List<Artist> unknownFilter(List<Artist> artistList) {
         return artistList.stream()
-                .filter(artist -> !Objects.equals(artist.getSlug(), "unknown"))
+                .filter(artist -> !Objects.equals(artist.getSlug(), UNKNOWN))
                 .collect(Collectors.toList());
     }
 
@@ -154,7 +157,7 @@ public class ArtistService {
     public String artistSlugIsExist(String artistSlug) {
         String message = "";
         if (getBySlug(artistSlug) != null) {
-            message = "slug is already exist";
+            message = SLUG_IS_ALREADY_EXIST;
         }
         return message;
     }

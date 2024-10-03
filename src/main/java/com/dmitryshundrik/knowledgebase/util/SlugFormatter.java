@@ -9,5 +9,4 @@ public class SlugFormatter {
         formattedSlug = formattedSlug.toLowerCase();
         return formattedSlug;
     }
-
 }
