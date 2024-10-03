@@ -4,7 +4,6 @@ import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import javax.persistence.*;
 
 @Entity
@@ -31,5 +30,4 @@ public class MusicGenre extends AbstractEntity {
 
     @Column(name = "DESCRIPTION", columnDefinition = "text")
     private String description;
-
 }

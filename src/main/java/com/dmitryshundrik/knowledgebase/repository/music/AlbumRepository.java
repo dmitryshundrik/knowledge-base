@@ -5,7 +5,6 @@ import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -32,5 +31,4 @@ public interface AlbumRepository extends JpaRepository<Album, UUID> {
 
     @Query("FROM Album WHERE year > :start AND year < :end AND rating is not null")
     List<Album> getAllBy2010s(Integer start, Integer end);
-
 }

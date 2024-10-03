@@ -1,5 +1,8 @@
 package com.dmitryshundrik.knowledgebase.model.common.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum EraType {
 
     BEFORE_COMMON("До нашей эры"), COMMON("Наша эра");
@@ -9,9 +12,4 @@ public enum EraType {
     EraType(String label) {
         this.label = label;
     }
-
-    public String getLabel() {
-        return label;
-    }
-
 }

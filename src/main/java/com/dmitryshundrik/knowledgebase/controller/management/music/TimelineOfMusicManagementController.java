@@ -59,5 +59,4 @@ public class TimelineOfMusicManagementController {
         timelineEventService.deleteTimelineEvent(eventId);
         return "redirect:/management/timeline-of-music/event/all";
     }
-
 }

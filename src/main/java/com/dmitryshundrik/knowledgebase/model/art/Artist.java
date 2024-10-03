@@ -5,7 +5,6 @@ import com.dmitryshundrik.knowledgebase.model.common.PersonEvent;
 import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -68,5 +67,4 @@ public class Artist extends AbstractEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "artist")
     @OrderBy("created")
     private List<Painting> paintingList;
-
 }

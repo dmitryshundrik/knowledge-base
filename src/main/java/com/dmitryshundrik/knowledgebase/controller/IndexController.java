@@ -76,5 +76,4 @@ public class IndexController {
     public String getCurrentSongName() {
         return spotifyIntegrationService.getCurrentSong();
     }
-
 }

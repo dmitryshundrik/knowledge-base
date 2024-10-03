@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Controller
@@ -59,5 +58,4 @@ public class ResourcesManagementController {
         resourcesService.deleteResource(resourceId);
         return "redirect:/management/resource/all";
     }
-
 }

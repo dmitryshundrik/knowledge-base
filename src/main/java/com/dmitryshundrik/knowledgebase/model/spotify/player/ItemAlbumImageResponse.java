@@ -10,5 +10,4 @@ public class ItemAlbumImageResponse {
 
     @JsonProperty("url")
     private String url;
-
 }

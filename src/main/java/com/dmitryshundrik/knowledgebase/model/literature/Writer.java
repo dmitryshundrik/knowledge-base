@@ -5,7 +5,6 @@ import com.dmitryshundrik.knowledgebase.model.common.PersonEvent;
 import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.*;
@@ -68,5 +67,4 @@ public class Writer extends AbstractEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "writer")
     @OrderBy("created")
     private List<Word> wordList;
-
 }

@@ -38,5 +38,4 @@ public class YearInMusicViewDTO {
     private String sotyListDescription;
 
     private String sotySpotifyLink;
-
 }

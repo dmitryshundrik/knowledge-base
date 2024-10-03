@@ -5,11 +5,10 @@ import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import static com.dmitryshundrik.knowledgebase.util.Constants.DATE_FORMAT_YMD;
 
 @Data
 @Builder
@@ -33,10 +32,10 @@ public class WriterViewDTO {
 
     private Integer died;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = DATE_FORMAT_YMD)
     private LocalDate birthDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = DATE_FORMAT_YMD)
     private LocalDate deathDate;
 
     private String birthplace;
@@ -50,5 +49,4 @@ public class WriterViewDTO {
     private List<QuoteViewDTO> quoteList;
 
     private List<WordDTO> wordList;
-
 }

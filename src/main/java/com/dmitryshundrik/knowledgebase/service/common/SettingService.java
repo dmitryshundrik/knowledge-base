@@ -7,7 +7,6 @@ import com.dmitryshundrik.knowledgebase.repository.common.SettingRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -77,5 +76,4 @@ public class SettingService {
         Setting byId = getById(settingId);
         settingRepository.delete(byId);
     }
-
 }

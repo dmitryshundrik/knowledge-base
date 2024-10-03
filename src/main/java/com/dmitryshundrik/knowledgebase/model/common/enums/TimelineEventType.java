@@ -1,5 +1,8 @@
 package com.dmitryshundrik.knowledgebase.model.common.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum TimelineEventType {
 
     MUSIC("Музыка"), LITERATURE("Литература"), PAINTING("Живопись");
@@ -8,10 +11,6 @@ public enum TimelineEventType {
 
     TimelineEventType(String label) {
         this.label = label;
-    }
-
-    public String getLabel() {
-        return label;
     }
 
 }

@@ -18,5 +18,4 @@ public class PaintingStyleViewDTO {
     private String count;
 
     private String description;
-
 }

@@ -11,7 +11,6 @@ import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -264,5 +263,4 @@ public class CompositionService {
     public List<Composition> getLatestUpdate() {
         return compositionRepository.findFirst20ByOrderByCreatedDesc();
     }
-
 }

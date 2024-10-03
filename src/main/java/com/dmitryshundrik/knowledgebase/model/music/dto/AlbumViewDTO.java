@@ -3,7 +3,6 @@ package com.dmitryshundrik.knowledgebase.model.music.dto;
 import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
 import lombok.Builder;
 import lombok.Data;
-
 import java.util.List;
 
 @Data

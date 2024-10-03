@@ -4,7 +4,6 @@ import com.dmitryshundrik.knowledgebase.model.common.dto.ImageDTO;
 import com.dmitryshundrik.knowledgebase.model.common.enums.Country;
 import lombok.Builder;
 import lombok.Data;
-
 import java.util.List;
 
 @Data
@@ -26,5 +25,4 @@ public class RecipeViewDTO {
     private String method;
 
     private List<ImageDTO> imageList;
-
 }

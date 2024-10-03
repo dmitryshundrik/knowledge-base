@@ -5,7 +5,6 @@ import com.dmitryshundrik.knowledgebase.model.common.dto.ArticleDTO;
 import com.dmitryshundrik.knowledgebase.repository.common.ArticleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.UUID;
 
 @Service
@@ -30,5 +29,4 @@ public class ArticleService {
                 .description(article.getDescription())
                 .build();
     }
-
 }

@@ -4,7 +4,6 @@ import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import com.dmitryshundrik.knowledgebase.model.common.Image;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -54,5 +53,4 @@ public class Painting extends AbstractEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Image image;
-
 }

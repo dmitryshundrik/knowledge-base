@@ -5,10 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.UUID;
+
+import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_MUST_NOT_BE_BLANK;
+import static com.dmitryshundrik.knowledgebase.util.Constants.TITLE_MUST_NOT_BE_BLANK;
 
 @Data
 @Builder
@@ -16,10 +18,10 @@ import java.util.UUID;
 @NoArgsConstructor
 public class AlbumCreateEditDTO {
 
-    @NotBlank(message = "slug may not be blank")
+    @NotBlank(message = SLUG_MUST_NOT_BE_BLANK)
     private String slug;
 
-    @NotBlank(message = "title may not be blank")
+    @NotBlank(message = TITLE_MUST_NOT_BE_BLANK)
     private String title;
 
     private String catalogNumber;
@@ -51,5 +53,4 @@ public class AlbumCreateEditDTO {
     private String description;
 
     private List<CompositionViewDTO> compositions;
-
 }

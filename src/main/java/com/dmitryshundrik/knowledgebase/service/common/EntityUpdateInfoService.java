@@ -25,7 +25,6 @@ import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -261,5 +260,4 @@ public class EntityUpdateInfoService {
         }
         return quoteUpdateInfo;
     }
-
 }

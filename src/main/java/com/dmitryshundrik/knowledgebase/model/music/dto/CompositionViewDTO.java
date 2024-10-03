@@ -1,10 +1,8 @@
 package com.dmitryshundrik.knowledgebase.model.music.dto;
 
 import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import lombok.Builder;
 import lombok.Data;
-
 import java.util.List;
 
 @Data
@@ -48,5 +46,4 @@ public class CompositionViewDTO {
     private String lyrics;
 
     private String translation;
-
 }

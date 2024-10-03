@@ -5,7 +5,6 @@ import com.dmitryshundrik.knowledgebase.model.common.enums.EraType;
 import com.dmitryshundrik.knowledgebase.model.common.enums.TimelineEventType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import javax.persistence.*;
 
 @Entity
@@ -33,5 +32,4 @@ public class TimelineEvent extends AbstractEntity {
 
     @Column(name = "DESCRIPTION", columnDefinition = "text")
     private String description;
-
 }

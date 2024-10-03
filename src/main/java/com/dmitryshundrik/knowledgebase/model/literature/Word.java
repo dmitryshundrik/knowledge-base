@@ -3,7 +3,6 @@ package com.dmitryshundrik.knowledgebase.model.literature;
 import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import javax.persistence.*;
 
 @Entity
@@ -20,5 +19,4 @@ public class Word extends AbstractEntity {
 
     @Column(name = "DESCRIPTION", columnDefinition = "text")
     private String description;
-
 }

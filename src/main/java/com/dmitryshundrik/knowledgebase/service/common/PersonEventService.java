@@ -7,7 +7,6 @@ import com.dmitryshundrik.knowledgebase.repository.common.PersonEventRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
@@ -73,5 +72,4 @@ public class PersonEventService {
         personEvent.setTitle(personEventDTO.getTitle());
         personEvent.setDescription(personEventDTO.getDescription());
     }
-
 }

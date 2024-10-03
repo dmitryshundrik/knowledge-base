@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.repository.common.ResourcesRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
@@ -82,5 +81,4 @@ public class ResourcesService {
     public List<Resource> getLatestUpdate() {
         return resourcesRepository.findFirst20ByOrderByCreatedDesc();
     }
-
 }

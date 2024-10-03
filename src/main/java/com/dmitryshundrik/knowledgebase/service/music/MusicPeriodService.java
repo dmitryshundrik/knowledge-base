@@ -7,7 +7,6 @@ import com.dmitryshundrik.knowledgebase.repository.music.MusicPeriodRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
@@ -107,5 +106,4 @@ public class MusicPeriodService {
         }
         return message;
     }
-
 }

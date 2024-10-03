@@ -10,5 +10,4 @@ public class ActionsDisallowsResponse {
 
     @JsonProperty("pausing")
     private boolean pausing;
-
 }

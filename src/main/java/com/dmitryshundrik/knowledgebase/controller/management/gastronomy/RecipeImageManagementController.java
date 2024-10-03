@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 
 @Controller
@@ -24,7 +23,6 @@ public class RecipeImageManagementController {
         this.imageService = imageService;
         this.recipeService = recipeService;
     }
-
 
     @GetMapping("/management/recipe/edit/{recipeSlug}/image/create")
     public String getRecipeImageCreate(Model model, @PathVariable String recipeSlug) {
@@ -77,5 +75,4 @@ public class RecipeImageManagementController {
         imageService.deleteFile(imageSlug);
         return "redirect:/management/recipe/edit/" + recipeSlug + "/image/edit/" + imageSlug;
     }
-
 }

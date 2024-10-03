@@ -13,5 +13,4 @@ public class PaintingStyleService {
     public PaintingStyleService(PaintingStyleRepository paintingStyleRepository) {
         this.paintingStyleRepository = paintingStyleRepository;
     }
-
 }

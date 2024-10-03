@@ -12,5 +12,4 @@ public class MusicianSelectDTO {
     private String slug;
 
     private String nickName;
-
 }

@@ -4,7 +4,6 @@ import com.dmitryshundrik.knowledgebase.model.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -34,5 +33,4 @@ public interface CompositionRepository extends JpaRepository<Composition, UUID> 
     List<Integer> getAllYearsFromCompositions();
 
     List<Composition> getAllByYear(Integer year);
-
 }

@@ -1,5 +1,8 @@
 package com.dmitryshundrik.knowledgebase.model.music.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum SortType {
 
     CATALOGUE_NUMBER("Номер каталога"), YEAR("Год"), RATING("Рейтинг"), CREATED("Создан");
@@ -9,9 +12,4 @@ public enum SortType {
     SortType(String label) {
         this.label = label;
     }
-
-    public String getLabel() {
-        return label;
-    }
-
 }

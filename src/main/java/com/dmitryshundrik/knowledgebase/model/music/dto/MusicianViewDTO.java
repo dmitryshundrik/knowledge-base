@@ -7,9 +7,10 @@ import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDate;
 import java.util.List;
+
+import static com.dmitryshundrik.knowledgebase.util.Constants.DATE_FORMAT_YMD;
 
 @Data
 @Builder
@@ -37,10 +38,10 @@ public class MusicianViewDTO {
 
     private Integer founded;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = DATE_FORMAT_YMD)
     private LocalDate birthDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = DATE_FORMAT_YMD)
     private LocalDate deathDate;
 
     private String birthplace;
@@ -68,5 +69,4 @@ public class MusicianViewDTO {
     private List<CompositionViewDTO> compositions;
 
     private List<CompositionViewDTO> essentialCompositions;
-
 }

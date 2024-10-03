@@ -8,7 +8,6 @@ import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -112,5 +111,4 @@ public class CocktailService {
     public List<Cocktail> getLatestUpdate() {
         return cocktailRepository.findFirst20ByOrderByCreatedDesc();
     }
-
 }

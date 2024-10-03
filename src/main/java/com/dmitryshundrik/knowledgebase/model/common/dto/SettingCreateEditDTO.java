@@ -16,5 +16,4 @@ public class SettingCreateEditDTO {
     private String name;
 
     private String value;
-
 }

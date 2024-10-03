@@ -3,7 +3,6 @@ package com.dmitryshundrik.knowledgebase.model.music;
 import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import javax.persistence.*;
 
 @Entity
@@ -29,5 +28,4 @@ public class MusicPeriod extends AbstractEntity {
 
     @Column(name = "DESCRIPTION", columnDefinition = "text")
     private String description;
-
 }

@@ -5,9 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.validation.constraints.NotBlank;
 import java.util.List;
+
+import static com.dmitryshundrik.knowledgebase.util.Constants.NICKNAME_MUST_NOT_BE_BLANK;
+import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_MUST_NOT_BE_BLANK;
 
 @Data
 @Builder
@@ -15,10 +17,10 @@ import java.util.List;
 @NoArgsConstructor
 public class PaintingCreateEditDTO {
 
-    @NotBlank(message = "slug may not be blank")
+    @NotBlank(message = SLUG_MUST_NOT_BE_BLANK)
     private String slug;
 
-    @NotBlank(message = "nickname may not be blank")
+    @NotBlank(message = NICKNAME_MUST_NOT_BE_BLANK)
     private String title;
 
     private String artistNickname;
@@ -42,5 +44,4 @@ public class PaintingCreateEditDTO {
     private String description;
 
     private ImageDTO image;
-
 }

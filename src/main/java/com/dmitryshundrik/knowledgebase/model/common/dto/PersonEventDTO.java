@@ -4,8 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.validation.constraints.NotBlank;
+
+import static com.dmitryshundrik.knowledgebase.util.Constants.DESCRIPTION_MUST_NOT_BE_BLANK;
 
 @Data
 @Builder
@@ -23,7 +24,6 @@ public class PersonEventDTO {
 
     private String title;
 
-    @NotBlank(message = "description may not be blank")
+    @NotBlank(message = DESCRIPTION_MUST_NOT_BE_BLANK)
     private String description;
-
 }

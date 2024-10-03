@@ -20,5 +20,4 @@ public class FoundationDTO {
     private String description;
 
     private String link;
-
 }

@@ -10,5 +10,4 @@ public class UserSignupDTO {
     private String username;
 
     private String password;
-
 }

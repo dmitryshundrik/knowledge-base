@@ -10,7 +10,6 @@ import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -205,5 +204,4 @@ public class CurrentEventService {
         }
         return dateDD + " " + dateMonth + " " + dateYYYY;
     }
-
 }

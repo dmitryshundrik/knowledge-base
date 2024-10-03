@@ -14,5 +14,4 @@ public class Encryption {
     private String key;
 
     private String result;
-
 }

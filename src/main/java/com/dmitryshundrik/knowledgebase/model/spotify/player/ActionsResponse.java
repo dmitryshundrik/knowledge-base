@@ -10,5 +10,4 @@ public class ActionsResponse {
 
     @JsonProperty("disallows")
     private ActionsDisallowsResponse actionsDisallowsResponse;
-
 }

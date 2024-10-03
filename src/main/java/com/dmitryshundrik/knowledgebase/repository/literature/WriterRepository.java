@@ -4,7 +4,6 @@ import com.dmitryshundrik.knowledgebase.model.literature.Writer;
 import com.dmitryshundrik.knowledgebase.model.literature.dto.WriterEntityUpdateInfoDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -26,5 +25,4 @@ public interface WriterRepository extends JpaRepository<Writer, UUID> {
     List<Writer> findAllWithCurrentDeath(LocalDate date);
 
     List<Writer> findAllByOrderByBorn();
-
 }

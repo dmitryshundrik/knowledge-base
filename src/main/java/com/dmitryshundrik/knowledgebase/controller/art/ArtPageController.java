@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +27,7 @@ public class ArtPageController {
         this.paintingService = paintingService;
     }
 
-    @GetMapping()
+    @GetMapping
     public String getArtPage() {
         return "art/art-page";
     }
@@ -94,5 +93,4 @@ public class ArtPageController {
         //
         return "art/theatre-all";
     }
-
 }

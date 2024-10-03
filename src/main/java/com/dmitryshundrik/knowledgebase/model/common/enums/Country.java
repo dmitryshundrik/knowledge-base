@@ -1,5 +1,8 @@
 package com.dmitryshundrik.knowledgebase.model.common.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum Country {
 
     RUSSIA("Россия", "russia"),
@@ -9,17 +12,8 @@ public enum Country {
 
     private final String slug;
 
-
     Country(String label, String slug) {
         this.label = label;
         this.slug = slug;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public String getSlug() {
-        return slug;
     }
 }

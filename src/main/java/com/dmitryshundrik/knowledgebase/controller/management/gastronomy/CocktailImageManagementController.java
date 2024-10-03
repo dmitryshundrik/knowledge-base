@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 
 @Controller
@@ -76,5 +75,4 @@ public class CocktailImageManagementController {
         imageService.deleteFile(imageSlug);
         return "redirect:/management/cocktail/edit/" + cocktailSlug + "/image/edit/" + imageSlug;
     }
-
 }

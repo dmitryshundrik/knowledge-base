@@ -4,7 +4,6 @@ import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import com.dmitryshundrik.knowledgebase.model.common.Image;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -32,5 +31,4 @@ public class Cocktail extends AbstractEntity {
     @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("created")
     private List<Image> imageList;
-
 }

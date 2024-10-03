@@ -18,5 +18,4 @@ public class SettingViewDTO {
     String name;
 
     String value;
-
 }

@@ -2,8 +2,6 @@ package com.dmitryshundrik.knowledgebase.model.literature.dto;
 
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -31,5 +29,4 @@ public class ProseViewDTO {
     private String description;
 
     private List<QuoteViewDTO> quoteList;
-
 }

@@ -9,7 +9,6 @@ import com.dmitryshundrik.knowledgebase.repository.literature.QuoteRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -129,5 +128,4 @@ public class QuoteService {
     public List<Quote> getLatestUpdate() {
         return quoteRepository.findFirst20ByOrderByCreatedDesc();
     }
-
 }

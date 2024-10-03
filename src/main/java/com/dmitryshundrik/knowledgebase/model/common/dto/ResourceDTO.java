@@ -20,5 +20,4 @@ public class ResourceDTO {
     private String description;
 
     private String link;
-
 }

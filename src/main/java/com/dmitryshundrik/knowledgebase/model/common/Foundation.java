@@ -3,7 +3,6 @@ package com.dmitryshundrik.knowledgebase.model.common;
 import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import javax.persistence.*;
 
 @Entity
@@ -20,5 +19,4 @@ public class Foundation extends AbstractEntity {
 
     @Column(name = "LINK", columnDefinition = "text")
     private String link;
-
 }

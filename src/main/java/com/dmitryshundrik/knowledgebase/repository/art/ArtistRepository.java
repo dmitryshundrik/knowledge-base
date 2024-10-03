@@ -3,7 +3,6 @@ package com.dmitryshundrik.knowledgebase.repository.art;
 import com.dmitryshundrik.knowledgebase.model.art.Artist;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -23,5 +22,4 @@ public interface ArtistRepository extends JpaRepository<Artist, UUID> {
 
     @Query(value = "select * from artist where extract( month from death_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) and extract( day from death_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)
     List<Artist> findAllWithCurrentDeath(LocalDate date);
-
 }

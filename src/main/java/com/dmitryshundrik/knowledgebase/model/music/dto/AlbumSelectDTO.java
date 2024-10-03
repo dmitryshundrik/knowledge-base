@@ -10,5 +10,4 @@ public class AlbumSelectDTO {
     private String id;
 
     private String title;
-
 }

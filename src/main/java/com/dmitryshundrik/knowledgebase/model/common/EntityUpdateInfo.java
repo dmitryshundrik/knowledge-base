@@ -2,7 +2,6 @@ package com.dmitryshundrik.knowledgebase.model.common;
 
 import lombok.Builder;
 import lombok.Data;
-
 import java.time.Instant;
 
 @Data
@@ -20,5 +19,4 @@ public class EntityUpdateInfo {
     private boolean isNew;
 
     private String link;
-
 }

@@ -10,8 +10,6 @@ import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-
 import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
@@ -180,5 +178,4 @@ public class ProseService {
     public List<Prose> getLatestUpdate() {
         return proseRepository.findFirst20ByOrderByCreatedDesc();
     }
-
 }

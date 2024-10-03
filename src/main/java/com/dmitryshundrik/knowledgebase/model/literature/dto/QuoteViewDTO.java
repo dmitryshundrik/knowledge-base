@@ -28,5 +28,4 @@ public class QuoteViewDTO {
     private String description;
 
     private String descriptionHtml;
-
 }

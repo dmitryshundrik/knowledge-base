@@ -68,5 +68,4 @@ public class ManagementPageController {
         model.addAttribute("paintingCount", paintingService.getAll().size());
         return "management/management-page";
     }
-
 }

@@ -13,5 +13,4 @@ public class SotyPair {
     private boolean firstResult;
 
     private boolean secondResult;
-
 }

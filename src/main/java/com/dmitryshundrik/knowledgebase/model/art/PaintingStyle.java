@@ -3,7 +3,6 @@ package com.dmitryshundrik.knowledgebase.model.art;
 import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import javax.persistence.*;
 
 @Entity
@@ -26,5 +25,4 @@ public class PaintingStyle extends AbstractEntity {
 
     @Column(name = "DESCRIPTION", columnDefinition = "text")
     private String description;
-
 }

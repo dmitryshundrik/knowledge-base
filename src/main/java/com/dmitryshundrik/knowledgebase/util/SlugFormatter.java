@@ -1,6 +1,5 @@
 package com.dmitryshundrik.knowledgebase.util;
 
-
 public class SlugFormatter {
 
     public static String slugFormatter(String slug) {

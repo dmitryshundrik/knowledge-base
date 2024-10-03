@@ -7,12 +7,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import static com.dmitryshundrik.knowledgebase.util.Constants.*;
 
 @Data
 @Builder
@@ -20,10 +19,10 @@ import java.util.Map;
 @NoArgsConstructor
 public class WriterCreateEditDTO {
 
-    @NotBlank(message = "slug may not be blank")
+    @NotBlank(message = SLUG_MUST_NOT_BE_BLANK)
     private String slug;
 
-    @NotBlank(message = "nickname may not be blank")
+    @NotBlank(message = NICKNAME_MUST_NOT_BE_BLANK)
     private String nickName;
 
     private String firstName;
@@ -38,10 +37,10 @@ public class WriterCreateEditDTO {
 
     private Integer died;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = DATE_FORMAT_YMD)
     private LocalDate birthDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = DATE_FORMAT_YMD)
     private LocalDate deathDate;
 
     private String birthplace;
@@ -55,5 +54,4 @@ public class WriterCreateEditDTO {
     private List<QuoteViewDTO> quoteList;
 
     private List<WordDTO> wordList;
-
 }

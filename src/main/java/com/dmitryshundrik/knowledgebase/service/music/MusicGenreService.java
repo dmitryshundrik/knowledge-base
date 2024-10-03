@@ -10,7 +10,6 @@ import com.dmitryshundrik.knowledgebase.repository.music.MusicGenreRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
@@ -142,5 +141,4 @@ public class MusicGenreService {
         }
         return message;
     }
-
 }

@@ -45,5 +45,4 @@ public class SitemapController {
             System.out.println(e.getMessage());
         }
     }
-
 }

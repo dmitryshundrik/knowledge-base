@@ -4,7 +4,6 @@ import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import com.dmitryshundrik.knowledgebase.model.common.Image;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -28,5 +27,4 @@ public class Museum extends AbstractEntity {
 
     @OneToMany
     private List<Image> imageList;
-
 }

@@ -1,7 +1,6 @@
 package com.dmitryshundrik.knowledgebase.model;
 
 import lombok.Data;
-
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.UUID;
@@ -17,5 +16,4 @@ public abstract class AbstractEntity {
 
     @Column(name = "CREATED")
     private Instant created;
-
 }

@@ -13,5 +13,4 @@ public class PlayerResponse {
 
     @JsonProperty("actions")
     private ActionsResponse actionsResponse;
-
 }

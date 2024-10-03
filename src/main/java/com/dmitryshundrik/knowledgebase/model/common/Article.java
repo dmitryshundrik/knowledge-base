@@ -3,8 +3,8 @@ package com.dmitryshundrik.knowledgebase.model.common;
 import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import javax.persistence.*;
+
 @Entity
 @Table(name = "article")
 @Data
@@ -16,5 +16,4 @@ public class Article extends AbstractEntity {
 
     @Column(name = "DESCRIPTION", columnDefinition = "text")
     private String description;
-
 }

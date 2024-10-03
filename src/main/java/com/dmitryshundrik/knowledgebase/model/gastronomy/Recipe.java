@@ -5,7 +5,6 @@ import com.dmitryshundrik.knowledgebase.model.common.Image;
 import com.dmitryshundrik.knowledgebase.model.common.enums.Country;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -37,5 +36,4 @@ public class Recipe extends AbstractEntity {
     @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("created")
     private List<Image> imageList;
-
 }

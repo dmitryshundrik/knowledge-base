@@ -20,5 +20,4 @@ public class MusicPeriodViewDTO {
     private Integer approximateEnd;
 
     private String description;
-
 }

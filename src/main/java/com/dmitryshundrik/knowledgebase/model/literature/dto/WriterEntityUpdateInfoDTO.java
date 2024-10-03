@@ -2,7 +2,6 @@ package com.dmitryshundrik.knowledgebase.model.literature.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
 import java.time.Instant;
 
 @AllArgsConstructor

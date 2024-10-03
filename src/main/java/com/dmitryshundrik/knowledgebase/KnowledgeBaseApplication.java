@@ -9,5 +9,4 @@ public class KnowledgeBaseApplication {
     public static void main(String[] args) {
         SpringApplication.run(KnowledgeBaseApplication.class, args);
     }
-
 }

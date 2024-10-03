@@ -1,6 +1,5 @@
 package com.dmitryshundrik.knowledgebase.controller.management;
 
-
 import com.dmitryshundrik.knowledgebase.model.common.Setting;
 import com.dmitryshundrik.knowledgebase.model.common.dto.SettingCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.common.dto.SettingViewDTO;
@@ -8,7 +7,6 @@ import com.dmitryshundrik.knowledgebase.service.common.SettingService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Controller
@@ -48,5 +46,4 @@ public class SettingManagementController {
         settingService.deleteSettingById(settingId);
         return "redirect:/management/setting/all";
     }
-
 }

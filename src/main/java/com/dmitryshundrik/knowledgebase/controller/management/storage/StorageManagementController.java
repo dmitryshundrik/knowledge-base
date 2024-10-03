@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Controller
@@ -34,5 +33,4 @@ public class StorageManagementController {
         byte[] bytes = javax.xml.bind.DatatypeConverter.parseBase64Binary(base64Image);
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(bytes);
     }
-
 }

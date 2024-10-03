@@ -9,7 +9,6 @@ import com.dmitryshundrik.knowledgebase.repository.common.ImageRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -129,5 +128,4 @@ public class ImageService {
         painting.setImage(null);
         deleteImage(imageSlug);
     }
-
 }

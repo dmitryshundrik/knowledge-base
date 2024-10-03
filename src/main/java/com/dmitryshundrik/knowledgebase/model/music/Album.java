@@ -3,7 +3,6 @@ package com.dmitryshundrik.knowledgebase.model.music;
 import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -57,5 +56,4 @@ public class Album extends AbstractEntity {
 
     @OneToMany(mappedBy = "album")
     private List<Composition> compositions;
-
 }

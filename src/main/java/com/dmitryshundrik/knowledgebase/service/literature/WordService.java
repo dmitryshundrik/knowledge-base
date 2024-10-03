@@ -7,7 +7,6 @@ import com.dmitryshundrik.knowledgebase.repository.literature.WordRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
@@ -84,5 +83,4 @@ public class WordService {
     public void deleteById(String wordId) {
         wordRepository.deleteById(UUID.fromString(wordId));
     }
-
 }

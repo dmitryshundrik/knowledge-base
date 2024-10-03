@@ -10,5 +10,4 @@ public class ProseSelectDTO {
     private String id;
 
     private String title;
-
 }

@@ -5,9 +5,10 @@ import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDate;
 import java.util.List;
+
+import static com.dmitryshundrik.knowledgebase.util.Constants.DATE_FORMAT_YMD;
 
 @Data
 @Builder
@@ -31,10 +32,10 @@ public class ArtistViewDTO {
 
     private Integer died;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = DATE_FORMAT_YMD)
     private LocalDate birthDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = DATE_FORMAT_YMD)
     private LocalDate deathDate;
 
     private String approximateYears;
@@ -46,5 +47,4 @@ public class ArtistViewDTO {
     private List<PersonEvent> events;
 
     private List<PaintingViewDTO> paintingList;
-
 }

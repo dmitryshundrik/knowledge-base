@@ -14,7 +14,6 @@ import com.dmitryshundrik.knowledgebase.util.MusicianDTOTransformer;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -244,5 +243,4 @@ public class AlbumService {
     public List<Album> getLatestUpdate() {
         return albumRepository.findFirst20ByOrderByCreatedDesc();
     }
-
 }

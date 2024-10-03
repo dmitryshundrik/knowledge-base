@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -97,5 +96,4 @@ public class Musician extends AbstractEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "musician")
     @OrderBy("created")
     private List<Composition> compositions;
-
 }

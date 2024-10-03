@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import java.util.List;
 
 @Controller
@@ -35,7 +34,7 @@ public class GastronomyPageController {
         this.articleService = articleService;
     }
 
-    @GetMapping()
+    @GetMapping
     public String getGastronomyPage(Model model) {
         List<RecipeViewDTO> recipeViewDTOList = recipeService.getRecipeViewDTOList(recipeService.getAll());
         List<CocktailViewDTO> cocktailDTOList = cocktailService.getCocktailViewDTOList(cocktailService.getAll());
@@ -93,5 +92,4 @@ public class GastronomyPageController {
         model.addAttribute("recipes", recipeViewDTOList);
         return "gastronomy/recipe-all-by-country";
     }
-
 }

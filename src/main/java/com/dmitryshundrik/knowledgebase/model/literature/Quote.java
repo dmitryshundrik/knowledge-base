@@ -3,7 +3,6 @@ package com.dmitryshundrik.knowledgebase.model.literature;
 import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import javax.persistence.*;
 
 @Entity
@@ -32,5 +31,4 @@ public class Quote extends AbstractEntity {
 
     @Column(name = "DESCRIPTION_HTML", columnDefinition = "text")
     private String descriptionHtml;
-
 }

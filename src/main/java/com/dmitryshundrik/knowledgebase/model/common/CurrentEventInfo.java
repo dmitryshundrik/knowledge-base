@@ -22,5 +22,4 @@ public class CurrentEventInfo {
     private String dateType;
 
     private String occupation;
-
 }

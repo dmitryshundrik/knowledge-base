@@ -22,5 +22,4 @@ public class ImageDTO {
     private String description;
 
     private String data;
-
 }

@@ -4,9 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import static com.dmitryshundrik.knowledgebase.util.Constants.*;
 
 @Data
 @Builder
@@ -14,13 +15,13 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class YearInMusicCreateEditDTO {
 
-    @NotBlank(message = "slug may not be blank")
+    @NotBlank(message = SLUG_MUST_NOT_BE_BLANK)
     private String slug;
 
-    @NotBlank(message = "title may not be blank")
+    @NotBlank(message = TITLE_MUST_NOT_BE_BLANK)
     private String title;
 
-    @NotNull(message = "year may not be null")
+    @NotNull(message = YEAR_MUST_NOT_BE_NULL)
     private Integer year;
 
     private String bestMaleSingerId;
@@ -38,5 +39,4 @@ public class YearInMusicCreateEditDTO {
     private String sotyListDescription;
 
     private String sotySpotifyLink;
-
 }

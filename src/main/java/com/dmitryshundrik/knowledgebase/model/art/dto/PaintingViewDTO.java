@@ -3,7 +3,6 @@ package com.dmitryshundrik.knowledgebase.model.art.dto;
 import com.dmitryshundrik.knowledgebase.model.common.dto.ImageDTO;
 import lombok.Builder;
 import lombok.Data;
-
 import java.util.List;
 
 @Data
@@ -37,5 +36,4 @@ public class PaintingViewDTO {
     private String description;
 
     private ImageDTO image;
-
 }

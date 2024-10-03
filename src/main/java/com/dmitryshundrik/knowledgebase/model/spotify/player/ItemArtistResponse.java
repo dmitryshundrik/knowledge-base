@@ -10,5 +10,4 @@ public class ItemArtistResponse {
 
     @JsonProperty("name")
     private String name;
-
 }

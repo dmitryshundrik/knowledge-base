@@ -22,5 +22,4 @@ public class CurrentSong {
     private String images;
 
     private boolean playing;
-
 }
