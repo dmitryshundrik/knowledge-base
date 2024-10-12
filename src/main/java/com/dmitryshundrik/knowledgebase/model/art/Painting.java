@@ -4,7 +4,15 @@ import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import com.dmitryshundrik.knowledgebase.model.common.Image;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.util.List;
 
 @Entity

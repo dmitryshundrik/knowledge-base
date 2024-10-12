@@ -7,9 +7,15 @@ import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-import java.util.*;
 
 @Controller
 public class SotyGeneratorManagementController {
@@ -66,5 +72,4 @@ public class SotyGeneratorManagementController {
         model.addAttribute("year", year);
         return "management/tools/soty-generator-result";
     }
-
 }

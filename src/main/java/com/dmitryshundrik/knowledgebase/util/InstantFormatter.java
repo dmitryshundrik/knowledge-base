@@ -4,7 +4,10 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
-import static com.dmitryshundrik.knowledgebase.util.Constants.*;
+import static com.dmitryshundrik.knowledgebase.util.Constants.DATE_FORMAT_DMY;
+import static com.dmitryshundrik.knowledgebase.util.Constants.DATE_FORMAT_DMY_HMS;
+import static com.dmitryshundrik.knowledgebase.util.Constants.DATE_FORMAT_YMD;
+
 
 public class InstantFormatter {
 

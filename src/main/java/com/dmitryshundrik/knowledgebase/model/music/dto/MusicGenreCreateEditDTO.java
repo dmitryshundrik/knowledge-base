@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import static com.dmitryshundrik.knowledgebase.util.Constants.*;
+import static com.dmitryshundrik.knowledgebase.util.Constants.MUSIC_GENRE_MUST_NOT_BE_BLANK;
+import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_MUST_NOT_BE_BLANK;
+import static com.dmitryshundrik.knowledgebase.util.Constants.TITLE_MUST_NOT_BE_BLANK;
 
 @Data
 @Builder

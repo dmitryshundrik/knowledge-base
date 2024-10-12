@@ -5,7 +5,12 @@ import com.dmitryshundrik.knowledgebase.model.common.dto.ResourceDTO;
 import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import java.util.List;
 
 @Controller

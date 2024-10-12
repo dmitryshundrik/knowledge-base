@@ -1,6 +1,9 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
-import com.dmitryshundrik.knowledgebase.model.music.*;
+import com.dmitryshundrik.knowledgebase.model.music.Album;
+import com.dmitryshundrik.knowledgebase.model.music.Composition;
+import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
+import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
@@ -12,7 +15,12 @@ import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -138,7 +146,7 @@ public class CompositionService {
         List<Composition> sortedEssentialCompositionsList = getAllByMusician(compositionDTO.getMusicianSlug())
                 .stream().filter(composition -> composition.getEssentialCompositionsRank() != null)
                 .sorted(Comparator.comparing(Composition::getEssentialCompositionsRank))
-                .collect(Collectors.toList());
+                .toList();
         for (int i = 0; i < sortedEssentialCompositionsList.size(); i++) {
             if (sortedEssentialCompositionsList.get(i).getEssentialCompositionsRank()
                     .equals(compositionDTO.getEssentialCompositionsRank())) {

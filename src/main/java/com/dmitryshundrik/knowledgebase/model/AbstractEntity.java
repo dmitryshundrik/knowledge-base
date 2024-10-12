@@ -1,7 +1,11 @@
 package com.dmitryshundrik.knowledgebase.model;
 
 import lombok.Data;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -14,6 +18,6 @@ public abstract class AbstractEntity {
     @Column(name = "ID")
     private UUID id;
 
-    @Column(name = "CREATED")
+    @Column(name = "CREATED", updatable = false)
     private Instant created;
 }

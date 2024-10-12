@@ -5,7 +5,14 @@ import com.dmitryshundrik.knowledgebase.model.common.Image;
 import com.dmitryshundrik.knowledgebase.model.common.enums.Country;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
 import java.util.List;
 
 @Entity

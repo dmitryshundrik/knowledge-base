@@ -15,7 +15,11 @@ import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -71,10 +75,10 @@ public class AlbumService {
         List<Album> albumsByDecade = new ArrayList<>();
         if (DECADE_2010s.equals(decade)) {
             albumsByDecade.addAll(albumRepository.getAllBy2010s(2009, 2020).stream()
-                    .sorted(Comparator.comparing(Album::getRating).reversed()).collect(Collectors.toList()));
+                    .sorted(Comparator.comparing(Album::getRating).reversed()).toList());
         } else if (DECADE_2020s.equals(decade)) {
             albumsByDecade.addAll(albumRepository.getAllBy2010s(2019, 2030).stream()
-                    .sorted(Comparator.comparing(Album::getRating).reversed()).collect(Collectors.toList()));
+                    .sorted(Comparator.comparing(Album::getRating).reversed()).toList());
         }
         return albumsByDecade;
     }

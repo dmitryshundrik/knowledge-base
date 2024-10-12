@@ -21,7 +21,11 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
-import java.net.*;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -148,7 +152,6 @@ public class SpotifyIntegrationService {
             refreshToken = node.get("refresh_token").asText();
             refreshTokenRepository.deleteAll();
             refreshTokenRepository.save(createRefreshTokenEntity(refreshToken));
-//            System.out.println(refreshToken);
         }
     }
 

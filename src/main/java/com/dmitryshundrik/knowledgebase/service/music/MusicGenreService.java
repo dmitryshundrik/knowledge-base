@@ -4,8 +4,6 @@ import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicGenreCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicGenreViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
-import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
-import com.dmitryshundrik.knowledgebase.repository.music.CompositionRepository;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicGenreRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.springframework.stereotype.Service;
@@ -21,15 +19,8 @@ public class MusicGenreService {
 
     private final MusicGenreRepository musicGenreRepository;
 
-    private final AlbumRepository albumRepository;
-
-    private final CompositionRepository compositionRepository;
-
-    public MusicGenreService(MusicGenreRepository musicGenreRepository, AlbumRepository albumRepository,
-                             CompositionRepository compositionRepository) {
+    public MusicGenreService(MusicGenreRepository musicGenreRepository) {
         this.musicGenreRepository = musicGenreRepository;
-        this.albumRepository = albumRepository;
-        this.compositionRepository = compositionRepository;
     }
 
     @Transactional(readOnly = true)

@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Objects;
 
 @Controller
 public class SitemapController {
@@ -14,8 +16,8 @@ public class SitemapController {
     public void getRobots(HttpServletResponse response) {
         String sitemap = "";
         try {
-            sitemap = IOUtils.toString(new InputStreamReader(this.getClass().getClassLoader()
-                    .getResourceAsStream("robots.txt")));
+            sitemap = IOUtils.toString(new InputStreamReader(Objects.requireNonNull(this.getClass().getClassLoader()
+                    .getResourceAsStream("robots.txt"))));
 
             response.setContentType("text/plain");
             ServletOutputStream outStream = response.getOutputStream();
@@ -32,8 +34,8 @@ public class SitemapController {
     public void getSitemap(HttpServletResponse response) {
         String sitemap = "";
         try {
-            sitemap = IOUtils.toString(new InputStreamReader(this.getClass().getClassLoader()
-                    .getResourceAsStream("sitemap.xml")));
+            sitemap = IOUtils.toString(new InputStreamReader(Objects.requireNonNull(this.getClass().getClassLoader()
+                    .getResourceAsStream("sitemap.xml"))));
 
             response.setContentType("application/xml");
             ServletOutputStream outStream = response.getOutputStream();

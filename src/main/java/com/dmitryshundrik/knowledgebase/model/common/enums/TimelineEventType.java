@@ -12,5 +12,4 @@ public enum TimelineEventType {
     TimelineEventType(String label) {
         this.label = label;
     }
-
 }

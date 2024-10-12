@@ -1,7 +1,12 @@
 package com.dmitryshundrik.knowledgebase.controller.music;
 
 import com.dmitryshundrik.knowledgebase.model.common.enums.EraType;
-import com.dmitryshundrik.knowledgebase.model.music.*;
+import com.dmitryshundrik.knowledgebase.model.music.Album;
+import com.dmitryshundrik.knowledgebase.model.music.Composition;
+import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
+import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
+import com.dmitryshundrik.knowledgebase.model.music.Musician;
+import com.dmitryshundrik.knowledgebase.model.music.YearInMusic;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicPeriodViewDTO;
@@ -10,7 +15,12 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.service.common.TimelineEventService;
-import com.dmitryshundrik.knowledgebase.service.music.*;
+import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
+import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
+import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
+import com.dmitryshundrik.knowledgebase.service.music.MusicPeriodService;
+import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
+import com.dmitryshundrik.knowledgebase.service.music.YearInMusicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

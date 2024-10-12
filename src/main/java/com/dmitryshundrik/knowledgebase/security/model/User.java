@@ -3,7 +3,14 @@ package com.dmitryshundrik.knowledgebase.security.model;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import javax.persistence.*;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;

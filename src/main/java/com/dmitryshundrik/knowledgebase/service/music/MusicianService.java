@@ -1,7 +1,17 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
-import com.dmitryshundrik.knowledgebase.model.music.*;
-import com.dmitryshundrik.knowledgebase.model.music.dto.*;
+import com.dmitryshundrik.knowledgebase.model.music.Album;
+import com.dmitryshundrik.knowledgebase.model.music.Composition;
+import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
+import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
+import com.dmitryshundrik.knowledgebase.model.music.Musician;
+import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianAllDto;
+import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianEntityUpdateInfoDTO;
+import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianSelectDTO;
+import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
 import com.dmitryshundrik.knowledgebase.service.common.PersonEventService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
@@ -10,7 +20,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -78,7 +96,7 @@ public class MusicianService {
                 .sorted((o1, o2) -> {
                     Integer o1Date = o1.getBorn() != null ? o1.getBorn() : o1.getFounded();
                     Integer o2Date = o2.getBorn() != null ? o2.getBorn() : o2.getFounded();
-                    if (o1Date != null && o2Date != null) {
+                    if (o2Date != null) {
                         return o1Date.compareTo(o2Date);
                     }
                     return -1;

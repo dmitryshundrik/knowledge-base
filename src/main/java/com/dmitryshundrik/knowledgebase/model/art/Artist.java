@@ -5,7 +5,16 @@ import com.dmitryshundrik.knowledgebase.model.common.PersonEvent;
 import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.List;
 

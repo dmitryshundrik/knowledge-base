@@ -41,5 +41,4 @@ public class EncryptionApplicationManagementController {
         model.addAttribute("encryptionTypes", EncryptionType.values());
         return "management/tools/encryption-application";
     }
-
 }

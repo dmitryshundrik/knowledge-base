@@ -4,7 +4,11 @@ import com.dmitryshundrik.knowledgebase.model.AbstractEntity;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "music_genre")
