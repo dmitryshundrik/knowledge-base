@@ -61,7 +61,7 @@ public class PaintingService {
 
     @Transactional(readOnly = true)
     public List<Painting> getAllTimeBestPaintings() {
-        List<Painting> paintingList = paintingRepository.getAllAndAllTimeTopRankNotNull();
+        List<Painting> paintingList = paintingRepository.getAllByAndAllTimeTopRankNotNull();
         return paintingList.stream()
                 .sorted(Comparator.comparing(Painting::getAllTimeTopRank))
                 .collect(Collectors.toList());
