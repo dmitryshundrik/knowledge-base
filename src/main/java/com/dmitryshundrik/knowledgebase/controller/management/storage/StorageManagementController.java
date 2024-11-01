@@ -3,6 +3,7 @@ package com.dmitryshundrik.knowledgebase.controller.management.storage;
 import com.dmitryshundrik.knowledgebase.model.common.Image;
 import com.dmitryshundrik.knowledgebase.model.common.dto.ImageDTO;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,13 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class StorageManagementController {
 
     private final ImageService imageService;
-
-    public StorageManagementController(ImageService imageService) {
-        this.imageService = imageService;
-    }
 
     @GetMapping("/management/storage/image/all")
     public String getAllImages(Model model) {

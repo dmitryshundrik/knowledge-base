@@ -7,9 +7,9 @@ import com.dmitryshundrik.knowledgebase.model.literature.dto.QuoteCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.literature.dto.QuoteViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.literature.QuoteRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -19,13 +19,10 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class QuoteService {
 
     private final QuoteRepository quoteRepository;
-
-    public QuoteService(QuoteRepository quoteRepository) {
-        this.quoteRepository = quoteRepository;
-    }
 
     @Transactional(readOnly = true)
     public List<Quote> getAll() {
@@ -34,7 +31,7 @@ public class QuoteService {
 
     @Transactional(readOnly = true)
     public Quote getById(String quoteId) {
-        return quoteRepository.getById(UUID.fromString(quoteId));
+        return quoteRepository.findById(UUID.fromString(quoteId)).orElse(null);
     }
 
     @Transactional(readOnly = true)
@@ -48,14 +45,14 @@ public class QuoteService {
         List<Prose> allSortedProse = allQuotes.stream()
                 .map(Quote::getProse)
                 .filter(Objects::nonNull).distinct()
-                .sorted(Comparator.comparing(Prose::getYear)).collect(Collectors.toList());
+                .sorted(Comparator.comparing(Prose::getYear)).toList();
 
         List<Quote> allSortedQuotes = new ArrayList<>();
         for (Prose prose : allSortedProse) {
             prose.getQuoteList().sort(Comparator.comparing(Quote::getPage));
             allSortedQuotes.addAll(prose.getQuoteList());
         }
-        allSortedQuotes.addAll(allQuotes.stream().filter(quote -> quote.getProse() == null).collect(Collectors.toList()));
+        allSortedQuotes.addAll(allQuotes.stream().filter(quote -> quote.getProse() == null).toList());
         return allSortedQuotes;
     }
 
@@ -66,7 +63,6 @@ public class QuoteService {
 
     public Quote createQuote(QuoteCreateEditDTO quoteDTO, Writer writer, Prose prose) {
         Quote quote = new Quote();
-        quote.setCreated(Instant.now());
         quote.setWriter(writer);
         quote.setProse(prose);
         quote.setPublication(quoteDTO.getPublication());

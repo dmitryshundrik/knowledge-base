@@ -7,9 +7,9 @@ import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.RecipeViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.gastronomy.RecipeRepository;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,16 +17,12 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EX
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class RecipeService {
 
     private final RecipeRepository recipeRepository;
 
     private final ImageService imageService;
-
-    public RecipeService(RecipeRepository recipeRepository, ImageService imageService) {
-        this.recipeRepository = recipeRepository;
-        this.imageService = imageService;
-    }
 
     @Transactional(readOnly = true)
     public List<Recipe> getAll() {
@@ -50,7 +46,6 @@ public class RecipeService {
 
     public RecipeViewDTO createRecipe(RecipeCreateEditDTO recipeCreateEditDTO) {
         Recipe recipe = new Recipe();
-        recipe.setCreated(Instant.now());
         setFieldsFromDTO(recipe, recipeCreateEditDTO);
         return getRecipeViewDTO(recipeRepository.save(recipe));
     }

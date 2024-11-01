@@ -4,6 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.common.PersonEvent;
 import com.dmitryshundrik.knowledgebase.model.common.dto.PersonEventDTO;
 import com.dmitryshundrik.knowledgebase.service.common.PersonEventService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,16 +17,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import javax.validation.Valid;
 
 @Controller
+@RequiredArgsConstructor
 public class MusicianEventManagementController {
 
     private final PersonEventService personEventService;
 
     private final MusicianService musicianService;
-
-    public MusicianEventManagementController(PersonEventService personEventService, MusicianService musicianService) {
-        this.personEventService = personEventService;
-        this.musicianService = musicianService;
-    }
 
     @GetMapping("/management/musician/edit/{musicianSlug}/event/create")
     public String getCreateEventForMusician(@PathVariable String musicianSlug, Model model) {

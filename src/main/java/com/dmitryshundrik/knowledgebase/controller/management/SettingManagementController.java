@@ -4,6 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.common.Setting;
 import com.dmitryshundrik.knowledgebase.model.common.dto.SettingCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.common.dto.SettingViewDTO;
 import com.dmitryshundrik.knowledgebase.service.common.SettingService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,13 +15,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class SettingManagementController {
 
     private final SettingService settingService;
-
-    public SettingManagementController(SettingService settingService) {
-        this.settingService = settingService;
-    }
 
     @GetMapping("/management/setting/all")
     public String getAllSettings(Model model) {

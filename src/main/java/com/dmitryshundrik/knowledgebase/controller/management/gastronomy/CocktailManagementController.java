@@ -4,6 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.CocktailCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.CocktailViewDTO;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,13 +18,10 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class CocktailManagementController {
 
     private final CocktailService cocktailService;
-
-    public CocktailManagementController(CocktailService cocktailService) {
-        this.cocktailService = cocktailService;
-    }
 
     @GetMapping("/management/cocktail/all")
     public String getAllCocktails(Model model) {

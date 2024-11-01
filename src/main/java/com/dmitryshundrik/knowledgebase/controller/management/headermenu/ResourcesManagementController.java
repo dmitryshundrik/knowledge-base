@@ -3,6 +3,7 @@ package com.dmitryshundrik.knowledgebase.controller.management.headermenu;
 import com.dmitryshundrik.knowledgebase.model.common.Resource;
 import com.dmitryshundrik.knowledgebase.model.common.dto.ResourceDTO;
 import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,13 +15,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class ResourcesManagementController {
 
     private final ResourcesService resourcesService;
-
-    public ResourcesManagementController(ResourcesService resourcesService) {
-        this.resourcesService = resourcesService;
-    }
 
     @GetMapping("/management/resource/all")
     public String getAllResources(Model model) {

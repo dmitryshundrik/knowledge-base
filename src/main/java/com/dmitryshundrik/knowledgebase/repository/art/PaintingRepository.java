@@ -16,7 +16,7 @@ public interface PaintingRepository extends JpaRepository<Painting, UUID> {
 
     List<Painting> getAllByArtistAndArtistTopRankNotNull(Artist artist);
 
-    List<Painting> getAllByAndAllTimeTopRankNotNull();
+    List<Painting> getAllAndAllTimeTopRankNotNull();
 
     List<Painting> getAllByArtistOrderByCreatedDesc(Artist artist);
 

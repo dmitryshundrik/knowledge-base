@@ -3,6 +3,7 @@ package com.dmitryshundrik.knowledgebase.controller.management.headermenu;
 import com.dmitryshundrik.knowledgebase.model.common.Foundation;
 import com.dmitryshundrik.knowledgebase.model.common.dto.FoundationDTO;
 import com.dmitryshundrik.knowledgebase.service.common.FoundationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,13 +15,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class FoundationManagementController {
 
     private final FoundationService foundationService;
-
-    public FoundationManagementController(FoundationService foundationService) {
-        this.foundationService = foundationService;
-    }
 
     @GetMapping("/management/foundation/all")
     public String getAllFoundations(Model model) {

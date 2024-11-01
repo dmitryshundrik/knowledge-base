@@ -15,14 +15,13 @@ public interface CompositionRepository extends JpaRepository<Composition, UUID> 
 
     List<Composition> getAllByMusicGenresIsContaining(MusicGenre musicGenre);
 
-    Integer countAllByMusicGenresIsContaining(MusicGenre musicGenre);
-
     List<Composition> getAllByYearAndYearEndRankNotNull(Integer year);
 
     List<Composition> findFirst20ByOrderByCreatedDesc();
 
-    @Query("from Composition composition where composition.musician.slug = ?1")
-    List<Composition> getAllByMusician(String musicianSlug);
+    @Query("from Composition composition where composition.musician.slug = ?1 " +
+            "and composition.essentialCompositionsRank is not null order by composition.essentialCompositionsRank")
+    List<Composition> getAllByMusicianAndEssentialRankNotNull(String musicianSlug);
 
     @Query("from Composition composition where composition.musician.slug = ?1 and composition.rating is not null")
     List<Composition> getAllByMusicianWithRating(String musicianSlug);

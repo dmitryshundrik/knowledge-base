@@ -36,7 +36,7 @@ public class SotyGeneratorManagementController {
     }
 
     @GetMapping("/management/soty-generator")
-    public String getSotyGeneretorYear(Model model) {
+    public String getSotyGeneratorYear(Model model) {
         List<Integer> years = compositionService.getAllYearsFromCompositions();
         model.addAttribute("years", years);
         model.addAttribute("soty", new Soty());

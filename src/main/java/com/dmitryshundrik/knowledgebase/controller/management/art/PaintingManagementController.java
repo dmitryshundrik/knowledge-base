@@ -6,6 +6,7 @@ import com.dmitryshundrik.knowledgebase.model.art.dto.PaintingCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.art.dto.PaintingViewDTO;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,16 +20,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class PaintingManagementController {
 
     private final PaintingService paintingService;
 
     private final ArtistService artistService;
-
-    public PaintingManagementController(PaintingService paintingService, ArtistService artistService) {
-        this.paintingService = paintingService;
-        this.artistService = artistService;
-    }
 
     @GetMapping("/management/painting/all")
     public String getAllPaintings(Model model) {

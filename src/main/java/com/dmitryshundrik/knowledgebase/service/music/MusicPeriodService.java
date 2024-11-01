@@ -5,22 +5,21 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.MusicPeriodCreateEditDTO
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicPeriodViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicPeriodRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
+
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class MusicPeriodService {
 
     private final MusicPeriodRepository musicPeriodRepository;
-
-    public MusicPeriodService(MusicPeriodRepository musicPeriodRepository) {
-        this.musicPeriodRepository = musicPeriodRepository;
-    }
 
     @Transactional(readOnly = true)
     public List<MusicPeriod> getAll() {
@@ -47,7 +46,6 @@ public class MusicPeriodService {
 
     public String createMusicPeriod(MusicPeriodCreateEditDTO periodDTO) {
         MusicPeriod period = new MusicPeriod();
-        period.setCreated(Instant.now());
         setFieldsFromDTO(period, periodDTO);
         musicPeriodRepository.save(period);
         return period.getSlug();
@@ -102,7 +100,7 @@ public class MusicPeriodService {
     public String musicPeriodSlugIsExist(String musicPeriodSlug) {
         String message = "";
         if (getMusicPeriodBySlug(musicPeriodSlug) != null) {
-            message = "slug is already exist";
+            message = SLUG_IS_ALREADY_EXIST;
         }
         return message;
     }

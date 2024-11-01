@@ -5,10 +5,10 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.YearInMusicCreateEditDTO
 import com.dmitryshundrik.knowledgebase.model.music.dto.YearInMusicViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.music.YearInMusicRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
@@ -16,16 +16,12 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class YearInMusicService {
 
     private final YearInMusicRepository yearInMusicRepository;
 
     private final MusicianService musicianService;
-
-    public YearInMusicService(YearInMusicRepository yearInMusicRepository, MusicianService musicianService) {
-        this.yearInMusicRepository = yearInMusicRepository;
-        this.musicianService = musicianService;
-    }
 
     @Transactional(readOnly = true)
     public List<YearInMusic> getAll() {
@@ -45,7 +41,6 @@ public class YearInMusicService {
 
     public YearInMusicViewDTO createYearInMusic(YearInMusicCreateEditDTO yearInMusicDTO) {
         YearInMusic yearInMusic = new YearInMusic();
-        yearInMusic.setCreated(Instant.now());
         setFieldsFromDTO(yearInMusic, yearInMusicDTO);
         YearInMusic createdYearInMusic = yearInMusicRepository.save(yearInMusic);
         return getYearInMusicViewDTO(createdYearInMusic);

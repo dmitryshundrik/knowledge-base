@@ -4,9 +4,9 @@ import com.dmitryshundrik.knowledgebase.model.common.Resource;
 import com.dmitryshundrik.knowledgebase.model.common.dto.ResourceDTO;
 import com.dmitryshundrik.knowledgebase.repository.common.ResourcesRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
@@ -14,13 +14,10 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ResourcesService {
 
     private final ResourcesRepository resourcesRepository;
-
-    public ResourcesService(ResourcesRepository resourcesRepository) {
-        this.resourcesRepository = resourcesRepository;
-    }
 
     @Transactional(readOnly = true)
     public Resource getById(String id) {
@@ -41,7 +38,6 @@ public class ResourcesService {
 
     public ResourceDTO createResource(ResourceDTO resourceDTO) {
         Resource resource = new Resource();
-        resource.setCreated(Instant.now());
         setFieldsFromDTO(resource, resourceDTO);
         return getResourceDTO(resourcesRepository.save(resource));
     }

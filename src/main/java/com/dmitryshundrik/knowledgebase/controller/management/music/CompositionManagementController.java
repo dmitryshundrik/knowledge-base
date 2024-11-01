@@ -9,6 +9,7 @@ import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +23,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class CompositionManagementController {
 
     private final CompositionService compositionService;
@@ -31,15 +33,6 @@ public class CompositionManagementController {
     private final MusicianService musicianService;
 
     private final MusicGenreService musicGenreService;
-
-    public CompositionManagementController(CompositionService compositionService, AlbumService albumService,
-                                           MusicianService musicianService, MusicGenreService musicGenreService) {
-        this.compositionService = compositionService;
-        this.albumService = albumService;
-        this.musicianService = musicianService;
-        this.musicGenreService = musicGenreService;
-    }
-
 
     @GetMapping("/management/composition/all")
     public String getAllCompositions(Model model) {

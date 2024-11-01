@@ -7,21 +7,18 @@ import com.dmitryshundrik.knowledgebase.model.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.repository.common.ImageRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ImageService {
 
     private final ImageRepository imageRepository;
-
-    public ImageService(ImageRepository imageRepository) {
-        this.imageRepository = imageRepository;
-    }
 
     @Transactional(readOnly = true)
     public List<Image> getAll() {
@@ -47,7 +44,6 @@ public class ImageService {
 
     public ImageDTO createImage(ImageDTO imageDTO) {
         Image image = new Image();
-        image.setCreated(Instant.now());
         image.setTitle(imageDTO.getTitle().trim());
         image.setSlug(InstantFormatter.instantFormatterYMD(image.getCreated()) + "-" + imageDTO.getSlug());
         image.setDescription(imageDTO.getDescription());

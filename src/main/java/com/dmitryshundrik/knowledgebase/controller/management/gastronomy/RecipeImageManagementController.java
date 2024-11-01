@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.common.dto.ImageDTO;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
+import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,16 +20,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @Controller
+@RequiredArgsConstructor
 public class RecipeImageManagementController {
 
     private final ImageService imageService;
 
     private final RecipeService recipeService;
-
-    public RecipeImageManagementController(ImageService imageService, RecipeService recipeService) {
-        this.imageService = imageService;
-        this.recipeService = recipeService;
-    }
 
     @GetMapping("/management/recipe/edit/{recipeSlug}/image/create")
     public String getRecipeImageCreate(Model model, @PathVariable String recipeSlug) {

@@ -10,6 +10,7 @@ import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.RecipeViewDTO;
 import com.dmitryshundrik.knowledgebase.service.common.ArticleService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/gastronomy")
+@RequiredArgsConstructor
 public class GastronomyPageController {
 
     private final RecipeService recipeService;
@@ -26,13 +28,6 @@ public class GastronomyPageController {
     private final CocktailService cocktailService;
 
     private final ArticleService articleService;
-
-    public GastronomyPageController(RecipeService recipeService, CocktailService cocktailService,
-                                    ArticleService articleService) {
-        this.recipeService = recipeService;
-        this.cocktailService = cocktailService;
-        this.articleService = articleService;
-    }
 
     @GetMapping
     public String getGastronomyPage(Model model) {

@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.literature.Writer;
 import com.dmitryshundrik.knowledgebase.model.literature.dto.WriterCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.literature.dto.WriterViewDTO;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
+import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,13 +23,10 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class WriterManagementController {
 
     private final WriterService writerService;
-
-    public WriterManagementController(WriterService writerService) {
-        this.writerService = writerService;
-    }
 
     @GetMapping("/management/writer/all")
     public String getAllWriters(Model model) {

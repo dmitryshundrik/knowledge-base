@@ -12,9 +12,9 @@ import com.dmitryshundrik.knowledgebase.model.tools.SotyPair;
 import com.dmitryshundrik.knowledgebase.repository.music.CompositionRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -25,13 +25,10 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class CompositionService {
 
     private final CompositionRepository compositionRepository;
-
-    public CompositionService(CompositionRepository compositionRepository) {
-        this.compositionRepository = compositionRepository;
-    }
 
     @Transactional(readOnly = true)
     public List<Composition> getAll() {
@@ -49,8 +46,8 @@ public class CompositionService {
     }
 
     @Transactional(readOnly = true)
-    public List<Composition> getAllByMusician(String musicianSlug) {
-        return compositionRepository.getAllByMusician(musicianSlug);
+    public List<Composition> getAllByMusicianAndEssentialRankNotNull(String musicianSlug) {
+        return compositionRepository.getAllByMusicianAndEssentialRankNotNull(musicianSlug);
     }
 
     @Transactional(readOnly = true)
@@ -119,7 +116,6 @@ public class CompositionService {
 
     public CompositionViewDTO createComposition(CompositionCreateEditDTO compositionDTO, Musician musician, Album album) {
         Composition composition = new Composition();
-        composition.setCreated(Instant.now());
         composition.setMusician(musician);
         composition.setAlbum(album);
         setFieldsFromDTO(composition, compositionDTO);
@@ -127,7 +123,8 @@ public class CompositionService {
             album.getCompositions().add(composition);
         }
         compositionRepository.save(composition);
-        composition.setSlug(SlugFormatter.slugFormatter(composition.getSlug()) + "-" + composition.getId());
+        composition.setSlug(SlugFormatter.slugFormatter("composition-" + composition.getSlug()) + "-"
+                + (composition.getYear() != null ? composition.getYear().toString() : ""));
         return getCompositionViewDTO(composition);
     }
 
@@ -135,6 +132,7 @@ public class CompositionService {
         Composition compositionBySlug = compositionRepository.getCompositionBySlug(compositionSlug);
         compositionBySlug.setAlbum(album);
         setFieldsFromDTO(compositionBySlug, compositionDTO);
+        updateEssentialCompositions(compositionDTO);
         return getCompositionViewDTO(compositionBySlug);
     }
 
@@ -143,10 +141,7 @@ public class CompositionService {
     }
 
     public void updateEssentialCompositions(CompositionCreateEditDTO compositionDTO) {
-        List<Composition> sortedEssentialCompositionsList = getAllByMusician(compositionDTO.getMusicianSlug())
-                .stream().filter(composition -> composition.getEssentialCompositionsRank() != null)
-                .sorted(Comparator.comparing(Composition::getEssentialCompositionsRank))
-                .toList();
+        var sortedEssentialCompositionsList = getAllByMusicianAndEssentialRankNotNull(compositionDTO.getMusicianSlug());
         for (int i = 0; i < sortedEssentialCompositionsList.size(); i++) {
             if (sortedEssentialCompositionsList.get(i).getEssentialCompositionsRank()
                     .equals(compositionDTO.getEssentialCompositionsRank())) {
@@ -243,9 +238,6 @@ public class CompositionService {
     }
 
     private void setFieldsFromDTO(Composition composition, CompositionCreateEditDTO compositionDTO) {
-
-        updateEssentialCompositions(compositionDTO);
-
         composition.setSlug(compositionDTO.getSlug().trim());
         composition.setTitle(compositionDTO.getTitle().trim());
         composition.setCatalogNumber(compositionDTO.getCatalogNumber());

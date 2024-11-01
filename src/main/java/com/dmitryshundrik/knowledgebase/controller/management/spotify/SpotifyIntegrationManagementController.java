@@ -1,6 +1,7 @@
 package com.dmitryshundrik.knowledgebase.controller.management.spotify;
 
 import com.dmitryshundrik.knowledgebase.service.spotify.SpotifyIntegrationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,13 +13,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 @Controller
+@RequiredArgsConstructor
 public class SpotifyIntegrationManagementController {
 
     private final SpotifyIntegrationService spotifyIntegrationService;
-
-    public SpotifyIntegrationManagementController(SpotifyIntegrationService spotifyIntegrationService) {
-        this.spotifyIntegrationService = spotifyIntegrationService;
-    }
 
     @GetMapping("/management/spotify-integration/login")
     public void getSpotifyIntegrationLogin(HttpServletResponse response) throws URISyntaxException, IOException {

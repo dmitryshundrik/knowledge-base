@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistViewDTO;
 import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
+import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,13 +23,10 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class ArtistManagementController {
 
     private final ArtistService artistService;
-
-    public ArtistManagementController(ArtistService artistService) {
-        this.artistService = artistService;
-    }
 
     @GetMapping("/management/artist/all")
     public String getAllArtists(Model model) {

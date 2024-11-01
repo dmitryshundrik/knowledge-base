@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.literature.dto.ProseCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.literature.dto.ProseViewDTO;
 import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
+import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,16 +22,12 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class ProseManagementController {
 
     private final ProseService proseService;
 
     private final WriterService writerService;
-
-    public ProseManagementController(ProseService proseService, WriterService writerService) {
-        this.proseService = proseService;
-        this.writerService = writerService;
-    }
 
     @GetMapping("/management/prose/all")
     public String getAllProse(Model model) {

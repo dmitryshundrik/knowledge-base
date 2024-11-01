@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.MusicPeriodCreateEditDTO
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicPeriodViewDTO;
 import com.dmitryshundrik.knowledgebase.service.music.MusicPeriodService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,16 +19,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class MusicPeriodManagementController {
 
     private final MusicPeriodService musicPeriodService;
 
     private final MusicianService musicianService;
-
-    public MusicPeriodManagementController(MusicPeriodService musicPeriodService, MusicianService musicianService) {
-        this.musicPeriodService = musicPeriodService;
-        this.musicianService = musicianService;
-    }
 
     @GetMapping("/management/music-period/all")
     public String getAllMusicPeriods(Model model) {

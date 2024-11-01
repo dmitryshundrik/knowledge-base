@@ -8,9 +8,9 @@ import com.dmitryshundrik.knowledgebase.repository.art.PaintingRepository;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,16 +19,12 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EX
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class PaintingService {
 
     private final PaintingRepository paintingRepository;
 
     private final ImageService imageService;
-
-    public PaintingService(PaintingRepository paintingRepository, ImageService imageService) {
-        this.paintingRepository = paintingRepository;
-        this.imageService = imageService;
-    }
 
     @Transactional(readOnly = true)
     public List<Painting> getAll() {
@@ -65,7 +61,7 @@ public class PaintingService {
 
     @Transactional(readOnly = true)
     public List<Painting> getAllTimeBestPaintings() {
-        List<Painting> paintingList = paintingRepository.getAllByAndAllTimeTopRankNotNull();
+        List<Painting> paintingList = paintingRepository.getAllAndAllTimeTopRankNotNull();
         return paintingList.stream()
                 .sorted(Comparator.comparing(Painting::getAllTimeTopRank))
                 .collect(Collectors.toList());
@@ -73,7 +69,6 @@ public class PaintingService {
 
     public PaintingViewDTO createPainting(Artist artist, PaintingCreateEditDTO paintingDTO) {
         Painting painting = new Painting();
-        painting.setCreated(Instant.now());
         painting.setArtist(artist);
         setFieldsFromDTO(painting, paintingDTO);
         painting.setSlug(artist.getSlug() + "-" + SlugFormatter.slugFormatter(paintingDTO.getSlug()));

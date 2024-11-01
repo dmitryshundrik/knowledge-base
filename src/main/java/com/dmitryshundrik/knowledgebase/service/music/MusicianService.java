@@ -7,7 +7,7 @@ import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianAllDto;
+import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianAllPageResponseDto;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianEntityUpdateInfoDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianSelectDTO;
@@ -16,9 +16,9 @@ import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
 import com.dmitryshundrik.knowledgebase.service.common.PersonEventService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -31,8 +31,11 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
+
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class MusicianService {
 
     private final MusicianRepository musicianRepository;
@@ -42,14 +45,6 @@ public class MusicianService {
     private final CompositionService compositionService;
 
     private final PersonEventService personEventService;
-
-    public MusicianService(MusicianRepository musicianRepository, AlbumService albumService,
-                           CompositionService compositionService, PersonEventService personEventService) {
-        this.musicianRepository = musicianRepository;
-        this.albumService = albumService;
-        this.compositionService = compositionService;
-        this.personEventService = personEventService;
-    }
 
     @Transactional(readOnly = true)
     public List<Musician> getAll() {
@@ -90,8 +85,8 @@ public class MusicianService {
     }
 
     @Transactional(readOnly = true)
-    public List<Musician> getAllMusiciansSortedByBorn() {
-        return getAll().stream()
+    public List<MusicianAllPageResponseDto> getMusicianAllPageResponseDtoSortedByBornAndFounded() {
+        return getMusicianAllPageResponseDto().stream()
                 .filter(musician -> musician.getBorn() != null || musician.getFounded() != null)
                 .sorted((o1, o2) -> {
                     Integer o1Date = o1.getBorn() != null ? o1.getBorn() : o1.getFounded();
@@ -125,7 +120,7 @@ public class MusicianService {
     }
 
     @Transactional(readOnly = true)
-    public List<Musician> getBestMusicianByPeriod(MusicPeriod period) {
+    public List<Musician> getBestMusiciansByPeriod(MusicPeriod period) {
         List<Musician> allMusiciansByPeriod = getAllMusiciansByPeriod(period);
         Map<Musician, Double> map = new HashMap<>();
         for (Musician musician : allMusiciansByPeriod) {
@@ -160,23 +155,12 @@ public class MusicianService {
                 .limit(10).collect(Collectors.toList());
     }
 
-//    public MusicianAllDto getMusicianAllDto(Musician musician) {
-//        return MusicianAllDto.builder()
-//                .slug(musician.getSlug())
-//                .nickName(musician.getNickName())
-//                .born(musician.getBorn())
-//                .founded(musician.getFounded())
-//                .musicGenres(getSortedMusicGenresByMusician(musician))
-//                .build();
-//    }
-
-    public List<MusicianAllDto> getAllMusicianAllDto() {
-        return musicianRepository.getAllMusicianAllDto();
+    public List<MusicianAllPageResponseDto> getMusicianAllPageResponseDto() {
+        return musicianRepository.getMusicianAllPageResponseDto();
     }
 
     public MusicianViewDTO createMusician(MusicianCreateEditDTO musicianDTO) {
         Musician musician = new Musician();
-        musician.setCreated(Instant.now());
         setFieldsFromDTO(musician, musicianDTO);
         musician.setSlug(SlugFormatter.slugFormatter(musician.getSlug()));
         return getMusicianViewDTO(musicianRepository.save(musician));
@@ -346,7 +330,7 @@ public class MusicianService {
     public String musicianSlugIsExist(String musicianSlug) {
         String message = "";
         if (getMusicianBySlug(musicianSlug) != null) {
-            message = "slug is already exist";
+            message = SLUG_IS_ALREADY_EXIST;
         }
         return message;
     }

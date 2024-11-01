@@ -11,6 +11,7 @@ import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
 import com.dmitryshundrik.knowledgebase.service.music.YearInMusicService;
 import com.dmitryshundrik.knowledgebase.service.spotify.SpotifyIntegrationService;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class IndexController {
 
     private final YearInMusicService yearInMusicService;
@@ -35,17 +37,6 @@ public class IndexController {
 
     @Getter
     private static final String version = "5.0.5";
-
-    public IndexController(YearInMusicService yearInMusicService, EntityUpdateInfoService entityUpdateInfoService,
-                           FoundationService foundationService, ResourcesService resourcesService,
-                           CurrentEventService currentEventService, SpotifyIntegrationService spotifyIntegrationService) {
-        this.yearInMusicService = yearInMusicService;
-        this.entityUpdateInfoService = entityUpdateInfoService;
-        this.foundationService = foundationService;
-        this.resourcesService = resourcesService;
-        this.currentEventService = currentEventService;
-        this.spotifyIntegrationService = spotifyIntegrationService;
-    }
 
     @GetMapping("/")
     public String getIndex(Model model) {

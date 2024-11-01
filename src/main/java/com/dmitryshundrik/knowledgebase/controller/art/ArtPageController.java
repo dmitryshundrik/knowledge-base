@@ -6,6 +6,7 @@ import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistViewDTO;
 import com.dmitryshundrik.knowledgebase.model.art.dto.PaintingViewDTO;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,16 +17,12 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/art")
+@RequiredArgsConstructor
 public class ArtPageController {
 
     private final ArtistService artistService;
 
     private final PaintingService paintingService;
-
-    public ArtPageController(ArtistService artistService, PaintingService paintingService) {
-        this.artistService = artistService;
-        this.paintingService = paintingService;
-    }
 
     @GetMapping
     public String getArtPage() {

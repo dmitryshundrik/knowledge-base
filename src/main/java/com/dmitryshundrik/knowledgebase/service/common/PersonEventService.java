@@ -5,22 +5,19 @@ import com.dmitryshundrik.knowledgebase.model.common.dto.PersonEventDTO;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.repository.common.PersonEventRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class PersonEventService {
 
     private final PersonEventRepository personEventRepository;
-
-    public PersonEventService(PersonEventRepository personEventRepository) {
-        this.personEventRepository = personEventRepository;
-    }
 
     @Transactional(readOnly = true)
     public PersonEvent getPersonEventById(String id) {
@@ -29,7 +26,6 @@ public class PersonEventService {
 
     public PersonEventDTO createPersonEvent(PersonEventDTO personEventDTO) {
         PersonEvent personEvent = new PersonEvent();
-        personEvent.setCreated(Instant.now());
         setFieldsFromDTO(personEvent, personEventDTO);
         return getPersonEventDTO(personEventRepository.save(personEvent));
     }

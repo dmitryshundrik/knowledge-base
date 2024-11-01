@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.literature.Writer;
 import com.dmitryshundrik.knowledgebase.model.literature.dto.WordDTO;
 import com.dmitryshundrik.knowledgebase.service.literature.WordService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,16 +17,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class WordManagementController {
 
     private final WordService wordService;
 
     private final WriterService writerService;
-
-    public WordManagementController(WordService wordService, WriterService writerService) {
-        this.wordService = wordService;
-        this.writerService = writerService;
-    }
 
     @GetMapping("/management/word/all")
     public String getAllWords(Model model) {

@@ -9,8 +9,6 @@ import java.util.UUID;
 
 public interface ProseRepository extends JpaRepository<Prose, UUID> {
 
-    Optional<Prose> findById(UUID uuid);
-    
     Prose getBySlug(String proseSlug);
 
     List<Prose> getAllByOrderByCreatedDesc();

@@ -3,19 +3,17 @@ package com.dmitryshundrik.knowledgebase.service.common;
 import com.dmitryshundrik.knowledgebase.model.common.Article;
 import com.dmitryshundrik.knowledgebase.model.common.dto.ArticleDTO;
 import com.dmitryshundrik.knowledgebase.repository.common.ArticleRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
-
-    public ArticleService(ArticleRepository articleRepository) {
-        this.articleRepository = articleRepository;
-    }
 
     @Transactional(readOnly = true)
     public Article getById(String articleId) {

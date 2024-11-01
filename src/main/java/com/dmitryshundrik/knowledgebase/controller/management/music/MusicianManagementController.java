@@ -7,6 +7,7 @@ import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
 import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicPeriodService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
+import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class MusicianManagementController {
 
     private final MusicianService musicianService;
@@ -31,13 +33,6 @@ public class MusicianManagementController {
     private final MusicPeriodService musicPeriodService;
 
     private final MusicGenreService musicGenreService;
-
-    public MusicianManagementController(MusicianService musicianService, MusicPeriodService musicPeriodService,
-                                        MusicGenreService musicGenreService) {
-        this.musicianService = musicianService;
-        this.musicPeriodService = musicPeriodService;
-        this.musicGenreService = musicGenreService;
-    }
 
     @GetMapping("/management/musician/all")
     public String getAllMusicians(Model model) {

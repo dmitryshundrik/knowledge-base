@@ -6,9 +6,9 @@ import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.art.ArtistRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
@@ -21,16 +21,12 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.UNKNOWN;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ArtistService {
 
     private final ArtistRepository artistRepository;
 
     private final PaintingService paintingService;
-
-    public ArtistService(ArtistRepository artistRepository, PaintingService paintingService) {
-        this.artistRepository = artistRepository;
-        this.paintingService = paintingService;
-    }
 
     @Transactional(readOnly = true)
     public List<Artist> getAll() {
@@ -60,7 +56,6 @@ public class ArtistService {
 
     public Artist createArtist(ArtistCreateEditDTO artistDTO) {
         Artist artist = new Artist();
-        artist.setCreated(Instant.now());
         setFieldsFromDTO(artist, artistDTO);
         artist.setSlug(SlugFormatter.slugFormatter(artist.getSlug()));
         return artistRepository.save(artist);
@@ -150,7 +145,6 @@ public class ArtistService {
         artist.setApproximateYears(artistDTO.getApproximateYears().trim());
         artist.setBirthplace(artistDTO.getBirthplace().trim());
         artist.setOccupation(artistDTO.getOccupation().trim());
-
     }
 
     public String artistSlugIsExist(String artistSlug) {

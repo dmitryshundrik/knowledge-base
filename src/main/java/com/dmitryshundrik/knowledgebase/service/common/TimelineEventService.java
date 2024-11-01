@@ -6,9 +6,9 @@ import com.dmitryshundrik.knowledgebase.model.common.enums.EraType;
 import com.dmitryshundrik.knowledgebase.model.common.enums.TimelineEventType;
 import com.dmitryshundrik.knowledgebase.repository.common.TimelineEventRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
@@ -16,13 +16,10 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class TimelineEventService {
 
     private final TimelineEventRepository timelineEventRepository;
-
-    public TimelineEventService(TimelineEventRepository timelineEventRepository) {
-        this.timelineEventRepository = timelineEventRepository;
-    }
 
     @Transactional(readOnly = true)
     public TimelineEvent getTimelineEventById(String id) {
@@ -54,7 +51,6 @@ public class TimelineEventService {
 
     public TimelineEventDTO createTimelineEvent(TimelineEventDTO timelineEventDTO) {
         TimelineEvent timelineEvent = new TimelineEvent();
-        timelineEvent.setCreated(Instant.now());
         setFieldsFromDTO(timelineEvent, timelineEventDTO);
         return getTimelineEventDTO(timelineEventRepository.save(timelineEvent));
     }

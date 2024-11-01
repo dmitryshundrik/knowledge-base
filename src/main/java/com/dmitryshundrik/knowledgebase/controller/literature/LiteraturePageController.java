@@ -12,6 +12,7 @@ import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
 import com.dmitryshundrik.knowledgebase.service.literature.QuoteService;
 import com.dmitryshundrik.knowledgebase.service.literature.WordService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/literature")
+@RequiredArgsConstructor
 public class LiteraturePageController {
 
     private final WriterService writerService;
@@ -30,14 +32,6 @@ public class LiteraturePageController {
     private final QuoteService quoteService;
 
     private final WordService wordService;
-
-    public LiteraturePageController(WriterService writerService, ProseService proseService, QuoteService quoteService,
-                                    WordService wordService) {
-        this.writerService = writerService;
-        this.proseService = proseService;
-        this.quoteService = quoteService;
-        this.wordService = wordService;
-    }
 
     @GetMapping
     public String getLiteraturePage() {

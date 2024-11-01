@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.common.TimelineEvent;
 import com.dmitryshundrik.knowledgebase.model.common.enums.EraType;
 import com.dmitryshundrik.knowledgebase.model.common.enums.TimelineEventType;
 import com.dmitryshundrik.knowledgebase.service.common.TimelineEventService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,13 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @Controller
+@RequiredArgsConstructor
 public class TimelineOfMusicManagementController {
 
     private final TimelineEventService timelineEventService;
-
-    public TimelineOfMusicManagementController(TimelineEventService timelineEventService) {
-        this.timelineEventService = timelineEventService;
-    }
 
     @GetMapping("/management/timeline-of-music/event/all")
     public String getAllEventsForTimelineOfMusic(Model model) {

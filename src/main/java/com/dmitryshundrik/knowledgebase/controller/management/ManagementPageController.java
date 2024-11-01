@@ -10,6 +10,7 @@ import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/management")
+@RequiredArgsConstructor
 public class ManagementPageController {
 
     private final MusicianService musicianService;
@@ -38,22 +40,6 @@ public class ManagementPageController {
     private final ArtistService artistService;
 
     private final PaintingService paintingService;
-
-    public ManagementPageController(MusicianService musicianService, AlbumService albumService, CompositionService compositionService,
-                                    RecipeService recipeService, CocktailService cocktailService, WriterService writerService,
-                                    ProseService proseService, QuoteService quoteService, ArtistService artistService,
-                                    PaintingService paintingService) {
-        this.musicianService = musicianService;
-        this.albumService = albumService;
-        this.compositionService = compositionService;
-        this.recipeService = recipeService;
-        this.cocktailService = cocktailService;
-        this.writerService = writerService;
-        this.proseService = proseService;
-        this.quoteService = quoteService;
-        this.artistService = artistService;
-        this.paintingService = paintingService;
-    }
 
     @GetMapping()
     public String getManagementPage(Model model) {

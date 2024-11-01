@@ -6,6 +6,7 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.YearInMusicViewDTO;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import com.dmitryshundrik.knowledgebase.service.music.YearInMusicService;
 import com.dmitryshundrik.knowledgebase.util.MusicianDTOTransformer;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,16 +20,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class YearInMusicManagementController {
 
     private final YearInMusicService yearInMusicService;
 
     private final MusicianService musicianService;
-
-    public YearInMusicManagementController(YearInMusicService yearInMusicService, MusicianService musicianService) {
-        this.yearInMusicService = yearInMusicService;
-        this.musicianService = musicianService;
-    }
 
     @GetMapping("/management/year-in-music/all")
     public String getAllYearsInMusic(Model model) {

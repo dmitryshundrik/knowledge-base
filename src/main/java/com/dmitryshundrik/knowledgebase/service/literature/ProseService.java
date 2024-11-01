@@ -8,9 +8,9 @@ import com.dmitryshundrik.knowledgebase.model.literature.dto.ProseViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.literature.ProseRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
@@ -20,13 +20,10 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EX
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ProseService {
 
     private final ProseRepository proseRepository;
-
-    public ProseService(ProseRepository proseRepository) {
-        this.proseRepository = proseRepository;
-    }
 
     @Transactional(readOnly = true)
     public List<Prose> getAll() {
@@ -48,7 +45,7 @@ public class ProseService {
 
     @Transactional(readOnly = true)
     public Prose getById(String id) {
-        return proseRepository.getById(UUID.fromString(id));
+        return proseRepository.findById(UUID.fromString(id)).orElse(null);
     }
 
     @Transactional(readOnly = true)
@@ -60,7 +57,7 @@ public class ProseService {
     public List<Prose> getAllByWriterSortedByRating(Writer writer) {
         List<Prose> allByWriter = getAllByWriter(writer).stream()
                 .filter(prose -> prose.getRating() != null)
-                .collect(Collectors.toList());
+                .toList();
         return allByWriter.stream()
                 .sorted((o1, o2) -> o2.getRating().compareTo(o1.getRating()))
                 .limit(5)
@@ -81,7 +78,6 @@ public class ProseService {
 
     public Prose createProse(Writer writer, ProseCreateEditDTO proseDTO) {
         Prose prose = new Prose();
-        prose.setCreated(Instant.now());
         prose.setWriter(writer);
         setFieldsFromDTO(prose, proseDTO);
         prose.setSlug(writer.getSlug() + "-" + SlugFormatter.slugFormatter(prose.getSlug()));

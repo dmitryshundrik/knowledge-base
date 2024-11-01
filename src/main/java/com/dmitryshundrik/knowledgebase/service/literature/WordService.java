@@ -5,22 +5,19 @@ import com.dmitryshundrik.knowledgebase.model.literature.Writer;
 import com.dmitryshundrik.knowledgebase.model.literature.dto.WordDTO;
 import com.dmitryshundrik.knowledgebase.repository.literature.WordRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class WordService {
 
     private final WordRepository wordRepository;
-
-    public WordService(WordRepository wordRepository) {
-        this.wordRepository = wordRepository;
-    }
 
     @Transactional(readOnly = true)
     public List<Word> getAll() {
@@ -44,12 +41,11 @@ public class WordService {
 
     @Transactional(readOnly = true)
     public Word getById(String wordId) {
-        return wordRepository.getById(UUID.fromString(wordId));
+        return wordRepository.findById(UUID.fromString(wordId)).orElse(null);
     }
 
     public Word createWord(WordDTO wordDTO, Writer writer) {
         Word word = new Word();
-        word.setCreated(Instant.now());
         word.setWriter(writer);
         word.setTitle(wordDTO.getTitle());
         word.setDescription(wordDTO.getDescription());

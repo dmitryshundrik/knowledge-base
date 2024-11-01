@@ -6,22 +6,19 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.MusicGenreViewDTO;
 import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicGenreRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class MusicGenreService {
 
     private final MusicGenreRepository musicGenreRepository;
-
-    public MusicGenreService(MusicGenreRepository musicGenreRepository) {
-        this.musicGenreRepository = musicGenreRepository;
-    }
 
     @Transactional(readOnly = true)
     public List<MusicGenre> getAll() {
@@ -75,7 +72,6 @@ public class MusicGenreService {
 
     public String createMusicGenre(MusicGenreCreateEditDTO genreDTO) {
         MusicGenre genre = new MusicGenre();
-        genre.setCreated(Instant.now());
         setFieldsFromDTO(genre, genreDTO);
         musicGenreRepository.save(genre);
         return genre.getSlug();

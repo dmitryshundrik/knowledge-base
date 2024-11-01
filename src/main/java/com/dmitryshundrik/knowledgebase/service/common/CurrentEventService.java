@@ -8,6 +8,7 @@ import com.dmitryshundrik.knowledgebase.model.music.Musician;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class CurrentEventService {
 
     private final MusicianService musicianService;
@@ -35,13 +37,6 @@ public class CurrentEventService {
     private final static String MALE_DIE = " умер ";
 
     private final static String FEMALE_DIE = " умерла ";
-
-    public CurrentEventService(MusicianService musicianService, WriterService writerService, ArtistService artistService) {
-        this.musicianService = musicianService;
-        this.writerService = writerService;
-        this.artistService = artistService;
-    }
-
 
     public List<CurrentEventInfo> getCurrentEvents() {
         List<CurrentEventInfo> currentEventInfoList = new ArrayList<>();

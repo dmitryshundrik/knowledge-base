@@ -9,6 +9,7 @@ import com.dmitryshundrik.knowledgebase.model.literature.dto.QuoteViewDTO;
 import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
 import com.dmitryshundrik.knowledgebase.service.literature.QuoteService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class QuoteManagementController {
 
     private final QuoteService quoteService;
@@ -27,12 +29,6 @@ public class QuoteManagementController {
     private final WriterService writerService;
 
     private final ProseService proseService;
-
-    public QuoteManagementController(QuoteService quoteService, WriterService writerService, ProseService proseService) {
-        this.quoteService = quoteService;
-        this.writerService = writerService;
-        this.proseService = proseService;
-    }
 
     @GetMapping("/management/quote/all")
     public String getAllQuotes(Model model) {

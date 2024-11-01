@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.common.Image;
 import com.dmitryshundrik.knowledgebase.model.common.dto.ImageDTO;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
+import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,16 +20,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @Controller
+@RequiredArgsConstructor
 public class PaintingImageManagementController {
 
     private final ImageService imageService;
 
     private final PaintingService paintingService;
-
-    public PaintingImageManagementController(ImageService imageService, PaintingService paintingService) {
-        this.imageService = imageService;
-        this.paintingService = paintingService;
-    }
 
     @GetMapping("/management/artist/edit/{artistSlug}/painting/edit/{paintingSlug}/image/create")
     public String getPaintingImageCreate(Model model, @PathVariable String artistSlug, @PathVariable String paintingSlug) {

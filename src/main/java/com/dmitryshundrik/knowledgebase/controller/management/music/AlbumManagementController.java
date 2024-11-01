@@ -6,6 +6,7 @@ import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import com.dmitryshundrik.knowledgebase.util.MusicianDTOTransformer;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class AlbumManagementController {
 
     private final AlbumService albumService;
@@ -26,13 +28,6 @@ public class AlbumManagementController {
     private final MusicianService musicianService;
 
     private final MusicGenreService musicGenreService;
-
-    public AlbumManagementController(AlbumService albumService, MusicianService musicianService,
-                                     MusicGenreService musicGenreService) {
-        this.albumService = albumService;
-        this.musicianService = musicianService;
-        this.musicGenreService = musicGenreService;
-    }
 
     @GetMapping("/management/album/all")
     public String getAllAlbums(Model model) {

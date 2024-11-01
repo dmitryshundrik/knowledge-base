@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.common.dto.SettingCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.common.dto.SettingViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.common.SettingRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -16,13 +17,10 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.TIME_INTERVAL_FOR_
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class SettingService {
 
     private final SettingRepository settingRepository;
-
-    public SettingService(SettingRepository settingRepository) {
-        this.settingRepository = settingRepository;
-    }
 
     @Transactional(readOnly = true)
     public List<Setting> getAll() {
@@ -31,7 +29,7 @@ public class SettingService {
 
     @Transactional(readOnly = true)
     public Setting getById(String settingId) {
-        return settingRepository.getById(UUID.fromString(settingId));
+        return settingRepository.findById(UUID.fromString(settingId)).orElse(null);
     }
 
     public SettingViewDTO updateSetting(String settingId, SettingCreateEditDTO settingDTO) {

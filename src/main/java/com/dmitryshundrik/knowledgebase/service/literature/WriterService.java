@@ -8,9 +8,9 @@ import com.dmitryshundrik.knowledgebase.repository.literature.WriterRepository;
 import com.dmitryshundrik.knowledgebase.service.common.PersonEventService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
@@ -21,6 +21,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EX
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class WriterService {
 
     private final WriterRepository writerRepository;
@@ -32,15 +33,6 @@ public class WriterService {
     private final WordService wordService;
 
     private final PersonEventService personEventService;
-
-    public WriterService(WriterRepository writerRepository, ProseService proseService, QuoteService quoteService,
-                         WordService wordService, PersonEventService personEventService) {
-        this.writerRepository = writerRepository;
-        this.proseService = proseService;
-        this.quoteService = quoteService;
-        this.wordService = wordService;
-        this.personEventService = personEventService;
-    }
 
     @Transactional(readOnly = true)
     public List<Writer> getAll() {
@@ -64,7 +56,6 @@ public class WriterService {
 
     public Writer createWriter(WriterCreateEditDTO writerDTO) {
         Writer writer = new Writer();
-        writer.setCreated(Instant.now());
         setFieldsFromDTO(writer, writerDTO);
         writer.setSlug(SlugFormatter.slugFormatter(writer.getSlug()));
         return writerRepository.save(writer);

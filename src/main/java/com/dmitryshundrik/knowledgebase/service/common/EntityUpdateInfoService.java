@@ -23,6 +23,7 @@ import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
@@ -33,6 +34,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class EntityUpdateInfoService {
 
     private final SettingService settingService;
@@ -58,25 +60,6 @@ public class EntityUpdateInfoService {
     private final PaintingService paintingService;
 
     private final ResourcesService resourcesService;
-
-    public EntityUpdateInfoService(SettingService settingService, MusicianService musicianService, AlbumService albumService,
-                                   CompositionService compositionService, RecipeService recipeService,
-                                   CocktailService cocktailService, WriterService writerService, ProseService proseService,
-                                   QuoteService quoteService, ArtistService artistService, PaintingService paintingService,
-                                   ResourcesService resourcesService) {
-        this.settingService = settingService;
-        this.musicianService = musicianService;
-        this.albumService = albumService;
-        this.compositionService = compositionService;
-        this.recipeService = recipeService;
-        this.cocktailService = cocktailService;
-        this.writerService = writerService;
-        this.proseService = proseService;
-        this.quoteService = quoteService;
-        this.artistService = artistService;
-        this.paintingService = paintingService;
-        this.resourcesService = resourcesService;
-    }
 
     public List<EntityUpdateInfo> getLatestUpdates() {
         List<EntityUpdateInfo> allUpdateInfo = new ArrayList<>();

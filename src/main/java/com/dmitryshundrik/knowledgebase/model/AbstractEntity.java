@@ -1,6 +1,7 @@
 package com.dmitryshundrik.knowledgebase.model;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,5 +20,6 @@ public abstract class AbstractEntity {
     private UUID id;
 
     @Column(name = "CREATED", updatable = false)
+    @CreationTimestamp
     private Instant created;
 }

@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,7 +31,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
-import java.time.Instant;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +39,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class SpotifyIntegrationService {
 
     private static final String URI_AUTHORIZE = "https://accounts.spotify.com/authorize";
@@ -76,11 +77,6 @@ public class SpotifyIntegrationService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     private final MusicianService musicianService;
-
-    public SpotifyIntegrationService(RefreshTokenRepository refreshTokenRepository, MusicianService musicianService) {
-        this.refreshTokenRepository = refreshTokenRepository;
-        this.musicianService = musicianService;
-    }
 
     public String getURLAuthorize() throws URISyntaxException, MalformedURLException {
         URIBuilder uriBuilder = new URIBuilder(URI_AUTHORIZE);
@@ -184,7 +180,6 @@ public class SpotifyIntegrationService {
 
     public RefreshToken createRefreshTokenEntity(String refreshToken) {
         RefreshToken refreshTokenEntity = new RefreshToken();
-        refreshTokenEntity.setCreated(Instant.now());
         refreshTokenEntity.setRefreshToken(refreshToken);
         return refreshTokenEntity;
     }

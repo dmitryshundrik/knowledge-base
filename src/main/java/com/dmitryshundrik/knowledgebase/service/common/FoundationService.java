@@ -4,9 +4,9 @@ import com.dmitryshundrik.knowledgebase.model.common.Foundation;
 import com.dmitryshundrik.knowledgebase.model.common.dto.FoundationDTO;
 import com.dmitryshundrik.knowledgebase.repository.common.FoundationRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
@@ -14,13 +14,10 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class FoundationService {
 
     private final FoundationRepository foundationRepository;
-
-    public FoundationService(FoundationRepository foundationRepository) {
-        this.foundationRepository = foundationRepository;
-    }
 
     @Transactional(readOnly = true)
     public Foundation getById(String id) {
@@ -41,7 +38,6 @@ public class FoundationService {
 
     public Foundation createFoundation(FoundationDTO foundationDTO) {
         Foundation foundation = new Foundation();
-        foundation.setCreated(Instant.now());
         setFieldsFromDTO(foundation, foundationDTO);
         return foundationRepository.save(foundation);
     }

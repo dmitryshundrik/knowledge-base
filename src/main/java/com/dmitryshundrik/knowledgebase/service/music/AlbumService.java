@@ -12,18 +12,18 @@ import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.MusicianDTOTransformer;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class AlbumService {
 
     private final AlbumRepository albumRepository;
@@ -31,10 +31,6 @@ public class AlbumService {
     public static final String DECADE_2010s = "2010";
 
     public static final String DECADE_2020s = "2020";
-
-    public AlbumService(AlbumRepository albumRepository) {
-        this.albumRepository = albumRepository;
-    }
 
     @Transactional(readOnly = true)
     public List<Album> getAll() {
@@ -64,10 +60,6 @@ public class AlbumService {
     @Transactional(readOnly = true)
     public List<Album> getAllAlbumsByYear(Integer year) {
         return albumRepository.getAllByYear(year);
-    }
-
-    public List<Album> getAllAlbumsFilteredByRating(List<Album> albumList, Double rating) {
-        return albumList.stream().filter(album -> Objects.equals(album.getRating(), rating)).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
@@ -116,7 +108,6 @@ public class AlbumService {
 
     public AlbumViewDTO createAlbum(AlbumCreateEditDTO albumDTO, Musician musician, List<Musician> collaborators) {
         Album album = new Album();
-        album.setCreated(Instant.now());
         album.setMusician(musician);
         album.setCollaborators(collaborators);
         setFieldsFromDTO(album, albumDTO);

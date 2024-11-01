@@ -2,14 +2,16 @@ package com.dmitryshundrik.knowledgebase.model.music.dto;
 
 import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MusicianAllDto {
+public class MusicianAllPageResponseDto {
 
     private String slug;
 
@@ -21,7 +23,7 @@ public class MusicianAllDto {
 
     private List<MusicGenre> musicGenres;
 
-    public MusicianAllDto(String slug, String nickName, Integer born, Integer founded) {
+    public MusicianAllPageResponseDto(String slug, String nickName, Integer born, Integer founded) {
         this.slug = slug;
         this.nickName = nickName;
         this.born = born;

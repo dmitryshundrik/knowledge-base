@@ -6,9 +6,9 @@ import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.CocktailViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.gastronomy.CocktailRepository;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,16 +16,12 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EX
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class CocktailService {
 
     private final CocktailRepository cocktailRepository;
 
     private final ImageService imageService;
-
-    public CocktailService(CocktailRepository cocktailRepository, ImageService imageService) {
-        this.cocktailRepository = cocktailRepository;
-        this.imageService = imageService;
-    }
 
     @Transactional(readOnly = true)
     public List<Cocktail> getAll() {
@@ -44,7 +40,6 @@ public class CocktailService {
 
     public CocktailViewDTO createCocktail(CocktailCreateEditDTO cocktailDTO) {
         Cocktail cocktail = new Cocktail();
-        cocktail.setCreated(Instant.now());
         setFieldsFromDTO(cocktail, cocktailDTO);
         return getCocktailViewDTO(cocktailRepository.save(cocktail));
     }
