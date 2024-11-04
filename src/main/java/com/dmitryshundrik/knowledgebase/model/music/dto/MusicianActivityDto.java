@@ -6,7 +6,7 @@ import java.time.Instant;
 
 @AllArgsConstructor
 @Data
-public class MusicianEntityUpdateInfoDTO {
+public class MusicianActivityDto {
 
     private Instant created;
 

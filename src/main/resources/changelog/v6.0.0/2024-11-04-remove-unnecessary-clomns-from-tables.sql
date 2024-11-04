@@ -1,0 +1,8 @@
+ALTER TABLE album
+DROP COLUMN IF EXISTS artwork,
+DROP COLUMN IF EXISTS catalog_number;
+
+ALTER TABLE album
+DROP COLUMN IF EXISTS artwork,
+DROP COLUMN IF EXISTS catalog_number;
+

@@ -15,7 +15,6 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.DATE_FORMAT_YMD;
 import static com.dmitryshundrik.knowledgebase.util.Constants.NICKNAME_MUST_NOT_BE_BLANK;
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_MUST_NOT_BE_BLANK;
 
-
 @Data
 @Builder
 @AllArgsConstructor

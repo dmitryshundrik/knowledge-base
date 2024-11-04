@@ -5,7 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.common.Resource;
 import com.dmitryshundrik.knowledgebase.model.common.dto.FoundationDTO;
 import com.dmitryshundrik.knowledgebase.model.common.dto.ResourceDTO;
 import com.dmitryshundrik.knowledgebase.service.common.CurrentEventService;
-import com.dmitryshundrik.knowledgebase.service.common.EntityUpdateInfoService;
+import com.dmitryshundrik.knowledgebase.service.common.EntityActivityService;
 import com.dmitryshundrik.knowledgebase.service.common.FoundationService;
 import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
 import com.dmitryshundrik.knowledgebase.service.music.YearInMusicService;
@@ -25,7 +25,7 @@ public class IndexController {
 
     private final YearInMusicService yearInMusicService;
 
-    private final EntityUpdateInfoService entityUpdateInfoService;
+    private final EntityActivityService entityActivityService;
 
     private final FoundationService foundationService;
 
@@ -41,7 +41,7 @@ public class IndexController {
     @GetMapping("/")
     public String getIndex(Model model) {
         model.addAttribute("yearInMusicList", yearInMusicService.getSortedYearInMusicViewDTOList());
-        model.addAttribute("latestUpdates", entityUpdateInfoService.getLatestUpdates());
+        model.addAttribute("latestUpdates", entityActivityService.getLatestActivities());
         model.addAttribute("currentEvents", currentEventService.getCurrentEvents());
         return "index";
     }

@@ -2,7 +2,7 @@ package com.dmitryshundrik.knowledgebase.service.common;
 
 import com.dmitryshundrik.knowledgebase.model.art.Artist;
 import com.dmitryshundrik.knowledgebase.model.art.Painting;
-import com.dmitryshundrik.knowledgebase.model.common.EntityUpdateInfo;
+import com.dmitryshundrik.knowledgebase.model.common.EntityActivity;
 import com.dmitryshundrik.knowledgebase.model.common.Resource;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.model.gastronomy.Recipe;
@@ -11,7 +11,7 @@ import com.dmitryshundrik.knowledgebase.model.literature.Quote;
 import com.dmitryshundrik.knowledgebase.model.literature.dto.WriterEntityUpdateInfoDTO;
 import com.dmitryshundrik.knowledgebase.model.music.Album;
 import com.dmitryshundrik.knowledgebase.model.music.Composition;
-import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianEntityUpdateInfoDTO;
+import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianActivityDto;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class EntityUpdateInfoService {
+public class EntityActivityService {
 
     private final SettingService settingService;
 
@@ -61,136 +61,136 @@ public class EntityUpdateInfoService {
 
     private final ResourcesService resourcesService;
 
-    public List<EntityUpdateInfo> getLatestUpdates() {
-        List<EntityUpdateInfo> allUpdateInfo = new ArrayList<>();
-        allUpdateInfo.addAll(getMusicianUpdates());
-        allUpdateInfo.addAll(getAlbumUpdates());
-        allUpdateInfo.addAll(getCompositionUpdates());
-        allUpdateInfo.addAll(getRecipeUpdates());
-        allUpdateInfo.addAll(getCocktailUpdates());
-        allUpdateInfo.addAll(getWriterUpdates());
-        allUpdateInfo.addAll(getProseUpdates());
-        allUpdateInfo.addAll(getQuoteUpdates());
-        allUpdateInfo.addAll(getArtistUpdates());
-        allUpdateInfo.addAll(getPaintingUpdates());
-        allUpdateInfo.addAll(getResourcesUpdates());
+    public List<EntityActivity> getLatestActivities() {
+        List<EntityActivity> entityActivities = new ArrayList<>();
+        entityActivities.addAll(getMusicianActivities());
+        entityActivities.addAll(getAlbumActivities());
+        entityActivities.addAll(getCompositionActivities());
+        entityActivities.addAll(getRecipeActivities());
+        entityActivities.addAll(getCocktailActivities());
+        entityActivities.addAll(getWriterActivities());
+        entityActivities.addAll(getProseActivities());
+        entityActivities.addAll(getQuoteActivities());
+        entityActivities.addAll(getArtistActivities());
+        entityActivities.addAll(getPaintingActivities());
+        entityActivities.addAll(getResourcesActivities());
 
         Instant instant = Instant.now().minus(settingService.getTimeIntervalForUpdates(), ChronoUnit.DAYS);
 
-        for (EntityUpdateInfo entityUpdateInfo : allUpdateInfo) {
-            entityUpdateInfo.setTimeStamp(InstantFormatter.instantFormatterYMDHMS(entityUpdateInfo.getCreated()));
-            entityUpdateInfo.setNew(entityUpdateInfo.getCreated().isAfter(instant));
+        for (EntityActivity entityActivity : entityActivities) {
+            entityActivity.setTimeStamp(InstantFormatter.instantFormatterYMDHMS(entityActivity.getCreated()));
+            entityActivity.setNew(entityActivity.getCreated().isAfter(instant));
         }
 
-        return allUpdateInfo.stream()
+        return entityActivities.stream()
                 .sorted((o1, o2) -> o2.getCreated().compareTo(o1.getCreated()))
                 .limit(settingService.getLimitForUpdates())
                 .collect(Collectors.toList());
     }
 
-    private List<EntityUpdateInfo> getMusicianUpdates() {
-        List<EntityUpdateInfo> musicianUpdateInfo = new ArrayList<>();
-        List<MusicianEntityUpdateInfoDTO> latestUpdate = musicianService.getLatestUpdate();
-        for (MusicianEntityUpdateInfoDTO musicianDTO : latestUpdate) {
-            musicianUpdateInfo.add(EntityUpdateInfo.builder()
-                    .created(musicianDTO.getCreated())
+    private List<EntityActivity> getMusicianActivities() {
+        List<EntityActivity> musicianActivities = new ArrayList<>();
+        List<MusicianActivityDto> latestUpdate = musicianService.getLatestUpdate();
+        for (MusicianActivityDto activityDto : latestUpdate) {
+            musicianActivities.add(EntityActivity.builder()
+                    .created(activityDto.getCreated())
                     .archiveSection("музыка:")
-                    .description("музыкант " + musicianDTO.getNickName())
-                    .link("music/musician/" + musicianDTO.getSlug())
+                    .description("музыкант " + activityDto.getNickName())
+                    .link("music/musician/" + activityDto.getSlug())
                     .build());
         }
-        return musicianUpdateInfo;
+        return musicianActivities;
     }
 
-    private List<EntityUpdateInfo> getAlbumUpdates() {
-        List<EntityUpdateInfo> albumUpdateInfo = new ArrayList<>();
+    private List<EntityActivity> getAlbumActivities() {
+        List<EntityActivity> albumActivities = new ArrayList<>();
         List<Album> latestUpdate = albumService.getLatestUpdate();
         for (Album album : latestUpdate) {
-            albumUpdateInfo.add(EntityUpdateInfo.builder()
+            albumActivities.add(EntityActivity.builder()
                     .created(album.getCreated())
                     .archiveSection("музыка:")
                     .description("альбом " + album.getTitle() + " добавлен в архив " + album.getMusician().getNickName())
                     .link("music/musician/" + album.getMusician().getSlug())
                     .build());
         }
-        return albumUpdateInfo;
+        return albumActivities;
     }
 
-    private List<EntityUpdateInfo> getCompositionUpdates() {
-        List<EntityUpdateInfo> compositionUpdateInfo = new ArrayList<>();
+    private List<EntityActivity> getCompositionActivities() {
+        List<EntityActivity> compositionActivities = new ArrayList<>();
         List<Composition> latestUpdate = compositionService.getLatestUpdate();
         for (Composition composition : latestUpdate) {
-            compositionUpdateInfo.add(EntityUpdateInfo.builder()
+            compositionActivities.add(EntityActivity.builder()
                     .created(composition.getCreated())
                     .archiveSection("музыка:")
                     .description("произведение " + composition.getTitle() + " добавлено в архив " + composition.getMusician().getNickName())
                     .link("music/musician/" + composition.getMusician().getSlug())
                     .build());
         }
-        return compositionUpdateInfo;
+        return compositionActivities;
     }
 
-    private List<EntityUpdateInfo> getRecipeUpdates() {
-        List<EntityUpdateInfo> recipeUpdateInfo = new ArrayList<>();
+    private List<EntityActivity> getRecipeActivities() {
+        List<EntityActivity> recipeActivities = new ArrayList<>();
         List<Recipe> latestUpdate = recipeService.getLatestUpdate();
         for (Recipe recipe : latestUpdate) {
-            recipeUpdateInfo.add(EntityUpdateInfo.builder()
+            recipeActivities.add(EntityActivity.builder()
                     .created(recipe.getCreated())
                     .archiveSection("гастрономия:")
                     .description("рецепт " + recipe.getTitle())
                     .link("gastronomy/recipe/" + recipe.getSlug())
                     .build());
         }
-        return recipeUpdateInfo;
+        return recipeActivities;
     }
 
-    private List<EntityUpdateInfo> getCocktailUpdates() {
-        List<EntityUpdateInfo> cocktailUpdateInfo = new ArrayList<>();
+    private List<EntityActivity> getCocktailActivities() {
+        List<EntityActivity> cocktailActivities = new ArrayList<>();
         List<Cocktail> latestUpdate = cocktailService.getLatestUpdate();
         for (Cocktail cocktail : latestUpdate) {
-            cocktailUpdateInfo.add(EntityUpdateInfo.builder()
+            cocktailActivities.add(EntityActivity.builder()
                     .created(cocktail.getCreated())
                     .archiveSection("гастрономия:")
                     .description("коктейль " + cocktail.getTitle())
                     .link("gastronomy/cocktail/" + cocktail.getSlug())
                     .build());
         }
-        return cocktailUpdateInfo;
+        return cocktailActivities;
     }
 
-    private List<EntityUpdateInfo> getWriterUpdates() {
-        List<EntityUpdateInfo> writerUpdateInfo = new ArrayList<>();
+    private List<EntityActivity> getWriterActivities() {
+        List<EntityActivity> writerActivities = new ArrayList<>();
         List<WriterEntityUpdateInfoDTO> latestUpdate = writerService.getLatestUpdate();
         for (WriterEntityUpdateInfoDTO writer : latestUpdate) {
-            writerUpdateInfo.add(EntityUpdateInfo.builder()
+            writerActivities.add(EntityActivity.builder()
                     .created(writer.getCreated())
                     .archiveSection("литература:")
                     .description("писатель " + writer.getNickName())
                     .link("literature/writer/" + writer.getSlug())
                     .build());
         }
-        return writerUpdateInfo;
+        return writerActivities;
     }
 
-    private List<EntityUpdateInfo> getProseUpdates() {
-        List<EntityUpdateInfo> proseUpdateInfo = new ArrayList<>();
+    private List<EntityActivity> getProseActivities() {
+        List<EntityActivity> proseActivities = new ArrayList<>();
         List<Prose> latestUpdate = proseService.getLatestUpdate();
         for (Prose prose : latestUpdate) {
-            proseUpdateInfo.add(EntityUpdateInfo.builder()
+            proseActivities.add(EntityActivity.builder()
                     .created(prose.getCreated())
                     .archiveSection("литература:")
                     .description("произведение «" + prose.getTitle() + "» добавлено в архив " + prose.getWriter().getNickName())
                     .link("literature/writer/" + prose.getWriter().getSlug())
                     .build());
         }
-        return proseUpdateInfo;
+        return proseActivities;
     }
 
-    private List<EntityUpdateInfo> getQuoteUpdates() {
-        List<EntityUpdateInfo> quoteUpdateInfo = new ArrayList<>();
+    private List<EntityActivity> getQuoteActivities() {
+        List<EntityActivity> quoteActivities = new ArrayList<>();
         List<Quote> latestUpdate = quoteService.getLatestUpdate();
         for (Quote quote : latestUpdate) {
-            quoteUpdateInfo.add(EntityUpdateInfo.builder()
+            quoteActivities.add(EntityActivity.builder()
                     .created(quote.getCreated())
                     .archiveSection("литература:")
                     .description("цитата " + (quote.getProse() == null ? "" : "из «" + quote.getProse().getTitle() + "» ")
@@ -198,28 +198,28 @@ public class EntityUpdateInfoService {
                     .link("literature/quote/all")
                     .build());
         }
-        return quoteUpdateInfo;
+        return quoteActivities;
     }
 
-    private List<EntityUpdateInfo> getArtistUpdates() {
-        List<EntityUpdateInfo> artistUpdateInfo = new ArrayList<>();
+    private List<EntityActivity> getArtistActivities() {
+        List<EntityActivity> artistActivities = new ArrayList<>();
         List<Artist> latestUpdate = artistService.getLatestUpdate();
         for (Artist artist : latestUpdate) {
-            artistUpdateInfo.add(EntityUpdateInfo.builder()
+            artistActivities.add(EntityActivity.builder()
                     .created(artist.getCreated())
                     .archiveSection("искусство:")
                     .description("художник " + artist.getNickName())
                     .link("art/artist/" + artist.getSlug())
                     .build());
         }
-        return artistUpdateInfo;
+        return artistActivities;
     }
 
-    private List<EntityUpdateInfo> getPaintingUpdates() {
-        List<EntityUpdateInfo> paintingUpdateInfo = new ArrayList<>();
+    private List<EntityActivity> getPaintingActivities() {
+        List<EntityActivity> paintingUpdateInfo = new ArrayList<>();
         List<Painting> latestUpdate = paintingService.getLatestUpdate();
         for (Painting painting : latestUpdate) {
-            paintingUpdateInfo.add(EntityUpdateInfo.builder()
+            paintingUpdateInfo.add(EntityActivity.builder()
                     .created(painting.getCreated())
                     .archiveSection("искусство:")
                     .description("картина «" + painting.getTitle() + "» добавлена в архив " +
@@ -230,17 +230,17 @@ public class EntityUpdateInfoService {
         return paintingUpdateInfo;
     }
 
-    private List<EntityUpdateInfo> getResourcesUpdates() {
-        List<EntityUpdateInfo> quoteUpdateInfo = new ArrayList<>();
+    private List<EntityActivity> getResourcesActivities() {
+        List<EntityActivity> resourcesActivities = new ArrayList<>();
         List<Resource> latestUpdate = resourcesService.getLatestUpdate();
         for (Resource resource : latestUpdate) {
-            quoteUpdateInfo.add(EntityUpdateInfo.builder()
+            resourcesActivities.add(EntityActivity.builder()
                     .created(resource.getCreated())
                     .archiveSection("ресурсы:")
                     .description("издание «" + resource.getTitle() + "»")
                     .link(resource.getLink())
                     .build());
         }
-        return quoteUpdateInfo;
+        return resourcesActivities;
     }
 }

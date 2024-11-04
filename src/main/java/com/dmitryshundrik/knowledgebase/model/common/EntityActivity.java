@@ -6,7 +6,7 @@ import java.time.Instant;
 
 @Data
 @Builder
-public class EntityUpdateInfo {
+public class EntityActivity {
 
     private Instant created;
 

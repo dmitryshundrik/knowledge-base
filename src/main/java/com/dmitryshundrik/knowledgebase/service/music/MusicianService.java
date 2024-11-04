@@ -9,7 +9,7 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianAllPageResponseDto;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianEntityUpdateInfoDTO;
+import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianActivityDto;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianSelectDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
@@ -335,7 +335,7 @@ public class MusicianService {
         return message;
     }
 
-    public List<MusicianEntityUpdateInfoDTO> getLatestUpdate() {
+    public List<MusicianActivityDto> getLatestUpdate() {
         return musicianRepository.findFirst20ByOrderByCreatedDesc();
     }
 
