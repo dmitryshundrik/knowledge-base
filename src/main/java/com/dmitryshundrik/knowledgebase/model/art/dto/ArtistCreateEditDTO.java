@@ -19,7 +19,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_MUST_NOT_BE_B
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ArtistCreateEditDTO {
+public class ArtistCreateEditDto {
 
     @NotBlank(message = SLUG_MUST_NOT_BE_BLANK)
     private String slug;
@@ -53,5 +53,5 @@ public class ArtistCreateEditDTO {
 
     private List<PersonEvent> events;
 
-    private List<PaintingViewDTO> paintingList;
+    private List<PaintingViewDto> paintingList;
 }

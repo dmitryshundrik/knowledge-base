@@ -1,14 +1,15 @@
 package com.dmitryshundrik.knowledgebase.service.art;
 
 import com.dmitryshundrik.knowledgebase.model.art.Artist;
-import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistViewDTO;
+import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistViewDto;
 import com.dmitryshundrik.knowledgebase.repository.art.ArtistRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
@@ -54,17 +55,17 @@ public class ArtistService {
         return artistRepository.getBySlug(artistSlug);
     }
 
-    public Artist createArtist(ArtistCreateEditDTO artistDTO) {
+    public Artist createArtist(ArtistCreateEditDto artistDTO) {
         Artist artist = new Artist();
         setFieldsFromDTO(artist, artistDTO);
         artist.setSlug(SlugFormatter.slugFormatter(artist.getSlug()));
         return artistRepository.save(artist);
     }
 
-    public ArtistViewDTO updateArtist(String artistSlug, ArtistCreateEditDTO artistDTO) {
+    public ArtistViewDto updateArtist(String artistSlug, ArtistCreateEditDto artistDTO) {
         Artist bySlug = getBySlug(artistSlug);
         setFieldsFromDTO(bySlug, artistDTO);
-        return getArtistViewDTO(bySlug);
+        return getArtistViewDto(bySlug);
     }
 
     public void updateArtistImageBySlug(String artistSlug, byte[] bytes) {
@@ -83,8 +84,8 @@ public class ArtistService {
         artistRepository.delete(getBySlug(artistSlug));
     }
 
-    public ArtistViewDTO getArtistViewDTO(Artist artist) {
-        return ArtistViewDTO.builder()
+    public ArtistViewDto getArtistViewDto(Artist artist) {
+        return ArtistViewDto.builder()
                 .created(InstantFormatter.instantFormatterDMY(artist.getCreated()))
                 .slug(artist.getSlug())
                 .nickName(artist.getNickName())
@@ -100,19 +101,19 @@ public class ArtistService {
                 .birthplace(artist.getBirthplace())
                 .occupation(artist.getOccupation())
                 .paintingList(paintingService
-                        .getPaintingViewDTOList(paintingService
+                        .getPaintingViewDtoList(paintingService
                                 .getAllByArtistSortedByYear2(artist)))
                 .build();
     }
 
-    public List<ArtistViewDTO> getArtistViewDTOList(List<Artist> artistList) {
+    public List<ArtistViewDto> getArtistViewDtoList(List<Artist> artistList) {
         return artistList.stream()
-                .map(this::getArtistViewDTO)
+                .map(this::getArtistViewDto)
                 .collect(Collectors.toList());
     }
 
-    public ArtistCreateEditDTO getArtistCreateEditDTO(Artist artist) {
-        return ArtistCreateEditDTO.builder()
+    public ArtistCreateEditDto getArtistCreateEditDto(Artist artist) {
+        return ArtistCreateEditDto.builder()
                 .slug(artist.getSlug())
                 .nickName(artist.getNickName())
                 .firstName(artist.getFirstName())
@@ -127,24 +128,24 @@ public class ArtistService {
                 .birthplace(artist.getBirthplace())
                 .occupation(artist.getOccupation())
                 .paintingList(paintingService
-                        .getPaintingViewDTOList(paintingService
+                        .getPaintingViewDtoList(paintingService
                                 .getAllByArtistSortedByYear2(artist)))
                 .build();
     }
 
-    public void setFieldsFromDTO(Artist artist, ArtistCreateEditDTO artistDTO) {
-        artist.setSlug(artistDTO.getSlug());
-        artist.setNickName(artistDTO.getNickName().trim());
-        artist.setFirstName(artistDTO.getFirstName().trim());
-        artist.setLastName(artistDTO.getLastName().trim());
-        artist.setGender(artistDTO.getGender());
-        artist.setBorn(artistDTO.getBorn());
-        artist.setDied(artistDTO.getDied());
-        artist.setBirthDate(artistDTO.getBirthDate());
-        artist.setDeathDate(artistDTO.getDeathDate());
-        artist.setApproximateYears(artistDTO.getApproximateYears().trim());
-        artist.setBirthplace(artistDTO.getBirthplace().trim());
-        artist.setOccupation(artistDTO.getOccupation().trim());
+    public void setFieldsFromDTO(Artist artist, ArtistCreateEditDto artistDto) {
+        artist.setSlug(artistDto.getSlug());
+        artist.setNickName(artistDto.getNickName().trim());
+        artist.setFirstName(artistDto.getFirstName().trim());
+        artist.setLastName(artistDto.getLastName().trim());
+        artist.setGender(artistDto.getGender());
+        artist.setBorn(artistDto.getBorn());
+        artist.setDied(artistDto.getDied());
+        artist.setBirthDate(artistDto.getBirthDate());
+        artist.setDeathDate(artistDto.getDeathDate());
+        artist.setApproximateYears(artistDto.getApproximateYears().trim());
+        artist.setBirthplace(artistDto.getBirthplace().trim());
+        artist.setOccupation(artistDto.getOccupation().trim());
     }
 
     public String artistSlugIsExist(String artistSlug) {

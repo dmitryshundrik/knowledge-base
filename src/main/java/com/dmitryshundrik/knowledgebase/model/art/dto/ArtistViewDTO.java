@@ -12,7 +12,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.DATE_FORMAT_YMD;
 
 @Data
 @Builder
-public class ArtistViewDTO {
+public class ArtistViewDto {
 
     private String created;
 
@@ -46,5 +46,5 @@ public class ArtistViewDTO {
 
     private List<PersonEvent> events;
 
-    private List<PaintingViewDTO> paintingList;
+    private List<PaintingViewDto> paintingList;
 }

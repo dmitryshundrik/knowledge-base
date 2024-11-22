@@ -15,7 +15,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_MUST_NOT_BE_B
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaintingCreateEditDTO {
+public class PaintingCreateEditDto {
 
     @NotBlank(message = SLUG_MUST_NOT_BE_BLANK)
     private String slug;
@@ -33,7 +33,7 @@ public class PaintingCreateEditDTO {
 
     private String approximateYears;
 
-    private List<PaintingStyleViewDTO> paintingStyles;
+    private List<PaintingStyleViewDto> paintingStyles;
 
     private String based;
 

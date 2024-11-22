@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class PaintingViewDTO {
+public class PaintingViewDto {
 
     private String created;
 
@@ -25,7 +25,7 @@ public class PaintingViewDTO {
 
     private String approximateYears;
 
-    private List<PaintingStyleViewDTO> paintingStyles;
+    private List<PaintingStyleViewDto> paintingStyles;
 
     private String based;
 

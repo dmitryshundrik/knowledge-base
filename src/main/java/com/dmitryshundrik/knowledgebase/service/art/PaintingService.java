@@ -2,8 +2,8 @@ package com.dmitryshundrik.knowledgebase.service.art;
 
 import com.dmitryshundrik.knowledgebase.model.art.Artist;
 import com.dmitryshundrik.knowledgebase.model.art.Painting;
-import com.dmitryshundrik.knowledgebase.model.art.dto.PaintingCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.art.dto.PaintingViewDTO;
+import com.dmitryshundrik.knowledgebase.model.art.dto.PaintingCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.art.dto.PaintingViewDto;
 import com.dmitryshundrik.knowledgebase.repository.art.PaintingRepository;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
@@ -67,17 +67,17 @@ public class PaintingService {
                 .collect(Collectors.toList());
     }
 
-    public PaintingViewDTO createPainting(Artist artist, PaintingCreateEditDTO paintingDTO) {
+    public PaintingViewDto createPainting(Artist artist, PaintingCreateEditDto paintingDto) {
         Painting painting = new Painting();
         painting.setArtist(artist);
-        setFieldsFromDTO(painting, paintingDTO);
-        painting.setSlug(artist.getSlug() + "-" + SlugFormatter.slugFormatter(paintingDTO.getSlug()));
-        return getPaintingViewDTO(paintingRepository.save(painting));
+        setFieldsFromDto(painting, paintingDto);
+        painting.setSlug(artist.getSlug() + "-" + SlugFormatter.slugFormatter(paintingDto.getSlug()));
+        return getPaintingViewDto(paintingRepository.save(painting));
     }
 
-    public Painting updatePainting(String paintingSlug, PaintingCreateEditDTO paintingDTO) {
+    public Painting updatePainting(String paintingSlug, PaintingCreateEditDto paintingDto) {
         Painting bySlug = getBySlug(paintingSlug);
-        setFieldsFromDTO(bySlug, paintingDTO);
+        setFieldsFromDto(bySlug, paintingDto);
         return bySlug;
     }
 
@@ -86,8 +86,8 @@ public class PaintingService {
         paintingRepository.delete(bySlug);
     }
 
-    public PaintingViewDTO getPaintingViewDTO(Painting painting) {
-        return PaintingViewDTO.builder()
+    public PaintingViewDto getPaintingViewDto(Painting painting) {
+        return PaintingViewDto.builder()
                 .created(InstantFormatter.instantFormatterDMY(painting.getCreated()))
                 .slug(painting.getSlug())
                 .title(painting.getTitle())
@@ -105,14 +105,14 @@ public class PaintingService {
                 .build();
     }
 
-    public List<PaintingViewDTO> getPaintingViewDTOList(List<Painting> paintingList) {
+    public List<PaintingViewDto> getPaintingViewDtoList(List<Painting> paintingList) {
         return paintingList.stream()
-                .map(this::getPaintingViewDTO)
+                .map(this::getPaintingViewDto)
                 .collect(Collectors.toList());
     }
 
-    public PaintingCreateEditDTO getArtistCreateEditDTO(Painting painting) {
-        return PaintingCreateEditDTO.builder()
+    public PaintingCreateEditDto getArtistCreateEditDto(Painting painting) {
+        return PaintingCreateEditDto.builder()
                 .slug(painting.getSlug())
                 .title(painting.getTitle())
                 .artistNickname(painting.getArtist().getNickName())
@@ -137,16 +137,16 @@ public class PaintingService {
         return message;
     }
 
-    public void setFieldsFromDTO(Painting painting, PaintingCreateEditDTO paintingDTO) {
-        painting.setSlug(paintingDTO.getSlug().trim());
-        painting.setTitle(paintingDTO.getTitle().trim());
-        painting.setYear1(paintingDTO.getYear1());
-        painting.setYear2(paintingDTO.getYear2());
-        painting.setApproximateYears(paintingDTO.getApproximateYears().trim());
-        painting.setBased(paintingDTO.getBased().trim());
-        painting.setArtistTopRank(paintingDTO.getArtistTopRank());
-        painting.setAllTimeTopRank(paintingDTO.getAllTimeTopRank());
-        painting.setDescription(paintingDTO.getDescription());
+    public void setFieldsFromDto(Painting painting, PaintingCreateEditDto paintingDto) {
+        painting.setSlug(paintingDto.getSlug().trim());
+        painting.setTitle(paintingDto.getTitle().trim());
+        painting.setYear1(paintingDto.getYear1());
+        painting.setYear2(paintingDto.getYear2());
+        painting.setApproximateYears(paintingDto.getApproximateYears().trim());
+        painting.setBased(paintingDto.getBased().trim());
+        painting.setArtistTopRank(paintingDto.getArtistTopRank());
+        painting.setAllTimeTopRank(paintingDto.getAllTimeTopRank());
+        painting.setDescription(paintingDto.getDescription());
     }
 
     public List<Painting> getLatestUpdate() {

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-    <title th:text="${artistDTO.nickName}"></title>
+    <title th:text="${artist.nickName}"></title>
     <link th:href="@{/styles/art/artist.css}" rel="stylesheet">
     <meta name="viewport" content="width=device-width">
 </head>
@@ -15,12 +15,12 @@
 <main class="table">
 
     <header class="table-title">
-        <section class="table-title-image" th:if="${artistDTO.image} != null">
-            <img th:src="|data:image;base64,${artistDTO.image}|">
+        <section class="table-title-image" th:if="${artist.image} != null">
+            <img th:src="|data:image;base64,${artist.image}|">
         </section>
-        <h1 th:text="${artistDTO.nickName}"></h1>
-        <h3 class="occupation" th:if="${not #strings.isEmpty(artistDTO.occupation)}"
-            th:text="${artistDTO.occupation}"></h3>
+        <h1 th:text="${artist.nickName}"></h1>
+        <h3 class="occupation" th:if="${not #strings.isEmpty(artist.occupation)}"
+            th:text="${artist.occupation}"></h3>
     </header>
 
     <div class="table-body">
@@ -30,28 +30,28 @@
             </header>
 
             <section class="table-title-item-row"
-                     th:if="${artistDTO.born} != null and ${artistDTO.died} == null">
+                     th:if="${artist.born} != null and ${artist.died} == null">
                 <span>Дата рождения:</span>
-                <span th:text="${artistDTO.born} + ${artistDTO.approximateYears}"></span>
+                <span th:text="${artist.born} + ${artist.approximateYears}"></span>
             </section>
 
             <section class="table-title-item-row"
-                     th:if="${artistDTO.born} != null and ${artistDTO.died} != null">
+                     th:if="${artist.born} != null and ${artist.died} != null">
                 <span>Годы жизни:</span>
-                <span th:text="${artistDTO.born} + ${artistDTO.approximateYears} + ' - ' + ${artistDTO.died}"></span>
+                <span th:text="${artist.born} + ${artist.approximateYears} + ' - ' + ${artist.died}"></span>
             </section>
 
-            <section class="table-title-item-row" th:if="${not #strings.isEmpty(artistDTO.birthplace)}">
+            <section class="table-title-item-row" th:if="${not #strings.isEmpty(artist.birthplace)}">
                 <span>Место рождения:</span>
-                <span th:text="${artistDTO.birthplace}"></span>
+                <span th:text="${artist.birthplace}"></span>
             </section>
         </article>
 
-        <article class="table-body-item" th:if="${not #lists.isEmpty(artistDTO.events)}">
+        <article class="table-body-item" th:if="${not #lists.isEmpty(artist.events)}">
             <header class="table-body-item-title">
                 <h3>Таймлайн</h3>
             </header>
-            <section class="table-body-item-row" th:each="timelineEvent : ${artistDTO.events}">
+            <section class="table-body-item-row" th:each="timelineEvent : ${artist.events}">
                 <span class="timeline-text" th:text="${timelineEvent.description}"></span>
             </section>
         </article>
@@ -69,12 +69,12 @@
             </section>
         </article>
 
-        <article class="table-body-item" th:if="${not #lists.isEmpty(artistDTO.paintingList)}">
+        <article class="table-body-item" th:if="${not #lists.isEmpty(artist.paintingList)}">
             <header class="table-body-item-title painting-title">
                 <h3>Вся живопись</h3>
                 <p>хронологический порядок</p>
             </header>
-            <section class="table-body-item-row painting-item-row" th:each="painting : ${artistDTO.paintingList}">
+            <section class="table-body-item-row painting-item-row" th:each="painting : ${artist.paintingList}">
                 <div class="painting-description">
                     <span th:if="${painting.year2} != null" th:text="${painting.year2}"></span>
                     <span th:text="${painting.title}"></span>
@@ -87,7 +87,7 @@
             </section>
             <section>
                 <span>
-                    <a th:href="'/art/artist/' + ${artistDTO.slug} + '/painting/all'">Весь список</a>
+                    <a th:href="'/art/artist/' + ${artist.slug} + '/painting/all'">Весь список</a>
                 </span>
             </section>
         </article>

@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.controller.management.art;
 
 import com.dmitryshundrik.knowledgebase.model.art.Artist;
-import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistViewDTO;
+import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistViewDto;
 import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import lombok.RequiredArgsConstructor;
@@ -31,21 +31,21 @@ public class ArtistManagementController {
     @GetMapping("/management/artist/all")
     public String getAllArtists(Model model) {
         List<Artist> allSortedByCreatedDesc = artistService.getAllSortedByCreatedDesc();
-        List<ArtistViewDTO> artistViewDTOList = artistService.getArtistViewDTOList(allSortedByCreatedDesc);
-        model.addAttribute("artistList", artistViewDTOList);
+        List<ArtistViewDto> artistViewDtoList = artistService.getArtistViewDtoList(allSortedByCreatedDesc);
+        model.addAttribute("artistList", artistViewDtoList);
         return "management/art/artist-archive";
     }
 
     @GetMapping("/management/artist/create")
     public String getArtistCreate(Model model) {
-        ArtistCreateEditDTO artistCreateEditDTO = new ArtistCreateEditDTO();
+        ArtistCreateEditDto artistCreateEditDTO = new ArtistCreateEditDto();
         model.addAttribute("artistDTO", artistCreateEditDTO);
         model.addAttribute("genders", Gender.values());
         return "management/art/artist-create";
     }
 
     @PostMapping("/management/artist/create")
-    public String postArtistCreate(@Valid @ModelAttribute("artistDTO") ArtistCreateEditDTO artistDTO,
+    public String postArtistCreate(@Valid @ModelAttribute("artistDTO") ArtistCreateEditDto artistDTO,
                                     BindingResult bindingResult, Model model) {
         String error = artistService.artistSlugIsExist(artistDTO.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
@@ -60,7 +60,7 @@ public class ArtistManagementController {
     @GetMapping("/management/artist/edit/{artistSlug}")
     public String getArtistEdit(@PathVariable String artistSlug, Model model) {
         Artist bySlug = artistService.getBySlug(artistSlug);
-        ArtistCreateEditDTO artistCreateEditDTO = artistService.getArtistCreateEditDTO(bySlug);
+        ArtistCreateEditDto artistCreateEditDTO = artistService.getArtistCreateEditDto(bySlug);
         model.addAttribute("artistDTO", artistCreateEditDTO);
         model.addAttribute("genders", Gender.values());
         return "management/art/artist-edit";
@@ -68,7 +68,7 @@ public class ArtistManagementController {
 
     @PutMapping("/management/artist/edit/{artistSlug}")
     public String putArtistEdit(@PathVariable String artistSlug,
-                                 @ModelAttribute("artistDTO") ArtistCreateEditDTO artistDTO) {
+                                 @ModelAttribute("artistDTO") ArtistCreateEditDto artistDTO) {
         String artistDTOSlug = artistService.updateArtist(artistSlug, artistDTO).getSlug();
         return "redirect:/management/artist/edit/" + artistDTOSlug;
     }
