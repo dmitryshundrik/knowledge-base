@@ -4,7 +4,8 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO
 import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionViewDTO;
 
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_ALBUM_ID;
-import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_CATALOG_NUMBER;
+import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_CATALOG_NUMBER_DOUBLE;
+import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_CATALOG_NUMBER_STRING;
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_CLASSICAL_GENRES;
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_CONTEMPORARY_GENRES;
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_ESSENTIAL_COMPOSITIONS_RANK;
@@ -24,7 +25,7 @@ public class DtoCreator {
         return CompositionCreateEditDTO.builder()
                 .slug(COMPOSITION_SLUG)
                 .title(COMPOSITION_TITLE)
-                .catalogNumber(COMPOSITION_CATALOG_NUMBER)
+                .catalogNumber(COMPOSITION_CATALOG_NUMBER_DOUBLE)
                 .musicianNickname(COMPOSITION_MUSICIAN_NICKNAME)
                 .musicianSlug(COMPOSITION_MUSICIAN_SLUG)
                 .albumId(COMPOSITION_ALBUM_ID)
@@ -43,7 +44,7 @@ public class DtoCreator {
         return CompositionViewDTO.builder()
                 .slug(COMPOSITION_SLUG)
                 .title(COMPOSITION_TITLE)
-                .catalogNumber(COMPOSITION_CATALOG_NUMBER)
+                .catalogNumber(COMPOSITION_CATALOG_NUMBER_STRING)
                 .musicianNickname(COMPOSITION_MUSICIAN_NICKNAME)
                 .musicianSlug(COMPOSITION_MUSICIAN_SLUG)
                 .albumId(COMPOSITION_ALBUM_ID)

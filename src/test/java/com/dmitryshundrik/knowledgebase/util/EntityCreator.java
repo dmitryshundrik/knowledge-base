@@ -5,7 +5,6 @@ import com.dmitryshundrik.knowledgebase.model.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.music.Musician;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.ALBUM_ARTWORK;
@@ -21,7 +20,8 @@ import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.ALBUM_SLUG;
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.ALBUM_TITLE;
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.ALBUM_YEAR;
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.ALBUM_YEAR_END_RANK;
-import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_CATALOG_NUMBER;
+import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_CATALOG_NUMBER_DOUBLE;
+import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_CATALOG_NUMBER_STRING;
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_DESCRIPTION;
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_ESSENTIAL_COMPOSITIONS_RANK;
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_FEATURE;
@@ -116,7 +116,7 @@ public class EntityCreator {
         return Composition.builder()
                 .slug(COMPOSITION_SLUG)
                 .title(COMPOSITION_TITLE)
-                .catalogNumber(COMPOSITION_CATALOG_NUMBER)
+                .catalogNumber(COMPOSITION_CATALOG_NUMBER_DOUBLE)
 //                .musician(getMusician())
                 .feature(COMPOSITION_FEATURE)
                 .year(COMPOSITION_YEAR)

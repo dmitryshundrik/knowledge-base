@@ -55,7 +55,8 @@ public class ConstantsTest {
 
     public static final String COMPOSITION_SLUG = "composition_slug";
     public static final String COMPOSITION_TITLE = "composition_title";
-    public static final Integer COMPOSITION_CATALOG_NUMBER = 1;
+    public static final String COMPOSITION_CATALOG_NUMBER_STRING = "1.0";
+    public static final Double COMPOSITION_CATALOG_NUMBER_DOUBLE = 1.0;
     public static final String COMPOSITION_MUSICIAN_NICKNAME = "musician_nickname";
     public static final String COMPOSITION_MUSICIAN_SLUG = "musician_slug";
     public static final String COMPOSITION_ALBUM_ID = "album_id";
