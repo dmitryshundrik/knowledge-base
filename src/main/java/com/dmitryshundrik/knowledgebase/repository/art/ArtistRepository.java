@@ -5,11 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ArtistRepository extends JpaRepository<Artist, UUID> {
 
-    Artist getBySlug(String artistSlug);
+    Optional<Artist> getBySlug(String artistSlug);
 
     List<Artist> getAllByOrderByCreatedDesc();
 

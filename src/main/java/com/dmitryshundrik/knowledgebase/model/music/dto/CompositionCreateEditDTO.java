@@ -23,7 +23,7 @@ public class CompositionCreateEditDTO {
     @NotBlank(message = TITLE_MUST_NOT_BE_BLANK)
     private String title;
 
-    private Integer catalogNumber;
+    private Double catalogNumber;
 
     private String musicianNickname;
 

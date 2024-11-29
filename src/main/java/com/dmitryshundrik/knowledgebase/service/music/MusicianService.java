@@ -46,17 +46,14 @@ public class MusicianService {
 
     private final PersonEventService personEventService;
 
-    @Transactional(readOnly = true)
     public List<Musician> getAll() {
         return musicianRepository.getAllByOrderByCreated();
     }
 
-    @Transactional(readOnly = true)
     public Musician getMusicianById(UUID musicianID) {
         return musicianRepository.findById(musicianID).orElse(null);
     }
 
-    @Transactional(readOnly = true)
     public List<Musician> getAllMusiciansByUUIDList(List<UUID> uuidList) {
         List<Musician> musicianList = new ArrayList<>();
         for (UUID uuid : uuidList) {
@@ -65,7 +62,6 @@ public class MusicianService {
         return musicianList;
     }
 
-    @Transactional(readOnly = true)
     public Musician getMusicianBySlug(String musicianSlug) {
         return musicianRepository.getMusicianBySlug(musicianSlug);
     }
@@ -95,8 +91,7 @@ public class MusicianService {
                         return o1Date.compareTo(o2Date);
                     }
                     return -1;
-                })
-                .collect(Collectors.toList());
+                }).toList();
     }
 
     @Transactional(readOnly = true)
@@ -110,8 +105,7 @@ public class MusicianService {
                         }
                     }
                     return false;
-                })
-                .collect(Collectors.toList());
+                }).toList();
     }
 
     @Transactional(readOnly = true)

@@ -29,7 +29,7 @@ public class Composition extends AbstractEntity {
     private String title;
 
     @Column(name = "CATALOG_NUMBER")
-    private Integer catalogNumber;
+    private Double catalogNumber;
 
     @ManyToOne
     private Musician musician;

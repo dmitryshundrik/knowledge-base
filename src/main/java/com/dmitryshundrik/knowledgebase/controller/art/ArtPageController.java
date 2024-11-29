@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.UNKNOWN;
 
@@ -47,7 +46,7 @@ public class ArtPageController {
         }
         ArtistViewDto artistViewDto = artistService.getArtistViewDto(bySlug);
         artistViewDto.setPaintingList(artistViewDto.getPaintingList().stream()
-                .limit(10).collect(Collectors.toList()));
+                .limit(10).toList());
         List<Painting> bestPaintingsByArtist = paintingService.getBestPaintingsByArtist(artistService.getBySlug(artistSlug));
         model.addAttribute("artist", artistViewDto);
         model.addAttribute("bestPaintingList", bestPaintingsByArtist);

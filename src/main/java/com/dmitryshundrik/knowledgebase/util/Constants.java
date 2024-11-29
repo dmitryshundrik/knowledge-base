@@ -1,6 +1,9 @@
 package com.dmitryshundrik.knowledgebase.util;
 
-public class Constants {
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
+public final class Constants {
 
     public static final String UNKNOWN = "unknown";
 
@@ -27,4 +30,6 @@ public class Constants {
     public static final String MUSIC_GENRE_MUST_NOT_BE_BLANK = "Music genre must not be blank";
 
     public static final String YEAR_MUST_NOT_BE_NULL = "Year must not be null";
+
+    public static final String ARTIST_NOT_FOUND_BY_SLUG = "Artist with slug %s was not found";
 }

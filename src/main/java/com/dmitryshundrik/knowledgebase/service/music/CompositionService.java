@@ -15,6 +15,8 @@ import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -161,7 +163,8 @@ public class CompositionService {
                 .slug(composition.getSlug())
                 .title(composition.getTitle())
                 .catalogTitle(composition.getMusician().getCatalogTitle())
-                .catalogNumber(composition.getCatalogNumber())
+                .catalogNumber(composition.getCatalogNumber() != null ?
+                        new DecimalFormat("0.#").format(composition.getCatalogNumber()) : null)
                 .musicianNickname(composition.getMusician().getNickName())
                 .musicianSlug(composition.getMusician().getSlug())
                 .albumTitle(composition.getAlbum() == null ? null : composition.getAlbum().getTitle())
