@@ -32,4 +32,12 @@ public interface CompositionRepository extends JpaRepository<Composition, UUID> 
     List<Integer> getAllYearsFromCompositions();
 
     List<Composition> getAllByYear(Integer year);
+
+    List<Composition> getAllByMusicianIdOrderByCatalogNumber(UUID musicianId);
+
+    List<Composition> getAllByMusicianIdOrderByYear(UUID musicianId);
+
+    List<Composition> getAllByMusicianIdOrderByRating(UUID musicianId);
+
+    List<Composition> getAllByMusicianIdOrderByCreated(UUID musicianId);
 }

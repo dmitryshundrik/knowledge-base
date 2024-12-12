@@ -23,6 +23,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,27 +33,22 @@ public class CompositionService {
 
     private final CompositionRepository compositionRepository;
 
-    @Transactional(readOnly = true)
     public List<Composition> getAll() {
         return compositionRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public Composition getCompositionBySlug(String compositionSlug) {
         return compositionRepository.getCompositionBySlug(compositionSlug);
     }
 
-    @Transactional(readOnly = true)
     public List<Composition> getAllByYear(Integer year) {
         return compositionRepository.getAllByYear(year);
     }
 
-    @Transactional(readOnly = true)
     public List<Composition> getAllByMusicianAndEssentialRankNotNull(String musicianSlug) {
         return compositionRepository.getAllByMusicianAndEssentialRankNotNull(musicianSlug);
     }
 
-    @Transactional(readOnly = true)
     public List<Composition> getAllByPeriod(List<Musician> musicians) {
         List<Composition> compositions = new ArrayList<>();
         for (Musician musician : musicians) {
@@ -61,22 +57,18 @@ public class CompositionService {
         return compositions;
     }
 
-    @Transactional(readOnly = true)
     public List<Composition> getAllByGenre(MusicGenre genre) {
         return compositionRepository.getAllByMusicGenresIsContaining(genre);
     }
 
-    @Transactional(readOnly = true)
     public List<Composition> getAllOrderedByCreatedDesc() {
         return compositionRepository.getAllByOrderByCreatedDesc();
     }
 
-    @Transactional(readOnly = true)
     public List<Composition> getAllByMusicianWithRating(String musicianSlug) {
         return compositionRepository.getAllByMusicianWithRating(musicianSlug);
     }
 
-    @Transactional(readOnly = true)
     public List<Integer> getAllYearsFromCompositions() {
         return compositionRepository.getAllYearsFromCompositions();
     }
@@ -198,7 +190,8 @@ public class CompositionService {
                 .sorted((o1, o2) -> {
                             if (SortType.CATALOGUE_NUMBER.equals(sortType)
                                     && o1.getCatalogNumber() != null && o2.getCatalogNumber() != null) {
-                                return o1.getCatalogNumber().compareTo(o2.getCatalogNumber());
+                                return Double.valueOf(o1.getCatalogNumber())
+                                        .compareTo(Double.valueOf(o2.getCatalogNumber()));
                             } else if (SortType.YEAR.equals(sortType)
                                     && o1.getYear() != null && o2.getYear() != null) {
                                 return o1.getYear().compareTo(o2.getYear());
@@ -210,6 +203,43 @@ public class CompositionService {
                         }
                 )
                 .collect(Collectors.toList());
+    }
+
+    public List<Composition> getMusicianCompositionsOrderByFacade(UUID musicianId, SortType sortType) {
+        List<Composition> compositions = new ArrayList<>();
+
+        if (SortType.CATALOGUE_NUMBER.equals(sortType)) {
+            compositions = getMusicianCompositionsOrderByCatalogNumber(musicianId);
+        }
+
+        if (SortType.YEAR.equals(sortType)) {
+            compositions = getMusicianCompositionsOrderByYear(musicianId);
+        }
+
+        if (SortType.RATING.equals(sortType)) {
+            compositions = getMusicianCompositionsOrderByRating(musicianId);
+        }
+
+        if (SortType.CREATED.equals(sortType)) {
+            compositions = getMusicianCompositionsOrderByCreated(musicianId);
+        }
+        return compositions;
+    }
+
+    private List<Composition> getMusicianCompositionsOrderByCatalogNumber(UUID musicianId) {
+        return compositionRepository.getAllByMusicianIdOrderByCatalogNumber(musicianId);
+    }
+
+    private List<Composition> getMusicianCompositionsOrderByYear(UUID musicianId) {
+        return compositionRepository.getAllByMusicianIdOrderByYear(musicianId);
+    }
+
+    private List<Composition> getMusicianCompositionsOrderByRating(UUID musicianId) {
+        return compositionRepository.getAllByMusicianIdOrderByRating(musicianId);
+    }
+
+    private List<Composition> getMusicianCompositionsOrderByCreated(UUID musicianId) {
+        return compositionRepository.getAllByMusicianIdOrderByCreated(musicianId);
     }
 
     public CompositionCreateEditDTO getCompositionCreateEditDTO(Composition composition) {

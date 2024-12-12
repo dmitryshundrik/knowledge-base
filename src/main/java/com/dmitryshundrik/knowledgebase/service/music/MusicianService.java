@@ -10,7 +10,6 @@ import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianAllPageResponseDto;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianActivityDto;
-import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianSelectDTO;
 import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
 import com.dmitryshundrik.knowledgebase.service.common.PersonEventService;
@@ -108,7 +107,6 @@ public class MusicianService {
                 }).toList();
     }
 
-    @Transactional(readOnly = true)
     public List<Musician> getAllMusiciansByPeriod(MusicPeriod period) {
         return musicianRepository.getAllByMusicPeriodsIsContaining(period);
     }
@@ -214,8 +212,9 @@ public class MusicianService {
                                 .collect(Collectors.toList())) : null)
                 .essentialAlbums(musician.getAlbums() != null ? albumService
                         .getEssentialAlbumsViewDTOList(musician.getAlbums()) : null)
-                .compositions(musician.getCompositions() != null ? compositionService
-                        .getSortedCompositionViewDTOList(musician.getCompositions(), musician.getCompositionsSortType()) : null)
+                .compositions(compositionService
+                        .getCompositionViewDTOList(compositionService
+                                .getMusicianCompositionsOrderByFacade(musician.getId(), musician.getCompositionsSortType())))
                 .essentialCompositions(musician.getCompositions() != null ? compositionService
                         .getEssentialCompositionsViewDTOList(musician.getCompositions()) : null)
                 .build();
@@ -275,16 +274,9 @@ public class MusicianService {
                 .events(personEventService.getPersonEventDTOList(musician.getEvents()))
                 .albums(albumService.getSortedAlbumViewDTOList(musician.getAlbums(), musician.getAlbumsSortType()))
                 .compositions(compositionService
-                        .getSortedCompositionViewDTOList(musician.getCompositions(), musician.getCompositionsSortType()))
+                        .getCompositionViewDTOList(compositionService
+                                .getMusicianCompositionsOrderByFacade(musician.getId(), musician.getCompositionsSortType())))
                 .build();
-    }
-
-    public List<Musician> getMusicianListByMusicianSelectDTO(List<MusicianSelectDTO> musicianSelectDTOList) {
-        List<Musician> collaborators = new ArrayList<>();
-        for (MusicianSelectDTO musicianDTO : musicianSelectDTOList) {
-            collaborators.add(getMusicianById(UUID.fromString(musicianDTO.getId())));
-        }
-        return collaborators;
     }
 
     public void setFieldsToCompositionDTO(String musicianSlug, CompositionCreateEditDTO compositionDTO) {
