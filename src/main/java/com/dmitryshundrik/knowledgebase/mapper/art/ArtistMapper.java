@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.mapper.art;
 
-import com.dmitryshundrik.knowledgebase.model.art.Artist;
-import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistCreateEditDto;
-import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistViewDto;
+import com.dmitryshundrik.knowledgebase.entity.art.Artist;
+import com.dmitryshundrik.knowledgebase.dto.art.ArtistCreateEditDto;
+import com.dmitryshundrik.knowledgebase.dto.art.ArtistViewDto;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

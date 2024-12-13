@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.controller.management.music;
 
-import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.dto.MusicGenreCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
+import com.dmitryshundrik.knowledgebase.entity.music.MusicGenre;
+import com.dmitryshundrik.knowledgebase.dto.music.MusicGenreCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.util.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;

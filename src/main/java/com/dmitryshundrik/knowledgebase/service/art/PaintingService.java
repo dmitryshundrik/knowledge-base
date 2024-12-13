@@ -1,9 +1,9 @@
 package com.dmitryshundrik.knowledgebase.service.art;
 
-import com.dmitryshundrik.knowledgebase.model.art.Artist;
-import com.dmitryshundrik.knowledgebase.model.art.Painting;
-import com.dmitryshundrik.knowledgebase.model.art.dto.PaintingCreateEditDto;
-import com.dmitryshundrik.knowledgebase.model.art.dto.PaintingViewDto;
+import com.dmitryshundrik.knowledgebase.entity.art.Artist;
+import com.dmitryshundrik.knowledgebase.entity.art.Painting;
+import com.dmitryshundrik.knowledgebase.dto.art.PaintingCreateEditDto;
+import com.dmitryshundrik.knowledgebase.dto.art.PaintingViewDto;
 import com.dmitryshundrik.knowledgebase.repository.art.PaintingRepository;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;

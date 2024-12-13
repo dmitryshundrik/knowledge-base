@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.controller.management.storage;
 
-import com.dmitryshundrik.knowledgebase.model.common.Image;
-import com.dmitryshundrik.knowledgebase.model.common.dto.ImageDTO;
+import com.dmitryshundrik.knowledgebase.entity.common.Image;
+import com.dmitryshundrik.knowledgebase.dto.common.ImageDTO;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;

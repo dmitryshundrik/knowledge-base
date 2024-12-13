@@ -1,16 +1,16 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
-import com.dmitryshundrik.knowledgebase.model.music.Album;
-import com.dmitryshundrik.knowledgebase.model.music.Composition;
-import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
-import com.dmitryshundrik.knowledgebase.model.music.Musician;
-import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianAllPageResponseDto;
-import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianActivityDto;
-import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianViewDTO;
+import com.dmitryshundrik.knowledgebase.entity.music.Album;
+import com.dmitryshundrik.knowledgebase.entity.music.Composition;
+import com.dmitryshundrik.knowledgebase.entity.music.MusicGenre;
+import com.dmitryshundrik.knowledgebase.entity.music.MusicPeriod;
+import com.dmitryshundrik.knowledgebase.entity.music.Musician;
+import com.dmitryshundrik.knowledgebase.dto.music.AlbumCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.dto.music.CompositionCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.dto.music.MusicianAllPageResponseDto;
+import com.dmitryshundrik.knowledgebase.dto.music.MusicianCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.dto.music.MusicianActivityDto;
+import com.dmitryshundrik.knowledgebase.dto.music.MusicianViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
 import com.dmitryshundrik.knowledgebase.service.common.PersonEventService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;

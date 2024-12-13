@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.service.common;
 
-import com.dmitryshundrik.knowledgebase.model.common.Setting;
-import com.dmitryshundrik.knowledgebase.model.common.dto.SettingCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.common.dto.SettingViewDTO;
+import com.dmitryshundrik.knowledgebase.entity.common.Setting;
+import com.dmitryshundrik.knowledgebase.dto.common.SettingCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.dto.common.SettingViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.common.SettingRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;

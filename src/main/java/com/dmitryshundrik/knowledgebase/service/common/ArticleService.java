@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.common;
 
-import com.dmitryshundrik.knowledgebase.model.common.Article;
-import com.dmitryshundrik.knowledgebase.model.common.dto.ArticleDTO;
+import com.dmitryshundrik.knowledgebase.entity.common.Article;
+import com.dmitryshundrik.knowledgebase.dto.common.ArticleDTO;
 import com.dmitryshundrik.knowledgebase.repository.common.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

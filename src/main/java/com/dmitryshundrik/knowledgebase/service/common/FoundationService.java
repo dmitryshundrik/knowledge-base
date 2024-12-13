@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.common;
 
-import com.dmitryshundrik.knowledgebase.model.common.Foundation;
-import com.dmitryshundrik.knowledgebase.model.common.dto.FoundationDTO;
+import com.dmitryshundrik.knowledgebase.entity.common.Foundation;
+import com.dmitryshundrik.knowledgebase.dto.common.FoundationDTO;
 import com.dmitryshundrik.knowledgebase.repository.common.FoundationRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;

@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.controller.management.literature;
 
-import com.dmitryshundrik.knowledgebase.model.literature.Word;
-import com.dmitryshundrik.knowledgebase.model.literature.Writer;
-import com.dmitryshundrik.knowledgebase.model.literature.dto.WordDTO;
+import com.dmitryshundrik.knowledgebase.entity.literature.Word;
+import com.dmitryshundrik.knowledgebase.entity.literature.Writer;
+import com.dmitryshundrik.knowledgebase.dto.literature.WordDTO;
 import com.dmitryshundrik.knowledgebase.service.literature.WordService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
 import lombok.RequiredArgsConstructor;

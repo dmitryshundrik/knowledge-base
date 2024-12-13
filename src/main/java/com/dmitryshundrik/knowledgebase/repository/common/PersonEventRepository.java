@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.repository.common;
 
-import com.dmitryshundrik.knowledgebase.model.common.PersonEvent;
+import com.dmitryshundrik.knowledgebase.entity.common.PersonEvent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 

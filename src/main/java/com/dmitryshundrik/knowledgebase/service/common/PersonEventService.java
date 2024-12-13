@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.service.common;
 
-import com.dmitryshundrik.knowledgebase.model.common.PersonEvent;
-import com.dmitryshundrik.knowledgebase.model.common.dto.PersonEventDTO;
-import com.dmitryshundrik.knowledgebase.model.music.Musician;
+import com.dmitryshundrik.knowledgebase.entity.common.PersonEvent;
+import com.dmitryshundrik.knowledgebase.dto.common.PersonEventDTO;
+import com.dmitryshundrik.knowledgebase.entity.music.Musician;
 import com.dmitryshundrik.knowledgebase.repository.common.PersonEventRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;

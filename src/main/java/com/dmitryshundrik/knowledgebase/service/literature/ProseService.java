@@ -1,10 +1,10 @@
 package com.dmitryshundrik.knowledgebase.service.literature;
 
-import com.dmitryshundrik.knowledgebase.model.literature.Prose;
-import com.dmitryshundrik.knowledgebase.model.literature.Writer;
-import com.dmitryshundrik.knowledgebase.model.literature.dto.ProseCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.literature.dto.ProseSelectDTO;
-import com.dmitryshundrik.knowledgebase.model.literature.dto.ProseViewDTO;
+import com.dmitryshundrik.knowledgebase.entity.literature.Prose;
+import com.dmitryshundrik.knowledgebase.entity.literature.Writer;
+import com.dmitryshundrik.knowledgebase.dto.literature.ProseCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.dto.literature.ProseSelectDTO;
+import com.dmitryshundrik.knowledgebase.dto.literature.ProseViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.literature.ProseRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;

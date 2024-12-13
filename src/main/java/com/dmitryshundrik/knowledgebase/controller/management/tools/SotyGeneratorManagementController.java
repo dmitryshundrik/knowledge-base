@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.controller.management.tools;
 
-import com.dmitryshundrik.knowledgebase.model.music.Composition;
-import com.dmitryshundrik.knowledgebase.model.tools.Soty;
-import com.dmitryshundrik.knowledgebase.model.tools.SotyPair;
+import com.dmitryshundrik.knowledgebase.entity.music.Composition;
+import com.dmitryshundrik.knowledgebase.entity.tools.Soty;
+import com.dmitryshundrik.knowledgebase.entity.tools.SotyPair;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

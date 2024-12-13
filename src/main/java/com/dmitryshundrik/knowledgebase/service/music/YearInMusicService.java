@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
-import com.dmitryshundrik.knowledgebase.model.music.YearInMusic;
-import com.dmitryshundrik.knowledgebase.model.music.dto.YearInMusicCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.music.dto.YearInMusicViewDTO;
+import com.dmitryshundrik.knowledgebase.entity.music.YearInMusic;
+import com.dmitryshundrik.knowledgebase.dto.music.YearInMusicCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.dto.music.YearInMusicViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.music.YearInMusicRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;

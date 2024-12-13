@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.controller.management.music;
 
-import com.dmitryshundrik.knowledgebase.model.music.Album;
-import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.entity.music.Album;
+import com.dmitryshundrik.knowledgebase.dto.music.AlbumCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;

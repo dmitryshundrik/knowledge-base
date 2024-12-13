@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.repository.music;
 
-import com.dmitryshundrik.knowledgebase.model.music.YearInMusic;
+import com.dmitryshundrik.knowledgebase.entity.music.YearInMusic;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 

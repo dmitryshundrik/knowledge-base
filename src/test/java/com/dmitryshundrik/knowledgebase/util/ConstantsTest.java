@@ -1,13 +1,13 @@
 package com.dmitryshundrik.knowledgebase.util;
 
-import com.dmitryshundrik.knowledgebase.model.common.PersonEvent;
-import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
-import com.dmitryshundrik.knowledgebase.model.music.Album;
-import com.dmitryshundrik.knowledgebase.model.music.Composition;
-import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
-import com.dmitryshundrik.knowledgebase.model.music.Musician;
-import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
+import com.dmitryshundrik.knowledgebase.entity.common.PersonEvent;
+import com.dmitryshundrik.knowledgebase.util.enums.Gender;
+import com.dmitryshundrik.knowledgebase.entity.music.Album;
+import com.dmitryshundrik.knowledgebase.entity.music.Composition;
+import com.dmitryshundrik.knowledgebase.entity.music.MusicGenre;
+import com.dmitryshundrik.knowledgebase.entity.music.MusicPeriod;
+import com.dmitryshundrik.knowledgebase.entity.music.Musician;
+import com.dmitryshundrik.knowledgebase.util.enums.SortType;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

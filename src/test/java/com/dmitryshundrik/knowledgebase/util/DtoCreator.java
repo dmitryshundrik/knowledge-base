@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.util;
 
-import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionViewDTO;
+import com.dmitryshundrik.knowledgebase.dto.music.CompositionCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.dto.music.CompositionViewDTO;
 
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_ALBUM_ID;
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_CATALOG_NUMBER_DOUBLE;

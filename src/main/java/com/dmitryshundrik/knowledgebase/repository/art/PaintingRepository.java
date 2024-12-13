@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.repository.art;
 
-import com.dmitryshundrik.knowledgebase.model.art.Artist;
-import com.dmitryshundrik.knowledgebase.model.art.Painting;
+import com.dmitryshundrik.knowledgebase.entity.art.Artist;
+import com.dmitryshundrik.knowledgebase.entity.art.Painting;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.UUID;

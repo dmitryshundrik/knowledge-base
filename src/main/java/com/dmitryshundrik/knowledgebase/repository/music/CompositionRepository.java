@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.repository.music;
 
-import com.dmitryshundrik.knowledgebase.model.music.Composition;
-import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
+import com.dmitryshundrik.knowledgebase.entity.music.Composition;
+import com.dmitryshundrik.knowledgebase.entity.music.MusicGenre;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;

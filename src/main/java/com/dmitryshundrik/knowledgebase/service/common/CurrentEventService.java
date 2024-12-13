@@ -1,10 +1,10 @@
 package com.dmitryshundrik.knowledgebase.service.common;
 
-import com.dmitryshundrik.knowledgebase.model.art.Artist;
-import com.dmitryshundrik.knowledgebase.model.common.CurrentEventInfo;
-import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
-import com.dmitryshundrik.knowledgebase.model.literature.Writer;
-import com.dmitryshundrik.knowledgebase.model.music.Musician;
+import com.dmitryshundrik.knowledgebase.entity.art.Artist;
+import com.dmitryshundrik.knowledgebase.entity.common.CurrentEventInfo;
+import com.dmitryshundrik.knowledgebase.util.enums.Gender;
+import com.dmitryshundrik.knowledgebase.entity.literature.Writer;
+import com.dmitryshundrik.knowledgebase.entity.music.Musician;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;

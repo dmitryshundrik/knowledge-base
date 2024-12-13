@@ -1,13 +1,13 @@
 package com.dmitryshundrik.knowledgebase.service.spotify;
 
-import com.dmitryshundrik.knowledgebase.model.music.Album;
-import com.dmitryshundrik.knowledgebase.model.music.Composition;
-import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.Musician;
-import com.dmitryshundrik.knowledgebase.model.spotify.CurrentSong;
-import com.dmitryshundrik.knowledgebase.model.spotify.RefreshToken;
-import com.dmitryshundrik.knowledgebase.model.spotify.player.ItemArtistResponse;
-import com.dmitryshundrik.knowledgebase.model.spotify.player.PlayerResponse;
+import com.dmitryshundrik.knowledgebase.entity.music.Album;
+import com.dmitryshundrik.knowledgebase.entity.music.Composition;
+import com.dmitryshundrik.knowledgebase.entity.music.MusicGenre;
+import com.dmitryshundrik.knowledgebase.entity.music.Musician;
+import com.dmitryshundrik.knowledgebase.entity.spotify.CurrentSong;
+import com.dmitryshundrik.knowledgebase.entity.spotify.RefreshToken;
+import com.dmitryshundrik.knowledgebase.entity.spotify.player.ItemArtistResponse;
+import com.dmitryshundrik.knowledgebase.entity.spotify.player.PlayerResponse;
 import com.dmitryshundrik.knowledgebase.repository.tools.RefreshTokenRepository;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import com.fasterxml.jackson.core.JsonProcessingException;

@@ -1,13 +1,13 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
-import com.dmitryshundrik.knowledgebase.model.music.Album;
-import com.dmitryshundrik.knowledgebase.model.music.MusicGenre;
-import com.dmitryshundrik.knowledgebase.model.music.Musician;
-import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumSelectDTO;
-import com.dmitryshundrik.knowledgebase.model.music.dto.AlbumViewDTO;
-import com.dmitryshundrik.knowledgebase.model.music.enums.MusicGenreType;
-import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
+import com.dmitryshundrik.knowledgebase.entity.music.Album;
+import com.dmitryshundrik.knowledgebase.entity.music.MusicGenre;
+import com.dmitryshundrik.knowledgebase.entity.music.Musician;
+import com.dmitryshundrik.knowledgebase.dto.music.AlbumCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.dto.music.AlbumSelectDTO;
+import com.dmitryshundrik.knowledgebase.dto.music.AlbumViewDTO;
+import com.dmitryshundrik.knowledgebase.util.enums.MusicGenreType;
+import com.dmitryshundrik.knowledgebase.util.enums.SortType;
 import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.MusicianDTOTransformer;

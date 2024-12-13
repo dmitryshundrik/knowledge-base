@@ -1,9 +1,9 @@
 package com.dmitryshundrik.knowledgebase.repository.music;
 
-import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
-import com.dmitryshundrik.knowledgebase.model.music.Musician;
-import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianAllPageResponseDto;
-import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianActivityDto;
+import com.dmitryshundrik.knowledgebase.entity.music.MusicPeriod;
+import com.dmitryshundrik.knowledgebase.entity.music.Musician;
+import com.dmitryshundrik.knowledgebase.dto.music.MusicianAllPageResponseDto;
+import com.dmitryshundrik.knowledgebase.dto.music.MusicianActivityDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.time.LocalDate;
@@ -34,6 +34,6 @@ public interface MusicianRepository extends JpaRepository<Musician, UUID> {
     @Query(value = "select * from musician where extract( month from death_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) and extract( day from death_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)
     List<Musician> findAllWithCurrentDeath(LocalDate date);
 
-    @Query("SELECT new com.dmitryshundrik.knowledgebase.model.music.dto.MusicianAllPageResponseDto(musician.slug, musician.nickName, musician.born, musician.founded) FROM Musician musician ORDER BY musician.born")
+    @Query("SELECT new com.dmitryshundrik.knowledgebase.dto.music.MusicianAllPageResponseDto(musician.slug, musician.nickName, musician.born, musician.founded) FROM Musician musician ORDER BY musician.born")
     List<MusicianAllPageResponseDto> getMusicianAllPageResponseDto();
 }

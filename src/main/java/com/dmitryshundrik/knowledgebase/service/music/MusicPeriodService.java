@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
-import com.dmitryshundrik.knowledgebase.model.music.MusicPeriod;
-import com.dmitryshundrik.knowledgebase.model.music.dto.MusicPeriodCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.music.dto.MusicPeriodViewDTO;
+import com.dmitryshundrik.knowledgebase.entity.music.MusicPeriod;
+import com.dmitryshundrik.knowledgebase.dto.music.MusicPeriodCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.dto.music.MusicPeriodViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicPeriodRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;

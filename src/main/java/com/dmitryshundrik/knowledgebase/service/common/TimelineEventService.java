@@ -1,9 +1,9 @@
 package com.dmitryshundrik.knowledgebase.service.common;
 
-import com.dmitryshundrik.knowledgebase.model.common.dto.TimelineEventDTO;
-import com.dmitryshundrik.knowledgebase.model.common.TimelineEvent;
-import com.dmitryshundrik.knowledgebase.model.common.enums.EraType;
-import com.dmitryshundrik.knowledgebase.model.common.enums.TimelineEventType;
+import com.dmitryshundrik.knowledgebase.dto.common.TimelineEventDTO;
+import com.dmitryshundrik.knowledgebase.entity.common.TimelineEvent;
+import com.dmitryshundrik.knowledgebase.util.enums.EraType;
+import com.dmitryshundrik.knowledgebase.util.enums.TimelineEventType;
 import com.dmitryshundrik.knowledgebase.repository.common.TimelineEventRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;

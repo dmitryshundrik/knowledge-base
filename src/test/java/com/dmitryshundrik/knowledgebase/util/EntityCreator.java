@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.util;
 
-import com.dmitryshundrik.knowledgebase.model.music.Album;
-import com.dmitryshundrik.knowledgebase.model.music.Composition;
-import com.dmitryshundrik.knowledgebase.model.music.Musician;
+import com.dmitryshundrik.knowledgebase.entity.music.Album;
+import com.dmitryshundrik.knowledgebase.entity.music.Composition;
+import com.dmitryshundrik.knowledgebase.entity.music.Musician;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,6 @@ import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.ALBUM_TITLE;
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.ALBUM_YEAR;
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.ALBUM_YEAR_END_RANK;
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_CATALOG_NUMBER_DOUBLE;
-import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_CATALOG_NUMBER_STRING;
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_DESCRIPTION;
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_ESSENTIAL_COMPOSITIONS_RANK;
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_FEATURE;

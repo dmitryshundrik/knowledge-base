@@ -1,11 +1,11 @@
 package com.dmitryshundrik.knowledgebase.controller.management.literature;
 
-import com.dmitryshundrik.knowledgebase.model.literature.Prose;
-import com.dmitryshundrik.knowledgebase.model.literature.Quote;
-import com.dmitryshundrik.knowledgebase.model.literature.Writer;
-import com.dmitryshundrik.knowledgebase.model.literature.dto.ProseSelectDTO;
-import com.dmitryshundrik.knowledgebase.model.literature.dto.QuoteCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.literature.dto.QuoteViewDTO;
+import com.dmitryshundrik.knowledgebase.entity.literature.Prose;
+import com.dmitryshundrik.knowledgebase.entity.literature.Quote;
+import com.dmitryshundrik.knowledgebase.entity.literature.Writer;
+import com.dmitryshundrik.knowledgebase.dto.literature.ProseSelectDTO;
+import com.dmitryshundrik.knowledgebase.dto.literature.QuoteCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.dto.literature.QuoteViewDTO;
 import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
 import com.dmitryshundrik.knowledgebase.service.literature.QuoteService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;

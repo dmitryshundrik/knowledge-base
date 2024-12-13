@@ -1,10 +1,9 @@
 package com.dmitryshundrik.knowledgebase.repository.literature;
 
-import com.dmitryshundrik.knowledgebase.model.literature.Prose;
-import com.dmitryshundrik.knowledgebase.model.literature.Writer;
+import com.dmitryshundrik.knowledgebase.entity.literature.Prose;
+import com.dmitryshundrik.knowledgebase.entity.literature.Writer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface ProseRepository extends JpaRepository<Prose, UUID> {

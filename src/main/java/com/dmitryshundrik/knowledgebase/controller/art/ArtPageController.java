@@ -1,9 +1,9 @@
 package com.dmitryshundrik.knowledgebase.controller.art;
 
-import com.dmitryshundrik.knowledgebase.model.art.Artist;
-import com.dmitryshundrik.knowledgebase.model.art.Painting;
-import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistViewDto;
-import com.dmitryshundrik.knowledgebase.model.art.dto.PaintingViewDto;
+import com.dmitryshundrik.knowledgebase.entity.art.Artist;
+import com.dmitryshundrik.knowledgebase.entity.art.Painting;
+import com.dmitryshundrik.knowledgebase.dto.art.ArtistViewDto;
+import com.dmitryshundrik.knowledgebase.dto.art.PaintingViewDto;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
 import lombok.RequiredArgsConstructor;

@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.service.gastronomy;
 
-import com.dmitryshundrik.knowledgebase.model.gastronomy.Cocktail;
-import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.CocktailCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.CocktailViewDTO;
+import com.dmitryshundrik.knowledgebase.entity.gastronomy.Cocktail;
+import com.dmitryshundrik.knowledgebase.dto.gastronomy.CocktailCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.dto.gastronomy.CocktailViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.gastronomy.CocktailRepository;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;

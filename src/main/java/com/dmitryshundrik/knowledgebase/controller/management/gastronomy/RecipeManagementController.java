@@ -1,9 +1,9 @@
 package com.dmitryshundrik.knowledgebase.controller.management.gastronomy;
 
-import com.dmitryshundrik.knowledgebase.model.common.enums.Country;
-import com.dmitryshundrik.knowledgebase.model.gastronomy.Recipe;
-import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.RecipeCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.gastronomy.dto.RecipeViewDTO;
+import com.dmitryshundrik.knowledgebase.util.enums.Country;
+import com.dmitryshundrik.knowledgebase.entity.gastronomy.Recipe;
+import com.dmitryshundrik.knowledgebase.dto.gastronomy.RecipeCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.dto.gastronomy.RecipeViewDTO;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

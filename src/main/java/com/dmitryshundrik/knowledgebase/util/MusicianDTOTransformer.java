@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.util;
 
-import com.dmitryshundrik.knowledgebase.model.music.Musician;
-import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianSelectDTO;
+import com.dmitryshundrik.knowledgebase.entity.music.Musician;
+import com.dmitryshundrik.knowledgebase.dto.music.MusicianSelectDTO;
 import java.util.List;
 import java.util.stream.Collectors;
 

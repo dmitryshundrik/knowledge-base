@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.repository.common;
 
-import com.dmitryshundrik.knowledgebase.model.common.TimelineEvent;
-import com.dmitryshundrik.knowledgebase.model.common.enums.TimelineEventType;
+import com.dmitryshundrik.knowledgebase.entity.common.TimelineEvent;
+import com.dmitryshundrik.knowledgebase.util.enums.TimelineEventType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.UUID;

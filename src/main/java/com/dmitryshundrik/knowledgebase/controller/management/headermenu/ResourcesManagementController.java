@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.controller.management.headermenu;
 
-import com.dmitryshundrik.knowledgebase.model.common.Resource;
-import com.dmitryshundrik.knowledgebase.model.common.dto.ResourceDTO;
+import com.dmitryshundrik.knowledgebase.entity.common.Resource;
+import com.dmitryshundrik.knowledgebase.dto.common.ResourceDTO;
 import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

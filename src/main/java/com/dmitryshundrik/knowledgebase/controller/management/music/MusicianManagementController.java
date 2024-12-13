@@ -1,9 +1,9 @@
 package com.dmitryshundrik.knowledgebase.controller.management.music;
 
-import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
-import com.dmitryshundrik.knowledgebase.model.music.Musician;
-import com.dmitryshundrik.knowledgebase.model.music.dto.MusicianCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.music.enums.SortType;
+import com.dmitryshundrik.knowledgebase.util.enums.Gender;
+import com.dmitryshundrik.knowledgebase.entity.music.Musician;
+import com.dmitryshundrik.knowledgebase.dto.music.MusicianCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.util.enums.SortType;
 import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicPeriodService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;

@@ -2,9 +2,9 @@ package com.dmitryshundrik.knowledgebase.service.art;
 
 import com.dmitryshundrik.knowledgebase.exception.NotFoundException;
 import com.dmitryshundrik.knowledgebase.mapper.art.ArtistMapper;
-import com.dmitryshundrik.knowledgebase.model.art.Artist;
-import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistCreateEditDto;
-import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistViewDto;
+import com.dmitryshundrik.knowledgebase.entity.art.Artist;
+import com.dmitryshundrik.knowledgebase.dto.art.ArtistCreateEditDto;
+import com.dmitryshundrik.knowledgebase.dto.art.ArtistViewDto;
 import com.dmitryshundrik.knowledgebase.repository.art.ArtistRepository;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;

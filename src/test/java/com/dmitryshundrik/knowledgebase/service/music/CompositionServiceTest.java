@@ -1,10 +1,10 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
-import com.dmitryshundrik.knowledgebase.model.music.Album;
-import com.dmitryshundrik.knowledgebase.model.music.Composition;
-import com.dmitryshundrik.knowledgebase.model.music.Musician;
-import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.music.dto.CompositionViewDTO;
+import com.dmitryshundrik.knowledgebase.entity.music.Album;
+import com.dmitryshundrik.knowledgebase.entity.music.Composition;
+import com.dmitryshundrik.knowledgebase.entity.music.Musician;
+import com.dmitryshundrik.knowledgebase.dto.music.CompositionCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.dto.music.CompositionViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.music.CompositionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

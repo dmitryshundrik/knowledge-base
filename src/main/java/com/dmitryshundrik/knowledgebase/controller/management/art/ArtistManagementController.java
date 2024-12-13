@@ -1,9 +1,9 @@
 package com.dmitryshundrik.knowledgebase.controller.management.art;
 
-import com.dmitryshundrik.knowledgebase.model.art.Artist;
-import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistCreateEditDto;
-import com.dmitryshundrik.knowledgebase.model.art.dto.ArtistViewDto;
-import com.dmitryshundrik.knowledgebase.model.common.enums.Gender;
+import com.dmitryshundrik.knowledgebase.entity.art.Artist;
+import com.dmitryshundrik.knowledgebase.dto.art.ArtistCreateEditDto;
+import com.dmitryshundrik.knowledgebase.dto.art.ArtistViewDto;
+import com.dmitryshundrik.knowledgebase.util.enums.Gender;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;
