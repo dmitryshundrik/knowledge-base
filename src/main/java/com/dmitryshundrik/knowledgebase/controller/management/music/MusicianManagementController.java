@@ -28,6 +28,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.CLASSICAL_MUSIC_GE
 import static com.dmitryshundrik.knowledgebase.util.Constants.CONTEMPORARY_MUSIC_GENRES;
 import static com.dmitryshundrik.knowledgebase.util.Constants.GENDER_LIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.MUSICIAN;
+import static com.dmitryshundrik.knowledgebase.util.Constants.MUSICIAN_LIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.MUSIC_PERIOD_LIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG;
 import static com.dmitryshundrik.knowledgebase.util.Constants.SORT_TYPE_LIST;
@@ -45,7 +46,7 @@ public class MusicianManagementController {
     @GetMapping("/management/musician/all")
     public String getAllMusicians(Model model) {
         List<Musician> allMusicians = musicianService.getAllMusiciansOrderedByCreatedDesc();
-        model.addAttribute(MUSICIAN, musicianService.getMusicianViewDTOList(allMusicians));
+        model.addAttribute(MUSICIAN_LIST, musicianService.getMusicianViewDTOList(allMusicians));
         return "management/music/musician-all";
     }
 

@@ -25,6 +25,7 @@ import java.util.List;
 import static com.dmitryshundrik.knowledgebase.util.Constants.ALBUM_LIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.CLASSICAL_MUSIC_GENRES;
 import static com.dmitryshundrik.knowledgebase.util.Constants.COMPOSITION;
+import static com.dmitryshundrik.knowledgebase.util.Constants.COMPOSITION_LIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.CONTEMPORARY_MUSIC_GENRES;
 
 @Controller
@@ -42,7 +43,7 @@ public class CompositionManagementController {
     @GetMapping("/management/composition/all")
     public String getAllCompositions(Model model) {
         List<Composition> allCompositions = compositionService.getAllOrderedByCreatedDesc();
-        model.addAttribute(COMPOSITION, compositionService
+        model.addAttribute(COMPOSITION_LIST, compositionService
                 .getCompositionViewDTOList(allCompositions));
         return "management/music/composition-all";
     }

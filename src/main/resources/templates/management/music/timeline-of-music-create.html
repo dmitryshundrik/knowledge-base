@@ -19,13 +19,13 @@
         <article class="table-body-item">
             <form class="form" th:action="${'/management/timeline-of-music/event/create'}"
                   th:method="post"
-                  th:object="${timelineEventDTO}">
+                  th:object="${timelineEvent}">
 
                 <section class="form-item">
                     <label>era type</label>
                     <select th:field="*{eraType}">
                         <option th:value="null" selected>выбрать эру</option>
-                        <option th:each="type : ${eraTypes}"
+                        <option th:each="type : ${eraTypeList}"
                                 th:value="${type}"
                                 th:text="${type.label}">
                         </option>

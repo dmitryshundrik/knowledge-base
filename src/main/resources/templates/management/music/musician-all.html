@@ -40,8 +40,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="musician : ${musicianViewDTOList}">
-                <th th:text="${musicianViewDTOList.size - musicianStat.index}"></th>
+            <tr th:each="musician : ${musicianList}">
+                <th th:text="${musicianList.size - musicianStat.index}"></th>
                 <td th:text="${musician.created}"></td>
                 <td th:text="${musician.nickName}"></td>
                 <td th:text="${musician.slug}"></td>

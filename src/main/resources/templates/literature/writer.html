@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-    <title th:text="${writerDTO.nickName}"></title>
+    <title th:text="${writer.nickName}"></title>
     <link th:href="@{/styles/literature/writer.css}" rel="stylesheet">
     <meta name="viewport" content="width=device-width">
 </head>
@@ -109,7 +109,7 @@
             </section>
             <section>
                 <span>
-                    <a th:href="'/literature/writer/' + ${writerDTO.slug} + '/quote/all'">Весь список</a>
+                    <a th:href="'/literature/writer/' + ${writer.slug} + '/quote/all'">Весь список</a>
                 </span>
             </section>
         </article>
@@ -125,7 +125,7 @@
             </section>
             <section>
                 <span>
-                    <a th:href="'/literature/writer/' + ${writerDTO.slug} + '/word/all'">Весь список</a>
+                    <a th:href="'/literature/writer/' + ${writer.slug} + '/word/all'">Весь список</a>
                 </span>
             </section>
         </article>

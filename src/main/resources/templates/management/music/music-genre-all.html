@@ -35,7 +35,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="genre : ${classicalGenres}">
+                <tr th:each="genre : ${classicalMusicGenres}">
                     <th th:text="${genreStat.index + 1}"></th>
                     <td th:text="${genre.created}"></td>
                     <td th:text="${genre.slug}"></td>
@@ -75,7 +75,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="genre : ${contemporaryGenres}">
+                <tr th:each="genre : ${contemporaryMusicGenres}">
                     <th th:text="${genreStat.index + 1}"></th>
                     <td th:text="${genre.created}"></td>
                     <td th:text="${genre.slug}"></td>
