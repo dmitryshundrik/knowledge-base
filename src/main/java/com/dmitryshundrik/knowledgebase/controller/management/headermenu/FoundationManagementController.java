@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import java.util.List;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.FOUNDATION;
+import static com.dmitryshundrik.knowledgebase.util.Constants.FOUNDATION_LIST;
+
 @Controller
 @RequiredArgsConstructor
 public class FoundationManagementController {
@@ -24,19 +27,19 @@ public class FoundationManagementController {
     public String getAllFoundations(Model model) {
         List<Foundation> foundationList = foundationService.getAllSortedByCreated();
         List<FoundationDTO> foundationDTOList = foundationService.getFoundationDTOList(foundationList);
-        model.addAttribute("foundations", foundationDTOList);
+        model.addAttribute(FOUNDATION_LIST, foundationDTOList);
         return "management/headermenu/foundation-all";
     }
 
     @GetMapping("/management/foundation/create")
     public String getFoundationCreate(Model model) {
         FoundationDTO foundationDTO = new FoundationDTO();
-        model.addAttribute("foundationDTO", foundationDTO);
+        model.addAttribute(FOUNDATION, foundationDTO);
         return "management/headermenu/foundation-create";
     }
 
     @PostMapping("/management/foundation/create")
-    public String postFoundationCreate(@ModelAttribute("foundationDTO") FoundationDTO foundationDTO) {
+    public String postFoundationCreate(@ModelAttribute(FOUNDATION) FoundationDTO foundationDTO) {
         Foundation foundation = foundationService.createFoundation(foundationDTO);
         return "redirect:/management/foundation/edit/" + foundation.getId();
     }
@@ -45,13 +48,13 @@ public class FoundationManagementController {
     public String getFoundationEdit(@PathVariable String foundationId, Model model) {
         Foundation byId = foundationService.getById(foundationId);
         FoundationDTO foundationDTO = foundationService.getFoundationDTO(byId);
-        model.addAttribute("foundationDTO", foundationDTO);
+        model.addAttribute(FOUNDATION, foundationDTO);
         return "management/headermenu/foundation-edit";
     }
 
     @PutMapping("/management/foundation/edit/{foundationId}")
     public String putFoundationEdit(@PathVariable String foundationId,
-                                    @ModelAttribute("foundationDTO") FoundationDTO foundationDTO) {
+                                    @ModelAttribute(FOUNDATION) FoundationDTO foundationDTO) {
         Foundation foundation = foundationService.updateFoundation(foundationId, foundationDTO);
         return "redirect:/management/foundation/edit/" + foundation.getId();
     }

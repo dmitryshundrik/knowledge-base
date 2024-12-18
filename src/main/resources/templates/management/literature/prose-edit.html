@@ -18,9 +18,9 @@
     <div class="table-body">
         <article class="table-body-item">
             <form class="form"
-                  th:action="${'/management/writer/edit/' + proseDTO.writerSlug + '/prose/edit/' + proseDTO.slug}"
+                  th:action="${'/management/writer/edit/' + prose.writerSlug + '/prose/edit/' + prose.slug}"
                   th:method="put"
-                  th:object="${proseDTO}">
+                  th:object="${prose}">
 
                 <section class="form-item">
                     <label>title</label>
@@ -63,7 +63,7 @@
 
         <article class="table-body-item schema-upload-form">
             <form class="form"
-                  th:action="${'/management/writer/edit/' + proseDTO.writerSlug + '/prose/edit/' + proseDTO.slug + '/schema/upload'}"
+                  th:action="${'/management/writer/edit/' + prose.writerSlug + '/prose/edit/' + prose.slug + '/schema/upload'}"
                   th:method="post"
                   enctype="multipart/form-data">
 
@@ -76,11 +76,11 @@
             </form>
 
             <section class="entity-image">
-                <img alt="" th:src="|data:image;base64,${proseDTO.playCharactersSchema}|">
+                <img alt="" th:src="|data:image;base64,${prose.playCharactersSchema}|">
             </section>
 
             <form class="form"
-                  th:action="${'/management/writer/edit/' + proseDTO.writerSlug + '/prose/edit/' + proseDTO.slug + '/schema/delete'}"
+                  th:action="${'/management/writer/edit/' + prose.writerSlug + '/prose/edit/' + prose.slug + '/schema/delete'}"
                   th:method="delete">
                 <input class="input-submit" type="submit" value="Удалить">
             </form>

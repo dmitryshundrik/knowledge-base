@@ -18,9 +18,9 @@
     <div class="table-body">
         <article class="table-body-item">
             <form class="form"
-                  th:action="${'/management/musician/edit/' + compositionCreateEditDTO.musicianSlug + '/composition/create'}"
+                  th:action="${'/management/musician/edit/' + composition.musicianSlug + '/composition/create'}"
                   th:method="post"
-                  th:object="${compositionCreateEditDTO}">
+                  th:object="${composition}">
 
                 <section class="form-item">
                     <label>title</label>
@@ -58,7 +58,7 @@
                     <label>album</label>
                     <select th:field="*{albumId}">
                         <option th:value="null" selected>выбрать альбом</option>
-                        <option th:each="album : ${albumSelectDTOList}"
+                        <option th:each="album : ${albumList}"
                                 th:value="${album.id}"
                                 th:text="${album.title}"></option>
                     </select>
@@ -67,7 +67,7 @@
                 <section class="form-item major-field">
                     <label>classical genres</label>
                     <select th:field="*{classicalGenres}" multiple="multiple">
-                        <option th:each="genre : ${classicalGenres}"
+                        <option th:each="genre : ${classicalMusicGenres}"
                                 th:value="${genre.id}"
                                 th:text="${genre.title}"></option>
                     </select>
@@ -76,7 +76,7 @@
                 <section class="form-item major-field">
                     <label>contemporary genres</label>
                     <select th:field="*{contemporaryGenres}" multiple="multiple">
-                        <option th:each="genre : ${contemporaryGenres}"
+                        <option th:each="genre : ${contemporaryMusicGenres}"
                                 th:value="${genre.id}"
                                 th:text="${genre.title}"></option>
                     </select>

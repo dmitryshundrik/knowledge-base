@@ -34,8 +34,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="album : ${albumViewDTOList}">
-                <th th:text="${albumViewDTOList.size - albumStat.index}"></th>
+            <tr th:each="album : ${albumList}">
+                <th th:text="${albumList.size - albumStat.index}"></th>
                 <td th:text="${album.created}"></td>
                 <td th:text="${album.title}"></td>
                 <td th:text="${album.slug}"></td>

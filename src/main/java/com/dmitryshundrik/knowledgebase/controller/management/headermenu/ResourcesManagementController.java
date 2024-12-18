@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import java.util.List;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.RESOURCE;
+import static com.dmitryshundrik.knowledgebase.util.Constants.RESOURCE_LIST;
+
 @Controller
 @RequiredArgsConstructor
 public class ResourcesManagementController {
@@ -24,19 +27,19 @@ public class ResourcesManagementController {
     public String getAllResources(Model model) {
         List<Resource> resourceList = resourcesService.getAllSortedByCreated();
         List<ResourceDTO> resourceDTOList = resourcesService.getResourceDTOList(resourceList);
-        model.addAttribute("resources", resourceDTOList);
+        model.addAttribute(RESOURCE_LIST, resourceDTOList);
         return "management/headermenu/resource-all";
     }
 
     @GetMapping("/management/resource/create")
     public String getResourceCreate(Model model) {
         ResourceDTO resourceDTO = new ResourceDTO();
-        model.addAttribute("resource", resourceDTO);
+        model.addAttribute(RESOURCE, resourceDTO);
         return "management/headermenu/resource-create";
     }
 
     @PostMapping("/management/resource/create")
-    public String postResourceCreate(@ModelAttribute("resource") ResourceDTO resourceDTO) {
+    public String postResourceCreate(@ModelAttribute(RESOURCE) ResourceDTO resourceDTO) {
         String resourceDTOId = resourcesService.createResource(resourceDTO).getId();
         return "redirect:/management/resource/edit/" + resourceDTOId;
     }
@@ -45,13 +48,13 @@ public class ResourcesManagementController {
     public String getResourceEdit(@PathVariable String resourceId, Model model) {
         Resource byId = resourcesService.getById(resourceId);
         ResourceDTO resourceDTO = resourcesService.getResourceDTO(byId);
-        model.addAttribute("resource", resourceDTO);
+        model.addAttribute(RESOURCE, resourceDTO);
         return "management/headermenu/resource-edit";
     }
 
     @PutMapping("/management/resource/edit/{resourceId}")
     public String putResourceEdit(@PathVariable String resourceId,
-                                  @ModelAttribute("resource") ResourceDTO resourceDTO) {
+                                  @ModelAttribute(RESOURCE) ResourceDTO resourceDTO) {
         String resourceDTOId = resourcesService.updateResource(resourceId, resourceDTO).getId();
         return "redirect:/management/resource/edit/" + resourceDTOId;
     }

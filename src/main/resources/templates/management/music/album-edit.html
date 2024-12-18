@@ -18,9 +18,9 @@
     <div class="table-body">
         <article class="table-body-item">
             <form class="form"
-                  th:action="${'/management/musician/edit/' + albumCreateEditDTO.musicianSlug + '/album/edit/' + albumCreateEditDTO.slug}"
+                  th:action="${'/management/musician/edit/' + album.musicianSlug + '/album/edit/' + album.slug}"
                   th:method="put"
-                  th:object="${albumCreateEditDTO}">
+                  th:object="${album}">
 
                 <section class="form-item">
                     <label>title</label>
@@ -45,7 +45,7 @@
                 <section class="form-item major-field">
                     <label>collaborators</label>
                     <select th:field="*{collaboratorsUUID}" multiple="multiple">
-                        <option th:each="collaborator : ${collaborators}"
+                        <option th:each="collaborator : ${albumCollaborators}"
                                 th:value="${collaborator.id}"
                                 th:text="${collaborator.nickName}">
                         </option>
@@ -55,7 +55,7 @@
                 <section class="form-item major-field">
                     <label>classical genres</label>
                     <select th:field="*{classicalGenres}" multiple="multiple">
-                        <option th:each="genre : ${classicalGenres}"
+                        <option th:each="genre : ${classicalMusicGenres}"
                                 th:value="${genre.id}"
                                 th:text="${genre.title}">
                         </option>
@@ -65,7 +65,7 @@
                 <section class="form-item major-field">
                     <label>contemporary genres</label>
                     <select th:field="*{contemporaryGenres}" multiple="multiple">
-                        <option th:each="genre : ${contemporaryGenres}"
+                        <option th:each="genre : ${contemporaryMusicGenres}"
                                 th:value="${genre.id}"
                                 th:text="${genre.title}">
                         </option>

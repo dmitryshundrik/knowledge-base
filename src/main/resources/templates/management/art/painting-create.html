@@ -18,9 +18,9 @@
     <div class="table-body">
         <article class="table-body-item">
             <form class="form"
-                  th:action="${'/management/artist/edit/' + paintingDTO.artistSlug + '/painting/create'}"
+                  th:action="${'/management/artist/edit/' + painting.artistSlug + '/painting/create'}"
                   th:method="post"
-                  th:object="${paintingDTO}">
+                  th:object="${painting}">
 
                 <section class="form-item">
                     <label>title</label>

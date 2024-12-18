@@ -29,8 +29,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="cocktail : ${cocktails}">
-                <th th:text="${cocktails.size - cocktailStat.index}"></th>
+            <tr th:each="cocktail : ${cocktailList}">
+                <th th:text="${cocktailList.size - cocktailStat.index}"></th>
                 <td th:text="${cocktail.created}"></td>
                 <td th:text="${cocktail.title}"></td>
                 <td th:text="${cocktail.slug}"></td>

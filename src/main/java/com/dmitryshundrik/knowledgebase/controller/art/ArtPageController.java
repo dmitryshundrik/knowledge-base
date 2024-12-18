@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.ARTIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.ARTIST_LIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.PAINTING_LIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.UNKNOWN;
 
 @Controller
@@ -34,7 +37,7 @@ public class ArtPageController {
     public String getAllArtists(Model model) {
         List<Artist> artistList = artistService.getAllSortedByBorn();
         List<ArtistViewDto> artistViewDtoList = artistService.getArtistViewDtoList(artistList);
-        model.addAttribute("artistList", artistViewDtoList);
+        model.addAttribute(ARTIST_LIST, artistViewDtoList);
         return "art/artist-all";
     }
 
@@ -48,8 +51,8 @@ public class ArtPageController {
         artistViewDto.setPaintingList(artistViewDto.getPaintingList().stream()
                 .limit(10).toList());
         List<Painting> bestPaintingsByArtist = paintingService.getBestPaintingsByArtist(artistService.getBySlug(artistSlug));
-        model.addAttribute("artist", artistViewDto);
-        model.addAttribute("bestPaintingList", bestPaintingsByArtist);
+        model.addAttribute(ARTIST, artistViewDto);
+        model.addAttribute(PAINTING_LIST, bestPaintingsByArtist);
         return "art/artist";
     }
 
@@ -59,8 +62,8 @@ public class ArtPageController {
         ArtistViewDto artistViewDto = artistService.getArtistViewDto(bySlug);
         List<Painting> paintingList = paintingService.getAllByArtistSortedByYear2(bySlug);
         List<PaintingViewDto> paintingViewDtoList = paintingService.getPaintingViewDtoList(paintingList);
-        model.addAttribute("artist", artistViewDto);
-        model.addAttribute("paintingList", paintingViewDtoList);
+        model.addAttribute(ARTIST, artistViewDto);
+        model.addAttribute(PAINTING_LIST, paintingViewDtoList);
         return "art/artist-painting-all";
     }
 
@@ -68,7 +71,7 @@ public class ArtPageController {
     public String getAllPainting(Model model) {
         List<Painting> paintingList = paintingService.getAllSortedByCreatedDesc();
         List<PaintingViewDto> paintingViewDtoList = paintingService.getPaintingViewDtoList(paintingList);
-        model.addAttribute("paintingList", paintingViewDtoList);
+        model.addAttribute(PAINTING_LIST, paintingViewDtoList);
         return "art/painting-all";
     }
 
@@ -76,7 +79,7 @@ public class ArtPageController {
     public String getTop20BestPaintings(Model model) {
         List<Painting> paintingList = paintingService.getAllTimeBestPaintings();
         List<PaintingViewDto> paintingViewDtoList = paintingService.getPaintingViewDtoList(paintingList);
-        model.addAttribute("paintingList", paintingViewDtoList);
+        model.addAttribute(PAINTING_LIST, paintingViewDtoList);
         return "art/painting-top20";
     }
 

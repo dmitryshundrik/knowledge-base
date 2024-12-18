@@ -22,9 +22,9 @@
 
     <div class="table-body">
         <article class="table-body-item">
-            <section th:if="${not #lists.isEmpty(eventsBCE)}">
+            <section th:if="${not #lists.isEmpty(eventsBeforeCE)}">
                 <h3>События до нашей эры</h3>
-                <section class="table-body-item-row" th:each="timelineEvent : ${eventsBCE}">
+                <section class="table-body-item-row" th:each="timelineEvent : ${eventsBeforeCE}">
                     <span th:text="${timelineEvent.year}"></span>
                     <span th:text="${timelineEvent.description}"></span>
                 </section>

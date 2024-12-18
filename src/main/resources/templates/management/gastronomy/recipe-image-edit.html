@@ -16,9 +16,9 @@
     </header>
     <div class="table-body">
         <article class="table-body-item">
-            <form class="form" th:action="${'/management/recipe/edit/' + recipeSlug +'/image/edit/' + imageDTO.slug}"
+            <form class="form" th:action="${'/management/recipe/edit/' + recipeSlug +'/image/edit/' + image.slug}"
                   th:method="put"
-                  th:object="${imageDTO}">
+                  th:object="${image}">
 
                 <section class="form-item">
                     <label>title</label>
@@ -49,7 +49,7 @@
         </header>
         <article class="table-body-item">
             <form class="form"
-                  th:action="${'/management/recipe/edit/' + recipeSlug + '/image/edit/' + imageDTO.slug + '/file/upload'}"
+                  th:action="${'/management/recipe/edit/' + recipeSlug + '/image/edit/' + image.slug + '/file/upload'}"
                   th:method="post"
                   enctype="multipart/form-data">
 
@@ -66,7 +66,7 @@
             </section>
 
             <form class="form"
-                  th:action="${'/management/recipe/edit/' + recipeSlug + '/image/edit/' + imageDTO.slug + '/file/delete'}"
+                  th:action="${'/management/recipe/edit/' + recipeSlug + '/image/edit/' + image.slug + '/file/delete'}"
                   th:method="delete">
                 <input class="input-submit" type="submit" value="Удалить">
             </form>

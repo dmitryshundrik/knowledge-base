@@ -18,9 +18,9 @@
     <div class="table-body">
         <article class="table-body-item">
             <form class="form"
-                  th:action="${'/management/writer/edit/' + quoteDTO.writerSlug + '/quote/create'}"
+                  th:action="${'/management/writer/edit/' + quote.writerSlug + '/quote/create'}"
                   th:method="post"
-                  th:object="${quoteDTO}">
+                  th:object="${quote}">
 
                 <section class="form-item">
                     <label>writer</label>
@@ -31,7 +31,7 @@
                     <label>prose</label>
                     <select th:field="*{proseId}">
                         <option th:value="null" selected>выбрать произведение</option>
-                        <option th:each="prose : ${proseSelectDTOList}"
+                        <option th:each="prose : ${proseList}"
                                 th:value="${prose.id}"
                                 th:text="${prose.title}"></option>
                     </select>

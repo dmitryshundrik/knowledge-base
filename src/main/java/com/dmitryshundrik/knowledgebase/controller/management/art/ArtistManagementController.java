@@ -22,6 +22,11 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.ARTIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.ARTIST_LIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.GENDER_LIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG;
+
 @Controller
 @RequiredArgsConstructor
 public class ArtistManagementController {
@@ -32,25 +37,25 @@ public class ArtistManagementController {
     public String getAllArtists(Model model) {
         List<Artist> allSortedByCreatedDesc = artistService.getAllSortedByCreatedDesc();
         List<ArtistViewDto> artistViewDtoList = artistService.getArtistViewDtoList(allSortedByCreatedDesc);
-        model.addAttribute("artistList", artistViewDtoList);
+        model.addAttribute(ARTIST_LIST, artistViewDtoList);
         return "management/art/artist-archive";
     }
 
     @GetMapping("/management/artist/create")
     public String getArtistCreate(Model model) {
         ArtistCreateEditDto artistCreateEditDTO = new ArtistCreateEditDto();
-        model.addAttribute("artistDTO", artistCreateEditDTO);
-        model.addAttribute("genders", Gender.values());
+        model.addAttribute(ARTIST, artistCreateEditDTO);
+        model.addAttribute(GENDER_LIST, Gender.values());
         return "management/art/artist-create";
     }
 
     @PostMapping("/management/artist/create")
-    public String postArtistCreate(@Valid @ModelAttribute("artistDTO") ArtistCreateEditDto artistDTO,
+    public String postArtistCreate(@Valid @ModelAttribute(ARTIST) ArtistCreateEditDto artistDTO,
                                     BindingResult bindingResult, Model model) {
         String error = artistService.artistSlugIsExist(artistDTO.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
-            model.addAttribute("slug", error);
-            model.addAttribute("genders", Gender.values());
+            model.addAttribute(SLUG, error);
+            model.addAttribute(GENDER_LIST, Gender.values());
             return "management/art/artist-create";
         }
         String artistSlug = artistService.createArtist(artistDTO).getSlug();
@@ -61,14 +66,14 @@ public class ArtistManagementController {
     public String getArtistEdit(@PathVariable String artistSlug, Model model) {
         Artist bySlug = artistService.getBySlug(artistSlug);
         ArtistCreateEditDto artistCreateEditDTO = artistService.getArtistCreateEditDto(bySlug);
-        model.addAttribute("artistDTO", artistCreateEditDTO);
-        model.addAttribute("genders", Gender.values());
+        model.addAttribute(ARTIST, artistCreateEditDTO);
+        model.addAttribute(GENDER_LIST, Gender.values());
         return "management/art/artist-edit";
     }
 
     @PutMapping("/management/artist/edit/{artistSlug}")
     public String putArtistEdit(@PathVariable String artistSlug,
-                                 @ModelAttribute("artistDTO") ArtistCreateEditDto artistDTO) {
+                                 @ModelAttribute(ARTIST) ArtistCreateEditDto artistDTO) {
         String artistDTOSlug = artistService.updateArtist(artistSlug, artistDTO).getSlug();
         return "redirect:/management/artist/edit/" + artistDTOSlug;
     }

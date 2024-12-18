@@ -18,7 +18,7 @@
     <div class="table-body">
         <article class="table-body-item">
             <form class="form" th:action="${'/management/recipe/create'}" th:method="post"
-                  th:object="${recipeDTO}">
+                  th:object="${recipe}">
 
                 <section class="form-item">
                     <label>title</label>
@@ -39,7 +39,7 @@
                     <label>country</label>
                     <select th:field="*{country}">
                         <option th:value="null" selected>выбрать страну</option>
-                        <option th:each="country : ${countries}"
+                        <option th:each="country : ${countryList}"
                                 th:value="${country}"
                                 th:text="${country.label}">0
                         </option>

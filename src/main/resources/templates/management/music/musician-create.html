@@ -20,7 +20,7 @@
             <form class="form"
                   th:action="${'/management/musician/create'}"
                   th:method="post"
-                  th:object="${musicianCreateEditDTO}">
+                  th:object="${musician}">
 
                 <section class="form-item">
                     <label>nickname</label>
@@ -55,7 +55,7 @@
                     <label>gender</label>
                     <select th:field="*{gender}">
                         <option th:value="null" selected>выбрать гендер</option>
-                        <option th:each="gender : ${genders}"
+                        <option th:each="gender : ${genderList}"
                                 th:value="${gender}"
                                 th:text="${gender.label}">0
                         </option>
@@ -110,7 +110,7 @@
                 <section class="form-item major-field">
                     <label>period</label>
                     <select th:field="*{musicPeriods}" multiple="multiple">
-                        <option th:each="period : ${musicPeriods}"
+                        <option th:each="period : ${musicPeriodList}"
                                 th:value="${period.id}"
                                 th:text="${period.title}"></option>
                     </select>

@@ -26,7 +26,7 @@
     <div class="table-body">
 
         <article class="table-body-item">
-            <section class="table-body-item-row" th:each="foundation : ${foundations}">
+            <section class="table-body-item-row" th:each="foundation : ${foundationList}">
                 <span class="table-body-item-col">
                     <a th:href="${foundation.link}" th:text="${foundation.title}" target="_blank"></a>
                     <span th:text="${foundation.description}"></span>

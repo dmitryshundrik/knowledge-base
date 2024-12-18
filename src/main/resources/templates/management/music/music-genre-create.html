@@ -20,7 +20,7 @@
             <form class="form"
                   th:action="${'/management/music-genre/create'}"
                   th:method="post"
-                  th:object="${dto}">
+                  th:object="${musicGenre}">
 
                 <section class="form-item">
                     <label>title</label>
@@ -44,7 +44,7 @@
                     <label>music genre type</label>
                     <select th:field="*{musicGenreType}">
                         <option th:value="null" selected>выбрать тип музыкального жанра</option>
-                        <option th:each="genreType : ${musicGenreTypes}"
+                        <option th:each="genreType : ${musicGenreTypeList}"
                                 th:value="${genreType}"
                                 th:text="${genreType.label}">
                         </option>

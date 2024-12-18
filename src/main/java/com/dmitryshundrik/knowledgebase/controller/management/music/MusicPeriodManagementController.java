@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.MUSIC_PERIOD;
+import static com.dmitryshundrik.knowledgebase.util.Constants.MUSIC_PERIOD_LIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG;
+
 @Controller
 @RequiredArgsConstructor
 public class MusicPeriodManagementController {
@@ -30,22 +34,22 @@ public class MusicPeriodManagementController {
     public String getAllMusicPeriods(Model model) {
         List<MusicPeriod> musicPeriodList = musicPeriodService.getAllSortedByStart();
         List<MusicPeriodViewDTO> musicPeriodViewDTOList = musicPeriodService.getMusicPeriodViewDTOList(musicPeriodList);
-        model.addAttribute("musicPeriods", musicPeriodViewDTOList);
+        model.addAttribute(MUSIC_PERIOD_LIST, musicPeriodViewDTOList);
         return "management/music/music-period-all";
     }
 
     @GetMapping("/management/music-period/create")
     public String getCreateMusicPeriod(Model model) {
-        model.addAttribute("dto", new MusicPeriodCreateEditDTO());
+        model.addAttribute(MUSIC_PERIOD, new MusicPeriodCreateEditDTO());
         return "management/music/music-period-create";
     }
 
     @PostMapping("/management/music-period/create")
-    public String postCreateMusicPeriod(@Valid @ModelAttribute("dto") MusicPeriodCreateEditDTO periodDTO, BindingResult bindingResult,
+    public String postCreateMusicPeriod(@Valid @ModelAttribute(MUSIC_PERIOD) MusicPeriodCreateEditDTO periodDTO, BindingResult bindingResult,
                                         Model model) {
         String error = musicPeriodService.musicPeriodSlugIsExist(periodDTO.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
-            model.addAttribute("slug", error);
+            model.addAttribute(SLUG, error);
             return "management/music/music-period-create";
         }
         String slug = musicPeriodService.createMusicPeriod(periodDTO);
@@ -55,12 +59,12 @@ public class MusicPeriodManagementController {
     @GetMapping("/management/music-period/edit/{periodSlug}")
     public String getEditMusicPeriod(@PathVariable String periodSlug, Model model) {
         MusicPeriod musicPeriodBySlug = musicPeriodService.getMusicPeriodBySlug(periodSlug);
-        model.addAttribute("dto", musicPeriodService.getMusicPeriodCreateEditDTO(musicPeriodBySlug));
+        model.addAttribute(MUSIC_PERIOD, musicPeriodService.getMusicPeriodCreateEditDTO(musicPeriodBySlug));
         return "management/music/music-period-edit";
     }
 
     @PutMapping("management/music-period/edit/{periodSlug}")
-    public String putEditMusicPeriod(@PathVariable String periodSlug, @ModelAttribute("dto") MusicPeriodCreateEditDTO periodDTO) {
+    public String putEditMusicPeriod(@PathVariable String periodSlug, @ModelAttribute(MUSIC_PERIOD) MusicPeriodCreateEditDTO periodDTO) {
         String slug = musicPeriodService.updateMusicPeriod(periodSlug, periodDTO);
         return "redirect:/management/music-period/edit/" + slug;
     }

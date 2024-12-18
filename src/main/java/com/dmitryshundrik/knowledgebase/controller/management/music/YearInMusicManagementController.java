@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.MUSICIAN_LIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.YEAR_IN_MUSIC;
+import static com.dmitryshundrik.knowledgebase.util.Constants.YEAR_IN_MUSIC_LIST;
+
 @Controller
 @RequiredArgsConstructor
 public class YearInMusicManagementController {
@@ -31,18 +35,18 @@ public class YearInMusicManagementController {
     public String getAllYearsInMusic(Model model) {
         List<YearInMusic> yearInMusicList = yearInMusicService.getAll();
         List<YearInMusicViewDTO> yearInMusicViewDTOList = yearInMusicService.getYearInMusicViewDTOList(yearInMusicList);
-        model.addAttribute("yearInMusicList", yearInMusicViewDTOList);
+        model.addAttribute(YEAR_IN_MUSIC_LIST, yearInMusicViewDTOList);
         return "management/music/year-in-music-all";
     }
 
     @GetMapping("/management/year-in-music/create")
     public String getCreateYearInMusic(Model model) {
-        model.addAttribute("yearInMusicDTO", new YearInMusicCreateEditDTO());
+        model.addAttribute(YEAR_IN_MUSIC, new YearInMusicCreateEditDTO());
         return "management/music/year-in-music-create";
     }
 
     @PostMapping("/management/year-in-music/create")
-    public String postCreateYearInMusic(@Valid @ModelAttribute("yearInMusicDTO") YearInMusicCreateEditDTO yearInMusicDTO,
+    public String postCreateYearInMusic(@Valid @ModelAttribute(YEAR_IN_MUSIC) YearInMusicCreateEditDTO yearInMusicDTO,
                                         BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "management/music/year-in-music-create";
@@ -54,9 +58,9 @@ public class YearInMusicManagementController {
     @GetMapping("management/year-in-music/edit/{yearIMSlug}")
     public String getEditYearInMusic(@PathVariable String yearIMSlug, Model model) {
         YearInMusic yearInMusicBySlug = yearInMusicService.getYearInMusicBySlug(yearIMSlug);
-        model.addAttribute("yearInMusicDTO", yearInMusicService
+        model.addAttribute(YEAR_IN_MUSIC, yearInMusicService
                 .getYearInMusicCreateEditDTO(yearInMusicBySlug));
-        model.addAttribute("musicians", MusicianDTOTransformer
+        model.addAttribute(MUSICIAN_LIST, MusicianDTOTransformer
                 .getMusicianSelectDTOList(musicianService
                         .getAllMusiciansWithWorksByYear(yearInMusicBySlug.getYear())));
         return "management/music/year-in-music-edit";
@@ -64,7 +68,7 @@ public class YearInMusicManagementController {
 
     @PutMapping("management/year-in-music/edit/{yearIMSlug}")
     public String putEditYearInMusic(@PathVariable String yearIMSlug,
-                                     @ModelAttribute("yearInMusicDTO") YearInMusicCreateEditDTO yearInMusicDTO) {
+                                     @ModelAttribute(YEAR_IN_MUSIC) YearInMusicCreateEditDTO yearInMusicDTO) {
         YearInMusic yearInMusicBySlug = yearInMusicService.getYearInMusicBySlug(yearIMSlug);
         String yearInMusicDTOSlug = yearInMusicService.updateYearInMusic(yearInMusicBySlug, yearInMusicDTO).getSlug();
         return "redirect:/management/year-in-music/edit/" + yearInMusicDTOSlug;

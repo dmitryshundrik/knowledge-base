@@ -18,9 +18,9 @@
     <div class="table-body">
         <article class="table-body-item">
             <form class="form"
-                  th:action="${'/management/year-in-music/edit/' + yearInMusicDTO.slug }"
+                  th:action="${'/management/year-in-music/edit/' + yearsInMusic.slug }"
                   th:method="put"
-                  th:object="${yearInMusicDTO}">
+                  th:object="${yearsInMusic}">
 
                 <section class="form-item">
                     <label>title</label>
@@ -43,7 +43,7 @@
                     <label>best female singer</label>
                     <select th:field="*{bestFemaleSingerId}">
                         <option th:value="null" selected>выбрать женский вокал</option>
-                        <option th:each="femaleSinger : ${musicians}"
+                        <option th:each="femaleSinger : ${musicianList}"
                                 th:value="${femaleSinger.id}"
                                 th:text="${femaleSinger.nickName}">
                         </option>
@@ -54,7 +54,7 @@
                     <label>best male singer</label>
                     <select th:field="*{bestMaleSingerId}">
                         <option th:value="null" selected>выбрать мужской вокал</option>
-                        <option th:each="maleSinger : ${musicians}"
+                        <option th:each="maleSinger : ${musicianList}"
                                 th:value="${maleSinger.id}"
                                 th:text="${maleSinger.nickName}">
                         </option>
@@ -65,7 +65,7 @@
                     <label>best group</label>
                     <select th:field="*{bestGroupId}">
                         <option th:value="null" selected>выбрать музыкальную группу</option>
-                        <option th:each="group : ${musicians}"
+                        <option th:each="group : ${musicianList}"
                                 th:value="${group.id}"
                                 th:text="${group.nickName}">
                         </option>
@@ -76,7 +76,7 @@
                     <label>best composer</label>
                     <select th:field="*{bestComposerId}">
                         <option th:value="null" selected>выбрать композитора</option>
-                        <option th:each="composer : ${musicians}"
+                        <option th:each="composer : ${musicianList}"
                                 th:value="${composer.id}"
                                 th:text="${composer.nickName}">
                         </option>

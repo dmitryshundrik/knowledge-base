@@ -15,12 +15,12 @@
 <main class="table">
 
     <header class="table-title">
-        <section class="table-title-image" th:if="${writerDTO.image} != null">
-            <img th:src="|data:image;base64,${writerDTO.image}|">
+        <section class="table-title-image" th:if="${writer.image} != null">
+            <img th:src="|data:image;base64,${writer.image}|">
         </section>
-        <h1 th:text="${writerDTO.nickName}"></h1>
-        <h3 class="occupation" th:if="${not #strings.isEmpty(writerDTO.occupation)}"
-            th:text="${writerDTO.occupation}"></h3>
+        <h1 th:text="${writer.nickName}"></h1>
+        <h3 class="occupation" th:if="${not #strings.isEmpty(writer.occupation)}"
+            th:text="${writer.occupation}"></h3>
     </header>
 
     <div class="table-body">
@@ -30,47 +30,47 @@
             </header>
 
             <section class="table-title-item-row"
-                     th:if="${writerDTO.born} != null and ${writerDTO.died} == null">
+                     th:if="${writer.born} != null and ${writer.died} == null">
                 <span>Дата рождения:</span>
-                <span th:text="${writerDTO.born}"></span>
+                <span th:text="${writer.born}"></span>
             </section>
 
             <section class="table-title-item-row"
-                     th:if="${writerDTO.born} != null and ${writerDTO.died} != null">
+                     th:if="${writer.born} != null and ${writer.died} != null">
                 <span>Годы жизни:</span>
-                <span th:text="${writerDTO.born} + ' - ' + ${writerDTO.died}"></span>
+                <span th:text="${writer.born} + ' - ' + ${writer.died}"></span>
             </section>
 
-            <section class="table-title-item-row" th:if="${not #strings.isEmpty(writerDTO.birthplace)}">
+            <section class="table-title-item-row" th:if="${not #strings.isEmpty(writer.birthplace)}">
                 <span>Место рождения:</span>
-                <span th:text="${writerDTO.birthplace}"></span>
+                <span th:text="${writer.birthplace}"></span>
             </section>
         </article>
 
-        <article class="table-body-item" th:if="${not #lists.isEmpty(writerDTO.events)}">
+        <article class="table-body-item" th:if="${not #lists.isEmpty(writer.events)}">
             <header class="table-body-item-title">
                 <h3>Таймлайн</h3>
             </header>
-            <section class="table-body-item-row" th:each="timelineEvent : ${writerDTO.events}">
+            <section class="table-body-item-row" th:each="timelineEvent : ${writer.events}">
                 <span class="timeline-text" th:text="${timelineEvent.description}"></span>
             </section>
         </article>
 
-        <article class="table-body-item" th:if="${not #lists.isEmpty(bestProseList)}">
+        <article class="table-body-item" th:if="${not #lists.isEmpty(proseList)}">
             <header class="table-body-item-title">
                 <h3>Лучшее</h3>
             </header>
-            <section class="table-body-item-row" th:each="prose : ${bestProseList}">
+            <section class="table-body-item-row" th:each="prose : ${proseList}">
                 <span th:text="${proseStat.index + 1} + '.'"></span>
                 <span th:text="${prose.title}"></span>
             </section>
         </article>
 
-        <article class="table-body-item" th:if="${not #lists.isEmpty(writerDTO.proseList)}">
+        <article class="table-body-item" th:if="${not #lists.isEmpty(writer.proseList)}">
             <header class="table-body-item-title">
                 <h3>Все произведения</h3>
             </header>
-            <section class="table-body-item-row" th:each="prose : ${writerDTO.proseList}">
+            <section class="table-body-item-row" th:each="prose : ${writer.proseList}">
                 <span th:if="${prose.year} != null" th:text="${prose.year}"></span>
                 <span th:if="${prose.year} == null">????</span>
                 <div class="table-body-item-col-container">
@@ -88,12 +88,12 @@
             </section>
         </article>
 
-        <article class="table-body-item" th:if="${not #lists.isEmpty(writerDTO.quoteList)}">
+        <article class="table-body-item" th:if="${not #lists.isEmpty(writer.quoteList)}">
             <header class="table-body-item-title quote-title">
                 <h3>Все цитаты</h3>
                 <p>последние обновления</p>
             </header>
-            <section class="table-body-item-row quote-all" th:each="quote : ${writerDTO.quoteList}">
+            <section class="table-body-item-row quote-all" th:each="quote : ${writer.quoteList}">
                 <span th:text="${quote.created}"></span>
                 <div class="quote-all-description">
                     <span th:if="${not #strings.isEmpty(quote.description)}" th:text="${quote.description}"></span>
@@ -114,12 +114,12 @@
             </section>
         </article>
 
-        <article class="table-body-item" th:if="${not #lists.isEmpty(writerDTO.wordList)}">
+        <article class="table-body-item" th:if="${not #lists.isEmpty(writer.wordList)}">
             <header class="table-body-item-title word-title">
                 <h3>Словарь языка писателя</h3>
                 <p>последние обновления</p>
             </header>
-            <section class="table-body-item-row word-all" th:each="word : ${writerDTO.wordList}">
+            <section class="table-body-item-row word-all" th:each="word : ${writer.wordList}">
                 <span class="word-all-title" th:text="${word.title}"></span>
                 <span class="word-all-description" th:text="${word.description}"></span>
             </section>

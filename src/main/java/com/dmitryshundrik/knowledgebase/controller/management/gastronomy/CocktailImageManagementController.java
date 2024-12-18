@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.COCKTAIL_SLUG;
+import static com.dmitryshundrik.knowledgebase.util.Constants.IMAGE;
+
 @Controller
 @RequiredArgsConstructor
 public class CocktailImageManagementController {
@@ -30,13 +33,13 @@ public class CocktailImageManagementController {
     @GetMapping("/management/cocktail/edit/{cocktailSlug}/image/create")
     public String getRecipeImageCreate(Model model, @PathVariable String cocktailSlug) {
         ImageDTO imageDTO = new ImageDTO();
-        model.addAttribute("imageDTO", imageDTO);
-        model.addAttribute("cocktailSlug", cocktailSlug);
+        model.addAttribute(IMAGE, imageDTO);
+        model.addAttribute(COCKTAIL_SLUG, cocktailSlug);
         return "management/gastronomy/cocktail-image-create";
     }
 
     @PostMapping("/management/cocktail/edit/{cocktailSlug}/image/create")
-    public String postRecipeImageCreate(@ModelAttribute("imageDTO") ImageDTO imageDTO, @PathVariable String cocktailSlug) {
+    public String postRecipeImageCreate(@ModelAttribute(IMAGE) ImageDTO imageDTO, @PathVariable String cocktailSlug) {
         Cocktail cocktailBySlug = cocktailService.getBySlug(cocktailSlug);
         String imageDTOSlug = imageService.createCocktailImage(imageDTO, cocktailBySlug).getSlug();
         return "redirect:/management/cocktail/edit/" + cocktailSlug + "/image/edit/" + imageDTOSlug;
@@ -46,13 +49,13 @@ public class CocktailImageManagementController {
     public String getRecipeImageEdit(@PathVariable String imageSlug, Model model, @PathVariable String cocktailSlug) {
         Image bySlug = imageService.getBySlug(imageSlug);
         ImageDTO imageDTO = imageService.getImageDTO(bySlug);
-        model.addAttribute("imageDTO", imageDTO);
-        model.addAttribute("cocktailSlug", cocktailSlug);
+        model.addAttribute(IMAGE, imageDTO);
+        model.addAttribute(COCKTAIL_SLUG, cocktailSlug);
         return "management/gastronomy/cocktail-image-edit";
     }
 
     @PutMapping("/management/cocktail/edit/{cocktailSlug}/image/edit/{imageSlug}")
-    public String postRecipeImageEdit(@PathVariable String imageSlug, @ModelAttribute("imageDTO") ImageDTO imageDTO,
+    public String postRecipeImageEdit(@PathVariable String imageSlug, @ModelAttribute(IMAGE) ImageDTO imageDTO,
                                       @PathVariable String cocktailSlug) {
         String imageDTOSlug = imageService.updateImage(imageSlug, imageDTO).getSlug();
         return "redirect:/management/cocktail/edit/" + cocktailSlug + "/image/edit/" + imageDTOSlug;

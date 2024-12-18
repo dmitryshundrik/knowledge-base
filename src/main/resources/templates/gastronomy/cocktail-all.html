@@ -21,7 +21,7 @@
     <div class="table-body">
 
         <article class="table-body-item">
-            <section class="table-body-item-row" th:each="cocktail : ${cocktails}">
+            <section class="table-body-item-row" th:each="cocktail : ${cocktailList}">
                 <h3 class="table-body-item-col">
                     <a th:text="${cocktail.title}" th:href="'/gastronomy/cocktail/' + ${cocktail.slug}"></a>
                 </h3>

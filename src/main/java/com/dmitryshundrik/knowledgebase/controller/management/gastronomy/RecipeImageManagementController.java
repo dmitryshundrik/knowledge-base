@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.IMAGE;
+import static com.dmitryshundrik.knowledgebase.util.Constants.RECIPE_SLUG;
+
 @Controller
 @RequiredArgsConstructor
 public class RecipeImageManagementController {
@@ -30,13 +33,13 @@ public class RecipeImageManagementController {
     @GetMapping("/management/recipe/edit/{recipeSlug}/image/create")
     public String getRecipeImageCreate(Model model, @PathVariable String recipeSlug) {
         ImageDTO imageDTO = new ImageDTO();
-        model.addAttribute("imageDTO", imageDTO);
-        model.addAttribute("recipeSlug", recipeSlug);
+        model.addAttribute(IMAGE, imageDTO);
+        model.addAttribute(RECIPE_SLUG, recipeSlug);
         return "management/gastronomy/recipe-image-create";
     }
 
     @PostMapping("/management/recipe/edit/{recipeSlug}/image/create")
-    public String postRecipeImageCreate(@ModelAttribute("imageDTO") ImageDTO imageDTO, @PathVariable String recipeSlug) {
+    public String postRecipeImageCreate(@ModelAttribute(IMAGE) ImageDTO imageDTO, @PathVariable String recipeSlug) {
         Recipe recipeBySlug = recipeService.getBySlug(recipeSlug);
         String imageDTOSlug = imageService.createRecipeImage(imageDTO, recipeBySlug).getSlug();
         return "redirect:/management/recipe/edit/" + recipeSlug + "/image/edit/" + imageDTOSlug;
@@ -46,8 +49,8 @@ public class RecipeImageManagementController {
     public String getRecipeImageEdit(@PathVariable String imageSlug, Model model, @PathVariable String recipeSlug) {
         Image bySlug = imageService.getBySlug(imageSlug);
         ImageDTO imageDTO = imageService.getImageDTO(bySlug);
-        model.addAttribute("imageDTO", imageDTO);
-        model.addAttribute("recipeSlug", recipeSlug);
+        model.addAttribute(IMAGE, imageDTO);
+        model.addAttribute(RECIPE_SLUG, recipeSlug);
         return "management/gastronomy/recipe-image-edit";
     }
 

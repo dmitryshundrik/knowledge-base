@@ -21,7 +21,7 @@
     <div class="table-body">
 
         <article class="table-body-item">
-            <section class="table-body-item-row" th:each="recipe : ${recipes}">
+            <section class="table-body-item-row" th:each="recipe : ${recipeList}">
                <h3 class="table-body-item-col">
                     <a th:text="${recipe.title}" th:href="'/gastronomy/recipe/' + ${recipe.slug}"></a>
                 </h3>

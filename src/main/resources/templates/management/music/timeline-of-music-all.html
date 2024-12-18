@@ -32,7 +32,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="timelineEvent : ${timelineEvents}">
+            <tr th:each="timelineEvent : ${timelineEventList}">
                 <th th:text="${timelineEventStat.index + 1}"></th>
                 <td th:text="${timelineEvent.created}"></td>
                 <td th:text="${timelineEvent.eraType}"> </td>

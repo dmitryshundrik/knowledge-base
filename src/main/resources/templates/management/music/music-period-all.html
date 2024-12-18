@@ -31,7 +31,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="period : ${musicPeriods}">
+            <tr th:each="period : ${musicPeriodList}">
                 <th th:text="${periodStat.index + 1}"></th>
                 <td th:text="${period.created}"></td>
                 <td th:text="${period.slug}"></td>

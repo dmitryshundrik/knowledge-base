@@ -18,9 +18,9 @@
     <div class="table-body">
         <article class="table-body-item">
             <form class="form"
-                  th:action="${'/management/writer/edit/' + wordDTO.writerSlug + '/word/create'}"
+                  th:action="${'/management/writer/edit/' + word.writerSlug + '/word/create'}"
                   th:method="post"
-                  th:object="${wordDTO}">
+                  th:object="${word}">
 
                 <section class="form-item">
                     <label>writer</label>

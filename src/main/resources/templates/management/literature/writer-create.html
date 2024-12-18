@@ -20,7 +20,7 @@
             <form class="form"
                   th:action="${'/management/writer/create'}"
                   th:method="post"
-                  th:object="${writerDTO}">
+                  th:object="${writer}">
 
                 <section class="form-item">
                     <label>nickname</label>
@@ -51,7 +51,7 @@
                     <label>gender</label>
                     <select th:field="*{gender}">
                         <option th:value="null" selected>выбрать гендер</option>
-                        <option th:each="gender : ${genders}"
+                        <option th:each="gender : ${genderList}"
                                 th:value="${gender}"
                                 th:text="${gender.label}">0
                         </option>

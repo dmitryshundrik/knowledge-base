@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.ARTIST_SLUG;
+import static com.dmitryshundrik.knowledgebase.util.Constants.IMAGE;
+import static com.dmitryshundrik.knowledgebase.util.Constants.PAINTING_SLUG;
+
 @Controller
 @RequiredArgsConstructor
 public class PaintingImageManagementController {
@@ -33,16 +37,16 @@ public class PaintingImageManagementController {
         Painting paintingBySlug = paintingService.getBySlug(paintingSlug);
         imageDTO.setSlug(paintingBySlug.getSlug());
         imageDTO.setTitle(paintingBySlug.getTitle());
-        model.addAttribute("imageDTO", imageDTO);
-        model.addAttribute("artistSlug", artistSlug);
-        model.addAttribute("paintingSlug", paintingSlug);
+        model.addAttribute(IMAGE, imageDTO);
+        model.addAttribute(ARTIST_SLUG, artistSlug);
+        model.addAttribute(PAINTING_SLUG, paintingSlug);
         return "management/art/painting-image-create";
     }
 
     @PostMapping("/management/artist/edit/{artistSlug}/painting/edit/{paintingSlug}/image/create")
     public String postPaintingImageCreate(@PathVariable String artistSlug,
                                           @PathVariable String paintingSlug,
-                                          @ModelAttribute("imageDTO") ImageDTO imageDTO) {
+                                          @ModelAttribute(IMAGE) ImageDTO imageDTO) {
         Painting paintingBySlug = paintingService.getBySlug(paintingSlug);
         String imageDTOSlug = imageService.createPaintingImage(imageDTO, paintingBySlug).getSlug();
         return "redirect:/management/artist/edit/" + artistSlug + "/painting/edit/" + paintingSlug + "/image/edit/" + imageDTOSlug;
@@ -53,15 +57,15 @@ public class PaintingImageManagementController {
                                        @PathVariable String imageSlug, Model model) {
         Image bySlug = imageService.getBySlug(imageSlug);
         ImageDTO imageDTO = imageService.getImageDTO(bySlug);
-        model.addAttribute("imageDTO", imageDTO);
-        model.addAttribute("artistSlug", artistSlug);
-        model.addAttribute("paintingSlug", paintingSlug);
+        model.addAttribute(IMAGE, imageDTO);
+        model.addAttribute(ARTIST_SLUG, artistSlug);
+        model.addAttribute(PAINTING_SLUG, paintingSlug);
         return "management/art/painting-image-edit";
     }
 
     @PutMapping("/management/artist/edit/{artistSlug}/painting/edit/{paintingSlug}/image/edit/{imageSlug}")
     public String postPaintingImageEdit(@PathVariable String artistSlug, @PathVariable String paintingSlug,
-                                        @PathVariable String imageSlug, @ModelAttribute("imageDTO") ImageDTO imageDTO) {
+                                        @PathVariable String imageSlug, @ModelAttribute(IMAGE) ImageDTO imageDTO) {
         String imageDTOSlug = imageService.updateImage(imageSlug, imageDTO).getSlug();
         return "redirect:/management/artist/edit/" + artistSlug + "/painting/edit/" + paintingSlug + "/image/edit/" + imageDTOSlug;
     }

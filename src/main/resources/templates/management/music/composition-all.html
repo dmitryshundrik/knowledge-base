@@ -35,8 +35,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="composition : ${compositionViewDTOList}">
-                <th th:text="${compositionViewDTOList.size - compositionStat.index}"></th>
+            <tr th:each="composition : ${composition}">
+                <th th:text="${composition.size - compositionStat.index}"></th>
                 <td th:text="${composition.created}"></td>
                 <td th:text="${composition.title}"></td>
                 <td th:text="${composition.catalogNumber}"></td>

@@ -72,7 +72,7 @@
             </section>
         </article>
 
-        <article class="table-body-item" th:if="${not #lists.isEmpty(albums)}">
+        <article class="table-body-item" th:if="${not #lists.isEmpty(albumList)}">
             <header class="table-body-item-title">
                 <h3>Лучшие альбомы</h3>
             </header>
@@ -85,7 +85,7 @@
                 </span>
             </section>
 
-            <section class="table-body-item-row" th:each="album : ${albums}">
+            <section class="table-body-item-row" th:each="album : ${albumList}">
                 <section class="row-title">
                     <span th:text="${albumStat.index + 1} + '.'"></span>
                     <span>
@@ -107,7 +107,7 @@
             </section>
         </article>
 
-        <article class="table-body-item" th:if="${not #lists.isEmpty(compositions)}">
+        <article class="table-body-item" th:if="${not #lists.isEmpty(compositionList)}">
             <header class="table-body-item-title">
                 <h3>Лучшие композиции</h3>
             </header>
@@ -120,7 +120,7 @@
                 </span>
             </section>
 
-            <section class="table-body-item-row" th:each="composition : ${compositions}">
+            <section class="table-body-item-row" th:each="composition : ${compositionList}">
                 <section class="row-title">
                     <span th:text="${compositionStat.index + 1} + '.'"></span>
                     <span>

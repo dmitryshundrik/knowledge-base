@@ -18,6 +18,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.COUNTRY_LIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.RECIPE;
+import static com.dmitryshundrik.knowledgebase.util.Constants.RECIPE_LIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG;
+
 @Controller
 @RequiredArgsConstructor
 public class RecipeManagementController {
@@ -28,26 +33,26 @@ public class RecipeManagementController {
     public String getAllRecipes(Model model) {
         List<Recipe> recipeList = recipeService.getAllBySortedByCreatedDesc();
         List<RecipeViewDTO> recipeDTOList = recipeService.getRecipeViewDTOList(recipeList);
-        model.addAttribute("recipes", recipeDTOList);
+        model.addAttribute(RECIPE_LIST, recipeDTOList);
         return "management/gastronomy/recipe-archive";
     }
 
     @GetMapping("/management/recipe/create")
     public String getRecipeCreate(Model model) {
         RecipeCreateEditDTO recipeCreateEditDTO = new RecipeCreateEditDTO();
-        model.addAttribute("recipeDTO", recipeCreateEditDTO);
-        model.addAttribute("countries", Country.values());
+        model.addAttribute(RECIPE, recipeCreateEditDTO);
+        model.addAttribute(COUNTRY_LIST, Country.values());
         return "management/gastronomy/recipe-create";
     }
 
     @PostMapping("/management/recipe/create")
-    public String postRecipeCreate(@Valid @ModelAttribute("recipeDTO") RecipeCreateEditDTO recipeDTO,
+    public String postRecipeCreate(@Valid @ModelAttribute(RECIPE) RecipeCreateEditDTO recipeDTO,
                                    BindingResult bindingResult,
                                    Model model) {
         String error = recipeService.recipeSlugIsExist(recipeDTO.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
-            model.addAttribute("slug", error);
-            model.addAttribute("countries", Country.values());
+            model.addAttribute(SLUG, error);
+            model.addAttribute(COUNTRY_LIST, Country.values());
             return "management/gastronomy/recipe-create";
         }
         String recipeDTOSlug = recipeService.createRecipe(recipeDTO).getSlug();
@@ -58,8 +63,8 @@ public class RecipeManagementController {
     public String getRecipeEdit(@PathVariable String recipeSlug, Model model) {
         Recipe bySlug = recipeService.getBySlug(recipeSlug);
         RecipeCreateEditDTO recipeCreateEditDTO = recipeService.getRecipeCreateEditDTO(bySlug);
-        model.addAttribute("recipeDTO", recipeCreateEditDTO);
-        model.addAttribute("countries", Country.values());
+        model.addAttribute(RECIPE, recipeCreateEditDTO);
+        model.addAttribute(COUNTRY_LIST, Country.values());
         return "management/gastronomy/recipe-edit";
     }
 

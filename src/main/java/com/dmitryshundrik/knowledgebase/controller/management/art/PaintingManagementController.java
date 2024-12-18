@@ -19,6 +19,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.PAINTING;
+import static com.dmitryshundrik.knowledgebase.util.Constants.PAINTING_LIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG;
+import static com.dmitryshundrik.knowledgebase.util.Constants.UNKNOWN;
+
 @Controller
 @RequiredArgsConstructor
 public class PaintingManagementController {
@@ -31,7 +36,7 @@ public class PaintingManagementController {
     public String getAllPaintings(Model model) {
         List<Painting> allSortedByCreatedDesc = paintingService.getAllSortedByCreatedDesc();
         List<PaintingViewDto> paintingViewDtoList = paintingService.getPaintingViewDtoList(allSortedByCreatedDesc);
-        model.addAttribute("paintingList", paintingViewDtoList);
+        model.addAttribute(PAINTING_LIST, paintingViewDtoList);
         return "management/art/painting-archive";
     }
 
@@ -39,17 +44,17 @@ public class PaintingManagementController {
     public String getAnonymousPaintingCreate(Model model) {
         PaintingCreateEditDto paintingDTO = new PaintingCreateEditDto();
         paintingDTO.setArtistNickname("Unknown");
-        paintingDTO.setArtistSlug("unknown");
-        model.addAttribute("paintingDTO", paintingDTO);
+        paintingDTO.setArtistSlug(UNKNOWN);
+        model.addAttribute(PAINTING, paintingDTO);
         return "management/art/painting-create";
     }
 
     @PostMapping("management/painting/create")
-    public String postAnonymousPaintingCreate(@Valid @ModelAttribute("paintingDTO") PaintingCreateEditDto paintingDTO,
+    public String postAnonymousPaintingCreate(@Valid @ModelAttribute(PAINTING) PaintingCreateEditDto paintingDTO,
                                               BindingResult bindingResult, Model model) {
         String error = paintingService.paintingSlugIsExist(paintingDTO.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
-            model.addAttribute("slug", error);
+            model.addAttribute(SLUG, error);
             return "management/art/painting-create";
         }
         Artist unknown = artistService.getBySlug("unknown");
@@ -63,16 +68,16 @@ public class PaintingManagementController {
         PaintingCreateEditDto paintingDTO = new PaintingCreateEditDto();
         paintingDTO.setArtistNickname(artistService.getBySlug(artistSlug).getNickName());
         paintingDTO.setArtistSlug(artistSlug);
-        model.addAttribute("paintingDTO", paintingDTO);
+        model.addAttribute(PAINTING, paintingDTO);
         return "management/art/painting-create";
     }
 
     @PostMapping("/management/artist/edit/{artistSlug}/painting/create")
-    public String postPaintingCreate(@Valid @ModelAttribute("paintingDTO") PaintingCreateEditDto paintingDTO,
+    public String postPaintingCreate(@Valid @ModelAttribute(PAINTING) PaintingCreateEditDto paintingDTO,
                                      BindingResult bindingResult, Model model, @PathVariable String artistSlug) {
         String error = paintingService.paintingSlugIsExist(paintingDTO.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
-            model.addAttribute("slug", error);
+            model.addAttribute(SLUG, error);
             return "management/art/painting-create";
         }
         String paintingDTOSlug = paintingService
@@ -86,14 +91,14 @@ public class PaintingManagementController {
                                   Model model) {
         Painting bySlug = paintingService.getBySlug(paintingSlug);
         PaintingCreateEditDto paintingDTO = paintingService.getArtistCreateEditDto(bySlug);
-        model.addAttribute("paintingDTO", paintingDTO);
+        model.addAttribute(PAINTING, paintingDTO);
         return "management/art/painting-edit";
     }
 
     @PutMapping("/management/artist/edit/{artistSlug}/painting/edit/{paintingSlug}")
     public String putPaintingEdit(@PathVariable String artistSlug,
                                   @PathVariable String paintingSlug,
-                                  @ModelAttribute("paintingDTO") PaintingCreateEditDto paintingDTO) {
+                                  @ModelAttribute(PAINTING) PaintingCreateEditDto paintingDTO) {
         String paintingDTOSlug = paintingService.updatePainting(paintingSlug, paintingDTO).getSlug();
         return "redirect:/management/artist/edit/" + artistSlug + "/painting/edit/" + paintingDTOSlug;
     }

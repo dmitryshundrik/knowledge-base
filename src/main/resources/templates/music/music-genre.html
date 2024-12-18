@@ -24,7 +24,7 @@
             <header class="table-body-item-title">
                 <h3>Лучшие альбомы</h3>
             </header>
-            <section class="table-body-item-row" th:each="album : ${albums}">
+            <section class="table-body-item-row" th:each="album : ${albumList}">
                 <span class="table-body-item-col" th:text="${albumStat.index + 1} + '.'"></span>
                 <span class="table-body-item-col nickname">
                         <a th:text="${album.musicianNickname}" th:href="'/music/musician/' + ${album.musicianSlug}"></a>
@@ -39,7 +39,7 @@
             <header class="table-body-item-title">
                 <h3>Лучшие произведения</h3>
             </header>
-            <section class="table-body-item-row" th:each="composition : ${compositions}">
+            <section class="table-body-item-row" th:each="composition : ${compositionList}">
                 <span class="table-body-item-col" th:text="${compositionStat.index + 1} + '.'"></span>
                 <span class="table-body-item-col nickname">
                         <a th:text="${composition.musicianNickname}"

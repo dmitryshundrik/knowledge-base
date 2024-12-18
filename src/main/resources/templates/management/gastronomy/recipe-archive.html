@@ -30,8 +30,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="recipe : ${recipes}">
-                <th th:text="${recipes.size - recipeStat.index}"></th>
+            <tr th:each="recipe : ${recipeList}">
+                <th th:text="${recipeList.size - recipeStat.index}"></th>
                 <td th:text="${recipe.created}"></td>
                 <td th:text="${recipe.title}"></td>
                 <td th:text="${recipe.slug}"></td>

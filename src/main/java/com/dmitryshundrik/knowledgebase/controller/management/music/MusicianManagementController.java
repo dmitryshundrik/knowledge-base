@@ -24,6 +24,14 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.CLASSICAL_MUSIC_GENRES;
+import static com.dmitryshundrik.knowledgebase.util.Constants.CONTEMPORARY_MUSIC_GENRES;
+import static com.dmitryshundrik.knowledgebase.util.Constants.GENDER_LIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.MUSICIAN;
+import static com.dmitryshundrik.knowledgebase.util.Constants.MUSIC_PERIOD_LIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG;
+import static com.dmitryshundrik.knowledgebase.util.Constants.SORT_TYPE_LIST;
+
 @Controller
 @RequiredArgsConstructor
 public class MusicianManagementController {
@@ -37,7 +45,7 @@ public class MusicianManagementController {
     @GetMapping("/management/musician/all")
     public String getAllMusicians(Model model) {
         List<Musician> allMusicians = musicianService.getAllMusiciansOrderedByCreatedDesc();
-        model.addAttribute("musicianViewDTOList", musicianService.getMusicianViewDTOList(allMusicians));
+        model.addAttribute(MUSICIAN, musicianService.getMusicianViewDTOList(allMusicians));
         return "management/music/musician-all";
     }
 
@@ -46,26 +54,26 @@ public class MusicianManagementController {
         MusicianCreateEditDTO musicianDTO = new MusicianCreateEditDTO();
         musicianDTO.setAlbumsSortType(SortType.YEAR);
         musicianDTO.setCompositionsSortType(SortType.YEAR);
-        model.addAttribute("musicianCreateEditDTO", musicianDTO);
-        model.addAttribute("musicPeriods", musicPeriodService.getAllSortedByStart());
-        model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
-        model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
-        model.addAttribute("sortTypes", SortType.values());
-        model.addAttribute("genders", Gender.values());
+        model.addAttribute(MUSICIAN, musicianDTO);
+        model.addAttribute(MUSIC_PERIOD_LIST, musicPeriodService.getAllSortedByStart());
+        model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenres());
+        model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenres());
+        model.addAttribute(SORT_TYPE_LIST, SortType.values());
+        model.addAttribute(GENDER_LIST, Gender.values());
         return "management/music/musician-create";
     }
 
     @PostMapping("/management/musician/create")
-    public String postCreateMusician(@Valid @ModelAttribute("musicianCreateEditDTO") MusicianCreateEditDTO musicianDTO,
+    public String postCreateMusician(@Valid @ModelAttribute(MUSICIAN) MusicianCreateEditDTO musicianDTO,
                                      BindingResult bindingResult, Model model) {
         String error = musicianService.musicianSlugIsExist(musicianDTO.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
-            model.addAttribute("slug", error);
-            model.addAttribute("musicPeriods", musicPeriodService.getAllSortedByStart());
-            model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
-            model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
-            model.addAttribute("sortTypes", SortType.values());
-            model.addAttribute("genders", Gender.values());
+            model.addAttribute(SLUG, error);
+            model.addAttribute(MUSIC_PERIOD_LIST, musicPeriodService.getAllSortedByStart());
+            model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenres());
+            model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenres());
+            model.addAttribute(SORT_TYPE_LIST, SortType.values());
+            model.addAttribute(GENDER_LIST, Gender.values());
             return "management/music/musician-create";
         }
         String musicianDTOSlug = musicianService.createMusician(musicianDTO).getSlug();
@@ -75,18 +83,18 @@ public class MusicianManagementController {
     @GetMapping("/management/musician/edit/{musicianSlug}")
     public String getEditMusicianBySlug(@PathVariable String musicianSlug, Model model) {
         Musician musicianBySlug = musicianService.getMusicianBySlug(musicianSlug);
-        model.addAttribute("musicianCreateEditDTO", musicianService.getMusicianCreateEditDTO(musicianBySlug));
-        model.addAttribute("musicPeriods", musicPeriodService.getAllSortedByStart());
-        model.addAttribute("classicalGenres", musicGenreService.getAllClassicalGenres());
-        model.addAttribute("contemporaryGenres", musicGenreService.getAllContemporaryGenres());
-        model.addAttribute("sortTypes", SortType.values());
-        model.addAttribute("genders", Gender.values());
+        model.addAttribute(MUSICIAN, musicianService.getMusicianCreateEditDTO(musicianBySlug));
+        model.addAttribute(MUSIC_PERIOD_LIST, musicPeriodService.getAllSortedByStart());
+        model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenres());
+        model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenres());
+        model.addAttribute(SORT_TYPE_LIST, SortType.values());
+        model.addAttribute(GENDER_LIST, Gender.values());
         return "management/music/musician-edit";
     }
 
     @PutMapping("/management/musician/edit/{musicianSlug}")
     public String putEditMusicianBySlug(@PathVariable String musicianSlug,
-                                        @ModelAttribute("musicianCreateEditDTO") MusicianCreateEditDTO musicianDTO) {
+                                        @ModelAttribute(MUSICIAN) MusicianCreateEditDTO musicianDTO) {
         String musicianDTOSlug = musicianService.updateMusician(musicianSlug, musicianDTO).getSlug();
         return "redirect:/management/musician/edit/" + musicianDTOSlug;
     }

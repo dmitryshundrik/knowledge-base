@@ -19,6 +19,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.CURRENT_EVENTS;
+import static com.dmitryshundrik.knowledgebase.util.Constants.FOUNDATION_LIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.LATEST_UPDATES;
+import static com.dmitryshundrik.knowledgebase.util.Constants.RESOURCE_LIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.YEAR_IN_MUSIC_LIST;
+
 @Controller
 @RequiredArgsConstructor
 public class IndexController {
@@ -36,13 +42,13 @@ public class IndexController {
     private final SpotifyIntegrationService spotifyIntegrationService;
 
     @Getter
-    private static final String version = "5.0.6";
+    private static final String VERSION = "5.0.6";
 
     @GetMapping("/")
     public String getIndex(Model model) {
-        model.addAttribute("yearInMusicList", yearInMusicService.getSortedYearInMusicViewDTOList());
-        model.addAttribute("latestUpdates", entityActivityService.getLatestActivities());
-        model.addAttribute("currentEvents", currentEventService.getCurrentEvents());
+        model.addAttribute(YEAR_IN_MUSIC_LIST, yearInMusicService.getSortedYearInMusicViewDTOList());
+        model.addAttribute(LATEST_UPDATES, entityActivityService.getLatestActivities());
+        model.addAttribute(CURRENT_EVENTS, currentEventService.getCurrentEvents());
         return "index";
     }
 
@@ -50,7 +56,7 @@ public class IndexController {
     public String getCharity(Model model) {
         List<Foundation> foundationList = foundationService.getAllSortedByCreated();
         List<FoundationDTO> foundationDTOList = foundationService.getFoundationDTOList(foundationList);
-        model.addAttribute("foundations", foundationDTOList);
+        model.addAttribute(FOUNDATION_LIST, foundationDTOList);
         return "charity";
     }
 
@@ -58,7 +64,7 @@ public class IndexController {
     public String getResources(Model model) {
         List<Resource> resourceList = resourcesService.getAllSortedByCreated();
         List<ResourceDTO> resourceDTOList = resourcesService.getResourceDTOList(resourceList);
-        model.addAttribute("resources", resourceDTOList);
+        model.addAttribute(RESOURCE_LIST, resourceDTOList);
         return "resources";
     }
 

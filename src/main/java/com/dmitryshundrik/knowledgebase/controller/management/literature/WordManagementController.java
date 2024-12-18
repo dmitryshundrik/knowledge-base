@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import java.util.List;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.WORD;
+import static com.dmitryshundrik.knowledgebase.util.Constants.WORD_LIST;
+
 @Controller
 @RequiredArgsConstructor
 public class WordManagementController {
@@ -28,7 +31,7 @@ public class WordManagementController {
     public String getAllWords(Model model) {
         List<Word> allSortedByCreatedDesc = wordService.getAllSortedByCreatedDesc();
         List<WordDTO> wordDTOList = wordService.getWordDTOList(allSortedByCreatedDesc);
-        model.addAttribute("wordList", wordDTOList);
+        model.addAttribute(WORD_LIST, wordDTOList);
         return "management/literature/word-archive";
     }
 
@@ -37,13 +40,13 @@ public class WordManagementController {
         WordDTO wordDTO = new WordDTO();
         wordDTO.setWriterNickname(writerService.getBySlug(writerSlug).getNickName());
         wordDTO.setWriterSlug(writerSlug);
-        model.addAttribute("wordDTO", wordDTO);
+        model.addAttribute(WORD, wordDTO);
         return "management/literature/word-create";
     }
 
     @PostMapping("/management/writer/edit/{writerSlug}/word/create")
     public String postWordCreate(@PathVariable String writerSlug,
-                                 @ModelAttribute("wordDTO") WordDTO wordDTO) {
+                                 @ModelAttribute(WORD) WordDTO wordDTO) {
         Writer writerServiceBySlug = writerService.getBySlug(writerSlug);
         Word savedWord = wordService.createWord(wordDTO, writerServiceBySlug);
         return "redirect:/management/writer/edit/" + writerSlug + "/word/edit/" + savedWord.getId();
@@ -53,13 +56,13 @@ public class WordManagementController {
     public String getWordEdit(@PathVariable String writerSlug, @PathVariable String wordId, Model model) {
         Word byId = wordService.getById(wordId);
         WordDTO wordDTO = wordService.getWordDTO(byId);
-        model.addAttribute("wordDTO", wordDTO);
+        model.addAttribute(WORD, wordDTO);
         return "management/literature/word-edit";
     }
 
     @PutMapping("/management/writer/edit/{writerSlug}/word/edit/{wordId}")
     public String putWordEdit(@PathVariable String writerSlug, @PathVariable String wordId,
-                              @ModelAttribute("wordDTO") WordDTO wordDTO) {
+                              @ModelAttribute(WORD) WordDTO wordDTO) {
         Word updatedWord = wordService.updateWord(wordDTO, wordId);
         return "redirect:/management/writer/edit/" + writerSlug + "/word/edit/" + updatedWord.getId();
     }

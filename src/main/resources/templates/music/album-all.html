@@ -33,7 +33,7 @@
                      5 - филлер;
                 </span>
             </section>
-            <section class="table-body-item-row" th:each="album : ${albums}">
+            <section class="table-body-item-row" th:each="album : ${albumList}">
                 <span class="table-body-item-col" th:text="${album.created}"></span>
                 <span class="table-body-item-col">
                     <a th:text="${album.musicianNickname}"
@@ -48,7 +48,7 @@
                         </span>
                         <span>)</span>
                     </span>
-                    <span lass="table-body-item-col" th:text="'(' + ${album.year} + ')'"></span>
+                    <span class="table-body-item-col" th:text="'(' + ${album.year} + ')'"></span>
                 </span>
                 <span class="table-body-item-col album-genres">
                     <span th:each="genre : ${album.musicGenres}">

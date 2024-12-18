@@ -22,7 +22,7 @@
     <div class="table-body">
 
         <article class="table-body-item">
-            <section class="table-body-item-row" th:each="musician : ${musicians}">
+            <section class="table-body-item-row" th:each="musician : ${musicianList}">
                 <span class="table-body-item-col" th:if="${musician.born} != null"
                       th:text="${musician.born}">
                 </span>

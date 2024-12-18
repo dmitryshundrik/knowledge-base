@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.ERA_TYPE_LIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.TIMELINE_EVENT;
+import static com.dmitryshundrik.knowledgebase.util.Constants.TIMELINE_EVENT_LIST;
+
 @Controller
 @RequiredArgsConstructor
 public class TimelineOfMusicManagementController {
@@ -23,20 +27,20 @@ public class TimelineOfMusicManagementController {
 
     @GetMapping("/management/timeline-of-music/event/all")
     public String getAllEventsForTimelineOfMusic(Model model) {
-        model.addAttribute("timelineEvents", timelineEventService
+        model.addAttribute(TIMELINE_EVENT_LIST, timelineEventService
                 .getTimelineEventDTOList(timelineEventService.getAllEventsByType(TimelineEventType.MUSIC)));
         return "management/music/timeline-of-music-all";
     }
 
     @GetMapping("/management/timeline-of-music/event/create")
     public String getCreateEventForTimelineOfMusic(Model model) {
-        model.addAttribute("timelineEventDTO", new TimelineEventDTO());
-        model.addAttribute("eraTypes", EraType.values());
+        model.addAttribute(TIMELINE_EVENT, new TimelineEventDTO());
+        model.addAttribute(ERA_TYPE_LIST, EraType.values());
         return "management/music/timeline-of-music-create";
     }
 
     @PostMapping("/management/timeline-of-music/event/create")
-    public String postCreateEventForTimelineOfMusic(@ModelAttribute("timelineEventDTO") TimelineEventDTO timelineEventDTO) {
+    public String postCreateEventForTimelineOfMusic(@ModelAttribute(TIMELINE_EVENT) TimelineEventDTO timelineEventDTO) {
         String timelineEventId = timelineEventService.createEventForTimelineOfMusic(timelineEventDTO);
         return "redirect:/management/timeline-of-music/event/edit/" + timelineEventId;
     }
@@ -44,14 +48,14 @@ public class TimelineOfMusicManagementController {
     @GetMapping("/management/timeline-of-music/event/edit/{eventId}")
     public String getEditEventForTimelineOfMusic(@PathVariable String eventId, Model model) {
         TimelineEvent timelineEventById = timelineEventService.getTimelineEventById(eventId);
-        model.addAttribute("timelineEventDTO", timelineEventService.getTimelineEventDTO(timelineEventById));
-        model.addAttribute("eraTypes", EraType.values());
+        model.addAttribute(TIMELINE_EVENT, timelineEventService.getTimelineEventDTO(timelineEventById));
+        model.addAttribute(ERA_TYPE_LIST, EraType.values());
         return "management/music/timeline-of-music-edit";
     }
 
     @PutMapping("/management/timeline-of-music/event/edit/{eventId}")
     public String putEditEventForTimelineOfMusic(@PathVariable String eventId,
-                                                 @ModelAttribute("timelineEventDTO") TimelineEventDTO timelineEventDTO) {
+                                                 @ModelAttribute(TIMELINE_EVENT) TimelineEventDTO timelineEventDTO) {
         timelineEventDTO.setTimelineEventType(TimelineEventType.MUSIC);
         String timelineEventId = timelineEventService.updateTimelineEvent(eventId, timelineEventDTO).getId();
         return "redirect:/management/timeline-of-music/event/edit/" + timelineEventId;

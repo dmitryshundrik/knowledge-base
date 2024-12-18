@@ -30,7 +30,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="foundation : ${foundations}">
+            <tr th:each="foundation : ${foundationList}">
                 <th th:text="${foundationStat.index + 1}"></th>
                 <td th:text="${foundation.created}"></td>
                 <td th:text="${foundation.title}"></td>

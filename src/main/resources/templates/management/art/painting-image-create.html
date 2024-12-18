@@ -20,7 +20,7 @@
             <form class="form"
                   th:action="${'/management/artist/edit/' + artistSlug + '/painting/edit/' + paintingSlug + '/image/create'}"
                   th:method="post"
-                  th:object="${imageDTO}">
+                  th:object="${image}">
 
                 <section class="form-item">
                     <label>title</label>

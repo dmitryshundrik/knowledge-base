@@ -20,6 +20,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.PROSE_LIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.QUOTE_LIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.WORD_LIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.WRITER;
+import static com.dmitryshundrik.knowledgebase.util.Constants.WRITER_LIST;
+
 @Controller
 @RequestMapping("/literature")
 @RequiredArgsConstructor
@@ -43,7 +49,7 @@ public class LiteraturePageController {
     public String getAllWriters(Model model) {
         List<Writer> writerList = writerService.getAllSortedByBorn();
         List<WriterViewDTO> writerViewDTOList = writerService.getWriterViewDTOList(writerList);
-        model.addAttribute("writerList", writerViewDTOList);
+        model.addAttribute(WRITER_LIST, writerViewDTOList);
         return "literature/writer-all";
     }
 
@@ -53,8 +59,8 @@ public class LiteraturePageController {
         WriterViewDTO writerViewDTO = writerService.getWriterViewDTO(bySlug);
         List<Prose> allByWriterSortedByRating = proseService.getAllByWriterSortedByRating(bySlug);
         List<ProseViewDTO> sortedProseViewDTOList = proseService.getProseViewDTOList(allByWriterSortedByRating);
-        model.addAttribute("writerDTO", writerViewDTO);
-        model.addAttribute("bestProseList", sortedProseViewDTOList);
+        model.addAttribute(WRITER, writerViewDTO);
+        model.addAttribute(PROSE_LIST, sortedProseViewDTOList);
         return "literature/writer";
     }
 
@@ -64,8 +70,8 @@ public class LiteraturePageController {
         WriterViewDTO writerViewDTO = writerService.getWriterViewDTO(writerBySlug);
         List<Quote> allByWriterSortedByCreatedDesc = quoteService.getAllByWriterSortedByCreatedDesc(writerBySlug);
         List<QuoteViewDTO> quoteViewDTOList = quoteService.getQuoteViewDTOList(allByWriterSortedByCreatedDesc);
-        model.addAttribute("quoteList", quoteViewDTOList);
-        model.addAttribute("writerDTO", writerViewDTO);
+        model.addAttribute(QUOTE_LIST, quoteViewDTOList);
+        model.addAttribute(WRITER, writerViewDTO);
         return "literature/writer-quote-all";
     }
 
@@ -75,8 +81,8 @@ public class LiteraturePageController {
         WriterViewDTO writerViewDTO = writerService.getWriterViewDTO(writerBySlug);
         List<Word> allByWriterSortedByTitle = wordService.getAllByWriterSortedByTitle(writerBySlug);
         List<WordDTO> wordDTOList = wordService.getWordDTOList(allByWriterSortedByTitle);
-        model.addAttribute("wordList", wordDTOList);
-        model.addAttribute("writerDTO", writerViewDTO);
+        model.addAttribute(WORD_LIST, wordDTOList);
+        model.addAttribute(WRITER, writerViewDTO);
         return "literature/writer-word-all";
     }
 
@@ -84,7 +90,7 @@ public class LiteraturePageController {
     public String getAllProse(Model model) {
         List<Prose> proseList = proseService.getAllProseSortedByCreatedDesc();
         List<ProseViewDTO> proseViewDTOList = proseService.getProseViewDTOList(proseList);
-        model.addAttribute("proseList", proseViewDTOList);
+        model.addAttribute(PROSE_LIST, proseViewDTOList);
         return "literature/prose-all";
     }
 
@@ -92,7 +98,7 @@ public class LiteraturePageController {
     public String getAllQuotes(Model model) {
         List<Quote> quoteList = quoteService.getAllSortedByCreatedDesc();
         List<QuoteViewDTO> quoteViewDTOList = quoteService.getQuoteViewDTOList(quoteList);
-        model.addAttribute("quoteList", quoteViewDTOList);
+        model.addAttribute(QUOTE_LIST, quoteViewDTOList);
         return "literature/quote-all";
     }
 }
