@@ -9,7 +9,6 @@ import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -21,32 +20,22 @@ public class TimelineEventService {
 
     private final TimelineEventRepository timelineEventRepository;
 
-    @Transactional(readOnly = true)
     public TimelineEvent getTimelineEventById(String id) {
         return timelineEventRepository.findById(UUID.fromString(id)).orElse(null);
     }
 
-    @Transactional(readOnly = true)
     public List<TimelineEvent> getAllEventsByType(TimelineEventType type) {
-        return timelineEventRepository.findAllByTimelineEventType(type).stream()
-                .sorted(Comparator.comparing(TimelineEvent::getCreated))
-                .collect(Collectors.toList());
+        return timelineEventRepository.findAllByTimelineEventTypeOrderByCreatedAsc(type);
     }
 
-    @Transactional(readOnly = true)
     public List<TimelineEvent> getAllMusicTimelineEventsBeforeCommon() {
-        return getAllEventsByType(TimelineEventType.MUSIC).stream()
-                .filter(timelineEvent -> timelineEvent.getEraType().equals(EraType.BEFORE_COMMON))
-                .sorted((o1, o2) -> o2.getYear().compareTo(o1.getYear()))
-                .collect(Collectors.toList());
+        return timelineEventRepository
+                .findAllByTimelineEventTypeAndEraTypeOrderByCreatedAsc(TimelineEventType.MUSIC, EraType.BEFORE_COMMON);
     }
 
-    @Transactional(readOnly = true)
     public List<TimelineEvent> getAllMusicTimelineEventsByCommonEra() {
-        return getAllEventsByType(TimelineEventType.MUSIC).stream()
-                .filter(timelineEvent -> timelineEvent.getEraType().equals(EraType.COMMON))
-                .sorted(Comparator.comparing(TimelineEvent::getYear))
-                .collect(Collectors.toList());
+        return timelineEventRepository
+                .findAllByTimelineEventTypeAndEraTypeOrderByCreatedAsc(TimelineEventType.MUSIC, EraType.COMMON);
     }
 
     public TimelineEventDTO createTimelineEvent(TimelineEventDTO timelineEventDTO) {

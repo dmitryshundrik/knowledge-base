@@ -30,13 +30,13 @@ public class CurrentEventService {
 
     private final ArtistService artistService;
 
-    private final static String MALE_BORN = " родился ";
+    private static final String MALE_BORN = " родился ";
 
-    private final static String FEMALE_BORN = " родилась ";
+    private static final String FEMALE_BORN = " родилась ";
 
-    private final static String MALE_DIE = " умер ";
+    private static final String MALE_DIE = " умер ";
 
-    private final static String FEMALE_DIE = " умерла ";
+    private static final String FEMALE_DIE = " умерла ";
 
     public List<CurrentEventInfo> getCurrentEvents() {
         List<CurrentEventInfo> currentEventInfoList = new ArrayList<>();
@@ -158,45 +158,21 @@ public class CurrentEventService {
         String dateDD = localDate.format(DateTimeFormatter.ofPattern("dd"));
         String dateMM = localDate.format(DateTimeFormatter.ofPattern("MM"));
         String dateYYYY = localDate.format(DateTimeFormatter.ofPattern("yyyy"));
-        String dateMonth = "";
-        switch (dateMM) {
-            case "01":
-                dateMonth = "января";
-                break;
-            case "02":
-                dateMonth = "февраля";
-                break;
-            case "03":
-                dateMonth = "марта";
-                break;
-            case "04":
-                dateMonth = "апреля";
-                break;
-            case "05":
-                dateMonth = "мая";
-                break;
-            case "06":
-                dateMonth = "июня";
-                break;
-            case "07":
-                dateMonth = "июля";
-                break;
-            case "08":
-                dateMonth = "августа";
-                break;
-            case "09":
-                dateMonth = "сентября";
-                break;
-            case "10":
-                dateMonth = "октября";
-                break;
-            case "11":
-                dateMonth = "ноября";
-                break;
-            case "12":
-                dateMonth = "декабря";
-                break;
-        }
+        String dateMonth = switch (dateMM) {
+            case "01" -> "января";
+            case "02" -> "февраля";
+            case "03" -> "марта";
+            case "04" -> "апреля";
+            case "05" -> "мая";
+            case "06" -> "июня";
+            case "07" -> "июля";
+            case "08" -> "августа";
+            case "09" -> "сентября";
+            case "10" -> "октября";
+            case "11" -> "ноября";
+            case "12" -> "декабря";
+            default -> "";
+        };
         return dateDD + " " + dateMonth + " " + dateYYYY;
     }
 }

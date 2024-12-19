@@ -19,7 +19,6 @@ public class PersonEventService {
 
     private final PersonEventRepository personEventRepository;
 
-    @Transactional(readOnly = true)
     public PersonEvent getPersonEventById(String id) {
         return personEventRepository.findById(UUID.fromString(id)).orElse(null);
     }

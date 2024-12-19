@@ -7,7 +7,7 @@ import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Comparator;
+
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -19,21 +19,16 @@ public class FoundationService {
 
     private final FoundationRepository foundationRepository;
 
-    @Transactional(readOnly = true)
     public Foundation getById(String id) {
         return foundationRepository.findById(UUID.fromString(id)).orElse(null);
     }
 
-    @Transactional(readOnly = true)
     public List<Foundation> getAll() {
         return foundationRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public List<Foundation> getAllSortedByCreated() {
-        return getAll().stream()
-                .sorted(Comparator.comparing(Foundation::getCreated))
-                .collect(Collectors.toList());
+        return foundationRepository.getAllByOrderByCreatedAsc();
     }
 
     public Foundation createFoundation(FoundationDTO foundationDTO) {

@@ -26,32 +26,26 @@ public class PaintingService {
 
     private final ImageService imageService;
 
-    @Transactional(readOnly = true)
     public List<Painting> getAll() {
         return paintingRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public Painting getBySlug(String paintingSlug) {
         return paintingRepository.getBySlug(paintingSlug);
     }
 
-    @Transactional(readOnly = true)
     public List<Painting> getAllSortedByCreatedDesc() {
         return paintingRepository.getAllByOrderByCreatedDesc();
     }
 
-    @Transactional(readOnly = true)
     public List<Painting> getAllByArtistSortedByYear2(Artist artist) {
         return paintingRepository.getAllByArtistOrderByYear2(artist);
     }
 
-    @Transactional(readOnly = true)
     public List<Painting> getAllByArtistSortedByCreatedDesk(Artist artist) {
         return paintingRepository.getAllByArtistOrderByCreatedDesc(artist);
     }
 
-    @Transactional(readOnly = true)
     public List<Painting> getBestPaintingsByArtist(Artist artist) {
         List<Painting> paintingList = paintingRepository.getAllByArtistAndArtistTopRankNotNull(artist);
         return paintingList.stream()
@@ -59,7 +53,6 @@ public class PaintingService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
     public List<Painting> getAllTimeBestPaintings() {
         List<Painting> paintingList = paintingRepository.getAllByAndAllTimeTopRankNotNull();
         return paintingList.stream()

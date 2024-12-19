@@ -29,4 +29,8 @@ public interface MusicGenreRepository extends JpaRepository<MusicGenre, UUID> {
             "where mg.id = music_genre.id\n" +
             "group by mg.id) where music_genre_type = 'CONTEMPORARY'")
     void updateContemporaryMusicGenreSetCount();
+
+    List<MusicGenre> getAllByMusicGenreType(MusicGenreType type);
+
+    List<MusicGenre> getAllByMusicGenreTypeOrderByTitle(MusicGenreType type);
 }

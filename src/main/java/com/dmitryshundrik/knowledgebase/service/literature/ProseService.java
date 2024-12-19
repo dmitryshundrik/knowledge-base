@@ -11,7 +11,7 @@ import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Comparator;
+
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -25,55 +25,32 @@ public class ProseService {
 
     private final ProseRepository proseRepository;
 
-    @Transactional(readOnly = true)
     public List<Prose> getAll() {
         return proseRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
-    public List<Prose> getAllSortedByYear() {
-        List<Prose> all = getAll();
-        return all.stream()
-                .sorted(Comparator.comparing(Prose::getYear))
-                .collect(Collectors.toList());
-    }
-
-    @Transactional(readOnly = true)
     public Prose getBySlug(String proseSlug) {
         return proseRepository.getBySlug(proseSlug);
     }
 
-    @Transactional(readOnly = true)
     public Prose getById(String id) {
         return proseRepository.findById(UUID.fromString(id)).orElse(null);
     }
 
-    @Transactional(readOnly = true)
+    public List<Prose> getAllSortedByCreatedDesc() {
+        return proseRepository.findAllByOrderByCreatedDesc();
+    }
+
     public List<Prose> getAllByWriter(Writer writer) {
-        return proseRepository.getAllByWriter(writer);
+        return proseRepository.findAllByWriter(writer);
     }
 
-    @Transactional(readOnly = true)
-    public List<Prose> getAllByWriterSortedByRating(Writer writer) {
-        List<Prose> allByWriter = getAllByWriter(writer).stream()
-                .filter(prose -> prose.getRating() != null)
-                .toList();
-        return allByWriter.stream()
-                .sorted((o1, o2) -> o2.getRating().compareTo(o1.getRating()))
-                .limit(5)
-                .collect(Collectors.toList());
+    public List<Prose> getFirst5ByWriterSortedByRating(Writer writer) {
+        return proseRepository.findFirst5ByWriterOrderByRatingDesc(writer);
     }
 
-    @Transactional(readOnly = true)
     public List<Prose> getAllByWriterSortedByYear(Writer writer) {
-        return writer.getProseList().stream()
-                .sorted(Comparator.comparing(Prose::getYear))
-                .collect(Collectors.toList());
-    }
-
-    @Transactional(readOnly = true)
-    public List<Prose> getAllProseSortedByCreatedDesc() {
-        return proseRepository.getAllByOrderByCreatedDesc();
+        return proseRepository.findAllByWriterOrderByYearAsc(writer);
     }
 
     public Prose createProse(Writer writer, ProseCreateEditDTO proseDTO) {

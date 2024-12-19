@@ -19,21 +19,16 @@ public class ResourcesService {
 
     private final ResourcesRepository resourcesRepository;
 
-    @Transactional(readOnly = true)
     public Resource getById(String id) {
         return resourcesRepository.findById(UUID.fromString(id)).orElse(null);
     }
 
-    @Transactional(readOnly = true)
     public List<Resource> getAll() {
         return resourcesRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public List<Resource> getAllSortedByCreated() {
-        return getAll().stream()
-                .sorted(Comparator.comparing(Resource::getCreated))
-                .collect(Collectors.toList());
+        return resourcesRepository.findAllByOrderByCreatedAsc();
     }
 
     public ResourceDTO createResource(ResourceDTO resourceDTO) {

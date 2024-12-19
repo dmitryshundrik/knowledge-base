@@ -10,9 +10,13 @@ public interface ProseRepository extends JpaRepository<Prose, UUID> {
 
     Prose getBySlug(String proseSlug);
 
-    List<Prose> getAllByOrderByCreatedDesc();
+    List<Prose> findAllByOrderByCreatedDesc();
 
-    List<Prose> getAllByWriter(Writer writer);
+    List<Prose> findAllByWriter(Writer writer);
 
     List<Prose> findFirst20ByOrderByCreatedDesc();
+
+    List<Prose> findFirst5ByWriterOrderByRatingDesc(Writer writer);
+
+    List<Prose> findAllByWriterOrderByYearAsc(Writer writer);
 }

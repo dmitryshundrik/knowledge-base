@@ -19,27 +19,22 @@ public class WordService {
 
     private final WordRepository wordRepository;
 
-    @Transactional(readOnly = true)
     public List<Word> getAll() {
         return wordRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public List<Word> getAllSortedByCreatedDesc() {
         return wordRepository.getAllByOrderByCreatedDesc();
     }
 
-    @Transactional(readOnly = true)
     public List<Word> getAllByWriterSortedByCreatedDesc(Writer writer) {
         return wordRepository.getAllByWriterOrderByCreatedDesc(writer);
     }
 
-    @Transactional(readOnly = true)
     public List<Word> getAllByWriterSortedByTitle(Writer writer) {
         return wordRepository.getAllByWriterOrderByTitle(writer);
     }
 
-    @Transactional(readOnly = true)
     public Word getById(String wordId) {
         return wordRepository.findById(UUID.fromString(wordId)).orElse(null);
     }

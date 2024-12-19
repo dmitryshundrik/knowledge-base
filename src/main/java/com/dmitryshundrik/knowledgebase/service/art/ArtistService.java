@@ -10,6 +10,7 @@ import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
@@ -21,6 +22,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EX
 import static com.dmitryshundrik.knowledgebase.util.Constants.UNKNOWN;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ArtistService {
 
@@ -30,7 +32,6 @@ public class ArtistService {
 
     private final ArtistMapper artistMapper;
 
-    @Transactional(readOnly = true)
     public List<Artist> getAll() {
         return unknownFilter(artistRepository.findAll());
     }
@@ -39,7 +40,6 @@ public class ArtistService {
         return unknownFilter(artistRepository.getAllByOrderByBorn());
     }
 
-    @Transactional(readOnly = true)
     public List<Artist> getAllSortedByCreatedDesc() {
         return unknownFilter(artistRepository.getAllByOrderByCreatedDesc());
     }
@@ -49,21 +49,18 @@ public class ArtistService {
                 .orElseThrow(() -> new NotFoundException(ARTIST_NOT_FOUND_BY_SLUG.formatted(artistSlug)));
     }
 
-    @Transactional
     public Artist createArtist(ArtistCreateEditDto artistDTO) {
         Artist artist = artistMapper.toArtist(artistDTO);
         artist.setSlug(SlugFormatter.slugFormatter(artist.getSlug()));
         return artistRepository.save(artist);
     }
 
-    @Transactional
     public ArtistViewDto updateArtist(String artistSlug, ArtistCreateEditDto artistDTO) {
         Artist bySlug = getBySlug(artistSlug);
         artistMapper.updateArtist(artistDTO, bySlug);
         return getArtistViewDto(bySlug);
     }
 
-    @Transactional
     public void updateArtistImageBySlug(String artistSlug, byte[] bytes) {
         if (bytes.length != 0) {
             Artist bySlug = getBySlug(artistSlug);
@@ -71,13 +68,11 @@ public class ArtistService {
         }
     }
 
-    @Transactional
     public void deleteArtistImage(String artistSlug) {
         Artist bySlug = getBySlug(artistSlug);
         bySlug.setImage(null);
     }
 
-    @Transactional
     public void deleteArtistBySlug(String artistSlug) {
         artistRepository.delete(getBySlug(artistSlug));
     }

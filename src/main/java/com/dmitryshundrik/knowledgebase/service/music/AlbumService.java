@@ -10,7 +10,7 @@ import com.dmitryshundrik.knowledgebase.util.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.util.enums.SortType;
 import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
-import com.dmitryshundrik.knowledgebase.util.MusicianDTOTransformer;
+import com.dmitryshundrik.knowledgebase.util.MusicianDtoTransformer;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,60 +32,48 @@ public class AlbumService {
 
     public static final String DECADE_2020s = "2020";
 
-    @Transactional(readOnly = true)
     public List<Album> getAll() {
         return albumRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public Album getAlbumById(String albumId) {
         return albumRepository.findById(UUID.fromString(albumId)).orElse(null);
     }
 
-    @Transactional(readOnly = true)
     public Album getAlbumBySlug(String albumSlug) {
         return albumRepository.getAlbumBySlug(albumSlug);
     }
 
-    @Transactional(readOnly = true)
     public List<Album> getAllWithRating() {
         return albumRepository.getAllByRatingIsNotNull();
     }
 
-    @Transactional(readOnly = true)
     public List<Album> getAllAlbumsSortedByCreatedDesc() {
         return albumRepository.getAllByOrderByCreatedDesc();
     }
 
-    @Transactional(readOnly = true)
     public List<Album> getAllAlbumsByYear(Integer year) {
         return albumRepository.getAllByYear(year);
     }
 
-    @Transactional(readOnly = true)
     public List<Album> getAllAlbumByDecade(String decade) {
         List<Album> albumsByDecade = new ArrayList<>();
         if (DECADE_2010s.equals(decade)) {
-            albumsByDecade.addAll(albumRepository.getAllBy2010s(2009, 2020).stream()
-                    .sorted(Comparator.comparing(Album::getRating).reversed()).toList());
+            albumsByDecade.addAll(albumRepository.getAllByDecadesOrderByRatingDesc(2009, 2020));
         } else if (DECADE_2020s.equals(decade)) {
-            albumsByDecade.addAll(albumRepository.getAllBy2010s(2019, 2030).stream()
-                    .sorted(Comparator.comparing(Album::getRating).reversed()).toList());
+            albumsByDecade.addAll(albumRepository.getAllByDecadesOrderByRatingDesc(2019, 2030));
         }
         return albumsByDecade;
     }
 
-    @Transactional(readOnly = true)
     public List<Album> getAllAlbumsByMusician(Musician musician) {
         return albumRepository.getAllByMusician(musician);
     }
 
-    @Transactional(readOnly = true)
     public List<Album> getAllAlbumsByGenre(MusicGenre genre) {
         return albumRepository.getAllByMusicGenresIsContaining(genre);
     }
 
-    @Transactional(readOnly = true)
     public List<AlbumViewDTO> get10BestAlbumsByYear(Integer year) {
         return getAlbumViewDTOList(albumRepository.getAllByYear(year).stream()
                 .sorted((o1, o2) -> o2.getRating().compareTo(o1.getRating()))
@@ -101,7 +89,6 @@ public class AlbumService {
                 .collect(Collectors.toList()));
     }
 
-    @Transactional(readOnly = true)
     public List<Integer> getAllYearsFromAlbums() {
         return albumRepository.getAllYearsFromAlbums();
     }
@@ -141,7 +128,7 @@ public class AlbumService {
                 .catalogNumber(album.getCatalogNumber())
                 .musicianNickname(album.getMusician().getNickName())
                 .musicianSlug(album.getMusician().getSlug())
-                .collaborators(MusicianDTOTransformer.getMusicianSelectDTOList(album.getCollaborators()))
+                .collaborators(MusicianDtoTransformer.getMusicianSelectDtoList(album.getCollaborators()))
                 .feature(album.getFeature())
                 .artwork(album.getArtwork())
                 .year(album.getYear())

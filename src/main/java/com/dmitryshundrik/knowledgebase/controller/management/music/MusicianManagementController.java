@@ -46,7 +46,7 @@ public class MusicianManagementController {
     @GetMapping("/management/musician/all")
     public String getAllMusicians(Model model) {
         List<Musician> allMusicians = musicianService.getAllMusiciansOrderedByCreatedDesc();
-        model.addAttribute(MUSICIAN_LIST, musicianService.getMusicianViewDTOList(allMusicians));
+        model.addAttribute(MUSICIAN_LIST, musicianService.getAllMusicianManagementResponseDto(allMusicians));
         return "management/music/musician-all";
     }
 

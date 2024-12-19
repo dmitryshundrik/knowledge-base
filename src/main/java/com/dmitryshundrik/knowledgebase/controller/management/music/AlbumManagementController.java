@@ -5,7 +5,7 @@ import com.dmitryshundrik.knowledgebase.dto.music.AlbumCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
-import com.dmitryshundrik.knowledgebase.util.MusicianDTOTransformer;
+import com.dmitryshundrik.knowledgebase.util.MusicianDtoTransformer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,8 +47,8 @@ public class AlbumManagementController {
         AlbumCreateEditDTO albumDTO = new AlbumCreateEditDTO();
         musicianService.setFieldsToAlbumDTO(musicianSlug, albumDTO);
         model.addAttribute(ALBUM, albumDTO);
-        model.addAttribute(ALBUM_COLLABORATORS, MusicianDTOTransformer
-                .getMusicianSelectDTOList(musicianService.getAll()));
+        model.addAttribute(ALBUM_COLLABORATORS, MusicianDtoTransformer
+                .getMusicianSelectDtoList(musicianService.getAll()));
         model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenresSortedByTitle());
         model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenresSortedByTitle());
         return "management/music/album-create";
@@ -74,8 +74,8 @@ public class AlbumManagementController {
     public String getEditAlbumBySlug(@PathVariable String musicianSlug, @PathVariable String albumSlug, Model model) {
         Album albumBySlug = albumService.getAlbumBySlug(albumSlug);
         model.addAttribute(ALBUM, albumService.getAlbumCreateEditDTO(albumBySlug));
-        model.addAttribute(ALBUM_COLLABORATORS, MusicianDTOTransformer
-                .getMusicianSelectDTOList(musicianService.getAll()));
+        model.addAttribute(ALBUM_COLLABORATORS, MusicianDtoTransformer
+                .getMusicianSelectDtoList(musicianService.getAll()));
         model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenresSortedByTitle());
         model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenresSortedByTitle());
         return "management/music/album-edit";

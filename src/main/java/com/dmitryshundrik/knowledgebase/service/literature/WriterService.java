@@ -34,22 +34,18 @@ public class WriterService {
 
     private final PersonEventService personEventService;
 
-    @Transactional(readOnly = true)
     public List<Writer> getAll() {
         return writerRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public List<Writer> getAllSortedByBorn() {
         return writerRepository.findAllByOrderByBorn();
     }
 
-    @Transactional(readOnly = true)
     public List<Writer> getAllSortedByCreatedDesc() {
         return writerRepository.getAllByOrderByCreatedDesc();
     }
 
-    @Transactional(readOnly = true)
     public Writer getBySlug(String writerSlug) {
         return writerRepository.findBySlug(writerSlug);
     }
@@ -160,7 +156,6 @@ public class WriterService {
         return writerRepository.findFirst20ByOrderByCreatedDesc();
     }
 
-    @Transactional(readOnly = true)
     public Set<Writer> getAllWithCurrentBirth() {
         Set<Writer> writerBirthList = new HashSet<>();
         for (int i = 0; i < 10; i++) {
@@ -169,7 +164,6 @@ public class WriterService {
         return writerBirthList;
     }
 
-    @Transactional(readOnly = true)
     public Set<Writer> getAllWithCurrentDeath() {
         Set<Writer> writerDeathList = new HashSet<>();
         for (int i = 0; i < 10; i++) {

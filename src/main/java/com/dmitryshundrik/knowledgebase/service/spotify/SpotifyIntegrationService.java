@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,6 +41,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class SpotifyIntegrationService {
 
     private static final String URI_AUTHORIZE = "https://accounts.spotify.com/authorize";
@@ -119,7 +121,7 @@ public class SpotifyIntegrationService {
         if (refreshToken == null) {
             List<RefreshToken> tokenList = refreshTokenRepository.findAll();
             if (tokenList.isEmpty()) {
-                System.out.println("Refresh token is null");
+                log.info("Refresh token is null");
                 return;
             } else {
                 refreshToken = tokenList.get(0).getRefreshToken();
@@ -139,7 +141,6 @@ public class SpotifyIntegrationService {
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .build();
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-//        System.out.println(response.body());
         JsonNode node = new ObjectMapper().readTree(response.body());
         if (node.has("access_token")) {
             accessToken = node.get("access_token").asText();

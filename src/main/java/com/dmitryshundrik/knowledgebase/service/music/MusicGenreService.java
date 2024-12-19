@@ -9,7 +9,6 @@ import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,30 +31,22 @@ public class MusicGenreService {
 
     @Transactional(readOnly = true)
     public List<MusicGenre> getAllClassicalGenres() {
-        return musicGenreRepository.findAll().stream()
-                .filter(musicGenre -> musicGenre.getMusicGenreType().equals(MusicGenreType.CLASSICAL))
-                .collect(Collectors.toList());
+        return musicGenreRepository.getAllByMusicGenreType(MusicGenreType.CLASSICAL);
     }
 
     @Transactional(readOnly = true)
     public List<MusicGenre> getAllClassicalGenresSortedByTitle() {
-        return getAllClassicalGenres().stream()
-                .sorted(Comparator.comparing(MusicGenre::getTitle))
-                .collect(Collectors.toList());
+        return musicGenreRepository.getAllByMusicGenreTypeOrderByTitle(MusicGenreType.CLASSICAL);
     }
 
     @Transactional(readOnly = true)
     public List<MusicGenre> getAllContemporaryGenres() {
-        return musicGenreRepository.findAll().stream()
-                .filter(musicGenre -> musicGenre.getMusicGenreType().equals(MusicGenreType.CONTEMPORARY))
-                .collect(Collectors.toList());
+        return musicGenreRepository.getAllByMusicGenreType(MusicGenreType.CONTEMPORARY);
     }
 
     @Transactional(readOnly = true)
     public List<MusicGenre> getAllContemporaryGenresSortedByTitle() {
-        return getAllContemporaryGenres().stream()
-                .sorted(Comparator.comparing(MusicGenre::getTitle))
-                .collect(Collectors.toList());
+        return musicGenreRepository.getAllByMusicGenreTypeOrderByTitle(MusicGenreType.CONTEMPORARY);
     }
 
     @Transactional

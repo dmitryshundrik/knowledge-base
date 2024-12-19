@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.repository.music;
 
+import com.dmitryshundrik.knowledgebase.dto.music.MusicianAllPageResponseDto;
 import com.dmitryshundrik.knowledgebase.entity.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.entity.music.Musician;
-import com.dmitryshundrik.knowledgebase.dto.music.MusicianAllPageResponseDto;
 import com.dmitryshundrik.knowledgebase.dto.music.MusicianActivityDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

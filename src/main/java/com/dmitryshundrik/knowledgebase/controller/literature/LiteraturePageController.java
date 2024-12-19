@@ -57,10 +57,10 @@ public class LiteraturePageController {
     public String getWriter(@PathVariable String slug, Model model) {
         Writer bySlug = writerService.getBySlug(slug);
         WriterViewDTO writerViewDTO = writerService.getWriterViewDTO(bySlug);
-        List<Prose> allByWriterSortedByRating = proseService.getAllByWriterSortedByRating(bySlug);
-        List<ProseViewDTO> sortedProseViewDTOList = proseService.getProseViewDTOList(allByWriterSortedByRating);
+        List<Prose> first5ProseByWriter = proseService.getFirst5ByWriterSortedByRating(bySlug);
+        List<ProseViewDTO> first5ProseByWriterViewDTOList = proseService.getProseViewDTOList(first5ProseByWriter);
         model.addAttribute(WRITER, writerViewDTO);
-        model.addAttribute(PROSE_LIST, sortedProseViewDTOList);
+        model.addAttribute(PROSE_LIST, first5ProseByWriterViewDTOList);
         return "literature/writer";
     }
 
@@ -88,7 +88,7 @@ public class LiteraturePageController {
 
     @GetMapping("/prose/all")
     public String getAllProse(Model model) {
-        List<Prose> proseList = proseService.getAllProseSortedByCreatedDesc();
+        List<Prose> proseList = proseService.getAllSortedByCreatedDesc();
         List<ProseViewDTO> proseViewDTOList = proseService.getProseViewDTOList(proseList);
         model.addAttribute(PROSE_LIST, proseViewDTOList);
         return "literature/prose-all";

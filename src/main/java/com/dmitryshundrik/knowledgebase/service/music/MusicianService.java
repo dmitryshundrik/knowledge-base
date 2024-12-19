@@ -1,5 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
+import com.dmitryshundrik.knowledgebase.dto.music.MusicianAllPageResponseDto;
+import com.dmitryshundrik.knowledgebase.dto.music.MusicianManagementResponseDto;
 import com.dmitryshundrik.knowledgebase.entity.music.Album;
 import com.dmitryshundrik.knowledgebase.entity.music.Composition;
 import com.dmitryshundrik.knowledgebase.entity.music.MusicGenre;
@@ -7,10 +9,10 @@ import com.dmitryshundrik.knowledgebase.entity.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.entity.music.Musician;
 import com.dmitryshundrik.knowledgebase.dto.music.AlbumCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.dto.music.CompositionCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.dto.music.MusicianAllPageResponseDto;
 import com.dmitryshundrik.knowledgebase.dto.music.MusicianCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.dto.music.MusicianActivityDto;
 import com.dmitryshundrik.knowledgebase.dto.music.MusicianViewDTO;
+import com.dmitryshundrik.knowledgebase.mapper.music.MusicianMapper;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
 import com.dmitryshundrik.knowledgebase.service.common.PersonEventService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
@@ -44,6 +46,8 @@ public class MusicianService {
     private final CompositionService compositionService;
 
     private final PersonEventService personEventService;
+
+    private final MusicianMapper musicianMapper;
 
     public List<Musician> getAll() {
         return musicianRepository.getAllByOrderByCreated();
@@ -149,6 +153,17 @@ public class MusicianService {
 
     public List<MusicianAllPageResponseDto> getMusicianAllPageResponseDto() {
         return musicianRepository.getMusicianAllPageResponseDto();
+    }
+
+    public MusicianManagementResponseDto getMusicianManagementResponseDto(Musician musician) {
+        MusicianManagementResponseDto musicianManagementResponseDto = musicianMapper
+                .toMusicianManagementAllResponseDto(musician);
+        musicianManagementResponseDto.setMusicGenres(getSortedMusicGenresByMusician(musician));
+        return musicianManagementResponseDto;
+    }
+
+    public List<MusicianManagementResponseDto> getAllMusicianManagementResponseDto(List<Musician> musicianList) {
+        return musicianList.stream().map(this::getMusicianManagementResponseDto).toList();
     }
 
     public MusicianViewDTO createMusician(MusicianCreateEditDTO musicianDTO) {

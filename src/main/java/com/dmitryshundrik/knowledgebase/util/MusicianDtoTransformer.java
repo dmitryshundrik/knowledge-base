@@ -5,9 +5,9 @@ import com.dmitryshundrik.knowledgebase.dto.music.MusicianSelectDTO;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MusicianDTOTransformer {
+public class MusicianDtoTransformer {
 
-    public static MusicianSelectDTO getMusicianSelectDTO(Musician musician) {
+    public static MusicianSelectDTO getMusicianSelectDto(Musician musician) {
         return MusicianSelectDTO.builder()
                 .id(musician.getId().toString())
                 .slug(musician.getSlug())
@@ -15,7 +15,7 @@ public class MusicianDTOTransformer {
                 .build();
     }
 
-    public static List<MusicianSelectDTO> getMusicianSelectDTOList(List<Musician> musicianList) {
-        return musicianList.stream().map(MusicianDTOTransformer::getMusicianSelectDTO).collect(Collectors.toList());
+    public static List<MusicianSelectDTO> getMusicianSelectDtoList(List<Musician> musicianList) {
+        return musicianList.stream().map(MusicianDtoTransformer::getMusicianSelectDto).collect(Collectors.toList());
     }
 }

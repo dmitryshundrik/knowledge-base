@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.controller.music;
 
+import com.dmitryshundrik.knowledgebase.dto.music.MusicianAllPageResponseDto;
 import com.dmitryshundrik.knowledgebase.util.enums.EraType;
 import com.dmitryshundrik.knowledgebase.entity.music.Album;
 import com.dmitryshundrik.knowledgebase.entity.music.Composition;
@@ -10,7 +11,6 @@ import com.dmitryshundrik.knowledgebase.entity.music.YearInMusic;
 import com.dmitryshundrik.knowledgebase.dto.music.AlbumViewDTO;
 import com.dmitryshundrik.knowledgebase.dto.music.CompositionViewDTO;
 import com.dmitryshundrik.knowledgebase.dto.music.MusicPeriodViewDTO;
-import com.dmitryshundrik.knowledgebase.dto.music.MusicianAllPageResponseDto;
 import com.dmitryshundrik.knowledgebase.dto.music.MusicianViewDTO;
 import com.dmitryshundrik.knowledgebase.util.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.util.enums.SortType;
@@ -27,6 +27,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Comparator;
 import java.util.List;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.ALBUM_LIST;
@@ -122,7 +124,7 @@ public class MusicPageController {
     public String getMusicianBySlug(@PathVariable String slug, Model model) {
         Musician musicianBySlug = musicianService.getMusicianBySlug(slug);
         MusicianViewDTO musicianViewDTO = musicianService.getMusicianViewDTO(musicianBySlug);
-        musicianViewDTO.setMusicPeriods(musicPeriodService.getSortedByStart(musicianViewDTO.getMusicPeriods()));
+        musicianViewDTO.setMusicPeriods(musicPeriodService.getSortedByStart(musicianBySlug.getMusicPeriods()));
         model.addAttribute(MUSICIAN, musicianViewDTO);
         return "music/musician";
     }

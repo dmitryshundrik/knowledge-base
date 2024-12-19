@@ -23,18 +23,14 @@ public class YearInMusicService {
 
     private final MusicianService musicianService;
 
-    @Transactional(readOnly = true)
     public List<YearInMusic> getAll() {
-        return yearInMusicRepository.findAll().stream()
-                .sorted(Comparator.comparing(YearInMusic::getYear)).collect(Collectors.toList());
+        return yearInMusicRepository.findAllByOrderByYearAsc();
     }
 
-    @Transactional(readOnly = true)
     public YearInMusic getYearInMusicBySlug(String yearInMusicSlug) {
         return yearInMusicRepository.findBySlug(yearInMusicSlug);
     }
 
-    @Transactional(readOnly = true)
     public YearInMusic getYearInMusicByYear(Integer year) {
         return yearInMusicRepository.findByYear(year);
     }

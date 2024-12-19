@@ -22,12 +22,10 @@ public class SettingService {
 
     private final SettingRepository settingRepository;
 
-    @Transactional(readOnly = true)
     public List<Setting> getAll() {
         return settingRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public Setting getById(String settingId) {
         return settingRepository.findById(UUID.fromString(settingId)).orElse(null);
     }

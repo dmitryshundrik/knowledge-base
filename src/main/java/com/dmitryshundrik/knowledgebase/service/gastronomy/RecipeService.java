@@ -24,22 +24,18 @@ public class RecipeService {
 
     private final ImageService imageService;
 
-    @Transactional(readOnly = true)
     public List<Recipe> getAll() {
         return recipeRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public List<Recipe> getAllBySortedByCreatedDesc() {
         return recipeRepository.getAllByOrderByCreatedDesc();
     }
 
-    @Transactional(readOnly = true)
     public List<Recipe> getAllByCountry(Country country) {
         return recipeRepository.findAllByCountry(country);
     }
 
-    @Transactional(readOnly = true)
     public Recipe getBySlug(String recipeSlug) {
         return recipeRepository.findBySlug(recipeSlug);
     }

@@ -18,8 +18,6 @@ public interface AlbumRepository extends JpaRepository<Album, UUID> {
 
     List<Album> getAllByMusicGenresIsContaining(MusicGenre genre);
 
-    Integer countAllByMusicGenresIsContaining(MusicGenre genre);
-
     List<Album> findFirst20ByOrderByCreatedDesc();
 
     @Query("SELECT DISTINCT year FROM Album ORDER BY year")
@@ -29,6 +27,6 @@ public interface AlbumRepository extends JpaRepository<Album, UUID> {
 
     List<Album> getAllByOrderByCreatedDesc();
 
-    @Query("FROM Album WHERE year > :start AND year < :end AND rating is not null")
-    List<Album> getAllBy2010s(Integer start, Integer end);
+    @Query("FROM Album WHERE year > :start AND year < :end AND rating is not null order by rating desc")
+    List<Album> getAllByDecadesOrderByRatingDesc(Integer start, Integer end);
 }

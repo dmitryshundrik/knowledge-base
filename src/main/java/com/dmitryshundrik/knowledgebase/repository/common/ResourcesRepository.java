@@ -8,4 +8,6 @@ import java.util.UUID;
 public interface ResourcesRepository extends JpaRepository<Resource, UUID> {
 
     List<Resource> findFirst20ByOrderByCreatedDesc();
+
+    List<Resource> findAllByOrderByCreatedAsc();
 }

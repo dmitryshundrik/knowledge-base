@@ -23,17 +23,14 @@ public class CocktailService {
 
     private final ImageService imageService;
 
-    @Transactional(readOnly = true)
     public List<Cocktail> getAll() {
         return cocktailRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public List<Cocktail> getAllBySortedByCreatedDesc() {
         return cocktailRepository.getAllByOrderByCreatedDesc();
     }
 
-    @Transactional(readOnly = true)
     public Cocktail getBySlug(String cocktailSLug) {
         return cocktailRepository.findBySlug(cocktailSLug);
     }

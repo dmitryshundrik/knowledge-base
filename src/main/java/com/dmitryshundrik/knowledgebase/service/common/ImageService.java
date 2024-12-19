@@ -20,24 +20,20 @@ public class ImageService {
 
     private final ImageRepository imageRepository;
 
-    @Transactional(readOnly = true)
     public List<Image> getAll() {
         return imageRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public List<Image> getAllSortedByCreatedDesc() {
         return imageRepository.getAllByOrderByCreatedDesc();
     }
 
-    @Transactional(readOnly = true)
     public List<Image> getSortedByCreatedDesc(List<Image> imageList) {
         return imageList.stream()
                 .sorted((o1, o2) -> o2.getCreated().compareTo(o1.getCreated()))
                 .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
     public Image getBySlug(String imageSlug) {
         return imageRepository.getBySlug(imageSlug);
     }

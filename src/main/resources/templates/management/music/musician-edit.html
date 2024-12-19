@@ -106,7 +106,7 @@
                 <section class="form-item major-field">
                     <label>period</label>
                     <select th:field="*{musicPeriods}" multiple="multiple">
-                        <option th:each="period : ${musicPeriods}"
+                        <option th:each="period : ${musicPeriodList}"
                                 th:value="${period.id}"
                                 th:text="${period.title}">
                         </option>

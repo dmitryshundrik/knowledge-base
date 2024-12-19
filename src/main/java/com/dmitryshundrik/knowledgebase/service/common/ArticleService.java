@@ -15,7 +15,6 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
 
-    @Transactional(readOnly = true)
     public Article getById(String articleId) {
         return articleRepository.findById(UUID.fromString(articleId)).orElse(null);
     }

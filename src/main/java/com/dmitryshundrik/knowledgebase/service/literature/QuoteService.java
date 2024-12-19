@@ -24,22 +24,18 @@ public class QuoteService {
 
     private final QuoteRepository quoteRepository;
 
-    @Transactional(readOnly = true)
     public List<Quote> getAll() {
         return quoteRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public Quote getById(String quoteId) {
         return quoteRepository.findById(UUID.fromString(quoteId)).orElse(null);
     }
 
-    @Transactional(readOnly = true)
     public List<Quote> getAllSortedByCreatedDesc() {
         return quoteRepository.getAllByOrderByCreatedDesc();
     }
 
-    @Transactional(readOnly = true)
     public List<Quote> getAllByWriterSortedByYearAndPage(Writer writer) {
         List<Quote> allQuotes = quoteRepository.findAllByWriter(writer);
         List<Prose> allSortedProse = allQuotes.stream()
@@ -56,7 +52,6 @@ public class QuoteService {
         return allSortedQuotes;
     }
 
-    @Transactional(readOnly = true)
     public List<Quote> getAllByWriterSortedByCreatedDesc(Writer writer) {
         return quoteRepository.getAllByWriterOrderByCreatedDesc(writer);
     }
@@ -95,8 +90,8 @@ public class QuoteService {
                 .created(InstantFormatter.instantFormatterDMY(quote.getCreated()))
                 .writerNickname(quote.getWriter().getNickName())
                 .writerSlug(quote.getWriter().getSlug())
-                .proseTitle(!(quote.getProse() == null) ? quote.getProse().getTitle() : null)
-                .proseSlug(!(quote.getProse() == null) ? quote.getProse().getSlug() : null)
+                .proseTitle((quote.getProse() != null) ? quote.getProse().getTitle() : null)
+                .proseSlug((quote.getProse() != null) ? quote.getProse().getSlug() : null)
                 .publication(quote.getPublication())
                 .location(quote.getLocation())
                 .page(quote.getPage())
