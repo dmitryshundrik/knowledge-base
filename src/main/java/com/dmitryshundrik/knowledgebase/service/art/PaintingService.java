@@ -30,6 +30,10 @@ public class PaintingService {
         return paintingRepository.findAll();
     }
 
+    public Long getPaintingRepositorySize() {
+        return paintingRepository.getSize();
+    }
+
     public Painting getBySlug(String paintingSlug) {
         return paintingRepository.getBySlug(paintingSlug);
     }

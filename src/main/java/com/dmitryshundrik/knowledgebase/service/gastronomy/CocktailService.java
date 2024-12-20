@@ -27,6 +27,10 @@ public class CocktailService {
         return cocktailRepository.findAll();
     }
 
+    public Long getCocktailRepositorySize() {
+        return cocktailRepository.getSize();
+    }
+
     public List<Cocktail> getAllBySortedByCreatedDesc() {
         return cocktailRepository.getAllByOrderByCreatedDesc();
     }

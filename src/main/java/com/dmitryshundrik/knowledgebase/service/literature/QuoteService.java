@@ -28,6 +28,10 @@ public class QuoteService {
         return quoteRepository.findAll();
     }
 
+    public Long getQuoteRepositorySize() {
+        return quoteRepository.getSize();
+    }
+
     public Quote getById(String quoteId) {
         return quoteRepository.findById(UUID.fromString(quoteId)).orElse(null);
     }

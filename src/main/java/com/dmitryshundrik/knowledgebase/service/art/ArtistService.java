@@ -36,6 +36,10 @@ public class ArtistService {
         return unknownFilter(artistRepository.findAll());
     }
 
+    public Long getArtistRepositorySize() {
+        return artistRepository.getSize();
+    }
+
     public List<Artist> getAllSortedByBorn() {
         return unknownFilter(artistRepository.getAllByOrderByBorn());
     }

@@ -1,6 +1,7 @@
 package com.dmitryshundrik.knowledgebase.repository.music;
 
 import com.dmitryshundrik.knowledgebase.dto.music.MusicianAllPageResponseDto;
+import com.dmitryshundrik.knowledgebase.dto.music.MusicianManagementResponseDto;
 import com.dmitryshundrik.knowledgebase.entity.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.entity.music.Musician;
 import com.dmitryshundrik.knowledgebase.dto.music.MusicianActivityDto;
@@ -11,6 +12,9 @@ import java.util.List;
 import java.util.UUID;
 
 public interface MusicianRepository extends JpaRepository<Musician, UUID> {
+
+    @Query(value = "select count(m) from Musician m")
+    Long getSize();
 
     Musician getMusicianBySlug(String slug);
 
@@ -35,5 +39,5 @@ public interface MusicianRepository extends JpaRepository<Musician, UUID> {
     List<Musician> findAllWithCurrentDeath(LocalDate date);
 
     @Query("SELECT new com.dmitryshundrik.knowledgebase.dto.music.MusicianAllPageResponseDto(musician.slug, musician.nickName, musician.born, musician.founded) FROM Musician musician ORDER BY musician.born")
-    List<MusicianAllPageResponseDto> getMusicianAllPageResponseDto();
+    List<MusicianAllPageResponseDto> getAllMusicianAllPageResponseDto();
 }

@@ -29,6 +29,10 @@ public class ProseService {
         return proseRepository.findAll();
     }
 
+    public Long getProseRepositorySize() {
+        return proseRepository.getSize();
+    }
+
     public Prose getBySlug(String proseSlug) {
         return proseRepository.getBySlug(proseSlug);
     }

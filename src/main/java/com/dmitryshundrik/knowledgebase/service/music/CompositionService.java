@@ -37,6 +37,10 @@ public class CompositionService {
         return compositionRepository.findAll();
     }
 
+    public Long getCompositionRepositorySize() {
+        return compositionRepository.getSize();
+    }
+
     public Composition getCompositionBySlug(String compositionSlug) {
         return compositionRepository.getCompositionBySlug(compositionSlug);
     }

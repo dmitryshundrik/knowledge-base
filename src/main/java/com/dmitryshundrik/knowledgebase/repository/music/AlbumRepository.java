@@ -10,6 +10,9 @@ import java.util.UUID;
 
 public interface AlbumRepository extends JpaRepository<Album, UUID> {
 
+    @Query(value = "select count(m) from Album m")
+    Long getSize();
+
     Album getAlbumBySlug(String slug);
 
     List<Album> getAllByYear(Integer year);

@@ -43,16 +43,16 @@ public class ManagementPageController {
 
     @GetMapping()
     public String getManagementPage(Model model) {
-        model.addAttribute("musicianCount", musicianService.getAll().size());
-        model.addAttribute("albumCount", albumService.getAll().size());
-        model.addAttribute("compositionCount", compositionService.getAll().size());
-        model.addAttribute("recipeCount", recipeService.getAll().size());
-        model.addAttribute("cocktailCount", cocktailService.getAll().size());
-        model.addAttribute("writerCount", writerService.getAll().size());
-        model.addAttribute("proseCount", proseService.getAll().size());
-        model.addAttribute("quoteCount", quoteService.getAll().size());
-        model.addAttribute("artistCount", artistService.getAll().size());
-        model.addAttribute("paintingCount", paintingService.getAll().size());
+        model.addAttribute("musicianCount", musicianService.getMusicianRepositorySize());
+        model.addAttribute("albumCount", albumService.getAlbumRepositorySize());
+        model.addAttribute("compositionCount", compositionService.getCompositionRepositorySize());
+        model.addAttribute("recipeCount", recipeService.getRecipeRepositorySize());
+        model.addAttribute("cocktailCount", cocktailService.getCocktailRepositorySize());
+        model.addAttribute("writerCount", writerService.getWriterRepositorySize());
+        model.addAttribute("proseCount", proseService.getProseRepositorySize());
+        model.addAttribute("quoteCount", quoteService.getQuoteRepositorySize());
+        model.addAttribute("artistCount", artistService.getArtistRepositorySize());
+        model.addAttribute("paintingCount", paintingService.getPaintingRepositorySize());
         return "management/management-page";
     }
 }

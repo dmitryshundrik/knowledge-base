@@ -10,6 +10,9 @@ import java.util.UUID;
 
 public interface ArtistRepository extends JpaRepository<Artist, UUID> {
 
+    @Query(value = "select count(m) from Artist m")
+    Long getSize();
+
     Optional<Artist> getBySlug(String artistSlug);
 
     List<Artist> getAllByOrderByCreatedDesc();

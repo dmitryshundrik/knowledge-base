@@ -9,6 +9,9 @@ import java.util.UUID;
 
 public interface CompositionRepository extends JpaRepository<Composition, UUID> {
 
+    @Query(value = "select count(m) from Composition m")
+    Long getSize();
+
     Composition getCompositionBySlug(String slug);
 
     void deleteBySlug(String slug);

@@ -10,6 +10,9 @@ import java.util.UUID;
 
 public interface WriterRepository extends JpaRepository<Writer, UUID> {
 
+    @Query(value = "select count(m) from Writer m")
+    Long getSize();
+
     Writer findBySlug(String writerSlug);
 
     void deleteBySlug(String writerSlug);

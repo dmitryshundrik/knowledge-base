@@ -53,6 +53,10 @@ public class MusicianService {
         return musicianRepository.getAllByOrderByCreated();
     }
 
+    public Long getMusicianRepositorySize() {
+        return musicianRepository.getSize();
+    }
+
     public Musician getMusicianById(UUID musicianID) {
         return musicianRepository.findById(musicianID).orElse(null);
     }
@@ -152,7 +156,7 @@ public class MusicianService {
     }
 
     public List<MusicianAllPageResponseDto> getMusicianAllPageResponseDto() {
-        return musicianRepository.getMusicianAllPageResponseDto();
+        return musicianRepository.getAllMusicianAllPageResponseDto();
     }
 
     public MusicianManagementResponseDto getMusicianManagementResponseDto(Musician musician) {

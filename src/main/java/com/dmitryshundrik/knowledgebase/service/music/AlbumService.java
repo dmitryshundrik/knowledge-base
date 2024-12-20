@@ -36,6 +36,10 @@ public class AlbumService {
         return albumRepository.findAll();
     }
 
+    public Long getAlbumRepositorySize() {
+        return albumRepository.getSize();
+    }
+
     public Album getAlbumById(String albumId) {
         return albumRepository.findById(UUID.fromString(albumId)).orElse(null);
     }

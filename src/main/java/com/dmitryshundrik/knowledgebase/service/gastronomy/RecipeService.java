@@ -28,6 +28,10 @@ public class RecipeService {
         return recipeRepository.findAll();
     }
 
+    public Long getRecipeRepositorySize() {
+        return recipeRepository.getSize();
+    }
+
     public List<Recipe> getAllBySortedByCreatedDesc() {
         return recipeRepository.getAllByOrderByCreatedDesc();
     }

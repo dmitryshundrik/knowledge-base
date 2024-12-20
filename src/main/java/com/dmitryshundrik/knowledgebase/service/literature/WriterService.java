@@ -38,6 +38,10 @@ public class WriterService {
         return writerRepository.findAll();
     }
 
+    public Long getWriterRepositorySize() {
+        return writerRepository.getSize();
+    }
+
     public List<Writer> getAllSortedByBorn() {
         return writerRepository.findAllByOrderByBorn();
     }
