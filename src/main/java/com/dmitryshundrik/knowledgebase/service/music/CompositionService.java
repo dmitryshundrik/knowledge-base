@@ -121,8 +121,8 @@ public class CompositionService {
             album.getCompositions().add(composition);
         }
         compositionRepository.save(composition);
-        composition.setSlug(SlugFormatter.slugFormatter("composition-" + composition.getSlug()) + "-"
-                + (composition.getYear() != null ? composition.getYear().toString() : ""));
+        composition.setSlug(SlugFormatter.slugFormatter("composition-" + composition.getSlug())
+                + (composition.getYear() != null ? "-" + composition.getYear() : ""));
         return getCompositionViewDTO(composition);
     }
 
