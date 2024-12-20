@@ -1,7 +1,6 @@
 package com.dmitryshundrik.knowledgebase.repository.music;
 
 import com.dmitryshundrik.knowledgebase.dto.music.MusicianAllPageResponseDto;
-import com.dmitryshundrik.knowledgebase.dto.music.MusicianManagementResponseDto;
 import com.dmitryshundrik.knowledgebase.entity.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.entity.music.Musician;
 import com.dmitryshundrik.knowledgebase.dto.music.MusicianActivityDto;

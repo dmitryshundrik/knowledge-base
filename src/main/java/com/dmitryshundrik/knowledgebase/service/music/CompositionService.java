@@ -210,24 +210,24 @@ public class CompositionService {
     }
 
     public List<Composition> getMusicianCompositionsOrderByFacade(UUID musicianId, SortType sortType) {
-        List<Composition> compositions = new ArrayList<>();
+        List<Composition> compositions;
 
         if (SortType.CATALOGUE_NUMBER.equals(sortType)) {
             compositions = getMusicianCompositionsOrderByCatalogNumber(musicianId);
-        }
-
-        if (SortType.YEAR.equals(sortType)) {
+        } else if (SortType.YEAR.equals(sortType)) {
             compositions = getMusicianCompositionsOrderByYear(musicianId);
-        }
-
-        if (SortType.RATING.equals(sortType)) {
+        } else if (SortType.RATING.equals(sortType)) {
             compositions = getMusicianCompositionsOrderByRating(musicianId);
-        }
-
-        if (SortType.CREATED.equals(sortType)) {
+        } else if (SortType.CREATED.equals(sortType)) {
             compositions = getMusicianCompositionsOrderByCreated(musicianId);
+        } else {
+            compositions = getMusicianCompositions(musicianId);
         }
         return compositions;
+    }
+
+    private List<Composition> getMusicianCompositions(UUID musicianId) {
+        return compositionRepository.getAllByMusicianId(musicianId);
     }
 
     private List<Composition> getMusicianCompositionsOrderByCatalogNumber(UUID musicianId) {

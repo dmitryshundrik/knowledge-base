@@ -294,7 +294,7 @@ public class MusicianService {
                 .albums(albumService.getSortedAlbumViewDTOList(musician.getAlbums(), musician.getAlbumsSortType()))
                 .compositions(compositionService
                         .getCompositionViewDTOList(compositionService
-                                .getMusicianCompositionsOrderByFacade(musician.getId(), musician.getCompositionsSortType())))
+                                        .getMusicianCompositionsOrderByFacade(musician.getId(), musician.getCompositionsSortType())))
                 .build();
     }
 
