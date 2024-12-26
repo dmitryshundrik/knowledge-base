@@ -39,10 +39,10 @@ public class IndexController {
 
     private final CurrentEventService currentEventService;
 
-    private final SpotifyIntegrationService spotifyIntegrationService;
+    priv final SpotifyIntegrationService spotifyIntegrationService;
 
     @Getter
-    private static String version = "5.0.8";
+    private static String version = "5.1.0";
 
     @GetMapping("/")
     public String getIndex(Model model) {
