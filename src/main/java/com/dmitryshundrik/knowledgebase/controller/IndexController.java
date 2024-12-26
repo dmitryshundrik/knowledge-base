@@ -39,7 +39,7 @@ public class IndexController {
 
     private final CurrentEventService currentEventService;
 
-    priv final SpotifyIntegrationService spotifyIntegrationService;
+    private final SpotifyIntegrationService spotifyIntegrationService;
 
     @Getter
     private static String version = "5.1.0";
