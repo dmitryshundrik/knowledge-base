@@ -85,7 +85,6 @@ public class AlbumService {
                 .collect(Collectors.toList()));
     }
 
-    @Transactional(readOnly = true)
     public List<AlbumViewDTO> getTop100BestAlbums() {
         return getAlbumViewDTOList(getAllWithRating().stream()
                 .sorted((o1, o2) -> o2.getRating().compareTo(o1.getRating()))

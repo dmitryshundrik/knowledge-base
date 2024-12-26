@@ -8,7 +8,6 @@ import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,12 +21,10 @@ public class MusicPeriodService {
 
     private final MusicPeriodRepository musicPeriodRepository;
 
-    @Transactional(readOnly = true)
     public List<MusicPeriod> getAll() {
         return musicPeriodRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public List<MusicPeriod> getAllSortedByStart() {
         return musicPeriodRepository.getAllByOrderByApproximateStartAsc();
     }
@@ -36,7 +33,6 @@ public class MusicPeriodService {
         return musicPeriodRepository.getBySlug(musicPeriodSlug);
     }
 
-    @Transactional(readOnly = true)
     public List<MusicPeriod> getSortedByStart(List<MusicPeriod> musicPeriodList) {
         musicPeriodList.sort(Comparator.comparing(MusicPeriod::getApproximateStart));
         return musicPeriodList;

@@ -48,7 +48,6 @@ public class CurrentEventService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
     public List<CurrentEventInfo> getMusicianEvents() {
         List<CurrentEventInfo> musicianEventInfoList = new ArrayList<>();
         Set<Musician> musicianBirthList = musicianService.getAllWithCurrentBirth();
@@ -76,7 +75,6 @@ public class CurrentEventService {
         return musicianEventInfoList;
     }
 
-    @Transactional(readOnly = true)
     public List<CurrentEventInfo> getWriterEvents() {
         List<CurrentEventInfo> writerEventInfoList = new ArrayList<>();
         Set<Writer> writerBirthList = writerService.getAllWithCurrentBirth();
@@ -104,7 +102,6 @@ public class CurrentEventService {
         return writerEventInfoList;
     }
 
-    @Transactional(readOnly = true)
     public List<CurrentEventInfo> getArtistEvents() {
         List<CurrentEventInfo> artistEventInfoList = new ArrayList<>();
         Set<Artist> artistBirthList = artistService.getAllWithCurrentBirth();

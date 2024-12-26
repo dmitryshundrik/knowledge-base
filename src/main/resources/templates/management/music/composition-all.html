@@ -22,6 +22,7 @@
                 <th>#</th>
                 <th>created</th>
                 <th>title</th>
+                <th>slug</th>
                 <th>catalog_number</th>
                 <th>musician</th>
                 <th>year</th>
@@ -39,6 +40,7 @@
                 <th th:text="${compositionList.size - compositionStat.index}"></th>
                 <td th:text="${composition.created}"></td>
                 <td th:text="${composition.title}"></td>
+                <td th:text="${composition.slug}"></td>
                 <td th:text="${composition.catalogNumber}"></td>
                 <td th:text="${composition.musicianNickname}"></td>
                 <td th:text="${composition.year}"></td>

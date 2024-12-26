@@ -73,7 +73,6 @@ public class MusicianService {
         return musicianRepository.getMusicianBySlug(musicianSlug);
     }
 
-    @Transactional(readOnly = true)
     public Musician getMusicianByNickname(String nickName) {
         Musician musicianByNickName = musicianRepository.getMusicianByNickNameIgnoreCase(nickName);
         if (musicianByNickName == null) {
@@ -82,12 +81,10 @@ public class MusicianService {
         return musicianByNickName;
     }
 
-    @Transactional(readOnly = true)
     public List<Musician> getAllMusiciansOrderedByCreatedDesc() {
         return musicianRepository.getAllByOrderByCreatedDesc();
     }
 
-    @Transactional(readOnly = true)
     public List<MusicianAllPageResponseDto> getMusicianAllPageResponseDtoSortedByBornAndFounded() {
         return getMusicianAllPageResponseDto().stream()
                 .filter(musician -> musician.getBorn() != null || musician.getFounded() != null)
@@ -101,7 +98,6 @@ public class MusicianService {
                 }).toList();
     }
 
-    @Transactional(readOnly = true)
     public List<Musician> getAllMusiciansWithWorksByYear(Integer year) {
         return musicianRepository.findAll().stream()
                 .filter(musician -> {
@@ -119,7 +115,6 @@ public class MusicianService {
         return musicianRepository.getAllByMusicPeriodsIsContaining(period);
     }
 
-    @Transactional(readOnly = true)
     public List<Musician> getBestMusiciansByPeriod(MusicPeriod period) {
         List<Musician> allMusiciansByPeriod = getAllMusiciansByPeriod(period);
         Map<Musician, Double> map = new HashMap<>();

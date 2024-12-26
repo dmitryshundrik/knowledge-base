@@ -19,43 +19,35 @@ public class MusicGenreService {
 
     private final MusicGenreRepository musicGenreRepository;
 
-    @Transactional(readOnly = true)
     public List<MusicGenre> getAll() {
         return musicGenreRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public MusicGenre getMusicGenreBySlug(String musicGenreSlug) {
         return musicGenreRepository.getBySlug(musicGenreSlug);
     }
 
-    @Transactional(readOnly = true)
     public List<MusicGenre> getAllClassicalGenres() {
         return musicGenreRepository.getAllByMusicGenreType(MusicGenreType.CLASSICAL);
     }
 
-    @Transactional(readOnly = true)
     public List<MusicGenre> getAllClassicalGenresSortedByTitle() {
         return musicGenreRepository.getAllByMusicGenreTypeOrderByTitle(MusicGenreType.CLASSICAL);
     }
 
-    @Transactional(readOnly = true)
     public List<MusicGenre> getAllContemporaryGenres() {
         return musicGenreRepository.getAllByMusicGenreType(MusicGenreType.CONTEMPORARY);
     }
 
-    @Transactional(readOnly = true)
     public List<MusicGenre> getAllContemporaryGenresSortedByTitle() {
         return musicGenreRepository.getAllByMusicGenreTypeOrderByTitle(MusicGenreType.CONTEMPORARY);
     }
 
-    @Transactional
     public List<MusicGenre> getFilteredClassicalGenres() {
         musicGenreRepository.updateClassicalMusicGenreSetCount();
         return musicGenreRepository.getAllByMusicGenreTypeAndCountIsNotNullOrderByCountDesc(MusicGenreType.CLASSICAL);
     }
 
-    @Transactional
     public List<MusicGenre> getFilteredContemporaryGenres() {
         musicGenreRepository.updateContemporaryMusicGenreSetCount();
         return musicGenreRepository.getAllByMusicGenreTypeAndCountIsNotNullOrderByCountDesc(MusicGenreType.CONTEMPORARY);
