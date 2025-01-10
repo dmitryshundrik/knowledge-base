@@ -48,8 +48,7 @@ public class ArtistService {
     }
 
     public Artist getBySlug(String artistSlug) {
-        return artistRepository.getBySlug(artistSlug)
-                .orElseThrow(() -> new NotFoundException(ARTIST_NOT_FOUND_BY_SLUG.formatted(artistSlug)));
+        return artistRepository.getBySlug(artistSlug).orElse(null);
     }
 
     public Artist createArtist(ArtistCreateEditDto artistDTO) {
