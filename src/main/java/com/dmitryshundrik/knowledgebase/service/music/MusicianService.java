@@ -112,13 +112,12 @@ public class MusicianService {
     }
 
     public List<Musician> getAllMusiciansByPeriod(MusicPeriod period) {
-        return musicianRepository.getAllByMusicPeriodsIsContaining(period);
+        return musicianRepository.getAllByMusicPeriodsIsContainingAndCompositionsNotEmpty(period);
     }
 
-    public List<Musician> getBestMusiciansByPeriod(MusicPeriod period) {
-        List<Musician> allMusiciansByPeriod = getAllMusiciansByPeriod(period);
+    public List<Musician> getTop10MusiciansByPeriod(List<Musician> musicianList) {
         Map<Musician, Double> map = new HashMap<>();
-        for (Musician musician : allMusiciansByPeriod) {
+        for (Musician musician : musicianList) {
             List<Composition> compositions = compositionService.getAllByMusicianWithRating(musician.getSlug());
             double totalScore = 0.0;
             for (Composition composition : compositions) {

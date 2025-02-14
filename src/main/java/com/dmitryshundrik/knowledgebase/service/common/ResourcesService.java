@@ -4,10 +4,10 @@ import com.dmitryshundrik.knowledgebase.entity.common.Resource;
 import com.dmitryshundrik.knowledgebase.dto.common.ResourceDTO;
 import com.dmitryshundrik.knowledgebase.repository.common.ResourcesRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import com.dmitryshundrik.knowledgebase.util.enums.ResourceType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -25,6 +25,10 @@ public class ResourcesService {
 
     public List<Resource> getAll() {
         return resourcesRepository.findAll();
+    }
+
+    public List<Resource> getAllByResourceType(ResourceType resourceType) {
+        return resourcesRepository.findAllByResourceTypeOrderByCreatedAsc(resourceType);
     }
 
     public List<Resource> getAllSortedByCreated() {
@@ -54,6 +58,7 @@ public class ResourcesService {
                 .title(resource.getTitle())
                 .description(resource.getDescription())
                 .link(resource.getLink())
+                .resourceType(resource.getResourceType())
                 .build();
     }
 
@@ -67,6 +72,7 @@ public class ResourcesService {
         resource.setTitle(resourceDTO.getTitle());
         resource.setDescription(resourceDTO.getDescription());
         resource.setLink(resourceDTO.getLink());
+        resource.setResourceType(resourceDTO.getResourceType());
     }
 
     public List<Resource> getLatestUpdate() {

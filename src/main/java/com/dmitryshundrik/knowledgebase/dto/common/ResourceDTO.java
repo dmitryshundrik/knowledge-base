@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.dto.common;
 
+import com.dmitryshundrik.knowledgebase.util.enums.ResourceType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,4 +21,6 @@ public class ResourceDTO {
     private String description;
 
     private String link;
+
+    private ResourceType resourceType;
 }

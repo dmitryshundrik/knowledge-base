@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.controller.literature;
 
+import com.dmitryshundrik.knowledgebase.entity.common.Resource;
 import com.dmitryshundrik.knowledgebase.entity.literature.Prose;
 import com.dmitryshundrik.knowledgebase.entity.literature.Quote;
 import com.dmitryshundrik.knowledgebase.entity.literature.Word;
@@ -8,10 +9,12 @@ import com.dmitryshundrik.knowledgebase.dto.literature.ProseViewDTO;
 import com.dmitryshundrik.knowledgebase.dto.literature.QuoteViewDTO;
 import com.dmitryshundrik.knowledgebase.dto.literature.WordDTO;
 import com.dmitryshundrik.knowledgebase.dto.literature.WriterViewDTO;
+import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
 import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
 import com.dmitryshundrik.knowledgebase.service.literature.QuoteService;
 import com.dmitryshundrik.knowledgebase.service.literature.WordService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
+import com.dmitryshundrik.knowledgebase.util.enums.ResourceType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +25,7 @@ import java.util.List;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.PROSE_LIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.QUOTE_LIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.RESOURCE_LIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.WORD_LIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.WRITER;
 import static com.dmitryshundrik.knowledgebase.util.Constants.WRITER_LIST;
@@ -38,6 +42,8 @@ public class LiteraturePageController {
     private final QuoteService quoteService;
 
     private final WordService wordService;
+
+    private final ResourcesService resourcesService;
 
     @GetMapping
     public String getLiteraturePage() {
@@ -100,5 +106,12 @@ public class LiteraturePageController {
         List<QuoteViewDTO> quoteViewDTOList = quoteService.getQuoteViewDTOList(quoteList);
         model.addAttribute(QUOTE_LIST, quoteViewDTOList);
         return "literature/quote-all";
+    }
+
+    @GetMapping("/literature-resources")
+    public String getLiteratureResources(Model model) {
+        List<Resource> allByResourceType = resourcesService.getAllByResourceType(ResourceType.LITERATURE);
+        model.addAttribute(RESOURCE_LIST, allByResourceType);
+        return "literature/literature-resources";
     }
 }

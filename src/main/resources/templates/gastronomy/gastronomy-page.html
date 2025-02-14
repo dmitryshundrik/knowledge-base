@@ -31,6 +31,7 @@
             <span th:each="article : ${articles}">
                 <a th:text="${article.title}" th:href="'/gastronomy/article/' + ${article.slug}"></a>
             </span>
+            <a href="/gastronomy/gastronomy-resources">Полезные ресурсы</a>
         </article>
 
         <article class="table-body-item">

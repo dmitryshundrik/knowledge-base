@@ -145,4 +145,8 @@
         margin-bottom: auto;
     }
 
+    .timeline-text {
+        text-align: unset;
+    }
+
 }

@@ -63,9 +63,9 @@ public class AlbumService {
     public List<Album> getAllAlbumByDecade(String decade) {
         List<Album> albumsByDecade = new ArrayList<>();
         if (DECADE_2010s.equals(decade)) {
-            albumsByDecade.addAll(albumRepository.getAllByDecadesOrderByRatingDesc(2009, 2020));
+            albumsByDecade.addAll(albumRepository.findAllByDecadesOrderByRatingDesc(2009, 2020));
         } else if (DECADE_2020s.equals(decade)) {
-            albumsByDecade.addAll(albumRepository.getAllByDecadesOrderByRatingDesc(2019, 2030));
+            albumsByDecade.addAll(albumRepository.findAllByDecadesOrderByRatingDesc(2019, 2030));
         }
         return albumsByDecade;
     }
@@ -86,10 +86,7 @@ public class AlbumService {
     }
 
     public List<AlbumViewDTO> getTop100BestAlbums() {
-        return getAlbumViewDTOList(getAllWithRating().stream()
-                .sorted((o1, o2) -> o2.getRating().compareTo(o1.getRating()))
-                .limit(100)
-                .collect(Collectors.toList()));
+        return getAlbumViewDTOList(albumRepository.findFirst100ByRatingIsNotNullOrderByRatingDesc());
     }
 
     public List<Integer> getAllYearsFromAlbums() {

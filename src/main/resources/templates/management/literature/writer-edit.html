@@ -136,7 +136,7 @@
                 <tr th:each="personEvent : ${writer.events}">
                     <th th:text="${personEvent.created}"></th>
                     <th th:text="${personEvent.year}"></th>
-                    <th th:text="${personEvent.description}"></th>
+                    <th class="td-description" th:utext="${personEvent.description}"></th>
                     <th class="td-settings">
                         <a target="_blank"
                            th:href="${'/management/writer/edit/' + writer.slug + '/event/edit/' + personEvent.id}">edit</a>

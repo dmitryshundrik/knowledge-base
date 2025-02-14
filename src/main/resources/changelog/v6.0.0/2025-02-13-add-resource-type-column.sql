@@ -1,0 +1,1 @@
+alter table resource add column resource_type varchar(20);

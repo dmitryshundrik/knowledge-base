@@ -10,6 +10,7 @@ import com.dmitryshundrik.knowledgebase.service.common.FoundationService;
 import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
 import com.dmitryshundrik.knowledgebase.service.music.YearInMusicService;
 import com.dmitryshundrik.knowledgebase.service.spotify.SpotifyIntegrationService;
+import com.dmitryshundrik.knowledgebase.util.enums.ResourceType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -42,7 +43,7 @@ public class IndexController {
     private final SpotifyIntegrationService spotifyIntegrationService;
 
     @Getter
-    private static String version = "5.1.0";
+    private static String version = "6.0.0";
 
     @GetMapping("/")
     public String getIndex(Model model) {
@@ -62,7 +63,7 @@ public class IndexController {
 
     @GetMapping("/resources")
     public String getResources(Model model) {
-        List<Resource> resourceList = resourcesService.getAllSortedByCreated();
+        List<Resource> resourceList = resourcesService.getAllByResourceType(ResourceType.NEWS_MEDIA);
         List<ResourceDTO> resourceDTOList = resourcesService.getResourceDTOList(resourceList);
         model.addAttribute(RESOURCE_LIST, resourceDTOList);
         return "resources";

@@ -2,6 +2,8 @@ package com.dmitryshundrik.knowledgebase.controller.gastronomy;
 
 import com.dmitryshundrik.knowledgebase.entity.common.Article;
 import com.dmitryshundrik.knowledgebase.dto.common.ArticleDTO;
+import com.dmitryshundrik.knowledgebase.entity.common.Resource;
+import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
 import com.dmitryshundrik.knowledgebase.util.enums.Country;
 import com.dmitryshundrik.knowledgebase.entity.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.entity.gastronomy.Recipe;
@@ -10,6 +12,7 @@ import com.dmitryshundrik.knowledgebase.dto.gastronomy.RecipeViewDTO;
 import com.dmitryshundrik.knowledgebase.service.common.ArticleService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
+import com.dmitryshundrik.knowledgebase.util.enums.ResourceType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +28,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.COUNTRY;
 import static com.dmitryshundrik.knowledgebase.util.Constants.COUNTRY_LIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.RECIPE;
 import static com.dmitryshundrik.knowledgebase.util.Constants.RECIPE_LIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.RESOURCE_LIST;
 
 @Controller
 @RequestMapping("/gastronomy")
@@ -37,6 +41,8 @@ public class GastronomyPageController {
 
     private final ArticleService articleService;
 
+    private final ResourcesService resourcesService;
+
     @GetMapping
     public String getGastronomyPage(Model model) {
         List<RecipeViewDTO> recipeViewDTOList = recipeService.getRecipeViewDTOList(recipeService.getAll());
@@ -45,6 +51,13 @@ public class GastronomyPageController {
         model.addAttribute(COCKTAIL_LIST, cocktailDTOList);
         model.addAttribute(COUNTRY_LIST, Country.values());
         return "gastronomy/gastronomy-page";
+    }
+
+    @GetMapping("/gastronomy-resources")
+    public String getMusicResources(Model model) {
+        List<Resource> allByResourceType = resourcesService.getAllByResourceType(ResourceType.GASTRONOMY);
+        model.addAttribute(RESOURCE_LIST, allByResourceType);
+        return "gastronomy/gastronomy-resources";
     }
 
     @GetMapping("/recipe/all")

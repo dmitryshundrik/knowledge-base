@@ -21,7 +21,7 @@ public interface MusicianRepository extends JpaRepository<Musician, UUID> {
 
     Musician getMusicianByNickNameEnIgnoreCase(String nickNameEn);
 
-    List<Musician> getAllByMusicPeriodsIsContaining(MusicPeriod period);
+    List<Musician> getAllByMusicPeriodsIsContainingAndCompositionsNotEmpty(MusicPeriod period);
 
     List<Musician> getAllByOrderByCreated();
 

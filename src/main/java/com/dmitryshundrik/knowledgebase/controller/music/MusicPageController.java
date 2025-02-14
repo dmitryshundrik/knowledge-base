@@ -1,6 +1,8 @@
 package com.dmitryshundrik.knowledgebase.controller.music;
 
 import com.dmitryshundrik.knowledgebase.dto.music.MusicianAllPageResponseDto;
+import com.dmitryshundrik.knowledgebase.entity.common.Resource;
+import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
 import com.dmitryshundrik.knowledgebase.util.enums.EraType;
 import com.dmitryshundrik.knowledgebase.entity.music.Album;
 import com.dmitryshundrik.knowledgebase.entity.music.Composition;
@@ -13,6 +15,7 @@ import com.dmitryshundrik.knowledgebase.dto.music.CompositionViewDTO;
 import com.dmitryshundrik.knowledgebase.dto.music.MusicPeriodViewDTO;
 import com.dmitryshundrik.knowledgebase.dto.music.MusicianViewDTO;
 import com.dmitryshundrik.knowledgebase.util.enums.MusicGenreType;
+import com.dmitryshundrik.knowledgebase.util.enums.ResourceType;
 import com.dmitryshundrik.knowledgebase.util.enums.SortType;
 import com.dmitryshundrik.knowledgebase.service.common.TimelineEventService;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
@@ -48,6 +51,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.MUSIC_PERIOD;
 import static com.dmitryshundrik.knowledgebase.util.Constants.MUSIC_PERIOD_LIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.NEXT_YEAR;
 import static com.dmitryshundrik.knowledgebase.util.Constants.PREVIOUS_YEAR;
+import static com.dmitryshundrik.knowledgebase.util.Constants.RESOURCE_LIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.YEAR;
 import static com.dmitryshundrik.knowledgebase.util.Constants.YEAR_IN_MUSIC;
 
@@ -69,6 +73,8 @@ public class MusicPageController {
     private final MusicPeriodService musicPeriodService;
 
     private final MusicGenreService musicGenreService;
+
+    private final ResourcesService resourcesService;
 
     @GetMapping
     public String getMusicPage(Model model) {
@@ -104,6 +110,15 @@ public class MusicPageController {
         return "music/album-top100";
     }
 
+    @GetMapping("/composition/top100")
+    public String getTop100BestClassicalCompositions(Model model) {
+        List<Composition> top100BestClassicalCompositions = compositionService
+                .getTop100ByClassicalGenreOrderedByRatingDesc();
+        List<CompositionViewDTO> compositionViewDTOList = compositionService.getCompositionViewDTOList(top100BestClassicalCompositions);
+        model.addAttribute(COMPOSITION_LIST, compositionViewDTOList);
+        return "music/classical-composition-top100";
+    }
+
     @GetMapping("/album/all")
     public String getAllAlbums(Model model) {
         List<Album> albums = albumService.getAll();
@@ -135,6 +150,13 @@ public class MusicPageController {
         return "music/timeline-of-music";
     }
 
+    @GetMapping("/music-resources")
+    public String getMusicResources(Model model) {
+        List<Resource> allByResourceType = resourcesService.getAllByResourceType(ResourceType.MUSIC);
+        model.addAttribute(RESOURCE_LIST, allByResourceType);
+        return "music/music-resources";
+    }
+
     @GetMapping("/lists-and-charts/albums-of-{year}")
     public String getAllAlbumsByYear(@PathVariable String year, Model model) {
         List<Album> allAlbumsByYear = albumService.getAllAlbumsByYear(Integer.valueOf(year));
@@ -161,11 +183,11 @@ public class MusicPageController {
     public String getPeriodBySlug(@PathVariable String periodSlug, Model model) {
         MusicPeriod musicPeriod = musicPeriodService.getMusicPeriodBySlug(periodSlug);
         MusicPeriodViewDTO musicPeriodViewDTO = musicPeriodService.getMusicPeriodViewDTO(musicPeriod);
-        List<Musician> bestMusiciansByPeriod = musicianService.getBestMusiciansByPeriod(musicPeriod);
+        List<Musician> allMusiciansByPeriod = musicianService.getAllMusiciansByPeriod(musicPeriod);
+        List<Musician> bestMusiciansByPeriod = musicianService.getTop10MusiciansByPeriod(allMusiciansByPeriod);
         List<CompositionViewDTO> allCompositionsByPeriod = compositionService
                 .getSortedCompositionViewDTOList(compositionService
-                        .getAllByPeriod(musicianService
-                                .getAllMusiciansByPeriod(musicPeriod)), SortType.RATING);
+                        .getAllByMusicianList(allMusiciansByPeriod), SortType.RATING);
         model.addAttribute(MUSIC_PERIOD, musicPeriodViewDTO);
         model.addAttribute(MUSICIAN_LIST, bestMusiciansByPeriod);
         model.addAttribute(COMPOSITION_LIST, allCompositionsByPeriod);

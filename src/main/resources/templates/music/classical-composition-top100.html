@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="greatest albums, all time, music, music history, influential albums, iconic albums,
+    legendary albums, best albums, classic albums, top albums, must-listen albums, album rankings, music industry, music culture">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>Топ 100 лучших альбомов</title>
+    <link th:href="@{/styles/music/music-entity-all.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h3>Топ 100 лучших классических произведений</h3>
+    </header>
+
+    <div class="table-body">
+        <article class="table-body-item">
+            <section class="table-body-item-row" th:each="composition : ${compositionList}">
+                <span class="table-body-item-col" th:text="${compositionStat.index + 1} + '.'"></span>
+                <span class="table-body-item-col">
+                    <a th:text="${composition.musicianNickname}" th:href="'/music/musician/' + ${composition.musicianSlug}"></a>
+                </span>
+                <span>
+                    <span class="table-body-item-col album-title" th:text="${composition.title}"></span>
+                </span>
+                <span class="table-body-item-col year" th:if="${composition.year} != null"
+                      th:text="'(' + ${composition.year} + ')'"></span>
+                <span class="table-body-item-col rating" th:text="${composition.rating}"></span>
+            </section>
+        </article>
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

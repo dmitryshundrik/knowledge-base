@@ -4,6 +4,7 @@ import com.dmitryshundrik.knowledgebase.entity.music.Composition;
 import com.dmitryshundrik.knowledgebase.entity.tools.Soty;
 import com.dmitryshundrik.knowledgebase.entity.tools.SotyPair;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -16,15 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
 @Controller
+@RequiredArgsConstructor
 public class SotyGeneratorManagementController {
 
     private final CompositionService compositionService;
-
-    public SotyGeneratorManagementController(CompositionService compositionService) {
-        this.compositionService = compositionService;
-    }
 
     private static List<SotyPair> staticPairList = new ArrayList<>();
 
@@ -45,8 +42,10 @@ public class SotyGeneratorManagementController {
 
     @PostMapping("/management/soty-generator")
     public String postSotyGenerator(@ModelAttribute("soty") Soty soty) {
-        Integer year = soty.getYear();
-        return "redirect:/management/soty-generator/generate/" + year;
+        if (soty.getYear() == null) {
+            return "redirect:/management/soty-generator";
+        }
+        return "redirect:/management/soty-generator/generate/" + soty.getYear();
     }
 
     @GetMapping(("/management/soty-generator/generate/{year}"))

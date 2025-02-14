@@ -23,6 +23,7 @@
                 <th>#</th>
                 <th>created</th>
                 <th>title</th>
+                <th>reosurce_type</th>
                 <th>link</th>
                 <th>description</th>
                 <th>edit</th>
@@ -34,6 +35,7 @@
                 <th th:text="${resourceStat.index + 1}"></th>
                 <td th:text="${resource.created}"></td>
                 <td th:text="${resource.title}"></td>
+                <td th:text="${resource.resourceType}"></td>
                 <td th:text="${resource.link}"></td>
                 <td th:text="${resource.description}"></td>
                 <td class="td-settings">

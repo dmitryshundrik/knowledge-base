@@ -52,7 +52,7 @@ public class CompositionService {
         return compositionRepository.getAllByMusicianAndEssentialRankNotNull(musicianSlug);
     }
 
-    public List<Composition> getAllByPeriod(List<Musician> musicians) {
+    public List<Composition> getAllByMusicianList(List<Musician> musicians) {
         List<Composition> compositions = new ArrayList<>();
         for (Musician musician : musicians) {
             compositions.addAll(musician.getCompositions());
@@ -62,6 +62,10 @@ public class CompositionService {
 
     public List<Composition> getAllByGenre(MusicGenre genre) {
         return compositionRepository.getAllByMusicGenresIsContaining(genre);
+    }
+
+    public List<Composition> getTop100ByClassicalGenreOrderedByRatingDesc() {
+        return compositionRepository.getAllByMusicGenresIsContainingAndRatingNotNull(MusicGenreType.CLASSICAL.name(), 100);
     }
 
     public List<Composition> getAllOrderedByCreatedDesc() {

@@ -1,10 +1,13 @@
 package com.dmitryshundrik.knowledgebase.entity.common;
 
 import com.dmitryshundrik.knowledgebase.entity.AbstractEntity;
+import com.dmitryshundrik.knowledgebase.util.enums.ResourceType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 @Entity
@@ -21,4 +24,8 @@ public class Resource extends AbstractEntity {
 
     @Column(name = "LINK", columnDefinition = "text")
     private String link;
+
+    @Column(name = "RESOURCE_TYPE")
+    @Enumerated(EnumType.STRING)
+    private ResourceType resourceType;
 }

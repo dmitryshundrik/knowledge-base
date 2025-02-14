@@ -2,6 +2,7 @@ package com.dmitryshundrik.knowledgebase.repository.music;
 
 import com.dmitryshundrik.knowledgebase.entity.music.Composition;
 import com.dmitryshundrik.knowledgebase.entity.music.MusicGenre;
+import com.dmitryshundrik.knowledgebase.util.enums.MusicGenreType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;
@@ -17,6 +18,15 @@ public interface CompositionRepository extends JpaRepository<Composition, UUID> 
     void deleteBySlug(String slug);
 
     List<Composition> getAllByMusicGenresIsContaining(MusicGenre musicGenre);
+
+    @Query(nativeQuery = true, value = "select distinct composition.*  from composition " +
+            "inner join composition_music_genres " +
+            "on composition.id = composition_music_genres.composition_id " +
+            "inner join music_genre\n" +
+            "on music_genre.id = composition_music_genres.music_genres_id " +
+            "where music_genre.music_genre_type = ?1 and composition.rating is not null " +
+            "order by composition.rating desc limit ?2")
+    List<Composition> getAllByMusicGenresIsContainingAndRatingNotNull(String musicGenreType, Integer limit);
 
     List<Composition> getAllByYearAndYearEndRankNotNull(Integer year);
 

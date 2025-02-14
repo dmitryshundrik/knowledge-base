@@ -25,6 +25,17 @@
                     <input type="text" th:field="*{title}"/>
                 </section>
 
+                <section class="form-item">
+                    <label>resource</label>
+                    <select th:field="*{resourceType}">
+                        <option th:value="null" selected>выбрать тип</option>
+                        <option th:each="resource : ${resourceTypeList}"
+                                th:value="${resource}"
+                                th:text="${resource}">
+                        </option>
+                    </select>
+                </section>
+
                 <section class="form-item major-field">
                     <label>link</label>
                     <textarea th:field="*{link}"></textarea>

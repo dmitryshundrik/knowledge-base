@@ -7,4 +7,8 @@
         <sqlFile path="v6.0.0/2024-12-06-change-catalog-number-type.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <changeSet id="23" author="dmitryshundrik">
+        <sqlFile path="v6.0.0/2025-02-13-add-resource-type-column.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>

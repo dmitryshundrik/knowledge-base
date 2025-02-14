@@ -31,5 +31,7 @@ public interface AlbumRepository extends JpaRepository<Album, UUID> {
     List<Album> getAllByOrderByCreatedDesc();
 
     @Query("FROM Album WHERE year > :start AND year < :end AND rating is not null order by rating desc")
-    List<Album> getAllByDecadesOrderByRatingDesc(Integer start, Integer end);
+    List<Album> findAllByDecadesOrderByRatingDesc(Integer start, Integer end);
+
+    List<Album> findFirst100ByRatingIsNotNullOrderByRatingDesc();
 }

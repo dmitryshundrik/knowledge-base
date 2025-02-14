@@ -3,6 +3,7 @@ package com.dmitryshundrik.knowledgebase.controller.management.headermenu;
 import com.dmitryshundrik.knowledgebase.entity.common.Resource;
 import com.dmitryshundrik.knowledgebase.dto.common.ResourceDTO;
 import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
+import com.dmitryshundrik.knowledgebase.util.enums.ResourceType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +36,7 @@ public class ResourcesManagementController {
     public String getResourceCreate(Model model) {
         ResourceDTO resourceDTO = new ResourceDTO();
         model.addAttribute(RESOURCE, resourceDTO);
+        model.addAttribute("resourceTypeList", ResourceType.values());
         return "management/headermenu/resource-create";
     }
 
@@ -49,6 +51,7 @@ public class ResourcesManagementController {
         Resource byId = resourcesService.getById(resourceId);
         ResourceDTO resourceDTO = resourcesService.getResourceDTO(byId);
         model.addAttribute(RESOURCE, resourceDTO);
+        model.addAttribute("resourceTypeList", ResourceType.values());
         return "management/headermenu/resource-edit";
     }
 

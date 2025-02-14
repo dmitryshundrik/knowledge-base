@@ -66,6 +66,11 @@
     height: 200px;
 }
 
+.event-major-field textarea{
+    width: 60%;
+    height: 443px;
+}
+
 .major-field select {
     height: 150px;
 }
@@ -114,6 +119,10 @@ table tbody tr:nth-child(2n) {
 
 th, td {
     text-align: center;
+}
+
+.td-description {
+    text-align: justify;
 }
 
 .td-settings {
