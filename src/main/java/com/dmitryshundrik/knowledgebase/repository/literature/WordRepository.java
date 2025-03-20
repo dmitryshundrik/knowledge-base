@@ -8,9 +8,9 @@ import java.util.UUID;
 
 public interface WordRepository extends JpaRepository<Word, UUID> {
 
-    List<Word> getAllByOrderByCreatedDesc();
+    List<Word> findAllByOrderByCreatedDesc();
 
-    List<Word> getAllByWriterOrderByCreatedDesc(Writer writer);
+    List<Word> findAllByWriterOrderByCreatedDesc(Writer writer);
 
-    List<Word> getAllByWriterOrderByTitle(Writer writer);
+    List<Word> findAllByWriterOrderByTitle(Writer writer);
 }

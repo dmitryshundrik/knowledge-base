@@ -46,11 +46,11 @@ public class CompositionServiceTest {
 
     @Test
     void getCompositionBySlug_successfullyTest() {
-        when(compositionRepository.getCompositionBySlug(composition.getSlug())).thenReturn(composition);
+        when(compositionRepository.findCompositionBySlug(composition.getSlug())).thenReturn(composition);
 
         Composition retrievedComposition = compositionService.getCompositionBySlug(composition.getSlug());
 
-        verify(compositionRepository).getCompositionBySlug(composition.getSlug());
+        verify(compositionRepository).findCompositionBySlug(composition.getSlug());
 
         assertEquals(composition, retrievedComposition);
     }

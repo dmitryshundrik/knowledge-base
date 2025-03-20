@@ -2,7 +2,6 @@ package com.dmitryshundrik.knowledgebase.repository.music;
 
 import com.dmitryshundrik.knowledgebase.entity.music.Composition;
 import com.dmitryshundrik.knowledgebase.entity.music.MusicGenre;
-import com.dmitryshundrik.knowledgebase.util.enums.MusicGenreType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;
@@ -13,11 +12,14 @@ public interface CompositionRepository extends JpaRepository<Composition, UUID> 
     @Query(value = "select count(m) from Composition m")
     Long getSize();
 
-    Composition getCompositionBySlug(String slug);
+    @Query("SELECT DISTINCT year FROM Composition ORDER BY year")
+    List<Integer> getAllYearsFromCompositions();
+
+    Composition findCompositionBySlug(String slug);
 
     void deleteBySlug(String slug);
 
-    List<Composition> getAllByMusicGenresIsContaining(MusicGenre musicGenre);
+    List<Composition> findAllByMusicGenresIsContaining(MusicGenre musicGenre);
 
     @Query(nativeQuery = true, value = "select distinct composition.*  from composition " +
             "inner join composition_music_genres " +
@@ -26,33 +28,30 @@ public interface CompositionRepository extends JpaRepository<Composition, UUID> 
             "on music_genre.id = composition_music_genres.music_genres_id " +
             "where music_genre.music_genre_type = ?1 and composition.rating is not null " +
             "order by composition.rating desc limit ?2")
-    List<Composition> getAllByMusicGenresIsContainingAndRatingNotNull(String musicGenreType, Integer limit);
+    List<Composition> findAllByMusicGenresIsContainingAndRatingNotNull(String musicGenreType, Integer limit);
 
-    List<Composition> getAllByYearAndYearEndRankNotNull(Integer year);
+    List<Composition> findAllByYearAndYearEndRankNotNull(Integer year);
 
     List<Composition> findFirst20ByOrderByCreatedDesc();
 
     @Query("from Composition composition where composition.musician.slug = ?1 " +
             "and composition.essentialCompositionsRank is not null order by composition.essentialCompositionsRank")
-    List<Composition> getAllByMusicianAndEssentialRankNotNull(String musicianSlug);
+    List<Composition> findAllByMusicianAndEssentialRankNotNull(String musicianSlug);
 
     @Query("from Composition composition where composition.musician.slug = ?1 and composition.rating is not null")
-    List<Composition> getAllByMusicianWithRating(String musicianSlug);
+    List<Composition> findAllByMusicianWithRating(String musicianSlug);
 
-    List<Composition> getAllByOrderByCreatedDesc();
+    List<Composition> findAllByOrderByCreatedDesc();
 
-    @Query("SELECT DISTINCT year FROM Composition ORDER BY year")
-    List<Integer> getAllYearsFromCompositions();
+    List<Composition> findAllByYear(Integer year);
 
-    List<Composition> getAllByYear(Integer year);
+    List<Composition> findAllByMusicianId(UUID musicianId);
 
-    List<Composition> getAllByMusicianId(UUID musicianId);
+    List<Composition> findAllByMusicianIdOrderByCatalogNumber(UUID musicianId);
 
-    List<Composition> getAllByMusicianIdOrderByCatalogNumber(UUID musicianId);
+    List<Composition> findAllByMusicianIdOrderByYear(UUID musicianId);
 
-    List<Composition> getAllByMusicianIdOrderByYear(UUID musicianId);
+    List<Composition> findAllByMusicianIdOrderByRating(UUID musicianId);
 
-    List<Composition> getAllByMusicianIdOrderByRating(UUID musicianId);
-
-    List<Composition> getAllByMusicianIdOrderByCreated(UUID musicianId);
+    List<Composition> findAllByMusicianIdOrderByCreated(UUID musicianId);
 }

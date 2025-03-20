@@ -74,4 +74,7 @@ public class Writer extends AbstractEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "writer")
     @OrderBy("created")
     private List<Word> wordList;
+
+    @Column(name = "DATE_NOTIFICATION")
+    private Boolean dateNotification;
 }

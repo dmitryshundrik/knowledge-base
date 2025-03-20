@@ -43,13 +43,13 @@ public class IndexController {
     private final SpotifyIntegrationService spotifyIntegrationService;
 
     @Getter
-    private static String version = "6.0.0";
+    private static String version = "6.1.0";
 
     @GetMapping("/")
     public String getIndex(Model model) {
         model.addAttribute(YEAR_IN_MUSIC_LIST, yearInMusicService.getSortedYearInMusicViewDTOList());
         model.addAttribute(LATEST_UPDATES, entityActivityService.getLatestActivities());
-        model.addAttribute(CURRENT_EVENTS, currentEventService.getCurrentEvents());
+        model.addAttribute(CURRENT_EVENTS, currentEventService.getCurrentEvents(10));
         return "index";
     }
 

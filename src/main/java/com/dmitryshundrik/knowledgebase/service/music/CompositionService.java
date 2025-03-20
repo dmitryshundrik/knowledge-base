@@ -41,15 +41,15 @@ public class CompositionService {
     }
 
     public Composition getCompositionBySlug(String compositionSlug) {
-        return compositionRepository.getCompositionBySlug(compositionSlug);
+        return compositionRepository.findCompositionBySlug(compositionSlug);
     }
 
     public List<Composition> getAllByYear(Integer year) {
-        return compositionRepository.getAllByYear(year);
+        return compositionRepository.findAllByYear(year);
     }
 
     public List<Composition> getAllByMusicianAndEssentialRankNotNull(String musicianSlug) {
-        return compositionRepository.getAllByMusicianAndEssentialRankNotNull(musicianSlug);
+        return compositionRepository.findAllByMusicianAndEssentialRankNotNull(musicianSlug);
     }
 
     public List<Composition> getAllByMusicianList(List<Musician> musicians) {
@@ -61,19 +61,19 @@ public class CompositionService {
     }
 
     public List<Composition> getAllByGenre(MusicGenre genre) {
-        return compositionRepository.getAllByMusicGenresIsContaining(genre);
+        return compositionRepository.findAllByMusicGenresIsContaining(genre);
     }
 
     public List<Composition> getTop100ByClassicalGenreOrderedByRatingDesc() {
-        return compositionRepository.getAllByMusicGenresIsContainingAndRatingNotNull(MusicGenreType.CLASSICAL.name(), 100);
+        return compositionRepository.findAllByMusicGenresIsContainingAndRatingNotNull(MusicGenreType.CLASSICAL.name(), 100);
     }
 
     public List<Composition> getAllOrderedByCreatedDesc() {
-        return compositionRepository.getAllByOrderByCreatedDesc();
+        return compositionRepository.findAllByOrderByCreatedDesc();
     }
 
     public List<Composition> getAllByMusicianWithRating(String musicianSlug) {
-        return compositionRepository.getAllByMusicianWithRating(musicianSlug);
+        return compositionRepository.findAllByMusicianWithRating(musicianSlug);
     }
 
     public List<Integer> getAllYearsFromCompositions() {
@@ -81,7 +81,7 @@ public class CompositionService {
     }
 
     public List<CompositionViewDTO> getAllForSOTYList(Integer year) {
-        return getCompositionViewDTOList(compositionRepository.getAllByYearAndYearEndRankNotNull(year))
+        return getCompositionViewDTOList(compositionRepository.findAllByYearAndYearEndRankNotNull(year))
                 .stream().sorted(Comparator.comparing(CompositionViewDTO::getYearEndRank))
                 .collect(Collectors.toList());
     }
@@ -130,7 +130,7 @@ public class CompositionService {
     }
 
     public CompositionViewDTO updateComposition(CompositionCreateEditDTO compositionDTO, String compositionSlug, Album album) {
-        Composition compositionBySlug = compositionRepository.getCompositionBySlug(compositionSlug);
+        Composition compositionBySlug = compositionRepository.findCompositionBySlug(compositionSlug);
         compositionBySlug.setAlbum(album);
         setFieldsFromDTO(compositionBySlug, compositionDTO);
         updateEssentialCompositions(compositionDTO);
@@ -230,23 +230,23 @@ public class CompositionService {
     }
 
     private List<Composition> getMusicianCompositions(UUID musicianId) {
-        return compositionRepository.getAllByMusicianId(musicianId);
+        return compositionRepository.findAllByMusicianId(musicianId);
     }
 
     private List<Composition> getMusicianCompositionsOrderByCatalogNumber(UUID musicianId) {
-        return compositionRepository.getAllByMusicianIdOrderByCatalogNumber(musicianId);
+        return compositionRepository.findAllByMusicianIdOrderByCatalogNumber(musicianId);
     }
 
     private List<Composition> getMusicianCompositionsOrderByYear(UUID musicianId) {
-        return compositionRepository.getAllByMusicianIdOrderByYear(musicianId);
+        return compositionRepository.findAllByMusicianIdOrderByYear(musicianId);
     }
 
     private List<Composition> getMusicianCompositionsOrderByRating(UUID musicianId) {
-        return compositionRepository.getAllByMusicianIdOrderByRating(musicianId);
+        return compositionRepository.findAllByMusicianIdOrderByRating(musicianId);
     }
 
     private List<Composition> getMusicianCompositionsOrderByCreated(UUID musicianId) {
-        return compositionRepository.getAllByMusicianIdOrderByCreated(musicianId);
+        return compositionRepository.findAllByMusicianIdOrderByCreated(musicianId);
     }
 
     public CompositionCreateEditDTO getCompositionCreateEditDTO(Composition composition) {

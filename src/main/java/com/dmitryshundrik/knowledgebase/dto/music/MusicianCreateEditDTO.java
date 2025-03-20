@@ -72,4 +72,6 @@ public class MusicianCreateEditDTO {
     private List<AlbumViewDTO> albums;
 
     private List<CompositionViewDTO> compositions;
+
+    private Boolean dateNotification;
 }

@@ -26,11 +26,11 @@ public class MusicPeriodService {
     }
 
     public List<MusicPeriod> getAllSortedByStart() {
-        return musicPeriodRepository.getAllByOrderByApproximateStartAsc();
+        return musicPeriodRepository.findAllByOrderByApproximateStartAsc();
     }
 
     public MusicPeriod getMusicPeriodBySlug(String musicPeriodSlug) {
-        return musicPeriodRepository.getBySlug(musicPeriodSlug);
+        return musicPeriodRepository.findBySlug(musicPeriodSlug);
     }
 
     public List<MusicPeriod> getSortedByStart(List<MusicPeriod> musicPeriodList) {

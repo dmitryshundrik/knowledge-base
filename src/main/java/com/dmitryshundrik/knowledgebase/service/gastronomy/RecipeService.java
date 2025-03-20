@@ -33,7 +33,7 @@ public class RecipeService {
     }
 
     public List<Recipe> getAllBySortedByCreatedDesc() {
-        return recipeRepository.getAllByOrderByCreatedDesc();
+        return recipeRepository.findAllByOrderByCreatedDesc();
     }
 
     public List<Recipe> getAllByCountry(Country country) {

@@ -112,4 +112,7 @@ public class Musician extends AbstractEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "musician")
     @OrderBy("created")
     private List<Composition> compositions;
+
+    @Column(name = "DATE_NOTIFICATION")
+    private Boolean dateNotification;
 }

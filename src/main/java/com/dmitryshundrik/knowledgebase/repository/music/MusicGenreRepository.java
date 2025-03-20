@@ -10,9 +10,7 @@ import java.util.UUID;
 
 public interface MusicGenreRepository extends JpaRepository<MusicGenre, UUID> {
 
-    MusicGenre getBySlug(String slug);
-
-    List<MusicGenre> getAllByMusicGenreTypeAndCountIsNotNullOrderByCountDesc(MusicGenreType type);
+    MusicGenre findBySlug(String slug);
 
     @Modifying
     @Query(nativeQuery = true, value = "update music_genre set count = (select count(comp.id) from music_genre mg\n" +
@@ -30,7 +28,9 @@ public interface MusicGenreRepository extends JpaRepository<MusicGenre, UUID> {
             "group by mg.id) where music_genre_type = 'CONTEMPORARY'")
     void updateContemporaryMusicGenreSetCount();
 
-    List<MusicGenre> getAllByMusicGenreType(MusicGenreType type);
+    List<MusicGenre> findAllByMusicGenreTypeAndCountIsNotNullOrderByCountDesc(MusicGenreType type);
 
-    List<MusicGenre> getAllByMusicGenreTypeOrderByTitle(MusicGenreType type);
+    List<MusicGenre> findAllByMusicGenreType(MusicGenreType type);
+
+    List<MusicGenre> findAllByMusicGenreTypeOrderByTitle(MusicGenreType type);
 }

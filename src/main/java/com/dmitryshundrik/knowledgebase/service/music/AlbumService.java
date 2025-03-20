@@ -45,19 +45,19 @@ public class AlbumService {
     }
 
     public Album getAlbumBySlug(String albumSlug) {
-        return albumRepository.getAlbumBySlug(albumSlug);
+        return albumRepository.findAlbumBySlug(albumSlug);
     }
 
     public List<Album> getAllWithRating() {
-        return albumRepository.getAllByRatingIsNotNull();
+        return albumRepository.findAllByRatingIsNotNull();
     }
 
     public List<Album> getAllAlbumsSortedByCreatedDesc() {
-        return albumRepository.getAllByOrderByCreatedDesc();
+        return albumRepository.findAllByOrderByCreatedDesc();
     }
 
     public List<Album> getAllAlbumsByYear(Integer year) {
-        return albumRepository.getAllByYear(year);
+        return albumRepository.findAllByYear(year);
     }
 
     public List<Album> getAllAlbumByDecade(String decade) {
@@ -71,15 +71,15 @@ public class AlbumService {
     }
 
     public List<Album> getAllAlbumsByMusician(Musician musician) {
-        return albumRepository.getAllByMusician(musician);
+        return albumRepository.findAllByMusician(musician);
     }
 
     public List<Album> getAllAlbumsByGenre(MusicGenre genre) {
-        return albumRepository.getAllByMusicGenresIsContaining(genre);
+        return albumRepository.findAllByMusicGenresIsContaining(genre);
     }
 
     public List<AlbumViewDTO> get10BestAlbumsByYear(Integer year) {
-        return getAlbumViewDTOList(albumRepository.getAllByYear(year).stream()
+        return getAlbumViewDTOList(albumRepository.findAllByYear(year).stream()
                 .sorted((o1, o2) -> o2.getRating().compareTo(o1.getRating()))
                 .limit(10)
                 .collect(Collectors.toList()));
@@ -90,7 +90,7 @@ public class AlbumService {
     }
 
     public List<Integer> getAllYearsFromAlbums() {
-        return albumRepository.getAllYearsFromAlbums();
+        return albumRepository.findAllYearsFromAlbums();
     }
 
     public AlbumViewDTO createAlbum(AlbumCreateEditDTO albumDTO, Musician musician, List<Musician> collaborators) {

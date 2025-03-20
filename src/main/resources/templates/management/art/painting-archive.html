@@ -21,7 +21,6 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>created</th>
                 <th>title</th>
                 <th>artist nickname</th>
                 <th>year1</th>
@@ -36,7 +35,6 @@
             <tbody>
             <tr th:each="painting : ${paintingList}">
                 <th th:text="${paintingList.size - paintingStat.index}"></th>
-                <td th:text="${painting.created}"></td>
                 <td th:text="${painting.title}"></td>
                 <td th:text="${painting.artistNickname}"></td>
                 <td th:text="${painting.year1}"></td>

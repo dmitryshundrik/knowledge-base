@@ -13,22 +13,22 @@ public interface AlbumRepository extends JpaRepository<Album, UUID> {
     @Query(value = "select count(m) from Album m")
     Long getSize();
 
-    Album getAlbumBySlug(String slug);
+    @Query("SELECT DISTINCT year FROM Album ORDER BY year")
+    List<Integer> findAllYearsFromAlbums();
 
-    List<Album> getAllByYear(Integer year);
+    Album findAlbumBySlug(String slug);
 
-    List<Album> getAllByMusician(Musician musician);
+    List<Album> findAllByYear(Integer year);
 
-    List<Album> getAllByMusicGenresIsContaining(MusicGenre genre);
+    List<Album> findAllByMusician(Musician musician);
+
+    List<Album> findAllByMusicGenresIsContaining(MusicGenre genre);
 
     List<Album> findFirst20ByOrderByCreatedDesc();
 
-    @Query("SELECT DISTINCT year FROM Album ORDER BY year")
-    List<Integer> getAllYearsFromAlbums();
+    List<Album> findAllByRatingIsNotNull();
 
-    List<Album> getAllByRatingIsNotNull();
-
-    List<Album> getAllByOrderByCreatedDesc();
+    List<Album> findAllByOrderByCreatedDesc();
 
     @Query("FROM Album WHERE year > :start AND year < :end AND rating is not null order by rating desc")
     List<Album> findAllByDecadesOrderByRatingDesc(Integer start, Integer end);

@@ -13,17 +13,27 @@ public interface ArtistRepository extends JpaRepository<Artist, UUID> {
     @Query(value = "select count(m) from Artist m")
     Long getSize();
 
-    Optional<Artist> getBySlug(String artistSlug);
+    Optional<Artist> findBySlug(String artistSlug);
 
-    List<Artist> getAllByOrderByCreatedDesc();
+    List<Artist> findAllByOrderByCreatedDesc();
 
     List<Artist> findFirst20ByOrderByCreatedDesc();
 
-    List<Artist> getAllByOrderByBorn();
+    List<Artist> findAllByOrderByBorn();
 
-    @Query(value = "select * from artist where extract( month from birth_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) and extract( day from birth_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)
+    @Query(value = "select * from artist where extract( month from birth_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) " +
+            "and extract( day from birth_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)
     List<Artist> findAllWithCurrentBirth(LocalDate date);
 
-    @Query(value = "select * from artist where extract( month from death_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) and extract( day from death_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)
+    @Query(value = "select * from artist where extract( month from death_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) " +
+            "and extract( day from death_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)
     List<Artist> findAllWithCurrentDeath(LocalDate date);
+
+    @Query(value = "select * from artist where date_notification = :isNotify and extract( month from birth_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) " +
+            "and extract( day from birth_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)
+    List<Artist> findAllWithCurrentBirthAndNotification(LocalDate date, Boolean isNotify);
+
+    @Query(value = "select * from artist where date_notification = :isNotify and extract( month from death_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) " +
+            "and extract( day from death_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)
+    List<Artist> findAllWithCurrentDeathAndNotification(LocalDate date, Boolean isNotify);
 }

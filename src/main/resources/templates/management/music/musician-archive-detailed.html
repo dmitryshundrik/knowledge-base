@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link th:href="@{/styles/management/entity-all-management.css}" rel="stylesheet">
+</head>
+<body class="body-archive">
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h4>подробрный архив musician</h4>
+        <a target="_blank" href="/management/musician/create">создать musician</a>
+    </header>
+
+    <div class="table-body">
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>created</th>
+                <th>nick name</th>
+                <th>slug</th>
+                <th>page</th>
+                <th>gender</th>
+                <th>born</th>
+                <th>died</th>
+                <th>founded</th>
+                <th>birthplace</th>
+                <th>based</th>
+                <th>occupation</th>
+                <th>catalog title</th>
+                <th>period</th>
+                <th>genres</th>
+                <th>album sort</th>
+                <th>composition sort</th>
+                <th>image</th>
+                <th>notification</th>
+                <th>edit</th>
+                <th>delete</th>
+            </tr>
+            </thead>
+            <tbody class="tbody-archive-detailed">
+            <tr th:each="musician : ${musicianList}">
+                <th th:text="${musicianList.size - musicianStat.index}"></th>
+                <td th:text="${musician.created}"></td>
+                <td th:text="${musician.nickName}"></td>
+                <td th:text="${musician.slug}"></td>
+                <td>
+                    <a target="_blank" th:href="${'/music/musician/' + musician.slug}">link</a>
+                </td>
+                <td th:text="${musician.gender}"></td>
+                <td th:text="${musician.born}"></td>
+                <td th:text="${musician.died}"></td>
+                <td th:text="${musician.founded}"></td>
+                <td th:text="${musician.birthplace}"></td>
+                <td th:text="${musician.based}"></td>
+                <td th:text="${musician.occupation}"></td>
+                <td th:text="${musician.catalogTitle}"></td>
+                <td>
+                    <span th:if="${not #lists.isEmpty(musician.musicPeriods)}"
+                          th:each="period : ${musician.musicPeriods}">
+                        <span th:text="${period.title}"></span>
+                    </span>
+                </td>
+                <td>
+                    <span th:if="${not #lists.isEmpty(musician.musicGenres)}"
+                          th:each="genre : ${musician.musicGenres}">
+                        <span th:text="${genre.title}"></span>
+                    </span>
+                </td>
+                <td th:text="${musician.albumsSortType}"></td>
+                <td th:text="${musician.compositionsSortType}"></td>
+                <td>
+                    <span th:if="${not #strings.isEmpty(musician.image)}">pic</span>
+                </td>
+                <td th:text="${musician.dateNotification}"></td>
+                <td class="td-settings">
+                    <a target="_blank" th:href="${'/management/musician/edit/' + musician.slug}">edit</a>
+                </td>
+                <td class="td-settings">
+                    <form th:action="${'/management/musician/delete/' + musician.slug}" th:method="delete">
+                        <input type="submit" value="delete"
+                               th:data-confirm-delete="|Are you sure you want to delete this musician?|"
+                               onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

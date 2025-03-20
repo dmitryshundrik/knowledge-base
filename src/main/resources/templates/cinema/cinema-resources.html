@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>Кино: полезные ресурсы</title>
+    <link th:href="@{/styles/charity-resources.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+    <header class="table-title">
+        <h3>Кино: полезные ресурсы</h3>
+    </header>
+    <div class="table-body">
+        <article class="table-body-item">
+            <section class="table-body-item-row" th:each="resource : ${resourceList}">
+                <span class="table-body-item-col">
+                    <a th:href="${resource.link}" th:text="${resource.title}" target="_blank"></a>
+                    <span th:text="${resource.description}"></span>
+                </span>
+            </section>
+        </article>
+    </div>
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

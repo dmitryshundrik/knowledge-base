@@ -30,28 +30,48 @@ public class CurrentEventService {
 
     private final ArtistService artistService;
 
-    private static final String MALE_BORN = " родился ";
+    private static final String MALE_BORN = "родился";
 
-    private static final String FEMALE_BORN = " родилась ";
+    private static final String FEMALE_BORN = "родилась";
 
-    private static final String MALE_DIE = " умер ";
+    private static final String MALE_DIE = "умер";
 
-    private static final String FEMALE_DIE = " умерла ";
+    private static final String FEMALE_DIE = "умерла";
 
-    public List<CurrentEventInfo> getCurrentEvents() {
+    public List<CurrentEventInfo> getCurrentEvents(Integer dayInterval) {
         List<CurrentEventInfo> currentEventInfoList = new ArrayList<>();
-        currentEventInfoList.addAll(getMusicianEvents());
-        currentEventInfoList.addAll(getWriterEvents());
-        currentEventInfoList.addAll(getArtistEvents());
+        currentEventInfoList.addAll(getMusicianEvents(dayInterval));
+        currentEventInfoList.addAll(getWriterEvents(dayInterval));
+        currentEventInfoList.addAll(getArtistEvents(dayInterval));
         return currentEventInfoList.stream()
                 .sorted(Comparator.comparing(CurrentEventInfo::getMonth).thenComparing(CurrentEventInfo::getDay))
                 .collect(Collectors.toList());
     }
 
-    public List<CurrentEventInfo> getMusicianEvents() {
+    public List<CurrentEventInfo> getCurrentNotification(Integer dayInterval) {
+        List<CurrentEventInfo> currentEventInfoList = new ArrayList<>();
+        currentEventInfoList.addAll(getMusicianNotification(dayInterval));
+        currentEventInfoList.addAll(getWriterNotification(dayInterval));
+        currentEventInfoList.addAll(getArtistNotification(dayInterval));
+        return currentEventInfoList.stream()
+                .sorted(Comparator.comparing(CurrentEventInfo::getMonth).thenComparing(CurrentEventInfo::getDay))
+                .collect(Collectors.toList());
+    }
+
+    public List<CurrentEventInfo> getMusicianEvents(Integer dayInterval) {
+        Set<Musician> musicianBirthList = musicianService.getAllWithCurrentBirth(dayInterval);
+        Set<Musician> musicianDeathList = musicianService.getAllWithCurrentDeath(dayInterval);
+        return musicianEventCreator(musicianBirthList, musicianDeathList);
+    }
+
+    public List<CurrentEventInfo> getMusicianNotification(Integer dayInterval) {
+        Set<Musician> musicianBirthList = musicianService.getAllWithCurrentBirthAndNotification(dayInterval);
+        Set<Musician> musicianDeathList = musicianService.getAllWithCurrentDeathAndNotification(dayInterval);
+        return musicianEventCreator(musicianBirthList, musicianDeathList);
+    }
+
+    public List<CurrentEventInfo> musicianEventCreator(Set<Musician> musicianBirthList, Set<Musician> musicianDeathList) {
         List<CurrentEventInfo> musicianEventInfoList = new ArrayList<>();
-        Set<Musician> musicianBirthList = musicianService.getAllWithCurrentBirth();
-        Set<Musician> musicianDeathList = musicianService.getAllWithCurrentDeath();
         for (Musician musician : musicianBirthList) {
             musicianEventInfoList.add(CurrentEventInfo.builder()
                     .personNickname(musician.getNickName())
@@ -59,7 +79,7 @@ public class CurrentEventService {
                     .date(getDateForCurrentEvent(musician.getBirthDate()))
                     .month(musician.getBirthDate().getMonthValue())
                     .day(musician.getBirthDate().getDayOfMonth())
-                    .dateType(getBirthTypeForGender(musician.getGender()))
+                    .dateType(" " + getBirthTypeForGender(musician.getGender()) + " ")
                     .occupation(musician.getOccupation()).build());
         }
         for (Musician musician : musicianDeathList) {
@@ -69,70 +89,90 @@ public class CurrentEventService {
                     .date(getDateForCurrentEvent(musician.getDeathDate()))
                     .month(musician.getDeathDate().getMonthValue())
                     .day(musician.getDeathDate().getDayOfMonth())
-                    .dateType(getDeathTypeForGender(musician.getGender()))
+                    .dateType(" " + getDeathTypeForGender(musician.getGender()) + " ")
                     .occupation(musician.getOccupation()).build());
         }
         return musicianEventInfoList;
     }
 
-    public List<CurrentEventInfo> getWriterEvents() {
-        List<CurrentEventInfo> writerEventInfoList = new ArrayList<>();
-        Set<Writer> writerBirthList = writerService.getAllWithCurrentBirth();
-        Set<Writer> writerDeathList = writerService.getAllWithCurrentDeath();
-        for (Writer writer : writerBirthList) {
-            writerEventInfoList.add(CurrentEventInfo.builder()
+    public List<CurrentEventInfo> getWriterEvents(Integer dayInterval) {
+        Set<Writer> writerBirthList = writerService.getAllWithCurrentBirth(dayInterval);
+        Set<Writer> writerDeathList = writerService.getAllWithCurrentDeath(dayInterval);
+        return writerEventCreator(writerBirthList, writerDeathList);
+    }
+
+    public List<CurrentEventInfo> getWriterNotification(Integer dayInterval) {
+        Set<Writer> entityBirthList = writerService.getAllWithCurrentBirthAndNotification(dayInterval);
+        Set<Writer> entityDeathList = writerService.getAllWithCurrentDeathAndNotification(dayInterval);
+        return writerEventCreator(entityBirthList, entityDeathList);
+    }
+
+    public List<CurrentEventInfo> writerEventCreator(Set<Writer> entityBirthList, Set<Writer> entityDeathList) {
+        List<CurrentEventInfo> entityEventInfoList = new ArrayList<>();
+        for (Writer writer : entityBirthList) {
+            entityEventInfoList.add(CurrentEventInfo.builder()
                     .personNickname(writer.getNickName())
                     .personLink("/literature/writer/" + writer.getSlug())
                     .date(getDateForCurrentEvent(writer.getBirthDate()))
                     .month(writer.getBirthDate().getMonthValue())
                     .day(writer.getBirthDate().getDayOfMonth())
-                    .dateType(getBirthTypeForGender(writer.getGender()))
+                    .dateType(" " + getBirthTypeForGender(writer.getGender()) + " ")
                     .occupation(writer.getOccupation()).build());
         }
-        for (Writer writer : writerDeathList) {
-            writerEventInfoList.add(CurrentEventInfo.builder()
+        for (Writer writer : entityDeathList) {
+            entityEventInfoList.add(CurrentEventInfo.builder()
                     .personNickname(writer.getNickName())
                     .personLink("/literature/writer/" + writer.getSlug())
                     .date(getDateForCurrentEvent(writer.getDeathDate()))
                     .month(writer.getDeathDate().getMonthValue())
                     .day(writer.getDeathDate().getDayOfMonth())
-                    .dateType(getDeathTypeForGender(writer.getGender()))
+                    .dateType(" " + getDeathTypeForGender(writer.getGender()) + " ")
                     .occupation(writer.getOccupation()).build());
         }
-        return writerEventInfoList;
+        return entityEventInfoList;
     }
 
-    public List<CurrentEventInfo> getArtistEvents() {
-        List<CurrentEventInfo> artistEventInfoList = new ArrayList<>();
-        Set<Artist> artistBirthList = artistService.getAllWithCurrentBirth();
-        Set<Artist> artistDeathList = artistService.getAllWithCurrentDeath();
-        for (Artist artist : artistBirthList) {
-            artistEventInfoList.add(CurrentEventInfo.builder()
+    public List<CurrentEventInfo> getArtistEvents(Integer dayInterval) {
+        Set<Artist> artistBirthList = artistService.getAllWithCurrentBirth(dayInterval);
+        Set<Artist> artistDeathList = artistService.getAllWithCurrentDeath(dayInterval);
+        return artistEventCreator(artistBirthList, artistDeathList);
+    }
+
+    public List<CurrentEventInfo> getArtistNotification(Integer dayInterval) {
+        Set<Artist> entityBirthList = artistService.getAllWithCurrentBirthAndNotification(dayInterval);
+        Set<Artist> entityDeathList = artistService.getAllWithCurrentDeathAndNotification(dayInterval);
+        return artistEventCreator(entityBirthList, entityDeathList);
+    }
+
+    public List<CurrentEventInfo> artistEventCreator(Set<Artist> entityBirthList, Set<Artist> entityDeathList) {
+        List<CurrentEventInfo> entityEventInfoList = new ArrayList<>();
+        for (Artist artist : entityBirthList) {
+            entityEventInfoList.add(CurrentEventInfo.builder()
                     .personLink("/art/artist/" + artist.getSlug())
                     .personNickname(artist.getNickName())
                     .personImage(artist.getImage())
                     .date(getDateForCurrentEvent(artist.getBirthDate()))
                     .month(artist.getBirthDate().getMonthValue())
                     .day(artist.getBirthDate().getDayOfMonth())
-                    .dateType(getBirthTypeForGender(artist.getGender()))
+                    .dateType(" " + getBirthTypeForGender(artist.getGender()) + " ")
                     .occupation(artist.getOccupation()).build());
         }
-        for (Artist artist : artistDeathList) {
-            artistEventInfoList.add(CurrentEventInfo.builder()
+        for (Artist artist : entityDeathList) {
+            entityEventInfoList.add(CurrentEventInfo.builder()
                     .personLink("/art/artist/" + artist.getSlug())
                     .personNickname(artist.getNickName())
                     .personImage(artist.getImage())
                     .date(getDateForCurrentEvent(artist.getDeathDate()))
                     .month(artist.getDeathDate().getMonthValue())
                     .day(artist.getDeathDate().getDayOfMonth())
-                    .dateType(getDeathTypeForGender(artist.getGender()))
+                    .dateType(" " + getDeathTypeForGender(artist.getGender()) + " ")
                     .occupation(artist.getOccupation()).build());
         }
-        return artistEventInfoList;
+        return entityEventInfoList;
     }
 
     public String getBirthTypeForGender(Gender gender) {
-        String birthType = "";
+        String birthType;
         if (gender == Gender.FEMALE) {
             birthType = FEMALE_BORN;
         } else {
@@ -142,7 +182,7 @@ public class CurrentEventService {
     }
 
     public String getDeathTypeForGender(Gender gender) {
-        String deathType = "";
+        String deathType;
         if (gender == Gender.FEMALE) {
             deathType = FEMALE_DIE;
         } else {

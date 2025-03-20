@@ -5,5 +5,6 @@ public enum ResourceType {
     MUSIC,
     LITERATURE,
     GASTRONOMY,
-    ART
+    ART,
+    CINEMA
 }

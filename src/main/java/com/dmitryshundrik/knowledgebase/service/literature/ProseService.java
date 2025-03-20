@@ -11,7 +11,6 @@ import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -34,7 +33,7 @@ public class ProseService {
     }
 
     public Prose getBySlug(String proseSlug) {
-        return proseRepository.getBySlug(proseSlug);
+        return proseRepository.findBySlug(proseSlug);
     }
 
     public Prose getById(String id) {

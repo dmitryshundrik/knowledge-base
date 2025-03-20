@@ -30,6 +30,10 @@ table {
     border-spacing: 1px;
 }
 
+.tbody-archive-detailed {
+    font-size: small;
+}
+
 table tbody tr:nth-child(2n+1) {
     background: #f1f1f1;
 }

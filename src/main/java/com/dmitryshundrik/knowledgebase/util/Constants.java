@@ -27,6 +27,11 @@ public final class Constants {
     public static final String PAINTING_LIST = "paintingList";
     public static final String PAINTING_SLUG = "paintingSlug";
 
+    public static final String FILM = "film";
+    public static final String FILM_LIST = "filmList";
+    public static final String CRITICS_LIST = "criticsList";
+    public static final String CRITICS_LIST_LIST = "criticsListList";
+
     public static final String RECIPE = "recipe";
     public static final String RECIPE_LIST = "recipeList";
     public static final String RECIPE_SLUG = "recipeSlug";

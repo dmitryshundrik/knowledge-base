@@ -1,6 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
 import com.dmitryshundrik.knowledgebase.dto.music.MusicianAllPageResponseDto;
+import com.dmitryshundrik.knowledgebase.dto.music.MusicianManagementDetailedResponseDto;
 import com.dmitryshundrik.knowledgebase.dto.music.MusicianManagementResponseDto;
 import com.dmitryshundrik.knowledgebase.entity.music.Album;
 import com.dmitryshundrik.knowledgebase.entity.music.Composition;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -50,7 +52,7 @@ public class MusicianService {
     private final MusicianMapper musicianMapper;
 
     public List<Musician> getAll() {
-        return musicianRepository.getAllByOrderByCreated();
+        return musicianRepository.findAllByOrderByCreated();
     }
 
     public Long getMusicianRepositorySize() {
@@ -70,19 +72,15 @@ public class MusicianService {
     }
 
     public Musician getMusicianBySlug(String musicianSlug) {
-        return musicianRepository.getMusicianBySlug(musicianSlug);
+        return musicianRepository.findMusicianBySlug(musicianSlug);
     }
 
     public Musician getMusicianByNickname(String nickName) {
-        Musician musicianByNickName = musicianRepository.getMusicianByNickNameIgnoreCase(nickName);
+        Musician musicianByNickName = musicianRepository.findMusicianByNickNameIgnoreCase(nickName);
         if (musicianByNickName == null) {
-            musicianByNickName = musicianRepository.getMusicianByNickNameEnIgnoreCase(nickName);
+            musicianByNickName = musicianRepository.findMusicianByNickNameEnIgnoreCase(nickName);
         }
         return musicianByNickName;
-    }
-
-    public List<Musician> getAllMusiciansOrderedByCreatedDesc() {
-        return musicianRepository.getAllByOrderByCreatedDesc();
     }
 
     public List<MusicianAllPageResponseDto> getMusicianAllPageResponseDtoSortedByBornAndFounded() {
@@ -112,68 +110,47 @@ public class MusicianService {
     }
 
     public List<Musician> getAllMusiciansByPeriod(MusicPeriod period) {
-        return musicianRepository.getAllByMusicPeriodsIsContainingAndCompositionsNotEmpty(period);
+        return musicianRepository.findAllByMusicPeriodsIsContainingAndCompositionsNotEmpty(period);
     }
 
     public List<Musician> getTop10MusiciansByPeriod(List<Musician> musicianList) {
-        Map<Musician, Double> map = new HashMap<>();
-        for (Musician musician : musicianList) {
-            List<Composition> compositions = compositionService.getAllByMusicianWithRating(musician.getSlug());
-            double totalScore = 0.0;
-            for (Composition composition : compositions) {
-                totalScore = totalScore + (composition.getRating() != null ? composition.getRating() : 0);
-            }
-            double average = totalScore / compositions.size() + compositions.size() / 10.0;
-            for (Composition composition : compositions) {
-                Double rating = composition.getRating();
-                if (rating == 5 || rating == 5.5) {
-                    average = average + 0.1;
-                } else if (rating == 6 || rating == 6.5) {
-                    average = average + 0.2;
-                } else if (rating == 7 || rating == 7.5) {
-                    average = average + 0.3;
-                } else if (rating == 8 || rating == 8.5) {
-                    average = average + 0.4;
-                } else if (rating == 9 || rating == 9.5) {
-                    average = average + 0.5;
-                } else if (rating == 10) {
-                    average = average + 1;
-                }
-            }
-            map.put(musician, average);
-        }
-        List<Map.Entry<Musician, Double>> list = new ArrayList<>(map.entrySet());
-        list.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));
-        return list.stream()
+        return musicianList.stream()
+                .map(musician -> {
+                    List<Composition> compositions = compositionService
+                            .getAllByMusicianWithRating(musician.getSlug());
+                    double totalScore = compositions.stream()
+                            .mapToDouble(composition -> composition.getRating() != null ? composition.getRating() : 0).sum();
+                    double average = totalScore / compositions.size() + compositions.size() / 10.0;
+
+                    average += compositions.stream().mapToDouble(composition -> {
+                                Double rating = composition.getRating();
+                                if (rating == null) return 0;
+                                if (rating == 5 || rating == 5.5) return 0.1;
+                                if (rating == 6 || rating == 6.5) return 0.2;
+                                if (rating == 7 || rating == 7.5) return 0.3;
+                                if (rating == 8 || rating == 8.5) return 0.4;
+                                if (rating == 9 || rating == 9.5) return 0.5;
+                                if (rating == 10) return 1.0;
+                                return 0;
+                            }).sum();
+
+                    return new AbstractMap.SimpleEntry<>(musician, average);
+                }).sorted((e1, e2) -> Double.compare(e2.getValue(), e1.getValue())) // Сортировка по убыванию
+                .limit(10) // Ограничение до топ-10
                 .map(Map.Entry::getKey)
-                .limit(10).collect(Collectors.toList());
-    }
-
-    public List<MusicianAllPageResponseDto> getMusicianAllPageResponseDto() {
-        return musicianRepository.getAllMusicianAllPageResponseDto();
-    }
-
-    public MusicianManagementResponseDto getMusicianManagementResponseDto(Musician musician) {
-        MusicianManagementResponseDto musicianManagementResponseDto = musicianMapper
-                .toMusicianManagementAllResponseDto(musician);
-        musicianManagementResponseDto.setMusicGenres(getSortedMusicGenresByMusician(musician));
-        return musicianManagementResponseDto;
-    }
-
-    public List<MusicianManagementResponseDto> getAllMusicianManagementResponseDto(List<Musician> musicianList) {
-        return musicianList.stream().map(this::getMusicianManagementResponseDto).toList();
+                .collect(Collectors.toList());
     }
 
     public MusicianViewDTO createMusician(MusicianCreateEditDTO musicianDTO) {
         Musician musician = new Musician();
-        setFieldsFromDTO(musician, musicianDTO);
+        setFieldsFromDto(musician, musicianDTO);
         musician.setSlug(SlugFormatter.slugFormatter(musician.getSlug()));
         return getMusicianViewDTO(musicianRepository.save(musician));
     }
 
     public MusicianViewDTO updateMusician(String musicianSlug, MusicianCreateEditDTO musicianDTO) {
         Musician musicianBySlug = getMusicianBySlug(musicianSlug);
-        setFieldsFromDTO(musicianBySlug, musicianDTO);
+        setFieldsFromDto(musicianBySlug, musicianDTO);
         return getMusicianViewDTO(musicianBySlug);
     }
 
@@ -233,8 +210,55 @@ public class MusicianService {
                 .build();
     }
 
-    public List<MusicianViewDTO> getMusicianViewDTOList(List<Musician> musicianList) {
-        return musicianList.stream().map(this::getMusicianViewDTO).collect(Collectors.toList());
+    public MusicianCreateEditDTO getMusicianCreateEditDTO(Musician musician) {
+        return MusicianCreateEditDTO.builder()
+                .slug(musician.getSlug())
+                .firstName(musician.getFirstName())
+                .lastName(musician.getLastName())
+                .nickName(musician.getNickName())
+                .nickNameEn(musician.getNickNameEn())
+                .gender(musician.getGender())
+                .image(musician.getImage())
+                .born(musician.getBorn())
+                .died(musician.getDied())
+                .founded(musician.getFounded())
+                .birthDate(musician.getBirthDate())
+                .deathDate(musician.getDeathDate())
+                .birthplace(musician.getBirthplace())
+                .based(musician.getBased())
+                .occupation(musician.getOccupation())
+                .catalogTitle(musician.getCatalogTitle())
+                .musicPeriods(musician.getMusicPeriods())
+                .albumsSortType(musician.getAlbumsSortType())
+                .compositionsSortType(musician.getCompositionsSortType())
+                .spotifyLink(musician.getSpotifyLink())
+                .events(personEventService.getPersonEventDTOList(musician.getEvents()))
+                .albums(albumService.getSortedAlbumViewDTOList(musician.getAlbums(), musician.getAlbumsSortType()))
+                .compositions(compositionService
+                        .getCompositionViewDTOList(compositionService
+                                .getMusicianCompositionsOrderByFacade(musician.getId(), musician.getCompositionsSortType())))
+                .dateNotification(musician.getDateNotification())
+                .build();
+    }
+
+    public List<MusicianAllPageResponseDto> getMusicianAllPageResponseDto() {
+        return musicianRepository.getAllMusicianAllPageResponseDto();
+    }
+
+    public List<MusicianManagementResponseDto> getAllMusicianManagementResponseDto() {
+        return musicianRepository.getAllMusicianManagementResponseDto();
+    }
+
+    public MusicianManagementDetailedResponseDto getMusicianManagementDetailedResponseDto(Musician musician) {
+        MusicianManagementDetailedResponseDto musicianDto = musicianMapper.toMusicianManagementDetailedResponseDto(musician);
+        musicianDto.setMusicGenres(getSortedMusicGenresByMusician(musician));
+        musicianDto.setCreated(InstantFormatter.instantFormatterYMDHMS(musician.getCreated()));
+        return musicianDto;
+    }
+
+    public List<MusicianManagementDetailedResponseDto> getAllMusicianManagementDetailedResponseDto() {
+        List<Musician> musicianList = musicianRepository.findAllByOrderByCreatedDesc();
+        return musicianList.stream().map(this::getMusicianManagementDetailedResponseDto).toList();
     }
 
     public List<MusicGenre> getSortedMusicGenresByMusician(Musician musician) {
@@ -262,49 +286,19 @@ public class MusicianService {
                 .limit(10).collect(Collectors.toList());
     }
 
-    public MusicianCreateEditDTO getMusicianCreateEditDTO(Musician musician) {
-        return MusicianCreateEditDTO.builder()
-                .slug(musician.getSlug())
-                .firstName(musician.getFirstName())
-                .lastName(musician.getLastName())
-                .nickName(musician.getNickName())
-                .nickNameEn(musician.getNickNameEn())
-                .gender(musician.getGender())
-                .image(musician.getImage())
-                .born(musician.getBorn())
-                .died(musician.getDied())
-                .founded(musician.getFounded())
-                .birthDate(musician.getBirthDate())
-                .deathDate(musician.getDeathDate())
-                .birthplace(musician.getBirthplace())
-                .based(musician.getBased())
-                .occupation(musician.getOccupation())
-                .catalogTitle(musician.getCatalogTitle())
-                .musicPeriods(musician.getMusicPeriods())
-                .albumsSortType(musician.getAlbumsSortType())
-                .compositionsSortType(musician.getCompositionsSortType())
-                .spotifyLink(musician.getSpotifyLink())
-                .events(personEventService.getPersonEventDTOList(musician.getEvents()))
-                .albums(albumService.getSortedAlbumViewDTOList(musician.getAlbums(), musician.getAlbumsSortType()))
-                .compositions(compositionService
-                        .getCompositionViewDTOList(compositionService
-                                        .getMusicianCompositionsOrderByFacade(musician.getId(), musician.getCompositionsSortType())))
-                .build();
-    }
-
-    public void setFieldsToCompositionDTO(String musicianSlug, CompositionCreateEditDTO compositionDTO) {
+    public void setFieldsToCompositionDto(String musicianSlug, CompositionCreateEditDTO compositionDTO) {
         Musician musicianBySlug = getMusicianBySlug(musicianSlug);
         compositionDTO.setMusicianNickname(musicianBySlug.getNickName());
         compositionDTO.setMusicianSlug(musicianBySlug.getSlug());
     }
 
-    public void setFieldsToAlbumDTO(String musicianSlug, AlbumCreateEditDTO albumDTO) {
+    public void setFieldsToAlbumDto(String musicianSlug, AlbumCreateEditDTO albumDTO) {
         Musician musicianBySlug = getMusicianBySlug(musicianSlug);
         albumDTO.setMusicianNickname(musicianBySlug.getNickName());
         albumDTO.setMusicianSlug(musicianBySlug.getSlug());
     }
 
-    private void setFieldsFromDTO(Musician musician, MusicianCreateEditDTO musicianDTO) {
+    private void setFieldsFromDto(Musician musician, MusicianCreateEditDTO musicianDTO) {
         musician.setSlug(musicianDTO.getSlug().trim());
         musician.setFirstName(musicianDTO.getFirstName());
         musician.setLastName(musicianDTO.getLastName());
@@ -324,6 +318,7 @@ public class MusicianService {
         musician.setAlbumsSortType(musicianDTO.getAlbumsSortType());
         musician.setCompositionsSortType(musicianDTO.getCompositionsSortType());
         musician.setSpotifyLink(musicianDTO.getSpotifyLink());
+        musician.setDateNotification(musicianDTO.getDateNotification());
     }
 
     public String musicianSlugIsExist(String musicianSlug) {
@@ -338,18 +333,36 @@ public class MusicianService {
         return musicianRepository.findFirst20ByOrderByCreatedDesc();
     }
 
-    public Set<Musician> getAllWithCurrentBirth() {
+    public Set<Musician> getAllWithCurrentBirth(Integer dayInterval) {
         Set<Musician> musicianBirthList = new HashSet<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < dayInterval; i++) {
             musicianBirthList.addAll(musicianRepository.findAllWithCurrentBirth(LocalDate.now().plusDays(i)));
         }
         return musicianBirthList;
     }
 
-    public Set<Musician> getAllWithCurrentDeath() {
+    public Set<Musician> getAllWithCurrentDeath(Integer dayInterval) {
         Set<Musician> musicianDeathList = new HashSet<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < dayInterval; i++) {
             musicianDeathList.addAll(musicianRepository.findAllWithCurrentDeath(LocalDate.now().plusDays(i)));
+        }
+        return musicianDeathList;
+    }
+
+    public Set<Musician> getAllWithCurrentBirthAndNotification(Integer dayInterval) {
+        Set<Musician> musicianBirthList = new HashSet<>();
+        for (int i = 0; i < dayInterval; i++) {
+            musicianBirthList.addAll(musicianRepository
+                    .findAllWithCurrentBirthAndNotification(LocalDate.now().plusDays(i), true));
+        }
+        return musicianBirthList;
+    }
+
+    public Set<Musician> getAllWithCurrentDeathAndNotification(Integer dayInterval) {
+        Set<Musician> musicianDeathList = new HashSet<>();
+        for (int i = 0; i < dayInterval; i++) {
+            musicianDeathList.addAll(musicianRepository
+                    .findAllWithCurrentDeathAndNotification(LocalDate.now().plusDays(i), true));
         }
         return musicianDeathList;
     }

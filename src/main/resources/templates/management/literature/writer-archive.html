@@ -31,6 +31,7 @@
                 <th>death date</th>
                 <th>birthplace</th>
                 <th>occupation</th>
+                <th>notification</th>
                 <th>edit</th>
                 <th>delete</th>
             </tr>
@@ -48,6 +49,7 @@
                 <td th:text="${writer.deathDate}"></td>
                 <td th:text="${writer.birthplace}"></td>
                 <td th:text="${writer.occupation}"></td>
+                <td th:text="${writer.dateNotification}"></td>
                 <td class="td-settings">
                     <a target="_blank"
                        th:href="${'/management/writer/edit/' + writer.slug}">edit</a>

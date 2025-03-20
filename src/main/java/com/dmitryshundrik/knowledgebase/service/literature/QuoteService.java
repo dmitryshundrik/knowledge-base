@@ -37,27 +37,11 @@ public class QuoteService {
     }
 
     public List<Quote> getAllSortedByCreatedDesc() {
-        return quoteRepository.getAllByOrderByCreatedDesc();
-    }
-
-    public List<Quote> getAllByWriterSortedByYearAndPage(Writer writer) {
-        List<Quote> allQuotes = quoteRepository.findAllByWriter(writer);
-        List<Prose> allSortedProse = allQuotes.stream()
-                .map(Quote::getProse)
-                .filter(Objects::nonNull).distinct()
-                .sorted(Comparator.comparing(Prose::getYear)).toList();
-
-        List<Quote> allSortedQuotes = new ArrayList<>();
-        for (Prose prose : allSortedProse) {
-            prose.getQuoteList().sort(Comparator.comparing(Quote::getPage));
-            allSortedQuotes.addAll(prose.getQuoteList());
-        }
-        allSortedQuotes.addAll(allQuotes.stream().filter(quote -> quote.getProse() == null).toList());
-        return allSortedQuotes;
+        return quoteRepository.findAllByOrderByCreatedDesc();
     }
 
     public List<Quote> getAllByWriterSortedByCreatedDesc(Writer writer) {
-        return quoteRepository.getAllByWriterOrderByCreatedDesc(writer);
+        return quoteRepository.findAllByWriterOrderByCreatedDesc(writer);
     }
 
     public Quote createQuote(QuoteCreateEditDTO quoteDTO, Writer writer, Prose prose) {

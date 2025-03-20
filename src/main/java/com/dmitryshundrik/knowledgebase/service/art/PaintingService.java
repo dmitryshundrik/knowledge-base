@@ -35,30 +35,30 @@ public class PaintingService {
     }
 
     public Painting getBySlug(String paintingSlug) {
-        return paintingRepository.getBySlug(paintingSlug);
+        return paintingRepository.findBySlug(paintingSlug);
     }
 
     public List<Painting> getAllSortedByCreatedDesc() {
-        return paintingRepository.getAllByOrderByCreatedDesc();
+        return paintingRepository.findAllByOrderByCreatedDesc();
     }
 
     public List<Painting> getAllByArtistSortedByYear2(Artist artist) {
-        return paintingRepository.getAllByArtistOrderByYear2(artist);
+        return paintingRepository.findAllByArtistOrderByYear2(artist);
     }
 
     public List<Painting> getAllByArtistSortedByCreatedDesk(Artist artist) {
-        return paintingRepository.getAllByArtistOrderByCreatedDesc(artist);
+        return paintingRepository.findAllByArtistOrderByCreatedDesc(artist);
     }
 
     public List<Painting> getBestPaintingsByArtist(Artist artist) {
-        List<Painting> paintingList = paintingRepository.getAllByArtistAndArtistTopRankNotNull(artist);
+        List<Painting> paintingList = paintingRepository.findAllByArtistAndArtistTopRankNotNull(artist);
         return paintingList.stream()
                 .sorted(Comparator.comparing(Painting::getArtistTopRank))
                 .collect(Collectors.toList());
     }
 
     public List<Painting> getAllTimeBestPaintings() {
-        List<Painting> paintingList = paintingRepository.getAllByAndAllTimeTopRankNotNull();
+        List<Painting> paintingList = paintingRepository.findAllByAndAllTimeTopRankNotNull();
         return paintingList.stream()
                 .sorted(Comparator.comparing(Painting::getAllTimeTopRank))
                 .collect(Collectors.toList());

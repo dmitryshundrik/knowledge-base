@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.List;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.CLASSICAL_MUSIC_GENRES;
 import static com.dmitryshundrik.knowledgebase.util.Constants.CONTEMPORARY_MUSIC_GENRES;
@@ -45,9 +44,14 @@ public class MusicianManagementController {
 
     @GetMapping("/management/musician/all")
     public String getAllMusicians(Model model) {
-        List<Musician> allMusicians = musicianService.getAllMusiciansOrderedByCreatedDesc();
-        model.addAttribute(MUSICIAN_LIST, musicianService.getAllMusicianManagementResponseDto(allMusicians));
-        return "management/music/musician-all";
+        model.addAttribute(MUSICIAN_LIST, musicianService.getAllMusicianManagementResponseDto());
+        return "management/music/musician-archive";
+    }
+
+    @GetMapping("/management/musician/all-detailed")
+    public String getAllMusiciansDetailed(Model model) {
+        model.addAttribute(MUSICIAN_LIST, musicianService.getAllMusicianManagementDetailedResponseDto());
+        return "management/music/musician-archive-detailed";
     }
 
     @GetMapping("/management/musician/create")

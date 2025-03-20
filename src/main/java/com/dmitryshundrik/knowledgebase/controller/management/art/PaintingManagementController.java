@@ -106,6 +106,6 @@ public class PaintingManagementController {
     @DeleteMapping("/management/artist/edit/{artistSlug}/painting/delete/{paintingSlug}")
     public String deletePaintingBySlug(@PathVariable String artistSlug, @PathVariable String paintingSlug) {
         paintingService.deletePaintingBySlug(paintingSlug);
-        return "redirect:/management/artist/edit/" + artistSlug;
+        return "redirect:/management/painting/all";
     }
 }

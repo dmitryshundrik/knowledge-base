@@ -2,6 +2,8 @@ package com.dmitryshundrik.knowledgebase.controller.management;
 
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
+import com.dmitryshundrik.knowledgebase.service.cinema.CriticsListService;
+import com.dmitryshundrik.knowledgebase.service.cinema.FilmService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
 import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
@@ -41,6 +43,10 @@ public class ManagementPageController {
 
     private final PaintingService paintingService;
 
+    private final FilmService filmService;
+
+    private final CriticsListService criticsListService;
+
     @GetMapping()
     public String getManagementPage(Model model) {
         model.addAttribute("musicianCount", musicianService.getMusicianRepositorySize());
@@ -53,6 +59,8 @@ public class ManagementPageController {
         model.addAttribute("quoteCount", quoteService.getQuoteRepositorySize());
         model.addAttribute("artistCount", artistService.getArtistRepositorySize());
         model.addAttribute("paintingCount", paintingService.getPaintingRepositorySize());
+        model.addAttribute("filmCount", filmService.getFilmRepositorySize());
+        model.addAttribute("criticsListCount", criticsListService.getCriticsListRepositorySize());
         return "management/management-page";
     }
 }

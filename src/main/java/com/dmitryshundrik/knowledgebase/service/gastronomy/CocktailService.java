@@ -32,7 +32,7 @@ public class CocktailService {
     }
 
     public List<Cocktail> getAllBySortedByCreatedDesc() {
-        return cocktailRepository.getAllByOrderByCreatedDesc();
+        return cocktailRepository.findAllByOrderByCreatedDesc();
     }
 
     public Cocktail getBySlug(String cocktailSLug) {

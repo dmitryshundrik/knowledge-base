@@ -47,7 +47,7 @@ public class WriterService {
     }
 
     public List<Writer> getAllSortedByCreatedDesc() {
-        return writerRepository.getAllByOrderByCreatedDesc();
+        return writerRepository.findAllByOrderByCreatedDesc();
     }
 
     public Writer getBySlug(String writerSlug) {
@@ -105,6 +105,7 @@ public class WriterService {
                         .limit(10).collect(Collectors.toList())))
                 .wordList(wordService.getWordDTOList(wordService.getAllByWriterSortedByCreatedDesc(writer).stream()
                         .limit(20).collect(Collectors.toList())))
+                .dateNotification(writer.getDateNotification())
                 .build();
     }
 
@@ -131,6 +132,7 @@ public class WriterService {
                 .proseList(proseService.getProseViewDTOList(proseService.getAllByWriterSortedByYear(writer)))
                 .quoteList(quoteService.getQuoteViewDTOList(quoteService.getAllByWriterSortedByCreatedDesc(writer)))
                 .wordList(wordService.getWordDTOList(wordService.getAllByWriterSortedByCreatedDesc(writer)))
+                .dateNotification(writer.getDateNotification())
                 .build();
     }
 
@@ -146,6 +148,7 @@ public class WriterService {
         writer.setDeathDate(writerDTO.getDeathDate());
         writer.setBirthplace(writerDTO.getBirthplace().trim());
         writer.setOccupation(writerDTO.getOccupation().trim());
+        writer.setDateNotification(writerDTO.getDateNotification());
     }
 
     public String writerSlugIsExist(String writerSlug) {
@@ -160,18 +163,36 @@ public class WriterService {
         return writerRepository.findFirst20ByOrderByCreatedDesc();
     }
 
-    public Set<Writer> getAllWithCurrentBirth() {
+    public Set<Writer> getAllWithCurrentBirth(Integer dayInterval) {
         Set<Writer> writerBirthList = new HashSet<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < dayInterval; i++) {
             writerBirthList.addAll(writerRepository.findAllWithCurrentBirth(LocalDate.now().plusDays(i)));
         }
         return writerBirthList;
     }
 
-    public Set<Writer> getAllWithCurrentDeath() {
+    public Set<Writer> getAllWithCurrentDeath(Integer dayInterval) {
         Set<Writer> writerDeathList = new HashSet<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < dayInterval; i++) {
             writerDeathList.addAll(writerRepository.findAllWithCurrentDeath(LocalDate.now().plusDays(i)));
+        }
+        return writerDeathList;
+    }
+
+    public Set<Writer> getAllWithCurrentBirthAndNotification(Integer dayInterval) {
+        Set<Writer> writerBirthList = new HashSet<>();
+        for (int i = 0; i < dayInterval; i++) {
+            writerBirthList.addAll(writerRepository
+                    .findAllWithCurrentBirthAndNotification(LocalDate.now().plusDays(i), true));
+        }
+        return writerBirthList;
+    }
+
+    public Set<Writer> getAllWithCurrentDeathAndNotification(Integer dayInterval) {
+        Set<Writer> writerDeathList = new HashSet<>();
+        for (int i = 0; i < dayInterval; i++) {
+            writerDeathList.addAll(writerRepository
+                    .findAllWithCurrentDeathAndNotification(LocalDate.now().plusDays(i), true));
         }
         return writerDeathList;
     }

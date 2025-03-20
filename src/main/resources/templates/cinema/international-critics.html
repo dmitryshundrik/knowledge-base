@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>Международная критика</title>
+    <link th:href="@{/styles/cinema/critics-list-entity-all.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+    <header class="table-title">
+        <h3>Международная критика</h3>
+        <p class="table-title-note">списки и рейтинги лучших фильмов по мнению различных кинокритиков, изданий
+            и порталов</p>
+    </header>
+    <div class="table-body">
+        <article class="table-body-item">
+            <section class="table-body-item-section" th:each="criticsList : ${criticsListList}">
+                <div class="critics-list-title">
+                    <span th:if="${criticsList.title} != null">
+                        <span th:text="${criticsList.title}"></span>
+                    </span>
+                    <span th:if="${criticsList.year} != null" th:text="${criticsList.year}"></span>
+                </div>
+                <div class="critics-list-description">
+                    <span th:text="'Топ-10 фильмов по версии ' + ${criticsList.title} + ':'"> </span>
+                </div>
+                <div class="critics-list-synopsis">
+                    <span th:if="${criticsList.synopsis} != null">
+                        <span th:utext="${criticsList.synopsis}"></span>
+                    </span>
+                </div>
+            </section>
+        </article>
+    </div>
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

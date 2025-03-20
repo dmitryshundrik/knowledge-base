@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link th:href="@{/styles/management/entity-create-edit-management.css}" rel="stylesheet">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+    <header class="table-title">
+        <h4>изменить prose</h4>
+    </header>
+    <div class="table-body">
+        <article class="table-body-item">
+            <form class="form"
+                  th:action="${'/management/film/edit/' + film.slug}"
+                  th:method="put"
+                  th:object="${film}">
+
+                <section class="form-item">
+                    <label>title</label>
+                    <input type="text" th:field="*{title}" maxlength="255"/>
+                </section>
+                <p class="error" th:if="${#fields.hasErrors('title')}" th:errorclass="error" th:errors="*{title}"></p>
+
+                <section class="form-item">
+                    <label>slug</label>
+                    <input type="text" th:field="*{slug}" maxlength="255"/>
+                </section>
+                <p class="error" th:if="${#fields.hasErrors('slug')}" th:errorclass="error"
+                   th:errors="*{slug}"></p>
+                <p class="error" th:if="${not #strings.isEmpty('slug')}" th:text="${slug}"></p>
+
+                <section class="form-item">
+                    <label>director</label>
+                    <input type="text" th:field="*{director}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>starring</label>
+                    <input type="text" th:field="*{starring}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>year</label>
+                    <input type="number" th:field="*{year}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>rating</label>
+                    <input type="number" step="0.5" th:field="*{rating}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>yearRank</label>
+                    <input type="number" step="0.5" th:field="*{yearRank}"/>
+                </section>
+
+                <section class="form-item">
+                    <label>allTimeRank</label>
+                    <input type="number" step="0.5" th:field="*{allTimeRank}"/>
+                </section>
+
+                <section class="form-item major-field">
+                    <label>synopsis</label>
+                    <textarea th:field="*{synopsis}"></textarea>
+                </section>
+
+                <input class="input-submit" type="submit" value="Обновить"/>
+            </form>
+        </article>
+
+        <header class="table-title">
+            <h4>изменить image</h4>
+        </header>
+        <article class="table-body-item">
+            <form class="form"
+                  th:action="${'/management/film/edit/' + film.slug + '/image/upload'}"
+                  th:method="post"
+                  enctype="multipart/form-data">
+
+                <section class="form-item">
+                    <label>image</label>
+                    <input type="file" name="file" accept="image/*">
+                </section>
+
+                <button class="input-submit" type="submit">Загрузить</button>
+            </form>
+
+            <section class="entity-image">
+                <img alt="" th:src="|data:image;base64,${film.image}|">
+            </section>
+
+            <form class="form"
+                  th:action="${'/management/film/edit/' + film.slug + '/image/delete'}"
+                  th:method="delete">
+                <input class="input-submit" type="submit" value="Удалить">
+            </form>
+        </article>
+    </div>
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

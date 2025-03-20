@@ -10,6 +10,7 @@ import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,7 @@ public class ImageService {
     }
 
     public List<Image> getAllSortedByCreatedDesc() {
-        return imageRepository.getAllByOrderByCreatedDesc();
+        return imageRepository.findAllByOrderByCreatedDesc();
     }
 
     public List<Image> getSortedByCreatedDesc(List<Image> imageList) {
@@ -35,11 +36,12 @@ public class ImageService {
     }
 
     public Image getBySlug(String imageSlug) {
-        return imageRepository.getBySlug(imageSlug);
+        return imageRepository.findBySlug(imageSlug);
     }
 
     public ImageDTO createImage(ImageDTO imageDTO) {
         Image image = new Image();
+        image.setCreated(Instant.now());
         image.setTitle(imageDTO.getTitle().trim());
         image.setSlug(InstantFormatter.instantFormatterYMD(image.getCreated()) + "-" + imageDTO.getSlug());
         image.setDescription(imageDTO.getDescription());

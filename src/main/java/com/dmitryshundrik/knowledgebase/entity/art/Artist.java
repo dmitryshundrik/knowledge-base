@@ -76,4 +76,7 @@ public class Artist extends AbstractEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "artist")
     @OrderBy("created")
     private List<Painting> paintingList;
+
+    @Column(name = "DATE_NOTIFICATION")
+    private Boolean dateNotification;
 }

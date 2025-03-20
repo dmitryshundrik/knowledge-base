@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface ImageRepository extends JpaRepository<Image, UUID> {
 
-    Image getBySlug(String imageSlug);
+    Image findBySlug(String imageSlug);
 
-    List<Image> getAllByOrderByCreatedDesc();
+    List<Image> findAllByOrderByCreatedDesc();
 }

@@ -45,7 +45,7 @@ public class AlbumManagementController {
     @GetMapping("/management/musician/edit/{musicianSlug}/album/create")
     public String getCreateAlbum(@PathVariable String musicianSlug, Model model) {
         AlbumCreateEditDTO albumDTO = new AlbumCreateEditDTO();
-        musicianService.setFieldsToAlbumDTO(musicianSlug, albumDTO);
+        musicianService.setFieldsToAlbumDto(musicianSlug, albumDTO);
         model.addAttribute(ALBUM, albumDTO);
         model.addAttribute(ALBUM_COLLABORATORS, MusicianDtoTransformer
                 .getMusicianSelectDtoList(musicianService.getAll()));
@@ -59,7 +59,7 @@ public class AlbumManagementController {
                                   @Valid @ModelAttribute(ALBUM) AlbumCreateEditDTO albumDTO,
                                   BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            musicianService.setFieldsToAlbumDTO(musicianSlug, albumDTO);
+            musicianService.setFieldsToAlbumDto(musicianSlug, albumDTO);
             model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenresSortedByTitle());
             model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenresSortedByTitle());
             return "management/music/album-create";

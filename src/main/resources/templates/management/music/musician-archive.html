@@ -13,7 +13,8 @@
 
     <header class="table-title">
         <h4>архив musician</h4>
-        <a target="_blank" href="/management/musician/create">создать musician</a>
+        <a target="_blank" href="/management/musician/create">создать musician</a> <br>
+        <a target="_blank" href="/management/musician/all-detailed"> открыть подробрный архив musician</a>
     </header>
 
     <div class="table-body">
@@ -21,20 +22,16 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>created</th>
                 <th>nick name</th>
                 <th>slug</th>
-                <th>gender</th>
+                <th>page</th>
                 <th>born</th>
                 <th>died</th>
                 <th>founded</th>
                 <th>birthplace</th>
                 <th>based</th>
                 <th>occupation</th>
-                <th>catalog title</th>
-                <th>period</th>
-                <th>genres</th>
-                <th>image</th>
+                <th>notification</th>
                 <th>edit</th>
                 <th>delete</th>
             </tr>
@@ -42,32 +39,18 @@
             <tbody>
             <tr th:each="musician : ${musicianList}">
                 <th th:text="${musicianList.size - musicianStat.index}"></th>
-                <td th:text="${musician.created}"></td>
                 <td th:text="${musician.nickName}"></td>
                 <td th:text="${musician.slug}"></td>
-                <td th:text="${musician.gender}"></td>
+                <td>
+                    <a target="_blank" th:href="${'/music/musician/' + musician.slug}">link</a>
+                </td>
                 <td th:text="${musician.born}"></td>
                 <td th:text="${musician.died}"></td>
                 <td th:text="${musician.founded}"></td>
                 <td th:text="${musician.birthplace}"></td>
                 <td th:text="${musician.based}"></td>
                 <td th:text="${musician.occupation}"></td>
-                <td th:text="${musician.catalogTitle}"></td>
-                <td>
-                    <span th:if="${not #lists.isEmpty(musician.musicPeriods)}"
-                          th:each="period : ${musician.musicPeriods}">
-                        <span th:text="${period.title}"></span>
-                    </span>
-                </td>
-                <td>
-                    <span th:if="${not #lists.isEmpty(musician.musicGenres)}"
-                          th:each="genre : ${musician.musicGenres}">
-                        <span th:text="${genre.title}"></span>
-                    </span>
-                </td>
-                <td>
-                    <span th:if="${not #strings.isEmpty(musician.image)}">pic</span>
-                </td>
+                <td th:text="${musician.dateNotification}"></td>
                 <td class="td-settings">
                     <a target="_blank" th:href="${'/management/musician/edit/' + musician.slug}">edit</a>
                 </td>

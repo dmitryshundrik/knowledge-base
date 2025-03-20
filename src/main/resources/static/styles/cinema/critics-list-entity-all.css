@@ -1,0 +1,51 @@
+
+.table-title {
+    padding: 30px 30px;
+    text-align: center;
+}
+
+.table-title p {
+    font-size: smaller;
+    font-style: italic;
+}
+
+.table-body {
+    padding: 0 30px;
+}
+
+.table-body-item {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.table-body-item-section {
+    max-width: 321px;
+    border: 1px solid gray;
+    padding: 10px;
+}
+
+.critics-list-title {
+    font-weight: bold;
+}
+
+.critics-list-synopsis {
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .table-title {
+        font-size: large;
+    }
+
+    .table-body-item {
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+    }
+
+    .table-body-item-section {
+        max-width: unset;
+    }
+}

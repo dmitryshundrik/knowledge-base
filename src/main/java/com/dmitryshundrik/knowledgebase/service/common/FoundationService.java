@@ -27,7 +27,7 @@ public class FoundationService {
     }
 
     public List<Foundation> getAllSortedByCreated() {
-        return foundationRepository.getAllByOrderByCreatedAsc();
+        return foundationRepository.findAllByOrderByCreatedAsc();
     }
 
     public Foundation createFoundation(FoundationDTO foundationDTO) {

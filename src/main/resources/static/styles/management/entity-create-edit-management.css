@@ -68,7 +68,17 @@
 
 .event-major-field textarea{
     width: 60%;
-    height: 443px;
+    height: 442px;
+}
+
+.film-major-field textarea {
+    width: 60%;
+    height: 284px;
+}
+
+.critics-list-major-field textarea{
+    width: 60%;
+    height: 442px;
 }
 
 .major-field select {

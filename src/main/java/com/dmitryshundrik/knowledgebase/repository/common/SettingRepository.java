@@ -6,5 +6,5 @@ import java.util.UUID;
 
 public interface SettingRepository extends JpaRepository<Setting, UUID> {
 
-    Setting getByName(String settingName);
+    Setting findByName(String settingName);
 }

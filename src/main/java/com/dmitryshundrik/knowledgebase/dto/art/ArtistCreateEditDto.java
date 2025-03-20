@@ -54,4 +54,6 @@ public class ArtistCreateEditDto {
     private List<PersonEvent> events;
 
     private List<PaintingViewDto> paintingList;
+
+    private Boolean dateNotification;
 }

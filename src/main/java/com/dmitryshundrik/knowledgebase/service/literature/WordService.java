@@ -24,15 +24,15 @@ public class WordService {
     }
 
     public List<Word> getAllSortedByCreatedDesc() {
-        return wordRepository.getAllByOrderByCreatedDesc();
+        return wordRepository.findAllByOrderByCreatedDesc();
     }
 
     public List<Word> getAllByWriterSortedByCreatedDesc(Writer writer) {
-        return wordRepository.getAllByWriterOrderByCreatedDesc(writer);
+        return wordRepository.findAllByWriterOrderByCreatedDesc(writer);
     }
 
     public List<Word> getAllByWriterSortedByTitle(Writer writer) {
-        return wordRepository.getAllByWriterOrderByTitle(writer);
+        return wordRepository.findAllByWriterOrderByTitle(writer);
     }
 
     public Word getById(String wordId) {

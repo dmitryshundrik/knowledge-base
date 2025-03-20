@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>Топ 20 лучших фильмов</title>
+    <link th:href="@{/styles/cinema/cinema-entity-all.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+    <header class="table-title">
+        <h3>Топ 20 лучших фильмов</h3>
+        <p>в процессе...</p>
+    </header>
+    <div class="table-body">
+        <article class="table-body-item">
+            <section class="table-body-item-row film-section" th:each="film : ${filmList}">
+                <div class="film-title">
+                    <span class="film-index" th:text="${#numbers.formatInteger(film.allTimeRank(),0)} + '. '"></span>
+                    <span th:if="${film.director} != null">
+                        <span th:text="${film.director} + ': '"> </span>
+                    </span>
+                    <span th:text="${film.title}"></span>
+                    <span th:if="${film.year} != null" th:text="'(' + ${film.year} + ')'"></span>
+                </div>
+                <div class="film-starring">
+                    <span th:if="${film.starring} != null">
+                        <span th:text="'В ролях: ' + ${film.starring}"> </span>
+                    </span>
+                </div>
+                <div class="film-synopsis">
+                    <span th:if="${film.synopsis} != null">
+                        <span th:text="${film.synopsis}"> </span>
+                    </span>
+                </div>
+                <div class="film-image" th:if="${film.image} != null">
+                    <img th:src="|data:image;base64,${film.image}|" th:alt="${film.title}">
+                </div>
+            </section>
+        </article>
+    </div>
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

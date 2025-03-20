@@ -24,33 +24,33 @@ public class MusicGenreService {
     }
 
     public MusicGenre getMusicGenreBySlug(String musicGenreSlug) {
-        return musicGenreRepository.getBySlug(musicGenreSlug);
+        return musicGenreRepository.findBySlug(musicGenreSlug);
     }
 
     public List<MusicGenre> getAllClassicalGenres() {
-        return musicGenreRepository.getAllByMusicGenreType(MusicGenreType.CLASSICAL);
+        return musicGenreRepository.findAllByMusicGenreType(MusicGenreType.CLASSICAL);
     }
 
     public List<MusicGenre> getAllClassicalGenresSortedByTitle() {
-        return musicGenreRepository.getAllByMusicGenreTypeOrderByTitle(MusicGenreType.CLASSICAL);
+        return musicGenreRepository.findAllByMusicGenreTypeOrderByTitle(MusicGenreType.CLASSICAL);
     }
 
     public List<MusicGenre> getAllContemporaryGenres() {
-        return musicGenreRepository.getAllByMusicGenreType(MusicGenreType.CONTEMPORARY);
+        return musicGenreRepository.findAllByMusicGenreType(MusicGenreType.CONTEMPORARY);
     }
 
     public List<MusicGenre> getAllContemporaryGenresSortedByTitle() {
-        return musicGenreRepository.getAllByMusicGenreTypeOrderByTitle(MusicGenreType.CONTEMPORARY);
+        return musicGenreRepository.findAllByMusicGenreTypeOrderByTitle(MusicGenreType.CONTEMPORARY);
     }
 
     public List<MusicGenre> getFilteredClassicalGenres() {
         musicGenreRepository.updateClassicalMusicGenreSetCount();
-        return musicGenreRepository.getAllByMusicGenreTypeAndCountIsNotNullOrderByCountDesc(MusicGenreType.CLASSICAL);
+        return musicGenreRepository.findAllByMusicGenreTypeAndCountIsNotNullOrderByCountDesc(MusicGenreType.CLASSICAL);
     }
 
     public List<MusicGenre> getFilteredContemporaryGenres() {
         musicGenreRepository.updateContemporaryMusicGenreSetCount();
-        return musicGenreRepository.getAllByMusicGenreTypeAndCountIsNotNullOrderByCountDesc(MusicGenreType.CONTEMPORARY);
+        return musicGenreRepository.findAllByMusicGenreTypeAndCountIsNotNullOrderByCountDesc(MusicGenreType.CONTEMPORARY);
     }
 
     public String createMusicGenre(MusicGenreCreateEditDTO genreDTO) {

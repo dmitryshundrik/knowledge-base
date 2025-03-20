@@ -61,11 +61,11 @@ public class SettingService {
     }
 
     public Integer getTimeIntervalForUpdates() {
-        return Integer.valueOf(settingRepository.getByName(TIME_INTERVAL_FOR_UPDATES).getValue());
+        return Integer.valueOf(settingRepository.findByName(TIME_INTERVAL_FOR_UPDATES).getValue());
     }
 
     public Integer getLimitForUpdates() {
-        return Integer.valueOf(settingRepository.getByName(LIMIT_FOR_UPDATES).getValue());
+        return Integer.valueOf(settingRepository.findByName(LIMIT_FOR_UPDATES).getValue());
     }
 
     public void deleteSettingById(String settingId) {

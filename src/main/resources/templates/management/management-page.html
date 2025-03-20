@@ -10,13 +10,10 @@
 <header th:insert="fragments/header.html"></header>
 
 <main class="table">
-
     <header class="table-title">
         <h4>управление database</h4>
     </header>
-
     <div class="table-body">
-
         <div class="table-body-item">
             <article class="table-body-item-col">
                 <h3>Статистика</h3>
@@ -31,6 +28,8 @@
                     <span>цитаты: <span th:text="${quoteCount}"></span></span>
                     <span>художники: <span th:text="${artistCount}"></span></span>
                     <span>картины: <span th:text="${paintingCount}"></span></span>
+                    <span>фильмы: <span th:text="${filmCount}"></span></span>
+                    <span>кинокритика: <span th:text="${criticsListCount}"></span></span>
                 </section>
             </article>
 
@@ -88,10 +87,14 @@
                 <a href="/management/museum/all">Музеи</a>
                 <a href="/management/theatre/all">Театры</a>
             </article>
+
+            <article class="table-body-item-col">
+                <h3>Кино</h3>
+                <a href="/management/film/all">Фильмы</a>
+                <a href="/management/critics-list/all">Международная критика</a>
+            </article>
         </div>
-
     </div>
-
 </main>
 
 <footer th:insert="fragments/footer.html"></footer>

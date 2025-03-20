@@ -1,6 +1,5 @@
 package com.dmitryshundrik.knowledgebase.service.art;
 
-import com.dmitryshundrik.knowledgebase.exception.NotFoundException;
 import com.dmitryshundrik.knowledgebase.mapper.art.ArtistMapper;
 import com.dmitryshundrik.knowledgebase.entity.art.Artist;
 import com.dmitryshundrik.knowledgebase.dto.art.ArtistCreateEditDto;
@@ -16,7 +15,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import static com.dmitryshundrik.knowledgebase.util.Constants.ARTIST_NOT_FOUND_BY_SLUG;
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.UNKNOWN;
 
@@ -40,15 +38,15 @@ public class ArtistService {
     }
 
     public List<Artist> getAllSortedByBorn() {
-        return unknownFilter(artistRepository.getAllByOrderByBorn());
+        return unknownFilter(artistRepository.findAllByOrderByBorn());
     }
 
     public List<Artist> getAllSortedByCreatedDesc() {
-        return unknownFilter(artistRepository.getAllByOrderByCreatedDesc());
+        return unknownFilter(artistRepository.findAllByOrderByCreatedDesc());
     }
 
     public Artist getBySlug(String artistSlug) {
-        return artistRepository.getBySlug(artistSlug).orElse(null);
+        return artistRepository.findBySlug(artistSlug).orElse(null);
     }
 
     public Artist createArtist(ArtistCreateEditDto artistDTO) {
@@ -113,6 +111,7 @@ public class ArtistService {
                 .paintingList(paintingService
                         .getPaintingViewDtoList(paintingService
                                 .getAllByArtistSortedByYear2(artist)))
+                .dateNotification(artist.getDateNotification())
                 .build();
     }
 
@@ -128,18 +127,36 @@ public class ArtistService {
         return unknownFilter(artistRepository.findFirst20ByOrderByCreatedDesc());
     }
 
-    public Set<Artist> getAllWithCurrentBirth() {
+    public Set<Artist> getAllWithCurrentBirth(Integer dayInterval) {
         Set<Artist> artistBirthList = new HashSet<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < dayInterval; i++) {
             artistBirthList.addAll(artistRepository.findAllWithCurrentBirth(LocalDate.now().plusDays(i)));
         }
         return artistBirthList;
     }
 
-    public Set<Artist> getAllWithCurrentDeath() {
+    public Set<Artist> getAllWithCurrentDeath(Integer dayInterval) {
         Set<Artist> artistDeathList = new HashSet<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < dayInterval; i++) {
             artistDeathList.addAll(artistRepository.findAllWithCurrentDeath(LocalDate.now().plusDays(i)));
+        }
+        return artistDeathList;
+    }
+
+    public Set<Artist> getAllWithCurrentBirthAndNotification(Integer dayInterval) {
+        Set<Artist> artistBirthList = new HashSet<>();
+        for (int i = 0; i < dayInterval; i++) {
+            artistBirthList.addAll(artistRepository
+                    .findAllWithCurrentBirthAndNotification(LocalDate.now().plusDays(i), true));
+        }
+        return artistBirthList;
+    }
+
+    public Set<Artist> getAllWithCurrentDeathAndNotification(Integer dayInterval) {
+        Set<Artist> artistDeathList = new HashSet<>();
+        for (int i = 0; i < dayInterval; i++) {
+            artistDeathList.addAll(artistRepository
+                    .findAllWithCurrentDeathAndNotification(LocalDate.now().plusDays(i), true));
         }
         return artistDeathList;
     }

@@ -49,4 +49,6 @@ public class WriterViewDTO {
     private List<QuoteViewDTO> quoteList;
 
     private List<WordDTO> wordList;
+
+    private Boolean dateNotification;
 }

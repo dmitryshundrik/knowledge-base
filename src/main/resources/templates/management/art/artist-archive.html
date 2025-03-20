@@ -21,7 +21,6 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>created</th>
                 <th>nick name</th>
                 <th>slug</th>
                 <th>gender</th>
@@ -32,6 +31,7 @@
                 <th>approximate years</th>
                 <th>birthplace</th>
                 <th>occupation</th>
+                <th>notification</th>
                 <th>edit</th>
                 <th>delete</th>
             </tr>
@@ -39,7 +39,6 @@
             <tbody>
             <tr th:each="artist : ${artistList}">
                 <th th:text="${artistList.size - artistStat.index}"></th>
-                <td th:text="${artist.created}"></td>
                 <td th:text="${artist.nickName}"></td>
                 <td th:text="${artist.slug}"></td>
                 <td th:text="${artist.gender}"></td>
@@ -50,6 +49,7 @@
                 <th th:text="${artist.approximateYears}"></th>
                 <td th:text="${artist.birthplace}"></td>
                 <td th:text="${artist.occupation}"></td>
+                <td th:text="${artist.dateNotification}"></td>
                 <td class="td-settings">
                     <a target="_blank"
                        th:href="${'/management/artist/edit/' + artist.slug}">edit</a>

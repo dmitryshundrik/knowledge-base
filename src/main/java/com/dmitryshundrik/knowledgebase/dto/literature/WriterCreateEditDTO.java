@@ -56,4 +56,6 @@ public class WriterCreateEditDTO {
     private List<QuoteViewDTO> quoteList;
 
     private List<WordDTO> wordList;
+
+    private Boolean dateNotification;
 }

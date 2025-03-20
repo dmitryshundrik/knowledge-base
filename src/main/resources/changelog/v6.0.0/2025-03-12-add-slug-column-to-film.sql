@@ -1,0 +1,1 @@
+alter table film add column slug varchar(255);

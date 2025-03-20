@@ -51,7 +51,7 @@ public class CompositionManagementController {
     @GetMapping("/management/musician/edit/{musicianSlug}/composition/create")
     public String getCreateComposition(@PathVariable String musicianSlug, Model model) {
         CompositionCreateEditDTO compositionDTO = new CompositionCreateEditDTO();
-        musicianService.setFieldsToCompositionDTO(musicianSlug, compositionDTO);
+        musicianService.setFieldsToCompositionDto(musicianSlug, compositionDTO);
         List<AlbumSelectDTO> albumSelectDTOList = albumService
                 .getAlbumSelectDTOList(albumService
                         .getAllAlbumsByMusician(musicianService
@@ -72,7 +72,7 @@ public class CompositionManagementController {
                     .getAlbumSelectDTOList(albumService
                             .getAllAlbumsByMusician(musicianService
                                     .getMusicianBySlug(musicianSlug)));
-            musicianService.setFieldsToCompositionDTO(musicianSlug, compositionDTO);
+            musicianService.setFieldsToCompositionDto(musicianSlug, compositionDTO);
             model.addAttribute(ALBUM_LIST, albumDTOList);
             model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenresSortedByTitle());
             model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenresSortedByTitle());

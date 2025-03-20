@@ -11,4 +11,20 @@
         <sqlFile path="v6.0.0/2025-02-13-add-resource-type-column.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <changeSet id="24" author="dmitryshundrik">
+        <sqlFile path="v6.0.0/2025-03-11-create-film-table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="25" author="dmitryshundrik">
+        <sqlFile path="v6.0.0/2025-03-12-add-slug-column-to-film.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="26" author="dmitryshundrik">
+        <sqlFile path="v6.0.0/2025-03-13-create-critics-list-table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="27" author="dmitryshundrik">
+        <sqlFile path="v6.0.0/2025-03-15-add-notification-fields.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
