@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link th:href="@{/styles/management/spotify-playlist.css}" rel="stylesheet">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+
+    <header class="table-title">
+        <h4>spotify playlist</h4>
+        <p>возвращается детали плейлиста по id</p>
+    </header>
+
+    <div class="table-body">
+        <article class="table-body-item">
+            <form class="form"
+                  th:action="${'/management/spotify/playlists'}"
+                  th:method="post"
+                  th:object="${playlistId}">
+                <section class="form-item">
+                    <label>playlist id</label>
+                    <input type="text" th:field="*{id}" maxlength="255"/>
+                </section>
+                <input class="input-submit" type="submit" value="Получить плейлист"/>
+            </form>
+            <section th:if="${playlist} != null" class="form">
+                <h3 th:text="${'Плейлист: ' + playlist.name}"></h3>
+                <a th:href="${playlist.uri}"> (ссылка)</a>
+                <div class="form-item" th:each="item : ${playlist.getItems()}">
+                    <span th:text="${itemStat.index + 1 + '.' + ' ' + item.artist + ' - ' +
+                     item.name + ' ' + item.getAlbumReleaseDate}"></span>
+                </div>
+            </section>
+            <section th:if="${userPlaylists} != null" class="form">
+                <h3 th:text="${'Все плейлисты: ' + userPlaylists.getTotal()}"></h3>
+                <div class="form-item" th:each="item : ${userPlaylists.getItems()}">
+                    <span th:text="${item.name + ' - ' + item.id}"></span>
+                </div>
+            </section>
+        </article>
+    </div>
+
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

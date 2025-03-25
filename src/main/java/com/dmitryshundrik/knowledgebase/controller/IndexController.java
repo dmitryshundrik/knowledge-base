@@ -9,7 +9,7 @@ import com.dmitryshundrik.knowledgebase.service.common.EntityActivityService;
 import com.dmitryshundrik.knowledgebase.service.common.FoundationService;
 import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
 import com.dmitryshundrik.knowledgebase.service.music.YearInMusicService;
-import com.dmitryshundrik.knowledgebase.service.spotify.SpotifyIntegrationService;
+import com.dmitryshundrik.knowledgebase.service.spotify.SpotifyPlayerService;
 import com.dmitryshundrik.knowledgebase.util.enums.ResourceType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +40,7 @@ public class IndexController {
 
     private final CurrentEventService currentEventService;
 
-    private final SpotifyIntegrationService spotifyIntegrationService;
+    private final SpotifyPlayerService spotifyPlayerService;
 
     @Getter
     private static String version = "6.1.0";
@@ -72,6 +72,6 @@ public class IndexController {
     @PostMapping("/current-song")
     @ResponseBody
     public String getCurrentSongName() {
-        return spotifyIntegrationService.getCurrentSong();
+        return spotifyPlayerService.getCurrentSong();
     }
 }

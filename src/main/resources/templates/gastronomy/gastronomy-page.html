@@ -27,7 +27,6 @@
 
         <article class="table-body-item">
             <h3>Статьи</h3>
-            <span style="font-style: italic">В разработке</span>
             <span th:each="article : ${articles}">
                 <a th:text="${article.title}" th:href="'/gastronomy/article/' + ${article.slug}"></a>
             </span>

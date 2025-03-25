@@ -1,22 +1,12 @@
 package com.dmitryshundrik.knowledgebase.service.spotify;
 
-import com.dmitryshundrik.knowledgebase.entity.music.Album;
-import com.dmitryshundrik.knowledgebase.entity.music.Composition;
-import com.dmitryshundrik.knowledgebase.entity.music.MusicGenre;
-import com.dmitryshundrik.knowledgebase.entity.music.Musician;
-import com.dmitryshundrik.knowledgebase.entity.spotify.CurrentSong;
 import com.dmitryshundrik.knowledgebase.entity.spotify.RefreshToken;
-import com.dmitryshundrik.knowledgebase.entity.spotify.player.ItemArtistResponse;
-import com.dmitryshundrik.knowledgebase.entity.spotify.player.PlayerResponse;
 import com.dmitryshundrik.knowledgebase.repository.tools.RefreshTokenRepository;
-import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -44,23 +34,21 @@ import java.util.stream.Collectors;
 @Slf4j
 public class SpotifyIntegrationService {
 
-    private static final String URI_AUTHORIZE = "https://accounts.spotify.com/authorize";
+    public static final String URI_AUTHORIZE = "https://accounts.spotify.com/authorize";
 
-    private static final String CLIENT_ID = "client_id";
+    public static final String CLIENT_ID = "client_id";
 
-    private static final String RESPONSE_TYPE = "response_type";
+    public static final String RESPONSE_TYPE = "response_type";
 
-    private static final String SCOPE = "scope";
+    public static final String SCOPE = "scope";
 
-    private static final String REDIRECT_URI = "redirect_uri";
+    public static final String REDIRECT_URI = "redirect_uri";
 
-    private static final String GRANT_TYPE = "grant_type";
+    public static final String GRANT_TYPE = "grant_type";
 
-    private static final String CODE = "code";
+    public static final String CODE = "code";
 
     private final HttpClient httpClient = HttpClient.newHttpClient();
-
-    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Value("${knowledge.base.application.url}")
     private String applicationURI;
@@ -77,8 +65,6 @@ public class SpotifyIntegrationService {
     private String refreshToken;
 
     private final RefreshTokenRepository refreshTokenRepository;
-
-    private final MusicianService musicianService;
 
     public String getURLAuthorize() throws URISyntaxException, MalformedURLException {
         URIBuilder uriBuilder = new URIBuilder(URI_AUTHORIZE);
@@ -152,84 +138,9 @@ public class SpotifyIntegrationService {
         }
     }
 
-    public String getCurrentSong() {
-        CurrentSong currentSong = new CurrentSong();
-        try {
-            HttpRequest getPlayerRequest = HttpRequest.newBuilder()
-                    .uri(URI.create("https://api.spotify.com/v1/me/player"))
-                    .GET()
-                    .header("Authorization", "Bearer " + accessToken)
-                    .build();
-            HttpResponse<String> response = httpClient.send(getPlayerRequest, HttpResponse.BodyHandlers.ofString());
-            if (!"".equals(response.body())) {
-                PlayerResponse playerResponse = objectMapper.readValue(response.body(), PlayerResponse.class);
-                if (playerResponse.getActionsResponse() != null) {
-                    if (!playerResponse.getActionsResponse().getActionsDisallowsResponse().isPausing()) {
-                        currentSong = createCurrentSong(playerResponse);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            return objectMapper.writeValueAsString(currentSong);
-        } catch (JsonProcessingException e) {
-            return "{\"playing\": false}";
-        }
-    }
-
-    public RefreshToken createRefreshTokenEntity(String refreshToken) {
+    private RefreshToken createRefreshTokenEntity(String refreshToken) {
         RefreshToken refreshTokenEntity = new RefreshToken();
         refreshTokenEntity.setRefreshToken(refreshToken);
         return refreshTokenEntity;
-    }
-
-    public CurrentSong createCurrentSong(PlayerResponse playerResponse) {
-        CurrentSong currentSong = new CurrentSong();
-        String songName = playerResponse.getItem().getSongName();
-        String albumName = playerResponse.getItem().getItemAlbumResponse().getName();
-        String artists = StringUtils.join(playerResponse.getItem().getArtists().stream()
-                .map(ItemArtistResponse::getName).collect(Collectors.toList()), ", ");
-        String[] artistArray = artists.split(",");
-        String musicianNickname = artistArray[0];
-        Musician musicianByNickname = musicianService.getMusicianByNickname(musicianNickname);
-
-        currentSong.setImages(playerResponse.getItem().getItemAlbumResponse().getItemAlbumImageResponseList().get(0).getUrl());
-        currentSong.setArtists(musicianNickname);
-        if (musicianByNickname != null) {
-            currentSong.setArtistSlug("/music/musician/" + musicianByNickname.getSlug());
-        }
-        currentSong.setName(songName);
-        currentSong.setAlbumName(albumName);
-
-        if (musicianByNickname != null && !musicianByNickname.getCompositions().isEmpty()) {
-            for (Composition composition : musicianByNickname.getCompositions()) {
-                String compositionFullTitle = composition.getTitle() + " " + composition.getFeature();
-                if (songName.equalsIgnoreCase(compositionFullTitle.trim())) {
-                    currentSong.setMusicGenres(StringUtils.join(composition.getMusicGenres().stream()
-                            .map(MusicGenre::getTitle).collect(Collectors.toList()), ", "));
-                    if (composition.getYearEndRank() != null) {
-                        currentSong.setYearEndRank("Лучшие композиции " + composition.getYear() + " года: " +
-                                "#" + composition.getYearEndRank());
-                    }
-                }
-            }
-        }
-
-        if (musicianByNickname != null && !musicianByNickname.getAlbums().isEmpty()) {
-            for (Album album : musicianByNickname.getAlbums()) {
-                String albumTitle = album.getTitle();
-                if (album.getTitle().endsWith("EP")) {
-                    albumTitle = album.getTitle().substring(0, album.getTitle().length() - 2);
-                }
-                if (albumName.toLowerCase().contains(albumTitle.trim().toLowerCase())) {
-                    currentSong.setMusicGenres(StringUtils.join(album.getMusicGenres().stream()
-                            .map(MusicGenre::getTitle).collect(Collectors.toList()), ", "));
-                }
-            }
-        }
-        currentSong.setPlaying(true);
-        return currentSong;
     }
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <link th:href="@{/styles/management/spotify-integration.css}" rel="stylesheet">
+    <link th:href="@{/styles/management/spotify-player.css}" rel="stylesheet">
     <script th:src="@{/library/jquery-3.7.1.min.js}"></script>
 </head>
 <body>
@@ -13,7 +13,7 @@
 <script th:inline="javascript">
     var currentSong = function () {
         $.post({
-            url: "/management/spotify-integration/current-song-name"
+            url: "/management/spotify/player/current-song-name"
         }).then(function (result) {
             var object = $.parseJSON(result);
             if (object.playing) {
@@ -33,16 +33,15 @@
 <main class="table">
 
     <header class="table-title">
-        <h4>управление spotify integration</h4>
+        <h4>spotify player</h4>
     </header>
 
     <div class="table-body">
-
         <article class="table-body-item">
             <section class="table-body-item-col">
                 <div class="current-song" th:id="current-song-id" style="display: none">
                     <div class="current-song-image">
-                        <img th:id="current-song-image-id" alt="Current song image">
+                        <img th:id="current-song-image-id" alt="Current song image" src="">
                     </div>
                     <div class="current-song-title">
                         <span th:id="current-song-artists-id"></span>
@@ -53,7 +52,6 @@
                 </div>
             </section>
         </article>
-
     </div>
 
 </main>
