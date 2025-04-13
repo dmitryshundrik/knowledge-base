@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.controller.management.cinema;
 
-import com.dmitryshundrik.knowledgebase.dto.cinema.FilmArchiveDto;
-import com.dmitryshundrik.knowledgebase.dto.cinema.FilmCreateEditDto;
-import com.dmitryshundrik.knowledgebase.entity.cinema.Film;
+import com.dmitryshundrik.knowledgebase.model.dto.cinema.FilmArchiveDto;
+import com.dmitryshundrik.knowledgebase.model.dto.cinema.FilmCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.entity.cinema.Film;
 import com.dmitryshundrik.knowledgebase.service.cinema.FilmService;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;

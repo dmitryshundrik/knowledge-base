@@ -1,9 +1,9 @@
 package com.dmitryshundrik.knowledgebase.controller.management.literature;
 
 import com.dmitryshundrik.knowledgebase.util.enums.Gender;
-import com.dmitryshundrik.knowledgebase.entity.literature.Writer;
-import com.dmitryshundrik.knowledgebase.dto.literature.WriterCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.dto.literature.WriterViewDTO;
+import com.dmitryshundrik.knowledgebase.model.entity.literature.Writer;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterViewDTO;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;

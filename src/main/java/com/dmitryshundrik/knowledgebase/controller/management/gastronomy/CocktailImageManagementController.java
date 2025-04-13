@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.controller.management.gastronomy;
 
-import com.dmitryshundrik.knowledgebase.entity.common.Image;
-import com.dmitryshundrik.knowledgebase.dto.common.ImageDTO;
-import com.dmitryshundrik.knowledgebase.entity.gastronomy.Cocktail;
+import com.dmitryshundrik.knowledgebase.model.entity.common.Image;
+import com.dmitryshundrik.knowledgebase.model.dto.common.ImageDTO;
+import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
 import lombok.RequiredArgsConstructor;

@@ -20,7 +20,7 @@
     <scm>
         <developerConnection>scm:git:https://github.com/dmitryshundrik/knowledge-base.git</developerConnection>
         <tag>HEAD</tag>
-  </scm>
+    </scm>
     <dependencies>
         <!-- Spring Boot Starters -->
         <dependency>

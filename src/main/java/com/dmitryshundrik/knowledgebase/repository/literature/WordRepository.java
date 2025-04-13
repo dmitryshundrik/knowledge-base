@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.repository.literature;
 
-import com.dmitryshundrik.knowledgebase.entity.literature.Word;
-import com.dmitryshundrik.knowledgebase.entity.literature.Writer;
+import com.dmitryshundrik.knowledgebase.model.entity.literature.Word;
+import com.dmitryshundrik.knowledgebase.model.entity.literature.Writer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.UUID;

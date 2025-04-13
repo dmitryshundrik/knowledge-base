@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.controller.management.art;
 
-import com.dmitryshundrik.knowledgebase.entity.art.Artist;
-import com.dmitryshundrik.knowledgebase.dto.art.ArtistCreateEditDto;
-import com.dmitryshundrik.knowledgebase.dto.art.ArtistViewDto;
+import com.dmitryshundrik.knowledgebase.model.entity.art.Artist;
+import com.dmitryshundrik.knowledgebase.model.dto.art.ArtistCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.art.ArtistViewDto;
 import com.dmitryshundrik.knowledgebase.util.enums.Gender;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +52,7 @@ public class ArtistManagementController {
     @PostMapping("/management/artist/create")
     public String postArtistCreate(@Valid @ModelAttribute(ARTIST) ArtistCreateEditDto artistDTO,
                                     BindingResult bindingResult, Model model) {
-        String error = artistService.artistSlugIsExist(artistDTO.getSlug());
+        String error = artistService.isSlugExist(artistDTO.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute(SLUG, error);
             model.addAttribute(GENDER_LIST, Gender.values());

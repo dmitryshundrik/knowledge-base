@@ -1,18 +1,18 @@
 package com.dmitryshundrik.knowledgebase.service.common;
 
-import com.dmitryshundrik.knowledgebase.entity.art.Artist;
-import com.dmitryshundrik.knowledgebase.entity.art.Painting;
-import com.dmitryshundrik.knowledgebase.entity.common.EntityActivity;
-import com.dmitryshundrik.knowledgebase.entity.common.Resource;
-import com.dmitryshundrik.knowledgebase.entity.gastronomy.Cocktail;
-import com.dmitryshundrik.knowledgebase.entity.gastronomy.Recipe;
-import com.dmitryshundrik.knowledgebase.entity.literature.Prose;
-import com.dmitryshundrik.knowledgebase.entity.literature.Quote;
-import com.dmitryshundrik.knowledgebase.dto.literature.WriterEntityUpdateInfoDTO;
-import com.dmitryshundrik.knowledgebase.entity.music.Album;
-import com.dmitryshundrik.knowledgebase.entity.music.Composition;
-import com.dmitryshundrik.knowledgebase.dto.music.MusicianActivityDto;
-import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
+import com.dmitryshundrik.knowledgebase.model.entity.art.Artist;
+import com.dmitryshundrik.knowledgebase.model.entity.art.Painting;
+import com.dmitryshundrik.knowledgebase.model.entity.common.EntityActivity;
+import com.dmitryshundrik.knowledgebase.model.entity.common.Resource;
+import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Cocktail;
+import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Recipe;
+import com.dmitryshundrik.knowledgebase.model.entity.literature.Prose;
+import com.dmitryshundrik.knowledgebase.model.entity.literature.Quote;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterEntityUpdateInfoDTO;
+import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
+import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
+import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianActivityDto;
+import com.dmitryshundrik.knowledgebase.service.art.impl.ArtistServiceImpl;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
@@ -55,7 +55,7 @@ public class EntityActivityService {
 
     private final QuoteService quoteService;
 
-    private final ArtistService artistService;
+    private final ArtistServiceImpl artistService;
 
     private final PaintingService paintingService;
 

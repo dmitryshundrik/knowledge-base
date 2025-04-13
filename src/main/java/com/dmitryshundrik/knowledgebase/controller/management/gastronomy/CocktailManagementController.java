@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.controller.management.gastronomy;
 
-import com.dmitryshundrik.knowledgebase.entity.gastronomy.Cocktail;
-import com.dmitryshundrik.knowledgebase.dto.gastronomy.CocktailCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.dto.gastronomy.CocktailViewDTO;
+import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Cocktail;
+import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.CocktailCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.CocktailViewDTO;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

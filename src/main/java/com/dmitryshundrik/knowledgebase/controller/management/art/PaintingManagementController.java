@@ -1,9 +1,9 @@
 package com.dmitryshundrik.knowledgebase.controller.management.art;
 
-import com.dmitryshundrik.knowledgebase.entity.art.Artist;
-import com.dmitryshundrik.knowledgebase.entity.art.Painting;
-import com.dmitryshundrik.knowledgebase.dto.art.PaintingCreateEditDto;
-import com.dmitryshundrik.knowledgebase.dto.art.PaintingViewDto;
+import com.dmitryshundrik.knowledgebase.model.entity.art.Artist;
+import com.dmitryshundrik.knowledgebase.model.entity.art.Painting;
+import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingViewDto;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +52,7 @@ public class PaintingManagementController {
     @PostMapping("management/painting/create")
     public String postAnonymousPaintingCreate(@Valid @ModelAttribute(PAINTING) PaintingCreateEditDto paintingDTO,
                                               BindingResult bindingResult, Model model) {
-        String error = paintingService.paintingSlugIsExist(paintingDTO.getSlug());
+        String error = paintingService.isSlugExist(paintingDTO.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute(SLUG, error);
             return "management/art/painting-create";
@@ -75,7 +75,7 @@ public class PaintingManagementController {
     @PostMapping("/management/artist/edit/{artistSlug}/painting/create")
     public String postPaintingCreate(@Valid @ModelAttribute(PAINTING) PaintingCreateEditDto paintingDTO,
                                      BindingResult bindingResult, Model model, @PathVariable String artistSlug) {
-        String error = paintingService.paintingSlugIsExist(paintingDTO.getSlug());
+        String error = paintingService.isSlugExist(paintingDTO.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute(SLUG, error);
             return "management/art/painting-create";

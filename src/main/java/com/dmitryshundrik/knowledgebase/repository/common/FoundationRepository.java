@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.repository.common;
 
-import com.dmitryshundrik.knowledgebase.entity.common.Foundation;
+import com.dmitryshundrik.knowledgebase.model.entity.common.Foundation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.UUID;

@@ -1,11 +1,9 @@
 package com.dmitryshundrik.knowledgebase.service.cinema;
 
-import com.dmitryshundrik.knowledgebase.dto.cinema.FilmArchiveDto;
-import com.dmitryshundrik.knowledgebase.dto.cinema.FilmCreateEditDto;
-import com.dmitryshundrik.knowledgebase.dto.cinema.FilmResponseDto;
-import com.dmitryshundrik.knowledgebase.entity.art.Artist;
-import com.dmitryshundrik.knowledgebase.entity.art.Painting;
-import com.dmitryshundrik.knowledgebase.entity.cinema.Film;
+import com.dmitryshundrik.knowledgebase.model.dto.cinema.FilmArchiveDto;
+import com.dmitryshundrik.knowledgebase.model.dto.cinema.FilmCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.cinema.FilmResponseDto;
+import com.dmitryshundrik.knowledgebase.model.entity.cinema.Film;
 import com.dmitryshundrik.knowledgebase.mapper.cinema.FilmMapper;
 import com.dmitryshundrik.knowledgebase.repository.cinema.FilmRepository;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;

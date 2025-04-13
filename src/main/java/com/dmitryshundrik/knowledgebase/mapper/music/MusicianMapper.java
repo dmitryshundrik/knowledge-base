@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.mapper.music;
 
-import com.dmitryshundrik.knowledgebase.dto.music.MusicianManagementDetailedResponseDto;
-import com.dmitryshundrik.knowledgebase.entity.music.Musician;
+import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianManagementDetailedResponseDto;
+import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

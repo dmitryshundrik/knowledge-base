@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.controller.management.literature;
 
-import com.dmitryshundrik.knowledgebase.entity.literature.Prose;
-import com.dmitryshundrik.knowledgebase.dto.literature.ProseCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.dto.literature.ProseViewDTO;
+import com.dmitryshundrik.knowledgebase.model.entity.literature.Prose;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseViewDTO;
 import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
 import lombok.RequiredArgsConstructor;

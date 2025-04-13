@@ -1,9 +1,9 @@
 package com.dmitryshundrik.knowledgebase.controller.management.cinema;
 
-import com.dmitryshundrik.knowledgebase.dto.cinema.CriticsListCreateEditDto;
-import com.dmitryshundrik.knowledgebase.dto.cinema.CriticsListResponseDto;
-import com.dmitryshundrik.knowledgebase.dto.cinema.FilmCreateEditDto;
-import com.dmitryshundrik.knowledgebase.entity.cinema.CriticsList;
+import com.dmitryshundrik.knowledgebase.model.dto.cinema.CriticsListCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.cinema.CriticsListResponseDto;
+import com.dmitryshundrik.knowledgebase.model.dto.cinema.FilmCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.entity.cinema.CriticsList;
 import com.dmitryshundrik.knowledgebase.service.cinema.CriticsListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

@@ -1,9 +1,9 @@
 package com.dmitryshundrik.knowledgebase.service.gastronomy;
 
 import com.dmitryshundrik.knowledgebase.util.enums.Country;
-import com.dmitryshundrik.knowledgebase.entity.gastronomy.Recipe;
-import com.dmitryshundrik.knowledgebase.dto.gastronomy.RecipeCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.dto.gastronomy.RecipeViewDTO;
+import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Recipe;
+import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.RecipeCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.RecipeViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.gastronomy.RecipeRepository;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;

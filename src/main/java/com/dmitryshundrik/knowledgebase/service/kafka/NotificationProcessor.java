@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.kafka;
 
-import com.dmitryshundrik.knowledgebase.entity.common.CurrentEventInfo;
+import com.dmitryshundrik.knowledgebase.model.entity.common.CurrentEventInfo;
 import com.dmitryshundrik.knowledgebase.kafka.KafkaProducer;
 import com.dmitryshundrik.knowledgebase.service.common.CurrentEventService;
 import lombok.RequiredArgsConstructor;

@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.controller.cinema;
 
-import com.dmitryshundrik.knowledgebase.dto.cinema.CriticsListResponseDto;
-import com.dmitryshundrik.knowledgebase.dto.cinema.FilmResponseDto;
-import com.dmitryshundrik.knowledgebase.entity.common.Resource;
+import com.dmitryshundrik.knowledgebase.model.dto.cinema.CriticsListResponseDto;
+import com.dmitryshundrik.knowledgebase.model.dto.cinema.FilmResponseDto;
+import com.dmitryshundrik.knowledgebase.model.entity.common.Resource;
 import com.dmitryshundrik.knowledgebase.service.cinema.CriticsListService;
 import com.dmitryshundrik.knowledgebase.service.cinema.FilmService;
 import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;

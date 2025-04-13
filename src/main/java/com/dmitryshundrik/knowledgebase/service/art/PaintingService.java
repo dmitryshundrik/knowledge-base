@@ -1,152 +1,36 @@
 package com.dmitryshundrik.knowledgebase.service.art;
 
-import com.dmitryshundrik.knowledgebase.entity.art.Artist;
-import com.dmitryshundrik.knowledgebase.entity.art.Painting;
-import com.dmitryshundrik.knowledgebase.dto.art.PaintingCreateEditDto;
-import com.dmitryshundrik.knowledgebase.dto.art.PaintingViewDto;
-import com.dmitryshundrik.knowledgebase.repository.art.PaintingRepository;
-import com.dmitryshundrik.knowledgebase.service.common.ImageService;
-import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
-import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import java.util.Comparator;
+import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingViewDto;
+import com.dmitryshundrik.knowledgebase.model.entity.art.Artist;
+import com.dmitryshundrik.knowledgebase.model.entity.art.Painting;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
+/**
+ * Service interface for managing {@link Painting} entities.
+ * Provides methods for retrieving, creating, and updating paintings,
+ * as well as accessing painting-related data such as rankings and artist associations.
+ */
+public interface PaintingService {
 
-@Service
-@Transactional
-@RequiredArgsConstructor
-public class PaintingService {
+    Painting getBySlug(String paintingSlug);
 
-    private final PaintingRepository paintingRepository;
+    List<Painting> getAll();
+    List<Painting> getAllSortedByCreatedDesc();
+    List<Painting> getAllByArtistSortedByYear2(Artist artist);
+    List<Painting> getBestPaintingsByArtist(Artist artist);
+    List<Painting> getAllTimeBestPaintings();
+    List<Painting> getLatestUpdate();
 
-    private final ImageService imageService;
+    PaintingViewDto createPainting(Artist artist, PaintingCreateEditDto paintingDto);
+    Painting updatePainting(String paintingSlug, PaintingCreateEditDto paintingDto);
+    void deletePaintingBySlug(String paintingSlug);
 
-    public List<Painting> getAll() {
-        return paintingRepository.findAll();
-    }
+    PaintingViewDto getPaintingViewDto(Painting painting);
+    List<PaintingViewDto> getPaintingViewDtoList(List<Painting> paintingList);
+    PaintingCreateEditDto getArtistCreateEditDto(Painting painting);
 
-    public Long getPaintingRepositorySize() {
-        return paintingRepository.getSize();
-    }
+    String isSlugExist(String paintingSlug);
 
-    public Painting getBySlug(String paintingSlug) {
-        return paintingRepository.findBySlug(paintingSlug);
-    }
-
-    public List<Painting> getAllSortedByCreatedDesc() {
-        return paintingRepository.findAllByOrderByCreatedDesc();
-    }
-
-    public List<Painting> getAllByArtistSortedByYear2(Artist artist) {
-        return paintingRepository.findAllByArtistOrderByYear2(artist);
-    }
-
-    public List<Painting> getAllByArtistSortedByCreatedDesk(Artist artist) {
-        return paintingRepository.findAllByArtistOrderByCreatedDesc(artist);
-    }
-
-    public List<Painting> getBestPaintingsByArtist(Artist artist) {
-        List<Painting> paintingList = paintingRepository.findAllByArtistAndArtistTopRankNotNull(artist);
-        return paintingList.stream()
-                .sorted(Comparator.comparing(Painting::getArtistTopRank))
-                .collect(Collectors.toList());
-    }
-
-    public List<Painting> getAllTimeBestPaintings() {
-        List<Painting> paintingList = paintingRepository.findAllByAndAllTimeTopRankNotNull();
-        return paintingList.stream()
-                .sorted(Comparator.comparing(Painting::getAllTimeTopRank))
-                .collect(Collectors.toList());
-    }
-
-    public PaintingViewDto createPainting(Artist artist, PaintingCreateEditDto paintingDto) {
-        Painting painting = new Painting();
-        painting.setArtist(artist);
-        setFieldsFromDto(painting, paintingDto);
-        painting.setSlug(artist.getSlug() + "-" + SlugFormatter.slugFormatter(paintingDto.getSlug()));
-        return getPaintingViewDto(paintingRepository.save(painting));
-    }
-
-    public Painting updatePainting(String paintingSlug, PaintingCreateEditDto paintingDto) {
-        Painting bySlug = getBySlug(paintingSlug);
-        setFieldsFromDto(bySlug, paintingDto);
-        return bySlug;
-    }
-
-    public void deletePaintingBySlug(String paintingSlug) {
-        Painting bySlug = getBySlug(paintingSlug);
-        paintingRepository.delete(bySlug);
-    }
-
-    public PaintingViewDto getPaintingViewDto(Painting painting) {
-        return PaintingViewDto.builder()
-                .created(InstantFormatter.instantFormatterDMY(painting.getCreated()))
-                .slug(painting.getSlug())
-                .title(painting.getTitle())
-                .artistNickname(painting.getArtist().getNickName())
-                .artistSlug(painting.getArtist().getSlug())
-                .year1(painting.getYear1())
-                .year2(painting.getYear2())
-                .approximateYears(painting.getApproximateYears())
-                .paintingStyles(null)
-                .based(painting.getBased())
-                .artistTopRank(painting.getArtistTopRank())
-                .allTimeTopRank(painting.getAllTimeTopRank())
-                .description(painting.getDescription())
-                .image(imageService.getImageDTO(painting.getImage()))
-                .build();
-    }
-
-    public List<PaintingViewDto> getPaintingViewDtoList(List<Painting> paintingList) {
-        return paintingList.stream()
-                .map(this::getPaintingViewDto)
-                .collect(Collectors.toList());
-    }
-
-    public PaintingCreateEditDto getArtistCreateEditDto(Painting painting) {
-        return PaintingCreateEditDto.builder()
-                .slug(painting.getSlug())
-                .title(painting.getTitle())
-                .artistNickname(painting.getArtist().getNickName())
-                .artistSlug(painting.getArtist().getSlug())
-                .year1(painting.getYear1())
-                .year2(painting.getYear2())
-                .approximateYears(painting.getApproximateYears())
-                .paintingStyles(null)
-                .based(painting.getBased())
-                .artistTopRank(painting.getArtistTopRank())
-                .allTimeTopRank(painting.getAllTimeTopRank())
-                .description(painting.getDescription())
-                .image(imageService.getImageDTO(painting.getImage()))
-                .build();
-    }
-
-    public String paintingSlugIsExist(String paintingSlug) {
-        String message = "";
-        if (getBySlug(paintingSlug) != null) {
-            message = SLUG_IS_ALREADY_EXIST;
-        }
-        return message;
-    }
-
-    public void setFieldsFromDto(Painting painting, PaintingCreateEditDto paintingDto) {
-        painting.setSlug(paintingDto.getSlug().trim());
-        painting.setTitle(paintingDto.getTitle().trim());
-        painting.setYear1(paintingDto.getYear1());
-        painting.setYear2(paintingDto.getYear2());
-        painting.setApproximateYears(paintingDto.getApproximateYears().trim());
-        painting.setBased(paintingDto.getBased().trim());
-        painting.setArtistTopRank(paintingDto.getArtistTopRank());
-        painting.setAllTimeTopRank(paintingDto.getAllTimeTopRank());
-        painting.setDescription(paintingDto.getDescription());
-    }
-
-    public List<Painting> getLatestUpdate() {
-        return paintingRepository.findFirst20ByOrderByCreatedDesc();
-    }
+    Long getRepositorySize();
 }

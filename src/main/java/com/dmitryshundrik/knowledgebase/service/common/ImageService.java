@@ -1,10 +1,10 @@
 package com.dmitryshundrik.knowledgebase.service.common;
 
-import com.dmitryshundrik.knowledgebase.entity.art.Painting;
-import com.dmitryshundrik.knowledgebase.entity.common.Image;
-import com.dmitryshundrik.knowledgebase.dto.common.ImageDTO;
-import com.dmitryshundrik.knowledgebase.entity.gastronomy.Cocktail;
-import com.dmitryshundrik.knowledgebase.entity.gastronomy.Recipe;
+import com.dmitryshundrik.knowledgebase.model.entity.art.Painting;
+import com.dmitryshundrik.knowledgebase.model.entity.common.Image;
+import com.dmitryshundrik.knowledgebase.model.dto.common.ImageDTO;
+import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Cocktail;
+import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.repository.common.ImageRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;

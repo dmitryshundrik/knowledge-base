@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.controller.management.music;
 
-import com.dmitryshundrik.knowledgebase.dto.common.TimelineEventDTO;
-import com.dmitryshundrik.knowledgebase.entity.common.TimelineEvent;
+import com.dmitryshundrik.knowledgebase.model.dto.common.TimelineEventDTO;
+import com.dmitryshundrik.knowledgebase.model.entity.common.TimelineEvent;
 import com.dmitryshundrik.knowledgebase.util.enums.EraType;
 import com.dmitryshundrik.knowledgebase.util.enums.TimelineEventType;
 import com.dmitryshundrik.knowledgebase.service.common.TimelineEventService;

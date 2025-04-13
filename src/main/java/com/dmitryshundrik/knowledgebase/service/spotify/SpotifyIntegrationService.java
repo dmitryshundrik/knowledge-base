@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.spotify;
 
-import com.dmitryshundrik.knowledgebase.entity.spotify.RefreshToken;
+import com.dmitryshundrik.knowledgebase.model.entity.spotify.RefreshToken;
 import com.dmitryshundrik.knowledgebase.repository.tools.RefreshTokenRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

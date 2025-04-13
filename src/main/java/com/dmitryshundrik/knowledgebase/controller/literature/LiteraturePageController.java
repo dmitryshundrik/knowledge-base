@@ -1,14 +1,14 @@
 package com.dmitryshundrik.knowledgebase.controller.literature;
 
-import com.dmitryshundrik.knowledgebase.entity.common.Resource;
-import com.dmitryshundrik.knowledgebase.entity.literature.Prose;
-import com.dmitryshundrik.knowledgebase.entity.literature.Quote;
-import com.dmitryshundrik.knowledgebase.entity.literature.Word;
-import com.dmitryshundrik.knowledgebase.entity.literature.Writer;
-import com.dmitryshundrik.knowledgebase.dto.literature.ProseViewDTO;
-import com.dmitryshundrik.knowledgebase.dto.literature.QuoteViewDTO;
-import com.dmitryshundrik.knowledgebase.dto.literature.WordDTO;
-import com.dmitryshundrik.knowledgebase.dto.literature.WriterViewDTO;
+import com.dmitryshundrik.knowledgebase.model.entity.common.Resource;
+import com.dmitryshundrik.knowledgebase.model.entity.literature.Prose;
+import com.dmitryshundrik.knowledgebase.model.entity.literature.Quote;
+import com.dmitryshundrik.knowledgebase.model.entity.literature.Word;
+import com.dmitryshundrik.knowledgebase.model.entity.literature.Writer;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseViewDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.QuoteViewDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.WordDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterViewDTO;
 import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
 import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
 import com.dmitryshundrik.knowledgebase.service.literature.QuoteService;

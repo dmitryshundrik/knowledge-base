@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.controller.management;
 
-import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
+import com.dmitryshundrik.knowledgebase.service.art.impl.ArtistServiceImpl;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
 import com.dmitryshundrik.knowledgebase.service.cinema.CriticsListService;
 import com.dmitryshundrik.knowledgebase.service.cinema.FilmService;
@@ -39,7 +39,7 @@ public class ManagementPageController {
 
     private final QuoteService quoteService;
 
-    private final ArtistService artistService;
+    private final ArtistServiceImpl artistService;
 
     private final PaintingService paintingService;
 
@@ -57,8 +57,8 @@ public class ManagementPageController {
         model.addAttribute("writerCount", writerService.getWriterRepositorySize());
         model.addAttribute("proseCount", proseService.getProseRepositorySize());
         model.addAttribute("quoteCount", quoteService.getQuoteRepositorySize());
-        model.addAttribute("artistCount", artistService.getArtistRepositorySize());
-        model.addAttribute("paintingCount", paintingService.getPaintingRepositorySize());
+        model.addAttribute("artistCount", artistService.getRepositorySize());
+        model.addAttribute("paintingCount", paintingService.getRepositorySize());
         model.addAttribute("filmCount", filmService.getFilmRepositorySize());
         model.addAttribute("criticsListCount", criticsListService.getCriticsListRepositorySize());
         return "management/management-page";

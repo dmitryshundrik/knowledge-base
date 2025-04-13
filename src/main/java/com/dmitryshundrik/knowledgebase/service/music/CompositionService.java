@@ -1,14 +1,14 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
-import com.dmitryshundrik.knowledgebase.entity.music.Album;
-import com.dmitryshundrik.knowledgebase.entity.music.Composition;
-import com.dmitryshundrik.knowledgebase.entity.music.MusicGenre;
-import com.dmitryshundrik.knowledgebase.entity.music.Musician;
-import com.dmitryshundrik.knowledgebase.dto.music.CompositionCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.dto.music.CompositionViewDTO;
+import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
+import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
+import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
+import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
+import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionViewDTO;
 import com.dmitryshundrik.knowledgebase.util.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.util.enums.SortType;
-import com.dmitryshundrik.knowledgebase.entity.tools.SotyPair;
+import com.dmitryshundrik.knowledgebase.model.entity.tools.SotyPair;
 import com.dmitryshundrik.knowledgebase.repository.music.CompositionRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;

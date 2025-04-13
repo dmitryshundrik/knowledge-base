@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.repository.gastronomy;
 
-import com.dmitryshundrik.knowledgebase.entity.gastronomy.Cocktail;
+import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Cocktail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;

@@ -1,10 +1,10 @@
 package com.dmitryshundrik.knowledgebase.repository.music;
 
-import com.dmitryshundrik.knowledgebase.dto.music.MusicianAllPageResponseDto;
-import com.dmitryshundrik.knowledgebase.dto.music.MusicianManagementResponseDto;
-import com.dmitryshundrik.knowledgebase.entity.music.MusicPeriod;
-import com.dmitryshundrik.knowledgebase.entity.music.Musician;
-import com.dmitryshundrik.knowledgebase.dto.music.MusicianActivityDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianAllPageResponseDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianManagementResponseDto;
+import com.dmitryshundrik.knowledgebase.model.entity.music.MusicPeriod;
+import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
+import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianActivityDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.time.LocalDate;
@@ -40,11 +40,11 @@ public interface MusicianRepository extends JpaRepository<Musician, UUID> {
 
     List<MusicianActivityDto> findFirst20ByOrderByCreatedDesc();
 
-    @Query("SELECT new com.dmitryshundrik.knowledgebase.dto.music.MusicianAllPageResponseDto(musician.slug, musician.nickName, " +
+    @Query("SELECT new com.dmitryshundrik.knowledgebase.model.dto.music.MusicianAllPageResponseDto(musician.slug, musician.nickName, " +
             "musician.born, musician.founded) FROM Musician musician ORDER BY musician.born")
     List<MusicianAllPageResponseDto> getAllMusicianAllPageResponseDto();
 
-    @Query("SELECT new com.dmitryshundrik.knowledgebase.dto.music.MusicianManagementResponseDto(musician.slug, musician.nickName, " +
+    @Query("SELECT new com.dmitryshundrik.knowledgebase.model.dto.music.MusicianManagementResponseDto(musician.slug, musician.nickName, " +
             "musician.born, musician.died, musician.founded, musician.birthplace, musician.based, musician.occupation, " +
             "musician.dateNotification) FROM Musician musician ORDER BY musician.created DESC")
     List<MusicianManagementResponseDto> getAllMusicianManagementResponseDto();

@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.mapper.cinema;
 
-import com.dmitryshundrik.knowledgebase.dto.cinema.FilmCreateEditDto;
-import com.dmitryshundrik.knowledgebase.entity.cinema.Film;
+import com.dmitryshundrik.knowledgebase.model.dto.cinema.FilmCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.entity.cinema.Film;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

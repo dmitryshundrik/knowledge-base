@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.common;
 
-import com.dmitryshundrik.knowledgebase.entity.common.Resource;
-import com.dmitryshundrik.knowledgebase.dto.common.ResourceDTO;
+import com.dmitryshundrik.knowledgebase.model.entity.common.Resource;
+import com.dmitryshundrik.knowledgebase.model.dto.common.ResourceDTO;
 import com.dmitryshundrik.knowledgebase.repository.common.ResourcesRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.enums.ResourceType;

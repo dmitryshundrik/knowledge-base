@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.repository.literature;
 
-import com.dmitryshundrik.knowledgebase.entity.literature.Writer;
-import com.dmitryshundrik.knowledgebase.dto.literature.WriterEntityUpdateInfoDTO;
+import com.dmitryshundrik.knowledgebase.model.entity.literature.Writer;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterEntityUpdateInfoDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.time.LocalDate;

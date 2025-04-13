@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.service.cinema;
 
-import com.dmitryshundrik.knowledgebase.dto.cinema.CriticsListCreateEditDto;
-import com.dmitryshundrik.knowledgebase.dto.cinema.CriticsListResponseDto;
-import com.dmitryshundrik.knowledgebase.entity.cinema.CriticsList;
+import com.dmitryshundrik.knowledgebase.model.dto.cinema.CriticsListCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.cinema.CriticsListResponseDto;
+import com.dmitryshundrik.knowledgebase.model.entity.cinema.CriticsList;
 import com.dmitryshundrik.knowledgebase.mapper.cinema.CriticsListMapper;
 import com.dmitryshundrik.knowledgebase.repository.cinema.CriticsListRepository;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;

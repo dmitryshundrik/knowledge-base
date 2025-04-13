@@ -1,14 +1,14 @@
 package com.dmitryshundrik.knowledgebase.controller.gastronomy;
 
-import com.dmitryshundrik.knowledgebase.entity.common.Article;
-import com.dmitryshundrik.knowledgebase.dto.common.ArticleDTO;
-import com.dmitryshundrik.knowledgebase.entity.common.Resource;
+import com.dmitryshundrik.knowledgebase.model.entity.common.Article;
+import com.dmitryshundrik.knowledgebase.model.dto.common.ArticleDTO;
+import com.dmitryshundrik.knowledgebase.model.entity.common.Resource;
 import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
 import com.dmitryshundrik.knowledgebase.util.enums.Country;
-import com.dmitryshundrik.knowledgebase.entity.gastronomy.Cocktail;
-import com.dmitryshundrik.knowledgebase.entity.gastronomy.Recipe;
-import com.dmitryshundrik.knowledgebase.dto.gastronomy.CocktailViewDTO;
-import com.dmitryshundrik.knowledgebase.dto.gastronomy.RecipeViewDTO;
+import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Cocktail;
+import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Recipe;
+import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.CocktailViewDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.RecipeViewDTO;
 import com.dmitryshundrik.knowledgebase.service.common.ArticleService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;

@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.repository.common;
 
-import com.dmitryshundrik.knowledgebase.entity.common.TimelineEvent;
+import com.dmitryshundrik.knowledgebase.model.entity.common.TimelineEvent;
 import com.dmitryshundrik.knowledgebase.util.enums.EraType;
 import com.dmitryshundrik.knowledgebase.util.enums.TimelineEventType;
 import org.springframework.data.jpa.repository.JpaRepository;

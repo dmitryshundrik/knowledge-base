@@ -1,10 +1,10 @@
 package com.dmitryshundrik.knowledgebase.controller.art;
 
-import com.dmitryshundrik.knowledgebase.entity.art.Artist;
-import com.dmitryshundrik.knowledgebase.entity.art.Painting;
-import com.dmitryshundrik.knowledgebase.dto.art.ArtistViewDto;
-import com.dmitryshundrik.knowledgebase.dto.art.PaintingViewDto;
-import com.dmitryshundrik.knowledgebase.entity.common.Resource;
+import com.dmitryshundrik.knowledgebase.model.entity.art.Artist;
+import com.dmitryshundrik.knowledgebase.model.entity.art.Painting;
+import com.dmitryshundrik.knowledgebase.model.dto.art.ArtistViewDto;
+import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingViewDto;
+import com.dmitryshundrik.knowledgebase.model.entity.common.Resource;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
 import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;

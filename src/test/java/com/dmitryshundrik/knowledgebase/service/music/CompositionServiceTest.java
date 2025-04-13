@@ -1,10 +1,9 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
-import com.dmitryshundrik.knowledgebase.entity.music.Album;
-import com.dmitryshundrik.knowledgebase.entity.music.Composition;
-import com.dmitryshundrik.knowledgebase.entity.music.Musician;
-import com.dmitryshundrik.knowledgebase.dto.music.CompositionCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.dto.music.CompositionViewDTO;
+import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
+import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
+import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.music.CompositionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static com.dmitryshundrik.knowledgebase.util.DtoCreator.getCompositionCreateEditDTO;
-import static com.dmitryshundrik.knowledgebase.util.EntityCreator.getAlbum;
 import static com.dmitryshundrik.knowledgebase.util.EntityCreator.getComposition;
 import static com.dmitryshundrik.knowledgebase.util.EntityCreator.getMusician;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,7 +21,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class CompositionServiceTest {
+class CompositionServiceTest {
 
     @Mock
     private CompositionRepository compositionRepository;
@@ -31,16 +29,10 @@ public class CompositionServiceTest {
     @InjectMocks
     private CompositionService compositionService;
 
-    private Musician musician;
-
-    private Album album;
-
     private Composition composition;
 
     @BeforeEach
     void setUp() {
-        musician = getMusician();
-        album = getAlbum();
         composition = getComposition();
     }
 

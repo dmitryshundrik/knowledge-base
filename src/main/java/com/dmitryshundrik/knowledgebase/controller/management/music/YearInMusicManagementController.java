@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.controller.management.music;
 
-import com.dmitryshundrik.knowledgebase.entity.music.YearInMusic;
-import com.dmitryshundrik.knowledgebase.dto.music.YearInMusicCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.dto.music.YearInMusicViewDTO;
+import com.dmitryshundrik.knowledgebase.model.entity.music.YearInMusic;
+import com.dmitryshundrik.knowledgebase.model.dto.music.YearInMusicCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.music.YearInMusicViewDTO;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import com.dmitryshundrik.knowledgebase.service.music.YearInMusicService;
 import com.dmitryshundrik.knowledgebase.util.MusicianDtoTransformer;

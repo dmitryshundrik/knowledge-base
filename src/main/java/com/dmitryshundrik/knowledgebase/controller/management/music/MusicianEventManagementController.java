@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.controller.management.music;
 
-import com.dmitryshundrik.knowledgebase.entity.common.PersonEvent;
-import com.dmitryshundrik.knowledgebase.dto.common.PersonEventDTO;
+import com.dmitryshundrik.knowledgebase.model.entity.common.PersonEvent;
+import com.dmitryshundrik.knowledgebase.model.dto.common.PersonEventDTO;
 import com.dmitryshundrik.knowledgebase.service.common.PersonEventService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import lombok.RequiredArgsConstructor;

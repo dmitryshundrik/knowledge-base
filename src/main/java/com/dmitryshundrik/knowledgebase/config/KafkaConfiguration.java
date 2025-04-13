@@ -11,6 +11,7 @@ public class KafkaConfiguration {
 
     @Bean
     public NewTopic topic() {
-        return new NewTopic("email-notification", 2, (short) 1);
+        return new NewTopic
+                ("email-notification", 2, (short) 1);
     }
 }

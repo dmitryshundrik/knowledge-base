@@ -1,9 +1,9 @@
 package com.dmitryshundrik.knowledgebase.controller;
 
-import com.dmitryshundrik.knowledgebase.entity.common.Foundation;
-import com.dmitryshundrik.knowledgebase.entity.common.Resource;
-import com.dmitryshundrik.knowledgebase.dto.common.FoundationDTO;
-import com.dmitryshundrik.knowledgebase.dto.common.ResourceDTO;
+import com.dmitryshundrik.knowledgebase.model.entity.common.Foundation;
+import com.dmitryshundrik.knowledgebase.model.entity.common.Resource;
+import com.dmitryshundrik.knowledgebase.model.dto.common.FoundationDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.common.ResourceDTO;
 import com.dmitryshundrik.knowledgebase.service.common.CurrentEventService;
 import com.dmitryshundrik.knowledgebase.service.common.EntityActivityService;
 import com.dmitryshundrik.knowledgebase.service.common.FoundationService;
