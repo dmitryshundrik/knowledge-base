@@ -1,6 +1,5 @@
 package com.dmitryshundrik.knowledgebase.mapper.art;
 
-import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingArtistProfileDto;
 import com.dmitryshundrik.knowledgebase.model.entity.art.Artist;
 import com.dmitryshundrik.knowledgebase.model.dto.art.ArtistCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.art.ArtistViewDto;
@@ -12,7 +11,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.time.Instant;
-import java.util.List;
 
 @Mapper(componentModel = "spring")
 public abstract class ArtistMapper {
