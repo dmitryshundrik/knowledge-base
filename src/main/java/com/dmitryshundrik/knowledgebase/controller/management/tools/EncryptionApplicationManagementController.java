@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.controller.management.tools;
 
 import com.dmitryshundrik.knowledgebase.model.entity.tools.Encryption;
-import com.dmitryshundrik.knowledgebase.util.enums.EncryptionType;
-import com.dmitryshundrik.knowledgebase.util.enums.OperationType;
+import com.dmitryshundrik.knowledgebase.model.enums.EncryptionType;
+import com.dmitryshundrik.knowledgebase.model.enums.OperationType;
 import com.dmitryshundrik.knowledgebase.service.tools.EncryptionApplicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

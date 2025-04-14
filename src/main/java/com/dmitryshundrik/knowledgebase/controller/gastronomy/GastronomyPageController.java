@@ -1,18 +1,18 @@
 package com.dmitryshundrik.knowledgebase.controller.gastronomy;
 
-import com.dmitryshundrik.knowledgebase.model.entity.common.Article;
-import com.dmitryshundrik.knowledgebase.model.dto.common.ArticleDto;
-import com.dmitryshundrik.knowledgebase.model.entity.common.Resource;
-import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
-import com.dmitryshundrik.knowledgebase.util.enums.Country;
+import com.dmitryshundrik.knowledgebase.model.entity.core.Article;
+import com.dmitryshundrik.knowledgebase.model.dto.core.ArticleDto;
+import com.dmitryshundrik.knowledgebase.model.entity.core.Resource;
+import com.dmitryshundrik.knowledgebase.service.core.ResourcesService;
+import com.dmitryshundrik.knowledgebase.model.enums.Country;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.CocktailViewDTO;
 import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.RecipeViewDTO;
-import com.dmitryshundrik.knowledgebase.service.common.ArticleService;
+import com.dmitryshundrik.knowledgebase.service.core.ArticleService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
-import com.dmitryshundrik.knowledgebase.util.enums.ResourceType;
+import com.dmitryshundrik.knowledgebase.model.enums.ResourceType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -95,7 +95,7 @@ public class GastronomyPageController {
     @GetMapping("/article/{articleId}")
     public String getArticle(@PathVariable String articleId, Model model) {
         Article byId = articleService.getById(articleId);
-        ArticleDto articleDTO = articleService.getArticleDTO(byId);
+        ArticleDto articleDTO = articleService.getArticleDto(byId);
         model.addAttribute(ARTICLE, articleDTO);
         return "gastronomy/article";
     }

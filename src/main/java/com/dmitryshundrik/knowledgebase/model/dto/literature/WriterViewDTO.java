@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.model.dto.literature;
 
-import com.dmitryshundrik.knowledgebase.model.dto.common.PersonEventDto;
-import com.dmitryshundrik.knowledgebase.util.enums.Gender;
+import com.dmitryshundrik.knowledgebase.model.dto.core.PersonEventDto;
+import com.dmitryshundrik.knowledgebase.model.enums.Gender;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;

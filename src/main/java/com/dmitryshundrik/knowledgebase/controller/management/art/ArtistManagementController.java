@@ -3,7 +3,7 @@ package com.dmitryshundrik.knowledgebase.controller.management.art;
 import com.dmitryshundrik.knowledgebase.model.entity.art.Artist;
 import com.dmitryshundrik.knowledgebase.model.dto.art.ArtistCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.art.ArtistViewDto;
-import com.dmitryshundrik.knowledgebase.util.enums.Gender;
+import com.dmitryshundrik.knowledgebase.model.enums.Gender;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;

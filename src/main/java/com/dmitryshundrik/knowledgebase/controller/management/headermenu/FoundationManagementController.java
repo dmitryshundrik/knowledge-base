@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.controller.management.headermenu;
 
-import com.dmitryshundrik.knowledgebase.model.entity.common.Foundation;
-import com.dmitryshundrik.knowledgebase.model.dto.common.FoundationDto;
-import com.dmitryshundrik.knowledgebase.service.common.FoundationService;
+import com.dmitryshundrik.knowledgebase.model.entity.core.Foundation;
+import com.dmitryshundrik.knowledgebase.model.dto.core.FoundationDto;
+import com.dmitryshundrik.knowledgebase.service.core.FoundationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

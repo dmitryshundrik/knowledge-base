@@ -1,9 +1,9 @@
 package com.dmitryshundrik.knowledgebase.model.entity.music;
 
 import com.dmitryshundrik.knowledgebase.model.entity.AbstractEntity;
-import com.dmitryshundrik.knowledgebase.model.entity.common.PersonEvent;
-import com.dmitryshundrik.knowledgebase.util.enums.Gender;
-import com.dmitryshundrik.knowledgebase.util.enums.SortType;
+import com.dmitryshundrik.knowledgebase.model.entity.core.PersonEvent;
+import com.dmitryshundrik.knowledgebase.model.enums.Gender;
+import com.dmitryshundrik.knowledgebase.model.enums.SortType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

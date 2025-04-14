@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.tools;
 
 import com.dmitryshundrik.knowledgebase.model.entity.tools.Encryption;
-import com.dmitryshundrik.knowledgebase.util.enums.EncryptionType;
+import com.dmitryshundrik.knowledgebase.model.enums.EncryptionType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

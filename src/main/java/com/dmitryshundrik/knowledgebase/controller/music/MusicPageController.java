@@ -1,9 +1,9 @@
 package com.dmitryshundrik.knowledgebase.controller.music;
 
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianAllPageResponseDto;
-import com.dmitryshundrik.knowledgebase.model.entity.common.Resource;
-import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
-import com.dmitryshundrik.knowledgebase.util.enums.EraType;
+import com.dmitryshundrik.knowledgebase.model.entity.core.Resource;
+import com.dmitryshundrik.knowledgebase.service.core.ResourcesService;
+import com.dmitryshundrik.knowledgebase.model.enums.EraType;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
@@ -14,10 +14,10 @@ import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumViewDTO;
 import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionViewDTO;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicPeriodViewDTO;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianViewDTO;
-import com.dmitryshundrik.knowledgebase.util.enums.MusicGenreType;
-import com.dmitryshundrik.knowledgebase.util.enums.ResourceType;
-import com.dmitryshundrik.knowledgebase.util.enums.SortType;
-import com.dmitryshundrik.knowledgebase.service.common.TimelineEventService;
+import com.dmitryshundrik.knowledgebase.model.enums.MusicGenreType;
+import com.dmitryshundrik.knowledgebase.model.enums.ResourceType;
+import com.dmitryshundrik.knowledgebase.model.enums.SortType;
+import com.dmitryshundrik.knowledgebase.service.core.TimelineEventService;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;

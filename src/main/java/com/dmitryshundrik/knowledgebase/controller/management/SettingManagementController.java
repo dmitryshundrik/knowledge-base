@@ -1,9 +1,9 @@
 package com.dmitryshundrik.knowledgebase.controller.management;
 
-import com.dmitryshundrik.knowledgebase.model.entity.common.Setting;
-import com.dmitryshundrik.knowledgebase.model.dto.common.SettingCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.common.SettingViewDTO;
-import com.dmitryshundrik.knowledgebase.service.common.SettingService;
+import com.dmitryshundrik.knowledgebase.model.entity.core.Setting;
+import com.dmitryshundrik.knowledgebase.model.dto.core.SettingCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.core.SettingViewDTO;
+import com.dmitryshundrik.knowledgebase.service.core.SettingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

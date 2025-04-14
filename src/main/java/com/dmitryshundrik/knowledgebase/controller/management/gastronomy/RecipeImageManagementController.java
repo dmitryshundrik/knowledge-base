@@ -1,9 +1,9 @@
 package com.dmitryshundrik.knowledgebase.controller.management.gastronomy;
 
-import com.dmitryshundrik.knowledgebase.model.entity.common.Image;
-import com.dmitryshundrik.knowledgebase.model.dto.common.ImageDto;
+import com.dmitryshundrik.knowledgebase.model.entity.core.Image;
+import com.dmitryshundrik.knowledgebase.model.dto.core.ImageDto;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Recipe;
-import com.dmitryshundrik.knowledgebase.service.common.ImageService;
+import com.dmitryshundrik.knowledgebase.service.core.ImageService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;

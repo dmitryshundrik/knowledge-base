@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.controller.management.literature;
 
-import com.dmitryshundrik.knowledgebase.util.enums.Gender;
+import com.dmitryshundrik.knowledgebase.model.enums.Gender;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Writer;
 import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterViewDTO;

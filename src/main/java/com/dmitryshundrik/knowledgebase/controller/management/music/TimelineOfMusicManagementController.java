@@ -1,10 +1,10 @@
 package com.dmitryshundrik.knowledgebase.controller.management.music;
 
-import com.dmitryshundrik.knowledgebase.model.dto.common.TimelineEventDTO;
-import com.dmitryshundrik.knowledgebase.model.entity.common.TimelineEvent;
-import com.dmitryshundrik.knowledgebase.util.enums.EraType;
-import com.dmitryshundrik.knowledgebase.util.enums.TimelineEventType;
-import com.dmitryshundrik.knowledgebase.service.common.TimelineEventService;
+import com.dmitryshundrik.knowledgebase.model.dto.core.TimelineEventDTO;
+import com.dmitryshundrik.knowledgebase.model.entity.core.TimelineEvent;
+import com.dmitryshundrik.knowledgebase.model.enums.EraType;
+import com.dmitryshundrik.knowledgebase.model.enums.TimelineEventType;
+import com.dmitryshundrik.knowledgebase.service.core.TimelineEventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

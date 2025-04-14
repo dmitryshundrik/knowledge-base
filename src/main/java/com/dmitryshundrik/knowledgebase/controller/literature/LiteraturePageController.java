@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.controller.literature;
 
-import com.dmitryshundrik.knowledgebase.model.entity.common.Resource;
+import com.dmitryshundrik.knowledgebase.model.entity.core.Resource;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Prose;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Quote;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Word;
@@ -9,12 +9,12 @@ import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseViewDTO;
 import com.dmitryshundrik.knowledgebase.model.dto.literature.QuoteViewDTO;
 import com.dmitryshundrik.knowledgebase.model.dto.literature.WordDTO;
 import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterViewDTO;
-import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
+import com.dmitryshundrik.knowledgebase.service.core.ResourcesService;
 import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
 import com.dmitryshundrik.knowledgebase.service.literature.QuoteService;
 import com.dmitryshundrik.knowledgebase.service.literature.WordService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
-import com.dmitryshundrik.knowledgebase.util.enums.ResourceType;
+import com.dmitryshundrik.knowledgebase.model.enums.ResourceType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

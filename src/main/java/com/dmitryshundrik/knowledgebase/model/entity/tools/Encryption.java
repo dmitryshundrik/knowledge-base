@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.model.entity.tools;
 
-import com.dmitryshundrik.knowledgebase.util.enums.EncryptionType;
-import com.dmitryshundrik.knowledgebase.util.enums.OperationType;
+import com.dmitryshundrik.knowledgebase.model.enums.EncryptionType;
+import com.dmitryshundrik.knowledgebase.model.enums.OperationType;
 import lombok.Data;
 
 @Data

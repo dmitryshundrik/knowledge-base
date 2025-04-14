@@ -1,16 +1,16 @@
 package com.dmitryshundrik.knowledgebase.controller;
 
-import com.dmitryshundrik.knowledgebase.model.entity.common.Foundation;
-import com.dmitryshundrik.knowledgebase.model.entity.common.Resource;
-import com.dmitryshundrik.knowledgebase.model.dto.common.FoundationDto;
-import com.dmitryshundrik.knowledgebase.model.dto.common.ResourceDTO;
-import com.dmitryshundrik.knowledgebase.service.common.CurrentEventService;
-import com.dmitryshundrik.knowledgebase.service.common.EntityActivityService;
-import com.dmitryshundrik.knowledgebase.service.common.FoundationService;
-import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
+import com.dmitryshundrik.knowledgebase.model.entity.core.Foundation;
+import com.dmitryshundrik.knowledgebase.model.entity.core.Resource;
+import com.dmitryshundrik.knowledgebase.model.dto.core.FoundationDto;
+import com.dmitryshundrik.knowledgebase.model.dto.core.ResourceDTO;
+import com.dmitryshundrik.knowledgebase.service.core.CurrentEventService;
+import com.dmitryshundrik.knowledgebase.service.core.EntityActivityService;
+import com.dmitryshundrik.knowledgebase.service.core.FoundationService;
+import com.dmitryshundrik.knowledgebase.service.core.ResourcesService;
 import com.dmitryshundrik.knowledgebase.service.music.YearInMusicService;
 import com.dmitryshundrik.knowledgebase.service.spotify.SpotifyPlayerService;
-import com.dmitryshundrik.knowledgebase.util.enums.ResourceType;
+import com.dmitryshundrik.knowledgebase.model.enums.ResourceType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

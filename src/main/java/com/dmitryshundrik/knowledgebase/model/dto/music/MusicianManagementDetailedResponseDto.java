@@ -2,8 +2,8 @@ package com.dmitryshundrik.knowledgebase.model.dto.music;
 
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicPeriod;
-import com.dmitryshundrik.knowledgebase.util.enums.Gender;
-import com.dmitryshundrik.knowledgebase.util.enums.SortType;
+import com.dmitryshundrik.knowledgebase.model.enums.Gender;
+import com.dmitryshundrik.knowledgebase.model.enums.SortType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.repository.gastronomy;
 
-import com.dmitryshundrik.knowledgebase.util.enums.Country;
+import com.dmitryshundrik.knowledgebase.model.enums.Country;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Recipe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

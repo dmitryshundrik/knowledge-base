@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.model.entity.music;
 
 import com.dmitryshundrik.knowledgebase.model.entity.AbstractEntity;
-import com.dmitryshundrik.knowledgebase.util.enums.MusicGenreType;
+import com.dmitryshundrik.knowledgebase.model.enums.MusicGenreType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import javax.persistence.Column;

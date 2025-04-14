@@ -15,7 +15,7 @@ import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianActivityDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianViewDTO;
 import com.dmitryshundrik.knowledgebase.mapper.music.MusicianMapper;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
-import com.dmitryshundrik.knowledgebase.service.common.PersonEventService;
+import com.dmitryshundrik.knowledgebase.service.core.PersonEventService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;

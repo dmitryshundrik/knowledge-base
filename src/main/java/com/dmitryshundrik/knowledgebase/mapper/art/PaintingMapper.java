@@ -3,7 +3,7 @@ package com.dmitryshundrik.knowledgebase.mapper.art;
 import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingViewDto;
 import com.dmitryshundrik.knowledgebase.model.entity.art.Painting;
-import com.dmitryshundrik.knowledgebase.service.common.ImageService;
+import com.dmitryshundrik.knowledgebase.service.core.ImageService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;

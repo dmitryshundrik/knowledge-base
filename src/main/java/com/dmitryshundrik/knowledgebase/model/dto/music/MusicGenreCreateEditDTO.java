@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.model.dto.music;
 
-import com.dmitryshundrik.knowledgebase.util.enums.MusicGenreType;
+import com.dmitryshundrik.knowledgebase.model.enums.MusicGenreType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

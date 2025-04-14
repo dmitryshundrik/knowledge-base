@@ -5,7 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterCreateEditDTO
 import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterEntityUpdateInfoDTO;
 import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterViewDTO;
 import com.dmitryshundrik.knowledgebase.repository.literature.WriterRepository;
-import com.dmitryshundrik.knowledgebase.service.common.PersonEventService;
+import com.dmitryshundrik.knowledgebase.service.core.PersonEventService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;

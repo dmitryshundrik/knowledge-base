@@ -2,11 +2,11 @@ package com.dmitryshundrik.knowledgebase.controller.cinema;
 
 import com.dmitryshundrik.knowledgebase.model.dto.cinema.CriticsListResponseDto;
 import com.dmitryshundrik.knowledgebase.model.dto.cinema.FilmResponseDto;
-import com.dmitryshundrik.knowledgebase.model.entity.common.Resource;
+import com.dmitryshundrik.knowledgebase.model.entity.core.Resource;
 import com.dmitryshundrik.knowledgebase.service.cinema.CriticsListService;
 import com.dmitryshundrik.knowledgebase.service.cinema.FilmService;
-import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
-import com.dmitryshundrik.knowledgebase.util.enums.ResourceType;
+import com.dmitryshundrik.knowledgebase.service.core.ResourcesService;
+import com.dmitryshundrik.knowledgebase.model.enums.ResourceType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

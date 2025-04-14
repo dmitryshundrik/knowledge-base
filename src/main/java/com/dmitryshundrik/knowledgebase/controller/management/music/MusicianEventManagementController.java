@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.controller.management.music;
 
-import com.dmitryshundrik.knowledgebase.model.entity.common.PersonEvent;
-import com.dmitryshundrik.knowledgebase.model.dto.common.PersonEventDto;
-import com.dmitryshundrik.knowledgebase.service.common.PersonEventService;
+import com.dmitryshundrik.knowledgebase.model.entity.core.PersonEvent;
+import com.dmitryshundrik.knowledgebase.model.dto.core.PersonEventDto;
+import com.dmitryshundrik.knowledgebase.service.core.PersonEventService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

@@ -1,5 +1,8 @@
 package com.dmitryshundrik.knowledgebase.util;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class SlugFormatter {
 
     public static String slugFormatter(String slug) {

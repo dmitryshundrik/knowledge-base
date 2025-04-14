@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.model.entity.gastronomy;
 
 import com.dmitryshundrik.knowledgebase.model.entity.AbstractEntity;
-import com.dmitryshundrik.knowledgebase.model.entity.common.Image;
+import com.dmitryshundrik.knowledgebase.model.entity.core.Image;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import javax.persistence.CascadeType;

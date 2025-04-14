@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.service.kafka;
 
-import com.dmitryshundrik.knowledgebase.model.entity.common.CurrentEventInfo;
+import com.dmitryshundrik.knowledgebase.model.entity.core.CurrentEventInfo;
 import com.dmitryshundrik.knowledgebase.kafka.KafkaProducer;
-import com.dmitryshundrik.knowledgebase.service.common.CurrentEventService;
+import com.dmitryshundrik.knowledgebase.service.core.CurrentEventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

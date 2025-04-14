@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.model.dto.music;
 
-import com.dmitryshundrik.knowledgebase.model.dto.common.PersonEventDto;
-import com.dmitryshundrik.knowledgebase.util.enums.Gender;
+import com.dmitryshundrik.knowledgebase.model.dto.core.PersonEventDto;
+import com.dmitryshundrik.knowledgebase.model.enums.Gender;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicPeriod;
 import lombok.Builder;
