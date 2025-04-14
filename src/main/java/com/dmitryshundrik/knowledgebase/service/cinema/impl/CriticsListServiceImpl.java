@@ -23,42 +23,51 @@ public class CriticsListServiceImpl implements CriticsListService {
 
     private final CriticsListMapper criticsListMapper;
 
+    @Override
     public CriticsList getBySlug(String slug) {
         return criticsListRepository.findBySlug(slug);
     }
 
+    @Override
     public List<CriticsListResponseDto> getAllCriticsList() {
         return criticsListRepository.findAllCriticsListResponseDtoOrderByYearDesc();
     }
 
+    @Override
     public List<CriticsListResponseDto> getAllCriticsListArchiveDto() {
         return criticsListRepository.findAllCriticsListArchiveDtoOrderByCreatedDesc();
     }
 
+    @Override
     public List<CriticsList> getLatestUpdate() {
         return criticsListRepository.findFirst20ByOrderByCreatedDesc();
     }
 
+    @Override
     public CriticsList createCriticsList(CriticsListCreateEditDto criticsListDto) {
         CriticsList criticsList = criticsListMapper.toCriticsList(criticsListDto);
         criticsList.setSlug(SlugFormatter.slugFormatter(criticsList.getSlug()));
         return criticsListRepository.save(criticsList);
     }
 
+    @Override
     public CriticsList updateCriticsList(String filmSlug, CriticsListCreateEditDto criticsListDto) {
         CriticsList criticsList = criticsListRepository.findBySlug(filmSlug);
         criticsListMapper.updateCriticsList(criticsListDto, criticsList);
         return criticsList;
     }
 
+    @Override
     public void deleteCriticsListBySlug(String criticListSlug) {
         criticsListRepository.delete(criticsListRepository.findBySlug(criticListSlug));
     }
 
+    @Override
     public CriticsListCreateEditDto getCriticsListCreateEditDto(CriticsList criticsList) {
         return criticsListMapper.toCriticsListCreateEditDto(criticsList);
     }
 
+    @Override
     public String isSlugExist(String criticsListSlug) {
         String message = "";
         if (criticsListRepository.findBySlug(criticsListSlug) != null) {
@@ -67,6 +76,7 @@ public class CriticsListServiceImpl implements CriticsListService {
         return message;
     }
 
+    @Override
     public Long getRepositorySize() {
         return criticsListRepository.getSize();
     }

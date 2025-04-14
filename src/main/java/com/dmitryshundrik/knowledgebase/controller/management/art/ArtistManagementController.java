@@ -50,15 +50,15 @@ public class ArtistManagementController {
     }
 
     @PostMapping("/management/artist/create")
-    public String postArtistCreate(@Valid @ModelAttribute(ARTIST) ArtistCreateEditDto artistDTO,
+    public String postArtistCreate(@Valid @ModelAttribute(ARTIST) ArtistCreateEditDto artistDto,
                                     BindingResult bindingResult, Model model) {
-        String error = artistService.isSlugExist(artistDTO.getSlug());
+        String error = artistService.isSlugExist(artistDto.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute(SLUG, error);
             model.addAttribute(GENDER_LIST, Gender.values());
             return "management/art/artist-create";
         }
-        String artistSlug = artistService.createArtist(artistDTO).getSlug();
+        String artistSlug = artistService.createArtist(artistDto).getSlug();
         return "redirect:/management/artist/edit/" + artistSlug;
     }
 
@@ -73,9 +73,9 @@ public class ArtistManagementController {
 
     @PutMapping("/management/artist/edit/{artistSlug}")
     public String putArtistEdit(@PathVariable String artistSlug,
-                                 @ModelAttribute(ARTIST) ArtistCreateEditDto artistDTO) {
-        String artistDTOSlug = artistService.updateArtist(artistSlug, artistDTO).getSlug();
-        return "redirect:/management/artist/edit/" + artistDTOSlug;
+                                 @ModelAttribute(ARTIST) ArtistCreateEditDto artistDto) {
+        String artistDtoSlug = artistService.updateArtist(artistSlug, artistDto).getSlug();
+        return "redirect:/management/artist/edit/" + artistDtoSlug;
     }
 
     @PostMapping("/management/artist/edit/{artistSlug}/image/upload")

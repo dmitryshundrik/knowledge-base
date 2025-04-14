@@ -27,42 +27,51 @@ public class ArtistServiceImpl implements ArtistService {
 
     private final ArtistMapper artistMapper;
 
+    @Override
     public Artist getBySlug(String artistSlug) {
         return artistRepository.findBySlug(artistSlug).orElse(null);
     }
 
+    @Override
     public List<Artist> getAll() {
         return artistRepository.findAllBy(UNKNOWN);
     }
 
+    @Override
     public List<Artist> getAllSortedByBorn() {
         return artistRepository.findAllByOrderByBorn(UNKNOWN);
     }
 
+    @Override
     public List<Artist> getAllSortedByCreatedDesc() {
         return artistRepository.findAllByOrderByCreatedDesc(UNKNOWN);
     }
 
+    @Override
     public List<Artist> getLatestUpdate() {
         return artistRepository.findFirst20ByOrderByCreatedDesc(UNKNOWN);
     }
 
+    @Override
     public Artist createArtist(ArtistCreateEditDto artistDTO) {
         Artist artist = artistMapper.toArtist(artistDTO);
         artist.setSlug(SlugFormatter.slugFormatter(artist.getSlug()));
         return artistRepository.save(artist);
     }
 
+    @Override
     public ArtistViewDto updateArtist(String artistSlug, ArtistCreateEditDto artistDTO) {
         Artist bySlug = getBySlug(artistSlug);
         artistMapper.updateArtist(bySlug, artistDTO);
         return getArtistViewDto(bySlug);
     }
 
+    @Override
     public void deleteArtistBySlug(String artistSlug) {
         artistRepository.delete(getBySlug(artistSlug));
     }
 
+    @Override
     public void updateArtistImageBySlug(String artistSlug, byte[] bytes) {
         if (bytes.length != 0) {
             Artist bySlug = getBySlug(artistSlug);
@@ -70,11 +79,13 @@ public class ArtistServiceImpl implements ArtistService {
         }
     }
 
+    @Override
     public void deleteArtistImage(String artistSlug) {
         Artist bySlug = getBySlug(artistSlug);
         bySlug.setImage(null);
     }
 
+    @Override
     public ArtistViewDto getArtistViewDto(Artist artist) {
         return artistMapper.toArtistViewDto(artist);
     }
@@ -85,10 +96,12 @@ public class ArtistServiceImpl implements ArtistService {
                 .toList();
     }
 
+    @Override
     public ArtistCreateEditDto getArtistCreateEditDto(Artist artist) {
         return artistMapper.toArtistCreateEditDto(artist);
     }
 
+    @Override
     public Set<Artist> getAllWithCurrentBirth(Integer dayInterval) {
         Set<Artist> artistBirthList = new HashSet<>();
         for (int i = 0; i < dayInterval; i++) {
@@ -97,6 +110,7 @@ public class ArtistServiceImpl implements ArtistService {
         return artistBirthList;
     }
 
+    @Override
     public Set<Artist> getAllWithCurrentDeath(Integer dayInterval) {
         Set<Artist> artistDeathList = new HashSet<>();
         for (int i = 0; i < dayInterval; i++) {
@@ -105,6 +119,7 @@ public class ArtistServiceImpl implements ArtistService {
         return artistDeathList;
     }
 
+    @Override
     public Set<Artist> getAllWithCurrentBirthAndNotification(Integer dayInterval) {
         Set<Artist> artistBirthList = new HashSet<>();
         for (int i = 0; i < dayInterval; i++) {
@@ -114,6 +129,7 @@ public class ArtistServiceImpl implements ArtistService {
         return artistBirthList;
     }
 
+    @Override
     public Set<Artist> getAllWithCurrentDeathAndNotification(Integer dayInterval) {
         Set<Artist> artistDeathList = new HashSet<>();
         for (int i = 0; i < dayInterval; i++) {
@@ -123,6 +139,7 @@ public class ArtistServiceImpl implements ArtistService {
         return artistDeathList;
     }
 
+    @Override
     public String isSlugExist(String artistSlug) {
         String message = "";
         if (getBySlug(artistSlug) != null) {
@@ -131,6 +148,7 @@ public class ArtistServiceImpl implements ArtistService {
         return message;
     }
 
+    @Override
     public Long getRepositorySize() {
         return artistRepository.getSize();
     }
