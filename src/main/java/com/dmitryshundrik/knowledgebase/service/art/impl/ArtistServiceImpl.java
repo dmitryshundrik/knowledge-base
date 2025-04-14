@@ -87,7 +87,7 @@ public class ArtistServiceImpl implements ArtistService {
 
     @Override
     public ArtistViewDto getArtistViewDto(Artist artist) {
-        return artistMapper.toArtistViewDto(artist);
+        return artistMapper.toArtistViewDto(new ArtistViewDto(), artist);
     }
 
     public List<ArtistViewDto> getArtistViewDtoList(List<Artist> artistList) {
@@ -98,7 +98,7 @@ public class ArtistServiceImpl implements ArtistService {
 
     @Override
     public ArtistCreateEditDto getArtistCreateEditDto(Artist artist) {
-        return artistMapper.toArtistCreateEditDto(artist);
+        return artistMapper.toArtistCreateEditDto(new ArtistCreateEditDto(), artist);
     }
 
     @Override

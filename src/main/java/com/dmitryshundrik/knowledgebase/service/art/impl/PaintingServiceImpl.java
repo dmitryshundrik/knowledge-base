@@ -1,6 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.art.impl;
 
 import com.dmitryshundrik.knowledgebase.mapper.art.PaintingMapper;
+import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingArtistProfileDto;
 import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingViewDto;
@@ -52,6 +53,11 @@ public class PaintingServiceImpl implements PaintingService {
     }
 
     @Override
+    public List<PaintingArtistProfileDto> getAllProfileDtoByArtistSortedByYear2Asc(Artist artist) {
+        return paintingRepository.findAllProfileDtoByArtistOrderByYear2Asc(artist);
+    }
+
+    @Override
     public List<PaintingSimpleDto> getBestPaintingsByArtist(Artist artist) {
         return paintingRepository.findAllByArtistAndArtistTopRankNotNull(artist);
     }
@@ -100,7 +106,7 @@ public class PaintingServiceImpl implements PaintingService {
 
     @Override
     public PaintingCreateEditDto getArtistCreateEditDto(Painting painting) {
-        return paintingMapper.toPaintingCreateEditDto(painting);
+        return paintingMapper.toPaintingCreateEditDto(new PaintingCreateEditDto(), painting);
     }
 
     @Override

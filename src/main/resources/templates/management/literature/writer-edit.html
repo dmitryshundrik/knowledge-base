@@ -169,6 +169,7 @@
             <table>
                 <thead>
                 <tr>
+                    <th>#</th>
                     <th>created</th>
                     <th>year</th>
                     <th>title</th>
@@ -179,6 +180,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="prose : ${writer.proseList}">
+                    <th th:text="${proseStat.index + 1}"></th>
                     <th th:text="${prose.created}"></th>
                     <th th:text="${prose.year}"></th>
                     <th th:text="${prose.title}"></th>

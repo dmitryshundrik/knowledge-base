@@ -53,7 +53,7 @@ public class ArtistCreateEditDto {
 
     private List<PersonEvent> events;
 
-    private List<PaintingViewDto> paintingList;
+    private List<PaintingArtistProfileDto> paintingList;
 
     private Boolean dateNotification;
 }

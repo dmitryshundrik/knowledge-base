@@ -76,7 +76,7 @@ public class ImageService {
     public ImageDto getImageDto(Image image) {
         return image != null ? ImageDto.builder()
                 .id(image.getId().toString())
-                .created(InstantFormatter.instantFormatterYMDHMS(image.getCreated()))
+                .created(InstantFormatter.instantFormatterDMY(image.getCreated()))
                 .title(image.getTitle())
                 .slug(image.getSlug())
                 .description(image.getDescription())

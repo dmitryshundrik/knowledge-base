@@ -192,7 +192,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="painting : ${artist.paintingList}">
-                    <th th:text="${artist.paintingList.size - paintingStat.index}"></th>
+                    <th th:text="${paintingStat.index + 1}"></th>
                     <td th:text="${painting.created}"></td>
                     <td th:text="${painting.title}"></td>
                     <td th:text="${painting.year1}"></td>

@@ -37,13 +37,18 @@ public abstract class PaintingMapper {
     @AfterMapping
     public void toPaintingViewDtoPostProcess(@MappingTarget PaintingViewDto dto, Painting painting) {
         Instant created = painting.getCreated();
-        dto.setCreated(created != null ? InstantFormatter.instantFormatterYMDHMS(created) : null);
+        dto.setCreated(created != null ? InstantFormatter.instantFormatterDMY(created) : null);
         dto.setImage(imageService.getImageDto(painting.getImage()));
     }
 
     @Mapping(target = "artistNickname", source = "artist.nickName")
     @Mapping(target = "artistSlug", source = "artist.slug")
     @Mapping(target = "paintingStyles", ignore = true)
-    @Mapping(target = "image", expression = "java(imageService.getImageDto(painting.getImage()))")
-    public abstract PaintingCreateEditDto toPaintingCreateEditDto(Painting painting);
+    @Mapping(target = "image", ignore = true)
+    public abstract PaintingCreateEditDto toPaintingCreateEditDto(@MappingTarget PaintingCreateEditDto dto, Painting painting);
+
+    @AfterMapping
+    public void toPaintingCreateEditDtoPostProcess(@MappingTarget PaintingCreateEditDto dto, Painting painting) {
+        dto.setImage(imageService.getImageDto(painting.getImage()));
+    }
 }
