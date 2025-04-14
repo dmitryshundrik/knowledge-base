@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.controller.gastronomy;
 
 import com.dmitryshundrik.knowledgebase.model.entity.common.Article;
-import com.dmitryshundrik.knowledgebase.model.dto.common.ArticleDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.common.ArticleDto;
 import com.dmitryshundrik.knowledgebase.model.entity.common.Resource;
 import com.dmitryshundrik.knowledgebase.service.common.ResourcesService;
 import com.dmitryshundrik.knowledgebase.util.enums.Country;
@@ -95,7 +95,7 @@ public class GastronomyPageController {
     @GetMapping("/article/{articleId}")
     public String getArticle(@PathVariable String articleId, Model model) {
         Article byId = articleService.getById(articleId);
-        ArticleDTO articleDTO = articleService.getArticleDTO(byId);
+        ArticleDto articleDTO = articleService.getArticleDTO(byId);
         model.addAttribute(ARTICLE, articleDTO);
         return "gastronomy/article";
     }

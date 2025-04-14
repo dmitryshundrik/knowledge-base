@@ -193,7 +193,7 @@ public class MusicianService {
                 .musicGenres(getSortedMusicGenresByMusician(musician))
                 .spotifyLink(musician.getSpotifyLink())
                 .events(musician.getEvents() != null ? personEventService
-                        .getPersonEventDTOList(musician.getEvents()) : null)
+                        .getPersonEventDtoList(musician.getEvents()) : null)
                 .albums(musician.getAlbums() != null ? albumService
                         .getSortedAlbumViewDTOList(musician.getAlbums(), musician.getAlbumsSortType()) : null)
                 .collaborations(musician.getCollaborations() != null ? albumService
@@ -232,7 +232,7 @@ public class MusicianService {
                 .albumsSortType(musician.getAlbumsSortType())
                 .compositionsSortType(musician.getCompositionsSortType())
                 .spotifyLink(musician.getSpotifyLink())
-                .events(personEventService.getPersonEventDTOList(musician.getEvents()))
+                .events(personEventService.getPersonEventDtoList(musician.getEvents()))
                 .albums(albumService.getSortedAlbumViewDTOList(musician.getAlbums(), musician.getAlbumsSortType()))
                 .compositions(compositionService
                         .getCompositionViewDTOList(compositionService

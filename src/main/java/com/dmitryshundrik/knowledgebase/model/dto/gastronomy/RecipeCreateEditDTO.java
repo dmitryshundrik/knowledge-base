@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.model.dto.gastronomy;
 
-import com.dmitryshundrik.knowledgebase.model.dto.common.ImageDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.common.ImageDto;
 import com.dmitryshundrik.knowledgebase.util.enums.Country;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,5 +35,5 @@ public class RecipeCreateEditDTO {
 
     private String method;
 
-    private List<ImageDTO> imageList;
+    private List<ImageDto> imageList;
 }

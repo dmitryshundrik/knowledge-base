@@ -1,12 +1,16 @@
 package com.dmitryshundrik.knowledgebase.model.dto.art;
 
-import com.dmitryshundrik.knowledgebase.model.dto.common.ImageDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.common.ImageDto;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PaintingViewDto {
 
     private String created;
@@ -35,5 +39,5 @@ public class PaintingViewDto {
 
     private String description;
 
-    private ImageDTO image;
+    private ImageDto image;
 }

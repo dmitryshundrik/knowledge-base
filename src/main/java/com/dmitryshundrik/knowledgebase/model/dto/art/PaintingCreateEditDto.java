@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.model.dto.art;
 
-import com.dmitryshundrik.knowledgebase.model.dto.common.ImageDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.common.ImageDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -43,5 +43,5 @@ public class PaintingCreateEditDto {
 
     private String description;
 
-    private ImageDTO image;
+    private ImageDto image;
 }

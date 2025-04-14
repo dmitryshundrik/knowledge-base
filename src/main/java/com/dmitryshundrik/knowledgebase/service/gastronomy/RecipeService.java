@@ -71,7 +71,7 @@ public class RecipeService {
                 .ingredients(recipe.getIngredients())
                 .method(recipe.getMethod())
                 .imageList(recipe.getImageList() != null ? imageService
-                        .getImageDTOList(imageService
+                        .getImageDtoList(imageService
                                 .getSortedByCreatedDesc(recipe.getImageList())) : null)
                 .build();
     }
@@ -89,7 +89,7 @@ public class RecipeService {
                 .ingredients(recipe.getIngredients())
                 .method(recipe.getMethod())
                 .imageList(recipe.getImageList() != null ? imageService
-                        .getImageDTOList(imageService
+                        .getImageDtoList(imageService
                                 .getSortedByCreatedDesc(recipe.getImageList())) : null)
                 .build();
     }

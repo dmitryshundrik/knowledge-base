@@ -26,8 +26,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="image : ${imageDTOList}">
-                <th th:text="${imageDTOList.size - imageStat.index}"></th>
+            <tr th:each="image : ${imageDtoList}">
+                <th th:text="${imageDtoList.size - imageStat.index}"></th>
                 <td th:text="${image.created}"></td>
                 <td th:text="${image.title}"></td>
                 <td th:text="${image.slug}"></td>

@@ -5,6 +5,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class Constants {
 
+    public static final String SORT_DIRECTION_ASC = "ASC";
     public static final String UNKNOWN = "unknown";
     public static final String TIME_INTERVAL_FOR_UPDATES = "TIME_INTERVAL_FOR_UPDATES";
     public static final String LIMIT_FOR_UPDATES = "LIMIT_FOR_UPDATES";
@@ -18,7 +19,6 @@ public final class Constants {
     public static final String TITLE_MUST_NOT_BE_BLANK = "Title must not be blank";
     public static final String MUSIC_GENRE_MUST_NOT_BE_BLANK = "Music genre must not be blank";
     public static final String YEAR_MUST_NOT_BE_NULL = "Year must not be null";
-    public static final String ARTIST_NOT_FOUND_BY_SLUG = "Artist with slug %s was not found";
 
     public static final String ARTIST = "artist";
     public static final String ARTIST_LIST = "artistList";

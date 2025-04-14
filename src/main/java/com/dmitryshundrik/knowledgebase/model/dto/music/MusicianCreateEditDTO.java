@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.model.dto.music;
 
-import com.dmitryshundrik.knowledgebase.model.dto.common.PersonEventDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.common.PersonEventDto;
 import com.dmitryshundrik.knowledgebase.util.enums.Gender;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.util.enums.SortType;
@@ -67,7 +67,7 @@ public class MusicianCreateEditDTO {
 
     private String spotifyLink;
 
-    private List<PersonEventDTO> events;
+    private List<PersonEventDto> events;
 
     private List<AlbumViewDTO> albums;
 

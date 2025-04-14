@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.controller.management.gastronomy;
 
 import com.dmitryshundrik.knowledgebase.model.entity.common.Image;
-import com.dmitryshundrik.knowledgebase.model.dto.common.ImageDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.common.ImageDto;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
@@ -32,33 +32,33 @@ public class RecipeImageManagementController {
 
     @GetMapping("/management/recipe/edit/{recipeSlug}/image/create")
     public String getRecipeImageCreate(Model model, @PathVariable String recipeSlug) {
-        ImageDTO imageDTO = new ImageDTO();
-        model.addAttribute(IMAGE, imageDTO);
+        ImageDto imageDto = new ImageDto();
+        model.addAttribute(IMAGE, imageDto);
         model.addAttribute(RECIPE_SLUG, recipeSlug);
         return "management/gastronomy/recipe-image-create";
     }
 
     @PostMapping("/management/recipe/edit/{recipeSlug}/image/create")
-    public String postRecipeImageCreate(@ModelAttribute(IMAGE) ImageDTO imageDTO, @PathVariable String recipeSlug) {
+    public String postRecipeImageCreate(@ModelAttribute(IMAGE) ImageDto imageDTO, @PathVariable String recipeSlug) {
         Recipe recipeBySlug = recipeService.getBySlug(recipeSlug);
-        String imageDTOSlug = imageService.createRecipeImage(imageDTO, recipeBySlug).getSlug();
-        return "redirect:/management/recipe/edit/" + recipeSlug + "/image/edit/" + imageDTOSlug;
+        String imageDtoSlug = imageService.createRecipeImage(imageDTO, recipeBySlug).getSlug();
+        return "redirect:/management/recipe/edit/" + recipeSlug + "/image/edit/" + imageDtoSlug;
     }
 
     @GetMapping("/management/recipe/edit/{recipeSlug}/image/edit/{imageSlug}")
     public String getRecipeImageEdit(@PathVariable String imageSlug, Model model, @PathVariable String recipeSlug) {
         Image bySlug = imageService.getBySlug(imageSlug);
-        ImageDTO imageDTO = imageService.getImageDTO(bySlug);
-        model.addAttribute(IMAGE, imageDTO);
+        ImageDto imageDto = imageService.getImageDto(bySlug);
+        model.addAttribute(IMAGE, imageDto);
         model.addAttribute(RECIPE_SLUG, recipeSlug);
         return "management/gastronomy/recipe-image-edit";
     }
 
     @PutMapping("/management/recipe/edit/{recipeSlug}/image/edit/{imageSlug}")
-    public String postRecipeImageEdit(@PathVariable String imageSlug, @ModelAttribute("imageDTO") ImageDTO imageDTO,
+    public String postRecipeImageEdit(@PathVariable String imageSlug, @ModelAttribute("imageDTO") ImageDto ImageDto,
                                       @PathVariable String recipeSlug) {
-        String imageDTOSlug = imageService.updateImage(imageSlug, imageDTO).getSlug();
-        return "redirect:/management/recipe/edit/" + recipeSlug + "/image/edit/" + imageDTOSlug;
+        String imageDtoSlug = imageService.updateImage(imageSlug, ImageDto).getSlug();
+        return "redirect:/management/recipe/edit/" + recipeSlug + "/image/edit/" + imageDtoSlug;
     }
 
     @DeleteMapping("/management/recipe/edit/{recipeSlug}/image/delete/{imageSlug}")

@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.common;
 
 import com.dmitryshundrik.knowledgebase.model.entity.common.Foundation;
-import com.dmitryshundrik.knowledgebase.model.dto.common.FoundationDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.common.FoundationDto;
 import com.dmitryshundrik.knowledgebase.repository.common.FoundationRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;
@@ -30,15 +30,15 @@ public class FoundationService {
         return foundationRepository.findAllByOrderByCreatedAsc();
     }
 
-    public Foundation createFoundation(FoundationDTO foundationDTO) {
+    public Foundation createFoundation(FoundationDto foundationDto) {
         Foundation foundation = new Foundation();
-        setFieldsFromDTO(foundation, foundationDTO);
+        setFieldsFromDto(foundation, foundationDto);
         return foundationRepository.save(foundation);
     }
 
-    public Foundation updateFoundation(String foundationId, FoundationDTO foundationDTO) {
+    public Foundation updateFoundation(String foundationId, FoundationDto foundationDto) {
         Foundation byId = getById(foundationId);
-        setFieldsFromDTO(byId, foundationDTO);
+        setFieldsFromDto(byId, foundationDto);
         return byId;
     }
 
@@ -46,8 +46,8 @@ public class FoundationService {
         foundationRepository.deleteById(UUID.fromString(foundationId));
     }
 
-    public FoundationDTO getFoundationDTO(Foundation foundation) {
-        return FoundationDTO.builder()
+    public FoundationDto getFoundationDto(Foundation foundation) {
+        return FoundationDto.builder()
                 .id(foundation.getId().toString())
                 .created(InstantFormatter.instantFormatterYMD(foundation.getCreated()))
                 .title(foundation.getTitle())
@@ -56,15 +56,15 @@ public class FoundationService {
                 .build();
     }
 
-    public List<FoundationDTO> getFoundationDTOList(List<Foundation> foundationList) {
+    public List<FoundationDto> getFoundationDTOList(List<Foundation> foundationList) {
         return foundationList.stream()
-                .map(this::getFoundationDTO)
+                .map(this::getFoundationDto)
                 .collect(Collectors.toList());
     }
 
-    public void setFieldsFromDTO(Foundation foundation, FoundationDTO foundationDTO) {
-        foundation.setTitle(foundationDTO.getTitle());
-        foundation.setDescription(foundationDTO.getDescription());
-        foundation.setLink(foundationDTO.getLink());
+    public void setFieldsFromDto(Foundation foundation, FoundationDto foundationDto) {
+        foundation.setTitle(foundationDto.getTitle());
+        foundation.setDescription(foundationDto.getDescription());
+        foundation.setLink(foundationDto.getLink());
     }
 }

@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.model.dto.literature;
 
-import com.dmitryshundrik.knowledgebase.model.dto.common.PersonEventDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.common.PersonEventDto;
 import com.dmitryshundrik.knowledgebase.util.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -49,7 +49,7 @@ public class WriterCreateEditDTO {
 
     private String occupation;
 
-    private List<PersonEventDTO> events;
+    private List<PersonEventDto> events;
 
     private List<ProseViewDTO> proseList;
 

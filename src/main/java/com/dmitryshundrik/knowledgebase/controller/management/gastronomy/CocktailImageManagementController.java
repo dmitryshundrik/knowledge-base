@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.controller.management.gastronomy;
 
+import com.dmitryshundrik.knowledgebase.model.dto.common.ImageDto;
 import com.dmitryshundrik.knowledgebase.model.entity.common.Image;
-import com.dmitryshundrik.knowledgebase.model.dto.common.ImageDTO;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
@@ -32,33 +32,33 @@ public class CocktailImageManagementController {
 
     @GetMapping("/management/cocktail/edit/{cocktailSlug}/image/create")
     public String getRecipeImageCreate(Model model, @PathVariable String cocktailSlug) {
-        ImageDTO imageDTO = new ImageDTO();
-        model.addAttribute(IMAGE, imageDTO);
+        ImageDto imageDto = new ImageDto();
+        model.addAttribute(IMAGE, imageDto);
         model.addAttribute(COCKTAIL_SLUG, cocktailSlug);
         return "management/gastronomy/cocktail-image-create";
     }
 
     @PostMapping("/management/cocktail/edit/{cocktailSlug}/image/create")
-    public String postRecipeImageCreate(@ModelAttribute(IMAGE) ImageDTO imageDTO, @PathVariable String cocktailSlug) {
+    public String postRecipeImageCreate(@ModelAttribute(IMAGE) ImageDto imageDTO, @PathVariable String cocktailSlug) {
         Cocktail cocktailBySlug = cocktailService.getBySlug(cocktailSlug);
-        String imageDTOSlug = imageService.createCocktailImage(imageDTO, cocktailBySlug).getSlug();
-        return "redirect:/management/cocktail/edit/" + cocktailSlug + "/image/edit/" + imageDTOSlug;
+        String imageDtoSlug = imageService.createCocktailImage(imageDTO, cocktailBySlug).getSlug();
+        return "redirect:/management/cocktail/edit/" + cocktailSlug + "/image/edit/" + imageDtoSlug;
     }
 
     @GetMapping("/management/cocktail/edit/{cocktailSlug}/image/edit/{imageSlug}")
     public String getRecipeImageEdit(@PathVariable String imageSlug, Model model, @PathVariable String cocktailSlug) {
         Image bySlug = imageService.getBySlug(imageSlug);
-        ImageDTO imageDTO = imageService.getImageDTO(bySlug);
-        model.addAttribute(IMAGE, imageDTO);
+        ImageDto imageDto = imageService.getImageDto(bySlug);
+        model.addAttribute(IMAGE, imageDto);
         model.addAttribute(COCKTAIL_SLUG, cocktailSlug);
         return "management/gastronomy/cocktail-image-edit";
     }
 
     @PutMapping("/management/cocktail/edit/{cocktailSlug}/image/edit/{imageSlug}")
-    public String postRecipeImageEdit(@PathVariable String imageSlug, @ModelAttribute(IMAGE) ImageDTO imageDTO,
+    public String postRecipeImageEdit(@PathVariable String imageSlug, @ModelAttribute(IMAGE) ImageDto imageDTO,
                                       @PathVariable String cocktailSlug) {
-        String imageDTOSlug = imageService.updateImage(imageSlug, imageDTO).getSlug();
-        return "redirect:/management/cocktail/edit/" + cocktailSlug + "/image/edit/" + imageDTOSlug;
+        String imageDtoSlug = imageService.updateImage(imageSlug, imageDTO).getSlug();
+        return "redirect:/management/cocktail/edit/" + cocktailSlug + "/image/edit/" + imageDtoSlug;
     }
 
     @DeleteMapping("/management/cocktail/edit/{cocktailSlug}/image/delete/{imageSlug}")

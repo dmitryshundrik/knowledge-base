@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.common;
 
 import com.dmitryshundrik.knowledgebase.model.entity.common.Article;
-import com.dmitryshundrik.knowledgebase.model.dto.common.ArticleDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.common.ArticleDto;
 import com.dmitryshundrik.knowledgebase.repository.common.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,8 +19,8 @@ public class ArticleService {
         return articleRepository.findById(UUID.fromString(articleId)).orElse(null);
     }
 
-    public ArticleDTO getArticleDTO(Article article) {
-        return ArticleDTO.builder()
+    public ArticleDto getArticleDTO(Article article) {
+        return ArticleDto.builder()
                 .id(article.getId().toString())
                 .created(article.getCreated())
                 .description(article.getDescription())

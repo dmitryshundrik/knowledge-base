@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.controller.art;
 
+import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.entity.art.Artist;
 import com.dmitryshundrik.knowledgebase.model.entity.art.Painting;
 import com.dmitryshundrik.knowledgebase.model.dto.art.ArtistViewDto;
@@ -21,6 +22,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.ARTIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.ARTIST_LIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.PAINTING_LIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.RESOURCE_LIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.SORT_DIRECTION_ASC;
 import static com.dmitryshundrik.knowledgebase.util.Constants.UNKNOWN;
 
 @Controller
@@ -56,7 +58,7 @@ public class ArtPageController {
         ArtistViewDto artistViewDto = artistService.getArtistViewDto(bySlug);
         artistViewDto.setPaintingList(artistViewDto.getPaintingList().stream()
                 .limit(10).toList());
-        List<Painting> bestPaintingsByArtist = paintingService.getBestPaintingsByArtist(artistService.getBySlug(artistSlug));
+        List<PaintingSimpleDto> bestPaintingsByArtist = paintingService.getBestPaintingsByArtist(bySlug);
         model.addAttribute(ARTIST, artistViewDto);
         model.addAttribute(PAINTING_LIST, bestPaintingsByArtist);
         return "art/artist";
@@ -66,7 +68,7 @@ public class ArtPageController {
     public String getArtistAllPaintings(@PathVariable String artistSlug, Model model) {
         Artist bySlug = artistService.getBySlug(artistSlug);
         ArtistViewDto artistViewDto = artistService.getArtistViewDto(bySlug);
-        List<Painting> paintingList = paintingService.getAllByArtistSortedByYear2(bySlug);
+        List<Painting> paintingList = paintingService.getAllByArtistSortedByYear2(bySlug, SORT_DIRECTION_ASC);
         List<PaintingViewDto> paintingViewDtoList = paintingService.getPaintingViewDtoList(paintingList);
         model.addAttribute(ARTIST, artistViewDto);
         model.addAttribute(PAINTING_LIST, paintingViewDtoList);

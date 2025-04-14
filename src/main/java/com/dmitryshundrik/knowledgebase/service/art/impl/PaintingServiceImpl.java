@@ -2,6 +2,7 @@ package com.dmitryshundrik.knowledgebase.service.art.impl;
 
 import com.dmitryshundrik.knowledgebase.mapper.art.PaintingMapper;
 import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingViewDto;
 import com.dmitryshundrik.knowledgebase.model.entity.art.Artist;
 import com.dmitryshundrik.knowledgebase.model.entity.art.Painting;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
+import static com.dmitryshundrik.knowledgebase.util.Constants.SORT_DIRECTION_ASC;
 
 @Service
 @Transactional
@@ -38,13 +40,15 @@ public class PaintingServiceImpl implements PaintingService {
         return paintingRepository.findAllByOrderByCreatedDesc();
     }
 
-    public List<Painting> getAllByArtistSortedByYear2(Artist artist) {
-        return paintingRepository.findAllByArtistOrderByYear2(artist);
+    public List<Painting> getAllByArtistSortedByYear2(Artist artist, String sortDirection) {
+        if (SORT_DIRECTION_ASC.equalsIgnoreCase(sortDirection)) {
+            return paintingRepository.findAllByArtistOrderByYear2Asc(artist);
+        }
+        return paintingRepository.findAllByArtistOrderByYear2Desc(artist);
     }
 
-    public List<Painting> getBestPaintingsByArtist(Artist artist) {
-        List<Painting> paintingList = paintingRepository.findAllByArtistAndArtistTopRankNotNull(artist);
-        return paintingList.stream().sorted(Comparator.comparing(Painting::getArtistTopRank)).collect(Collectors.toList());
+    public List<PaintingSimpleDto> getBestPaintingsByArtist(Artist artist) {
+        return paintingRepository.findAllByArtistAndArtistTopRankNotNull(artist);
     }
 
     public List<Painting> getAllTimeBestPaintings() {
@@ -75,7 +79,7 @@ public class PaintingServiceImpl implements PaintingService {
     }
 
     public PaintingViewDto getPaintingViewDto(Painting painting) {
-        return paintingMapper.toPaintingViewDto(painting);
+        return paintingMapper.toPaintingViewDto(new PaintingViewDto(), painting);
     }
 
     public List<PaintingViewDto> getPaintingViewDtoList(List<Painting> paintingList) {

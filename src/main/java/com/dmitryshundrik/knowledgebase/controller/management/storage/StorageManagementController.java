@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.controller.management.storage;
 
+import com.dmitryshundrik.knowledgebase.model.dto.common.ImageDto;
 import com.dmitryshundrik.knowledgebase.model.entity.common.Image;
-import com.dmitryshundrik.knowledgebase.model.dto.common.ImageDTO;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -21,8 +21,8 @@ public class StorageManagementController {
     @GetMapping("/management/storage/image/all")
     public String getAllImages(Model model) {
         List<Image> imageList = imageService.getAllSortedByCreatedDesc();
-        List<ImageDTO> imageDTOList = imageService.getImageDTOList(imageList);
-        model.addAttribute("imageDTOList", imageDTOList);
+        List<ImageDto> imageDtoList = imageService.getImageDtoList(imageList);
+        model.addAttribute("imageDtoList", imageDtoList);
         return "management/storage/image-all";
     }
 

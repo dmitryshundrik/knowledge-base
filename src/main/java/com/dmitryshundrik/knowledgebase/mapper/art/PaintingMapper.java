@@ -4,10 +4,13 @@ import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingViewDto;
 import com.dmitryshundrik.knowledgebase.model.entity.art.Painting;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
+import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
+import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
+import java.time.Instant;
 
 @Mapper(componentModel = "spring")
 public abstract class PaintingMapper {
@@ -24,15 +27,23 @@ public abstract class PaintingMapper {
     @Mapping(target = "image", ignore = true)
     public abstract Painting toPainting(@MappingTarget Painting painting, PaintingCreateEditDto paintingDto);
 
+    @Mapping(target = "created", ignore = true)
     @Mapping(target = "artistNickname", source = "artist.nickName")
     @Mapping(target = "artistSlug", source = "artist.slug")
     @Mapping(target = "paintingStyles", ignore = true)
-    @Mapping(target = "image", expression = "java(imageService.getImageDTO(painting.getImage()))")
-    public abstract PaintingViewDto toPaintingViewDto(Painting painting);
+    @Mapping(target = "image", ignore = true)
+    public abstract PaintingViewDto toPaintingViewDto(@MappingTarget PaintingViewDto dto, Painting painting);
+
+    @AfterMapping
+    public void toPaintingViewDtoPostProcess(@MappingTarget PaintingViewDto dto, Painting painting) {
+        Instant created = painting.getCreated();
+        dto.setCreated(created != null ? InstantFormatter.instantFormatterYMDHMS(created) : null);
+        dto.setImage(imageService.getImageDto(painting.getImage()));
+    }
 
     @Mapping(target = "artistNickname", source = "artist.nickName")
     @Mapping(target = "artistSlug", source = "artist.slug")
     @Mapping(target = "paintingStyles", ignore = true)
-    @Mapping(target = "image", expression = "java(imageService.getImageDTO(painting.getImage()))")
+    @Mapping(target = "image", expression = "java(imageService.getImageDto(painting.getImage()))")
     public abstract PaintingCreateEditDto toPaintingCreateEditDto(Painting painting);
 }

@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.controller.management.music;
 
 import com.dmitryshundrik.knowledgebase.model.entity.common.PersonEvent;
-import com.dmitryshundrik.knowledgebase.model.dto.common.PersonEventDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.common.PersonEventDto;
 import com.dmitryshundrik.knowledgebase.service.common.PersonEventService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import lombok.RequiredArgsConstructor;
@@ -29,28 +29,28 @@ public class MusicianEventManagementController {
 
     @GetMapping("/management/musician/edit/{musicianSlug}/event/create")
     public String getCreateEventForMusician(@PathVariable String musicianSlug, Model model) {
-        model.addAttribute(PERSON_EVENT, new PersonEventDTO());
+        model.addAttribute(PERSON_EVENT, new PersonEventDto());
         model.addAttribute(SLUG, musicianSlug);
         return "management/music/musician-event-create";
     }
 
     @PostMapping("/management/musician/edit/{musicianSlug}/event/create")
     public String postCreateEventForMusician(@PathVariable String musicianSlug,
-                                             @Valid @ModelAttribute(PERSON_EVENT) PersonEventDTO personEventDTO,
+                                             @Valid @ModelAttribute(PERSON_EVENT) PersonEventDto personEventDto,
                                              BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute(SLUG, musicianSlug);
             return "management/music/musician-event-create";
         }
         String personEventId = personEventService
-                .createMusicianEvent(musicianService.getMusicianBySlug(musicianSlug), personEventDTO);
+                .createMusicianEvent(musicianService.getMusicianBySlug(musicianSlug), personEventDto);
         return "redirect:/management/musician/edit/" + musicianSlug + "/event/edit/" + personEventId;
     }
 
     @GetMapping("/management/musician/edit/{musicianSlug}/event/edit/{id}")
     public String getEditMusicianEventById(@PathVariable String musicianSlug, @PathVariable String id, Model model) {
         PersonEvent personEventById = personEventService.getPersonEventById(id);
-        model.addAttribute(PERSON_EVENT, personEventService.getPersonEventDTO(personEventById));
+        model.addAttribute(PERSON_EVENT, personEventService.getPersonEventDto(personEventById));
         model.addAttribute(SLUG, musicianSlug);
         return "management/music/musician-event-edit";
     }
@@ -58,8 +58,8 @@ public class MusicianEventManagementController {
     @PutMapping("/management/musician/edit/{musicianSlug}/event/edit/{id}")
     public String putEditMusicianEventById(@PathVariable String musicianSlug,
                                            @PathVariable String id,
-                                           @ModelAttribute(PERSON_EVENT) PersonEventDTO personEventDTO) {
-        String personEventId = personEventService.updatePersonEvent(id, personEventDTO).getId();
+                                           @ModelAttribute(PERSON_EVENT) PersonEventDto personEventDto) {
+        String personEventId = personEventService.updatePersonEvent(id, personEventDto).getId();
         return "redirect:/management/musician/edit/" + musicianSlug + "/event/edit/" + personEventId;
     }
 

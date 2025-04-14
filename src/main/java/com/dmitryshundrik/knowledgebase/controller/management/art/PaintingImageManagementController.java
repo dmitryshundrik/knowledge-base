@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.controller.management.art;
 
+import com.dmitryshundrik.knowledgebase.model.dto.common.ImageDto;
 import com.dmitryshundrik.knowledgebase.model.entity.art.Painting;
 import com.dmitryshundrik.knowledgebase.model.entity.common.Image;
-import com.dmitryshundrik.knowledgebase.model.dto.common.ImageDTO;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
 import com.dmitryshundrik.knowledgebase.service.common.ImageService;
 import lombok.RequiredArgsConstructor;
@@ -33,11 +33,11 @@ public class PaintingImageManagementController {
 
     @GetMapping("/management/artist/edit/{artistSlug}/painting/edit/{paintingSlug}/image/create")
     public String getPaintingImageCreate(Model model, @PathVariable String artistSlug, @PathVariable String paintingSlug) {
-        ImageDTO imageDTO = new ImageDTO();
+        ImageDto imageDto = new ImageDto();
         Painting paintingBySlug = paintingService.getBySlug(paintingSlug);
-        imageDTO.setSlug(paintingBySlug.getSlug());
-        imageDTO.setTitle(paintingBySlug.getTitle());
-        model.addAttribute(IMAGE, imageDTO);
+        imageDto.setSlug(paintingBySlug.getSlug());
+        imageDto.setTitle(paintingBySlug.getTitle());
+        model.addAttribute(IMAGE, imageDto);
         model.addAttribute(ARTIST_SLUG, artistSlug);
         model.addAttribute(PAINTING_SLUG, paintingSlug);
         return "management/art/painting-image-create";
@@ -46,18 +46,18 @@ public class PaintingImageManagementController {
     @PostMapping("/management/artist/edit/{artistSlug}/painting/edit/{paintingSlug}/image/create")
     public String postPaintingImageCreate(@PathVariable String artistSlug,
                                           @PathVariable String paintingSlug,
-                                          @ModelAttribute(IMAGE) ImageDTO imageDTO) {
+                                          @ModelAttribute(IMAGE) ImageDto imageDto) {
         Painting paintingBySlug = paintingService.getBySlug(paintingSlug);
-        String imageDTOSlug = imageService.createPaintingImage(imageDTO, paintingBySlug).getSlug();
-        return "redirect:/management/artist/edit/" + artistSlug + "/painting/edit/" + paintingSlug + "/image/edit/" + imageDTOSlug;
+        String imageDtoSlug = imageService.createPaintingImage(imageDto, paintingBySlug).getSlug();
+        return "redirect:/management/artist/edit/" + artistSlug + "/painting/edit/" + paintingSlug + "/image/edit/" + imageDtoSlug;
     }
 
     @GetMapping("/management/artist/edit/{artistSlug}/painting/edit/{paintingSlug}/image/edit/{imageSlug}")
     public String getPaintingImageEdit(@PathVariable String artistSlug, @PathVariable String paintingSlug,
                                        @PathVariable String imageSlug, Model model) {
         Image bySlug = imageService.getBySlug(imageSlug);
-        ImageDTO imageDTO = imageService.getImageDTO(bySlug);
-        model.addAttribute(IMAGE, imageDTO);
+        ImageDto imageDto = imageService.getImageDto(bySlug);
+        model.addAttribute(IMAGE, imageDto);
         model.addAttribute(ARTIST_SLUG, artistSlug);
         model.addAttribute(PAINTING_SLUG, paintingSlug);
         return "management/art/painting-image-edit";
@@ -65,9 +65,9 @@ public class PaintingImageManagementController {
 
     @PutMapping("/management/artist/edit/{artistSlug}/painting/edit/{paintingSlug}/image/edit/{imageSlug}")
     public String postPaintingImageEdit(@PathVariable String artistSlug, @PathVariable String paintingSlug,
-                                        @PathVariable String imageSlug, @ModelAttribute(IMAGE) ImageDTO imageDTO) {
-        String imageDTOSlug = imageService.updateImage(imageSlug, imageDTO).getSlug();
-        return "redirect:/management/artist/edit/" + artistSlug + "/painting/edit/" + paintingSlug + "/image/edit/" + imageDTOSlug;
+                                        @PathVariable String imageSlug, @ModelAttribute(IMAGE) ImageDto imageDto) {
+        String imageDtoSlug = imageService.updateImage(imageSlug, imageDto).getSlug();
+        return "redirect:/management/artist/edit/" + artistSlug + "/painting/edit/" + paintingSlug + "/image/edit/" + imageDtoSlug;
     }
 
     @DeleteMapping("/management/artist/edit/{artistSlug}/painting/edit/{paintingSlug}/image/delete/{imageSlug}")

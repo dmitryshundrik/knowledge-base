@@ -29,6 +29,6 @@ public abstract class ArtistMapper {
 
     @Mapping(target = "events", ignore = true)
     @Mapping(target = "paintingList", expression = "java(paintingService" +
-            ".getPaintingViewDtoList(paintingService.getAllByArtistSortedByYear2(artist)))")
+            ".getPaintingViewDtoList(paintingService.getAllByArtistSortedByYear2(artist, \"DESC\")))")
     public abstract ArtistCreateEditDto toArtistCreateEditDto(Artist artist);
 }

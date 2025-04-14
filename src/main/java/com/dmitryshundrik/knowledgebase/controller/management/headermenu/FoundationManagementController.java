@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.controller.management.headermenu;
 
 import com.dmitryshundrik.knowledgebase.model.entity.common.Foundation;
-import com.dmitryshundrik.knowledgebase.model.dto.common.FoundationDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.common.FoundationDto;
 import com.dmitryshundrik.knowledgebase.service.common.FoundationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -26,36 +26,36 @@ public class FoundationManagementController {
     @GetMapping("/management/foundation/all")
     public String getAllFoundations(Model model) {
         List<Foundation> foundationList = foundationService.getAllSortedByCreated();
-        List<FoundationDTO> foundationDTOList = foundationService.getFoundationDTOList(foundationList);
-        model.addAttribute(FOUNDATION_LIST, foundationDTOList);
+        List<FoundationDto> foundationDtoList = foundationService.getFoundationDTOList(foundationList);
+        model.addAttribute(FOUNDATION_LIST, foundationDtoList);
         return "management/headermenu/foundation-all";
     }
 
     @GetMapping("/management/foundation/create")
     public String getFoundationCreate(Model model) {
-        FoundationDTO foundationDTO = new FoundationDTO();
+        FoundationDto foundationDTO = new FoundationDto();
         model.addAttribute(FOUNDATION, foundationDTO);
         return "management/headermenu/foundation-create";
     }
 
     @PostMapping("/management/foundation/create")
-    public String postFoundationCreate(@ModelAttribute(FOUNDATION) FoundationDTO foundationDTO) {
-        Foundation foundation = foundationService.createFoundation(foundationDTO);
+    public String postFoundationCreate(@ModelAttribute(FOUNDATION) FoundationDto foundationDto) {
+        Foundation foundation = foundationService.createFoundation(foundationDto);
         return "redirect:/management/foundation/edit/" + foundation.getId();
     }
 
     @GetMapping("/management/foundation/edit/{foundationId}")
     public String getFoundationEdit(@PathVariable String foundationId, Model model) {
         Foundation byId = foundationService.getById(foundationId);
-        FoundationDTO foundationDTO = foundationService.getFoundationDTO(byId);
-        model.addAttribute(FOUNDATION, foundationDTO);
+        FoundationDto foundationDto = foundationService.getFoundationDto(byId);
+        model.addAttribute(FOUNDATION, foundationDto);
         return "management/headermenu/foundation-edit";
     }
 
     @PutMapping("/management/foundation/edit/{foundationId}")
     public String putFoundationEdit(@PathVariable String foundationId,
-                                    @ModelAttribute(FOUNDATION) FoundationDTO foundationDTO) {
-        Foundation foundation = foundationService.updateFoundation(foundationId, foundationDTO);
+                                    @ModelAttribute(FOUNDATION) FoundationDto foundationDto) {
+        Foundation foundation = foundationService.updateFoundation(foundationId, foundationDto);
         return "redirect:/management/foundation/edit/" + foundation.getId();
     }
 

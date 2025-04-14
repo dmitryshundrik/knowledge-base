@@ -1,6 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.art;
 
 import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingViewDto;
 import com.dmitryshundrik.knowledgebase.model.entity.art.Artist;
 import com.dmitryshundrik.knowledgebase.model.entity.art.Painting;
@@ -17,8 +18,8 @@ public interface PaintingService {
 
     List<Painting> getAll();
     List<Painting> getAllSortedByCreatedDesc();
-    List<Painting> getAllByArtistSortedByYear2(Artist artist);
-    List<Painting> getBestPaintingsByArtist(Artist artist);
+    List<Painting> getAllByArtistSortedByYear2(Artist artist, String direction);
+    List<PaintingSimpleDto> getBestPaintingsByArtist(Artist artist);
     List<Painting> getAllTimeBestPaintings();
     List<Painting> getLatestUpdate();
 

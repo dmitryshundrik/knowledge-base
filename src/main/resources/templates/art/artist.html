@@ -16,7 +16,7 @@
 
     <header class="table-title">
         <section class="table-title-image" th:if="${artist.image} != null">
-            <img th:src="|data:image;base64,${artist.image}|">
+            <img th:src="|data:image;base64,${artist.image}|" alt="Artist image">
         </section>
         <h1 th:text="${artist.nickName}"></h1>
         <h3 class="occupation" th:if="${not #strings.isEmpty(artist.occupation)}"

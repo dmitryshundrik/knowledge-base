@@ -65,7 +65,7 @@ public class CocktailService {
                 .ingredients(cocktail.getIngredients())
                 .method(cocktail.getMethod())
                 .imageList(cocktail.getImageList() != null ? imageService
-                        .getImageDTOList(imageService
+                        .getImageDtoList(imageService
                                 .getSortedByCreatedDesc(cocktail.getImageList())) : null)
                 .build();
     }
@@ -83,7 +83,7 @@ public class CocktailService {
                 .ingredients(cocktail.getIngredients())
                 .method(cocktail.getMethod())
                 .imageList(cocktail.getImageList() != null ? imageService
-                        .getImageDTOList(imageService
+                        .getImageDtoList(imageService
                                 .getSortedByCreatedDesc(cocktail.getImageList())) : null)
                 .build();
     }
