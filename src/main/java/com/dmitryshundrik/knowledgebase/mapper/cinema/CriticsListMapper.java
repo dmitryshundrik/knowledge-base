@@ -12,4 +12,6 @@ public interface CriticsListMapper {
     CriticsList toCriticsList(CriticsListCreateEditDto criticsListCreateEditDto);
 
     void updateCriticsList(CriticsListCreateEditDto criticsListDto, @MappingTarget CriticsList criticsList);
+
+    CriticsListCreateEditDto toCriticsListCreateEditDto(CriticsList criticsList);
 }

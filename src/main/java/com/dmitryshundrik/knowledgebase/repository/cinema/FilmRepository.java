@@ -10,9 +10,6 @@ import java.util.UUID;
 
 public interface FilmRepository extends JpaRepository<Film, UUID> {
 
-    @Query(value = "select count(m) from Film m")
-    Long getSize();
-
     Film findBySlug(String slug);
 
     List<Film> findFirst20ByOrderByCreatedDesc();
@@ -26,4 +23,7 @@ public interface FilmRepository extends JpaRepository<Film, UUID> {
             "film.year, film.rating, film.yearRank, film.allTimeRank, film.synopsis, film.image) FROM Film film WHERE film.allTimeRank IS NOT null " +
             "ORDER BY film.allTimeRank ASC")
     List<FilmResponseDto> findAllByAllTimeRankNotNullAndOrderByAllTimeRankAsc();
+
+    @Query(value = "select count(m) from Film m")
+    Long getSize();
 }

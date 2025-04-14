@@ -12,6 +12,8 @@ public interface FilmMapper {
 
     Film toFilm(FilmCreateEditDto filmCreateEditDto);
 
+    FilmCreateEditDto toFilmCreateEditDto(Film film);
+
     @Mapping(target = "image", ignore = true)
     void updateFilm(FilmCreateEditDto filmDto, @MappingTarget Film film);
 }

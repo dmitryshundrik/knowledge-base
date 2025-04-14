@@ -3,75 +3,28 @@ package com.dmitryshundrik.knowledgebase.service.cinema;
 import com.dmitryshundrik.knowledgebase.model.dto.cinema.CriticsListCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.cinema.CriticsListResponseDto;
 import com.dmitryshundrik.knowledgebase.model.entity.cinema.CriticsList;
-import com.dmitryshundrik.knowledgebase.mapper.cinema.CriticsListMapper;
-import com.dmitryshundrik.knowledgebase.repository.cinema.CriticsListRepository;
-import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
-import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
+/**
+ * Service interface for managing {@link CriticsList} entities.
+ * Provides methods for retrieving, creating, updating, and deleting critics lists, as well as handling
+ * list-related data, and DTO conversions.
+ */
+public interface CriticsListService {
 
-@Service
-@Transactional
-@RequiredArgsConstructor
-public class CriticsListService {
+    CriticsList getBySlug(String slug);
 
-    private final CriticsListRepository criticsListRepository;
+    List<CriticsListResponseDto> getAllCriticsList();
+    List<CriticsListResponseDto> getAllCriticsListArchiveDto();
+    List<CriticsList> getLatestUpdate();
 
-    private final CriticsListMapper criticsListMapper;
+    CriticsList createCriticsList(CriticsListCreateEditDto criticsListDto);
+    CriticsList updateCriticsList(String filmSlug, CriticsListCreateEditDto criticsListDto);
+    void deleteCriticsListBySlug(String criticListSlug);
 
-    public Long getCriticsListRepositorySize() {
-        return criticsListRepository.getSize();
-    }
+    CriticsListCreateEditDto getCriticsListCreateEditDto(CriticsList criticsList);
 
-    public CriticsList getBySlug(String slug) {
-        return criticsListRepository.findBySlug(slug);
-    }
+    String isSlugExist(String criticsListSlug);
 
-    public List<CriticsListResponseDto> getAllCriticsList() {
-        return criticsListRepository.findAllCriticsListResponseDtoOrderByYearDesc();
-    }
-
-    public List<CriticsListResponseDto> getAllCriticsListArchiveDto() {
-        return criticsListRepository.findAllCriticsListArchiveDtoOrderByCreatedDesc();
-    }
-
-    public CriticsList createCriticsList(CriticsListCreateEditDto criticsListDto) {
-        CriticsList criticsList = criticsListMapper.toCriticsList(criticsListDto);
-        criticsList.setSlug(SlugFormatter.slugFormatter(criticsList.getSlug()));
-        return criticsListRepository.save(criticsList);
-    }
-
-    public CriticsList updateCriticsList(String filmSlug, CriticsListCreateEditDto criticsListDto) {
-        CriticsList criticsList = criticsListRepository.findBySlug(filmSlug);
-        criticsListMapper.updateCriticsList(criticsListDto, criticsList);
-        return criticsList;
-    }
-
-    public void deleteCriticsListBySlug(String criticListSlug) {
-        criticsListRepository.delete(criticsListRepository.findBySlug(criticListSlug));
-    }
-
-    public CriticsListCreateEditDto getCriticsListCreateEditDto(CriticsList criticsList) {
-        return CriticsListCreateEditDto.builder()
-                .slug(criticsList.getSlug())
-                .title(criticsList.getTitle())
-                .year(criticsList.getYear())
-                .synopsis(criticsList.getSynopsis())
-                .build();
-    }
-
-    public String criticsListSlugIsExist(String criticsListSlug) {
-        String message = "";
-        if (criticsListRepository.findBySlug(criticsListSlug) != null) {
-            message = SLUG_IS_ALREADY_EXIST;
-        }
-        return message;
-    }
-
-    public List<CriticsList> getLatestUpdate() {
-        return criticsListRepository.findFirst20ByOrderByCreatedDesc();
-    }
+    Long getRepositorySize();
 }
