@@ -3,6 +3,7 @@ package com.dmitryshundrik.knowledgebase.service.cinema;
 import com.dmitryshundrik.knowledgebase.model.dto.cinema.CriticsListCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.cinema.CriticsListResponseDto;
 import com.dmitryshundrik.knowledgebase.model.entity.cinema.CriticsList;
+import com.dmitryshundrik.knowledgebase.service.BaseService;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * Provides methods for retrieving, creating, updating, and deleting critics lists, as well as handling
  * list-related data, and DTO conversions.
  */
-public interface CriticsListService {
+public interface CriticsListService extends BaseService {
 
     CriticsList getBySlug(String slug);
 
@@ -23,8 +24,4 @@ public interface CriticsListService {
     void deleteCriticsListBySlug(String criticListSlug);
 
     CriticsListCreateEditDto getCriticsListCreateEditDto(CriticsList criticsList);
-
-    String isSlugExist(String criticsListSlug);
-
-    Long getRepositorySize();
 }

@@ -4,6 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.dto.cinema.FilmArchiveDto;
 import com.dmitryshundrik.knowledgebase.model.dto.cinema.FilmCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.cinema.FilmResponseDto;
 import com.dmitryshundrik.knowledgebase.model.entity.cinema.Film;
+import com.dmitryshundrik.knowledgebase.service.BaseService;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  * Provides methods for retrieving, creating, updating, and deleting films, as well as handling
  * film-related data such as images and DTO conversions.
  */
-public interface FilmService {
+public interface FilmService extends BaseService {
 
     Film getBySlug(String slug);
 
@@ -27,8 +28,4 @@ public interface FilmService {
     void deleteFilmImage(String filmSlug);
 
     FilmCreateEditDto getFilmCreateEditDto(Film film);
-
-    String isSlugExist(String filmSlug);
-
-    Long getRepositorySize();
 }

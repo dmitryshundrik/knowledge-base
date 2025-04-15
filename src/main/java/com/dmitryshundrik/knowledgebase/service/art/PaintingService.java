@@ -6,6 +6,7 @@ import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingViewDto;
 import com.dmitryshundrik.knowledgebase.model.entity.art.Artist;
 import com.dmitryshundrik.knowledgebase.model.entity.art.Painting;
+import com.dmitryshundrik.knowledgebase.service.BaseService;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  * Provides methods for retrieving, creating, and updating paintings,
  * as well as accessing painting-related data such as rankings and artist associations.
  */
-public interface PaintingService {
+public interface PaintingService extends BaseService {
 
     Painting getBySlug(String paintingSlug);
 
@@ -32,8 +33,4 @@ public interface PaintingService {
     PaintingViewDto getPaintingViewDto(Painting painting);
     List<PaintingViewDto> getPaintingViewDtoList(List<Painting> paintingList);
     PaintingCreateEditDto getArtistCreateEditDto(Painting painting);
-
-    String isSlugExist(String paintingSlug);
-
-    Long getRepositorySize();
 }

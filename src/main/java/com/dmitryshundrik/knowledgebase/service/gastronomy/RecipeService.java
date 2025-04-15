@@ -4,6 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.RecipeCreateEditDto
 import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.RecipeViewDto;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.model.enums.Country;
+import com.dmitryshundrik.knowledgebase.service.BaseService;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  * Provides methods for retrieving, creating, updating, and deleting recipes, as well as handling
  * recipe-related data, and DTO conversions.
  */
-public interface RecipeService {
+public interface RecipeService extends BaseService {
 
     Recipe getBySlug(String recipeSlug);
 
@@ -27,8 +28,4 @@ public interface RecipeService {
     RecipeViewDto getRecipeViewDto(Recipe recipe);
     List<RecipeViewDto> getRecipeViewDtoList(List<Recipe> recipeList);
     RecipeCreateEditDto getRecipeCreateEditDto(Recipe recipe);
-
-    String isSlugExist(String recipeSlug);
-
-    Long getRepositorySize();
 }

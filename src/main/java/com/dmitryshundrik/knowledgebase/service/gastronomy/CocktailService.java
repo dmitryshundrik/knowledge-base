@@ -3,6 +3,7 @@ package com.dmitryshundrik.knowledgebase.service.gastronomy;
 import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.CocktailCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.CocktailViewDto;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Cocktail;
+import com.dmitryshundrik.knowledgebase.service.BaseService;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * Provides methods for retrieving, creating, updating, and deleting cocktails, as well as handling
  * cocktail-related data, and DTO conversions.
  */
-public interface CocktailService {
+public interface CocktailService extends BaseService {
 
     Cocktail getBySlug(String cocktailSLug);
 
@@ -25,8 +26,4 @@ public interface CocktailService {
     CocktailViewDto getCocktailViewDto(Cocktail cocktail);
     List<CocktailViewDto> getCocktailViewDtoList(List<Cocktail> cocktailList);
     CocktailCreateEditDto getCocktailCreateEditDto(Cocktail cocktail);
-
-    String isSlugExist(String cocktailSlug);
-
-    Long getRepositorySize();
 }
