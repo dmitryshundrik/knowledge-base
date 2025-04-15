@@ -33,6 +33,7 @@ public abstract class CocktailMapper {
     }
 
     @Mapping(target = "created", ignore = true)
+    @Mapping(target = "imageList", ignore = true)
     public abstract CocktailViewDto toCocktailViewDto(@MappingTarget CocktailViewDto dto, Cocktail cocktail);
 
     @AfterMapping
