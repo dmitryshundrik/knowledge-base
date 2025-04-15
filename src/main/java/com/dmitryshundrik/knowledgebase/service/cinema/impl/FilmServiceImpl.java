@@ -54,7 +54,7 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public Film updateFilm(String filmSlug, FilmCreateEditDto filmDto) {
         Film film = filmRepository.findBySlug(filmSlug);
-        filmMapper.updateFilm(filmDto, film);
+        filmMapper.updateFilm(film, filmDto);
         return film;
     }
 
