@@ -2,10 +2,11 @@ package com.dmitryshundrik.knowledgebase.service.gastronomy.impl;
 
 import com.dmitryshundrik.knowledgebase.model.enums.Country;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Recipe;
-import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.RecipeCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.RecipeViewDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.RecipeCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.RecipeViewDto;
 import com.dmitryshundrik.knowledgebase.repository.gastronomy.RecipeRepository;
 import com.dmitryshundrik.knowledgebase.service.core.ImageService;
+import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,51 +19,60 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EX
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class RecipeServiceImpl {
+public class RecipeServiceImpl implements RecipeService {
 
     private final RecipeRepository recipeRepository;
 
     private final ImageService imageService;
 
-    public List<Recipe> getAll() {
-        return recipeRepository.findAll();
-    }
-
-    public Long getRecipeRepositorySize() {
-        return recipeRepository.getSize();
-    }
-
-    public List<Recipe> getAllBySortedByCreatedDesc() {
-        return recipeRepository.findAllByOrderByCreatedDesc();
-    }
-
-    public List<Recipe> getAllByCountry(Country country) {
-        return recipeRepository.findAllByCountry(country);
-    }
-
+    @Override
     public Recipe getBySlug(String recipeSlug) {
         return recipeRepository.findBySlug(recipeSlug);
     }
 
-    public RecipeViewDTO createRecipe(RecipeCreateEditDTO recipeCreateEditDTO) {
+    @Override
+    public List<Recipe> getAll() {
+        return recipeRepository.findAll();
+    }
+
+    @Override
+    public List<Recipe> getAllBySortedByCreatedDesc() {
+        return recipeRepository.findAllByOrderByCreatedDesc();
+    }
+
+    @Override
+    public List<Recipe> getAllByCountry(Country country) {
+        return recipeRepository.findAllByCountry(country);
+    }
+
+    @Override
+    public List<Recipe> getLatestUpdate() {
+        return recipeRepository.findFirst20ByOrderByCreatedDesc();
+    }
+
+    @Override
+    public RecipeViewDto createRecipe(RecipeCreateEditDto recipeCreateEditDTO) {
         Recipe recipe = new Recipe();
         setFieldsFromDTO(recipe, recipeCreateEditDTO);
-        return getRecipeViewDTO(recipeRepository.save(recipe));
+        return getRecipeViewDto(recipeRepository.save(recipe));
     }
 
-    public RecipeViewDTO updateRecipe(String recipeSlug, RecipeCreateEditDTO recipeDTO) {
+    @Override
+    public RecipeViewDto updateRecipe(String recipeSlug, RecipeCreateEditDto recipeDTO) {
         Recipe bySlug = getBySlug(recipeSlug);
         setFieldsFromDTO(bySlug, recipeDTO);
-        return getRecipeViewDTO(bySlug);
+        return getRecipeViewDto(bySlug);
     }
 
+    @Override
     public void deleteRecipe(String recipeSlug) {
         Recipe bySlug = getBySlug(recipeSlug);
         recipeRepository.delete(bySlug);
     }
 
-    public RecipeViewDTO getRecipeViewDTO(Recipe recipe) {
-        return RecipeViewDTO.builder()
+    @Override
+    public RecipeViewDto getRecipeViewDto(Recipe recipe) {
+        return RecipeViewDto.builder()
                 .created(InstantFormatter.instantFormatterDMY(recipe.getCreated()))
                 .slug(recipe.getSlug())
                 .title(recipe.getTitle())
@@ -76,12 +86,14 @@ public class RecipeServiceImpl {
                 .build();
     }
 
-    public List<RecipeViewDTO> getRecipeViewDTOList(List<Recipe> recipeList) {
-        return recipeList.stream().map(this::getRecipeViewDTO).collect(Collectors.toList());
+    @Override
+    public List<RecipeViewDto> getRecipeViewDtoList(List<Recipe> recipeList) {
+        return recipeList.stream().map(this::getRecipeViewDto).collect(Collectors.toList());
     }
 
-    public RecipeCreateEditDTO getRecipeCreateEditDTO(Recipe recipe) {
-        return RecipeCreateEditDTO.builder()
+    @Override
+    public RecipeCreateEditDto getRecipeCreateEditDto(Recipe recipe) {
+        return RecipeCreateEditDto.builder()
                 .slug(recipe.getSlug())
                 .title(recipe.getTitle())
                 .country(recipe.getCountry())
@@ -94,7 +106,7 @@ public class RecipeServiceImpl {
                 .build();
     }
 
-    public void setFieldsFromDTO(Recipe recipe, RecipeCreateEditDTO recipeDTO) {
+    public void setFieldsFromDTO(Recipe recipe, RecipeCreateEditDto recipeDTO) {
         recipe.setTitle(recipeDTO.getTitle());
         recipe.setSlug(recipeDTO.getSlug());
         recipe.setCountry(recipeDTO.getCountry());
@@ -103,7 +115,8 @@ public class RecipeServiceImpl {
         recipe.setMethod(recipeDTO.getMethod());
     }
 
-    public String recipeSlugIsExist(String recipeSlug) {
+    @Override
+    public String isSlugExist(String recipeSlug) {
         String message = "";
         if (getBySlug(recipeSlug) != null) {
             message = SLUG_IS_ALREADY_EXIST;
@@ -111,7 +124,8 @@ public class RecipeServiceImpl {
         return message;
     }
 
-    public List<Recipe> getLatestUpdate() {
-        return recipeRepository.findFirst20ByOrderByCreatedDesc();
+    @Override
+    public Long getRepositorySize() {
+        return recipeRepository.getSize();
     }
 }

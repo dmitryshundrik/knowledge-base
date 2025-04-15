@@ -52,7 +52,7 @@ public class ManagementPageController {
         model.addAttribute("musicianCount", musicianService.getMusicianRepositorySize());
         model.addAttribute("albumCount", albumService.getAlbumRepositorySize());
         model.addAttribute("compositionCount", compositionService.getCompositionRepositorySize());
-        model.addAttribute("recipeCount", recipeService.getRecipeRepositorySize());
+        model.addAttribute("recipeCount", recipeService.getRepositorySize());
         model.addAttribute("cocktailCount", cocktailService.getRepositorySize());
         model.addAttribute("writerCount", writerService.getWriterRepositorySize());
         model.addAttribute("proseCount", proseService.getProseRepositorySize());

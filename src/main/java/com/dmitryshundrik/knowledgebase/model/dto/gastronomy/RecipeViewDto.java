@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class RecipeViewDTO {
+public class RecipeViewDto {
 
     private String created;
 

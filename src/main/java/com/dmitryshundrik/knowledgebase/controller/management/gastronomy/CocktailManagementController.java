@@ -3,7 +3,7 @@ package com.dmitryshundrik.knowledgebase.controller.management.gastronomy;
 import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.CocktailViewDto;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.CocktailCreateEditDto;
-import com.dmitryshundrik.knowledgebase.service.gastronomy.impl.CocktailServiceImpl;
+import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +25,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG;
 @RequiredArgsConstructor
 public class CocktailManagementController {
 
-    private final CocktailServiceImpl cocktailService;
+    private final CocktailService cocktailService;
 
     @GetMapping("/management/cocktail/all")
     public String getAllCocktails(Model model) {

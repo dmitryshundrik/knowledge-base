@@ -8,10 +8,10 @@ import com.dmitryshundrik.knowledgebase.service.core.ResourcesService;
 import com.dmitryshundrik.knowledgebase.model.enums.Country;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Recipe;
-import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.RecipeViewDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.RecipeViewDto;
 import com.dmitryshundrik.knowledgebase.service.core.ArticleService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
-import com.dmitryshundrik.knowledgebase.service.gastronomy.impl.RecipeServiceImpl;
+import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
 import com.dmitryshundrik.knowledgebase.model.enums.ResourceType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -35,7 +35,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.RESOURCE_LIST;
 @RequiredArgsConstructor
 public class GastronomyPageController {
 
-    private final RecipeServiceImpl recipeService;
+    private final RecipeService recipeService;
 
     private final CocktailService cocktailService;
 
@@ -45,7 +45,7 @@ public class GastronomyPageController {
 
     @GetMapping
     public String getGastronomyPage(Model model) {
-        List<RecipeViewDTO> recipeViewDtoList = recipeService.getRecipeViewDTOList(recipeService.getAll());
+        List<RecipeViewDto> recipeViewDtoList = recipeService.getRecipeViewDtoList(recipeService.getAll());
         List<CocktailViewDto> cocktailDtoList = cocktailService.getCocktailViewDtoList(cocktailService.getAll());
         model.addAttribute(RECIPE_LIST, recipeViewDtoList);
         model.addAttribute(COCKTAIL_LIST, cocktailDtoList);
@@ -63,7 +63,7 @@ public class GastronomyPageController {
     @GetMapping("/recipe/all")
     public String getAllRecipes(Model model) {
         List<Recipe> recipeList = recipeService.getAll();
-        List<RecipeViewDTO> recipeViewDtoList = recipeService.getRecipeViewDTOList(recipeList);
+        List<RecipeViewDto> recipeViewDtoList = recipeService.getRecipeViewDtoList(recipeList);
         model.addAttribute(RECIPE_LIST, recipeViewDtoList);
         return "gastronomy/recipe-all";
     }
@@ -71,7 +71,7 @@ public class GastronomyPageController {
     @GetMapping("/recipe/{recipeSlug}")
     public String getRecipe(@PathVariable String recipeSlug, Model model) {
         Recipe bySlug = recipeService.getBySlug(recipeSlug);
-        RecipeViewDTO recipeViewDto = recipeService.getRecipeViewDTO(bySlug);
+        RecipeViewDto recipeViewDto = recipeService.getRecipeViewDto(bySlug);
         model.addAttribute(RECIPE, recipeViewDto);
         return "gastronomy/recipe";
     }
@@ -103,7 +103,7 @@ public class GastronomyPageController {
     @GetMapping("/country/{slug}")
     public String getRecipesByCountry(@PathVariable String slug, Model model) {
         List<Recipe> allByCountry = recipeService.getAllByCountry(Country.valueOf(slug.toUpperCase()));
-        List<RecipeViewDTO> recipeViewDtoList = recipeService.getRecipeViewDTOList(allByCountry);
+        List<RecipeViewDto> recipeViewDtoList = recipeService.getRecipeViewDtoList(allByCountry);
         model.addAttribute(COUNTRY, Country.valueOf(slug.toUpperCase()));
         model.addAttribute(RECIPE_LIST, recipeViewDtoList);
         return "gastronomy/recipe-all-by-country";

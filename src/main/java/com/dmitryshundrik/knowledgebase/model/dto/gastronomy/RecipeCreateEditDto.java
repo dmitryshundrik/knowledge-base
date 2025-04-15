@@ -17,7 +17,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.TITLE_MUST_NOT_BE_
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RecipeCreateEditDTO {
+public class RecipeCreateEditDto {
 
     private Instant created;
 

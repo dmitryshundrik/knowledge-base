@@ -4,7 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.dto.core.ImageDto;
 import com.dmitryshundrik.knowledgebase.model.entity.core.Image;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.service.core.ImageService;
-import com.dmitryshundrik.knowledgebase.service.gastronomy.impl.CocktailServiceImpl;
+import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
@@ -26,9 +26,9 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.IMAGE;
 @RequiredArgsConstructor
 public class CocktailImageManagementController {
 
-    private final ImageService imageService;
+    private final CocktailService cocktailService;
 
-    private final CocktailServiceImpl cocktailService;
+    private final ImageService imageService;
 
     @GetMapping("/management/cocktail/edit/{cocktailSlug}/image/create")
     public String getRecipeImageCreate(Model model, @PathVariable String cocktailSlug) {
@@ -39,9 +39,9 @@ public class CocktailImageManagementController {
     }
 
     @PostMapping("/management/cocktail/edit/{cocktailSlug}/image/create")
-    public String postRecipeImageCreate(@ModelAttribute(IMAGE) ImageDto imageDTO, @PathVariable String cocktailSlug) {
+    public String postRecipeImageCreate(@ModelAttribute(IMAGE) ImageDto imageDto, @PathVariable String cocktailSlug) {
         Cocktail cocktailBySlug = cocktailService.getBySlug(cocktailSlug);
-        String imageDtoSlug = imageService.createCocktailImage(imageDTO, cocktailBySlug).getSlug();
+        String imageDtoSlug = imageService.createCocktailImage(imageDto, cocktailBySlug).getSlug();
         return "redirect:/management/cocktail/edit/" + cocktailSlug + "/image/edit/" + imageDtoSlug;
     }
 
@@ -55,9 +55,9 @@ public class CocktailImageManagementController {
     }
 
     @PutMapping("/management/cocktail/edit/{cocktailSlug}/image/edit/{imageSlug}")
-    public String postRecipeImageEdit(@PathVariable String imageSlug, @ModelAttribute(IMAGE) ImageDto imageDTO,
+    public String postRecipeImageEdit(@PathVariable String imageSlug, @ModelAttribute(IMAGE) ImageDto imageDto,
                                       @PathVariable String cocktailSlug) {
-        String imageDtoSlug = imageService.updateImage(imageSlug, imageDTO).getSlug();
+        String imageDtoSlug = imageService.updateImage(imageSlug, imageDto).getSlug();
         return "redirect:/management/cocktail/edit/" + cocktailSlug + "/image/edit/" + imageDtoSlug;
     }
 

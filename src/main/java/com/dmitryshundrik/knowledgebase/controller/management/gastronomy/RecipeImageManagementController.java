@@ -4,7 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.entity.core.Image;
 import com.dmitryshundrik.knowledgebase.model.dto.core.ImageDto;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.service.core.ImageService;
-import com.dmitryshundrik.knowledgebase.service.gastronomy.impl.RecipeServiceImpl;
+import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
@@ -26,9 +26,9 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.RECIPE_SLUG;
 @RequiredArgsConstructor
 public class RecipeImageManagementController {
 
-    private final ImageService imageService;
+    private final RecipeService recipeService;
 
-    private final RecipeServiceImpl recipeService;
+    private final ImageService imageService;
 
     @GetMapping("/management/recipe/edit/{recipeSlug}/image/create")
     public String getRecipeImageCreate(Model model, @PathVariable String recipeSlug) {
@@ -39,9 +39,9 @@ public class RecipeImageManagementController {
     }
 
     @PostMapping("/management/recipe/edit/{recipeSlug}/image/create")
-    public String postRecipeImageCreate(@ModelAttribute(IMAGE) ImageDto imageDTO, @PathVariable String recipeSlug) {
+    public String postRecipeImageCreate(@ModelAttribute(IMAGE) ImageDto imageDto, @PathVariable String recipeSlug) {
         Recipe recipeBySlug = recipeService.getBySlug(recipeSlug);
-        String imageDtoSlug = imageService.createRecipeImage(imageDTO, recipeBySlug).getSlug();
+        String imageDtoSlug = imageService.createRecipeImage(imageDto, recipeBySlug).getSlug();
         return "redirect:/management/recipe/edit/" + recipeSlug + "/image/edit/" + imageDtoSlug;
     }
 
@@ -55,9 +55,9 @@ public class RecipeImageManagementController {
     }
 
     @PutMapping("/management/recipe/edit/{recipeSlug}/image/edit/{imageSlug}")
-    public String postRecipeImageEdit(@PathVariable String imageSlug, @ModelAttribute("imageDTO") ImageDto ImageDto,
+    public String postRecipeImageEdit(@PathVariable String imageSlug, @ModelAttribute("imageDTO") ImageDto imageDto,
                                       @PathVariable String recipeSlug) {
-        String imageDtoSlug = imageService.updateImage(imageSlug, ImageDto).getSlug();
+        String imageDtoSlug = imageService.updateImage(imageSlug, imageDto).getSlug();
         return "redirect:/management/recipe/edit/" + recipeSlug + "/image/edit/" + imageDtoSlug;
     }
 
