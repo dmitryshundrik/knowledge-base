@@ -5,7 +5,6 @@ import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.CocktailViewDto;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.CocktailCreateEditDto;
 import com.dmitryshundrik.knowledgebase.repository.gastronomy.CocktailRepository;
-import com.dmitryshundrik.knowledgebase.service.core.ImageService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
