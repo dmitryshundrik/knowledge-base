@@ -4,7 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.enums.Country;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.RecipeCreateEditDTO;
 import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.RecipeViewDTO;
-import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
+import com.dmitryshundrik.knowledgebase.service.gastronomy.impl.RecipeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +27,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG;
 @RequiredArgsConstructor
 public class RecipeManagementController {
 
-    private final RecipeService recipeService;
+    private final RecipeServiceImpl recipeService;
 
     @GetMapping("/management/recipe/all")
     public String getAllRecipes(Model model) {

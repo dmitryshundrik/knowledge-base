@@ -1,9 +1,9 @@
 package com.dmitryshundrik.knowledgebase.controller.management.gastronomy;
 
+import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.CocktailViewDto;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Cocktail;
-import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.CocktailCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.CocktailViewDTO;
-import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
+import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.CocktailCreateEditDto;
+import com.dmitryshundrik.knowledgebase.service.gastronomy.impl.CocktailServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,49 +25,49 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG;
 @RequiredArgsConstructor
 public class CocktailManagementController {
 
-    private final CocktailService cocktailService;
+    private final CocktailServiceImpl cocktailService;
 
     @GetMapping("/management/cocktail/all")
     public String getAllCocktails(Model model) {
         List<Cocktail> cocktailList = cocktailService.getAllBySortedByCreatedDesc();
-        List<CocktailViewDTO> cocktailDTOList = cocktailService.getCocktailViewDTOList(cocktailList);
-        model.addAttribute(COCKTAIL_LIST, cocktailDTOList);
+        List<CocktailViewDto> cocktailDtoList = cocktailService.getCocktailViewDtoList(cocktailList);
+        model.addAttribute(COCKTAIL_LIST, cocktailDtoList);
         return "management/gastronomy/cocktail-archive";
     }
 
     @GetMapping("/management/cocktail/create")
     public String getCocktailCreate(Model model) {
-        CocktailCreateEditDTO cocktailCreateEditDTO = new CocktailCreateEditDTO();
-        model.addAttribute(COCKTAIL, cocktailCreateEditDTO);
+        CocktailCreateEditDto cocktailDto = new CocktailCreateEditDto();
+        model.addAttribute(COCKTAIL, cocktailDto);
         return "management/gastronomy/cocktail-create";
     }
 
     @PostMapping("/management/cocktail/create")
-    public String postCocktailCreate(@Valid @ModelAttribute(COCKTAIL) CocktailCreateEditDTO cocktailDTO,
+    public String postCocktailCreate(@Valid @ModelAttribute(COCKTAIL) CocktailCreateEditDto cocktailDto,
                                      BindingResult bindingResult,
                                      Model model) {
-        String error = cocktailService.cocktailSlugIsExist(cocktailDTO.getSlug());
+        String error = cocktailService.isSlugExist(cocktailDto.getSlug());
         model.addAttribute(SLUG, error);
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             return "management/gastronomy/cocktail-create";
         }
-        String cocktailDTOSlug = cocktailService.createCocktail(cocktailDTO).getSlug();
-        return "redirect:/management/cocktail/edit/" + cocktailDTOSlug;
+        String cocktailDtoSlug = cocktailService.createCocktail(cocktailDto).getSlug();
+        return "redirect:/management/cocktail/edit/" + cocktailDtoSlug;
     }
 
     @GetMapping("/management/cocktail/edit/{cocktailSlug}")
     public String getCocktailEdit(@PathVariable String cocktailSlug, Model model) {
         Cocktail bySlug = cocktailService.getBySlug(cocktailSlug);
-        CocktailCreateEditDTO cocktailCreateEditDTO = cocktailService.getCocktailCreateEditDTO(bySlug);
-        model.addAttribute(COCKTAIL, cocktailCreateEditDTO);
+        CocktailCreateEditDto cocktailDto = cocktailService.getCocktailCreateEditDto(bySlug);
+        model.addAttribute(COCKTAIL, cocktailDto);
         return "management/gastronomy/cocktail-edit";
     }
 
     @PutMapping("/management/cocktail/edit/{cocktailSlug}")
     public String putCocktailEdit(@PathVariable String cocktailSlug,
-                                  @ModelAttribute(COCKTAIL) CocktailCreateEditDTO cocktailDTO) {
-        String cocktailDTOSlug = cocktailService.updateCocktail(cocktailSlug, cocktailDTO).getSlug();
-        return "redirect:/management/cocktail/edit/" + cocktailDTOSlug;
+                                  @ModelAttribute(COCKTAIL) CocktailCreateEditDto cocktailDto) {
+        String cocktailDtoSlug = cocktailService.updateCocktail(cocktailSlug, cocktailDto).getSlug();
+        return "redirect:/management/cocktail/edit/" + cocktailDtoSlug;
     }
 
     @DeleteMapping("management/cocktail/delete/{cocktailSlug}")

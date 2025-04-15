@@ -4,7 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.entity.core.Image;
 import com.dmitryshundrik.knowledgebase.model.dto.core.ImageDto;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.service.core.ImageService;
-import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
+import com.dmitryshundrik.knowledgebase.service.gastronomy.impl.RecipeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@ public class RecipeImageManagementController {
 
     private final ImageService imageService;
 
-    private final RecipeService recipeService;
+    private final RecipeServiceImpl recipeService;
 
     @GetMapping("/management/recipe/edit/{recipeSlug}/image/create")
     public String getRecipeImageCreate(Model model, @PathVariable String recipeSlug) {

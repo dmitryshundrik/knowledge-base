@@ -14,8 +14,8 @@ import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianActivityDto;
 import com.dmitryshundrik.knowledgebase.service.art.impl.ArtistServiceImpl;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
-import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
-import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
+import com.dmitryshundrik.knowledgebase.service.gastronomy.impl.CocktailServiceImpl;
+import com.dmitryshundrik.knowledgebase.service.gastronomy.impl.RecipeServiceImpl;
 import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
 import com.dmitryshundrik.knowledgebase.service.literature.QuoteService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
@@ -45,9 +45,9 @@ public class EntityActivityService {
 
     private final CompositionService compositionService;
 
-    private final RecipeService recipeService;
+    private final RecipeServiceImpl recipeService;
 
-    private final CocktailService cocktailService;
+    private final CocktailServiceImpl cocktailService;
 
     private final WriterService writerService;
 

@@ -1,4 +1,4 @@
-package com.dmitryshundrik.knowledgebase.service.gastronomy;
+package com.dmitryshundrik.knowledgebase.service.gastronomy.impl;
 
 import com.dmitryshundrik.knowledgebase.model.enums.Country;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Recipe;
@@ -18,7 +18,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EX
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class RecipeService {
+public class RecipeServiceImpl {
 
     private final RecipeRepository recipeRepository;
 
