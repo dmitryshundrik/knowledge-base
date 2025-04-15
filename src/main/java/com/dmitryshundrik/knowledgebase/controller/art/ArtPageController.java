@@ -44,8 +44,8 @@ public class ArtPageController {
     @GetMapping("/artist/all")
     public String getAllArtists(Model model) {
         List<Artist> artistList = artistService.getAllSortedByBorn();
-        List<ArtistViewDto> artistViewDtoList = artistService.getArtistViewDtoList(artistList);
-        model.addAttribute(ARTIST_LIST, artistViewDtoList);
+        List<ArtistViewDto> artistDtoList = artistService.getArtistViewDtoList(artistList);
+        model.addAttribute(ARTIST_LIST, artistDtoList);
         return "art/artist-all";
     }
 
@@ -55,11 +55,11 @@ public class ArtPageController {
         if(artistSlug.equals(UNKNOWN) || bySlug == null) {
             return "error";
         }
-        ArtistViewDto artistViewDto = artistService.getArtistViewDto(bySlug);
-        artistViewDto.setPaintingList(artistViewDto.getPaintingList().stream()
+        ArtistViewDto artistDto = artistService.getArtistViewDto(bySlug);
+        artistDto.setPaintingList(artistDto.getPaintingList().stream()
                 .limit(10).toList());
         List<PaintingSimpleDto> bestPaintingsByArtist = paintingService.getBestPaintingsByArtist(bySlug);
-        model.addAttribute(ARTIST, artistViewDto);
+        model.addAttribute(ARTIST, artistDto);
         model.addAttribute(PAINTING_LIST, bestPaintingsByArtist);
         return "art/artist";
     }
@@ -67,27 +67,27 @@ public class ArtPageController {
     @GetMapping("/artist/{artistSlug}/painting/all")
     public String getArtistAllPaintings(@PathVariable String artistSlug, Model model) {
         Artist bySlug = artistService.getBySlug(artistSlug);
-        ArtistViewDto artistViewDto = artistService.getArtistViewDto(bySlug);
+        ArtistViewDto artistDto = artistService.getArtistViewDto(bySlug);
         List<Painting> paintingList = paintingService.getAllByArtistSortedByYear2(bySlug, SORT_DIRECTION_ASC);
-        List<PaintingViewDto> paintingViewDtoList = paintingService.getPaintingViewDtoList(paintingList);
-        model.addAttribute(ARTIST, artistViewDto);
-        model.addAttribute(PAINTING_LIST, paintingViewDtoList);
+        List<PaintingViewDto> paintingDtoList = paintingService.getPaintingViewDtoList(paintingList);
+        model.addAttribute(ARTIST, artistDto);
+        model.addAttribute(PAINTING_LIST, paintingDtoList);
         return "art/artist-painting-all";
     }
 
     @GetMapping("/painting/all")
     public String getAllPainting(Model model) {
         List<Painting> paintingList = paintingService.getAllSortedByCreatedDesc();
-        List<PaintingViewDto> paintingViewDtoList = paintingService.getPaintingViewDtoList(paintingList);
-        model.addAttribute(PAINTING_LIST, paintingViewDtoList);
+        List<PaintingViewDto> paintingDtoList = paintingService.getPaintingViewDtoList(paintingList);
+        model.addAttribute(PAINTING_LIST, paintingDtoList);
         return "art/painting-all";
     }
 
     @GetMapping("/painting/top20")
     public String getTop20BestPaintings(Model model) {
         List<Painting> paintingList = paintingService.getAllTimeBestPaintings();
-        List<PaintingViewDto> paintingViewDtoList = paintingService.getPaintingViewDtoList(paintingList);
-        model.addAttribute(PAINTING_LIST, paintingViewDtoList);
+        List<PaintingViewDto> paintingDtoList = paintingService.getPaintingViewDtoList(paintingList);
+        model.addAttribute(PAINTING_LIST, paintingDtoList);
         return "art/painting-top20";
     }
 

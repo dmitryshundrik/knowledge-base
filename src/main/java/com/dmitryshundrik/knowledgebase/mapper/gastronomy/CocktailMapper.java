@@ -22,16 +22,6 @@ public abstract class CocktailMapper {
 
     public abstract void updateCocktail(@MappingTarget Cocktail cocktail, CocktailCreateEditDto dto);
 
-    @Mapping(target = "imageList", ignore = true)
-    public abstract CocktailCreateEditDto toCocktailCreateEditDto(@MappingTarget CocktailCreateEditDto dto, Cocktail cocktail);
-
-    @AfterMapping
-    public void toCocktailCreateEditDtoPostProcess(@MappingTarget CocktailCreateEditDto dto, Cocktail cocktail) {
-        dto.setImageList(cocktail.getImageList() != null ? imageService
-                .getImageDtoList(imageService
-                        .getSortedByCreatedDesc(cocktail.getImageList())) : null);
-    }
-
     @Mapping(target = "created", ignore = true)
     @Mapping(target = "imageList", ignore = true)
     public abstract CocktailViewDto toCocktailViewDto(@MappingTarget CocktailViewDto dto, Cocktail cocktail);
@@ -41,6 +31,16 @@ public abstract class CocktailMapper {
         Instant created = cocktail.getCreated();
         dto.setCreated(created != null ? InstantFormatter.instantFormatterDMY(created) : null);
 
+        dto.setImageList(cocktail.getImageList() != null ? imageService
+                .getImageDtoList(imageService
+                        .getSortedByCreatedDesc(cocktail.getImageList())) : null);
+    }
+
+    @Mapping(target = "imageList", ignore = true)
+    public abstract CocktailCreateEditDto toCocktailCreateEditDto(@MappingTarget CocktailCreateEditDto dto, Cocktail cocktail);
+
+    @AfterMapping
+    public void toCocktailCreateEditDtoPostProcess(@MappingTarget CocktailCreateEditDto dto, Cocktail cocktail) {
         dto.setImageList(cocktail.getImageList() != null ? imageService
                 .getImageDtoList(imageService
                         .getSortedByCreatedDesc(cocktail.getImageList())) : null);

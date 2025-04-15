@@ -37,34 +37,36 @@ public class CriticsListManagementController {
 
     @GetMapping("/management/critics-list/create")
     public String getCriticsListCreate(Model model) {
-        FilmCreateEditDto filmCreateEditDto = new FilmCreateEditDto();
-        model.addAttribute(CRITICS_LIST, filmCreateEditDto);
+        FilmCreateEditDto filmDto = new FilmCreateEditDto();
+        model.addAttribute(CRITICS_LIST, filmDto);
         return "management/cinema/critics-list-create";
     }
 
     @PostMapping("/management/critics-list/create")
-    public String postCriticsListCreate(@Valid @ModelAttribute(CRITICS_LIST) CriticsListCreateEditDto criticsListDTO, BindingResult bindingResult, Model model) {
-        String error = criticsListService.isSlugExist(criticsListDTO.getSlug());
+    public String postCriticsListCreate(@Valid @ModelAttribute(CRITICS_LIST) CriticsListCreateEditDto criticsListDto,
+                                        BindingResult bindingResult, Model model) {
+        String error = criticsListService.isSlugExist(criticsListDto.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute(SLUG, error);
             return "management/cinema/critics-list-create";
         }
-        String criticsListSlug = criticsListService.createCriticsList(criticsListDTO).getSlug();
+        String criticsListSlug = criticsListService.createCriticsList(criticsListDto).getSlug();
         return "redirect:/management/critics-list/edit/" + criticsListSlug;
     }
 
     @GetMapping("/management/critics-list/edit/{criticsListSlug}")
     public String getCriticsListEdit(@PathVariable String criticsListSlug, Model model) {
         CriticsList bySlug = criticsListService.getBySlug(criticsListSlug);
-        CriticsListCreateEditDto criticsListCreateEditDto = criticsListService.getCriticsListCreateEditDto(bySlug);
-        model.addAttribute(CRITICS_LIST, criticsListCreateEditDto);
+        CriticsListCreateEditDto criticsListDto = criticsListService.getCriticsListCreateEditDto(bySlug);
+        model.addAttribute(CRITICS_LIST, criticsListDto);
         return "management/cinema/critics-list-edit";
     }
 
     @PutMapping("/management/critics-list/edit/{criticsListSlug}")
-    public String putCriticsListEdit(@PathVariable String criticsListSlug, @ModelAttribute(CRITICS_LIST) CriticsListCreateEditDto criticsListDTO) {
-        String criticsListDTOSlug = criticsListService.updateCriticsList(criticsListSlug, criticsListDTO).getSlug();
-        return "redirect:/management/critics-list/edit/" + criticsListDTOSlug;
+    public String putCriticsListEdit(@PathVariable String criticsListSlug,
+                                     @ModelAttribute(CRITICS_LIST) CriticsListCreateEditDto criticsListDto) {
+        String criticsListDtoSlug = criticsListService.updateCriticsList(criticsListSlug, criticsListDto).getSlug();
+        return "redirect:/management/critics-list/edit/" + criticsListDtoSlug;
     }
 
     @DeleteMapping("/management/critics-list/delete/{criticsListSlug}")

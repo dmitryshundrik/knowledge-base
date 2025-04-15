@@ -35,8 +35,8 @@ public class PaintingManagementController {
     @GetMapping("/management/painting/all")
     public String getAllPaintings(Model model) {
         List<Painting> allSortedByCreatedDesc = paintingService.getAllSortedByCreatedDesc();
-        List<PaintingViewDto> paintingViewDtoList = paintingService.getPaintingViewDtoList(allSortedByCreatedDesc);
-        model.addAttribute(PAINTING_LIST, paintingViewDtoList);
+        List<PaintingViewDto> paintingDtoList = paintingService.getPaintingViewDtoList(allSortedByCreatedDesc);
+        model.addAttribute(PAINTING_LIST, paintingDtoList);
         return "management/art/painting-archive";
     }
 

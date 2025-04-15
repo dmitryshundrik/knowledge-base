@@ -36,15 +36,15 @@ public class ArtistManagementController {
     @GetMapping("/management/artist/all")
     public String getAllArtists(Model model) {
         List<Artist> allSortedByCreatedDesc = artistService.getAllSortedByCreatedDesc();
-        List<ArtistViewDto> artistViewDtoList = artistService.getArtistViewDtoList(allSortedByCreatedDesc);
-        model.addAttribute(ARTIST_LIST, artistViewDtoList);
+        List<ArtistViewDto> artistDtoList = artistService.getArtistViewDtoList(allSortedByCreatedDesc);
+        model.addAttribute(ARTIST_LIST, artistDtoList);
         return "management/art/artist-archive";
     }
 
     @GetMapping("/management/artist/create")
     public String getArtistCreate(Model model) {
-        ArtistCreateEditDto artistCreateEditDTO = new ArtistCreateEditDto();
-        model.addAttribute(ARTIST, artistCreateEditDTO);
+        ArtistCreateEditDto artistDTO = new ArtistCreateEditDto();
+        model.addAttribute(ARTIST, artistDTO);
         model.addAttribute(GENDER_LIST, Gender.values());
         return "management/art/artist-create";
     }
@@ -65,8 +65,8 @@ public class ArtistManagementController {
     @GetMapping("/management/artist/edit/{artistSlug}")
     public String getArtistEdit(@PathVariable String artistSlug, Model model) {
         Artist bySlug = artistService.getBySlug(artistSlug);
-        ArtistCreateEditDto artistCreateEditDTO = artistService.getArtistCreateEditDto(bySlug);
-        model.addAttribute(ARTIST, artistCreateEditDTO);
+        ArtistCreateEditDto artistDTO = artistService.getArtistCreateEditDto(bySlug);
+        model.addAttribute(ARTIST, artistDTO);
         model.addAttribute(GENDER_LIST, Gender.values());
         return "management/art/artist-edit";
     }

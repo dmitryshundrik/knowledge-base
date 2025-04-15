@@ -54,57 +54,57 @@ public class LiteraturePageController {
     @GetMapping("/writer/all")
     public String getAllWriters(Model model) {
         List<Writer> writerList = writerService.getAllSortedByBorn();
-        List<WriterViewDTO> writerViewDTOList = writerService.getWriterViewDTOList(writerList);
-        model.addAttribute(WRITER_LIST, writerViewDTOList);
+        List<WriterViewDTO> writerDtoList = writerService.getWriterViewDTOList(writerList);
+        model.addAttribute(WRITER_LIST, writerDtoList);
         return "literature/writer-all";
     }
 
     @GetMapping("/writer/{slug}")
     public String getWriter(@PathVariable String slug, Model model) {
         Writer bySlug = writerService.getBySlug(slug);
-        WriterViewDTO writerViewDTO = writerService.getWriterViewDTO(bySlug);
+        WriterViewDTO writerDto = writerService.getWriterViewDTO(bySlug);
         List<Prose> first5ProseByWriter = proseService.getFirst5ByWriterSortedByRating(bySlug);
-        List<ProseViewDTO> first5ProseByWriterViewDTOList = proseService.getProseViewDTOList(first5ProseByWriter);
-        model.addAttribute(WRITER, writerViewDTO);
-        model.addAttribute(PROSE_LIST, first5ProseByWriterViewDTOList);
+        List<ProseViewDTO> first5ProseByWriterViewDtoList = proseService.getProseViewDTOList(first5ProseByWriter);
+        model.addAttribute(WRITER, writerDto);
+        model.addAttribute(PROSE_LIST, first5ProseByWriterViewDtoList);
         return "literature/writer";
     }
 
     @GetMapping("/writer/{slug}/quote/all")
     public String getWriterAllQuotes(@PathVariable String slug, Model model) {
         Writer writerBySlug = writerService.getBySlug(slug);
-        WriterViewDTO writerViewDTO = writerService.getWriterViewDTO(writerBySlug);
+        WriterViewDTO writerDto = writerService.getWriterViewDTO(writerBySlug);
         List<Quote> allByWriterSortedByCreatedDesc = quoteService.getAllByWriterSortedByCreatedDesc(writerBySlug);
-        List<QuoteViewDTO> quoteViewDTOList = quoteService.getQuoteViewDTOList(allByWriterSortedByCreatedDesc);
-        model.addAttribute(QUOTE_LIST, quoteViewDTOList);
-        model.addAttribute(WRITER, writerViewDTO);
+        List<QuoteViewDTO> quoteDtoList = quoteService.getQuoteViewDTOList(allByWriterSortedByCreatedDesc);
+        model.addAttribute(QUOTE_LIST, quoteDtoList);
+        model.addAttribute(WRITER, writerDto);
         return "literature/writer-quote-all";
     }
 
     @GetMapping("/writer/{slug}/word/all")
     public String getWriterAllWords(@PathVariable String slug, Model model) {
         Writer writerBySlug = writerService.getBySlug(slug);
-        WriterViewDTO writerViewDTO = writerService.getWriterViewDTO(writerBySlug);
+        WriterViewDTO writerDto = writerService.getWriterViewDTO(writerBySlug);
         List<Word> allByWriterSortedByTitle = wordService.getAllByWriterSortedByTitle(writerBySlug);
-        List<WordDTO> wordDTOList = wordService.getWordDTOList(allByWriterSortedByTitle);
-        model.addAttribute(WORD_LIST, wordDTOList);
-        model.addAttribute(WRITER, writerViewDTO);
+        List<WordDTO> wordDtoList = wordService.getWordDTOList(allByWriterSortedByTitle);
+        model.addAttribute(WORD_LIST, wordDtoList);
+        model.addAttribute(WRITER, writerDto);
         return "literature/writer-word-all";
     }
 
     @GetMapping("/prose/all")
     public String getAllProse(Model model) {
         List<Prose> proseList = proseService.getAllSortedByCreatedDesc();
-        List<ProseViewDTO> proseViewDTOList = proseService.getProseViewDTOList(proseList);
-        model.addAttribute(PROSE_LIST, proseViewDTOList);
+        List<ProseViewDTO> proseDtoList = proseService.getProseViewDTOList(proseList);
+        model.addAttribute(PROSE_LIST, proseDtoList);
         return "literature/prose-all";
     }
 
     @GetMapping("/quote/all")
     public String getAllQuotes(Model model) {
         List<Quote> quoteList = quoteService.getAllSortedByCreatedDesc();
-        List<QuoteViewDTO> quoteViewDTOList = quoteService.getQuoteViewDTOList(quoteList);
-        model.addAttribute(QUOTE_LIST, quoteViewDTOList);
+        List<QuoteViewDTO> quoteDtoList = quoteService.getQuoteViewDTOList(quoteList);
+        model.addAttribute(QUOTE_LIST, quoteDtoList);
         return "literature/quote-all";
     }
 

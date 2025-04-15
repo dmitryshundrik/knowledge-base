@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.gastronomy.impl;
 
+import com.dmitryshundrik.knowledgebase.mapper.gastronomy.RecipeMapper;
 import com.dmitryshundrik.knowledgebase.model.enums.Country;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.RecipeCreateEditDto;
@@ -7,7 +8,6 @@ import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.RecipeViewDto;
 import com.dmitryshundrik.knowledgebase.repository.gastronomy.RecipeRepository;
 import com.dmitryshundrik.knowledgebase.service.core.ImageService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
-import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +22,8 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EX
 public class RecipeServiceImpl implements RecipeService {
 
     private final RecipeRepository recipeRepository;
+
+    private final RecipeMapper recipeMapper;
 
     private final ImageService imageService;
 
@@ -51,16 +53,15 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public RecipeViewDto createRecipe(RecipeCreateEditDto recipeCreateEditDTO) {
-        Recipe recipe = new Recipe();
-        setFieldsFromDTO(recipe, recipeCreateEditDTO);
+    public RecipeViewDto createRecipe(RecipeCreateEditDto recipeDto) {
+        Recipe recipe = recipeMapper.toRecipe(recipeDto);
         return getRecipeViewDto(recipeRepository.save(recipe));
     }
 
     @Override
-    public RecipeViewDto updateRecipe(String recipeSlug, RecipeCreateEditDto recipeDTO) {
+    public RecipeViewDto updateRecipe(String recipeSlug, RecipeCreateEditDto recipeDto) {
         Recipe bySlug = getBySlug(recipeSlug);
-        setFieldsFromDTO(bySlug, recipeDTO);
+        recipeMapper.updateRecipe(bySlug, recipeDto);
         return getRecipeViewDto(bySlug);
     }
 
@@ -72,18 +73,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public RecipeViewDto getRecipeViewDto(Recipe recipe) {
-        return RecipeViewDto.builder()
-                .created(InstantFormatter.instantFormatterDMY(recipe.getCreated()))
-                .slug(recipe.getSlug())
-                .title(recipe.getTitle())
-                .country(recipe.getCountry())
-                .about(recipe.getAbout())
-                .ingredients(recipe.getIngredients())
-                .method(recipe.getMethod())
-                .imageList(recipe.getImageList() != null ? imageService
-                        .getImageDtoList(imageService
-                                .getSortedByCreatedDesc(recipe.getImageList())) : null)
-                .build();
+        return recipeMapper.toRecipeViewDto(new RecipeViewDto(), recipe);
     }
 
     @Override
@@ -93,26 +83,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public RecipeCreateEditDto getRecipeCreateEditDto(Recipe recipe) {
-        return RecipeCreateEditDto.builder()
-                .slug(recipe.getSlug())
-                .title(recipe.getTitle())
-                .country(recipe.getCountry())
-                .about(recipe.getAbout())
-                .ingredients(recipe.getIngredients())
-                .method(recipe.getMethod())
-                .imageList(recipe.getImageList() != null ? imageService
-                        .getImageDtoList(imageService
-                                .getSortedByCreatedDesc(recipe.getImageList())) : null)
-                .build();
-    }
-
-    public void setFieldsFromDTO(Recipe recipe, RecipeCreateEditDto recipeDTO) {
-        recipe.setTitle(recipeDTO.getTitle());
-        recipe.setSlug(recipeDTO.getSlug());
-        recipe.setCountry(recipeDTO.getCountry());
-        recipe.setAbout(recipeDTO.getAbout());
-        recipe.setIngredients(recipeDTO.getIngredients());
-        recipe.setMethod(recipeDTO.getMethod());
+        return recipeMapper.toRecipeCreateEditDto(new RecipeCreateEditDto(), recipe);
     }
 
     @Override

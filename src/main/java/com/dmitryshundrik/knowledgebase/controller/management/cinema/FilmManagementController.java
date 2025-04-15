@@ -40,8 +40,8 @@ public class FilmManagementController {
 
     @GetMapping("/management/film/create")
     public String getFilmCreate(Model model) {
-        FilmCreateEditDto filmCreateEditDto = new FilmCreateEditDto();
-        model.addAttribute(FILM, filmCreateEditDto);
+        FilmCreateEditDto filmDto = new FilmCreateEditDto();
+        model.addAttribute(FILM, filmDto);
         return "management/cinema/film-create";
     }
 
@@ -60,16 +60,16 @@ public class FilmManagementController {
     @GetMapping("/management/film/edit/{filmSlug}")
     public String getFilmEdit(@PathVariable String filmSlug, Model model) {
         Film bySlug = filmService.getBySlug(filmSlug);
-        FilmCreateEditDto filmCreateEditDto = filmService.getFilmCreateEditDto(bySlug);
-        model.addAttribute(FILM, filmCreateEditDto);
+        FilmCreateEditDto filmDto = filmService.getFilmCreateEditDto(bySlug);
+        model.addAttribute(FILM, filmDto);
         return "management/cinema/film-edit";
     }
 
     @PutMapping("/management/film/edit/{filmSlug}")
     public String putFilmEdit(@PathVariable String filmSlug,
-                                @ModelAttribute(FILM) FilmCreateEditDto filmDTO) {
-        String filmDTOSlug = filmService.updateFilm(filmSlug, filmDTO).getSlug();
-        return "redirect:/management/film/edit/" + filmDTOSlug;
+                                @ModelAttribute(FILM) FilmCreateEditDto filmDto) {
+        String filmDtoSlug = filmService.updateFilm(filmSlug, filmDto).getSlug();
+        return "redirect:/management/film/edit/" + filmDtoSlug;
     }
 
     @PostMapping("/management/film/edit/{filmSlug}/image/upload")
