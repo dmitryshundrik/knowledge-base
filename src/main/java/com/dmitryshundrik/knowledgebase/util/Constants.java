@@ -20,6 +20,8 @@ public final class Constants {
     public static final String MUSIC_GENRE_MUST_NOT_BE_BLANK = "Music genre must not be blank";
     public static final String YEAR_MUST_NOT_BE_NULL = "Year must not be null";
 
+    public static final String GETTING_CURRENT_WEATHER_FAIL_MESSAGE = "Failed to fetch weather data: %s";
+
     public static final String ARTIST = "artist";
     public static final String ARTIST_LIST = "artistList";
     public static final String ARTIST_SLUG = "artistSlug";
