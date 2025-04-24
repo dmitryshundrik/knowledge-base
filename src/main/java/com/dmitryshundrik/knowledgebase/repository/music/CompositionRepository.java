@@ -9,9 +9,6 @@ import java.util.UUID;
 
 public interface CompositionRepository extends JpaRepository<Composition, UUID> {
 
-    @Query(value = "select count(m) from Composition m")
-    Long getSize();
-
     @Query("SELECT DISTINCT year FROM Composition ORDER BY year")
     List<Integer> getAllYearsFromCompositions();
 
@@ -54,4 +51,7 @@ public interface CompositionRepository extends JpaRepository<Composition, UUID> 
     List<Composition> findAllByMusicianIdOrderByRating(UUID musicianId);
 
     List<Composition> findAllByMusicianIdOrderByCreated(UUID musicianId);
+
+    @Query(value = "select count(m) from Composition m")
+    Long getSize();
 }

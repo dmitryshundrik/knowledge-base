@@ -8,12 +8,12 @@ import java.util.UUID;
 
 public interface CocktailRepository extends JpaRepository<Cocktail, UUID> {
 
-    @Query(value = "select count(m) from Cocktail m")
-    Long getSize();
-
     Cocktail findBySlug(String slug);
 
     List<Cocktail> findAllByOrderByCreatedDesc();
 
     List<Cocktail> findFirst20ByOrderByCreatedDesc();
+
+    @Query(value = "select count(m) from Cocktail m")
+    Long getSize();
 }

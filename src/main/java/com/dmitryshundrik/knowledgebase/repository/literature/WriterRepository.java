@@ -10,9 +10,6 @@ import java.util.UUID;
 
 public interface WriterRepository extends JpaRepository<Writer, UUID> {
 
-    @Query(value = "select count(m) from Writer m")
-    Long getSize();
-
     Writer findBySlug(String writerSlug);
 
     void deleteBySlug(String writerSlug);
@@ -38,4 +35,7 @@ public interface WriterRepository extends JpaRepository<Writer, UUID> {
     @Query(value = "select * from writer where date_notification = :isNotify and extract( month from death_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) " +
             "and extract( day from death_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)
     List<Writer> findAllWithCurrentDeathAndNotification(LocalDate date, Boolean isNotify);
+
+    @Query(value = "select count(m) from Writer m")
+    Long getSize();
 }

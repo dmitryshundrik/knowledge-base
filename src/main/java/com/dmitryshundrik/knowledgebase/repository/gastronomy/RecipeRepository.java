@@ -9,9 +9,6 @@ import java.util.UUID;
 
 public interface RecipeRepository extends JpaRepository<Recipe, UUID> {
 
-    @Query(value = "select count(m) from Recipe m")
-    Long getSize();
-
     Recipe findBySlug(String slug);
 
     List<Recipe> findAllByCountry(Country country);
@@ -19,4 +16,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, UUID> {
     List<Recipe> findAllByOrderByCreatedDesc();
 
     List<Recipe> findFirst20ByOrderByCreatedDesc();
+
+    @Query(value = "select count(m) from Recipe m")
+    Long getSize();
 }

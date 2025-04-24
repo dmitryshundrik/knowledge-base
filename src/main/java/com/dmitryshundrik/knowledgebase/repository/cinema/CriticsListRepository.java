@@ -9,9 +9,6 @@ import java.util.UUID;
 
 public interface CriticsListRepository extends JpaRepository<CriticsList, UUID> {
 
-    @Query(value = "select count(m) from CriticsList m")
-    Long getSize();
-
     CriticsList findBySlug(String slug);
 
     List<CriticsList> findFirst20ByOrderByCreatedDesc();
@@ -23,4 +20,7 @@ public interface CriticsListRepository extends JpaRepository<CriticsList, UUID> 
     @Query("SELECT new com.dmitryshundrik.knowledgebase.model.dto.cinema.CriticsListResponseDto(cticsList.created, cticsList.slug, cticsList.title, " +
             "cticsList.year, cticsList.synopsis) FROM CriticsList cticsList ORDER BY cticsList.year DESC")
     List<CriticsListResponseDto> findAllCriticsListResponseDtoOrderByYearDesc();
+
+    @Query(value = "select count(m) from CriticsList m")
+    Long getSize();
 }

@@ -10,9 +10,6 @@ import java.util.UUID;
 
 public interface AlbumRepository extends JpaRepository<Album, UUID> {
 
-    @Query(value = "select count(m) from Album m")
-    Long getSize();
-
     @Query("SELECT DISTINCT year FROM Album ORDER BY year")
     List<Integer> findAllYearsFromAlbums();
 
@@ -34,4 +31,7 @@ public interface AlbumRepository extends JpaRepository<Album, UUID> {
     List<Album> findAllByDecadesOrderByRatingDesc(Integer start, Integer end);
 
     List<Album> findFirst100ByRatingIsNotNullOrderByRatingDesc();
+
+    @Query(value = "select count(m) from Album m")
+    Long getSize();
 }

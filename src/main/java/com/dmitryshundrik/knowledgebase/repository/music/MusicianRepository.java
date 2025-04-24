@@ -13,9 +13,6 @@ import java.util.UUID;
 
 public interface MusicianRepository extends JpaRepository<Musician, UUID> {
 
-    @Query(value = "select count(m) from Musician m")
-    Long getSize();
-
     Musician findMusicianBySlug(String slug);
 
     Musician findMusicianByNickNameIgnoreCase(String nickName);
@@ -56,4 +53,7 @@ public interface MusicianRepository extends JpaRepository<Musician, UUID> {
     @Query(value = "select * from musician where date_notification = :isNotify and extract( month from death_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) " +
             "and extract( day from death_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)
     List<Musician> findAllWithCurrentDeathAndNotification(LocalDate date, Boolean isNotify);
+
+    @Query(value = "select count(m) from Musician m")
+    Long getSize();
 }
