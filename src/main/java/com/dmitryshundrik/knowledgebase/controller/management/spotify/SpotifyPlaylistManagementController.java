@@ -2,7 +2,7 @@ package com.dmitryshundrik.knowledgebase.controller.management.spotify;
 
 import com.dmitryshundrik.knowledgebase.model.entity.spotify.playlist.request.PlaylistId;
 import com.dmitryshundrik.knowledgebase.model.entity.spotify.playlist.response.PlaylistResponse;
-import com.dmitryshundrik.knowledgebase.service.spotify.SpotifyPlaylistService;
+import com.dmitryshundrik.knowledgebase.service.client.impl.SpotifyPlaylistService;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.ap.internal.util.Strings;
 import org.springframework.stereotype.Controller;

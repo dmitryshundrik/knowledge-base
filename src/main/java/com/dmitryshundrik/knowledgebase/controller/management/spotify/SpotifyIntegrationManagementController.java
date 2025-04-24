@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.controller.management.spotify;
 
-import com.dmitryshundrik.knowledgebase.service.spotify.SpotifyIntegrationService;
+import com.dmitryshundrik.knowledgebase.service.client.impl.SpotifyIntegrationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

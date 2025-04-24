@@ -1,4 +1,4 @@
-package com.dmitryshundrik.knowledgebase.service.spotify;
+package com.dmitryshundrik.knowledgebase.service.client.impl;
 
 import com.dmitryshundrik.knowledgebase.model.entity.spotify.RefreshToken;
 import com.dmitryshundrik.knowledgebase.repository.tools.RefreshTokenRepository;
@@ -81,25 +81,7 @@ public class SpotifyIntegrationService {
         parameters.put(GRANT_TYPE, "authorization_code");
         parameters.put(CODE, code);
         parameters.put(REDIRECT_URI, applicationURI + "/management/spotify-integration/login/get-access-token");
-        String form = parameters.keySet().stream()
-                .map(key -> key + "=" + URLEncoder.encode(parameters.get(key), StandardCharsets.UTF_8))
-                .collect(Collectors.joining("&"));
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://accounts.spotify.com/api/token"))
-                .POST(HttpRequest.BodyPublishers.ofString(form))
-                .header("Authorization", "Basic " + Base64.getEncoder().encodeToString((clientID + ":" + clientSecret).getBytes()))
-                .header("Content-Type", "application/x-www-form-urlencoded")
-                .build();
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-        JsonNode node = new ObjectMapper().readTree(response.body());
-        if (node.has("access_token")) {
-            accessToken = node.get("access_token").asText();
-        }
-        if (node.has("refresh_token")) {
-            refreshToken = node.get("refresh_token").asText();
-            refreshTokenRepository.deleteAll();
-            refreshTokenRepository.save(createRefreshTokenEntity(refreshToken));
-        }
+        createRequestForm(parameters);
     }
 
     @Scheduled(fixedRate = 1000 * 60 * 30)
@@ -117,6 +99,10 @@ public class SpotifyIntegrationService {
         parameters.put("grant_type", "refresh_token");
         parameters.put("refresh_token", refreshToken);
         parameters.put(CLIENT_ID, clientID);
+        createRequestForm(parameters);
+    }
+
+    private void createRequestForm(Map<String, String> parameters) throws IOException, InterruptedException {
         String form = parameters.keySet().stream()
                 .map(key -> key + "=" + URLEncoder.encode(parameters.get(key), StandardCharsets.UTF_8))
                 .collect(Collectors.joining("&"));

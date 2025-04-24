@@ -9,7 +9,7 @@ import com.dmitryshundrik.knowledgebase.service.core.EntityActivityService;
 import com.dmitryshundrik.knowledgebase.service.core.FoundationService;
 import com.dmitryshundrik.knowledgebase.service.core.ResourcesService;
 import com.dmitryshundrik.knowledgebase.service.music.YearInMusicService;
-import com.dmitryshundrik.knowledgebase.service.spotify.SpotifyPlayerService;
+import com.dmitryshundrik.knowledgebase.service.client.impl.SpotifyPlayerService;
 import com.dmitryshundrik.knowledgebase.model.enums.ResourceType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
