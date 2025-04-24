@@ -63,7 +63,7 @@ public class SpotifyPlayerService {
         }
     }
 
-    public CurrentSong createCurrentSong(PlayerResponse playerResponse) {
+    private CurrentSong createCurrentSong(PlayerResponse playerResponse) {
         CurrentSong currentSong = new CurrentSong();
         ItemResponse item = playerResponse.getItem();
         ItemAlbumResponse itemAlbumResponse = item.getItemAlbumResponse();
