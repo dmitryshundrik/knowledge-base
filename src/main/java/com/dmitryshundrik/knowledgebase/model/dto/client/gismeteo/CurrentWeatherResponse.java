@@ -1,4 +1,4 @@
-package com.dmitryshundrik.knowledgebase.model.dto.client;
+package com.dmitryshundrik.knowledgebase.model.dto.client.gismeteo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
