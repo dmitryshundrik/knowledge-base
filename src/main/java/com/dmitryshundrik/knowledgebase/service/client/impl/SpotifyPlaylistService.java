@@ -1,16 +1,16 @@
 package com.dmitryshundrik.knowledgebase.service.client.impl;
 
 import com.dmitryshundrik.knowledgebase.mapper.client.PlaylistMapper;
-import com.dmitryshundrik.knowledgebase.model.entity.spotify.playlist.request.SimplifiedPlaylistObject;
-import com.dmitryshundrik.knowledgebase.model.entity.spotify.playlist.request.UserPlaylists;
-import com.dmitryshundrik.knowledgebase.model.entity.spotify.playlist.response.PlaylistItemResponse;
-import com.dmitryshundrik.knowledgebase.model.entity.spotify.playlist.response.PlaylistResponse;
-import com.dmitryshundrik.knowledgebase.model.entity.spotify.playlist.request.ArtistObject;
-import com.dmitryshundrik.knowledgebase.model.entity.spotify.playlist.request.Playlist;
-import com.dmitryshundrik.knowledgebase.model.entity.spotify.playlist.request.PlaylistTrackObject;
-import com.dmitryshundrik.knowledgebase.model.entity.spotify.playlist.request.TrackObject;
-import com.dmitryshundrik.knowledgebase.model.entity.spotify.playlist.response.UserPlaylistsItemResponse;
-import com.dmitryshundrik.knowledgebase.model.entity.spotify.playlist.response.UserPlaylistsResponse;
+import com.dmitryshundrik.knowledgebase.model.dto.client.spotify.playlist.request.SimplifiedPlaylistObject;
+import com.dmitryshundrik.knowledgebase.model.dto.client.spotify.playlist.request.UserPlaylists;
+import com.dmitryshundrik.knowledgebase.model.dto.client.spotify.playlist.response.PlaylistItemResponse;
+import com.dmitryshundrik.knowledgebase.model.dto.client.spotify.playlist.response.PlaylistResponse;
+import com.dmitryshundrik.knowledgebase.model.dto.client.spotify.playlist.request.ArtistObject;
+import com.dmitryshundrik.knowledgebase.model.dto.client.spotify.playlist.request.Playlist;
+import com.dmitryshundrik.knowledgebase.model.dto.client.spotify.playlist.request.PlaylistTrackObject;
+import com.dmitryshundrik.knowledgebase.model.dto.client.spotify.playlist.request.TrackObject;
+import com.dmitryshundrik.knowledgebase.model.dto.client.spotify.playlist.response.UserPlaylistsItemResponse;
+import com.dmitryshundrik.knowledgebase.model.dto.client.spotify.playlist.response.UserPlaylistsResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

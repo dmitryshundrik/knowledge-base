@@ -1,15 +1,13 @@
-package com.dmitryshundrik.knowledgebase.model.entity.spotify.playlist.request;
+package com.dmitryshundrik.knowledgebase.model.dto.client.spotify.playlist.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SimplifiedPlaylistObject {
-
-    @JsonProperty("description")
-    private String description;
+public class TrackObject {
 
     @JsonProperty("id")
     private String id;
@@ -17,6 +15,9 @@ public class SimplifiedPlaylistObject {
     @JsonProperty("name")
     private String name;
 
-    @JsonProperty("public")
-    private Boolean isPublic;
+    @JsonProperty("album")
+    private AlbumObject album;
+
+    @JsonProperty("artists")
+    private List<ArtistObject> artists;
 }

@@ -1,9 +1,9 @@
 package com.dmitryshundrik.knowledgebase.mapper.client;
 
-import com.dmitryshundrik.knowledgebase.model.entity.spotify.playlist.request.SimplifiedPlaylistObject;
-import com.dmitryshundrik.knowledgebase.model.entity.spotify.playlist.request.TrackObject;
-import com.dmitryshundrik.knowledgebase.model.entity.spotify.playlist.response.PlaylistItemResponse;
-import com.dmitryshundrik.knowledgebase.model.entity.spotify.playlist.response.UserPlaylistsItemResponse;
+import com.dmitryshundrik.knowledgebase.model.dto.client.spotify.playlist.request.SimplifiedPlaylistObject;
+import com.dmitryshundrik.knowledgebase.model.dto.client.spotify.playlist.request.TrackObject;
+import com.dmitryshundrik.knowledgebase.model.dto.client.spotify.playlist.response.PlaylistItemResponse;
+import com.dmitryshundrik.knowledgebase.model.dto.client.spotify.playlist.response.UserPlaylistsItemResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

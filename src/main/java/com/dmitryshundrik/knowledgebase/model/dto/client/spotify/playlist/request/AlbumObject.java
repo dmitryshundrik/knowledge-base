@@ -1,17 +1,19 @@
-package com.dmitryshundrik.knowledgebase.model.entity.spotify.player;
+package com.dmitryshundrik.knowledgebase.model.dto.client.spotify.playlist.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ItemAlbumResponse {
+public class AlbumObject {
 
-    @JsonProperty("images")
-    private List <ItemAlbumImageResponse> itemAlbumImageResponseList;
+    @JsonProperty("id")
+    private String id;
 
     @JsonProperty("name")
     private String name;
+
+    @JsonProperty("release_date")
+    private String releaseDate;
 }

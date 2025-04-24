@@ -1,4 +1,4 @@
-package com.dmitryshundrik.knowledgebase.model.entity.spotify;
+package com.dmitryshundrik.knowledgebase.model.dto.client.spotify;
 
 import com.dmitryshundrik.knowledgebase.model.entity.AbstractEntity;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.dmitryshundrik.knowledgebase.model.entity.spotify.playlist.request;
+package com.dmitryshundrik.knowledgebase.model.dto.client.spotify.playlist.request;
 
 import lombok.Data;
 
