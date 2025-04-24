@@ -21,6 +21,8 @@ public final class Constants {
     public static final String YEAR_MUST_NOT_BE_NULL = "Year must not be null";
 
     public static final String GETTING_CURRENT_WEATHER_FAIL_MESSAGE = "Failed to fetch weather data: %s";
+    public static final String GETTING_TOP_ARTISTS_FAIL_MESSAGE = "Failed to fetch top artists data: %s";
+    public static final String GETTING_TOP_ALBUMS_FAIL_MESSAGE = "Failed to fetch top albums data: %s";
 
     public static final String ARTIST = "artist";
     public static final String ARTIST_LIST = "artistList";

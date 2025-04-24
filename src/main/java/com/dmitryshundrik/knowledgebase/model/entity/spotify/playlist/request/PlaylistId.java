@@ -6,4 +6,6 @@ import lombok.Data;
 public class PlaylistId {
 
     private String id;
+
+    private Boolean orderByRelease;
 }

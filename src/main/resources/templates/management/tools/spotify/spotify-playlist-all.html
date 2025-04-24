@@ -26,6 +26,10 @@
                     <label>playlist id</label>
                     <input type="text" th:field="*{id}" maxlength="255"/>
                 </section>
+                <section class="form-item">
+                    <label>order by release</label>
+                    <input type="checkbox" th:field="*{orderByRelease}"/>
+                </section>
                 <input class="input-submit" type="submit" value="Получить плейлист"/>
             </form>
             <section th:if="${playlist} != null" class="form">

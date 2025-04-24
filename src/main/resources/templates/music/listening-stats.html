@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>Статистика прослушиваний</title>
+    <link th:href="@{/styles/music/listening-stats.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<header th:insert="fragments/header.html"></header>
+
+<main class="table">
+    <header class="table-title">
+        <h3>Моя статистика прослушиваний с 2014 года</h3>
+        <p class="table-title-note">Персонализированные хит-парады (чарты) составляются на основе данных о
+            прослушанной музыке музыкального портала Last.fm</p>
+    </header>
+    <div class="table-body">
+        <article class="table-body-item">
+            <section class="table-body-item-section">
+                <div class="stats-section-title">
+                    <span>Топ-50 исполнителей</span>
+                </div>
+                <div class="stats-section-list" th:each="artist : ${artistList}">
+                    <span th:if="${artist.playcount} != null">
+                        <span th:utext="${artist.playcount}"></span>
+                    </span>
+                    <span th:if="${artist.name} != null">
+                        <span th:utext="${artist.name}"></span>
+                    </span>
+                    <br>
+                </div>
+            </section>
+            <section class="table-body-item-section">
+                <div class="stats-section-title">
+                    <span>Топ-50 альбомов</span>
+                </div>
+                <div class="stats-section-list" th:each="album : ${albumsList}">
+                    <span th:if="${album.playcount} != null">
+                        <span th:utext="${album.playcount}"></span>
+                    </span>
+                    <span th:if="${album.artist} != null">
+                        <span th:utext="${album.artist.name} + ' - '"></span>
+                    </span>
+                    <span th:if="${album.name} != null">
+                        <span th:utext="${album.name}"></span>
+                    </span>
+                    <br>
+                </div>
+            </section>
+        </article>
+    </div>
+</main>
+
+<footer th:insert="fragments/footer.html"></footer>
+
+</body>
+</html>

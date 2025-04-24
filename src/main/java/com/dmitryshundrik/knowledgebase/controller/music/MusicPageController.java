@@ -1,7 +1,10 @@
 package com.dmitryshundrik.knowledgebase.controller.music;
 
+import com.dmitryshundrik.knowledgebase.model.dto.client.lastfm.topalbums.TopAlbums;
+import com.dmitryshundrik.knowledgebase.model.dto.client.lastfm.topartists.TopArtists;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianAllPageResponseDto;
 import com.dmitryshundrik.knowledgebase.model.entity.core.Resource;
+import com.dmitryshundrik.knowledgebase.service.client.LastFmService;
 import com.dmitryshundrik.knowledgebase.service.core.ResourcesService;
 import com.dmitryshundrik.knowledgebase.model.enums.EraType;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
@@ -75,6 +78,8 @@ public class MusicPageController {
     private final MusicGenreService musicGenreService;
 
     private final ResourcesService resourcesService;
+
+    private final LastFmService lastFmService;
 
     @GetMapping
     public String getMusicPage(Model model) {
@@ -155,6 +160,15 @@ public class MusicPageController {
         List<Resource> allByResourceType = resourcesService.getAllByResourceType(ResourceType.MUSIC);
         model.addAttribute(RESOURCE_LIST, allByResourceType);
         return "music/music-resources";
+    }
+
+    @GetMapping("/listening-stats")
+    public String getListeningStats(Model model) {
+        TopArtists topArtists = lastFmService.processTopArtist();
+        TopAlbums topAlbums = lastFmService.processTopAlbums();
+        model.addAttribute("artistList", topArtists.getArtists());
+        model.addAttribute("albumsList", topAlbums.getAlbums());
+        return "music/listening-stats";
     }
 
     @GetMapping("/lists-and-charts/albums-of-{year}")

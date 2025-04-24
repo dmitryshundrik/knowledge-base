@@ -16,7 +16,7 @@ public class NotificationProcessor {
 
     private final CurrentEventService currentEventService;
 
-    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "0 */5 * * * *")
     public void processEmailNotification() {
         List<CurrentEventInfo> currentEvents = currentEventService.getCurrentNotification(2);
         if (currentEvents != null && !currentEvents.isEmpty()) {

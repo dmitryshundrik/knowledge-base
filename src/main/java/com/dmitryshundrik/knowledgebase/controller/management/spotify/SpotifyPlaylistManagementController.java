@@ -18,7 +18,7 @@ public class SpotifyPlaylistManagementController {
     private final SpotifyPlaylistService spotifyPlaylistService;
 
     @GetMapping("management/spotify/playlists")
-    public String getPlaylistsTracks(Model model) {
+    public String getPlaylists(Model model) {
         model.addAttribute("userPlaylists", spotifyPlaylistService.getUserPlaylists());
         model.addAttribute("playlistId", new PlaylistId());
         return "management/tools/spotify/spotify-playlist-all";
@@ -30,7 +30,7 @@ public class SpotifyPlaylistManagementController {
         if (Strings.isEmpty(id)) {
             return "redirect:/management/spotify/playlists";
         }
-        PlaylistResponse playlist = spotifyPlaylistService.getPlaylist(id);
+        PlaylistResponse playlist = spotifyPlaylistService.getPlaylist(id, playlistId.getOrderByRelease());
         model.addAttribute("userPlaylists", spotifyPlaylistService.getUserPlaylists());
         model.addAttribute("playlist", playlist);
         return "management/tools/spotify/spotify-playlist-all";
