@@ -1,10 +1,10 @@
 package com.dmitryshundrik.knowledgebase.controller.management.literature;
 
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Prose;
-import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseViewDTO;
-import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseViewDto;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
+import com.dmitryshundrik.knowledgebase.service.literature.impl.ProseService;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
@@ -35,49 +35,49 @@ public class ProseManagementController {
     @GetMapping("/management/prose/all")
     public String getAllProse(Model model) {
         List<Prose> proseList = proseService.getAllSortedByCreatedDesc();
-        List<ProseViewDTO> proseViewDTOList = proseService.getProseViewDTOList(proseList);
-        model.addAttribute(PROSE_LIST, proseViewDTOList);
+        List<ProseViewDto> proseDtoList = proseService.getProseViewDtoList(proseList);
+        model.addAttribute(PROSE_LIST, proseDtoList);
         return "management/literature/prose-archive";
     }
 
     @GetMapping("/management/writer/edit/{writerSlug}/prose/create")
     public String getProseCreate(@PathVariable String writerSlug, Model model) {
-        ProseCreateEditDTO proseDTO = new ProseCreateEditDTO();
-        proseDTO.setWriterNickname(writerService.getBySlug(writerSlug).getNickName());
-        proseDTO.setWriterSlug(writerSlug);
-        model.addAttribute(PROSE, proseDTO);
+        ProseCreateEditDto proseDto = new ProseCreateEditDto();
+        proseDto.setWriterNickname(writerService.getBySlug(writerSlug).getNickName());
+        proseDto.setWriterSlug(writerSlug);
+        model.addAttribute(PROSE, proseDto);
         return "management/literature/prose-create";
     }
 
     @PostMapping("/management/writer/edit/{writerSlug}/prose/create")
     public String postProseCreate(@PathVariable String writerSlug,
-                                  @ModelAttribute(PROSE) ProseCreateEditDTO proseDTO, BindingResult bindingResult,
+                                  @ModelAttribute(PROSE) ProseCreateEditDto proseDto, BindingResult bindingResult,
                                   Model model) {
-        String error = proseService.proseSlugIsExist(proseDTO.getSlug());
+        String error = proseService.proseSlugIsExist(proseDto.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
-            proseDTO.setWriterNickname(writerService.getBySlug(writerSlug).getNickName());
-            proseDTO.setWriterSlug(writerSlug);
-            model.addAttribute(PROSE, proseDTO);
+            proseDto.setWriterNickname(writerService.getBySlug(writerSlug).getNickName());
+            proseDto.setWriterSlug(writerSlug);
+            model.addAttribute(PROSE, proseDto);
             return "management/literature/prose-create";
         }
-        String proseSlug = proseService.createProse(writerService.getBySlug(writerSlug), proseDTO).getSlug();
+        String proseSlug = proseService.createProse(writerService.getBySlug(writerSlug), proseDto).getSlug();
         return "redirect:/management/writer/edit/" + writerSlug + "/prose/edit/" + proseSlug;
     }
 
     @GetMapping("/management/writer/edit/{writerSlug}/prose/edit/{proseSlug}")
     public String getProseEdit(@PathVariable String writerSlug, @PathVariable String proseSlug, Model model) {
         Prose bySlug = proseService.getBySlug(proseSlug);
-        ProseCreateEditDTO proseCreateEditDTO = proseService.getProseCreateEditDTO(bySlug);
-        model.addAttribute(PROSE, proseCreateEditDTO);
+        ProseCreateEditDto proseDto = proseService.getProseCreateEditDTO(bySlug);
+        model.addAttribute(PROSE, proseDto);
         return "management/literature/prose-edit";
     }
 
     @PutMapping("/management/writer/edit/{writerSlug}/prose/edit/{proseSlug}")
     public String putProseEdit(@PathVariable String writerSlug, @PathVariable String proseSlug,
-                               @ModelAttribute(PROSE) ProseCreateEditDTO proseDTO) {
+                               @ModelAttribute(PROSE) ProseCreateEditDto proseDto) {
         Prose bySlug = proseService.getBySlug(proseSlug);
-        String proseDTOSlug = proseService.updateProse(bySlug, proseDTO).getSlug();
-        return "redirect:/management/writer/edit/" + writerSlug + "/prose/edit/" + proseDTOSlug;
+        String proseDtoSlug = proseService.updateProse(bySlug, proseDto).getSlug();
+        return "redirect:/management/writer/edit/" + writerSlug + "/prose/edit/" + proseDtoSlug;
     }
 
     @PostMapping("/management/writer/edit/{writerSlug}/prose/edit/{proseSlug}/schema/upload")

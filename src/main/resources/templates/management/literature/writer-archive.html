@@ -21,14 +21,10 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>created</th>
                 <th>nick_name</th>
                 <th>slug</th>
-                <th>gender</th>
                 <th>born</th>
                 <th>died</th>
-                <th>birth date</th>
-                <th>death date</th>
                 <th>birthplace</th>
                 <th>occupation</th>
                 <th>notification</th>
@@ -39,14 +35,10 @@
             <tbody>
             <tr th:each="writer : ${writerList}">
                 <td th:text="${writerList.size - writerStat.index}"></td>
-                <td th:text="${writer.created}"></td>
                 <td th:text="${writer.nickName}"></td>
                 <td th:text="${writer.slug}"></td>
-                <td th:text="${writer.gender}"></td>
                 <td th:text="${writer.born}"></td>
                 <td th:text="${writer.died}"></td>
-                <td th:text="${writer.birthDate}"></td>
-                <td th:text="${writer.deathDate}"></td>
                 <td th:text="${writer.birthplace}"></td>
                 <td th:text="${writer.occupation}"></td>
                 <td th:text="${writer.dateNotification}"></td>

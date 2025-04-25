@@ -24,24 +24,24 @@ public abstract class CocktailMapper {
 
     @Mapping(target = "created", ignore = true)
     @Mapping(target = "imageList", ignore = true)
-    public abstract CocktailViewDto toCocktailViewDto(@MappingTarget CocktailViewDto dto, Cocktail cocktail);
+    public abstract CocktailViewDto toCocktailViewDto(@MappingTarget CocktailViewDto cocktailDto, Cocktail cocktail);
 
     @AfterMapping
-    public void toCocktailViewDtoPostProcess(@MappingTarget CocktailViewDto dto, Cocktail cocktail) {
+    public void toCocktailViewDtoPostProcess(@MappingTarget CocktailViewDto cocktailDto, Cocktail cocktail) {
         Instant created = cocktail.getCreated();
-        dto.setCreated(created != null ? InstantFormatter.instantFormatterDMY(created) : null);
+        cocktailDto.setCreated(created != null ? InstantFormatter.instantFormatterDMY(created) : null);
 
-        dto.setImageList(cocktail.getImageList() != null ? imageService
+        cocktailDto.setImageList(cocktail.getImageList() != null ? imageService
                 .getImageDtoList(imageService
                         .getSortedByCreatedDesc(cocktail.getImageList())) : null);
     }
 
     @Mapping(target = "imageList", ignore = true)
-    public abstract CocktailCreateEditDto toCocktailCreateEditDto(@MappingTarget CocktailCreateEditDto dto, Cocktail cocktail);
+    public abstract CocktailCreateEditDto toCocktailCreateEditDto(@MappingTarget CocktailCreateEditDto cocktailDto, Cocktail cocktail);
 
     @AfterMapping
-    public void toCocktailCreateEditDtoPostProcess(@MappingTarget CocktailCreateEditDto dto, Cocktail cocktail) {
-        dto.setImageList(cocktail.getImageList() != null ? imageService
+    public void toCocktailCreateEditDtoPostProcess(@MappingTarget CocktailCreateEditDto cocktailDto, Cocktail cocktail) {
+        cocktailDto.setImageList(cocktail.getImageList() != null ? imageService
                 .getImageDtoList(imageService
                         .getSortedByCreatedDesc(cocktail.getImageList())) : null);
     }

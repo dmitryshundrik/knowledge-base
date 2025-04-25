@@ -1,9 +1,9 @@
 package com.dmitryshundrik.knowledgebase.controller.management.literature;
 
+import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterArchiveListDto;
 import com.dmitryshundrik.knowledgebase.model.enums.Gender;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Writer;
-import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterViewDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterCreateEditDto;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -35,46 +35,45 @@ public class WriterManagementController {
 
     @GetMapping("/management/writer/all")
     public String getAllWriters(Model model) {
-        List<Writer> writerList = writerService.getAllSortedByCreatedDesc();
-        List<WriterViewDTO> writerViewDTOList = writerService.getWriterViewDTOList(writerList);
-        model.addAttribute(WRITER_LIST, writerViewDTOList);
+        List<WriterArchiveListDto> writerDtoList = writerService.getAllOrderByCreatedDesc();
+        model.addAttribute(WRITER_LIST, writerDtoList);
         return "management/literature/writer-archive";
     }
 
     @GetMapping("/management/writer/create")
     public String getWriterCreate(Model model) {
-        WriterCreateEditDTO writerCreateEditDTO = new WriterCreateEditDTO();
-        model.addAttribute(WRITER, writerCreateEditDTO);
+        WriterCreateEditDto writerDto = new WriterCreateEditDto();
+        model.addAttribute(WRITER, writerDto);
         model.addAttribute(GENDER_LIST, Gender.values());
         return "management/literature/writer-create";
     }
 
     @PostMapping("/management/writer/create")
-    public String postWriterCreate(@Valid @ModelAttribute(WRITER) WriterCreateEditDTO writerDTO, BindingResult bindingResult,
+    public String postWriterCreate(@Valid @ModelAttribute(WRITER) WriterCreateEditDto writerDto, BindingResult bindingResult,
                                    Model model) {
-        String error = writerService.writerSlugIsExist(writerDTO.getSlug());
+        String error = writerService.isSlugExist(writerDto.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute(SLUG, error);
             model.addAttribute(GENDER_LIST, Gender.values());
             return "management/literature/writer-create";
         }
-        String writerSlug = writerService.createWriter(writerDTO).getSlug();
+        String writerSlug = writerService.createWriter(writerDto).getSlug();
         return "redirect:/management/writer/edit/" + writerSlug;
     }
 
     @GetMapping("/management/writer/edit/{writerSlug}")
     public String getWriterEdit(@PathVariable String writerSlug, Model model) {
         Writer bySlug = writerService.getBySlug(writerSlug);
-        WriterCreateEditDTO writerCreateEditDTO = writerService.getWriterCreateEditDTO(bySlug);
-        model.addAttribute(WRITER, writerCreateEditDTO);
+        WriterCreateEditDto writerDto = writerService.getWriterCreateEditDto(bySlug);
+        model.addAttribute(WRITER, writerDto);
         model.addAttribute(GENDER_LIST, Gender.values());
         return "management/literature/writer-edit";
     }
 
     @PutMapping("/management/writer/edit/{writerSlug}")
     public String putWriterEdit(@PathVariable String writerSlug,
-                                @ModelAttribute(WRITER) WriterCreateEditDTO writerDTO) {
-        String writerDTOSlug = writerService.updateWriter(writerSlug, writerDTO).getSlug();
+                                @ModelAttribute(WRITER) WriterCreateEditDto writerDto) {
+        String writerDTOSlug = writerService.updateWriter(writerSlug, writerDto).getSlug();
         return "redirect:/management/writer/edit/" + writerDTOSlug;
     }
 

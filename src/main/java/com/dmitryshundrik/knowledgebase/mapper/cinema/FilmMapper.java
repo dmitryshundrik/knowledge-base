@@ -9,7 +9,7 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface FilmMapper {
 
-    Film toFilm(FilmCreateEditDto filmCreateEditDto);
+    Film toFilm(FilmCreateEditDto filmDto);
 
     FilmCreateEditDto toFilmCreateEditDto(Film film);
 

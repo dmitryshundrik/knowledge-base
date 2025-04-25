@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.repository.music;
 
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianAllPageResponseDto;
-import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianManagementResponseDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianArchiveDto;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianActivityDto;
@@ -41,10 +41,10 @@ public interface MusicianRepository extends JpaRepository<Musician, UUID> {
             "musician.born, musician.founded) FROM Musician musician ORDER BY musician.born")
     List<MusicianAllPageResponseDto> getAllMusicianAllPageResponseDto();
 
-    @Query("SELECT new com.dmitryshundrik.knowledgebase.model.dto.music.MusicianManagementResponseDto(musician.slug, musician.nickName, " +
-            "musician.born, musician.died, musician.founded, musician.birthplace, musician.based, musician.occupation, " +
-            "musician.dateNotification) FROM Musician musician ORDER BY musician.created DESC")
-    List<MusicianManagementResponseDto> getAllMusicianManagementResponseDto();
+    @Query("SELECT new com.dmitryshundrik.knowledgebase.model.dto.music.MusicianArchiveDto(m.slug, m.nickName, " +
+            "m.born, m.died, m.founded, m.birthplace, m.based, m.occupation, " +
+            "m.dateNotification) FROM Musician m ORDER BY m.created DESC")
+    List<MusicianArchiveDto> getAllMusicianManagementDto();
 
     @Query(value = "select * from musician where date_notification = :isNotify and extract( month from birth_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) " +
             "and extract( day from birth_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)

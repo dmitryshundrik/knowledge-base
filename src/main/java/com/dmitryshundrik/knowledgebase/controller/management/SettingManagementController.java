@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.controller.management;
 
 import com.dmitryshundrik.knowledgebase.model.entity.core.Setting;
-import com.dmitryshundrik.knowledgebase.model.dto.core.SettingCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.core.SettingViewDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.core.SettingCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.core.SettingViewDto;
 import com.dmitryshundrik.knowledgebase.service.core.SettingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -23,23 +23,23 @@ public class SettingManagementController {
     @GetMapping("/management/setting/all")
     public String getAllSettings(Model model) {
         List<Setting> settingList = settingService.getAll();
-        List<SettingViewDTO> settingViewDTOList = settingService.getSettingViewDTOList(settingList);
-        model.addAttribute("settingList", settingViewDTOList);
+        List<SettingViewDto> settingViewDtoList = settingService.getSettingViewDTOList(settingList);
+        model.addAttribute("settingList", settingViewDtoList);
         return "management/setting-archive";
     }
 
     @GetMapping("/management/setting/edit/{settingId}")
     public String getSettingEdit(@PathVariable String settingId, Model model) {
         Setting byId = settingService.getById(settingId);
-        SettingCreateEditDTO settingCreateEditDTO = settingService.getSettingCreateEditDTO(byId);
+        SettingCreateEditDto settingCreateEditDTO = settingService.getSettingCreateEditDTO(byId);
         model.addAttribute("settingDTO", settingCreateEditDTO);
         return "management/setting-edit";
     }
 
     @PutMapping("/management/setting/edit/{settingId}")
     public String putSettingEdit(@PathVariable String settingId,
-                                 @ModelAttribute("settingDTO") SettingCreateEditDTO settingDTO) {
-        SettingViewDTO settingViewDTO = settingService.updateSetting(settingId, settingDTO);
+                                 @ModelAttribute("settingDTO") SettingCreateEditDto settingDTO) {
+        SettingViewDto settingViewDTO = settingService.updateSetting(settingId, settingDTO);
         return "redirect:/management/setting/edit/" + settingViewDTO.getId();
     }
 

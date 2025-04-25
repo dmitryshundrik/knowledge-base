@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.core;
 
 import com.dmitryshundrik.knowledgebase.model.entity.core.Resource;
-import com.dmitryshundrik.knowledgebase.model.dto.core.ResourceDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.core.ResourceDto;
 import com.dmitryshundrik.knowledgebase.repository.core.ResourcesRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.model.enums.ResourceType;
@@ -35,13 +35,13 @@ public class ResourcesService {
         return resourcesRepository.findAllByOrderByCreatedAsc();
     }
 
-    public ResourceDTO createResource(ResourceDTO resourceDTO) {
+    public ResourceDto createResource(ResourceDto resourceDTO) {
         Resource resource = new Resource();
         setFieldsFromDTO(resource, resourceDTO);
         return getResourceDTO(resourcesRepository.save(resource));
     }
 
-    public ResourceDTO updateResource(String resourceId, ResourceDTO resourceDTO) {
+    public ResourceDto updateResource(String resourceId, ResourceDto resourceDTO) {
         Resource byId = getById(resourceId);
         setFieldsFromDTO(byId, resourceDTO);
         return getResourceDTO(byId);
@@ -51,8 +51,8 @@ public class ResourcesService {
         resourcesRepository.deleteById(UUID.fromString(resourceId));
     }
 
-    public ResourceDTO getResourceDTO(Resource resource) {
-        return ResourceDTO.builder()
+    public ResourceDto getResourceDTO(Resource resource) {
+        return ResourceDto.builder()
                 .id(resource.getId().toString())
                 .created(InstantFormatter.instantFormatterYMD(resource.getCreated()))
                 .title(resource.getTitle())
@@ -62,13 +62,13 @@ public class ResourcesService {
                 .build();
     }
 
-    public List<ResourceDTO> getResourceDTOList(List<Resource> resourceList) {
+    public List<ResourceDto> getResourceDTOList(List<Resource> resourceList) {
         return resourceList.stream()
                 .map(this::getResourceDTO)
                 .collect(Collectors.toList());
     }
 
-    public void setFieldsFromDTO(Resource resource, ResourceDTO resourceDTO) {
+    public void setFieldsFromDTO(Resource resource, ResourceDto resourceDTO) {
         resource.setTitle(resourceDTO.getTitle());
         resource.setDescription(resourceDTO.getDescription());
         resource.setLink(resourceDTO.getLink());

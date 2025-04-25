@@ -8,7 +8,7 @@ import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Recipe;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Prose;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Quote;
-import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterEntityUpdateInfoDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterEntityUpdateInfoDto;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianActivityDto;
@@ -16,9 +16,9 @@ import com.dmitryshundrik.knowledgebase.service.art.impl.ArtistServiceImpl;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.impl.CocktailServiceImpl;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.impl.RecipeServiceImpl;
-import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
-import com.dmitryshundrik.knowledgebase.service.literature.QuoteService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
+import com.dmitryshundrik.knowledgebase.service.literature.impl.ProseService;
+import com.dmitryshundrik.knowledgebase.service.literature.impl.QuoteService;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
@@ -160,8 +160,8 @@ public class EntityActivityService {
 
     private List<EntityActivity> getWriterActivities() {
         List<EntityActivity> writerActivities = new ArrayList<>();
-        List<WriterEntityUpdateInfoDTO> latestUpdate = writerService.getLatestUpdate();
-        for (WriterEntityUpdateInfoDTO writer : latestUpdate) {
+        List<WriterEntityUpdateInfoDto> latestUpdate = writerService.getLatestUpdate();
+        for (WriterEntityUpdateInfoDto writer : latestUpdate) {
             writerActivities.add(EntityActivity.builder()
                     .created(writer.getCreated())
                     .archiveSection("литература:")

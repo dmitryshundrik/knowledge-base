@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.controller.management.music;
 
-import com.dmitryshundrik.knowledgebase.model.dto.core.TimelineEventDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.core.TimelineEventDto;
 import com.dmitryshundrik.knowledgebase.model.entity.core.TimelineEvent;
 import com.dmitryshundrik.knowledgebase.model.enums.EraType;
 import com.dmitryshundrik.knowledgebase.model.enums.TimelineEventType;
@@ -34,13 +34,13 @@ public class TimelineOfMusicManagementController {
 
     @GetMapping("/management/timeline-of-music/event/create")
     public String getCreateEventForTimelineOfMusic(Model model) {
-        model.addAttribute(TIMELINE_EVENT, new TimelineEventDTO());
+        model.addAttribute(TIMELINE_EVENT, new TimelineEventDto());
         model.addAttribute(ERA_TYPE_LIST, EraType.values());
         return "management/music/timeline-of-music-create";
     }
 
     @PostMapping("/management/timeline-of-music/event/create")
-    public String postCreateEventForTimelineOfMusic(@ModelAttribute(TIMELINE_EVENT) TimelineEventDTO timelineEventDTO) {
+    public String postCreateEventForTimelineOfMusic(@ModelAttribute(TIMELINE_EVENT) TimelineEventDto timelineEventDTO) {
         String timelineEventId = timelineEventService.createEventForTimelineOfMusic(timelineEventDTO);
         return "redirect:/management/timeline-of-music/event/edit/" + timelineEventId;
     }
@@ -55,7 +55,7 @@ public class TimelineOfMusicManagementController {
 
     @PutMapping("/management/timeline-of-music/event/edit/{eventId}")
     public String putEditEventForTimelineOfMusic(@PathVariable String eventId,
-                                                 @ModelAttribute(TIMELINE_EVENT) TimelineEventDTO timelineEventDTO) {
+                                                 @ModelAttribute(TIMELINE_EVENT) TimelineEventDto timelineEventDTO) {
         timelineEventDTO.setTimelineEventType(TimelineEventType.MUSIC);
         String timelineEventId = timelineEventService.updateTimelineEvent(eventId, timelineEventDTO).getId();
         return "redirect:/management/timeline-of-music/event/edit/" + timelineEventId;

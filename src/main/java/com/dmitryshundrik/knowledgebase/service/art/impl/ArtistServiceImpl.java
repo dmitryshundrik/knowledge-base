@@ -53,16 +53,16 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public Artist createArtist(ArtistCreateEditDto artistDTO) {
-        Artist artist = artistMapper.toArtist(artistDTO);
+    public Artist createArtist(ArtistCreateEditDto artistDto) {
+        Artist artist = artistMapper.toArtist(artistDto);
         artist.setSlug(SlugFormatter.slugFormatter(artist.getSlug()));
         return artistRepository.save(artist);
     }
 
     @Override
-    public ArtistViewDto updateArtist(String artistSlug, ArtistCreateEditDto artistDTO) {
+    public ArtistViewDto updateArtist(String artistSlug, ArtistCreateEditDto artistDto) {
         Artist bySlug = getBySlug(artistSlug);
-        artistMapper.updateArtist(bySlug, artistDTO);
+        artistMapper.updateArtist(bySlug, artistDto);
         return getArtistViewDto(bySlug);
     }
 

@@ -9,17 +9,23 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class WordDTO {
+public class QuoteCreateEditDto {
 
     private String id;
-
-    private String created;
 
     private String writerNickname;
 
     private String writerSlug;
 
-    private String title;
+    private String proseId;
+
+    private String publication;
+
+    private String location;
+
+    private Integer page;
 
     private String description;
+
+    private String descriptionHtml;
 }

@@ -1,10 +1,10 @@
-package com.dmitryshundrik.knowledgebase.service.literature;
+package com.dmitryshundrik.knowledgebase.service.literature.impl;
 
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Prose;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Quote;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Writer;
-import com.dmitryshundrik.knowledgebase.model.dto.literature.QuoteCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.literature.QuoteViewDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.QuoteCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.QuoteViewDto;
 import com.dmitryshundrik.knowledgebase.repository.literature.QuoteRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;
@@ -42,26 +42,26 @@ public class QuoteService {
         return quoteRepository.findAllByWriterOrderByCreatedDesc(writer);
     }
 
-    public Quote createQuote(QuoteCreateEditDTO quoteDTO, Writer writer, Prose prose) {
+    public Quote createQuote(QuoteCreateEditDto quoteDto, Writer writer, Prose prose) {
         Quote quote = new Quote();
         quote.setWriter(writer);
         quote.setProse(prose);
-        quote.setPublication(quoteDTO.getPublication());
-        quote.setLocation(quoteDTO.getLocation());
-        quote.setPage(quoteDTO.getPage());
-        quote.setDescription(quoteDTO.getDescription().trim());
-        quote.setDescriptionHtml(quoteDTO.getDescriptionHtml().trim());
+        quote.setPublication(quoteDto.getPublication());
+        quote.setLocation(quoteDto.getLocation());
+        quote.setPage(quoteDto.getPage());
+        quote.setDescription(quoteDto.getDescription().trim());
+        quote.setDescriptionHtml(quoteDto.getDescriptionHtml().trim());
         return quoteRepository.save(quote);
     }
 
-    public Quote updateQuote(QuoteCreateEditDTO quoteDTO, String quoteId, Prose prose) {
+    public Quote updateQuote(QuoteCreateEditDto quoteDto, String quoteId, Prose prose) {
         Quote byId = getById(quoteId);
         byId.setProse(prose);
-        byId.setPublication(quoteDTO.getPublication().trim());
-        byId.setLocation(quoteDTO.getLocation().trim());
-        byId.setPage(quoteDTO.getPage());
-        byId.setDescription(quoteDTO.getDescription().trim());
-        byId.setDescriptionHtml(quoteDTO.getDescriptionHtml().trim());
+        byId.setPublication(quoteDto.getPublication().trim());
+        byId.setLocation(quoteDto.getLocation().trim());
+        byId.setPage(quoteDto.getPage());
+        byId.setDescription(quoteDto.getDescription().trim());
+        byId.setDescriptionHtml(quoteDto.getDescriptionHtml().trim());
         return byId;
     }
 
@@ -70,8 +70,8 @@ public class QuoteService {
         quoteRepository.delete(byId);
     }
 
-    public QuoteViewDTO getQuoteViewDTO(Quote quote) {
-        return QuoteViewDTO.builder()
+    public QuoteViewDto getQuoteViewDto(Quote quote) {
+        return QuoteViewDto.builder()
                 .id(quote.getId().toString())
                 .created(InstantFormatter.instantFormatterDMY(quote.getCreated()))
                 .writerNickname(quote.getWriter().getNickName())
@@ -86,14 +86,14 @@ public class QuoteService {
                 .build();
     }
 
-    public List<QuoteViewDTO> getQuoteViewDTOList(List<Quote> quoteList) {
+    public List<QuoteViewDto> getQuoteViewDtoList(List<Quote> quoteList) {
         return quoteList.stream()
-                .map(this::getQuoteViewDTO)
+                .map(this::getQuoteViewDto)
                 .collect(Collectors.toList());
     }
 
-    public QuoteCreateEditDTO getQuoteCreateEditDTO(Quote quote) {
-        return QuoteCreateEditDTO.builder()
+    public QuoteCreateEditDto getQuoteCreateEditDto(Quote quote) {
+        return QuoteCreateEditDto.builder()
                 .id(quote.getId().toString())
                 .writerNickname(quote.getWriter().getNickName())
                 .writerSlug(quote.getWriter().getSlug())

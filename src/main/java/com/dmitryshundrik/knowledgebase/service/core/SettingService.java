@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.service.core;
 
 import com.dmitryshundrik.knowledgebase.model.entity.core.Setting;
-import com.dmitryshundrik.knowledgebase.model.dto.core.SettingCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.core.SettingViewDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.core.SettingCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.core.SettingViewDto;
 import com.dmitryshundrik.knowledgebase.repository.core.SettingRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;
@@ -30,15 +30,15 @@ public class SettingService {
         return settingRepository.findById(UUID.fromString(settingId)).orElse(null);
     }
 
-    public SettingViewDTO updateSetting(String settingId, SettingCreateEditDTO settingDTO) {
+    public SettingViewDto updateSetting(String settingId, SettingCreateEditDto settingDTO) {
         Setting byId = getById(settingId);
         byId.setName(settingDTO.getName().trim());
         byId.setValue(settingDTO.getValue().trim());
         return getSettingViewDTO(byId);
     }
 
-    public SettingViewDTO getSettingViewDTO(Setting setting) {
-        return SettingViewDTO.builder()
+    public SettingViewDto getSettingViewDTO(Setting setting) {
+        return SettingViewDto.builder()
                 .id(setting.getId().toString())
                 .created(InstantFormatter.instantFormatterYMD(setting.getCreated()))
                 .name(setting.getName())
@@ -46,14 +46,14 @@ public class SettingService {
                 .build();
     }
 
-    public List<SettingViewDTO> getSettingViewDTOList(List<Setting> settingList) {
+    public List<SettingViewDto> getSettingViewDTOList(List<Setting> settingList) {
         return settingList.stream()
                 .map(this::getSettingViewDTO)
                 .collect(Collectors.toList());
     }
 
-    public SettingCreateEditDTO getSettingCreateEditDTO(Setting setting) {
-        return SettingCreateEditDTO.builder()
+    public SettingCreateEditDto getSettingCreateEditDTO(Setting setting) {
+        return SettingCreateEditDto.builder()
                 .id(setting.getId().toString())
                 .name(setting.getName())
                 .value(setting.getValue())

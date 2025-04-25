@@ -14,7 +14,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MusicianManagementDetailedResponseDto {
+public class MusicianArchiveDetailedDto {
 
     private String created;
 

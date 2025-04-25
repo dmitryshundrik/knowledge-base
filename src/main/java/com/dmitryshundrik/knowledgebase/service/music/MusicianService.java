@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianAllPageResponseDto;
-import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianManagementDetailedResponseDto;
-import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianManagementResponseDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianArchiveDetailedDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianArchiveDto;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
@@ -245,18 +245,18 @@ public class MusicianService {
         return musicianRepository.getAllMusicianAllPageResponseDto();
     }
 
-    public List<MusicianManagementResponseDto> getAllMusicianManagementResponseDto() {
-        return musicianRepository.getAllMusicianManagementResponseDto();
+    public List<MusicianArchiveDto> getAllMusicianManagementResponseDto() {
+        return musicianRepository.getAllMusicianManagementDto();
     }
 
-    public MusicianManagementDetailedResponseDto getMusicianManagementDetailedResponseDto(Musician musician) {
-        MusicianManagementDetailedResponseDto musicianDto = musicianMapper.toMusicianManagementDetailedResponseDto(musician);
+    public MusicianArchiveDetailedDto getMusicianManagementDetailedResponseDto(Musician musician) {
+        MusicianArchiveDetailedDto musicianDto = musicianMapper.toMusicianManagementDetailedResponseDto(musician);
         musicianDto.setMusicGenres(getSortedMusicGenresByMusician(musician));
         musicianDto.setCreated(InstantFormatter.instantFormatterYMDHMS(musician.getCreated()));
         return musicianDto;
     }
 
-    public List<MusicianManagementDetailedResponseDto> getAllMusicianManagementDetailedResponseDto() {
+    public List<MusicianArchiveDetailedDto> getAllMusicianManagementDetailedResponseDto() {
         List<Musician> musicianList = musicianRepository.findAllByOrderByCreatedDesc();
         return musicianList.stream().map(this::getMusicianManagementDetailedResponseDto).toList();
     }

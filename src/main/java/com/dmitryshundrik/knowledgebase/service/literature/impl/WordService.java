@@ -1,8 +1,8 @@
-package com.dmitryshundrik.knowledgebase.service.literature;
+package com.dmitryshundrik.knowledgebase.service.literature.impl;
 
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Word;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Writer;
-import com.dmitryshundrik.knowledgebase.model.dto.literature.WordDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.WordDto;
 import com.dmitryshundrik.knowledgebase.repository.literature.WordRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;
@@ -39,23 +39,23 @@ public class WordService {
         return wordRepository.findById(UUID.fromString(wordId)).orElse(null);
     }
 
-    public Word createWord(WordDTO wordDTO, Writer writer) {
+    public Word createWord(WordDto wordDto, Writer writer) {
         Word word = new Word();
         word.setWriter(writer);
-        word.setTitle(wordDTO.getTitle());
-        word.setDescription(wordDTO.getDescription());
+        word.setTitle(wordDto.getTitle());
+        word.setDescription(wordDto.getDescription());
         return wordRepository.save(word);
     }
 
-    public Word updateWord(WordDTO wordDTO, String wordId) {
+    public Word updateWord(WordDto wordDto, String wordId) {
         Word word = getById(wordId);
-        word.setTitle(wordDTO.getTitle().trim());
-        word.setDescription(wordDTO.getDescription().trim());
+        word.setTitle(wordDto.getTitle().trim());
+        word.setDescription(wordDto.getDescription().trim());
         return word;
     }
 
-    public WordDTO getWordDTO(Word word) {
-        return WordDTO.builder()
+    public WordDto getWordDto(Word word) {
+        return WordDto.builder()
                 .id(word.getId().toString())
                 .created(InstantFormatter.instantFormatterDMY(word.getCreated()))
                 .writerNickname(word.getWriter().getNickName())
@@ -65,9 +65,9 @@ public class WordService {
                 .build();
     }
 
-    public List<WordDTO> getWordDTOList(List<Word> wordList) {
+    public List<WordDto> getWordDtoList(List<Word> wordList) {
         return wordList.stream()
-                .map(this::getWordDTO)
+                .map(this::getWordDto)
                 .collect(Collectors.toList());
     }
 

@@ -1,7 +1,9 @@
 package com.dmitryshundrik.knowledgebase.repository.literature;
 
+import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterArchiveListDto;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Writer;
-import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterEntityUpdateInfoDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterEntityUpdateInfoDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.time.LocalDate;
@@ -14,11 +16,15 @@ public interface WriterRepository extends JpaRepository<Writer, UUID> {
 
     void deleteBySlug(String writerSlug);
 
-    List<Writer> findAllByOrderByCreatedDesc();
+    @Query(value = "SELECT new com.dmitryshundrik.knowledgebase.model.dto.literature.WriterArchiveListDto(w.slug, w.nickName," +
+            "w.born, w.died, w.birthplace, w.occupation, w.dateNotification) FROM Writer w ORDER BY w.created DESC")
+    List<WriterArchiveListDto> findAllByOrderByCreatedDesc();
 
-    List<Writer> findAllByOrderByBorn();
+    @Query(value = "SELECT new com.dmitryshundrik.knowledgebase.model.dto.literature.WriterSimpleDto(w.slug, w.nickName," +
+            "w.born, w.died) FROM Writer w ORDER BY w.born ASC")
+    List<WriterSimpleDto> findAllOrderByBornAsc();
 
-    List<WriterEntityUpdateInfoDTO> findFirst20ByOrderByCreatedDesc();
+    List<WriterEntityUpdateInfoDto> findFirst20ByOrderByCreatedDesc();
 
     @Query(value = "select * from writer where extract( month from birth_date) = extract( month from to_date(:date, 'YYYY-MM-DD')) " +
             "and extract( day from birth_date) = extract( day from to_date(:date, 'YYYY-MM-DD'))", nativeQuery = true)

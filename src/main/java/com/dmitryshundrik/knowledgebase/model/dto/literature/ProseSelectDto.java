@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ProseSelectDTO {
+public class ProseSelectDto {
 
     private String id;
 

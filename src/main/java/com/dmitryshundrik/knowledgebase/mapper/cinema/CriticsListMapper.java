@@ -8,7 +8,7 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface CriticsListMapper {
 
-    CriticsList toCriticsList(CriticsListCreateEditDto criticsListCreateEditDto);
+    CriticsList toCriticsList(CriticsListCreateEditDto criticsListDto);
 
     void updateCriticsList(@MappingTarget CriticsList criticsList, CriticsListCreateEditDto criticsListDto);
 

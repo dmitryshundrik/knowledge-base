@@ -29,7 +29,7 @@
                           th:text="'(' + ${painting.based} + ')'"></span>
                 </div>
                 <div class="painting-image" th:if="${painting.image} != null">
-                    <img th:src="|data:image;base64,${painting.image.data}|" th:alt="${painting.title}">
+                    <img th:src="|data:image/jpeg;base64,${painting.image.data}|" th:alt="${painting.title}">
                 </div>
             </section>
         </article>

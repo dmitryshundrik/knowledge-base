@@ -19,7 +19,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_MUST_NOT_BE_B
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class WriterCreateEditDTO {
+public class WriterCreateEditDto {
 
     @NotBlank(message = SLUG_MUST_NOT_BE_BLANK)
     private String slug;
@@ -51,11 +51,11 @@ public class WriterCreateEditDTO {
 
     private List<PersonEventDto> events;
 
-    private List<ProseViewDTO> proseList;
+    private List<ProseViewDto> proseList;
 
-    private List<QuoteViewDTO> quoteList;
+    private List<QuoteViewDto> quoteList;
 
-    private List<WordDTO> wordList;
+    private List<WordDto> wordList;
 
     private Boolean dateNotification;
 }

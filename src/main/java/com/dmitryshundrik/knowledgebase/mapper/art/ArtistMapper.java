@@ -29,20 +29,20 @@ public abstract class ArtistMapper {
 
     @Mapping(target = "events", ignore = true)
     @Mapping(target = "created", ignore = true)
-    public abstract ArtistViewDto toArtistViewDto(@MappingTarget ArtistViewDto dto, Artist artist);
+    public abstract ArtistViewDto toArtistViewDto(@MappingTarget ArtistViewDto artistDto, Artist artist);
 
     @AfterMapping
-    public void toArtistViewDtoPostProcess(@MappingTarget ArtistViewDto dto, Artist artist) {
+    public void toArtistViewDtoPostProcess(@MappingTarget ArtistViewDto artistDto, Artist artist) {
         Instant created = artist.getCreated();
-        dto.setCreated(created != null ? InstantFormatter.instantFormatterDMY(created) : null);
+        artistDto.setCreated(created != null ? InstantFormatter.instantFormatterDMY(created) : null);
     }
 
     @Mapping(target = "events", ignore = true)
     @Mapping(target = "paintingList", ignore = true)
-    public abstract ArtistCreateEditDto toArtistCreateEditDto(@MappingTarget ArtistCreateEditDto dto, Artist artist);
+    public abstract ArtistCreateEditDto toArtistCreateEditDto(@MappingTarget ArtistCreateEditDto artistDto, Artist artist);
 
     @AfterMapping
-    public void toArtistCreateEditDtoPostProcess(@MappingTarget ArtistCreateEditDto dto, Artist artist) {
-        dto.setPaintingList(paintingService.getAllProfileDtoByArtistSortedByYear2Asc(artist));
+    public void toArtistCreateEditDtoPostProcess(@MappingTarget ArtistCreateEditDto artistDto, Artist artist) {
+        artistDto.setPaintingList(paintingService.getAllProfileDtoByArtistSortedByYear2Asc(artist));
     }
 }

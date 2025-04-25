@@ -2,9 +2,9 @@ package com.dmitryshundrik.knowledgebase.controller.management.literature;
 
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Word;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Writer;
-import com.dmitryshundrik.knowledgebase.model.dto.literature.WordDTO;
-import com.dmitryshundrik.knowledgebase.service.literature.WordService;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.WordDto;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
+import com.dmitryshundrik.knowledgebase.service.literature.impl.WordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,41 +29,41 @@ public class WordManagementController {
 
     @GetMapping("/management/word/all")
     public String getAllWords(Model model) {
-        List<Word> allSortedByCreatedDesc = wordService.getAllSortedByCreatedDesc();
-        List<WordDTO> wordDTOList = wordService.getWordDTOList(allSortedByCreatedDesc);
-        model.addAttribute(WORD_LIST, wordDTOList);
+        List<Word> wordList = wordService.getAllSortedByCreatedDesc();
+        List<WordDto> wordDtoList = wordService.getWordDtoList(wordList);
+        model.addAttribute(WORD_LIST, wordDtoList);
         return "management/literature/word-archive";
     }
 
     @GetMapping("/management/writer/edit/{writerSlug}/word/create")
     public String getWordCreate(@PathVariable String writerSlug, Model model) {
-        WordDTO wordDTO = new WordDTO();
-        wordDTO.setWriterNickname(writerService.getBySlug(writerSlug).getNickName());
-        wordDTO.setWriterSlug(writerSlug);
-        model.addAttribute(WORD, wordDTO);
+        WordDto wordDto = new WordDto();
+        wordDto.setWriterNickname(writerService.getBySlug(writerSlug).getNickName());
+        wordDto.setWriterSlug(writerSlug);
+        model.addAttribute(WORD, wordDto);
         return "management/literature/word-create";
     }
 
     @PostMapping("/management/writer/edit/{writerSlug}/word/create")
     public String postWordCreate(@PathVariable String writerSlug,
-                                 @ModelAttribute(WORD) WordDTO wordDTO) {
-        Writer writerServiceBySlug = writerService.getBySlug(writerSlug);
-        Word savedWord = wordService.createWord(wordDTO, writerServiceBySlug);
+                                 @ModelAttribute(WORD) WordDto wordDto) {
+        Writer writerBySlug = writerService.getBySlug(writerSlug);
+        Word savedWord = wordService.createWord(wordDto, writerBySlug);
         return "redirect:/management/writer/edit/" + writerSlug + "/word/edit/" + savedWord.getId();
     }
 
     @GetMapping("/management/writer/edit/{writerSlug}/word/edit/{wordId}")
     public String getWordEdit(@PathVariable String writerSlug, @PathVariable String wordId, Model model) {
         Word byId = wordService.getById(wordId);
-        WordDTO wordDTO = wordService.getWordDTO(byId);
-        model.addAttribute(WORD, wordDTO);
+        WordDto wordDto = wordService.getWordDto(byId);
+        model.addAttribute(WORD, wordDto);
         return "management/literature/word-edit";
     }
 
     @PutMapping("/management/writer/edit/{writerSlug}/word/edit/{wordId}")
     public String putWordEdit(@PathVariable String writerSlug, @PathVariable String wordId,
-                              @ModelAttribute(WORD) WordDTO wordDTO) {
-        Word updatedWord = wordService.updateWord(wordDTO, wordId);
+                              @ModelAttribute(WORD) WordDto wordDto) {
+        Word updatedWord = wordService.updateWord(wordDto, wordId);
         return "redirect:/management/writer/edit/" + writerSlug + "/word/edit/" + updatedWord.getId();
     }
 

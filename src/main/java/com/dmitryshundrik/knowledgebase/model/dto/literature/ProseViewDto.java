@@ -6,7 +6,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class ProseViewDTO {
+public class ProseViewDto {
 
     private String created;
 
@@ -28,5 +28,5 @@ public class ProseViewDTO {
 
     private String description;
 
-    private List<QuoteViewDTO> quoteList;
+    private List<QuoteViewDto> quoteList;
 }

@@ -14,7 +14,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.DESCRIPTION_MUST_N
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TimelineEventDTO {
+public class TimelineEventDto {
 
     private String id;
 

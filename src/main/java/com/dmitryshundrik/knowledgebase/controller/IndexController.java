@@ -3,7 +3,7 @@ package com.dmitryshundrik.knowledgebase.controller;
 import com.dmitryshundrik.knowledgebase.model.entity.core.Foundation;
 import com.dmitryshundrik.knowledgebase.model.entity.core.Resource;
 import com.dmitryshundrik.knowledgebase.model.dto.core.FoundationDto;
-import com.dmitryshundrik.knowledgebase.model.dto.core.ResourceDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.core.ResourceDto;
 import com.dmitryshundrik.knowledgebase.service.core.CurrentEventService;
 import com.dmitryshundrik.knowledgebase.service.core.EntityActivityService;
 import com.dmitryshundrik.knowledgebase.service.core.FoundationService;
@@ -64,8 +64,8 @@ public class IndexController {
     @GetMapping("/resources")
     public String getResources(Model model) {
         List<Resource> resourceList = resourcesService.getAllByResourceType(ResourceType.NEWS_MEDIA);
-        List<ResourceDTO> resourceDTOList = resourcesService.getResourceDTOList(resourceList);
-        model.addAttribute(RESOURCE_LIST, resourceDTOList);
+        List<ResourceDto> resourceDtoList = resourcesService.getResourceDTOList(resourceList);
+        model.addAttribute(RESOURCE_LIST, resourceDtoList);
         return "resources";
     }
 

@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.model.dto.core;
 
+import com.dmitryshundrik.knowledgebase.model.enums.ResourceType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,11 +10,17 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SettingCreateEditDTO {
+public class ResourceDto {
 
     private String id;
 
-    private String name;
+    private String created;
 
-    private String value;
+    private String title;
+
+    private String description;
+
+    private String link;
+
+    private ResourceType resourceType;
 }

@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.model.dto.music;
 
-public record MusicianManagementResponseDto(
+public record MusicianArchiveDto(
         String slug,
         String nickName,
         Integer born,

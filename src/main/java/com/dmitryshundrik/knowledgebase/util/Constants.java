@@ -47,6 +47,7 @@ public final class Constants {
 
     public static final String WRITER = "writer";
     public static final String WRITER_LIST = "writerList";
+    public static final String WRITER_NICKNAME = "writerNickname";
     public static final String PROSE = "prose";
     public static final String PROSE_LIST = "proseList";
     public static final String QUOTE = "quote";

@@ -32,23 +32,23 @@ public abstract class PaintingMapper {
     @Mapping(target = "artistSlug", source = "artist.slug")
     @Mapping(target = "paintingStyles", ignore = true)
     @Mapping(target = "image", ignore = true)
-    public abstract PaintingViewDto toPaintingViewDto(@MappingTarget PaintingViewDto dto, Painting painting);
+    public abstract PaintingViewDto toPaintingViewDto(@MappingTarget PaintingViewDto paintingDto, Painting painting);
 
     @AfterMapping
-    public void toPaintingViewDtoPostProcess(@MappingTarget PaintingViewDto dto, Painting painting) {
+    public void toPaintingViewDtoPostProcess(@MappingTarget PaintingViewDto paintingDto, Painting painting) {
         Instant created = painting.getCreated();
-        dto.setCreated(created != null ? InstantFormatter.instantFormatterDMY(created) : null);
-        dto.setImage(imageService.getImageDto(painting.getImage()));
+        paintingDto.setCreated(created != null ? InstantFormatter.instantFormatterDMY(created) : null);
+        paintingDto.setImage(imageService.getImageDto(painting.getImage()));
     }
 
     @Mapping(target = "artistNickname", source = "artist.nickName")
     @Mapping(target = "artistSlug", source = "artist.slug")
     @Mapping(target = "paintingStyles", ignore = true)
     @Mapping(target = "image", ignore = true)
-    public abstract PaintingCreateEditDto toPaintingCreateEditDto(@MappingTarget PaintingCreateEditDto dto, Painting painting);
+    public abstract PaintingCreateEditDto toPaintingCreateEditDto(@MappingTarget PaintingCreateEditDto paintingDto, Painting painting);
 
     @AfterMapping
-    public void toPaintingCreateEditDtoPostProcess(@MappingTarget PaintingCreateEditDto dto, Painting painting) {
-        dto.setImage(imageService.getImageDto(painting.getImage()));
+    public void toPaintingCreateEditDtoPostProcess(@MappingTarget PaintingCreateEditDto paintingDto, Painting painting) {
+        paintingDto.setImage(imageService.getImageDto(painting.getImage()));
     }
 }

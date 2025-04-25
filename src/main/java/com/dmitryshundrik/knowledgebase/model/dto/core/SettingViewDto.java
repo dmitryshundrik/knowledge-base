@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SettingViewDTO {
+public class SettingViewDto {
 
     String id;
 

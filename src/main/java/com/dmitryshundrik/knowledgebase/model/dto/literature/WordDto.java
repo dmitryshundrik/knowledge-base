@@ -1,11 +1,15 @@
 package com.dmitryshundrik.knowledgebase.model.dto.literature;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-public class QuoteViewDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+public class WordDto {
 
     private String id;
 
@@ -15,17 +19,7 @@ public class QuoteViewDTO {
 
     private String writerSlug;
 
-    private String proseTitle;
-
-    private String proseSlug;
-
-    private String publication;
-
-    private String location;
-
-    private Integer page;
+    private String title;
 
     private String description;
-
-    private String descriptionHtml;
 }

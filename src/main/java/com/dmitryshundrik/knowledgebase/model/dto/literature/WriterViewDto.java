@@ -2,8 +2,10 @@ package com.dmitryshundrik.knowledgebase.model.dto.literature;
 
 import com.dmitryshundrik.knowledgebase.model.dto.core.PersonEventDto;
 import com.dmitryshundrik.knowledgebase.model.enums.Gender;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.util.List;
@@ -12,7 +14,9 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.DATE_FORMAT_YMD;
 
 @Data
 @Builder
-public class WriterViewDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+public class WriterViewDto {
 
     private String created;
 
@@ -44,11 +48,11 @@ public class WriterViewDTO {
 
     private List<PersonEventDto> events;
 
-    protected List<ProseViewDTO> proseList;
+    protected List<ProseViewDto> proseList;
 
-    private List<QuoteViewDTO> quoteList;
+    private List<QuoteViewDto> quoteList;
 
-    private List<WordDTO> wordList;
+    private List<WordDto> wordList;
 
     private Boolean dateNotification;
 }

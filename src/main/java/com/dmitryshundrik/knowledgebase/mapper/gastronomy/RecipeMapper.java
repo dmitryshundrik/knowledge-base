@@ -20,28 +20,28 @@ public abstract class RecipeMapper {
 
     public abstract Recipe toRecipe(RecipeCreateEditDto dto);
 
-    public abstract void updateRecipe(@MappingTarget Recipe recipe, RecipeCreateEditDto dto);
+    public abstract void updateRecipe(@MappingTarget Recipe recipe, RecipeCreateEditDto recipeDto);
 
     @Mapping(target = "created", ignore = true)
     @Mapping(target = "imageList", ignore = true)
-    public abstract RecipeViewDto toRecipeViewDto(@MappingTarget RecipeViewDto dto, Recipe recipe);
+    public abstract RecipeViewDto toRecipeViewDto(@MappingTarget RecipeViewDto recipeDto, Recipe recipe);
 
     @AfterMapping
-    public void toRecipeViewDtoPostProcess(@MappingTarget RecipeViewDto dto, Recipe recipe) {
+    public void toRecipeViewDtoPostProcess(@MappingTarget RecipeViewDto recipeDto, Recipe recipe) {
         Instant created = recipe.getCreated();
-        dto.setCreated(created != null ? InstantFormatter.instantFormatterDMY(created) : null);
+        recipeDto.setCreated(created != null ? InstantFormatter.instantFormatterDMY(created) : null);
 
-        dto.setImageList(recipe.getImageList() != null ? imageService
+        recipeDto.setImageList(recipe.getImageList() != null ? imageService
                 .getImageDtoList(imageService
                         .getSortedByCreatedDesc(recipe.getImageList())) : null);
     }
 
     @Mapping(target = "imageList", ignore = true)
-    public abstract RecipeCreateEditDto toRecipeCreateEditDto(@MappingTarget RecipeCreateEditDto dto, Recipe recipe);
+    public abstract RecipeCreateEditDto toRecipeCreateEditDto(@MappingTarget RecipeCreateEditDto recipeDto, Recipe recipe);
 
     @AfterMapping
-    public void toRecipeCreateEditDtoPostProcess(@MappingTarget RecipeCreateEditDto dto, Recipe recipe) {
-        dto.setImageList(recipe.getImageList() != null ? imageService
+    public void toRecipeCreateEditDtoPostProcess(@MappingTarget RecipeCreateEditDto recipeDto, Recipe recipe) {
+        recipeDto.setImageList(recipe.getImageList() != null ? imageService
                 .getImageDtoList(imageService
                         .getSortedByCreatedDesc(recipe.getImageList())) : null);
     }

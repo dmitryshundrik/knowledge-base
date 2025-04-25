@@ -3,12 +3,12 @@ package com.dmitryshundrik.knowledgebase.controller.management.literature;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Prose;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Quote;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Writer;
-import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseSelectDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.literature.QuoteCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.literature.QuoteViewDTO;
-import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
-import com.dmitryshundrik.knowledgebase.service.literature.QuoteService;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseSelectDto;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.QuoteCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.QuoteViewDto;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
+import com.dmitryshundrik.knowledgebase.service.literature.impl.ProseService;
+import com.dmitryshundrik.knowledgebase.service.literature.impl.QuoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,48 +37,48 @@ public class QuoteManagementController {
     @GetMapping("/management/quote/all")
     public String getAllQuotes(Model model) {
         List<Quote> quoteList = quoteService.getAllSortedByCreatedDesc();
-        List<QuoteViewDTO> quoteViewDTOList = quoteService.getQuoteViewDTOList(quoteList);
-        model.addAttribute(QUOTE_LIST, quoteViewDTOList);
+        List<QuoteViewDto> quoteDtoList = quoteService.getQuoteViewDtoList(quoteList);
+        model.addAttribute(QUOTE_LIST, quoteDtoList);
         return "management/literature/quote-archive";
     }
 
     @GetMapping("/management/writer/edit/{writerSlug}/quote/create")
     public String getQuoteCreate(@PathVariable String writerSlug, Model model) {
-        QuoteCreateEditDTO quoteCreateEditDTO = new QuoteCreateEditDTO();
-        quoteCreateEditDTO.setWriterNickname(writerService.getBySlug(writerSlug).getNickName());
-        quoteCreateEditDTO.setWriterSlug(writerSlug);
+        QuoteCreateEditDto quoteDto = new QuoteCreateEditDto();
+        quoteDto.setWriterNickname(writerService.getBySlug(writerSlug).getNickName());
+        quoteDto.setWriterSlug(writerSlug);
         List<Prose> allByWriter = proseService.getAllByWriter(writerService.getBySlug(writerSlug));
-        List<ProseSelectDTO> proseSelectDTOList = proseService.getProseSelectDTOList(allByWriter);
-        model.addAttribute(QUOTE, quoteCreateEditDTO);
-        model.addAttribute(PROSE_LIST, proseSelectDTOList);
+        List<ProseSelectDto> proseDtoList = proseService.getProseSelectDTOList(allByWriter);
+        model.addAttribute(QUOTE, quoteDto);
+        model.addAttribute(PROSE_LIST, proseDtoList);
         return "management/literature/quote-create";
     }
 
     @PostMapping("/management/writer/edit/{writerSlug}/quote/create")
     public String postQuoteCreate(@PathVariable String writerSlug,
-                                  @ModelAttribute(QUOTE) QuoteCreateEditDTO quoteDTO, Model model) {
+                                  @ModelAttribute(QUOTE) QuoteCreateEditDto quoteDto, Model model) {
         Writer writerBySlug = writerService.getBySlug(writerSlug);
-        Prose proseById = !quoteDTO.getProseId().isBlank() ? proseService.getById(quoteDTO.getProseId()) : null;
-        Quote createdQuote = quoteService.createQuote(quoteDTO, writerBySlug, proseById);
+        Prose proseById = !quoteDto.getProseId().isBlank() ? proseService.getById(quoteDto.getProseId()) : null;
+        Quote createdQuote = quoteService.createQuote(quoteDto, writerBySlug, proseById);
         return "redirect:/management/writer/edit/" + writerSlug + "/quote/edit/" + createdQuote.getId();
     }
 
     @GetMapping("/management/writer/edit/{writerSlug}/quote/edit/{quoteId}")
     public String getQuoteEdit(@PathVariable String writerSlug, @PathVariable String quoteId, Model model) {
         Quote quote = quoteService.getById(quoteId);
-        QuoteCreateEditDTO quoteCreateEditDTO = quoteService.getQuoteCreateEditDTO(quote);
+        QuoteCreateEditDto quoteDto = quoteService.getQuoteCreateEditDto(quote);
         List<Prose> allByWriter = proseService.getAllByWriter(writerService.getBySlug(writerSlug));
-        List<ProseSelectDTO> proseSelectDTOList = proseService.getProseSelectDTOList(allByWriter);
-        model.addAttribute(QUOTE, quoteCreateEditDTO);
-        model.addAttribute(PROSE_LIST, proseSelectDTOList);
+        List<ProseSelectDto> proseDtoList = proseService.getProseSelectDTOList(allByWriter);
+        model.addAttribute(QUOTE, quoteDto);
+        model.addAttribute(PROSE_LIST, proseDtoList);
         return "management/literature/quote-edit";
     }
 
     @PutMapping("/management/writer/edit/{writerSlug}/quote/edit/{quoteId}")
     public String putQuoteEdit(@PathVariable String writerSlug, @PathVariable String quoteId,
-                               @ModelAttribute(QUOTE) QuoteCreateEditDTO quoteDTO, Model model) {
-        Prose proseById = !quoteDTO.getProseId().isBlank() ? proseService.getById(quoteDTO.getProseId()) : null;
-        Quote updatedQuote = quoteService.updateQuote(quoteDTO, quoteId, proseById);
+                               @ModelAttribute(QUOTE) QuoteCreateEditDto quoteDto, Model model) {
+        Prose proseById = !quoteDto.getProseId().isBlank() ? proseService.getById(quoteDto.getProseId()) : null;
+        Quote updatedQuote = quoteService.updateQuote(quoteDto, quoteId, proseById);
         return "redirect:/management/writer/edit/" + writerSlug + "/quote/edit/" + updatedQuote.getId();
     }
 

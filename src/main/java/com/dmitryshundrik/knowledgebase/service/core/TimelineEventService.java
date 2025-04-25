@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.core;
 
-import com.dmitryshundrik.knowledgebase.model.dto.core.TimelineEventDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.core.TimelineEventDto;
 import com.dmitryshundrik.knowledgebase.model.entity.core.TimelineEvent;
 import com.dmitryshundrik.knowledgebase.model.enums.EraType;
 import com.dmitryshundrik.knowledgebase.model.enums.TimelineEventType;
@@ -38,13 +38,13 @@ public class TimelineEventService {
                 .findAllByTimelineEventTypeAndEraTypeOrderByCreatedAsc(TimelineEventType.MUSIC, EraType.COMMON);
     }
 
-    public TimelineEventDTO createTimelineEvent(TimelineEventDTO timelineEventDTO) {
+    public TimelineEventDto createTimelineEvent(TimelineEventDto timelineEventDTO) {
         TimelineEvent timelineEvent = new TimelineEvent();
         setFieldsFromDTO(timelineEvent, timelineEventDTO);
         return getTimelineEventDTO(timelineEventRepository.save(timelineEvent));
     }
 
-    public TimelineEventDTO updateTimelineEvent(String eventId, TimelineEventDTO timelineEventDTO) {
+    public TimelineEventDto updateTimelineEvent(String eventId, TimelineEventDto timelineEventDTO) {
         TimelineEvent timelineEventById = getTimelineEventById(eventId);
         setFieldsFromDTO(timelineEventById, timelineEventDTO);
         return getTimelineEventDTO(timelineEventById);
@@ -55,14 +55,14 @@ public class TimelineEventService {
         timelineEventRepository.delete(timelineEventById);
     }
 
-    public String createEventForTimelineOfMusic(TimelineEventDTO timelineEventDTO) {
+    public String createEventForTimelineOfMusic(TimelineEventDto timelineEventDTO) {
         TimelineEvent timelineEvent = getTimelineEventById(createTimelineEvent(timelineEventDTO).getId());
         timelineEvent.setTimelineEventType(TimelineEventType.MUSIC);
         return timelineEvent.getId().toString();
     }
 
-    public TimelineEventDTO getTimelineEventDTO(TimelineEvent timelineEvent) {
-        return TimelineEventDTO.builder()
+    public TimelineEventDto getTimelineEventDTO(TimelineEvent timelineEvent) {
+        return TimelineEventDto.builder()
                 .id(timelineEvent.getId().toString())
                 .created(InstantFormatter.instantFormatterYMDHMS(timelineEvent.getCreated()))
                 .year(timelineEvent.getYear())
@@ -74,11 +74,11 @@ public class TimelineEventService {
                 .build();
     }
 
-    public List<TimelineEventDTO> getTimelineEventDTOList(List<TimelineEvent> timelineEventList) {
+    public List<TimelineEventDto> getTimelineEventDTOList(List<TimelineEvent> timelineEventList) {
         return timelineEventList.stream().map(this::getTimelineEventDTO).collect(Collectors.toList());
     }
 
-    private void setFieldsFromDTO(TimelineEvent timelineEvent, TimelineEventDTO timelineEventDTO) {
+    private void setFieldsFromDTO(TimelineEvent timelineEvent, TimelineEventDto timelineEventDTO) {
         timelineEvent.setYear(timelineEventDTO.getYear());
         timelineEvent.setAnotherYear(timelineEventDTO.getAnotherYear());
         timelineEvent.setEraType(timelineEventDTO.getEraType());

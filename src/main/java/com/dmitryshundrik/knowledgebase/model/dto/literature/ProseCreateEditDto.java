@@ -14,7 +14,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.TITLE_MUST_NOT_BE_
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProseCreateEditDTO {
+public class ProseCreateEditDto {
 
     @NotBlank(message = SLUG_MUST_NOT_BE_BLANK)
     private String slug;
@@ -36,5 +36,5 @@ public class ProseCreateEditDTO {
 
     private String description;
 
-    private List<QuoteViewDTO> quoteList;
+    private List<QuoteViewDto> quoteList;
 }

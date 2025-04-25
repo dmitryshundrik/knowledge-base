@@ -1,10 +1,10 @@
-package com.dmitryshundrik.knowledgebase.service.literature;
+package com.dmitryshundrik.knowledgebase.service.literature.impl;
 
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Prose;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Writer;
-import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseSelectDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseViewDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseSelectDto;
+import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseViewDto;
 import com.dmitryshundrik.knowledgebase.repository.literature.ProseRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
@@ -56,7 +56,7 @@ public class ProseService {
         return proseRepository.findAllByWriterOrderByYearAsc(writer);
     }
 
-    public Prose createProse(Writer writer, ProseCreateEditDTO proseDTO) {
+    public Prose createProse(Writer writer, ProseCreateEditDto proseDTO) {
         Prose prose = new Prose();
         prose.setWriter(writer);
         setFieldsFromDTO(prose, proseDTO);
@@ -64,7 +64,7 @@ public class ProseService {
         return proseRepository.save(prose);
     }
 
-    public ProseViewDTO updateProse(Prose prose, ProseCreateEditDTO proseDTO) {
+    public ProseViewDto updateProse(Prose prose, ProseCreateEditDto proseDTO) {
         setFieldsFromDTO(prose, proseDTO);
         return getProseViewDTO(prose);
     }
@@ -86,8 +86,8 @@ public class ProseService {
         bySlug.setPlayCharactersSchema(null);
     }
 
-    public ProseCreateEditDTO getProseCreateEditDTO(Prose prose) {
-        return ProseCreateEditDTO.builder()
+    public ProseCreateEditDto getProseCreateEditDTO(Prose prose) {
+        return ProseCreateEditDto.builder()
                 .slug(prose.getSlug())
                 .title(prose.getTitle())
                 .writerNickname(prose.getWriter().getNickName())
@@ -100,8 +100,8 @@ public class ProseService {
                 .build();
     }
 
-    public ProseViewDTO getProseViewDTO(Prose prose) {
-        return ProseViewDTO.builder()
+    public ProseViewDto getProseViewDTO(Prose prose) {
+        return ProseViewDto.builder()
                 .created(InstantFormatter.instantFormatterDMY(prose.getCreated()))
                 .slug(prose.getSlug())
                 .title(prose.getTitle())
@@ -115,26 +115,26 @@ public class ProseService {
                 .build();
     }
 
-    public List<ProseViewDTO> getProseViewDTOList(List<Prose> proseList) {
+    public List<ProseViewDto> getProseViewDtoList(List<Prose> proseList) {
         return proseList.stream()
                 .map(this::getProseViewDTO)
                 .collect(Collectors.toList());
     }
 
-    public ProseSelectDTO getProseSelectDTO(Prose prose) {
-        return ProseSelectDTO.builder()
+    public ProseSelectDto getProseSelectDTO(Prose prose) {
+        return ProseSelectDto.builder()
                 .id(prose.getId().toString())
                 .title(prose.getTitle())
                 .build();
     }
 
-    public List<ProseSelectDTO> getProseSelectDTOList(List<Prose> proseList) {
+    public List<ProseSelectDto> getProseSelectDTOList(List<Prose> proseList) {
         return proseList.stream()
                 .map(this::getProseSelectDTO)
                 .collect(Collectors.toList());
     }
 
-    public void setFieldsFromDTO(Prose prose, ProseCreateEditDTO proseDTO) {
+    public void setFieldsFromDTO(Prose prose, ProseCreateEditDto proseDTO) {
         prose.setSlug(proseDTO.getSlug().trim());
         prose.setTitle(proseDTO.getTitle().trim());
         prose.setYear(proseDTO.getYear());

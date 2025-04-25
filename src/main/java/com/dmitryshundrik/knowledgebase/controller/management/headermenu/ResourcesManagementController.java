@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.controller.management.headermenu;
 
 import com.dmitryshundrik.knowledgebase.model.entity.core.Resource;
-import com.dmitryshundrik.knowledgebase.model.dto.core.ResourceDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.core.ResourceDto;
 import com.dmitryshundrik.knowledgebase.service.core.ResourcesService;
 import com.dmitryshundrik.knowledgebase.model.enums.ResourceType;
 import lombok.RequiredArgsConstructor;
@@ -27,21 +27,21 @@ public class ResourcesManagementController {
     @GetMapping("/management/resource/all")
     public String getAllResources(Model model) {
         List<Resource> resourceList = resourcesService.getAllSortedByCreated();
-        List<ResourceDTO> resourceDTOList = resourcesService.getResourceDTOList(resourceList);
-        model.addAttribute(RESOURCE_LIST, resourceDTOList);
+        List<ResourceDto> resourceDtoList = resourcesService.getResourceDTOList(resourceList);
+        model.addAttribute(RESOURCE_LIST, resourceDtoList);
         return "management/headermenu/resource-all";
     }
 
     @GetMapping("/management/resource/create")
     public String getResourceCreate(Model model) {
-        ResourceDTO resourceDTO = new ResourceDTO();
+        ResourceDto resourceDTO = new ResourceDto();
         model.addAttribute(RESOURCE, resourceDTO);
         model.addAttribute("resourceTypeList", ResourceType.values());
         return "management/headermenu/resource-create";
     }
 
     @PostMapping("/management/resource/create")
-    public String postResourceCreate(@ModelAttribute(RESOURCE) ResourceDTO resourceDTO) {
+    public String postResourceCreate(@ModelAttribute(RESOURCE) ResourceDto resourceDTO) {
         String resourceDTOId = resourcesService.createResource(resourceDTO).getId();
         return "redirect:/management/resource/edit/" + resourceDTOId;
     }
@@ -49,7 +49,7 @@ public class ResourcesManagementController {
     @GetMapping("/management/resource/edit/{resourceId}")
     public String getResourceEdit(@PathVariable String resourceId, Model model) {
         Resource byId = resourcesService.getById(resourceId);
-        ResourceDTO resourceDTO = resourcesService.getResourceDTO(byId);
+        ResourceDto resourceDTO = resourcesService.getResourceDTO(byId);
         model.addAttribute(RESOURCE, resourceDTO);
         model.addAttribute("resourceTypeList", ResourceType.values());
         return "management/headermenu/resource-edit";
@@ -57,7 +57,7 @@ public class ResourcesManagementController {
 
     @PutMapping("/management/resource/edit/{resourceId}")
     public String putResourceEdit(@PathVariable String resourceId,
-                                  @ModelAttribute(RESOURCE) ResourceDTO resourceDTO) {
+                                  @ModelAttribute(RESOURCE) ResourceDto resourceDTO) {
         String resourceDTOId = resourcesService.updateResource(resourceId, resourceDTO).getId();
         return "redirect:/management/resource/edit/" + resourceDTOId;
     }
