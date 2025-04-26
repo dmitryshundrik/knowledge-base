@@ -2,8 +2,8 @@ package com.dmitryshundrik.knowledgebase.service.music;
 
 import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
-import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionViewDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionViewDto;
 import com.dmitryshundrik.knowledgebase.repository.music.CompositionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,12 +49,12 @@ class CompositionServiceTest {
 
     @Test
     void createCompositionTest_successfullyTest() {
-        CompositionCreateEditDTO compositionCreateEditDTO = getCompositionCreateEditDTO();
+        CompositionCreateEditDto compositionCreateEditDTO = getCompositionCreateEditDTO();
         Musician musician = getMusician();
 
         when(compositionRepository.save(any(Composition.class))).thenAnswer(i -> i.getArguments()[0]);
 
-        CompositionViewDTO createdComposition = compositionService.createComposition(compositionCreateEditDTO, musician, null);
+        CompositionViewDto createdComposition = compositionService.createComposition(compositionCreateEditDTO, musician, null);
 
         verify(compositionRepository).save(any(Composition.class));
 

@@ -3,9 +3,9 @@ package com.dmitryshundrik.knowledgebase.service.music;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
-import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumSelectDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumViewDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumSelectDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumViewDto;
 import com.dmitryshundrik.knowledgebase.model.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.enums.SortType;
 import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
@@ -48,10 +48,6 @@ public class AlbumService {
         return albumRepository.findAlbumBySlug(albumSlug);
     }
 
-    public List<Album> getAllWithRating() {
-        return albumRepository.findAllByRatingIsNotNull();
-    }
-
     public List<Album> getAllAlbumsSortedByCreatedDesc() {
         return albumRepository.findAllByOrderByCreatedDesc();
     }
@@ -78,50 +74,50 @@ public class AlbumService {
         return albumRepository.findAllByMusicGenresIsContaining(genre);
     }
 
-    public List<AlbumViewDTO> get10BestAlbumsByYear(Integer year) {
-        return getAlbumViewDTOList(albumRepository.findAllByYear(year).stream()
+    public List<AlbumViewDto> get10BestAlbumsByYear(Integer year) {
+        return getAlbumViewDtoList(albumRepository.findAllByYear(year).stream()
                 .sorted((o1, o2) -> o2.getRating().compareTo(o1.getRating()))
                 .limit(10)
                 .collect(Collectors.toList()));
     }
 
-    public List<AlbumViewDTO> getTop100BestAlbums() {
-        return getAlbumViewDTOList(albumRepository.findFirst100ByRatingIsNotNullOrderByRatingDesc());
+    public List<AlbumViewDto> getTop100BestAlbums() {
+        return getAlbumViewDtoList(albumRepository.findFirst100ByRatingIsNotNullOrderByRatingDesc());
     }
 
     public List<Integer> getAllYearsFromAlbums() {
         return albumRepository.findAllYearsFromAlbums();
     }
 
-    public AlbumViewDTO createAlbum(AlbumCreateEditDTO albumDTO, Musician musician, List<Musician> collaborators) {
+    public AlbumViewDto createAlbum(AlbumCreateEditDto albumDto, Musician musician, List<Musician> collaborators) {
         Album album = new Album();
         album.setMusician(musician);
         album.setCollaborators(collaborators);
-        setFieldsFromDTO(album, albumDTO);
+        setFieldsFromDto(album, albumDto);
         album.setSlug(musician.getSlug() + "-" + SlugFormatter.slugFormatter(album.getSlug()));
-        return getAlbumViewDTO(albumRepository.save(album));
+        return getAlbumViewDto(albumRepository.save(album));
     }
 
-    public AlbumViewDTO updateAlbum(String albumSlug, AlbumCreateEditDTO albumDTO, List<Musician> collaborators) {
+    public AlbumViewDto updateAlbum(String albumSlug, AlbumCreateEditDto albumDto, List<Musician> collaborators) {
         Album albumBySlug = getAlbumBySlug(albumSlug);
         albumBySlug.setCollaborators(collaborators);
-        setFieldsFromDTO(albumBySlug, albumDTO);
-        return getAlbumViewDTO(albumBySlug);
+        setFieldsFromDto(albumBySlug, albumDto);
+        return getAlbumViewDto(albumBySlug);
     }
 
     public void deleteAlbumBySlug(String slug) {
         albumRepository.delete(getAlbumBySlug(slug));
     }
 
-    public List<AlbumViewDTO> getEssentialAlbumsViewDTOList(List<Album> albumList) {
-        return albumList.stream().map(this::getAlbumViewDTO)
-                .filter(albumViewDTO -> albumViewDTO.getEssentialAlbumsRank() != null)
-                .sorted(Comparator.comparing(AlbumViewDTO::getEssentialAlbumsRank))
+    public List<AlbumViewDto> getEssentialAlbumsViewDtoList(List<Album> albumList) {
+        return albumList.stream().map(this::getAlbumViewDto)
+                .filter(albumViewDto -> albumViewDto.getEssentialAlbumsRank() != null)
+                .sorted(Comparator.comparing(AlbumViewDto::getEssentialAlbumsRank))
                 .collect(Collectors.toList());
     }
 
-    public AlbumViewDTO getAlbumViewDTO(Album album) {
-        return AlbumViewDTO.builder()
+    public AlbumViewDto getAlbumViewDto(Album album) {
+        return AlbumViewDto.builder()
                 .created(InstantFormatter.instantFormatterDMY(album.getCreated()))
                 .slug(album.getSlug())
                 .title(album.getTitle())
@@ -141,13 +137,13 @@ public class AlbumService {
                 .build();
     }
 
-    public List<AlbumViewDTO> getAlbumViewDTOList(List<Album> albumList) {
-        return albumList.stream().map(this::getAlbumViewDTO).collect(Collectors.toList());
+    public List<AlbumViewDto> getAlbumViewDtoList(List<Album> albumList) {
+        return albumList.stream().map(this::getAlbumViewDto).collect(Collectors.toList());
 
     }
 
-    public AlbumCreateEditDTO getAlbumCreateEditDTO(Album album) {
-        return AlbumCreateEditDTO.builder()
+    public AlbumCreateEditDto getAlbumCreateEditDto(Album album) {
+        return AlbumCreateEditDto.builder()
                 .slug(album.getSlug())
                 .title(album.getTitle())
                 .catalogNumber(album.getCatalogNumber())
@@ -171,19 +167,19 @@ public class AlbumService {
                 .build();
     }
 
-    public AlbumSelectDTO getAlbumSelectDTO(Album album) {
-        return AlbumSelectDTO.builder()
+    public AlbumSelectDto getAlbumSelectDto(Album album) {
+        return AlbumSelectDto.builder()
                 .id(album.getId().toString())
                 .title(album.getTitle())
                 .build();
     }
 
-    public List<AlbumSelectDTO> getAlbumSelectDTOList(List<Album> albumList) {
-        return albumList.stream().map(this::getAlbumSelectDTO).collect(Collectors.toList());
+    public List<AlbumSelectDto> getAlbumSelectDtoList(List<Album> albumList) {
+        return albumList.stream().map(this::getAlbumSelectDto).collect(Collectors.toList());
     }
 
-    public List<AlbumViewDTO> getSortedAlbumViewDTOList(List<Album> albumList, SortType sortType) {
-        return getAlbumViewDTOList(albumList.stream()
+    public List<AlbumViewDto> getSortedAlbumViewDtoList(List<Album> albumList, SortType sortType) {
+        return getAlbumViewDtoList(albumList.stream()
                 .sorted((o1, o2) -> {
                             if (SortType.CATALOGUE_NUMBER.equals(sortType)
                                     && o1.getCatalogNumber() != null && o2.getCatalogNumber() != null) {
@@ -203,23 +199,23 @@ public class AlbumService {
                 .collect(Collectors.toList()));
     }
 
-    private void setFieldsFromDTO(Album album, AlbumCreateEditDTO albumDTO) {
-        album.setSlug(albumDTO.getSlug().trim());
-        album.setTitle(albumDTO.getTitle().trim());
-        album.setCatalogNumber(albumDTO.getCatalogNumber());
-        album.setFeature(albumDTO.getFeature());
-        album.setYear(albumDTO.getYear());
+    private void setFieldsFromDto(Album album, AlbumCreateEditDto albumDto) {
+        album.setSlug(albumDto.getSlug().trim());
+        album.setTitle(albumDto.getTitle().trim());
+        album.setCatalogNumber(albumDto.getCatalogNumber());
+        album.setFeature(albumDto.getFeature());
+        album.setYear(albumDto.getYear());
 
         List<MusicGenre> musicGenres = new ArrayList<>();
-        musicGenres.addAll(albumDTO.getClassicalGenres());
-        musicGenres.addAll(albumDTO.getContemporaryGenres());
+        musicGenres.addAll(albumDto.getClassicalGenres());
+        musicGenres.addAll(albumDto.getContemporaryGenres());
 
         album.setMusicGenres(musicGenres);
-        album.setRating(albumDTO.getRating());
-        album.setYearEndRank(albumDTO.getYearEndRank());
-        album.setEssentialAlbumsRank(albumDTO.getEssentialAlbumsRank());
-        album.setHighlights(albumDTO.getHighlights());
-        album.setDescription(albumDTO.getDescription());
+        album.setRating(albumDto.getRating());
+        album.setYearEndRank(albumDto.getYearEndRank());
+        album.setEssentialAlbumsRank(albumDto.getEssentialAlbumsRank());
+        album.setHighlights(albumDto.getHighlights());
+        album.setDescription(albumDto.getDescription());
     }
 
     public List<Album> getLatestUpdate() {

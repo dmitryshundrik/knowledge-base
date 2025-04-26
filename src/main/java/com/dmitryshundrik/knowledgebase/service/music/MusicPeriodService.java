@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicPeriod;
-import com.dmitryshundrik.knowledgebase.model.dto.music.MusicPeriodCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.music.MusicPeriodViewDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.music.MusicPeriodCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.MusicPeriodViewDto;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicPeriodRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;
@@ -38,16 +38,16 @@ public class MusicPeriodService {
         return musicPeriodList;
     }
 
-    public String createMusicPeriod(MusicPeriodCreateEditDTO periodDTO) {
+    public String createMusicPeriod(MusicPeriodCreateEditDto periodDTO) {
         MusicPeriod period = new MusicPeriod();
-        setFieldsFromDTO(period, periodDTO);
+        setFieldsFromDto(period, periodDTO);
         musicPeriodRepository.save(period);
         return period.getSlug();
     }
 
-    public String updateMusicPeriod(String periodSlug, MusicPeriodCreateEditDTO periodDTO) {
+    public String updateMusicPeriod(String periodSlug, MusicPeriodCreateEditDto periodDTO) {
         MusicPeriod period = getMusicPeriodBySlug(periodSlug);
-        setFieldsFromDTO(period, periodDTO);
+        setFieldsFromDto(period, periodDTO);
         return periodDTO.getSlug();
     }
 
@@ -55,8 +55,8 @@ public class MusicPeriodService {
         musicPeriodRepository.delete(period);
     }
 
-    public MusicPeriodViewDTO getMusicPeriodViewDTO(MusicPeriod musicPeriod) {
-        return MusicPeriodViewDTO.builder()
+    public MusicPeriodViewDto getMusicPeriodViewDto(MusicPeriod musicPeriod) {
+        return MusicPeriodViewDto.builder()
                 .created(InstantFormatter.instantFormatterDMY(musicPeriod.getCreated()))
                 .slug(musicPeriod.getSlug())
                 .title(musicPeriod.getTitle())
@@ -67,12 +67,12 @@ public class MusicPeriodService {
                 .build();
     }
 
-    public List<MusicPeriodViewDTO> getMusicPeriodViewDTOList(List<MusicPeriod> musicPeriodList) {
-        return musicPeriodList.stream().map(this::getMusicPeriodViewDTO).collect(Collectors.toList());
+    public List<MusicPeriodViewDto> getMusicPeriodViewDtoList(List<MusicPeriod> musicPeriodList) {
+        return musicPeriodList.stream().map(this::getMusicPeriodViewDto).collect(Collectors.toList());
     }
 
-    public MusicPeriodCreateEditDTO getMusicPeriodCreateEditDTO(MusicPeriod musicPeriod) {
-        return MusicPeriodCreateEditDTO.builder()
+    public MusicPeriodCreateEditDto getMusicPeriodCreateEditDto(MusicPeriod musicPeriod) {
+        return MusicPeriodCreateEditDto.builder()
                 .slug(musicPeriod.getSlug())
                 .title(musicPeriod.getTitle())
                 .titleEn(musicPeriod.getTitleEn())
@@ -82,13 +82,13 @@ public class MusicPeriodService {
                 .build();
     }
 
-    private void setFieldsFromDTO(MusicPeriod period, MusicPeriodCreateEditDTO periodDTO) {
-        period.setSlug(periodDTO.getSlug().trim());
-        period.setTitle(periodDTO.getTitle().trim());
-        period.setTitleEn(periodDTO.getTitleEn().trim());
-        period.setApproximateStart(periodDTO.getApproximateStart());
-        period.setApproximateEnd(periodDTO.getApproximateEnd());
-        period.setDescription(periodDTO.getDescription());
+    private void setFieldsFromDto(MusicPeriod period, MusicPeriodCreateEditDto periodDto) {
+        period.setSlug(periodDto.getSlug().trim());
+        period.setTitle(periodDto.getTitle().trim());
+        period.setTitleEn(periodDto.getTitleEn().trim());
+        period.setApproximateStart(periodDto.getApproximateStart());
+        period.setApproximateEnd(periodDto.getApproximateEnd());
+        period.setDescription(periodDto.getDescription());
     }
 
     public String musicPeriodSlugIsExist(String musicPeriodSlug) {

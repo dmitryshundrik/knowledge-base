@@ -3,8 +3,8 @@ package com.dmitryshundrik.knowledgebase.controller.management.music;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
-import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumSelectDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumSelectDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionCreateEditDto;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
@@ -42,22 +42,22 @@ public class CompositionManagementController {
 
     @GetMapping("/management/composition/all")
     public String getAllCompositions(Model model) {
-        List<Composition> allCompositions = compositionService.getAllOrderedByCreatedDesc();
+        List<Composition> compositionList = compositionService.getAllOrderedByCreatedDesc();
         model.addAttribute(COMPOSITION_LIST, compositionService
-                .getCompositionViewDTOList(allCompositions));
+                .getCompositionViewDtoList(compositionList));
         return "management/music/composition-all";
     }
 
     @GetMapping("/management/musician/edit/{musicianSlug}/composition/create")
     public String getCreateComposition(@PathVariable String musicianSlug, Model model) {
-        CompositionCreateEditDTO compositionDTO = new CompositionCreateEditDTO();
-        musicianService.setFieldsToCompositionDto(musicianSlug, compositionDTO);
-        List<AlbumSelectDTO> albumSelectDTOList = albumService
-                .getAlbumSelectDTOList(albumService
+        CompositionCreateEditDto compositionDto = new CompositionCreateEditDto();
+        musicianService.setFieldsToCompositionDto(musicianSlug, compositionDto);
+        List<AlbumSelectDto> albumDtoList = albumService
+                .getAlbumSelectDtoList(albumService
                         .getAllAlbumsByMusician(musicianService
                                 .getMusicianBySlug(musicianSlug)));
-        model.addAttribute(COMPOSITION, compositionDTO);
-        model.addAttribute(ALBUM_LIST, albumSelectDTOList);
+        model.addAttribute(COMPOSITION, compositionDto);
+        model.addAttribute(ALBUM_LIST, albumDtoList);
         model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenresSortedByTitle());
         model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenresSortedByTitle());
         return "management/music/composition-create";
@@ -65,15 +65,15 @@ public class CompositionManagementController {
 
     @PostMapping("/management/musician/edit/{musicianSlug}/composition/create")
     public String postCreateComposition(@PathVariable String musicianSlug,
-                                        @Valid @ModelAttribute(COMPOSITION) CompositionCreateEditDTO compositionDTO,
+                                        @Valid @ModelAttribute(COMPOSITION) CompositionCreateEditDto compositionDTO,
                                         BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            List<AlbumSelectDTO> albumDTOList = albumService
-                    .getAlbumSelectDTOList(albumService
+            List<AlbumSelectDto> albumDtoList = albumService
+                    .getAlbumSelectDtoList(albumService
                             .getAllAlbumsByMusician(musicianService
                                     .getMusicianBySlug(musicianSlug)));
             musicianService.setFieldsToCompositionDto(musicianSlug, compositionDTO);
-            model.addAttribute(ALBUM_LIST, albumDTOList);
+            model.addAttribute(ALBUM_LIST, albumDtoList);
             model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenresSortedByTitle());
             model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenresSortedByTitle());
             return "management/music/composition-create";
@@ -88,12 +88,12 @@ public class CompositionManagementController {
     public String getEditCompositionBySlug(@PathVariable String musicianSlug,
                                            @PathVariable String compositionSlug, Model model) {
         Composition compositionBySlug = compositionService.getCompositionBySlug(compositionSlug);
-        List<AlbumSelectDTO> albumDTOList = albumService
-                .getAlbumSelectDTOList(albumService
+        List<AlbumSelectDto> albumDtoList = albumService
+                .getAlbumSelectDtoList(albumService
                         .getAllAlbumsByMusician(musicianService
                                 .getMusicianBySlug(musicianSlug)));
-        model.addAttribute(COMPOSITION, compositionService.getCompositionCreateEditDTO(compositionBySlug));
-        model.addAttribute(ALBUM_LIST, albumDTOList);
+        model.addAttribute(COMPOSITION, compositionService.getCompositionCreateEditDto(compositionBySlug));
+        model.addAttribute(ALBUM_LIST, albumDtoList);
         model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenresSortedByTitle());
         model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenresSortedByTitle());
         return "management/music/composition-edit";
@@ -102,10 +102,10 @@ public class CompositionManagementController {
     @PutMapping("/management/musician/edit/{musicianSlug}/composition/edit/{compositionSlug}")
     public String putEditCompositionBySlug(@PathVariable String musicianSlug,
                                            @PathVariable String compositionSlug,
-                                           @ModelAttribute(COMPOSITION) CompositionCreateEditDTO compositionDTO) {
-        Album albumById = (!compositionDTO.getAlbumId().isBlank() ? albumService.getAlbumById(compositionDTO.getAlbumId()) : null);
-        String compositionDTOSlug = compositionService.updateComposition(compositionDTO, compositionSlug, albumById).getSlug();
-        return "redirect:/management/musician/edit/" + musicianSlug + "/composition/edit/" + compositionDTOSlug;
+                                           @ModelAttribute(COMPOSITION) CompositionCreateEditDto compositionDto) {
+        Album albumById = (!compositionDto.getAlbumId().isBlank() ? albumService.getAlbumById(compositionDto.getAlbumId()) : null);
+        String compositionDtoSlug = compositionService.updateComposition(compositionDto, compositionSlug, albumById).getSlug();
+        return "redirect:/management/musician/edit/" + musicianSlug + "/composition/edit/" + compositionDtoSlug;
     }
 
     @DeleteMapping("/management/musician/edit/{musicianSlug}/composition/delete/{compositionSlug}")

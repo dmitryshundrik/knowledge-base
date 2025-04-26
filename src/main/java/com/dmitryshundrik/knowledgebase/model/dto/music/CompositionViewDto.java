@@ -1,29 +1,23 @@
 package com.dmitryshundrik.knowledgebase.model.dto.music;
 
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import javax.validation.constraints.NotBlank;
 import java.util.List;
-
-import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_MUST_NOT_BE_BLANK;
-import static com.dmitryshundrik.knowledgebase.util.Constants.TITLE_MUST_NOT_BE_BLANK;
 
 @Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class CompositionCreateEditDTO {
+public class CompositionViewDto {
 
-    @NotBlank(message = SLUG_MUST_NOT_BE_BLANK)
+    private String created;
+
     private String slug;
 
-    @NotBlank(message = TITLE_MUST_NOT_BE_BLANK)
     private String title;
 
-    private Double catalogNumber;
+    private String catalogTitle;
+
+    private String catalogNumber;
 
     private String musicianNickname;
 
@@ -31,13 +25,13 @@ public class CompositionCreateEditDTO {
 
     private String albumId;
 
+    private String albumTitle;
+
     private String feature;
 
     private Integer year;
 
-    private List<MusicGenre> classicalGenres;
-
-    private List<MusicGenre> contemporaryGenres;
+    private List<MusicGenre> musicGenres;
 
     private Double rating;
 

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class MusicianSelectDTO {
+public class MusicianSelectDto {
 
     private String id;
 

@@ -1,21 +1,21 @@
 package com.dmitryshundrik.knowledgebase.model.dto.music;
 
+import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import java.util.List;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_MUST_NOT_BE_BLANK;
 import static com.dmitryshundrik.knowledgebase.util.Constants.TITLE_MUST_NOT_BE_BLANK;
-import static com.dmitryshundrik.knowledgebase.util.Constants.YEAR_MUST_NOT_BE_NULL;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class YearInMusicCreateEditDTO {
+public class CompositionCreateEditDto {
 
     @NotBlank(message = SLUG_MUST_NOT_BE_BLANK)
     private String slug;
@@ -23,22 +23,33 @@ public class YearInMusicCreateEditDTO {
     @NotBlank(message = TITLE_MUST_NOT_BE_BLANK)
     private String title;
 
-    @NotNull(message = YEAR_MUST_NOT_BE_NULL)
+    private Double catalogNumber;
+
+    private String musicianNickname;
+
+    private String musicianSlug;
+
+    private String albumId;
+
+    private String feature;
+
     private Integer year;
 
-    private String bestMaleSingerId;
+    private List<MusicGenre> classicalGenres;
 
-    private String bestFemaleSingerId;
+    private List<MusicGenre> contemporaryGenres;
 
-    private String bestGroupId;
+    private Double rating;
 
-    private String bestComposerId;
+    private Integer yearEndRank;
 
-    private String aotyListDescription;
+    private Integer essentialCompositionsRank;
 
-    private String aotySpotifyLink;
+    private String highlights;
 
-    private String sotyListDescription;
+    private String description;
 
-    private String sotySpotifyLink;
+    private String lyrics;
+
+    private String translation;
 }

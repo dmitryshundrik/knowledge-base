@@ -14,7 +14,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.DATE_FORMAT_YMD;
 
 @Data
 @Builder
-public class MusicianViewDTO {
+public class MusicianViewDto {
 
     private String created;
 
@@ -60,13 +60,13 @@ public class MusicianViewDTO {
 
     private List<PersonEventDto> events;
 
-    private List<AlbumViewDTO> albums;
+    private List<AlbumViewDto> albums;
 
-    private List<AlbumViewDTO> collaborations;
+    private List<AlbumViewDto> collaborations;
 
-    private List<AlbumViewDTO> essentialAlbums;
+    private List<AlbumViewDto> essentialAlbums;
 
-    private List<CompositionViewDTO> compositions;
+    private List<CompositionViewDto> compositions;
 
-    private List<CompositionViewDTO> essentialCompositions;
+    private List<CompositionViewDto> essentialCompositions;
 }

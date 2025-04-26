@@ -2,7 +2,7 @@ package com.dmitryshundrik.knowledgebase.controller.management.music;
 
 import com.dmitryshundrik.knowledgebase.model.enums.Gender;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
-import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.enums.SortType;
 import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicPeriodService;
@@ -56,10 +56,10 @@ public class MusicianManagementController {
 
     @GetMapping("/management/musician/create")
     public String getCreateMusician(Model model) {
-        MusicianCreateEditDTO musicianDTO = new MusicianCreateEditDTO();
-        musicianDTO.setAlbumsSortType(SortType.YEAR);
-        musicianDTO.setCompositionsSortType(SortType.YEAR);
-        model.addAttribute(MUSICIAN, musicianDTO);
+        MusicianCreateEditDto musicianDto = new MusicianCreateEditDto();
+        musicianDto.setAlbumsSortType(SortType.YEAR);
+        musicianDto.setCompositionsSortType(SortType.YEAR);
+        model.addAttribute(MUSICIAN, musicianDto);
         model.addAttribute(MUSIC_PERIOD_LIST, musicPeriodService.getAllSortedByStart());
         model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenres());
         model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenres());
@@ -69,9 +69,9 @@ public class MusicianManagementController {
     }
 
     @PostMapping("/management/musician/create")
-    public String postCreateMusician(@Valid @ModelAttribute(MUSICIAN) MusicianCreateEditDTO musicianDTO,
+    public String postCreateMusician(@Valid @ModelAttribute(MUSICIAN) MusicianCreateEditDto musicianDto,
                                      BindingResult bindingResult, Model model) {
-        String error = musicianService.musicianSlugIsExist(musicianDTO.getSlug());
+        String error = musicianService.musicianSlugIsExist(musicianDto.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute(SLUG, error);
             model.addAttribute(MUSIC_PERIOD_LIST, musicPeriodService.getAllSortedByStart());
@@ -81,14 +81,14 @@ public class MusicianManagementController {
             model.addAttribute(GENDER_LIST, Gender.values());
             return "management/music/musician-create";
         }
-        String musicianDTOSlug = musicianService.createMusician(musicianDTO).getSlug();
+        String musicianDTOSlug = musicianService.createMusician(musicianDto).getSlug();
         return "redirect:/management/musician/edit/" + musicianDTOSlug;
     }
 
     @GetMapping("/management/musician/edit/{musicianSlug}")
     public String getEditMusicianBySlug(@PathVariable String musicianSlug, Model model) {
         Musician musicianBySlug = musicianService.getMusicianBySlug(musicianSlug);
-        model.addAttribute(MUSICIAN, musicianService.getMusicianCreateEditDTO(musicianBySlug));
+        model.addAttribute(MUSICIAN, musicianService.getMusicianCreateEditDto(musicianBySlug));
         model.addAttribute(MUSIC_PERIOD_LIST, musicPeriodService.getAllSortedByStart());
         model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenres());
         model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenres());
@@ -99,9 +99,9 @@ public class MusicianManagementController {
 
     @PutMapping("/management/musician/edit/{musicianSlug}")
     public String putEditMusicianBySlug(@PathVariable String musicianSlug,
-                                        @ModelAttribute(MUSICIAN) MusicianCreateEditDTO musicianDTO) {
-        String musicianDTOSlug = musicianService.updateMusician(musicianSlug, musicianDTO).getSlug();
-        return "redirect:/management/musician/edit/" + musicianDTOSlug;
+                                        @ModelAttribute(MUSICIAN) MusicianCreateEditDto musicianDto) {
+        String musicianDtoSlug = musicianService.updateMusician(musicianSlug, musicianDto).getSlug();
+        return "redirect:/management/musician/edit/" + musicianDtoSlug;
     }
 
     @PostMapping("/management/musician/edit/{musicianSlug}/image/upload")

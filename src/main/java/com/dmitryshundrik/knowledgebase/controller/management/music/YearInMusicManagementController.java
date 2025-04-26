@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.controller.management.music;
 
 import com.dmitryshundrik.knowledgebase.model.entity.music.YearInMusic;
-import com.dmitryshundrik.knowledgebase.model.dto.music.YearInMusicCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.music.YearInMusicViewDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.music.YearInMusicCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.YearInMusicViewDto;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import com.dmitryshundrik.knowledgebase.service.music.YearInMusicService;
 import com.dmitryshundrik.knowledgebase.util.MusicianDtoTransformer;
@@ -34,24 +34,24 @@ public class YearInMusicManagementController {
     @GetMapping("/management/year-in-music/all")
     public String getAllYearsInMusic(Model model) {
         List<YearInMusic> yearInMusicList = yearInMusicService.getAll();
-        List<YearInMusicViewDTO> yearInMusicViewDTOList = yearInMusicService.getYearInMusicViewDTOList(yearInMusicList);
-        model.addAttribute(YEAR_IN_MUSIC_LIST, yearInMusicViewDTOList);
+        List<YearInMusicViewDto> yearInMusicDtoList = yearInMusicService.getYearInMusicViewDtoList(yearInMusicList);
+        model.addAttribute(YEAR_IN_MUSIC_LIST, yearInMusicDtoList);
         return "management/music/year-in-music-all";
     }
 
     @GetMapping("/management/year-in-music/create")
     public String getCreateYearInMusic(Model model) {
-        model.addAttribute(YEAR_IN_MUSIC, new YearInMusicCreateEditDTO());
+        model.addAttribute(YEAR_IN_MUSIC, new YearInMusicCreateEditDto());
         return "management/music/year-in-music-create";
     }
 
     @PostMapping("/management/year-in-music/create")
-    public String postCreateYearInMusic(@Valid @ModelAttribute(YEAR_IN_MUSIC) YearInMusicCreateEditDTO yearInMusicDTO,
+    public String postCreateYearInMusic(@Valid @ModelAttribute(YEAR_IN_MUSIC) YearInMusicCreateEditDto yearInMusicDto,
                                         BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "management/music/year-in-music-create";
         }
-        String yearInMusicDTOSlug = yearInMusicService.createYearInMusic(yearInMusicDTO).getSlug();
+        String yearInMusicDTOSlug = yearInMusicService.createYearInMusic(yearInMusicDto).getSlug();
         return "redirect:/management/year-in-music/edit/" + yearInMusicDTOSlug;
     }
 
@@ -59,7 +59,7 @@ public class YearInMusicManagementController {
     public String getEditYearInMusic(@PathVariable String yearIMSlug, Model model) {
         YearInMusic yearInMusicBySlug = yearInMusicService.getYearInMusicBySlug(yearIMSlug);
         model.addAttribute(YEAR_IN_MUSIC, yearInMusicService
-                .getYearInMusicCreateEditDTO(yearInMusicBySlug));
+                .getYearInMusicCreateEditDto(yearInMusicBySlug));
         model.addAttribute(MUSICIAN_LIST, MusicianDtoTransformer
                 .getMusicianSelectDtoList(musicianService
                         .getAllMusiciansWithWorksByYear(yearInMusicBySlug.getYear())));
@@ -68,10 +68,10 @@ public class YearInMusicManagementController {
 
     @PutMapping("management/year-in-music/edit/{yearIMSlug}")
     public String putEditYearInMusic(@PathVariable String yearIMSlug,
-                                     @ModelAttribute(YEAR_IN_MUSIC) YearInMusicCreateEditDTO yearInMusicDTO) {
+                                     @ModelAttribute(YEAR_IN_MUSIC) YearInMusicCreateEditDto yearInMusicDto) {
         YearInMusic yearInMusicBySlug = yearInMusicService.getYearInMusicBySlug(yearIMSlug);
-        String yearInMusicDTOSlug = yearInMusicService.updateYearInMusic(yearInMusicBySlug, yearInMusicDTO).getSlug();
-        return "redirect:/management/year-in-music/edit/" + yearInMusicDTOSlug;
+        String yearInMusicDtoSlug = yearInMusicService.updateYearInMusic(yearInMusicBySlug, yearInMusicDto).getSlug();
+        return "redirect:/management/year-in-music/edit/" + yearInMusicDtoSlug;
     }
 
     @DeleteMapping("management/year-in-music/delete/{yearIMSlug}")

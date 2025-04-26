@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
 import com.dmitryshundrik.knowledgebase.model.entity.music.YearInMusic;
-import com.dmitryshundrik.knowledgebase.model.dto.music.YearInMusicCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.music.YearInMusicViewDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.music.YearInMusicCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.YearInMusicViewDto;
 import com.dmitryshundrik.knowledgebase.repository.music.YearInMusicRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;
@@ -35,24 +35,24 @@ public class YearInMusicService {
         return yearInMusicRepository.findByYear(year);
     }
 
-    public YearInMusicViewDTO createYearInMusic(YearInMusicCreateEditDTO yearInMusicDTO) {
+    public YearInMusicViewDto createYearInMusic(YearInMusicCreateEditDto yearInMusicDto) {
         YearInMusic yearInMusic = new YearInMusic();
-        setFieldsFromDTO(yearInMusic, yearInMusicDTO);
+        setFieldsFromDto(yearInMusic, yearInMusicDto);
         YearInMusic createdYearInMusic = yearInMusicRepository.save(yearInMusic);
-        return getYearInMusicViewDTO(createdYearInMusic);
+        return getYearInMusicViewDto(createdYearInMusic);
     }
 
-    public YearInMusicViewDTO updateYearInMusic(YearInMusic yearInMusic, YearInMusicCreateEditDTO yearInMusicDTO) {
-        setFieldsFromDTO(yearInMusic, yearInMusicDTO);
-        return getYearInMusicViewDTO(yearInMusic);
+    public YearInMusicViewDto updateYearInMusic(YearInMusic yearInMusic, YearInMusicCreateEditDto yearInMusicDto) {
+        setFieldsFromDto(yearInMusic, yearInMusicDto);
+        return getYearInMusicViewDto(yearInMusic);
     }
 
     public void deleteYearInMusic(YearInMusic yearInMusic) {
         yearInMusicRepository.delete(yearInMusic);
     }
 
-    public YearInMusicViewDTO getYearInMusicViewDTO(YearInMusic yearInMusic) {
-        return YearInMusicViewDTO.builder()
+    public YearInMusicViewDto getYearInMusicViewDto(YearInMusic yearInMusic) {
+        return YearInMusicViewDto.builder()
                 .created(InstantFormatter.instantFormatterDMY(yearInMusic.getCreated()))
                 .slug(yearInMusic.getSlug())
                 .title(yearInMusic.getTitle())
@@ -73,20 +73,20 @@ public class YearInMusicService {
 
     }
 
-    public List<YearInMusicViewDTO> getYearInMusicViewDTOList(List<YearInMusic> yearInMusicList) {
+    public List<YearInMusicViewDto> getYearInMusicViewDtoList(List<YearInMusic> yearInMusicList) {
         return yearInMusicList.stream()
-                .map(this::getYearInMusicViewDTO)
+                .map(this::getYearInMusicViewDto)
                 .collect(Collectors.toList());
     }
 
-    public List<YearInMusicViewDTO> getSortedYearInMusicViewDTOList() {
-        return getYearInMusicViewDTOList(getAll()).stream()
-                .sorted(Comparator.comparing(YearInMusicViewDTO::getYear))
+    public List<YearInMusicViewDto> getSortedYearInMusicViewDtoList() {
+        return getYearInMusicViewDtoList(getAll()).stream()
+                .sorted(Comparator.comparing(YearInMusicViewDto::getYear))
                 .collect(Collectors.toList());
     }
 
-    public YearInMusicCreateEditDTO getYearInMusicCreateEditDTO(YearInMusic yearInMusic) {
-        return YearInMusicCreateEditDTO.builder()
+    public YearInMusicCreateEditDto getYearInMusicCreateEditDto(YearInMusic yearInMusic) {
+        return YearInMusicCreateEditDto.builder()
                 .slug(yearInMusic.getSlug())
                 .title(yearInMusic.getTitle())
                 .year(yearInMusic.getYear())
@@ -101,21 +101,21 @@ public class YearInMusicService {
                 .build();
     }
 
-    public void setFieldsFromDTO(YearInMusic yearInMusic, YearInMusicCreateEditDTO yearInMusicDTO) {
-        yearInMusic.setSlug(yearInMusicDTO.getSlug().trim());
-        yearInMusic.setTitle(yearInMusicDTO.getTitle().trim());
-        yearInMusic.setYear(yearInMusicDTO.getYear());
-        yearInMusic.setBestMaleSinger(!StringUtils.isBlank(yearInMusicDTO.getBestMaleSingerId()) ? musicianService
-                .getMusicianById(UUID.fromString(yearInMusicDTO.getBestMaleSingerId())) : null);
-        yearInMusic.setBestFemaleSinger(!StringUtils.isBlank(yearInMusicDTO.getBestFemaleSingerId()) ? musicianService
-                .getMusicianById(UUID.fromString(yearInMusicDTO.getBestFemaleSingerId())) : null);
-        yearInMusic.setBestGroup(!StringUtils.isBlank(yearInMusicDTO.getBestGroupId()) ? musicianService
-                .getMusicianById(UUID.fromString(yearInMusicDTO.getBestGroupId())) : null);
-        yearInMusic.setBestComposer(!StringUtils.isBlank(yearInMusicDTO.getBestComposerId()) ? musicianService
-                .getMusicianById(UUID.fromString(yearInMusicDTO.getBestComposerId())) : null);
-        yearInMusic.setAotyListDescription(yearInMusicDTO.getAotyListDescription());
-        yearInMusic.setAotySpotifyLink(yearInMusicDTO.getAotySpotifyLink());
-        yearInMusic.setSotyListDescription(yearInMusicDTO.getSotyListDescription());
-        yearInMusic.setSotySpotifyLink(yearInMusicDTO.getSotySpotifyLink());
+    public void setFieldsFromDto(YearInMusic yearInMusic, YearInMusicCreateEditDto yearInMusicDto) {
+        yearInMusic.setSlug(yearInMusicDto.getSlug().trim());
+        yearInMusic.setTitle(yearInMusicDto.getTitle().trim());
+        yearInMusic.setYear(yearInMusicDto.getYear());
+        yearInMusic.setBestMaleSinger(!StringUtils.isBlank(yearInMusicDto.getBestMaleSingerId()) ? musicianService
+                .getMusicianById(UUID.fromString(yearInMusicDto.getBestMaleSingerId())) : null);
+        yearInMusic.setBestFemaleSinger(!StringUtils.isBlank(yearInMusicDto.getBestFemaleSingerId()) ? musicianService
+                .getMusicianById(UUID.fromString(yearInMusicDto.getBestFemaleSingerId())) : null);
+        yearInMusic.setBestGroup(!StringUtils.isBlank(yearInMusicDto.getBestGroupId()) ? musicianService
+                .getMusicianById(UUID.fromString(yearInMusicDto.getBestGroupId())) : null);
+        yearInMusic.setBestComposer(!StringUtils.isBlank(yearInMusicDto.getBestComposerId()) ? musicianService
+                .getMusicianById(UUID.fromString(yearInMusicDto.getBestComposerId())) : null);
+        yearInMusic.setAotyListDescription(yearInMusicDto.getAotyListDescription());
+        yearInMusic.setAotySpotifyLink(yearInMusicDto.getAotySpotifyLink());
+        yearInMusic.setSotyListDescription(yearInMusicDto.getSotyListDescription());
+        yearInMusic.setSotySpotifyLink(yearInMusicDto.getSotySpotifyLink());
     }
 }

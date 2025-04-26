@@ -1,8 +1,8 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
-import com.dmitryshundrik.knowledgebase.model.dto.music.MusicGenreCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.music.MusicGenreViewDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.music.MusicGenreCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.MusicGenreViewDto;
 import com.dmitryshundrik.knowledgebase.model.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicGenreRepository;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
@@ -53,25 +53,25 @@ public class MusicGenreService {
         return musicGenreRepository.findAllByMusicGenreTypeAndCountIsNotNullOrderByCountDesc(MusicGenreType.CONTEMPORARY);
     }
 
-    public String createMusicGenre(MusicGenreCreateEditDTO genreDTO) {
+    public String createMusicGenre(MusicGenreCreateEditDto genreDto) {
         MusicGenre genre = new MusicGenre();
-        setFieldsFromDTO(genre, genreDTO);
+        setFieldsFromDto(genre, genreDto);
         musicGenreRepository.save(genre);
         return genre.getSlug();
     }
 
-    public String updateMusicGenre(String genreSlug, MusicGenreCreateEditDTO genreDTO) {
+    public String updateMusicGenre(String genreSlug, MusicGenreCreateEditDto genreDto) {
         MusicGenre genre = getMusicGenreBySlug(genreSlug);
-        setFieldsFromDTO(genre, genreDTO);
-        return genreDTO.getSlug();
+        setFieldsFromDto(genre, genreDto);
+        return genreDto.getSlug();
     }
 
     public void deleteMusicGenre(MusicGenre genre) {
         musicGenreRepository.delete(genre);
     }
 
-    public MusicGenreViewDTO getMusicGenreViewDTO(MusicGenre genre) {
-        return MusicGenreViewDTO.builder()
+    public MusicGenreViewDto getMusicGenreViewDto(MusicGenre genre) {
+        return MusicGenreViewDto.builder()
                 .created(InstantFormatter.instantFormatterDMY(genre.getCreated()))
                 .slug(genre.getSlug())
                 .title(genre.getTitle())
@@ -82,12 +82,12 @@ public class MusicGenreService {
                 .build();
     }
 
-    public List<MusicGenreViewDTO> getMusicGenreViewDTOList(List<MusicGenre> musicGenreList) {
-        return musicGenreList.stream().map(this::getMusicGenreViewDTO).collect(Collectors.toList());
+    public List<MusicGenreViewDto> getMusicGenreViewDtoList(List<MusicGenre> musicGenreList) {
+        return musicGenreList.stream().map(this::getMusicGenreViewDto).collect(Collectors.toList());
     }
 
-    public MusicGenreCreateEditDTO getMusicGenreCreateEditDTO(MusicGenre genre) {
-        return MusicGenreCreateEditDTO.builder()
+    public MusicGenreCreateEditDto getMusicGenreCreateEditDto(MusicGenre genre) {
+        return MusicGenreCreateEditDto.builder()
                 .slug(genre.getSlug())
                 .title(genre.getTitle())
                 .titleEn(genre.getTitleEn())
@@ -96,12 +96,12 @@ public class MusicGenreService {
                 .build();
     }
 
-    public void setFieldsFromDTO(MusicGenre genre, MusicGenreCreateEditDTO genreDTO) {
-        genre.setSlug(genreDTO.getSlug().trim());
-        genre.setTitle(genreDTO.getTitle().trim());
-        genre.setTitleEn(genreDTO.getTitleEn().trim());
-        genre.setMusicGenreType(genreDTO.getMusicGenreType());
-        genre.setDescription(genreDTO.getDescription());
+    public void setFieldsFromDto(MusicGenre genre, MusicGenreCreateEditDto genreDto) {
+        genre.setSlug(genreDto.getSlug().trim());
+        genre.setTitle(genreDto.getTitle().trim());
+        genre.setTitleEn(genreDto.getTitleEn().trim());
+        genre.setMusicGenreType(genreDto.getMusicGenreType());
+        genre.setDescription(genreDto.getDescription());
     }
 
     public String musicGenreSlugIsExist(String musicGenreSlug) {

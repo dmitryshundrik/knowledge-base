@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class CompositionViewDTO {
+public class AlbumViewDto {
 
     private String created;
 
@@ -15,19 +15,17 @@ public class CompositionViewDTO {
 
     private String title;
 
-    private String catalogTitle;
-
     private String catalogNumber;
 
     private String musicianNickname;
 
     private String musicianSlug;
 
-    private String albumId;
-
-    private String albumTitle;
+    private List<MusicianSelectDto> collaborators;
 
     private String feature;
+
+    private String artwork;
 
     private Integer year;
 
@@ -37,13 +35,11 @@ public class CompositionViewDTO {
 
     private Integer yearEndRank;
 
-    private Integer essentialCompositionsRank;
+    private Integer essentialAlbumsRank;
 
     private String highlights;
 
     private String description;
 
-    private String lyrics;
-
-    private String translation;
+    private List<CompositionViewDto> compositions;
 }

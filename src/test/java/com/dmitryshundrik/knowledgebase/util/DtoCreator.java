@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.util;
 
-import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionCreateEditDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionViewDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionViewDto;
 
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_ALBUM_ID;
 import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_CATALOG_NUMBER_DOUBLE;
@@ -21,8 +21,8 @@ import static com.dmitryshundrik.knowledgebase.util.ConstantsTest.COMPOSITION_YE
 
 public class DtoCreator {
 
-    public static CompositionCreateEditDTO getCompositionCreateEditDTO() {
-        return CompositionCreateEditDTO.builder()
+    public static CompositionCreateEditDto getCompositionCreateEditDTO() {
+        return CompositionCreateEditDto.builder()
                 .slug(COMPOSITION_SLUG)
                 .title(COMPOSITION_TITLE)
                 .catalogNumber(COMPOSITION_CATALOG_NUMBER_DOUBLE)
@@ -40,8 +40,8 @@ public class DtoCreator {
 
     }
 
-    public static CompositionViewDTO getCompositionViewDTO() {
-        return CompositionViewDTO.builder()
+    public static CompositionViewDto getCompositionViewDTO() {
+        return CompositionViewDto.builder()
                 .slug(COMPOSITION_SLUG)
                 .title(COMPOSITION_TITLE)
                 .catalogNumber(COMPOSITION_CATALOG_NUMBER_STRING)

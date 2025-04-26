@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class MusicPeriodViewDTO {
+public class MusicGenreViewDto {
 
     private String created;
 
@@ -15,9 +15,9 @@ public class MusicPeriodViewDTO {
 
     private String titleEn;
 
-    private Integer approximateStart;
+    private String musicGenreType;
 
-    private Integer approximateEnd;
+    private Integer count;
 
     private String description;
 }

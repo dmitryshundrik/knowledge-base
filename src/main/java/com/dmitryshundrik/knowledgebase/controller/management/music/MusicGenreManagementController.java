@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.controller.management.music;
 
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
-import com.dmitryshundrik.knowledgebase.model.dto.music.MusicGenreCreateEditDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.music.MusicGenreCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
@@ -39,42 +39,42 @@ public class MusicGenreManagementController {
     public String getAllMusicGenres(Model model) {
         List<MusicGenre> classicalGenresList = musicGenreService.getAllClassicalGenresSortedByTitle();
         List<MusicGenre> contemporaryGenresList = musicGenreService.getAllContemporaryGenresSortedByTitle();
-        model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getMusicGenreViewDTOList(classicalGenresList));
-        model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getMusicGenreViewDTOList(contemporaryGenresList));
+        model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getMusicGenreViewDtoList(classicalGenresList));
+        model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getMusicGenreViewDtoList(contemporaryGenresList));
         return "management/music/music-genre-all";
     }
 
     @GetMapping("/management/music-genre/create")
     public String getCreateMusicGenre(Model model) {
-        model.addAttribute(MUSIC_GENRE, new MusicGenreCreateEditDTO());
+        model.addAttribute(MUSIC_GENRE, new MusicGenreCreateEditDto());
         model.addAttribute(MUSIC_GENRE_TYPE_LIST, MusicGenreType.values());
         return "management/music/music-genre-create";
     }
 
     @PostMapping("/management/music-genre/create")
-    public String postCreateMusicGenre(@Valid @ModelAttribute(MUSIC_GENRE) MusicGenreCreateEditDTO genreDTO, BindingResult bindingResult,
+    public String postCreateMusicGenre(@Valid @ModelAttribute(MUSIC_GENRE) MusicGenreCreateEditDto genreDto, BindingResult bindingResult,
                                        Model model) {
-        String error = musicGenreService.musicGenreSlugIsExist(genreDTO.getSlug());
+        String error = musicGenreService.musicGenreSlugIsExist(genreDto.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute(SLUG, error);
             model.addAttribute(MUSIC_GENRE_TYPE_LIST, MusicGenreType.values());
             return "management/music/music-genre-create";
         }
-        String slug = musicGenreService.createMusicGenre(genreDTO);
+        String slug = musicGenreService.createMusicGenre(genreDto);
         return "redirect:/management/music-genre/edit/" + slug;
     }
 
     @GetMapping("/management/music-genre/edit/{genreSlug}")
     public String getEditMusicGenre(@PathVariable String genreSlug, Model model) {
         MusicGenre musicGenreBySlug = musicGenreService.getMusicGenreBySlug(genreSlug);
-        model.addAttribute(MUSIC_GENRE, musicGenreService.getMusicGenreCreateEditDTO(musicGenreBySlug));
+        model.addAttribute(MUSIC_GENRE, musicGenreService.getMusicGenreCreateEditDto(musicGenreBySlug));
         model.addAttribute(MUSIC_GENRE_TYPE_LIST, MusicGenreType.values());
         return "management/music/music-genre-edit";
     }
 
     @PutMapping("management/music-genre/edit/{genreSlug}")
-    public String putEditMusicGenre(@PathVariable String genreSlug, @ModelAttribute(MUSIC_GENRE) MusicGenreCreateEditDTO genreDTO) {
-        String slug = musicGenreService.updateMusicGenre(genreSlug, genreDTO);
+    public String putEditMusicGenre(@PathVariable String genreSlug, @ModelAttribute(MUSIC_GENRE) MusicGenreCreateEditDto genreDto) {
+        String slug = musicGenreService.updateMusicGenre(genreSlug, genreDto);
         return "redirect:/management/music-genre/edit/" + slug;
     }
 

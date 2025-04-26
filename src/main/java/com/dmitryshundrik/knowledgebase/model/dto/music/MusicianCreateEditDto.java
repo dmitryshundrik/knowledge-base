@@ -21,7 +21,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_MUST_NOT_BE_B
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MusicianCreateEditDTO {
+public class MusicianCreateEditDto {
 
     @NotBlank(message = SLUG_MUST_NOT_BE_BLANK)
     private String slug;
@@ -69,9 +69,9 @@ public class MusicianCreateEditDTO {
 
     private List<PersonEventDto> events;
 
-    private List<AlbumViewDTO> albums;
+    private List<AlbumViewDto> albums;
 
-    private List<CompositionViewDTO> compositions;
+    private List<CompositionViewDto> compositions;
 
     private Boolean dateNotification;
 }

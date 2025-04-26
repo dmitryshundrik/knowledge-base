@@ -13,10 +13,10 @@ import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.entity.music.YearInMusic;
-import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumViewDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionViewDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.music.MusicPeriodViewDTO;
-import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianViewDTO;
+import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumViewDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionViewDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.MusicPeriodViewDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianViewDto;
 import com.dmitryshundrik.knowledgebase.model.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.enums.ResourceType;
 import com.dmitryshundrik.knowledgebase.model.enums.SortType;
@@ -83,7 +83,7 @@ public class MusicPageController {
 
     @GetMapping
     public String getMusicPage(Model model) {
-        model.addAttribute(YEAR_IN_MUSIC, yearInMusicService.getSortedYearInMusicViewDTOList());
+        model.addAttribute(YEAR_IN_MUSIC, yearInMusicService.getSortedYearInMusicViewDtoList());
         model.addAttribute(MUSIC_PERIOD_LIST, musicPeriodService.getAllSortedByStart());
         model.addAttribute(ALBUM_RATINGS, albumService.getAllYearsFromAlbums());
         model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getFilteredClassicalGenres());
@@ -96,13 +96,13 @@ public class MusicPageController {
         YearInMusic yearInMusic = yearInMusicService.getYearInMusicBySlug(slug);
         YearInMusic previousYear = yearInMusicService.getYearInMusicByYear(yearInMusic.getYear() - 1);
         if (previousYear != null) {
-            model.addAttribute(PREVIOUS_YEAR, yearInMusicService.getYearInMusicViewDTO(previousYear));
+            model.addAttribute(PREVIOUS_YEAR, yearInMusicService.getYearInMusicViewDto(previousYear));
         }
         YearInMusic nextYear = yearInMusicService.getYearInMusicByYear(yearInMusic.getYear() + 1);
         if (nextYear != null) {
-            model.addAttribute(NEXT_YEAR, yearInMusicService.getYearInMusicViewDTO(nextYear));
+            model.addAttribute(NEXT_YEAR, yearInMusicService.getYearInMusicViewDto(nextYear));
         }
-        model.addAttribute(CURRENT_YEAR, yearInMusicService.getYearInMusicViewDTO(yearInMusic));
+        model.addAttribute(CURRENT_YEAR, yearInMusicService.getYearInMusicViewDto(yearInMusic));
         model.addAttribute(ALBUM_LIST, albumService.get10BestAlbumsByYear(yearInMusic.getYear()));
         model.addAttribute(COMPOSITION_LIST, compositionService.getAllForSOTYList(yearInMusic.getYear()));
         return "music/year-in-music";
@@ -110,7 +110,7 @@ public class MusicPageController {
 
     @GetMapping("/album/top100")
     public String getTop100BestAlbums(Model model) {
-        List<AlbumViewDTO> top100BestAlbums = albumService.getTop100BestAlbums();
+        List<AlbumViewDto> top100BestAlbums = albumService.getTop100BestAlbums();
         model.addAttribute(ALBUM_LIST, top100BestAlbums);
         return "music/album-top100";
     }
@@ -119,15 +119,15 @@ public class MusicPageController {
     public String getTop100BestClassicalCompositions(Model model) {
         List<Composition> top100BestClassicalCompositions = compositionService
                 .getTop100ByClassicalGenreOrderedByRatingDesc();
-        List<CompositionViewDTO> compositionViewDTOList = compositionService.getCompositionViewDTOList(top100BestClassicalCompositions);
-        model.addAttribute(COMPOSITION_LIST, compositionViewDTOList);
+        List<CompositionViewDto> compositionViewDtoList = compositionService.getCompositionViewDtoList(top100BestClassicalCompositions);
+        model.addAttribute(COMPOSITION_LIST, compositionViewDtoList);
         return "music/classical-composition-top100";
     }
 
     @GetMapping("/album/all")
     public String getAllAlbums(Model model) {
         List<Album> albums = albumService.getAll();
-        model.addAttribute(ALBUM_LIST, albumService.getSortedAlbumViewDTOList(albums, SortType.CREATED));
+        model.addAttribute(ALBUM_LIST, albumService.getSortedAlbumViewDtoList(albums, SortType.CREATED));
         return "music/album-all";
     }
 
@@ -141,9 +141,9 @@ public class MusicPageController {
     @GetMapping("/musician/{slug}")
     public String getMusicianBySlug(@PathVariable String slug, Model model) {
         Musician musicianBySlug = musicianService.getMusicianBySlug(slug);
-        MusicianViewDTO musicianViewDTO = musicianService.getMusicianViewDTO(musicianBySlug);
-        musicianViewDTO.setMusicPeriods(musicPeriodService.getSortedByStart(musicianBySlug.getMusicPeriods()));
-        model.addAttribute(MUSICIAN, musicianViewDTO);
+        MusicianViewDto musicianDto = musicianService.getMusicianViewDto(musicianBySlug);
+        musicianDto.setMusicPeriods(musicPeriodService.getSortedByStart(musicianBySlug.getMusicPeriods()));
+        model.addAttribute(MUSICIAN, musicianDto);
         return "music/musician";
     }
 
@@ -174,17 +174,17 @@ public class MusicPageController {
     @GetMapping("/lists-and-charts/albums-of-{year}")
     public String getAllAlbumsByYear(@PathVariable String year, Model model) {
         List<Album> allAlbumsByYear = albumService.getAllAlbumsByYear(Integer.valueOf(year));
-        List<AlbumViewDTO> sortedAlbumViewDTOList = albumService.getSortedAlbumViewDTOList(allAlbumsByYear, SortType.RATING);
-        model.addAttribute(ALBUM_LIST, sortedAlbumViewDTOList);
+        List<AlbumViewDto> albumDtoList = albumService.getSortedAlbumViewDtoList(allAlbumsByYear, SortType.RATING);
+        model.addAttribute(ALBUM_LIST, albumDtoList);
         model.addAttribute(YEAR, year);
         return "music/albums-of-year";
     }
 
     @GetMapping("/lists-and-charts/albums-of-{decade}s")
     public String getAllAlbumsByDecade(@PathVariable String decade, Model model) {
-        List<Album> allAlbumByDecade = albumService.getAllAlbumByDecade(decade);
-        List<AlbumViewDTO> albumViewDTOList = albumService.getAlbumViewDTOList(allAlbumByDecade);
-        model.addAttribute(ALBUM_LIST, albumViewDTOList);
+        List<Album> albumByDecadeList = albumService.getAllAlbumByDecade(decade);
+        List<AlbumViewDto> albumDtoList = albumService.getAlbumViewDtoList(albumByDecadeList);
+        model.addAttribute(ALBUM_LIST, albumDtoList);
         if (AlbumService.DECADE_2010s.equals(decade)) {
             model.addAttribute(DECADE, "2010-x");
         } else if (AlbumService.DECADE_2020s.equals(decade)) {
@@ -196,15 +196,15 @@ public class MusicPageController {
     @GetMapping("/period/{periodSlug}")
     public String getPeriodBySlug(@PathVariable String periodSlug, Model model) {
         MusicPeriod musicPeriod = musicPeriodService.getMusicPeriodBySlug(periodSlug);
-        MusicPeriodViewDTO musicPeriodViewDTO = musicPeriodService.getMusicPeriodViewDTO(musicPeriod);
-        List<Musician> allMusiciansByPeriod = musicianService.getAllMusiciansByPeriod(musicPeriod);
-        List<Musician> bestMusiciansByPeriod = musicianService.getTop10MusiciansByPeriod(allMusiciansByPeriod);
-        List<CompositionViewDTO> allCompositionsByPeriod = compositionService
-                .getSortedCompositionViewDTOList(compositionService
-                        .getAllByMusicianList(allMusiciansByPeriod), SortType.RATING);
-        model.addAttribute(MUSIC_PERIOD, musicPeriodViewDTO);
+        MusicPeriodViewDto musicPeriodDTO = musicPeriodService.getMusicPeriodViewDto(musicPeriod);
+        List<Musician> musiciansByPeriod = musicianService.getAllMusiciansByPeriod(musicPeriod);
+        List<Musician> bestMusiciansByPeriod = musicianService.getTop10MusiciansByPeriod(musiciansByPeriod);
+        List<CompositionViewDto> compositionsByPeriodList = compositionService
+                .getSortedCompositionViewDtoList(compositionService
+                        .getAllByMusicianList(musiciansByPeriod), SortType.RATING);
+        model.addAttribute(MUSIC_PERIOD, musicPeriodDTO);
         model.addAttribute(MUSICIAN_LIST, bestMusiciansByPeriod);
-        model.addAttribute(COMPOSITION_LIST, allCompositionsByPeriod);
+        model.addAttribute(COMPOSITION_LIST, compositionsByPeriodList);
         return "music/music-period";
     }
 
@@ -217,12 +217,12 @@ public class MusicPageController {
         if (musicGenre.getMusicGenreType().equals(MusicGenreType.CONTEMPORARY)) {
             List<Album> albumsByGenre = albumService.getAllAlbumsByGenre(musicGenre);
             model.addAttribute(ALBUM_LIST, albumService
-                    .getSortedAlbumViewDTOList(albumsByGenre, SortType.RATING));
+                    .getSortedAlbumViewDtoList(albumsByGenre, SortType.RATING));
         }
         if (musicGenre.getMusicGenreType().equals(MusicGenreType.CLASSICAL)) {
-            List<Composition> allCompositionsByGenre = compositionService.getAllByGenre(musicGenre);
+            List<Composition>  compositionsByGenre = compositionService.getAllByGenre(musicGenre);
             model.addAttribute(COMPOSITION_LIST, compositionService
-                    .getSortedCompositionViewDTOList(allCompositionsByGenre, SortType.RATING));
+                    .getSortedCompositionViewDtoList(compositionsByGenre, SortType.RATING));
         }
         return "music/music-genre";
     }

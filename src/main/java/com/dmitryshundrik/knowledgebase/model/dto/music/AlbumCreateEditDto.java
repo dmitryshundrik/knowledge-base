@@ -16,7 +16,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.TITLE_MUST_NOT_BE_
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AlbumCreateEditDTO {
+public class AlbumCreateEditDto {
 
     @NotBlank(message = SLUG_MUST_NOT_BE_BLANK)
     private String slug;
@@ -52,5 +52,5 @@ public class AlbumCreateEditDTO {
 
     private String description;
 
-    private List<CompositionViewDTO> compositions;
+    private List<CompositionViewDto> compositions;
 }

@@ -55,9 +55,9 @@ public class TimelineOfMusicManagementController {
 
     @PutMapping("/management/timeline-of-music/event/edit/{eventId}")
     public String putEditEventForTimelineOfMusic(@PathVariable String eventId,
-                                                 @ModelAttribute(TIMELINE_EVENT) TimelineEventDto timelineEventDTO) {
-        timelineEventDTO.setTimelineEventType(TimelineEventType.MUSIC);
-        String timelineEventId = timelineEventService.updateTimelineEvent(eventId, timelineEventDTO).getId();
+                                                 @ModelAttribute(TIMELINE_EVENT) TimelineEventDto timelineEventDto) {
+        timelineEventDto.setTimelineEventType(TimelineEventType.MUSIC);
+        String timelineEventId = timelineEventService.updateTimelineEvent(eventId, timelineEventDto).getId();
         return "redirect:/management/timeline-of-music/event/edit/" + timelineEventId;
     }
 
