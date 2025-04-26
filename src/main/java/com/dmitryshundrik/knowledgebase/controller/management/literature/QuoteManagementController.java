@@ -7,7 +7,7 @@ import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseSelectDto;
 import com.dmitryshundrik.knowledgebase.model.dto.literature.QuoteCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.literature.QuoteViewDto;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
-import com.dmitryshundrik.knowledgebase.service.literature.impl.ProseService;
+import com.dmitryshundrik.knowledgebase.service.literature.impl.ProseServiceImpl;
 import com.dmitryshundrik.knowledgebase.service.literature.impl.QuoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -32,7 +32,7 @@ public class QuoteManagementController {
 
     private final WriterService writerService;
 
-    private final ProseService proseService;
+    private final ProseServiceImpl proseService;
 
     @GetMapping("/management/quote/all")
     public String getAllQuotes(Model model) {
@@ -48,7 +48,7 @@ public class QuoteManagementController {
         quoteDto.setWriterNickname(writerService.getBySlug(writerSlug).getNickName());
         quoteDto.setWriterSlug(writerSlug);
         List<Prose> allByWriter = proseService.getAllByWriter(writerService.getBySlug(writerSlug));
-        List<ProseSelectDto> proseDtoList = proseService.getProseSelectDTOList(allByWriter);
+        List<ProseSelectDto> proseDtoList = proseService.getProseSelectDtoList(allByWriter);
         model.addAttribute(QUOTE, quoteDto);
         model.addAttribute(PROSE_LIST, proseDtoList);
         return "management/literature/quote-create";
@@ -68,7 +68,7 @@ public class QuoteManagementController {
         Quote quote = quoteService.getById(quoteId);
         QuoteCreateEditDto quoteDto = quoteService.getQuoteCreateEditDto(quote);
         List<Prose> allByWriter = proseService.getAllByWriter(writerService.getBySlug(writerSlug));
-        List<ProseSelectDto> proseDtoList = proseService.getProseSelectDTOList(allByWriter);
+        List<ProseSelectDto> proseDtoList = proseService.getProseSelectDtoList(allByWriter);
         model.addAttribute(QUOTE, quoteDto);
         model.addAttribute(PROSE_LIST, proseDtoList);
         return "management/literature/quote-edit";

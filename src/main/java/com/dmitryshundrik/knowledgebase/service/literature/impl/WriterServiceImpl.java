@@ -31,7 +31,7 @@ public class WriterServiceImpl implements WriterService {
 
     private final WriterRepository writerRepository;
 
-    private final ProseService proseService;
+    private final ProseServiceImpl proseService;
 
     private final QuoteService quoteService;
 

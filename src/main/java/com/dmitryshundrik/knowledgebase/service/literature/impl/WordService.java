@@ -27,10 +27,6 @@ public class WordService {
         return wordRepository.findAllByOrderByCreatedDesc();
     }
 
-    public List<Word> getAllByWriterSortedByCreatedDesc(Writer writer) {
-        return wordRepository.findAllByWriterOrderByCreatedDesc(writer);
-    }
-
     public List<Word> getAllByWriterSortedByTitle(Writer writer) {
         return wordRepository.findAllByWriterOrderByTitle(writer);
     }

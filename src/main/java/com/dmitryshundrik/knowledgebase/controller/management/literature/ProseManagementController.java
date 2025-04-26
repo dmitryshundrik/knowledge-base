@@ -4,7 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.entity.literature.Prose;
 import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseViewDto;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
-import com.dmitryshundrik.knowledgebase.service.literature.impl.ProseService;
+import com.dmitryshundrik.knowledgebase.service.literature.impl.ProseServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.PROSE_LIST;
 @RequiredArgsConstructor
 public class ProseManagementController {
 
-    private final ProseService proseService;
+    private final ProseServiceImpl proseService;
 
     private final WriterService writerService;
 
@@ -53,7 +53,7 @@ public class ProseManagementController {
     public String postProseCreate(@PathVariable String writerSlug,
                                   @ModelAttribute(PROSE) ProseCreateEditDto proseDto, BindingResult bindingResult,
                                   Model model) {
-        String error = proseService.proseSlugIsExist(proseDto.getSlug());
+        String error = proseService.isSlugExist(proseDto.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             proseDto.setWriterNickname(writerService.getBySlug(writerSlug).getNickName());
             proseDto.setWriterSlug(writerSlug);
@@ -67,7 +67,7 @@ public class ProseManagementController {
     @GetMapping("/management/writer/edit/{writerSlug}/prose/edit/{proseSlug}")
     public String getProseEdit(@PathVariable String writerSlug, @PathVariable String proseSlug, Model model) {
         Prose bySlug = proseService.getBySlug(proseSlug);
-        ProseCreateEditDto proseDto = proseService.getProseCreateEditDTO(bySlug);
+        ProseCreateEditDto proseDto = proseService.getProseCreateEditDto(bySlug);
         model.addAttribute(PROSE, proseDto);
         return "management/literature/prose-edit";
     }

@@ -7,7 +7,7 @@ import com.dmitryshundrik.knowledgebase.service.cinema.FilmService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.impl.CocktailServiceImpl;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.impl.RecipeServiceImpl;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
-import com.dmitryshundrik.knowledgebase.service.literature.impl.ProseService;
+import com.dmitryshundrik.knowledgebase.service.literature.impl.ProseServiceImpl;
 import com.dmitryshundrik.knowledgebase.service.literature.impl.QuoteService;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
@@ -35,7 +35,7 @@ public class ManagementPageController {
 
     private final WriterService writerService;
 
-    private final ProseService proseService;
+    private final ProseServiceImpl proseService;
 
     private final QuoteService quoteService;
 
@@ -55,7 +55,7 @@ public class ManagementPageController {
         model.addAttribute("recipeCount", recipeService.getRepositorySize());
         model.addAttribute("cocktailCount", cocktailService.getRepositorySize());
         model.addAttribute("writerCount", writerService.getRepositorySize());
-        model.addAttribute("proseCount", proseService.getProseRepositorySize());
+        model.addAttribute("proseCount", proseService.getRepositorySize());
         model.addAttribute("quoteCount", quoteService.getQuoteRepositorySize());
         model.addAttribute("artistCount", artistService.getRepositorySize());
         model.addAttribute("paintingCount", paintingService.getRepositorySize());

@@ -17,7 +17,7 @@ import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.impl.CocktailServiceImpl;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.impl.RecipeServiceImpl;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
-import com.dmitryshundrik.knowledgebase.service.literature.impl.ProseService;
+import com.dmitryshundrik.knowledgebase.service.literature.impl.ProseServiceImpl;
 import com.dmitryshundrik.knowledgebase.service.literature.impl.QuoteService;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
@@ -51,7 +51,7 @@ public class EntityActivityService {
 
     private final WriterService writerService;
 
-    private final ProseService proseService;
+    private final ProseServiceImpl proseService;
 
     private final QuoteService quoteService;
 

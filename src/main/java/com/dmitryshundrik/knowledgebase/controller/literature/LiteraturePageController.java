@@ -12,7 +12,7 @@ import com.dmitryshundrik.knowledgebase.model.dto.literature.WordDto;
 import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterViewDto;
 import com.dmitryshundrik.knowledgebase.service.core.ResourcesService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
-import com.dmitryshundrik.knowledgebase.service.literature.impl.ProseService;
+import com.dmitryshundrik.knowledgebase.service.literature.impl.ProseServiceImpl;
 import com.dmitryshundrik.knowledgebase.service.literature.impl.QuoteService;
 import com.dmitryshundrik.knowledgebase.service.literature.impl.WordService;
 import com.dmitryshundrik.knowledgebase.model.enums.ResourceType;
@@ -39,7 +39,7 @@ public class LiteraturePageController {
 
     private final WriterService writerService;
 
-    private final ProseService proseService;
+    private final ProseServiceImpl proseService;
 
     private final QuoteService quoteService;
 

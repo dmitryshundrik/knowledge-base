@@ -11,8 +11,9 @@ import com.dmitryshundrik.knowledgebase.service.core.ResourcesService;
 import com.dmitryshundrik.knowledgebase.service.music.YearInMusicService;
 import com.dmitryshundrik.knowledgebase.service.client.impl.SpotifyPlayerService;
 import com.dmitryshundrik.knowledgebase.model.enums.ResourceType;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,13 +42,6 @@ public class IndexController {
     private final CurrentEventService currentEventService;
 
     private final SpotifyPlayerService spotifyPlayerService;
-
-//    @Value("${app.version}")
-//    private String version;
-
-//    private String getVersion() {
-//        return version;
-//    }
 
     @GetMapping("/")
     public String getIndex(Model model) {
