@@ -28,13 +28,13 @@ public class ProseServiceImpl implements ProseService {
     private final ProseMapper proseMapper;
 
     @Override
-    public Prose getBySlug(String proseSlug) {
-        return proseRepository.findBySlug(proseSlug);
+    public Prose getById(String id) {
+        return proseRepository.findById(UUID.fromString(id)).orElse(null);
     }
 
     @Override
-    public Prose getById(String id) {
-        return proseRepository.findById(UUID.fromString(id)).orElse(null);
+    public Prose getBySlug(String proseSlug) {
+        return proseRepository.findBySlug(proseSlug);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class ProseServiceImpl implements ProseService {
     }
 
     @Override
-    public List<Prose> getAllSortedByCreatedDesc() {
+    public List<Prose> getAllOrderByCreatedDesc() {
         return proseRepository.findAllByOrderByCreatedDesc();
     }
 
@@ -53,7 +53,7 @@ public class ProseServiceImpl implements ProseService {
     }
 
     @Override
-    public List<Prose> getFirst5ByWriterSortedByRating(Writer writer) {
+    public List<Prose> getFirst5ByWriterOrderByRating(Writer writer) {
         return proseRepository.findFirst5ByWriterOrderByRatingDesc(writer);
     }
 
@@ -83,7 +83,7 @@ public class ProseServiceImpl implements ProseService {
     }
 
     @Override
-    public void updateSynopsisSchemaBySlug(String proseSlug, byte[] bytes) {
+    public void updateSynopsisSchema(String proseSlug, byte[] bytes) {
         if (bytes.length != 0) {
             Prose bySlug = getBySlug(proseSlug);
             bySlug.setPlayCharactersSchema(new String(bytes));

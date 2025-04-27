@@ -2,15 +2,12 @@ package com.dmitryshundrik.knowledgebase.mapper.literature;
 
 import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseViewDto;
-import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterViewDto;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Prose;
-import com.dmitryshundrik.knowledgebase.model.entity.literature.Writer;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-
 import java.time.Instant;
 
 @Mapper(componentModel = "spring")

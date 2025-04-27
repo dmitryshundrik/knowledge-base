@@ -4,7 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.entity.literature.Word;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Writer;
 import com.dmitryshundrik.knowledgebase.model.dto.literature.WordDto;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
-import com.dmitryshundrik.knowledgebase.service.literature.impl.WordService;
+import com.dmitryshundrik.knowledgebase.service.literature.impl.WordServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,13 +23,13 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.WORD_LIST;
 @RequiredArgsConstructor
 public class WordManagementController {
 
-    private final WordService wordService;
+    private final WordServiceImpl wordService;
 
     private final WriterService writerService;
 
     @GetMapping("/management/word/all")
     public String getAllWords(Model model) {
-        List<Word> wordList = wordService.getAllSortedByCreatedDesc();
+        List<Word> wordList = wordService.getAllOrderByCreatedDesc();
         List<WordDto> wordDtoList = wordService.getWordDtoList(wordList);
         model.addAttribute(WORD_LIST, wordDtoList);
         return "management/literature/word-archive";
@@ -69,7 +69,7 @@ public class WordManagementController {
 
     @DeleteMapping("/management/writer/edit/{writerSlug}/word/delete/{wordId}")
     public String deleteWordById(@PathVariable String writerSlug, @PathVariable String wordId) {
-        wordService.deleteById(wordId);
+        wordService.deleteWord(wordId);
         return "redirect:/management/writer/edit/" + writerSlug;
     }
 }

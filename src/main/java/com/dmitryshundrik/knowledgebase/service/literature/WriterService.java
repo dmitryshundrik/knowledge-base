@@ -21,13 +21,12 @@ public interface WriterService extends BaseService {
 
     Writer createWriter(WriterCreateEditDto writerDTO);
     WriterViewDto updateWriter(String writerSlug, WriterCreateEditDto writerDTO);
-    void deleteWriterBySlug(String writerSlug);
+    void deleteWriter(String writerSlug);
 
-    void updateWriterImageBySlug(String writerSlug, byte[] bytes);
+    void updateWriterImage(String writerSlug, byte[] bytes);
     void deleteWriterImage(String writerSlug);
 
     WriterViewDto getWriterViewDto(Writer writer);
-    List<WriterViewDto> getWriterViewDtoList(List<Writer> writerList);
     WriterCreateEditDto getWriterCreateEditDto(Writer writer);
 
     Set<Writer> getAllWithCurrentBirth(Integer dayInterval);

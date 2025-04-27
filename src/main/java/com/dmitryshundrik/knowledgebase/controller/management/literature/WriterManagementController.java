@@ -81,7 +81,7 @@ public class WriterManagementController {
     public String postUploadWriterImage(@PathVariable String writerSlug,
                                         @RequestParam("file") MultipartFile file) throws IOException {
         byte[] bytes = Base64.encodeBase64(file.getBytes());
-        writerService.updateWriterImageBySlug(writerSlug, bytes);
+        writerService.updateWriterImage(writerSlug, bytes);
         return "redirect:/management/writer/edit/" + writerSlug;
     }
 
@@ -93,7 +93,7 @@ public class WriterManagementController {
 
     @DeleteMapping("/management/writer/delete/{writerSlug}")
     public String deleteWriterBySlug(@PathVariable String writerSlug) {
-        writerService.deleteWriterBySlug(writerSlug);
+        writerService.deleteWriter(writerSlug);
         return "redirect:/management/writer/all";
     }
 }

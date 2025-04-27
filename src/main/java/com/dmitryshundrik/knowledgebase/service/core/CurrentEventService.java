@@ -9,6 +9,7 @@ import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
@@ -38,6 +39,7 @@ public class CurrentEventService {
 
     private static final String FEMALE_DIE = "умерла";
 
+    @Cacheable(value = "currentEvents", key = "#dayInterval")
     public List<CurrentEventInfo> getCurrentEvents(Integer dayInterval) {
         List<CurrentEventInfo> currentEventInfoList = new ArrayList<>();
         currentEventInfoList.addAll(getMusicianEvents(dayInterval));

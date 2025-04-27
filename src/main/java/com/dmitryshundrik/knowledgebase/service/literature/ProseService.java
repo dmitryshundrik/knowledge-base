@@ -10,20 +10,20 @@ import java.util.List;
 
 public interface ProseService extends BaseService {
 
-    Prose getBySlug(String proseSlug);
     Prose getById(String id);
+    Prose getBySlug(String proseSlug);
 
     List<Prose> getAll();
-    List<Prose> getAllSortedByCreatedDesc();
+    List<Prose> getAllOrderByCreatedDesc();
     List<Prose> getAllByWriter(Writer writer);
-    List<Prose> getFirst5ByWriterSortedByRating(Writer writer);
+    List<Prose> getFirst5ByWriterOrderByRating(Writer writer);
     List<Prose> getLatestUpdate();
 
     Prose createProse(Writer writer, ProseCreateEditDto proseDto);
     ProseViewDto updateProse(Prose prose, ProseCreateEditDto proseDto);
     void deleteProse(String proseSlug);
 
-    void updateSynopsisSchemaBySlug(String proseSlug, byte[] bytes);
+    void updateSynopsisSchema(String proseSlug, byte[] bytes);
     void deleteSynopsisSchema(String proseSlug);
 
     ProseViewDto getProseViewDto(Prose prose);

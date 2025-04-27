@@ -33,9 +33,9 @@ public class WriterServiceImpl implements WriterService {
 
     private final ProseServiceImpl proseService;
 
-    private final QuoteService quoteService;
+    private final QuoteServiceImpl quoteService;
 
-    private final WordService wordService;
+    private final WordServiceImpl wordService;
 
     private final PersonEventService personEventService;
 
@@ -62,7 +62,7 @@ public class WriterServiceImpl implements WriterService {
     }
 
     @Override
-    public void deleteWriterBySlug(String writerSlug) {
+    public void deleteWriter(String writerSlug) {
         writerRepository.deleteBySlug(writerSlug);
     }
 
@@ -81,7 +81,7 @@ public class WriterServiceImpl implements WriterService {
     }
 
     @Override
-    public void updateWriterImageBySlug(String writerSlug, byte[] bytes) {
+    public void updateWriterImage(String writerSlug, byte[] bytes) {
         if (bytes.length != 0) {
             Writer bySlug = getBySlug(writerSlug);
             bySlug.setImage(new String(bytes));
@@ -109,12 +109,6 @@ public class WriterServiceImpl implements WriterService {
                 .limit(20)
                 .toList()));
         return writerDto;
-    }
-
-    @Override
-    public List<WriterViewDto> getWriterViewDtoList(List<Writer> writerList) {
-        return writerList.stream().map(this::getWriterViewDto)
-                .collect(Collectors.toList());
     }
 
     @Override

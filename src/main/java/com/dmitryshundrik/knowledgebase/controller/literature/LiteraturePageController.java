@@ -13,8 +13,8 @@ import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterViewDto;
 import com.dmitryshundrik.knowledgebase.service.core.ResourcesService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
 import com.dmitryshundrik.knowledgebase.service.literature.impl.ProseServiceImpl;
-import com.dmitryshundrik.knowledgebase.service.literature.impl.QuoteService;
-import com.dmitryshundrik.knowledgebase.service.literature.impl.WordService;
+import com.dmitryshundrik.knowledgebase.service.literature.impl.QuoteServiceImpl;
+import com.dmitryshundrik.knowledgebase.service.literature.impl.WordServiceImpl;
 import com.dmitryshundrik.knowledgebase.model.enums.ResourceType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -41,9 +41,9 @@ public class LiteraturePageController {
 
     private final ProseServiceImpl proseService;
 
-    private final QuoteService quoteService;
+    private final QuoteServiceImpl quoteService;
 
-    private final WordService wordService;
+    private final WordServiceImpl wordService;
 
     private final ResourcesService resourcesService;
 
@@ -63,7 +63,7 @@ public class LiteraturePageController {
     public String getWriter(@PathVariable String slug, Model model) {
         Writer writerBySlug = writerService.getBySlug(slug);
         WriterViewDto writerDto = writerService.getWriterViewDto(writerBySlug);
-        List<Prose> first5ProseByWriter = proseService.getFirst5ByWriterSortedByRating(writerBySlug);
+        List<Prose> first5ProseByWriter = proseService.getFirst5ByWriterOrderByRating(writerBySlug);
         List<ProseViewDto> first5ProseByWriterViewDtoList = proseService.getProseViewDtoList(first5ProseByWriter);
         model.addAttribute(WRITER, writerDto);
         model.addAttribute(PROSE_LIST, first5ProseByWriterViewDtoList);
@@ -73,7 +73,7 @@ public class LiteraturePageController {
     @GetMapping("/writer/{slug}/quote/all")
     public String getWriterAllQuotes(@PathVariable String slug, Model model) {
         Writer writerBySlug = writerService.getBySlug(slug);
-        List<Quote> allByWriterSortedByCreatedDesc = quoteService.getAllByWriterSortedByCreatedDesc(writerBySlug);
+        List<Quote> allByWriterSortedByCreatedDesc = quoteService.getAllByWriterOrderByCreatedDesc(writerBySlug);
         List<QuoteViewDto> quoteDtoList = quoteService.getQuoteViewDtoList(allByWriterSortedByCreatedDesc);
         model.addAttribute(QUOTE_LIST, quoteDtoList);
         model.addAttribute(WRITER_NICKNAME, writerBySlug.getNickName());
@@ -83,7 +83,7 @@ public class LiteraturePageController {
     @GetMapping("/writer/{slug}/word/all")
     public String getWriterAllWords(@PathVariable String slug, Model model) {
         Writer writerBySlug = writerService.getBySlug(slug);
-        List<Word> allByWriterSortedByTitle = wordService.getAllByWriterSortedByTitle(writerBySlug);
+        List<Word> allByWriterSortedByTitle = wordService.getAllByWriterOrderByTitle(writerBySlug);
         List<WordDto> wordDtoList = wordService.getWordDtoList(allByWriterSortedByTitle);
         model.addAttribute(WORD_LIST, wordDtoList);
         model.addAttribute(WRITER_NICKNAME, writerBySlug.getNickName());
@@ -92,7 +92,7 @@ public class LiteraturePageController {
 
     @GetMapping("/prose/all")
     public String getAllProse(Model model) {
-        List<Prose> proseList = proseService.getAllSortedByCreatedDesc();
+        List<Prose> proseList = proseService.getAllOrderByCreatedDesc();
         List<ProseViewDto> proseDtoList = proseService.getProseViewDtoList(proseList);
         model.addAttribute(PROSE_LIST, proseDtoList);
         return "literature/prose-all";
@@ -100,7 +100,7 @@ public class LiteraturePageController {
 
     @GetMapping("/quote/all")
     public String getAllQuotes(Model model) {
-        List<Quote> quoteList = quoteService.getAllSortedByCreatedDesc();
+        List<Quote> quoteList = quoteService.getAllOrderByCreatedDesc();
         List<QuoteViewDto> quoteDtoList = quoteService.getQuoteViewDtoList(quoteList);
         model.addAttribute(QUOTE_LIST, quoteDtoList);
         return "literature/quote-all";

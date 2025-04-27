@@ -8,7 +8,7 @@ import com.dmitryshundrik.knowledgebase.model.dto.literature.QuoteCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.literature.QuoteViewDto;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
 import com.dmitryshundrik.knowledgebase.service.literature.impl.ProseServiceImpl;
-import com.dmitryshundrik.knowledgebase.service.literature.impl.QuoteService;
+import com.dmitryshundrik.knowledgebase.service.literature.impl.QuoteServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +28,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.QUOTE_LIST;
 @RequiredArgsConstructor
 public class QuoteManagementController {
 
-    private final QuoteService quoteService;
+    private final QuoteServiceImpl quoteService;
 
     private final WriterService writerService;
 
@@ -36,7 +36,7 @@ public class QuoteManagementController {
 
     @GetMapping("/management/quote/all")
     public String getAllQuotes(Model model) {
-        List<Quote> quoteList = quoteService.getAllSortedByCreatedDesc();
+        List<Quote> quoteList = quoteService.getAllOrderByCreatedDesc();
         List<QuoteViewDto> quoteDtoList = quoteService.getQuoteViewDtoList(quoteList);
         model.addAttribute(QUOTE_LIST, quoteDtoList);
         return "management/literature/quote-archive";
@@ -64,34 +64,37 @@ public class QuoteManagementController {
     }
 
     @GetMapping("/management/writer/edit/{writerSlug}/quote/edit/{quoteId}")
-    public String getQuoteEdit(@PathVariable String writerSlug, @PathVariable String quoteId, Model model) {
+    public String getQuoteEdit(@PathVariable String writerSlug,
+                               @PathVariable String quoteId, Model model) {
         Quote quote = quoteService.getById(quoteId);
         QuoteCreateEditDto quoteDto = quoteService.getQuoteCreateEditDto(quote);
-        List<Prose> allByWriter = proseService.getAllByWriter(writerService.getBySlug(writerSlug));
-        List<ProseSelectDto> proseDtoList = proseService.getProseSelectDtoList(allByWriter);
+        List<Prose> proseList = proseService.getAllByWriter(writerService.getBySlug(writerSlug));
+        List<ProseSelectDto> proseDtoList = proseService.getProseSelectDtoList(proseList);
         model.addAttribute(QUOTE, quoteDto);
         model.addAttribute(PROSE_LIST, proseDtoList);
         return "management/literature/quote-edit";
     }
 
     @PutMapping("/management/writer/edit/{writerSlug}/quote/edit/{quoteId}")
-    public String putQuoteEdit(@PathVariable String writerSlug, @PathVariable String quoteId,
+    public String putQuoteEdit(@PathVariable String writerSlug,
+                               @PathVariable String quoteId,
                                @ModelAttribute(QUOTE) QuoteCreateEditDto quoteDto, Model model) {
-        Prose proseById = !quoteDto.getProseId().isBlank() ? proseService.getById(quoteDto.getProseId()) : null;
+        Prose proseById = quoteDto.getProseId().isBlank() ? null : proseService.getById(quoteDto.getProseId());
         Quote updatedQuote = quoteService.updateQuote(quoteDto, quoteId, proseById);
         return "redirect:/management/writer/edit/" + writerSlug + "/quote/edit/" + updatedQuote.getId();
     }
 
 
     @DeleteMapping("/management/writer/edit/{writerSlug}/quote/delete/{quoteId}")
-    public String deleteWritersQuoteById(@PathVariable String writerSlug, @PathVariable String quoteId) {
-        quoteService.deleteQuoteById(quoteId);
+    public String deleteWritersQuoteById(@PathVariable String writerSlug,
+                                         @PathVariable String quoteId) {
+        quoteService.deleteQuote(quoteId);
         return "redirect:/management/writer/edit/" + writerSlug;
     }
 
     @DeleteMapping("/management/quote/delete/{quoteId}")
     public String deleteQuoteById(@PathVariable String quoteId) {
-        quoteService.deleteQuoteById(quoteId);
+        quoteService.deleteQuote(quoteId);
         return "redirect:/management/quote/all";
     }
 }

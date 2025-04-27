@@ -34,7 +34,7 @@ public class ProseManagementController {
 
     @GetMapping("/management/prose/all")
     public String getAllProse(Model model) {
-        List<Prose> proseList = proseService.getAllSortedByCreatedDesc();
+        List<Prose> proseList = proseService.getAllOrderByCreatedDesc();
         List<ProseViewDto> proseDtoList = proseService.getProseViewDtoList(proseList);
         model.addAttribute(PROSE_LIST, proseDtoList);
         return "management/literature/prose-archive";
@@ -84,7 +84,7 @@ public class ProseManagementController {
     public String postUploadSynopsisSchema(@PathVariable String writerSlug, @PathVariable String proseSlug,
                                         @RequestParam("file") MultipartFile file) throws IOException {
         byte[] bytes = Base64.encodeBase64(file.getBytes());
-        proseService.updateSynopsisSchemaBySlug(proseSlug, bytes);
+        proseService.updateSynopsisSchema(proseSlug, bytes);
         return "redirect:/management/writer/edit/" + writerSlug + "/prose/edit/" + proseSlug;
     }
 
