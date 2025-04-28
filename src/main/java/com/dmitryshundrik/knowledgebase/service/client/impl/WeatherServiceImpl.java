@@ -2,15 +2,21 @@ package com.dmitryshundrik.knowledgebase.service.client.impl;
 
 import com.dmitryshundrik.knowledgebase.client.WeatherClient;
 import com.dmitryshundrik.knowledgebase.exception.WeatherServiceException;
+import com.dmitryshundrik.knowledgebase.model.dto.client.openweather.Weather;
 import com.dmitryshundrik.knowledgebase.model.dto.client.openweather.WeatherResponse;
 import com.dmitryshundrik.knowledgebase.service.client.WeatherService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import java.time.LocalDate;
+import java.util.Optional;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.GETTING_CURRENT_WEATHER_FAIL_MESSAGE;
+import static com.dmitryshundrik.knowledgebase.util.Constants.UNKNOWN_VALUE;
+import static com.dmitryshundrik.knowledgebase.util.Constants.WEATHER_CACHE;
 
 @Service
 @RequiredArgsConstructor
@@ -28,22 +34,51 @@ public class WeatherServiceImpl implements WeatherService {
     @Value("${openweather.api.units}")
     private String units;
 
-    private void getCurrentWeatherFromClient() {
+    @Override
+    @Cacheable(value = WEATHER_CACHE, key = "#root.methodName")
+    public Weather getCurrentWeather() {
+        return processCurrentWeather();
+    }
+
+    @Override
+    @CachePut(value = WEATHER_CACHE, key = "'getCurrentWeather'")
+    public Weather processCurrentWeather() {
+        WeatherResponse weatherResponse = getCurrentWeatherFromClient();
+        if (weatherResponse == null) {
+            log.error("Weather response is null");
+            throw new WeatherServiceException("Weather response is null");
+        }
+
+        return Weather.builder()
+                .date(LocalDate.now().getDayOfWeek().toString())
+                .temp(Optional.ofNullable(weatherResponse.getMain())
+                        .map(main -> String.valueOf((int) Math.ceil(main.getTemp())))
+                        .orElse(UNKNOWN_VALUE))
+                .humidity(Optional.ofNullable(weatherResponse.getMain())
+                        .map(main -> String.valueOf(main.getHumidity()))
+                        .orElse(UNKNOWN_VALUE))
+                .description(Optional.ofNullable(weatherResponse.getWeather())
+                        .filter(weather -> weather.length > 0)
+                        .map(weather -> weather[0])
+                        .map(WeatherResponse.Weather::getDescription)
+                        .orElse(UNKNOWN_VALUE))
+                .wingSpeed(Optional.ofNullable(weatherResponse.getWind())
+                        .map(wind -> String.valueOf(wind.getSpeed()))
+                        .orElse(UNKNOWN_VALUE))
+                .build();
+    }
+
+    private WeatherResponse getCurrentWeatherFromClient() {
         try {
             String city = defaultCity;
             log.info("Requesting weather for city: {}", city);
             WeatherResponse responseDto = weatherClient
                     .getCurrentWeather(defaultCity, apiKey, units);
             log.info("Received response: {}", responseDto);
+            return responseDto;
         } catch (Exception e) {
             log.error("Error while fetching weather data: {}", e.getMessage(), e);
             throw new WeatherServiceException(GETTING_CURRENT_WEATHER_FAIL_MESSAGE.formatted(e.getMessage()));
         }
-    }
-
-    @Override
-//    @Scheduled(cron = "0 * * * * *")
-    public void processCurrentWeather() {
-        getCurrentWeatherFromClient();
     }
 }

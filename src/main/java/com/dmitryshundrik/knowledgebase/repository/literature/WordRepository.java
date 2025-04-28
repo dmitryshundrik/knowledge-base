@@ -10,7 +10,5 @@ public interface WordRepository extends JpaRepository<Word, UUID> {
 
     List<Word> findAllByOrderByCreatedDesc();
 
-    List<Word> findAllByWriterOrderByCreatedDesc(Writer writer);
-
     List<Word> findAllByWriterOrderByTitle(Writer writer);
 }

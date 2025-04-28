@@ -109,6 +109,24 @@
                 </div>
             </section>
 
+            <section class="section">
+                <h3 class="section-title">Погода в Минске:</h3>
+                <div class="section-body-current-weather">
+                    <div class="weather-item">
+                        <span>Температура:</span>
+                        <span id="weather-temp" th:text="${currentWeather.temp() + ' °C'}"></span>
+                    </div>
+                    <div class="weather-item">
+                        <span>Влажность:</span>
+                        <span id="weather-humidity" th:text="${currentWeather.humidity() + ' %'}"></span>
+                    </div>
+                    <div class="weather-item">
+                        <span>Скорость ветра:</span>
+                        <span id="weather-wind-speed" th:text="${currentWeather.wingSpeed() + ' м/с'}"></span>
+                    </div>
+                </div>
+            </section>
+
             <section class="section" id="section-now-playing-id" style="display: none">
                 <h3 class="section-title">Играет в Spotify:</h3>
                 <div class="section-body section-body-current-song">

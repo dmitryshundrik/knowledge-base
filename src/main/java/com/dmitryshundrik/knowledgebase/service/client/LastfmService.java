@@ -3,9 +3,13 @@ package com.dmitryshundrik.knowledgebase.service.client;
 import com.dmitryshundrik.knowledgebase.model.dto.client.lastfm.topalbums.TopAlbums;
 import com.dmitryshundrik.knowledgebase.model.dto.client.lastfm.topartists.TopArtists;
 
-public interface LastFmService {
+public interface LastfmService {
 
-    TopArtists processTopArtist();
+    TopArtists getTopArtists();
+
+    TopAlbums getTopAlbums();
+
+    TopArtists processTopArtists();
 
     TopAlbums processTopAlbums();
 }

@@ -20,6 +20,12 @@ public final class Constants {
     public static final String MUSIC_GENRE_MUST_NOT_BE_BLANK = "Music genre must not be blank";
     public static final String YEAR_MUST_NOT_BE_NULL = "Year must not be null";
 
+    public static final String CURRENT_WEATHER = "currentWeather";
+    public static final String WEATHER_CACHE = "weatherCache";
+    public static final String TOP_ARTIST_CACHE = "topArtistCache";
+    public static final String TOP_ALBUM_CACHE = "topAlbumCache";
+    public static final String UNKNOWN_VALUE = "N/A";
+
     public static final String GETTING_CURRENT_WEATHER_FAIL_MESSAGE = "Failed to fetch weather data: %s";
     public static final String GETTING_TOP_ARTISTS_FAIL_MESSAGE = "Failed to fetch top artists data: %s";
     public static final String GETTING_TOP_ALBUMS_FAIL_MESSAGE = "Failed to fetch top albums data: %s";

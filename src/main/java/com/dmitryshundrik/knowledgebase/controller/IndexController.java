@@ -4,6 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.entity.core.Foundation;
 import com.dmitryshundrik.knowledgebase.model.entity.core.Resource;
 import com.dmitryshundrik.knowledgebase.model.dto.core.FoundationDto;
 import com.dmitryshundrik.knowledgebase.model.dto.core.ResourceDto;
+import com.dmitryshundrik.knowledgebase.service.client.WeatherService;
 import com.dmitryshundrik.knowledgebase.service.core.CurrentEventService;
 import com.dmitryshundrik.knowledgebase.service.core.EntityActivityService;
 import com.dmitryshundrik.knowledgebase.service.core.FoundationService;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.CURRENT_EVENTS;
+import static com.dmitryshundrik.knowledgebase.util.Constants.CURRENT_WEATHER;
 import static com.dmitryshundrik.knowledgebase.util.Constants.FOUNDATION_LIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.LATEST_UPDATES;
 import static com.dmitryshundrik.knowledgebase.util.Constants.RESOURCE_LIST;
@@ -41,11 +43,14 @@ public class IndexController {
 
     private final SpotifyPlayerService spotifyPlayerService;
 
+    private final WeatherService weatherService;
+
     @GetMapping("/")
     public String getIndex(Model model) {
-        model.addAttribute(YEAR_IN_MUSIC_LIST, yearInMusicService.getSortedYearInMusicViewDtoList());
+        model.addAttribute(YEAR_IN_MUSIC_LIST, yearInMusicService.getYearInMusicSimpleDtoList());
         model.addAttribute(LATEST_UPDATES, entityActivityService.getLatestActivities());
         model.addAttribute(CURRENT_EVENTS, currentEventService.getCurrentEvents(10));
+        model.addAttribute(CURRENT_WEATHER, weatherService.getCurrentWeather());
         return "index";
     }
 

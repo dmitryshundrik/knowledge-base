@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
+import com.dmitryshundrik.knowledgebase.model.dto.music.YearInMusicSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.entity.music.YearInMusic;
 import com.dmitryshundrik.knowledgebase.model.dto.music.YearInMusicCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.YearInMusicViewDto;
@@ -9,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -79,10 +79,8 @@ public class YearInMusicService {
                 .collect(Collectors.toList());
     }
 
-    public List<YearInMusicViewDto> getSortedYearInMusicViewDtoList() {
-        return getYearInMusicViewDtoList(getAll()).stream()
-                .sorted(Comparator.comparing(YearInMusicViewDto::getYear))
-                .collect(Collectors.toList());
+    public List<YearInMusicSimpleDto> getYearInMusicSimpleDtoList() {
+        return yearInMusicRepository.findAllOrderByYearAcs();
     }
 
     public YearInMusicCreateEditDto getYearInMusicCreateEditDto(YearInMusic yearInMusic) {

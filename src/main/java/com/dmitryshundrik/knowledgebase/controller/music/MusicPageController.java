@@ -4,7 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.dto.client.lastfm.topalbums.TopAlb
 import com.dmitryshundrik.knowledgebase.model.dto.client.lastfm.topartists.TopArtists;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianAllPageResponseDto;
 import com.dmitryshundrik.knowledgebase.model.entity.core.Resource;
-import com.dmitryshundrik.knowledgebase.service.client.LastFmService;
+import com.dmitryshundrik.knowledgebase.service.client.LastfmService;
 import com.dmitryshundrik.knowledgebase.service.core.ResourcesService;
 import com.dmitryshundrik.knowledgebase.model.enums.EraType;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
@@ -79,11 +79,11 @@ public class MusicPageController {
 
     private final ResourcesService resourcesService;
 
-    private final LastFmService lastFmService;
+    private final LastfmService lastFmService;
 
     @GetMapping
     public String getMusicPage(Model model) {
-        model.addAttribute(YEAR_IN_MUSIC, yearInMusicService.getSortedYearInMusicViewDtoList());
+        model.addAttribute(YEAR_IN_MUSIC, yearInMusicService.getYearInMusicSimpleDtoList());
         model.addAttribute(MUSIC_PERIOD_LIST, musicPeriodService.getAllSortedByStart());
         model.addAttribute(ALBUM_RATINGS, albumService.getAllYearsFromAlbums());
         model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getFilteredClassicalGenres());
@@ -164,8 +164,8 @@ public class MusicPageController {
 
     @GetMapping("/listening-stats")
     public String getListeningStats(Model model) {
-        TopArtists topArtists = lastFmService.processTopArtist();
-        TopAlbums topAlbums = lastFmService.processTopAlbums();
+        TopArtists topArtists = lastFmService.getTopArtists();
+        TopAlbums topAlbums = lastFmService.getTopAlbums();
         model.addAttribute("artistList", topArtists.getArtists());
         model.addAttribute("albumsList", topAlbums.getAlbums());
         return "music/listening-stats";
