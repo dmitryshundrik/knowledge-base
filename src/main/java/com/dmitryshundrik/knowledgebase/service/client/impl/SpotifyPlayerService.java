@@ -1,4 +1,4 @@
-package com.dmitryshundrik.knowledgebase.service.client.impl;
+package com.dmitryshundrik.knowledgebase.service.client;
 
 import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
