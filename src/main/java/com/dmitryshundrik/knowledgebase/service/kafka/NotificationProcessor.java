@@ -2,7 +2,7 @@ package com.dmitryshundrik.knowledgebase.service.kafka;
 
 import com.dmitryshundrik.knowledgebase.model.entity.core.CurrentEventInfo;
 import com.dmitryshundrik.knowledgebase.kafka.KafkaProducer;
-import com.dmitryshundrik.knowledgebase.service.core.CurrentEventService;
+import com.dmitryshundrik.knowledgebase.service.core.EntityNotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -14,11 +14,11 @@ public class NotificationProcessor {
 
     private final KafkaProducer kafkaProducer;
 
-    private final CurrentEventService currentEventService;
+    private final EntityNotificationService entityNotificationService;
 
-    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "${kafka.notification.processor.update.interval}")
     public void processEmailNotification() {
-        List<CurrentEventInfo> currentEvents = currentEventService.getCurrentNotification(2);
+        List<CurrentEventInfo> currentEvents = entityNotificationService.getCurrentNotifications(2);
         if (currentEvents != null && !currentEvents.isEmpty()) {
             StringBuilder email = new StringBuilder();
             email.append("Календарь событий:");

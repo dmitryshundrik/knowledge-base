@@ -2,33 +2,18 @@ package com.dmitryshundrik.knowledgebase.service.core;
 
 import com.dmitryshundrik.knowledgebase.model.entity.art.Artist;
 import com.dmitryshundrik.knowledgebase.model.entity.core.CurrentEventInfo;
-import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
-import com.dmitryshundrik.knowledgebase.model.enums.Gender;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Writer;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
-import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
-import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import com.dmitryshundrik.knowledgebase.model.enums.Gender;
+import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-@Service
-@Transactional
-@RequiredArgsConstructor
-public class CurrentEventService {
-
-    private final MusicianService musicianService;
-
-    private final WriterService writerService;
-
-    private final ArtistService artistService;
+@Component
+public class EntityEvenCreator {
 
     private static final String MALE_BORN = "родился";
 
@@ -38,39 +23,7 @@ public class CurrentEventService {
 
     private static final String FEMALE_DIE = "умерла";
 
-    public List<CurrentEventInfo> getCurrentEvents(Integer dayInterval) {
-        List<CurrentEventInfo> currentEventInfoList = new ArrayList<>();
-        currentEventInfoList.addAll(getMusicianEvents(dayInterval));
-        currentEventInfoList.addAll(getWriterEvents(dayInterval));
-        currentEventInfoList.addAll(getArtistEvents(dayInterval));
-        return currentEventInfoList.stream()
-                .sorted(Comparator.comparing(CurrentEventInfo::getMonth).thenComparing(CurrentEventInfo::getDay))
-                .collect(Collectors.toList());
-    }
-
-    public List<CurrentEventInfo> getCurrentNotification(Integer dayInterval) {
-        List<CurrentEventInfo> currentEventInfoList = new ArrayList<>();
-        currentEventInfoList.addAll(getMusicianNotification(dayInterval));
-        currentEventInfoList.addAll(getWriterNotification(dayInterval));
-        currentEventInfoList.addAll(getArtistNotification(dayInterval));
-        return currentEventInfoList.stream()
-                .sorted(Comparator.comparing(CurrentEventInfo::getMonth).thenComparing(CurrentEventInfo::getDay))
-                .collect(Collectors.toList());
-    }
-
-    public List<CurrentEventInfo> getMusicianEvents(Integer dayInterval) {
-        Set<Musician> musicianBirthList = musicianService.getAllWithCurrentBirth(dayInterval);
-        Set<Musician> musicianDeathList = musicianService.getAllWithCurrentDeath(dayInterval);
-        return musicianEventCreator(musicianBirthList, musicianDeathList);
-    }
-
-    public List<CurrentEventInfo> getMusicianNotification(Integer dayInterval) {
-        Set<Musician> musicianBirthList = musicianService.getAllWithCurrentBirthAndNotification(dayInterval);
-        Set<Musician> musicianDeathList = musicianService.getAllWithCurrentDeathAndNotification(dayInterval);
-        return musicianEventCreator(musicianBirthList, musicianDeathList);
-    }
-
-    public List<CurrentEventInfo> musicianEventCreator(Set<Musician> musicianBirthList, Set<Musician> musicianDeathList) {
+    public List<CurrentEventInfo> createMusicianEvents(Set<Musician> musicianBirthList, Set<Musician> musicianDeathList) {
         List<CurrentEventInfo> musicianEventInfoList = new ArrayList<>();
         for (Musician musician : musicianBirthList) {
             musicianEventInfoList.add(CurrentEventInfo.builder()
@@ -95,19 +48,7 @@ public class CurrentEventService {
         return musicianEventInfoList;
     }
 
-    public List<CurrentEventInfo> getWriterEvents(Integer dayInterval) {
-        Set<Writer> writerBirthList = writerService.getAllWithCurrentBirth(dayInterval);
-        Set<Writer> writerDeathList = writerService.getAllWithCurrentDeath(dayInterval);
-        return writerEventCreator(writerBirthList, writerDeathList);
-    }
-
-    public List<CurrentEventInfo> getWriterNotification(Integer dayInterval) {
-        Set<Writer> entityBirthList = writerService.getAllWithCurrentBirthAndNotification(dayInterval);
-        Set<Writer> entityDeathList = writerService.getAllWithCurrentDeathAndNotification(dayInterval);
-        return writerEventCreator(entityBirthList, entityDeathList);
-    }
-
-    public List<CurrentEventInfo> writerEventCreator(Set<Writer> entityBirthList, Set<Writer> entityDeathList) {
+    public List<CurrentEventInfo> createWriterEvents(Set<Writer> entityBirthList, Set<Writer> entityDeathList) {
         List<CurrentEventInfo> entityEventInfoList = new ArrayList<>();
         for (Writer writer : entityBirthList) {
             entityEventInfoList.add(CurrentEventInfo.builder()
@@ -132,19 +73,7 @@ public class CurrentEventService {
         return entityEventInfoList;
     }
 
-    public List<CurrentEventInfo> getArtistEvents(Integer dayInterval) {
-        Set<Artist> artistBirthList = artistService.getAllWithCurrentBirth(dayInterval);
-        Set<Artist> artistDeathList = artistService.getAllWithCurrentDeath(dayInterval);
-        return artistEventCreator(artistBirthList, artistDeathList);
-    }
-
-    public List<CurrentEventInfo> getArtistNotification(Integer dayInterval) {
-        Set<Artist> entityBirthList = artistService.getAllWithCurrentBirthAndNotification(dayInterval);
-        Set<Artist> entityDeathList = artistService.getAllWithCurrentDeathAndNotification(dayInterval);
-        return artistEventCreator(entityBirthList, entityDeathList);
-    }
-
-    public List<CurrentEventInfo> artistEventCreator(Set<Artist> entityBirthList, Set<Artist> entityDeathList) {
+    public List<CurrentEventInfo> createArtistEvents(Set<Artist> entityBirthList, Set<Artist> entityDeathList) {
         List<CurrentEventInfo> entityEventInfoList = new ArrayList<>();
         for (Artist artist : entityBirthList) {
             entityEventInfoList.add(CurrentEventInfo.builder()

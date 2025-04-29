@@ -5,7 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.entity.core.Resource;
 import com.dmitryshundrik.knowledgebase.model.dto.core.FoundationDto;
 import com.dmitryshundrik.knowledgebase.model.dto.core.ResourceDto;
 import com.dmitryshundrik.knowledgebase.service.client.WeatherService;
-import com.dmitryshundrik.knowledgebase.service.core.CurrentEventService;
+import com.dmitryshundrik.knowledgebase.service.core.EntityEventService;
 import com.dmitryshundrik.knowledgebase.service.core.EntityActivityService;
 import com.dmitryshundrik.knowledgebase.service.core.FoundationService;
 import com.dmitryshundrik.knowledgebase.service.core.ResourcesService;
@@ -39,7 +39,7 @@ public class IndexController {
 
     private final ResourcesService resourcesService;
 
-    private final CurrentEventService currentEventService;
+    private final EntityEventService entityEventService;
 
     private final SpotifyPlayerService spotifyPlayerService;
 
@@ -49,7 +49,7 @@ public class IndexController {
     public String getIndex(Model model) {
         model.addAttribute(YEAR_IN_MUSIC_LIST, yearInMusicService.getYearInMusicSimpleDtoList());
         model.addAttribute(LATEST_UPDATES, entityActivityService.getLatestActivities());
-        model.addAttribute(CURRENT_EVENTS, currentEventService.getCurrentEvents(10));
+        model.addAttribute(CURRENT_EVENTS, entityEventService.getCurrentEvents(10));
         model.addAttribute(CURRENT_WEATHER, weatherService.getCurrentWeather());
         return "index";
     }
