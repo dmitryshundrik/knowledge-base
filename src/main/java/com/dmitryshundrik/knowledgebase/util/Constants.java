@@ -26,6 +26,11 @@ public final class Constants {
     public static final String TOP_ALBUM_CACHE = "topAlbumCache";
     public static final String UNKNOWN_VALUE = "N/A";
 
+    public static final String MALE_BORN = "родился";
+    public static final String FEMALE_BORN = "родилась";
+    public static final String MALE_DIE = "умер";
+    public static final String FEMALE_DIE = "умерла";
+
     public static final String GETTING_CURRENT_WEATHER_FAIL_MESSAGE = "Failed to fetch weather data: %s";
     public static final String GETTING_TOP_ARTISTS_FAIL_MESSAGE = "Failed to fetch top artists data: %s";
     public static final String GETTING_TOP_ALBUMS_FAIL_MESSAGE = "Failed to fetch top albums data: %s";

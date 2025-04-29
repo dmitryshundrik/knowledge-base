@@ -12,16 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.FEMALE_BORN;
+import static com.dmitryshundrik.knowledgebase.util.Constants.FEMALE_DIE;
+import static com.dmitryshundrik.knowledgebase.util.Constants.MALE_BORN;
+import static com.dmitryshundrik.knowledgebase.util.Constants.MALE_DIE;
+
 @Component
 public class EntityEvenCreator {
-
-    private static final String MALE_BORN = "родился";
-
-    private static final String FEMALE_BORN = "родилась";
-
-    private static final String MALE_DIE = "умер";
-
-    private static final String FEMALE_DIE = "умерла";
 
     public List<CurrentEventInfo> createMusicianEvents(Set<Musician> musicianBirthList, Set<Musician> musicianDeathList) {
         List<CurrentEventInfo> musicianEventInfoList = new ArrayList<>();
