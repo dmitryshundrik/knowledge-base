@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface EntityNotificationService {
 
-    List<EntityCurrentEvent> getCurrentNotifications(Integer dayInterval);
+    List<EntityCurrentEvent> getEntityNotifications(Integer dayInterval);
 }

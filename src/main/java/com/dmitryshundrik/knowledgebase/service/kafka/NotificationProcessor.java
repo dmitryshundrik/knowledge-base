@@ -16,9 +16,9 @@ public class NotificationProcessor {
 
     private final EntityNotificationService entityNotificationService;
 
-    @Scheduled(cron = "${kafka.notification.processor.update.interval}")
+    @Scheduled(cron = "${kafka.email-notification.update.interval}")
     public void processEmailNotification() {
-        List<EntityCurrentEvent> currentEvents = entityNotificationService.getCurrentNotifications(2);
+        List<EntityCurrentEvent> currentEvents = entityNotificationService.getEntityNotifications(2);
         if (currentEvents != null && !currentEvents.isEmpty()) {
             StringBuilder email = new StringBuilder();
             email.append("Календарь событий:");

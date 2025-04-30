@@ -32,7 +32,7 @@ public class EntityNotificationServiceImpl implements EntityNotificationService 
     private final EntityEventCreator entityEventCreator;
 
     @Override
-    public List<EntityCurrentEvent> getCurrentNotifications(Integer dayInterval) {
+    public List<EntityCurrentEvent> getEntityNotifications(Integer dayInterval) {
         List<EntityCurrentEvent> entityCurrentEventList = new ArrayList<>();
         entityCurrentEventList.addAll(getMusicianNotifications(dayInterval));
         entityCurrentEventList.addAll(getWriterNotifications(dayInterval));
