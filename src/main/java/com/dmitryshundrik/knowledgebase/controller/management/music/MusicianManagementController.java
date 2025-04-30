@@ -60,7 +60,7 @@ public class MusicianManagementController {
         musicianDto.setAlbumsSortType(SortType.YEAR);
         musicianDto.setCompositionsSortType(SortType.YEAR);
         model.addAttribute(MUSICIAN, musicianDto);
-        model.addAttribute(MUSIC_PERIOD_LIST, musicPeriodService.getAllSortedByStart());
+        model.addAttribute(MUSIC_PERIOD_LIST, musicPeriodService.getAllOrderByStart());
         model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenres());
         model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenres());
         model.addAttribute(SORT_TYPE_LIST, SortType.values());
@@ -71,10 +71,10 @@ public class MusicianManagementController {
     @PostMapping("/management/musician/create")
     public String postCreateMusician(@Valid @ModelAttribute(MUSICIAN) MusicianCreateEditDto musicianDto,
                                      BindingResult bindingResult, Model model) {
-        String error = musicianService.musicianSlugIsExist(musicianDto.getSlug());
+        String error = musicianService.isSlugExists(musicianDto.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute(SLUG, error);
-            model.addAttribute(MUSIC_PERIOD_LIST, musicPeriodService.getAllSortedByStart());
+            model.addAttribute(MUSIC_PERIOD_LIST, musicPeriodService.getAllOrderByStart());
             model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenres());
             model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenres());
             model.addAttribute(SORT_TYPE_LIST, SortType.values());
@@ -87,9 +87,9 @@ public class MusicianManagementController {
 
     @GetMapping("/management/musician/edit/{musicianSlug}")
     public String getEditMusicianBySlug(@PathVariable String musicianSlug, Model model) {
-        Musician musicianBySlug = musicianService.getMusicianBySlug(musicianSlug);
+        Musician musicianBySlug = musicianService.getBySlug(musicianSlug);
         model.addAttribute(MUSICIAN, musicianService.getMusicianCreateEditDto(musicianBySlug));
-        model.addAttribute(MUSIC_PERIOD_LIST, musicPeriodService.getAllSortedByStart());
+        model.addAttribute(MUSIC_PERIOD_LIST, musicPeriodService.getAllOrderByStart());
         model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenres());
         model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenres());
         model.addAttribute(SORT_TYPE_LIST, SortType.values());
@@ -108,7 +108,7 @@ public class MusicianManagementController {
     public String postUploadMusicianImage(@PathVariable String musicianSlug,
                                           @RequestParam("file") MultipartFile file) throws IOException {
         byte[] bytes = Base64.encodeBase64(file.getBytes());
-        musicianService.updateMusicianImageBySlug(musicianSlug, bytes);
+        musicianService.updateMusicianImage(musicianSlug, bytes);
         return "redirect:/management/musician/edit/" + musicianSlug;
     }
 
@@ -120,7 +120,7 @@ public class MusicianManagementController {
 
     @DeleteMapping("/management/musician/delete/{musicianSlug}")
     public String deleteMusicianBySlug(@PathVariable String musicianSlug) {
-        musicianService.deleteMusicianBySlug(musicianSlug);
+        musicianService.deleteMusician(musicianSlug);
         return "redirect:/management/musician/all";
     }
 }

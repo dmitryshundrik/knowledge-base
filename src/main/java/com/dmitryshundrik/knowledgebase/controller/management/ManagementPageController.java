@@ -49,9 +49,9 @@ public class ManagementPageController {
 
     @GetMapping()
     public String getManagementPage(Model model) {
-        model.addAttribute("musicianCount", musicianService.getMusicianRepositorySize());
-        model.addAttribute("albumCount", albumService.getAlbumRepositorySize());
-        model.addAttribute("compositionCount", compositionService.getCompositionRepositorySize());
+        model.addAttribute("musicianCount", musicianService.getRepositorySize());
+        model.addAttribute("albumCount", albumService.getRepositorySize());
+        model.addAttribute("compositionCount", compositionService.getRepositorySize());
         model.addAttribute("recipeCount", recipeService.getRepositorySize());
         model.addAttribute("cocktailCount", cocktailService.getRepositorySize());
         model.addAttribute("writerCount", writerService.getRepositorySize());

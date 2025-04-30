@@ -51,7 +51,7 @@ public class WriterManagementController {
     @PostMapping("/management/writer/create")
     public String postWriterCreate(@Valid @ModelAttribute(WRITER) WriterCreateEditDto writerDto, BindingResult bindingResult,
                                    Model model) {
-        String error = writerService.isSlugExist(writerDto.getSlug());
+        String error = writerService.isSlugExists(writerDto.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute(SLUG, error);
             model.addAttribute(GENDER_LIST, Gender.values());

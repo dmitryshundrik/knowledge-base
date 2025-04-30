@@ -25,6 +25,8 @@ public final class Constants {
     public static final String TOP_ARTIST_CACHE = "topArtistCache";
     public static final String TOP_ALBUM_CACHE = "topAlbumCache";
     public static final String UNKNOWN_VALUE = "N/A";
+    public static final String ENTITY_EVENT_CACHE = "entityEventCache";
+    public static final String ENTITY_ACTIVITY_CACHE = "entityActivityCache";
 
     public static final String MALE_BORN = "родился";
     public static final String FEMALE_BORN = "родилась";

@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.core;
 
 import com.dmitryshundrik.knowledgebase.model.entity.art.Artist;
-import com.dmitryshundrik.knowledgebase.model.entity.core.CurrentEventInfo;
+import com.dmitryshundrik.knowledgebase.model.entity.core.EntityCurrentEvent;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Writer;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.enums.Gender;
@@ -18,12 +18,12 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.MALE_BORN;
 import static com.dmitryshundrik.knowledgebase.util.Constants.MALE_DIE;
 
 @Component
-public class EntityEvenCreator {
+public class EntityEventCreator {
 
-    public List<CurrentEventInfo> createMusicianEvents(Set<Musician> musicianBirthList, Set<Musician> musicianDeathList) {
-        List<CurrentEventInfo> musicianEventInfoList = new ArrayList<>();
+    public List<EntityCurrentEvent> createMusicianEvents(Set<Musician> musicianBirthList, Set<Musician> musicianDeathList) {
+        List<EntityCurrentEvent> musicianEventInfoList = new ArrayList<>();
         for (Musician musician : musicianBirthList) {
-            musicianEventInfoList.add(CurrentEventInfo.builder()
+            musicianEventInfoList.add(EntityCurrentEvent.builder()
                     .personNickname(musician.getNickName())
                     .personLink("/music/musician/" + musician.getSlug())
                     .date(getDateForCurrentEvent(musician.getBirthDate()))
@@ -33,7 +33,7 @@ public class EntityEvenCreator {
                     .occupation(musician.getOccupation()).build());
         }
         for (Musician musician : musicianDeathList) {
-            musicianEventInfoList.add(CurrentEventInfo.builder()
+            musicianEventInfoList.add(EntityCurrentEvent.builder()
                     .personNickname(musician.getNickName())
                     .personLink("/music/musician/" + musician.getSlug())
                     .date(getDateForCurrentEvent(musician.getDeathDate()))
@@ -45,10 +45,10 @@ public class EntityEvenCreator {
         return musicianEventInfoList;
     }
 
-    public List<CurrentEventInfo> createWriterEvents(Set<Writer> entityBirthList, Set<Writer> entityDeathList) {
-        List<CurrentEventInfo> entityEventInfoList = new ArrayList<>();
+    public List<EntityCurrentEvent> createWriterEvents(Set<Writer> entityBirthList, Set<Writer> entityDeathList) {
+        List<EntityCurrentEvent> entityCurrentEventList = new ArrayList<>();
         for (Writer writer : entityBirthList) {
-            entityEventInfoList.add(CurrentEventInfo.builder()
+            entityCurrentEventList.add(EntityCurrentEvent.builder()
                     .personNickname(writer.getNickName())
                     .personLink("/literature/writer/" + writer.getSlug())
                     .date(getDateForCurrentEvent(writer.getBirthDate()))
@@ -58,7 +58,7 @@ public class EntityEvenCreator {
                     .occupation(writer.getOccupation()).build());
         }
         for (Writer writer : entityDeathList) {
-            entityEventInfoList.add(CurrentEventInfo.builder()
+            entityCurrentEventList.add(EntityCurrentEvent.builder()
                     .personNickname(writer.getNickName())
                     .personLink("/literature/writer/" + writer.getSlug())
                     .date(getDateForCurrentEvent(writer.getDeathDate()))
@@ -67,13 +67,13 @@ public class EntityEvenCreator {
                     .dateType(" " + getDeathTypeForGender(writer.getGender()) + " ")
                     .occupation(writer.getOccupation()).build());
         }
-        return entityEventInfoList;
+        return entityCurrentEventList;
     }
 
-    public List<CurrentEventInfo> createArtistEvents(Set<Artist> entityBirthList, Set<Artist> entityDeathList) {
-        List<CurrentEventInfo> entityEventInfoList = new ArrayList<>();
+    public List<EntityCurrentEvent> createArtistEvents(Set<Artist> entityBirthList, Set<Artist> entityDeathList) {
+        List<EntityCurrentEvent> entityCurrentEventList = new ArrayList<>();
         for (Artist artist : entityBirthList) {
-            entityEventInfoList.add(CurrentEventInfo.builder()
+            entityCurrentEventList.add(EntityCurrentEvent.builder()
                     .personLink("/art/artist/" + artist.getSlug())
                     .personNickname(artist.getNickName())
                     .personImage(artist.getImage())
@@ -84,7 +84,7 @@ public class EntityEvenCreator {
                     .occupation(artist.getOccupation()).build());
         }
         for (Artist artist : entityDeathList) {
-            entityEventInfoList.add(CurrentEventInfo.builder()
+            entityCurrentEventList.add(EntityCurrentEvent.builder()
                     .personLink("/art/artist/" + artist.getSlug())
                     .personNickname(artist.getNickName())
                     .personImage(artist.getImage())
@@ -94,7 +94,7 @@ public class EntityEvenCreator {
                     .dateType(" " + getDeathTypeForGender(artist.getGender()) + " ")
                     .occupation(artist.getOccupation()).build());
         }
-        return entityEventInfoList;
+        return entityCurrentEventList;
     }
 
     public String getBirthTypeForGender(Gender gender) {

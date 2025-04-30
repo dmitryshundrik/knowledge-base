@@ -45,7 +45,7 @@ public class CriticsListManagementController {
     @PostMapping("/management/critics-list/create")
     public String postCriticsListCreate(@Valid @ModelAttribute(CRITICS_LIST) CriticsListCreateEditDto criticsListDto,
                                         BindingResult bindingResult, Model model) {
-        String error = criticsListService.isSlugExist(criticsListDto.getSlug());
+        String error = criticsListService.isSlugExists(criticsListDto.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute(SLUG, error);
             return "management/cinema/critics-list-create";

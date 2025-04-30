@@ -57,26 +57,26 @@ public class YearInMusicManagementController {
 
     @GetMapping("management/year-in-music/edit/{yearIMSlug}")
     public String getEditYearInMusic(@PathVariable String yearIMSlug, Model model) {
-        YearInMusic yearInMusicBySlug = yearInMusicService.getYearInMusicBySlug(yearIMSlug);
+        YearInMusic yearInMusicBySlug = yearInMusicService.getBySlug(yearIMSlug);
         model.addAttribute(YEAR_IN_MUSIC, yearInMusicService
                 .getYearInMusicCreateEditDto(yearInMusicBySlug));
         model.addAttribute(MUSICIAN_LIST, MusicianDtoTransformer
                 .getMusicianSelectDtoList(musicianService
-                        .getAllMusiciansWithWorksByYear(yearInMusicBySlug.getYear())));
+                        .getAllWithWorksByYear(yearInMusicBySlug.getYear())));
         return "management/music/year-in-music-edit";
     }
 
     @PutMapping("management/year-in-music/edit/{yearIMSlug}")
     public String putEditYearInMusic(@PathVariable String yearIMSlug,
                                      @ModelAttribute(YEAR_IN_MUSIC) YearInMusicCreateEditDto yearInMusicDto) {
-        YearInMusic yearInMusicBySlug = yearInMusicService.getYearInMusicBySlug(yearIMSlug);
+        YearInMusic yearInMusicBySlug = yearInMusicService.getBySlug(yearIMSlug);
         String yearInMusicDtoSlug = yearInMusicService.updateYearInMusic(yearInMusicBySlug, yearInMusicDto).getSlug();
         return "redirect:/management/year-in-music/edit/" + yearInMusicDtoSlug;
     }
 
     @DeleteMapping("management/year-in-music/delete/{yearIMSlug}")
     public String deleteYearInMusicBySlug(@PathVariable String yearIMSlug) {
-        YearInMusic yearInMusicBySlug = yearInMusicService.getYearInMusicBySlug(yearIMSlug);
+        YearInMusic yearInMusicBySlug = yearInMusicService.getBySlug(yearIMSlug);
         yearInMusicService.deleteYearInMusic(yearInMusicBySlug);
         return "redirect:/management/year-in-music/all";
     }

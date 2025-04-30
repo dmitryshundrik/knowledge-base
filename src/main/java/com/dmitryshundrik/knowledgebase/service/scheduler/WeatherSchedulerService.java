@@ -1,5 +1,6 @@
-package com.dmitryshundrik.knowledgebase.service.client;
+package com.dmitryshundrik.knowledgebase.service.scheduler;
 
+import com.dmitryshundrik.knowledgebase.service.client.WeatherService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

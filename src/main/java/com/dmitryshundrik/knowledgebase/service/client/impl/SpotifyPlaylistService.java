@@ -1,4 +1,4 @@
-package com.dmitryshundrik.knowledgebase.service.client;
+package com.dmitryshundrik.knowledgebase.service.client.impl;
 
 import com.dmitryshundrik.knowledgebase.mapper.client.PlaylistMapper;
 import com.dmitryshundrik.knowledgebase.model.dto.client.spotify.playlist.request.SimplifiedPlaylistObject;

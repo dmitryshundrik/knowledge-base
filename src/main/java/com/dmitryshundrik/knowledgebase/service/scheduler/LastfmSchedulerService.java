@@ -1,5 +1,6 @@
-package com.dmitryshundrik.knowledgebase.service.client;
+package com.dmitryshundrik.knowledgebase.service.scheduler;
 
+import com.dmitryshundrik.knowledgebase.service.client.LastfmService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;

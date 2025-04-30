@@ -17,7 +17,7 @@ public interface RecipeService extends BaseService {
     Recipe getBySlug(String recipeSlug);
 
     List<Recipe> getAll();
-    List<Recipe> getAllBySortedByCreatedDesc();
+    List<Recipe> getAllByOrderByCreatedDesc();
     List<Recipe> getAllByCountry(Country country);
     List<Recipe> getLatestUpdate();
 

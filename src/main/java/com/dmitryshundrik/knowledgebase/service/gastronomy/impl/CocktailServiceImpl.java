@@ -34,7 +34,7 @@ public class CocktailServiceImpl implements CocktailService {
     }
 
     @Override
-    public List<Cocktail> getAllBySortedByCreatedDesc() {
+    public List<Cocktail> getAllByOrderByCreatedDesc() {
         return cocktailRepository.findAllByOrderByCreatedDesc();
     }
 
@@ -78,7 +78,7 @@ public class CocktailServiceImpl implements CocktailService {
     }
 
     @Override
-    public String isSlugExist(String cocktailSlug) {
+    public String isSlugExists(String cocktailSlug) {
         String message = "";
         if (getBySlug(cocktailSlug) != null) {
             message = SLUG_IS_ALREADY_EXIST;

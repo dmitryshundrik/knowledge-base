@@ -31,27 +31,31 @@ public class ResourcesService {
         return resourcesRepository.findAllByResourceTypeOrderByCreatedAsc(resourceType);
     }
 
-    public List<Resource> getAllSortedByCreated() {
+    public List<Resource> getAllOrderByCreated() {
         return resourcesRepository.findAllByOrderByCreatedAsc();
     }
 
-    public ResourceDto createResource(ResourceDto resourceDTO) {
+    public List<Resource> getLatestUpdate() {
+        return resourcesRepository.findFirst20ByOrderByCreatedDesc();
+    }
+
+    public ResourceDto createResource(ResourceDto resourceDto) {
         Resource resource = new Resource();
-        setFieldsFromDTO(resource, resourceDTO);
-        return getResourceDTO(resourcesRepository.save(resource));
+        setFieldsFromDto(resource, resourceDto);
+        return getResourceDto(resourcesRepository.save(resource));
     }
 
     public ResourceDto updateResource(String resourceId, ResourceDto resourceDTO) {
         Resource byId = getById(resourceId);
-        setFieldsFromDTO(byId, resourceDTO);
-        return getResourceDTO(byId);
+        setFieldsFromDto(byId, resourceDTO);
+        return getResourceDto(byId);
     }
 
     public void deleteResource(String resourceId) {
         resourcesRepository.deleteById(UUID.fromString(resourceId));
     }
 
-    public ResourceDto getResourceDTO(Resource resource) {
+    public ResourceDto getResourceDto(Resource resource) {
         return ResourceDto.builder()
                 .id(resource.getId().toString())
                 .created(InstantFormatter.instantFormatterYMD(resource.getCreated()))
@@ -62,20 +66,16 @@ public class ResourcesService {
                 .build();
     }
 
-    public List<ResourceDto> getResourceDTOList(List<Resource> resourceList) {
+    public List<ResourceDto> getResourceDtoList(List<Resource> resourceList) {
         return resourceList.stream()
-                .map(this::getResourceDTO)
+                .map(this::getResourceDto)
                 .collect(Collectors.toList());
     }
 
-    public void setFieldsFromDTO(Resource resource, ResourceDto resourceDTO) {
+    public void setFieldsFromDto(Resource resource, ResourceDto resourceDTO) {
         resource.setTitle(resourceDTO.getTitle());
         resource.setDescription(resourceDTO.getDescription());
         resource.setLink(resourceDTO.getLink());
         resource.setResourceType(resourceDTO.getResourceType());
-    }
-
-    public List<Resource> getLatestUpdate() {
-        return resourcesRepository.findFirst20ByOrderByCreatedDesc();
     }
 }

@@ -68,7 +68,7 @@ public class CriticsListServiceImpl implements CriticsListService {
     }
 
     @Override
-    public String isSlugExist(String criticsListSlug) {
+    public String isSlugExists(String criticsListSlug) {
         String message = "";
         if (criticsListRepository.findBySlug(criticsListSlug) != null) {
             message = SLUG_IS_ALREADY_EXIST;

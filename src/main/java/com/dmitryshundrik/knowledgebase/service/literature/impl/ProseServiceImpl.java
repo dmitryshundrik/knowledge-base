@@ -122,7 +122,7 @@ public class ProseServiceImpl implements ProseService {
     }
 
     @Override
-    public String isSlugExist(String proseSlug) {
+    public String isSlugExists(String proseSlug) {
         String message = "";
         if (getBySlug(proseSlug) != null) {
             message = SLUG_IS_ALREADY_EXIST;

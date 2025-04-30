@@ -1,4 +1,4 @@
-package com.dmitryshundrik.knowledgebase.service.client;
+package com.dmitryshundrik.knowledgebase.service.client.impl;
 
 import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
@@ -79,7 +79,7 @@ public class SpotifyPlayerService {
         String musicianNickname = artists.split(",")[0].trim();
         currentSong.setArtists(musicianNickname);
 
-        Musician musician = musicianService.getMusicianByNickname(musicianNickname);
+        Musician musician = musicianService.getByNickname(musicianNickname);
         if (musician == null) {
             return currentSong;
         }

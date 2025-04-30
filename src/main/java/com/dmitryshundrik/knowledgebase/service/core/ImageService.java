@@ -21,22 +21,22 @@ public class ImageService {
 
     private final ImageRepository imageRepository;
 
+    public Image getBySlug(String imageSlug) {
+        return imageRepository.findBySlug(imageSlug);
+    }
+
     public List<Image> getAll() {
         return imageRepository.findAll();
     }
 
-    public List<Image> getAllSortedByCreatedDesc() {
+    public List<Image> getAllOrderByCreatedDesc() {
         return imageRepository.findAllByOrderByCreatedDesc();
     }
 
-    public List<Image> getSortedByCreatedDesc(List<Image> imageList) {
+    public List<Image> getOrderByCreatedDesc(List<Image> imageList) {
         return imageList.stream()
                 .sorted((o1, o2) -> o2.getCreated().compareTo(o1.getCreated()))
                 .collect(Collectors.toList());
-    }
-
-    public Image getBySlug(String imageSlug) {
-        return imageRepository.findBySlug(imageSlug);
     }
 
     public ImageDto createImage(ImageDto imageDto) {

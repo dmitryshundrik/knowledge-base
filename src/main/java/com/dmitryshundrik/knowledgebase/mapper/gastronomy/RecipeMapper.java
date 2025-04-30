@@ -33,7 +33,7 @@ public abstract class RecipeMapper {
 
         recipeDto.setImageList(recipe.getImageList() != null ? imageService
                 .getImageDtoList(imageService
-                        .getSortedByCreatedDesc(recipe.getImageList())) : null);
+                        .getOrderByCreatedDesc(recipe.getImageList())) : null);
     }
 
     @Mapping(target = "imageList", ignore = true)
@@ -43,6 +43,6 @@ public abstract class RecipeMapper {
     public void toRecipeCreateEditDtoPostProcess(@MappingTarget RecipeCreateEditDto recipeDto, Recipe recipe) {
         recipeDto.setImageList(recipe.getImageList() != null ? imageService
                 .getImageDtoList(imageService
-                        .getSortedByCreatedDesc(recipe.getImageList())) : null);
+                        .getOrderByCreatedDesc(recipe.getImageList())) : null);
     }
 }

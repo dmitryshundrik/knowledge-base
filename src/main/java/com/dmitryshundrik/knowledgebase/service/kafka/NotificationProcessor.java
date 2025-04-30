@@ -1,6 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.kafka;
 
-import com.dmitryshundrik.knowledgebase.model.entity.core.CurrentEventInfo;
+import com.dmitryshundrik.knowledgebase.model.entity.core.EntityCurrentEvent;
 import com.dmitryshundrik.knowledgebase.kafka.KafkaProducer;
 import com.dmitryshundrik.knowledgebase.service.core.EntityNotificationService;
 import lombok.RequiredArgsConstructor;
@@ -18,17 +18,17 @@ public class NotificationProcessor {
 
     @Scheduled(cron = "${kafka.notification.processor.update.interval}")
     public void processEmailNotification() {
-        List<CurrentEventInfo> currentEvents = entityNotificationService.getCurrentNotifications(2);
+        List<EntityCurrentEvent> currentEvents = entityNotificationService.getCurrentNotifications(2);
         if (currentEvents != null && !currentEvents.isEmpty()) {
             StringBuilder email = new StringBuilder();
             email.append("Календарь событий:");
             email.append(System.lineSeparator());
-            for (CurrentEventInfo currentEventInfo : currentEvents) {
-                email.append(currentEventInfo.getDate());
-                email.append(currentEventInfo.getDateType());
-                email.append(currentEventInfo.getOccupation());
+            for (EntityCurrentEvent entityCurrentEvent : currentEvents) {
+                email.append(entityCurrentEvent.getDate());
+                email.append(entityCurrentEvent.getDateType());
+                email.append(entityCurrentEvent.getOccupation());
                 email.append(" ");
-                email.append(currentEventInfo.getPersonNickname()).append(".");
+                email.append(entityCurrentEvent.getPersonNickname()).append(".");
                 email.append(System.lineSeparator());
             }
             kafkaProducer.sendMessage("email-notification", email.toString());

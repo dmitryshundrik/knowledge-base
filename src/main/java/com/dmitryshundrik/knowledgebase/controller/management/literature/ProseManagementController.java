@@ -53,7 +53,7 @@ public class ProseManagementController {
     public String postProseCreate(@PathVariable String writerSlug,
                                   @ModelAttribute(PROSE) ProseCreateEditDto proseDto, BindingResult bindingResult,
                                   Model model) {
-        String error = proseService.isSlugExist(proseDto.getSlug());
+        String error = proseService.isSlugExists(proseDto.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             proseDto.setWriterNickname(writerService.getBySlug(writerSlug).getNickName());
             proseDto.setWriterSlug(writerSlug);

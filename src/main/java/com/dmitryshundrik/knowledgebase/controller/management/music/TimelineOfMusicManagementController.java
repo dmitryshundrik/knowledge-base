@@ -28,7 +28,7 @@ public class TimelineOfMusicManagementController {
     @GetMapping("/management/timeline-of-music/event/all")
     public String getAllEventsForTimelineOfMusic(Model model) {
         model.addAttribute(TIMELINE_EVENT_LIST, timelineEventService
-                .getTimelineEventDTOList(timelineEventService.getAllEventsByType(TimelineEventType.MUSIC)));
+                .getTimelineEventDtoList(timelineEventService.getAllByType(TimelineEventType.MUSIC)));
         return "management/music/timeline-of-music-all";
     }
 
@@ -40,15 +40,15 @@ public class TimelineOfMusicManagementController {
     }
 
     @PostMapping("/management/timeline-of-music/event/create")
-    public String postCreateEventForTimelineOfMusic(@ModelAttribute(TIMELINE_EVENT) TimelineEventDto timelineEventDTO) {
-        String timelineEventId = timelineEventService.createEventForTimelineOfMusic(timelineEventDTO);
+    public String postCreateEventForTimelineOfMusic(@ModelAttribute(TIMELINE_EVENT) TimelineEventDto timelineEventDto) {
+        String timelineEventId = timelineEventService.createEventForTimelineOfMusic(timelineEventDto);
         return "redirect:/management/timeline-of-music/event/edit/" + timelineEventId;
     }
 
     @GetMapping("/management/timeline-of-music/event/edit/{eventId}")
     public String getEditEventForTimelineOfMusic(@PathVariable String eventId, Model model) {
-        TimelineEvent timelineEventById = timelineEventService.getTimelineEventById(eventId);
-        model.addAttribute(TIMELINE_EVENT, timelineEventService.getTimelineEventDTO(timelineEventById));
+        TimelineEvent timelineEventById = timelineEventService.getById(eventId);
+        model.addAttribute(TIMELINE_EVENT, timelineEventService.getTimelineEventDto(timelineEventById));
         model.addAttribute(ERA_TYPE_LIST, EraType.values());
         return "management/music/timeline-of-music-edit";
     }

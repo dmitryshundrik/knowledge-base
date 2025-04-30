@@ -35,7 +35,7 @@ public class ArtistManagementController {
 
     @GetMapping("/management/artist/all")
     public String getAllArtists(Model model) {
-        List<Artist> allSortedByCreatedDesc = artistService.getAllSortedByCreatedDesc();
+        List<Artist> allSortedByCreatedDesc = artistService.getAllOrderByCreatedDesc();
         List<ArtistViewDto> artistDtoList = artistService.getArtistViewDtoList(allSortedByCreatedDesc);
         model.addAttribute(ARTIST_LIST, artistDtoList);
         return "management/art/artist-archive";
@@ -52,7 +52,7 @@ public class ArtistManagementController {
     @PostMapping("/management/artist/create")
     public String postArtistCreate(@Valid @ModelAttribute(ARTIST) ArtistCreateEditDto artistDto,
                                     BindingResult bindingResult, Model model) {
-        String error = artistService.isSlugExist(artistDto.getSlug());
+        String error = artistService.isSlugExists(artistDto.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute(SLUG, error);
             model.addAttribute(GENDER_LIST, Gender.values());

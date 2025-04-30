@@ -40,7 +40,7 @@ class CompositionServiceTest {
     void getCompositionBySlug_successfullyTest() {
         when(compositionRepository.findCompositionBySlug(composition.getSlug())).thenReturn(composition);
 
-        Composition retrievedComposition = compositionService.getCompositionBySlug(composition.getSlug());
+        Composition retrievedComposition = compositionService.getBySlug(composition.getSlug());
 
         verify(compositionRepository).findCompositionBySlug(composition.getSlug());
 

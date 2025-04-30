@@ -132,7 +132,7 @@ public class WriterServiceImpl implements WriterService {
     public Set<Writer> getAllWithCurrentBirth(Integer dayInterval) {
         Set<Writer> writerBirthList = new HashSet<>();
         for (int i = 0; i < dayInterval; i++) {
-            writerBirthList.addAll(writerRepository.findAllWithCurrentBirth(LocalDate.now().plusDays(i)));
+            writerBirthList.addAll(writerRepository.findAllWithCurrentBirth(LocalDate.now().plusDays(i), null));
         }
         return writerBirthList;
     }
@@ -141,7 +141,7 @@ public class WriterServiceImpl implements WriterService {
     public Set<Writer> getAllWithCurrentDeath(Integer dayInterval) {
         Set<Writer> writerDeathList = new HashSet<>();
         for (int i = 0; i < dayInterval; i++) {
-            writerDeathList.addAll(writerRepository.findAllWithCurrentDeath(LocalDate.now().plusDays(i)));
+            writerDeathList.addAll(writerRepository.findAllWithCurrentDeath(LocalDate.now().plusDays(i), null));
         }
         return writerDeathList;
     }
@@ -151,7 +151,7 @@ public class WriterServiceImpl implements WriterService {
         Set<Writer> writerBirthList = new HashSet<>();
         for (int i = 0; i < dayInterval; i++) {
             writerBirthList.addAll(writerRepository
-                    .findAllWithCurrentBirthAndNotification(LocalDate.now().plusDays(i), true));
+                    .findAllWithCurrentBirth(LocalDate.now().plusDays(i), true));
         }
         return writerBirthList;
     }
@@ -161,13 +161,13 @@ public class WriterServiceImpl implements WriterService {
         Set<Writer> writerDeathList = new HashSet<>();
         for (int i = 0; i < dayInterval; i++) {
             writerDeathList.addAll(writerRepository
-                    .findAllWithCurrentDeathAndNotification(LocalDate.now().plusDays(i), true));
+                    .findAllWithCurrentBirth(LocalDate.now().plusDays(i), true));
         }
         return writerDeathList;
     }
 
     @Override
-    public String isSlugExist(String writerSlug) {
+    public String isSlugExists(String writerSlug) {
         String message = "";
         if (getBySlug(writerSlug) != null) {
             message = SLUG_IS_ALREADY_EXIST;

@@ -19,19 +19,19 @@ public class MusicGenreService {
 
     private final MusicGenreRepository musicGenreRepository;
 
-    public List<MusicGenre> getAll() {
-        return musicGenreRepository.findAll();
+    public MusicGenre getBySlug(String musicGenreSlug) {
+        return musicGenreRepository.findBySlug(musicGenreSlug);
     }
 
-    public MusicGenre getMusicGenreBySlug(String musicGenreSlug) {
-        return musicGenreRepository.findBySlug(musicGenreSlug);
+    public List<MusicGenre> getAll() {
+        return musicGenreRepository.findAll();
     }
 
     public List<MusicGenre> getAllClassicalGenres() {
         return musicGenreRepository.findAllByMusicGenreType(MusicGenreType.CLASSICAL);
     }
 
-    public List<MusicGenre> getAllClassicalGenresSortedByTitle() {
+    public List<MusicGenre> getAllClassicalGenresOrderByTitle() {
         return musicGenreRepository.findAllByMusicGenreTypeOrderByTitle(MusicGenreType.CLASSICAL);
     }
 
@@ -39,7 +39,7 @@ public class MusicGenreService {
         return musicGenreRepository.findAllByMusicGenreType(MusicGenreType.CONTEMPORARY);
     }
 
-    public List<MusicGenre> getAllContemporaryGenresSortedByTitle() {
+    public List<MusicGenre> getAllContemporaryGenresOrderByTitle() {
         return musicGenreRepository.findAllByMusicGenreTypeOrderByTitle(MusicGenreType.CONTEMPORARY);
     }
 
@@ -61,7 +61,7 @@ public class MusicGenreService {
     }
 
     public String updateMusicGenre(String genreSlug, MusicGenreCreateEditDto genreDto) {
-        MusicGenre genre = getMusicGenreBySlug(genreSlug);
+        MusicGenre genre = getBySlug(genreSlug);
         setFieldsFromDto(genre, genreDto);
         return genreDto.getSlug();
     }
@@ -104,9 +104,9 @@ public class MusicGenreService {
         genre.setDescription(genreDto.getDescription());
     }
 
-    public String musicGenreSlugIsExist(String musicGenreSlug) {
+    public String isSlugExists(String musicGenreSlug) {
         String message = "";
-        if (getMusicGenreBySlug(musicGenreSlug) != null) {
+        if (getBySlug(musicGenreSlug) != null) {
             message = "slug is already exist";
         }
         return message;

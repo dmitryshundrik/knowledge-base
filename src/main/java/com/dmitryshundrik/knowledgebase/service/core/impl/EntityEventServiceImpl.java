@@ -1,25 +1,31 @@
-package com.dmitryshundrik.knowledgebase.service.core;
+package com.dmitryshundrik.knowledgebase.service.core.impl;
 
 import com.dmitryshundrik.knowledgebase.model.entity.art.Artist;
-import com.dmitryshundrik.knowledgebase.model.entity.core.CurrentEventInfo;
+import com.dmitryshundrik.knowledgebase.model.entity.core.EntityCurrentEvent;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Writer;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
+import com.dmitryshundrik.knowledgebase.service.core.EntityEventCreator;
+import com.dmitryshundrik.knowledgebase.service.core.EntityEventService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.ENTITY_EVENT_CACHE;
+
 @Service
-@Transactional
 @RequiredArgsConstructor
-public class EntityEventService {
+@Slf4j
+public class EntityEventServiceImpl implements EntityEventService {
 
     private final MusicianService musicianService;
 
@@ -27,33 +33,41 @@ public class EntityEventService {
 
     private final ArtistService artistService;
 
-    private final EntityEvenCreator entityEvenCreator;
+    private final EntityEventCreator entityEventCreator;
 
-    public List<CurrentEventInfo> getCurrentEvents(Integer dayInterval) {
-        List<CurrentEventInfo> currentEventInfoList = new ArrayList<>();
-        currentEventInfoList.addAll(getMusicianEvents(dayInterval));
-        currentEventInfoList.addAll(getWriterEvents(dayInterval));
-        currentEventInfoList.addAll(getArtistEvents(dayInterval));
-        return currentEventInfoList.stream()
-                .sorted(Comparator.comparing(CurrentEventInfo::getMonth).thenComparing(CurrentEventInfo::getDay))
+    @Override
+    @Cacheable(value = ENTITY_EVENT_CACHE, key = "#root.methodName")
+    public List<EntityCurrentEvent> getEntityEvents(Integer dayInterval) {
+        return processEntityEvents(dayInterval);
+    }
+
+    @Override
+    @CachePut(value = ENTITY_EVENT_CACHE, key = "'getCurrentEvents'")
+    public List<EntityCurrentEvent> processEntityEvents(Integer dayInterval) {
+        List<EntityCurrentEvent> entityCurrentEventList = new ArrayList<>();
+        entityCurrentEventList.addAll(getMusicianEvents(dayInterval));
+        entityCurrentEventList.addAll(getWriterEvents(dayInterval));
+        entityCurrentEventList.addAll(getArtistEvents(dayInterval));
+        return entityCurrentEventList.stream()
+                .sorted(Comparator.comparing(EntityCurrentEvent::getMonth).thenComparing(EntityCurrentEvent::getDay))
                 .collect(Collectors.toList());
     }
 
-    public List<CurrentEventInfo> getMusicianEvents(Integer dayInterval) {
+    private List<EntityCurrentEvent> getMusicianEvents(Integer dayInterval) {
         Set<Musician> musicianBirthList = musicianService.getAllWithCurrentBirth(dayInterval);
         Set<Musician> musicianDeathList = musicianService.getAllWithCurrentDeath(dayInterval);
-        return entityEvenCreator.createMusicianEvents(musicianBirthList, musicianDeathList);
+        return entityEventCreator.createMusicianEvents(musicianBirthList, musicianDeathList);
     }
 
-    public List<CurrentEventInfo> getWriterEvents(Integer dayInterval) {
+    private List<EntityCurrentEvent> getWriterEvents(Integer dayInterval) {
         Set<Writer> writerBirthList = writerService.getAllWithCurrentBirth(dayInterval);
         Set<Writer> writerDeathList = writerService.getAllWithCurrentDeath(dayInterval);
-        return entityEvenCreator.createWriterEvents(writerBirthList, writerDeathList);
+        return entityEventCreator.createWriterEvents(writerBirthList, writerDeathList);
     }
 
-    public List<CurrentEventInfo> getArtistEvents(Integer dayInterval) {
+    private List<EntityCurrentEvent> getArtistEvents(Integer dayInterval) {
         Set<Artist> artistBirthList = artistService.getAllWithCurrentBirth(dayInterval);
         Set<Artist> artistDeathList = artistService.getAllWithCurrentDeath(dayInterval);
-        return entityEvenCreator.createArtistEvents(artistBirthList, artistDeathList);
+        return entityEventCreator.createArtistEvents(artistBirthList, artistDeathList);
     }
 }

@@ -32,7 +32,7 @@ public class MusicPeriodManagementController {
 
     @GetMapping("/management/music-period/all")
     public String getAllMusicPeriods(Model model) {
-        List<MusicPeriod> musicPeriodList = musicPeriodService.getAllSortedByStart();
+        List<MusicPeriod> musicPeriodList = musicPeriodService.getAllOrderByStart();
         List<MusicPeriodViewDto> musicPeriodDtoList = musicPeriodService.getMusicPeriodViewDtoList(musicPeriodList);
         model.addAttribute(MUSIC_PERIOD_LIST, musicPeriodDtoList);
         return "management/music/music-period-all";
@@ -47,7 +47,7 @@ public class MusicPeriodManagementController {
     @PostMapping("/management/music-period/create")
     public String postCreateMusicPeriod(@Valid @ModelAttribute(MUSIC_PERIOD) MusicPeriodCreateEditDto periodDto, BindingResult bindingResult,
                                         Model model) {
-        String error = musicPeriodService.musicPeriodSlugIsExist(periodDto.getSlug());
+        String error = musicPeriodService.isSlugExists(periodDto.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute(SLUG, error);
             return "management/music/music-period-create";
@@ -58,7 +58,7 @@ public class MusicPeriodManagementController {
 
     @GetMapping("/management/music-period/edit/{periodSlug}")
     public String getEditMusicPeriod(@PathVariable String periodSlug, Model model) {
-        MusicPeriod musicPeriodBySlug = musicPeriodService.getMusicPeriodBySlug(periodSlug);
+        MusicPeriod musicPeriodBySlug = musicPeriodService.getBySlug(periodSlug);
         model.addAttribute(MUSIC_PERIOD, musicPeriodService.getMusicPeriodCreateEditDto(musicPeriodBySlug));
         return "management/music/music-period-edit";
     }
@@ -71,8 +71,8 @@ public class MusicPeriodManagementController {
 
     @DeleteMapping("/management/music-period/delete/{periodSlug}")
     public String deleteMusicPeriod(@PathVariable String periodSlug) {
-        MusicPeriod period = musicPeriodService.getMusicPeriodBySlug(periodSlug);
-        musicianService.getAllMusiciansByPeriod(period)
+        MusicPeriod period = musicPeriodService.getBySlug(periodSlug);
+        musicianService.getAllByPeriod(period)
                 .forEach(musician -> musician.getMusicPeriods().remove(period));
         musicPeriodService.deleteMusicPeriod(period);
         return "redirect:/management/music-period/all/";

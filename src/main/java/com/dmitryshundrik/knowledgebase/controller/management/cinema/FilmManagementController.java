@@ -48,7 +48,7 @@ public class FilmManagementController {
     @PostMapping("/management/film/create")
     public String postFilmCreate(@Valid @ModelAttribute(FILM) FilmCreateEditDto filmDto,
                                  BindingResult bindingResult, Model model) {
-        String error = filmService.isSlugExist(filmDto.getSlug());
+        String error = filmService.isSlugExists(filmDto.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute(SLUG, error);
             return "management/cinema/film-create";

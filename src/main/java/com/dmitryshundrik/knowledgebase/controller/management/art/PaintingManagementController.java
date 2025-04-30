@@ -34,7 +34,7 @@ public class PaintingManagementController {
 
     @GetMapping("/management/painting/all")
     public String getAllPaintings(Model model) {
-        List<Painting> allSortedByCreatedDesc = paintingService.getAllSortedByCreatedDesc();
+        List<Painting> allSortedByCreatedDesc = paintingService.getAllOrderByCreatedDesc();
         List<PaintingViewDto> paintingDtoList = paintingService.getPaintingViewDtoList(allSortedByCreatedDesc);
         model.addAttribute(PAINTING_LIST, paintingDtoList);
         return "management/art/painting-archive";
@@ -52,7 +52,7 @@ public class PaintingManagementController {
     @PostMapping("management/painting/create")
     public String postAnonymousPaintingCreate(@Valid @ModelAttribute(PAINTING) PaintingCreateEditDto paintingDTO,
                                               BindingResult bindingResult, Model model) {
-        String error = paintingService.isSlugExist(paintingDTO.getSlug());
+        String error = paintingService.isSlugExists(paintingDTO.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute(SLUG, error);
             return "management/art/painting-create";
@@ -75,7 +75,7 @@ public class PaintingManagementController {
     @PostMapping("/management/artist/edit/{artistSlug}/painting/create")
     public String postPaintingCreate(@Valid @ModelAttribute(PAINTING) PaintingCreateEditDto paintingDTO,
                                      BindingResult bindingResult, Model model, @PathVariable String artistSlug) {
-        String error = paintingService.isSlugExist(paintingDTO.getSlug());
+        String error = paintingService.isSlugExists(paintingDTO.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute(SLUG, error);
             return "management/art/painting-create";

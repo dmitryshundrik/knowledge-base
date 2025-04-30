@@ -23,16 +23,16 @@ public class YearInMusicService {
 
     private final MusicianService musicianService;
 
-    public List<YearInMusic> getAll() {
-        return yearInMusicRepository.findAllByOrderByYearAsc();
-    }
-
-    public YearInMusic getYearInMusicBySlug(String yearInMusicSlug) {
+    public YearInMusic getBySlug(String yearInMusicSlug) {
         return yearInMusicRepository.findBySlug(yearInMusicSlug);
     }
 
-    public YearInMusic getYearInMusicByYear(Integer year) {
+    public YearInMusic getByYear(Integer year) {
         return yearInMusicRepository.findByYear(year);
+    }
+
+    public List<YearInMusic> getAll() {
+        return yearInMusicRepository.findAllByOrderByYearAsc();
     }
 
     public YearInMusicViewDto createYearInMusic(YearInMusicCreateEditDto yearInMusicDto) {
@@ -104,13 +104,13 @@ public class YearInMusicService {
         yearInMusic.setTitle(yearInMusicDto.getTitle().trim());
         yearInMusic.setYear(yearInMusicDto.getYear());
         yearInMusic.setBestMaleSinger(!StringUtils.isBlank(yearInMusicDto.getBestMaleSingerId()) ? musicianService
-                .getMusicianById(UUID.fromString(yearInMusicDto.getBestMaleSingerId())) : null);
+                .getById(UUID.fromString(yearInMusicDto.getBestMaleSingerId())) : null);
         yearInMusic.setBestFemaleSinger(!StringUtils.isBlank(yearInMusicDto.getBestFemaleSingerId()) ? musicianService
-                .getMusicianById(UUID.fromString(yearInMusicDto.getBestFemaleSingerId())) : null);
+                .getById(UUID.fromString(yearInMusicDto.getBestFemaleSingerId())) : null);
         yearInMusic.setBestGroup(!StringUtils.isBlank(yearInMusicDto.getBestGroupId()) ? musicianService
-                .getMusicianById(UUID.fromString(yearInMusicDto.getBestGroupId())) : null);
+                .getById(UUID.fromString(yearInMusicDto.getBestGroupId())) : null);
         yearInMusic.setBestComposer(!StringUtils.isBlank(yearInMusicDto.getBestComposerId()) ? musicianService
-                .getMusicianById(UUID.fromString(yearInMusicDto.getBestComposerId())) : null);
+                .getById(UUID.fromString(yearInMusicDto.getBestComposerId())) : null);
         yearInMusic.setAotyListDescription(yearInMusicDto.getAotyListDescription());
         yearInMusic.setAotySpotifyLink(yearInMusicDto.getAotySpotifyLink());
         yearInMusic.setSotyListDescription(yearInMusicDto.getSotyListDescription());

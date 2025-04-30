@@ -43,13 +43,13 @@ public class MusicianEventManagementController {
             return "management/music/musician-event-create";
         }
         String personEventId = personEventService
-                .createMusicianEvent(musicianService.getMusicianBySlug(musicianSlug), personEventDto);
+                .createMusicianEvent(musicianService.getBySlug(musicianSlug), personEventDto);
         return "redirect:/management/musician/edit/" + musicianSlug + "/event/edit/" + personEventId;
     }
 
     @GetMapping("/management/musician/edit/{musicianSlug}/event/edit/{id}")
     public String getEditMusicianEventById(@PathVariable String musicianSlug, @PathVariable String id, Model model) {
-        PersonEvent personEventById = personEventService.getPersonEventById(id);
+        PersonEvent personEventById = personEventService.getById(id);
         model.addAttribute(PERSON_EVENT, personEventService.getPersonEventDto(personEventById));
         model.addAttribute(SLUG, musicianSlug);
         return "management/music/musician-event-edit";
@@ -65,7 +65,7 @@ public class MusicianEventManagementController {
 
     @DeleteMapping(("/management/musician/edit/{musicianSlug}/event/delete/{id}"))
     public String deleteMusicianEventById(@PathVariable String musicianSlug, @PathVariable String id) {
-        personEventService.deleteMusicianEventById(musicianService.getMusicianBySlug(musicianSlug), id);
+        personEventService.deleteMusicianEvent(musicianService.getBySlug(musicianSlug), id);
         return "redirect:/management/musician/edit/" + musicianSlug;
     }
 }

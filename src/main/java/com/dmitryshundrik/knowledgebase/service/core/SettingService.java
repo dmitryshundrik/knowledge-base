@@ -22,22 +22,27 @@ public class SettingService {
 
     private final SettingRepository settingRepository;
 
-    public List<Setting> getAll() {
-        return settingRepository.findAll();
-    }
-
     public Setting getById(String settingId) {
         return settingRepository.findById(UUID.fromString(settingId)).orElse(null);
+    }
+
+    public List<Setting> getAll() {
+        return settingRepository.findAll();
     }
 
     public SettingViewDto updateSetting(String settingId, SettingCreateEditDto settingDTO) {
         Setting byId = getById(settingId);
         byId.setName(settingDTO.getName().trim());
         byId.setValue(settingDTO.getValue().trim());
-        return getSettingViewDTO(byId);
+        return getSettingViewDto(byId);
     }
 
-    public SettingViewDto getSettingViewDTO(Setting setting) {
+    public void deleteSetting(String settingId) {
+        Setting byId = getById(settingId);
+        settingRepository.delete(byId);
+    }
+
+    public SettingViewDto getSettingViewDto(Setting setting) {
         return SettingViewDto.builder()
                 .id(setting.getId().toString())
                 .created(InstantFormatter.instantFormatterYMD(setting.getCreated()))
@@ -46,13 +51,13 @@ public class SettingService {
                 .build();
     }
 
-    public List<SettingViewDto> getSettingViewDTOList(List<Setting> settingList) {
+    public List<SettingViewDto> getSettingViewDtoList(List<Setting> settingList) {
         return settingList.stream()
-                .map(this::getSettingViewDTO)
+                .map(this::getSettingViewDto)
                 .collect(Collectors.toList());
     }
 
-    public SettingCreateEditDto getSettingCreateEditDTO(Setting setting) {
+    public SettingCreateEditDto getSettingCreateEditDto(Setting setting) {
         return SettingCreateEditDto.builder()
                 .id(setting.getId().toString())
                 .name(setting.getName())
@@ -66,10 +71,5 @@ public class SettingService {
 
     public Integer getLimitForUpdates() {
         return Integer.valueOf(settingRepository.findByName(LIMIT_FOR_UPDATES).getValue());
-    }
-
-    public void deleteSettingById(String settingId) {
-        Setting byId = getById(settingId);
-        settingRepository.delete(byId);
     }
 }

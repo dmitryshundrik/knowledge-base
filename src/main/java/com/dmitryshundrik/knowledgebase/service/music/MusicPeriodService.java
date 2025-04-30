@@ -21,19 +21,19 @@ public class MusicPeriodService {
 
     private final MusicPeriodRepository musicPeriodRepository;
 
+    public MusicPeriod getBySlug(String musicPeriodSlug) {
+        return musicPeriodRepository.findBySlug(musicPeriodSlug);
+    }
+
     public List<MusicPeriod> getAll() {
         return musicPeriodRepository.findAll();
     }
 
-    public List<MusicPeriod> getAllSortedByStart() {
+    public List<MusicPeriod> getAllOrderByStart() {
         return musicPeriodRepository.findAllByOrderByApproximateStartAsc();
     }
 
-    public MusicPeriod getMusicPeriodBySlug(String musicPeriodSlug) {
-        return musicPeriodRepository.findBySlug(musicPeriodSlug);
-    }
-
-    public List<MusicPeriod> getSortedByStart(List<MusicPeriod> musicPeriodList) {
+    public List<MusicPeriod> getMusiciansAllOrderByStart(List<MusicPeriod> musicPeriodList) {
         musicPeriodList.sort(Comparator.comparing(MusicPeriod::getApproximateStart));
         return musicPeriodList;
     }
@@ -46,7 +46,7 @@ public class MusicPeriodService {
     }
 
     public String updateMusicPeriod(String periodSlug, MusicPeriodCreateEditDto periodDTO) {
-        MusicPeriod period = getMusicPeriodBySlug(periodSlug);
+        MusicPeriod period = getBySlug(periodSlug);
         setFieldsFromDto(period, periodDTO);
         return periodDTO.getSlug();
     }
@@ -91,9 +91,9 @@ public class MusicPeriodService {
         period.setDescription(periodDto.getDescription());
     }
 
-    public String musicPeriodSlugIsExist(String musicPeriodSlug) {
+    public String isSlugExists(String musicPeriodSlug) {
         String message = "";
-        if (getMusicPeriodBySlug(musicPeriodSlug) != null) {
+        if (getBySlug(musicPeriodSlug) != null) {
             message = SLUG_IS_ALREADY_EXIST;
         }
         return message;

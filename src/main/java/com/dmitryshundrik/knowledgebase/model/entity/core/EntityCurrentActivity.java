@@ -6,7 +6,7 @@ import java.time.Instant;
 
 @Data
 @Builder
-public class EntityActivity {
+public class EntityCurrentActivity {
 
     private Instant created;
 

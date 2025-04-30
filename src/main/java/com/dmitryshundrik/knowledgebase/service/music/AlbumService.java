@@ -32,31 +32,27 @@ public class AlbumService {
 
     public static final String DECADE_2020s = "2020";
 
+    public Album getById(String albumId) {
+        return albumRepository.findById(UUID.fromString(albumId)).orElse(null);
+    }
+
+    public Album getBySlug(String albumSlug) {
+        return albumRepository.findAlbumBySlug(albumSlug);
+    }
+
     public List<Album> getAll() {
         return albumRepository.findAll();
     }
 
-    public Long getAlbumRepositorySize() {
-        return albumRepository.getSize();
-    }
-
-    public Album getAlbumById(String albumId) {
-        return albumRepository.findById(UUID.fromString(albumId)).orElse(null);
-    }
-
-    public Album getAlbumBySlug(String albumSlug) {
-        return albumRepository.findAlbumBySlug(albumSlug);
-    }
-
-    public List<Album> getAllAlbumsSortedByCreatedDesc() {
+    public List<Album> getAllOrderByCreatedDesc() {
         return albumRepository.findAllByOrderByCreatedDesc();
     }
 
-    public List<Album> getAllAlbumsByYear(Integer year) {
+    public List<Album> getAllByYear(Integer year) {
         return albumRepository.findAllByYear(year);
     }
 
-    public List<Album> getAllAlbumByDecade(String decade) {
+    public List<Album> getAllByDecade(String decade) {
         List<Album> albumsByDecade = new ArrayList<>();
         if (DECADE_2010s.equals(decade)) {
             albumsByDecade.addAll(albumRepository.findAllByDecadesOrderByRatingDesc(2009, 2020));
@@ -66,11 +62,11 @@ public class AlbumService {
         return albumsByDecade;
     }
 
-    public List<Album> getAllAlbumsByMusician(Musician musician) {
+    public List<Album> getAllByMusician(Musician musician) {
         return albumRepository.findAllByMusician(musician);
     }
 
-    public List<Album> getAllAlbumsByGenre(MusicGenre genre) {
+    public List<Album> getAllByGenre(MusicGenre genre) {
         return albumRepository.findAllByMusicGenresIsContaining(genre);
     }
 
@@ -99,14 +95,14 @@ public class AlbumService {
     }
 
     public AlbumViewDto updateAlbum(String albumSlug, AlbumCreateEditDto albumDto, List<Musician> collaborators) {
-        Album albumBySlug = getAlbumBySlug(albumSlug);
+        Album albumBySlug = getBySlug(albumSlug);
         albumBySlug.setCollaborators(collaborators);
         setFieldsFromDto(albumBySlug, albumDto);
         return getAlbumViewDto(albumBySlug);
     }
 
-    public void deleteAlbumBySlug(String slug) {
-        albumRepository.delete(getAlbumBySlug(slug));
+    public void deleteAlbum(String slug) {
+        albumRepository.delete(getBySlug(slug));
     }
 
     public List<AlbumViewDto> getEssentialAlbumsViewDtoList(List<Album> albumList) {
@@ -220,5 +216,9 @@ public class AlbumService {
 
     public List<Album> getLatestUpdate() {
         return albumRepository.findFirst20ByOrderByCreatedDesc();
+    }
+
+    public Long getRepositorySize() {
+        return albumRepository.getSize();
     }
 }

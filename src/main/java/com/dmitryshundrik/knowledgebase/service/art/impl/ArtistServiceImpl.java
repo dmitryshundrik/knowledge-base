@@ -38,12 +38,12 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public List<Artist> getAllSortedByBorn() {
+    public List<Artist> getAllOrderByBorn() {
         return artistRepository.findAllByOrderByBorn(UNKNOWN);
     }
 
     @Override
-    public List<Artist> getAllSortedByCreatedDesc() {
+    public List<Artist> getAllOrderByCreatedDesc() {
         return artistRepository.findAllByOrderByCreatedDesc(UNKNOWN);
     }
 
@@ -105,7 +105,7 @@ public class ArtistServiceImpl implements ArtistService {
     public Set<Artist> getAllWithCurrentBirth(Integer dayInterval) {
         Set<Artist> artistBirthList = new HashSet<>();
         for (int i = 0; i < dayInterval; i++) {
-            artistBirthList.addAll(artistRepository.findAllWithCurrentBirth(LocalDate.now().plusDays(i)));
+            artistBirthList.addAll(artistRepository.findAllWithCurrentBirth(LocalDate.now().plusDays(i), null));
         }
         return artistBirthList;
     }
@@ -114,7 +114,7 @@ public class ArtistServiceImpl implements ArtistService {
     public Set<Artist> getAllWithCurrentDeath(Integer dayInterval) {
         Set<Artist> artistDeathList = new HashSet<>();
         for (int i = 0; i < dayInterval; i++) {
-            artistDeathList.addAll(artistRepository.findAllWithCurrentDeath(LocalDate.now().plusDays(i)));
+            artistDeathList.addAll(artistRepository.findAllWithCurrentDeath(LocalDate.now().plusDays(i), null));
         }
         return artistDeathList;
     }
@@ -124,7 +124,7 @@ public class ArtistServiceImpl implements ArtistService {
         Set<Artist> artistBirthList = new HashSet<>();
         for (int i = 0; i < dayInterval; i++) {
             artistBirthList.addAll(artistRepository
-                    .findAllWithCurrentBirthAndNotification(LocalDate.now().plusDays(i), true));
+                    .findAllWithCurrentBirth(LocalDate.now().plusDays(i), true));
         }
         return artistBirthList;
     }
@@ -134,13 +134,13 @@ public class ArtistServiceImpl implements ArtistService {
         Set<Artist> artistDeathList = new HashSet<>();
         for (int i = 0; i < dayInterval; i++) {
             artistDeathList.addAll(artistRepository
-                    .findAllWithCurrentDeathAndNotification(LocalDate.now().plusDays(i), true));
+                    .findAllWithCurrentDeath(LocalDate.now().plusDays(i), true));
         }
         return artistDeathList;
     }
 
     @Override
-    public String isSlugExist(String artistSlug) {
+    public String isSlugExists(String artistSlug) {
         String message = "";
         if (getBySlug(artistSlug) != null) {
             message = SLUG_IS_ALREADY_EXIST;

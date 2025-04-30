@@ -43,7 +43,7 @@ public class ArtPageController {
 
     @GetMapping("/artist/all")
     public String getAllArtists(Model model) {
-        List<Artist> artistList = artistService.getAllSortedByBorn();
+        List<Artist> artistList = artistService.getAllOrderByBorn();
         List<ArtistViewDto> artistDtoList = artistService.getArtistViewDtoList(artistList);
         model.addAttribute(ARTIST_LIST, artistDtoList);
         return "art/artist-all";
@@ -68,7 +68,7 @@ public class ArtPageController {
     public String getArtistAllPaintings(@PathVariable String artistSlug, Model model) {
         Artist bySlug = artistService.getBySlug(artistSlug);
         ArtistViewDto artistDto = artistService.getArtistViewDto(bySlug);
-        List<Painting> paintingList = paintingService.getAllByArtistSortedByYear2(bySlug, SORT_DIRECTION_ASC);
+        List<Painting> paintingList = paintingService.getAllByArtistOrderByYear2(bySlug, SORT_DIRECTION_ASC);
         List<PaintingViewDto> paintingDtoList = paintingService.getPaintingViewDtoList(paintingList);
         model.addAttribute(ARTIST, artistDto);
         model.addAttribute(PAINTING_LIST, paintingDtoList);
@@ -77,7 +77,7 @@ public class ArtPageController {
 
     @GetMapping("/painting/all")
     public String getAllPainting(Model model) {
-        List<Painting> paintingList = paintingService.getAllSortedByCreatedDesc();
+        List<Painting> paintingList = paintingService.getAllOrderByCreatedDesc();
         List<PaintingViewDto> paintingDtoList = paintingService.getPaintingViewDtoList(paintingList);
         model.addAttribute(PAINTING_LIST, paintingDtoList);
         return "art/painting-all";

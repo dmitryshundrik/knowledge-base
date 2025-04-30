@@ -83,7 +83,7 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public String isSlugExist(String filmSlug) {
+    public String isSlugExists(String filmSlug) {
         String message = "";
         if (filmRepository.findBySlug(filmSlug) != null) {
             message = SLUG_IS_ALREADY_EXIST;

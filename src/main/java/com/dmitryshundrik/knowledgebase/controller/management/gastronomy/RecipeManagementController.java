@@ -31,7 +31,7 @@ public class RecipeManagementController {
 
     @GetMapping("/management/recipe/all")
     public String getAllRecipes(Model model) {
-        List<Recipe> recipeList = recipeService.getAllBySortedByCreatedDesc();
+        List<Recipe> recipeList = recipeService.getAllByOrderByCreatedDesc();
         List<RecipeViewDto> recipeDtoList = recipeService.getRecipeViewDtoList(recipeList);
         model.addAttribute(RECIPE_LIST, recipeDtoList);
         return "management/gastronomy/recipe-archive";
@@ -49,7 +49,7 @@ public class RecipeManagementController {
     public String postRecipeCreate(@Valid @ModelAttribute(RECIPE) RecipeCreateEditDto recipeDto,
                                    BindingResult bindingResult,
                                    Model model) {
-        String error = recipeService.isSlugExist(recipeDto.getSlug());
+        String error = recipeService.isSlugExists(recipeDto.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute(SLUG, error);
             model.addAttribute(COUNTRY_LIST, Country.values());

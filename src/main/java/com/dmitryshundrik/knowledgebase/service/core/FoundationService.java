@@ -26,7 +26,7 @@ public class FoundationService {
         return foundationRepository.findAll();
     }
 
-    public List<Foundation> getAllSortedByCreated() {
+    public List<Foundation> getAllOrderByCreated() {
         return foundationRepository.findAllByOrderByCreatedAsc();
     }
 
@@ -56,7 +56,7 @@ public class FoundationService {
                 .build();
     }
 
-    public List<FoundationDto> getFoundationDTOList(List<Foundation> foundationList) {
+    public List<FoundationDto> getFoundationDtoList(List<Foundation> foundationList) {
         return foundationList.stream()
                 .map(this::getFoundationDto)
                 .collect(Collectors.toList());

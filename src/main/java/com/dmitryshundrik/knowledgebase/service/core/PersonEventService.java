@@ -19,7 +19,7 @@ public class PersonEventService {
 
     private final PersonEventRepository personEventRepository;
 
-    public PersonEvent getPersonEventById(String id) {
+    public PersonEvent getById(String id) {
         return personEventRepository.findById(UUID.fromString(id)).orElse(null);
     }
 
@@ -30,18 +30,18 @@ public class PersonEventService {
     }
 
     public PersonEventDto updatePersonEvent(String eventId, PersonEventDto personEventDto) {
-        PersonEvent personEventById = getPersonEventById(eventId);
+        PersonEvent personEventById = getById(eventId);
         setFieldsFromDto(personEventById, personEventDto);
         return getPersonEventDto(personEventById);
     }
 
     public String createMusicianEvent(Musician musician, PersonEventDto personEventDto) {
         String personEventId = createPersonEvent(personEventDto).getId();
-        musician.getEvents().add(getPersonEventById(personEventId));
+        musician.getEvents().add(getById(personEventId));
         return personEventId;
     }
 
-    public void deleteMusicianEventById(Musician musician, String id) {
+    public void deleteMusicianEvent(Musician musician, String id) {
         musician.getEvents().removeIf(event -> event.getId().toString().equals(id));
         personEventRepository.deleteById(UUID.fromString(id));
     }

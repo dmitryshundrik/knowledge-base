@@ -43,6 +43,6 @@ public abstract class ArtistMapper {
 
     @AfterMapping
     public void toArtistCreateEditDtoPostProcess(@MappingTarget ArtistCreateEditDto artistDto, Artist artist) {
-        artistDto.setPaintingList(paintingService.getAllProfileDtoByArtistSortedByYear2Asc(artist));
+        artistDto.setPaintingList(paintingService.getAllProfileDtoByArtistOrderByYear2Asc(artist));
     }
 }

@@ -33,7 +33,7 @@ public abstract class CocktailMapper {
 
         cocktailDto.setImageList(cocktail.getImageList() != null ? imageService
                 .getImageDtoList(imageService
-                        .getSortedByCreatedDesc(cocktail.getImageList())) : null);
+                        .getOrderByCreatedDesc(cocktail.getImageList())) : null);
     }
 
     @Mapping(target = "imageList", ignore = true)
@@ -43,6 +43,6 @@ public abstract class CocktailMapper {
     public void toCocktailCreateEditDtoPostProcess(@MappingTarget CocktailCreateEditDto cocktailDto, Cocktail cocktail) {
         cocktailDto.setImageList(cocktail.getImageList() != null ? imageService
                 .getImageDtoList(imageService
-                        .getSortedByCreatedDesc(cocktail.getImageList())) : null);
+                        .getOrderByCreatedDesc(cocktail.getImageList())) : null);
     }
 }

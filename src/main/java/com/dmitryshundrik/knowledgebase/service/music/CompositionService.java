@@ -32,16 +32,12 @@ public class CompositionService {
 
     private final CompositionRepository compositionRepository;
 
+    public Composition getBySlug(String compositionSlug) {
+        return compositionRepository.findCompositionBySlug(compositionSlug);
+    }
+
     public List<Composition> getAll() {
         return compositionRepository.findAll();
-    }
-
-    public Long getCompositionRepositorySize() {
-        return compositionRepository.getSize();
-    }
-
-    public Composition getCompositionBySlug(String compositionSlug) {
-        return compositionRepository.findCompositionBySlug(compositionSlug);
     }
 
     public List<Composition> getAllByYear(Integer year) {
@@ -74,6 +70,10 @@ public class CompositionService {
 
     public List<Composition> getAllByMusicianWithRating(String musicianSlug) {
         return compositionRepository.findAllByMusicianWithRating(musicianSlug);
+    }
+
+    public List<Composition> getLatestUpdate() {
+        return compositionRepository.findFirst20ByOrderByCreatedDesc();
     }
 
     public List<Integer> getAllYearsFromCompositions() {
@@ -137,7 +137,7 @@ public class CompositionService {
         return getCompositionViewDto(compositionBySlug);
     }
 
-    public void deleteCompositionBySlug(String slug) {
+    public void deleteComposition(String slug) {
         compositionRepository.deleteBySlug(slug);
     }
 
@@ -300,7 +300,7 @@ public class CompositionService {
         composition.setTranslation(compositionDto.getTranslation());
     }
 
-    public List<Composition> getLatestUpdate() {
-        return compositionRepository.findFirst20ByOrderByCreatedDesc();
+    public Long getRepositorySize() {
+        return compositionRepository.getSize();
     }
 }

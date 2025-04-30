@@ -38,7 +38,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public List<Recipe> getAllBySortedByCreatedDesc() {
+    public List<Recipe> getAllByOrderByCreatedDesc() {
         return recipeRepository.findAllByOrderByCreatedDesc();
     }
 
@@ -87,7 +87,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public String isSlugExist(String recipeSlug) {
+    public String isSlugExists(String recipeSlug) {
         String message = "";
         if (getBySlug(recipeSlug) != null) {
             message = SLUG_IS_ALREADY_EXIST;

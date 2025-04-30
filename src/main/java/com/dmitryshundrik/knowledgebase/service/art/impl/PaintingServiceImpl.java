@@ -40,12 +40,12 @@ public class PaintingServiceImpl implements PaintingService {
     }
 
     @Override
-    public List<Painting> getAllSortedByCreatedDesc() {
+    public List<Painting> getAllOrderByCreatedDesc() {
         return paintingRepository.findAllByOrderByCreatedDesc();
     }
 
     @Override
-    public List<Painting> getAllByArtistSortedByYear2(Artist artist, String sortDirection) {
+    public List<Painting> getAllByArtistOrderByYear2(Artist artist, String sortDirection) {
         if (SORT_DIRECTION_ASC.equalsIgnoreCase(sortDirection)) {
             return paintingRepository.findAllByArtistOrderByYear2Asc(artist);
         }
@@ -53,7 +53,7 @@ public class PaintingServiceImpl implements PaintingService {
     }
 
     @Override
-    public List<PaintingArtistProfileDto> getAllProfileDtoByArtistSortedByYear2Asc(Artist artist) {
+    public List<PaintingArtistProfileDto> getAllProfileDtoByArtistOrderByYear2Asc(Artist artist) {
         return paintingRepository.findAllProfileDtoByArtistOrderByYear2Asc(artist);
     }
 
@@ -110,7 +110,7 @@ public class PaintingServiceImpl implements PaintingService {
     }
 
     @Override
-    public String isSlugExist(String paintingSlug) {
+    public String isSlugExists(String paintingSlug) {
         String message = "";
         if (getBySlug(paintingSlug) != null) {
             message = SLUG_IS_ALREADY_EXIST;

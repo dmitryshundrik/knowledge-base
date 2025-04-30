@@ -37,8 +37,8 @@ public class MusicGenreManagementController {
 
     @GetMapping("/management/music-genre/all")
     public String getAllMusicGenres(Model model) {
-        List<MusicGenre> classicalGenresList = musicGenreService.getAllClassicalGenresSortedByTitle();
-        List<MusicGenre> contemporaryGenresList = musicGenreService.getAllContemporaryGenresSortedByTitle();
+        List<MusicGenre> classicalGenresList = musicGenreService.getAllClassicalGenresOrderByTitle();
+        List<MusicGenre> contemporaryGenresList = musicGenreService.getAllContemporaryGenresOrderByTitle();
         model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getMusicGenreViewDtoList(classicalGenresList));
         model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getMusicGenreViewDtoList(contemporaryGenresList));
         return "management/music/music-genre-all";
@@ -54,7 +54,7 @@ public class MusicGenreManagementController {
     @PostMapping("/management/music-genre/create")
     public String postCreateMusicGenre(@Valid @ModelAttribute(MUSIC_GENRE) MusicGenreCreateEditDto genreDto, BindingResult bindingResult,
                                        Model model) {
-        String error = musicGenreService.musicGenreSlugIsExist(genreDto.getSlug());
+        String error = musicGenreService.isSlugExists(genreDto.getSlug());
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             model.addAttribute(SLUG, error);
             model.addAttribute(MUSIC_GENRE_TYPE_LIST, MusicGenreType.values());
@@ -66,7 +66,7 @@ public class MusicGenreManagementController {
 
     @GetMapping("/management/music-genre/edit/{genreSlug}")
     public String getEditMusicGenre(@PathVariable String genreSlug, Model model) {
-        MusicGenre musicGenreBySlug = musicGenreService.getMusicGenreBySlug(genreSlug);
+        MusicGenre musicGenreBySlug = musicGenreService.getBySlug(genreSlug);
         model.addAttribute(MUSIC_GENRE, musicGenreService.getMusicGenreCreateEditDto(musicGenreBySlug));
         model.addAttribute(MUSIC_GENRE_TYPE_LIST, MusicGenreType.values());
         return "management/music/music-genre-edit";
@@ -80,8 +80,8 @@ public class MusicGenreManagementController {
 
     @DeleteMapping("/management/music-genre/delete/{genreSlug}")
     public String deleteMusicGenre(@PathVariable String genreSlug) {
-        MusicGenre genre = musicGenreService.getMusicGenreBySlug(genreSlug);
-        albumService.getAllAlbumsByGenre(genre)
+        MusicGenre genre = musicGenreService.getBySlug(genreSlug);
+        albumService.getAllByGenre(genre)
                 .forEach(album -> album.getMusicGenres().remove(genre));
         compositionService.getAllByGenre(genre)
                 .forEach(composition -> composition.getMusicGenres().remove(genre));

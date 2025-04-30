@@ -29,7 +29,7 @@ public class CocktailManagementController {
 
     @GetMapping("/management/cocktail/all")
     public String getAllCocktails(Model model) {
-        List<Cocktail> cocktailList = cocktailService.getAllBySortedByCreatedDesc();
+        List<Cocktail> cocktailList = cocktailService.getAllByOrderByCreatedDesc();
         List<CocktailViewDto> cocktailDtoList = cocktailService.getCocktailViewDtoList(cocktailList);
         model.addAttribute(COCKTAIL_LIST, cocktailDtoList);
         return "management/gastronomy/cocktail-archive";
@@ -46,7 +46,7 @@ public class CocktailManagementController {
     public String postCocktailCreate(@Valid @ModelAttribute(COCKTAIL) CocktailCreateEditDto cocktailDto,
                                      BindingResult bindingResult,
                                      Model model) {
-        String error = cocktailService.isSlugExist(cocktailDto.getSlug());
+        String error = cocktailService.isSlugExists(cocktailDto.getSlug());
         model.addAttribute(SLUG, error);
         if (!error.isEmpty() || bindingResult.hasErrors()) {
             return "management/gastronomy/cocktail-create";

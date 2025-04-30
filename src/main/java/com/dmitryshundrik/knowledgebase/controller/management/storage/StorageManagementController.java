@@ -20,7 +20,7 @@ public class StorageManagementController {
 
     @GetMapping("/management/storage/image/all")
     public String getAllImages(Model model) {
-        List<Image> imageList = imageService.getAllSortedByCreatedDesc();
+        List<Image> imageList = imageService.getAllOrderByCreatedDesc();
         List<ImageDto> imageDtoList = imageService.getImageDtoList(imageList);
         model.addAttribute("imageDtoList", imageDtoList);
         return "management/storage/image-all";

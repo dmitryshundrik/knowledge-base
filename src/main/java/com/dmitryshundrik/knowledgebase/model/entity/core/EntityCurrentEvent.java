@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class CurrentEventInfo {
+public class EntityCurrentEvent {
 
     private String personNickname;
 

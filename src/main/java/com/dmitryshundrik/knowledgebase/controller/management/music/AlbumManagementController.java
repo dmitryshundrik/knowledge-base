@@ -37,7 +37,7 @@ public class AlbumManagementController {
 
     @GetMapping("/management/album/all")
     public String getAllAlbums(Model model) {
-        List<Album> albumList = albumService.getAllAlbumsSortedByCreatedDesc();
+        List<Album> albumList = albumService.getAllOrderByCreatedDesc();
         model.addAttribute(ALBUM_LIST, albumService.getAlbumViewDtoList(albumList));
         return "management/music/album-all";
     }
@@ -49,8 +49,8 @@ public class AlbumManagementController {
         model.addAttribute(ALBUM, albumDto);
         model.addAttribute(ALBUM_COLLABORATORS, MusicianDtoTransformer
                 .getMusicianSelectDtoList(musicianService.getAll()));
-        model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenresSortedByTitle());
-        model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenresSortedByTitle());
+        model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenresOrderByTitle());
+        model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenresOrderByTitle());
         return "management/music/album-create";
     }
 
@@ -60,24 +60,24 @@ public class AlbumManagementController {
                                   BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             musicianService.setFieldsToAlbumDto(musicianSlug, albumDto);
-            model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenresSortedByTitle());
-            model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenresSortedByTitle());
+            model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenresOrderByTitle());
+            model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenresOrderByTitle());
             return "management/music/album-create";
         }
         String albumDtoSlug = albumService
-                .createAlbum(albumDto, musicianService.getMusicianBySlug(musicianSlug),
-                        musicianService.getAllMusiciansByUUIDList(albumDto.getCollaboratorsUUID())).getSlug();
+                .createAlbum(albumDto, musicianService.getBySlug(musicianSlug),
+                        musicianService.getAllByUUIDList(albumDto.getCollaboratorsUUID())).getSlug();
         return "redirect:/management/musician/edit/" + musicianSlug + "/album/edit/" + albumDtoSlug;
     }
 
     @GetMapping("management/musician/edit/{musicianSlug}/album/edit/{albumSlug}")
     public String getEditAlbumBySlug(@PathVariable String musicianSlug, @PathVariable String albumSlug, Model model) {
-        Album albumBySlug = albumService.getAlbumBySlug(albumSlug);
+        Album albumBySlug = albumService.getBySlug(albumSlug);
         model.addAttribute(ALBUM, albumService.getAlbumCreateEditDto(albumBySlug));
         model.addAttribute(ALBUM_COLLABORATORS, MusicianDtoTransformer
                 .getMusicianSelectDtoList(musicianService.getAll()));
-        model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenresSortedByTitle());
-        model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenresSortedByTitle());
+        model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenresOrderByTitle());
+        model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenresOrderByTitle());
         return "management/music/album-edit";
     }
 
@@ -85,23 +85,23 @@ public class AlbumManagementController {
     public String putEditAlbumBySlug(@PathVariable String musicianSlug, @PathVariable String albumSlug,
                                      @ModelAttribute(ALBUM) AlbumCreateEditDto albumDTO) {
         String albumDtoSlug = albumService.updateAlbum(albumSlug, albumDTO,
-                musicianService.getAllMusiciansByUUIDList(albumDTO.getCollaboratorsUUID())).getSlug();
+                musicianService.getAllByUUIDList(albumDTO.getCollaboratorsUUID())).getSlug();
         return "redirect:/management/musician/edit/" + musicianSlug + "/album/edit/" + albumDtoSlug;
     }
 
     @DeleteMapping("management/musician/edit/{musicianSlug}/album/delete/{albumSlug}")
     public String deleteMusiciansAlbumBySlug(@PathVariable String musicianSlug, @PathVariable String albumSlug) {
-        Album albumBySlug = albumService.getAlbumBySlug(albumSlug);
+        Album albumBySlug = albumService.getBySlug(albumSlug);
         albumBySlug.getCompositions().forEach(composition -> composition.setAlbum(null));
-        albumService.deleteAlbumBySlug(albumSlug);
+        albumService.deleteAlbum(albumSlug);
         return "redirect:/management/musician/edit/" + musicianSlug;
     }
 
     @DeleteMapping("management/album/delete/{albumSlug}")
     public String deleteAlbumBySlug(@PathVariable String albumSlug) {
-        Album albumBySlug = albumService.getAlbumBySlug(albumSlug);
+        Album albumBySlug = albumService.getBySlug(albumSlug);
         albumBySlug.getCompositions().forEach(composition -> composition.setAlbum(null));
-        albumService.deleteAlbumBySlug(albumSlug);
+        albumService.deleteAlbum(albumSlug);
         return "redirect:/management/album/all";
     }
 }

@@ -25,16 +25,16 @@ public class FoundationManagementController {
 
     @GetMapping("/management/foundation/all")
     public String getAllFoundations(Model model) {
-        List<Foundation> foundationList = foundationService.getAllSortedByCreated();
-        List<FoundationDto> foundationDtoList = foundationService.getFoundationDTOList(foundationList);
+        List<Foundation> foundationList = foundationService.getAllOrderByCreated();
+        List<FoundationDto> foundationDtoList = foundationService.getFoundationDtoList(foundationList);
         model.addAttribute(FOUNDATION_LIST, foundationDtoList);
         return "management/headermenu/foundation-all";
     }
 
     @GetMapping("/management/foundation/create")
     public String getFoundationCreate(Model model) {
-        FoundationDto foundationDTO = new FoundationDto();
-        model.addAttribute(FOUNDATION, foundationDTO);
+        FoundationDto foundationDto = new FoundationDto();
+        model.addAttribute(FOUNDATION, foundationDto);
         return "management/headermenu/foundation-create";
     }
 

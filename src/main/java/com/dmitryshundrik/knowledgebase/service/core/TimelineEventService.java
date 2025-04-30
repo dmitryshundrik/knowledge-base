@@ -20,11 +20,11 @@ public class TimelineEventService {
 
     private final TimelineEventRepository timelineEventRepository;
 
-    public TimelineEvent getTimelineEventById(String id) {
+    public TimelineEvent getById(String id) {
         return timelineEventRepository.findById(UUID.fromString(id)).orElse(null);
     }
 
-    public List<TimelineEvent> getAllEventsByType(TimelineEventType type) {
+    public List<TimelineEvent> getAllByType(TimelineEventType type) {
         return timelineEventRepository.findAllByTimelineEventTypeOrderByCreatedAsc(type);
     }
 
@@ -40,28 +40,28 @@ public class TimelineEventService {
 
     public TimelineEventDto createTimelineEvent(TimelineEventDto timelineEventDTO) {
         TimelineEvent timelineEvent = new TimelineEvent();
-        setFieldsFromDTO(timelineEvent, timelineEventDTO);
-        return getTimelineEventDTO(timelineEventRepository.save(timelineEvent));
+        setFieldsFromDto(timelineEvent, timelineEventDTO);
+        return getTimelineEventDto(timelineEventRepository.save(timelineEvent));
     }
 
     public TimelineEventDto updateTimelineEvent(String eventId, TimelineEventDto timelineEventDTO) {
-        TimelineEvent timelineEventById = getTimelineEventById(eventId);
-        setFieldsFromDTO(timelineEventById, timelineEventDTO);
-        return getTimelineEventDTO(timelineEventById);
+        TimelineEvent timelineEventById = getById(eventId);
+        setFieldsFromDto(timelineEventById, timelineEventDTO);
+        return getTimelineEventDto(timelineEventById);
     }
 
     public void deleteTimelineEvent(String eventId) {
-        TimelineEvent timelineEventById = getTimelineEventById(eventId);
+        TimelineEvent timelineEventById = getById(eventId);
         timelineEventRepository.delete(timelineEventById);
     }
 
     public String createEventForTimelineOfMusic(TimelineEventDto timelineEventDTO) {
-        TimelineEvent timelineEvent = getTimelineEventById(createTimelineEvent(timelineEventDTO).getId());
+        TimelineEvent timelineEvent = getById(createTimelineEvent(timelineEventDTO).getId());
         timelineEvent.setTimelineEventType(TimelineEventType.MUSIC);
         return timelineEvent.getId().toString();
     }
 
-    public TimelineEventDto getTimelineEventDTO(TimelineEvent timelineEvent) {
+    public TimelineEventDto getTimelineEventDto(TimelineEvent timelineEvent) {
         return TimelineEventDto.builder()
                 .id(timelineEvent.getId().toString())
                 .created(InstantFormatter.instantFormatterYMDHMS(timelineEvent.getCreated()))
@@ -74,11 +74,11 @@ public class TimelineEventService {
                 .build();
     }
 
-    public List<TimelineEventDto> getTimelineEventDTOList(List<TimelineEvent> timelineEventList) {
-        return timelineEventList.stream().map(this::getTimelineEventDTO).collect(Collectors.toList());
+    public List<TimelineEventDto> getTimelineEventDtoList(List<TimelineEvent> timelineEventList) {
+        return timelineEventList.stream().map(this::getTimelineEventDto).collect(Collectors.toList());
     }
 
-    private void setFieldsFromDTO(TimelineEvent timelineEvent, TimelineEventDto timelineEventDTO) {
+    private void setFieldsFromDto(TimelineEvent timelineEvent, TimelineEventDto timelineEventDTO) {
         timelineEvent.setYear(timelineEventDTO.getYear());
         timelineEvent.setAnotherYear(timelineEventDTO.getAnotherYear());
         timelineEvent.setEraType(timelineEventDTO.getEraType());

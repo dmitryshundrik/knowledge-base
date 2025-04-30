@@ -1,4 +1,4 @@
-package com.dmitryshundrik.knowledgebase.service.client;
+package com.dmitryshundrik.knowledgebase.service.client.impl;
 
 import com.dmitryshundrik.knowledgebase.model.dto.client.spotify.RefreshToken;
 import com.dmitryshundrik.knowledgebase.repository.tools.RefreshTokenRepository;
