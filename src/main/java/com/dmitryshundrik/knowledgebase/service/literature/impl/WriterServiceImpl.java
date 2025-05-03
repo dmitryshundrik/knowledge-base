@@ -10,6 +10,9 @@ import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterEntityUpdateI
 import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterViewDto;
 import com.dmitryshundrik.knowledgebase.repository.literature.WriterRepository;
 import com.dmitryshundrik.knowledgebase.service.core.PersonEventService;
+import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
+import com.dmitryshundrik.knowledgebase.service.literature.QuoteService;
+import com.dmitryshundrik.knowledgebase.service.literature.WordService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +23,6 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
 
@@ -31,11 +33,11 @@ public class WriterServiceImpl implements WriterService {
 
     private final WriterRepository writerRepository;
 
-    private final ProseServiceImpl proseService;
+    private final ProseService proseService;
 
-    private final QuoteServiceImpl quoteService;
+    private final QuoteService quoteService;
 
-    private final WordServiceImpl wordService;
+    private final WordService wordService;
 
     private final PersonEventService personEventService;
 

@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionViewDto;
 import com.dmitryshundrik.knowledgebase.repository.music.CompositionRepository;
+import com.dmitryshundrik.knowledgebase.service.music.impl.CompositionServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,7 +28,7 @@ class CompositionServiceTest {
     private CompositionRepository compositionRepository;
 
     @InjectMocks
-    private CompositionService compositionService;
+    private CompositionServiceImpl compositionService;
 
     private Composition composition;
 

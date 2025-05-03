@@ -44,6 +44,8 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.CONTEMPORARY_MUSIC
 import static com.dmitryshundrik.knowledgebase.util.Constants.CONTEMPORARY_TYPE;
 import static com.dmitryshundrik.knowledgebase.util.Constants.CURRENT_YEAR;
 import static com.dmitryshundrik.knowledgebase.util.Constants.DECADE;
+import static com.dmitryshundrik.knowledgebase.util.Constants.DECADE_2010s;
+import static com.dmitryshundrik.knowledgebase.util.Constants.DECADE_2020s;
 import static com.dmitryshundrik.knowledgebase.util.Constants.ERA_TYPE_LIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.EVENTS_BEFORE_CE;
 import static com.dmitryshundrik.knowledgebase.util.Constants.EVENTS_CE;
@@ -118,7 +120,7 @@ public class MusicPageController {
     @GetMapping("/composition/top100")
     public String getTop100BestClassicalCompositions(Model model) {
         List<Composition> top100BestClassicalCompositions = compositionService
-                .getTop100ByClassicalGenreOrderedByRatingDesc();
+                .getTop100ByClassicalGenreOrderByRatingDesc();
         List<CompositionViewDto> compositionViewDtoList = compositionService.getCompositionViewDtoList(top100BestClassicalCompositions);
         model.addAttribute(COMPOSITION_LIST, compositionViewDtoList);
         return "music/classical-composition-top100";
@@ -185,9 +187,9 @@ public class MusicPageController {
         List<Album> albumByDecadeList = albumService.getAllByDecade(decade);
         List<AlbumViewDto> albumDtoList = albumService.getAlbumViewDtoList(albumByDecadeList);
         model.addAttribute(ALBUM_LIST, albumDtoList);
-        if (AlbumService.DECADE_2010s.equals(decade)) {
+        if (DECADE_2010s.equals(decade)) {
             model.addAttribute(DECADE, "2010-x");
-        } else if (AlbumService.DECADE_2020s.equals(decade)) {
+        } else if (DECADE_2020s.equals(decade)) {
             model.addAttribute(DECADE, "2020-x");
         }
         return "music/albums-of-decade";

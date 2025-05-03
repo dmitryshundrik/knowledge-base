@@ -4,11 +4,11 @@ import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
 import com.dmitryshundrik.knowledgebase.service.cinema.CriticsListService;
 import com.dmitryshundrik.knowledgebase.service.cinema.FilmService;
-import com.dmitryshundrik.knowledgebase.service.gastronomy.impl.CocktailServiceImpl;
-import com.dmitryshundrik.knowledgebase.service.gastronomy.impl.RecipeServiceImpl;
+import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
+import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
+import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
+import com.dmitryshundrik.knowledgebase.service.literature.QuoteService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
-import com.dmitryshundrik.knowledgebase.service.literature.impl.ProseServiceImpl;
-import com.dmitryshundrik.knowledgebase.service.literature.impl.QuoteServiceImpl;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
@@ -29,15 +29,15 @@ public class ManagementPageController {
 
     private final CompositionService compositionService;
 
-    private final RecipeServiceImpl recipeService;
+    private final RecipeService recipeService;
 
-    private final CocktailServiceImpl cocktailService;
+    private final CocktailService cocktailService;
 
     private final WriterService writerService;
 
-    private final ProseServiceImpl proseService;
+    private final ProseService proseService;
 
-    private final QuoteServiceImpl quoteService;
+    private final QuoteService quoteService;
 
     private final ArtistService artistService;
 

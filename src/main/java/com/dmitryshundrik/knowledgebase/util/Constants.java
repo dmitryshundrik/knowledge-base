@@ -33,6 +33,9 @@ public final class Constants {
     public static final String MALE_DIE = "умер";
     public static final String FEMALE_DIE = "умерла";
 
+    public static final String DECADE_2010s = "2010";
+    public static final String DECADE_2020s = "2020";
+
     public static final String GETTING_CURRENT_WEATHER_FAIL_MESSAGE = "Failed to fetch weather data: %s";
     public static final String GETTING_TOP_ARTISTS_FAIL_MESSAGE = "Failed to fetch top artists data: %s";
     public static final String GETTING_TOP_ALBUMS_FAIL_MESSAGE = "Failed to fetch top albums data: %s";

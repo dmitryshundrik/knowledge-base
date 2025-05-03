@@ -224,7 +224,7 @@ public class MusicianService {
                         .getEssentialAlbumsViewDtoList(musician.getAlbums()) : null)
                 .compositions(compositionService
                         .getCompositionViewDtoList(compositionService
-                                .getMusicianCompositionsOrderByFacade(musician.getId(), musician.getCompositionsSortType())))
+                                .getAllByMusicianOrderBy(musician.getId(), musician.getCompositionsSortType())))
                 .essentialCompositions(musician.getCompositions() != null ? compositionService
                         .getEssentialCompositionsViewDtoList(musician.getCompositions()) : null)
                 .build();
@@ -256,7 +256,7 @@ public class MusicianService {
                 .albums(albumService.getSortedAlbumViewDtoList(musician.getAlbums(), musician.getAlbumsSortType()))
                 .compositions(compositionService
                         .getCompositionViewDtoList(compositionService
-                                .getMusicianCompositionsOrderByFacade(musician.getId(), musician.getCompositionsSortType())))
+                                .getAllByMusicianOrderBy(musician.getId(), musician.getCompositionsSortType())))
                 .dateNotification(musician.getDateNotification())
                 .build();
     }

@@ -4,6 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.entity.tools.Soty;
 import com.dmitryshundrik.knowledgebase.model.entity.tools.SotyPair;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
+import com.dmitryshundrik.knowledgebase.service.music.CompositionSotyGeneratorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,8 @@ import java.util.Map;
 public class SotyGeneratorManagementController {
 
     private final CompositionService compositionService;
+
+    private final CompositionSotyGeneratorService compositionSotyGeneratorService;
 
     private static List<SotyPair> staticPairList = new ArrayList<>();
 
@@ -50,8 +53,7 @@ public class SotyGeneratorManagementController {
 
     @GetMapping(("/management/soty-generator/generate/{year}"))
     public String getSotyGeneratorGenerate(@PathVariable Integer year, Model model) {
-        List<Composition> compositionList = compositionService.getAllByYear(year);
-        staticPairList = compositionService.getPairListForSotyGenerator(compositionList);
+        staticPairList = compositionSotyGeneratorService.getPairListForSotyGenerator(year);
         Soty soty = new Soty();
         soty.setPairList(staticPairList);
         soty.setYear(year);
@@ -61,7 +63,7 @@ public class SotyGeneratorManagementController {
 
     @PostMapping("/management/soty-generator/generate/{year}")
     public String postSotyGeneratorGenerate(@ModelAttribute("soty") Soty soty, @PathVariable String year) {
-        result = compositionService.getTopForSotyGenerator(staticPairList, soty.getPairList());
+        result = compositionSotyGeneratorService.getTopForSotyGenerator(staticPairList, soty.getPairList());
         return "redirect:/management/soty-generator/generate/" + year + "/result";
     }
 

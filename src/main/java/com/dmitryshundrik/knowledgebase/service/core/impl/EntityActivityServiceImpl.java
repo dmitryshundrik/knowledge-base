@@ -12,16 +12,16 @@ import com.dmitryshundrik.knowledgebase.model.dto.literature.WriterEntityUpdateI
 import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianActivityDto;
-import com.dmitryshundrik.knowledgebase.service.art.impl.ArtistServiceImpl;
+import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
 import com.dmitryshundrik.knowledgebase.service.core.EntityActivityService;
 import com.dmitryshundrik.knowledgebase.service.core.ResourcesService;
 import com.dmitryshundrik.knowledgebase.service.core.SettingService;
-import com.dmitryshundrik.knowledgebase.service.gastronomy.impl.CocktailServiceImpl;
-import com.dmitryshundrik.knowledgebase.service.gastronomy.impl.RecipeServiceImpl;
+import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
+import com.dmitryshundrik.knowledgebase.service.gastronomy.RecipeService;
+import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
+import com.dmitryshundrik.knowledgebase.service.literature.QuoteService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
-import com.dmitryshundrik.knowledgebase.service.literature.impl.ProseServiceImpl;
-import com.dmitryshundrik.knowledgebase.service.literature.impl.QuoteServiceImpl;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
@@ -52,17 +52,17 @@ public class EntityActivityServiceImpl implements EntityActivityService {
 
     private final CompositionService compositionService;
 
-    private final RecipeServiceImpl recipeService;
+    private final RecipeService recipeService;
 
-    private final CocktailServiceImpl cocktailService;
+    private final CocktailService cocktailService;
 
     private final WriterService writerService;
 
-    private final ProseServiceImpl proseService;
+    private final ProseService proseService;
 
-    private final QuoteServiceImpl quoteService;
+    private final QuoteService quoteService;
 
-    private final ArtistServiceImpl artistService;
+    private final ArtistService artistService;
 
     private final PaintingService paintingService;
 
@@ -119,7 +119,7 @@ public class EntityActivityServiceImpl implements EntityActivityService {
 
     private List<EntityCurrentActivity> getAlbumActivities() {
         List<EntityCurrentActivity> albumActivities = new ArrayList<>();
-        List<Album> latestUpdate = albumService.getLatestUpdate();
+        List<Album> latestUpdate = albumService.getLatestUpdates();
         for (Album album : latestUpdate) {
             albumActivities.add(EntityCurrentActivity.builder()
                     .created(album.getCreated())
