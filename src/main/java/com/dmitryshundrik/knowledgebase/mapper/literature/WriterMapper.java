@@ -19,6 +19,7 @@ public abstract class WriterMapper {
     @Mapping(target = "wordList", ignore = true)
     public abstract Writer toWriter(WriterCreateEditDto writerDto);
 
+    @Mapping(target = "image", ignore = true)
     @Mapping(target = "events", ignore = true)
     @Mapping(target = "proseList", ignore = true)
     @Mapping(target = "quoteList", ignore = true)
