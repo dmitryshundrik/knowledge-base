@@ -10,7 +10,7 @@
     <groupId>com.example</groupId>
     <artifactId>knowledge-base</artifactId>
     <packaging>war</packaging>
-    <version>7.0.3-SNAPSHOT</version>
+    <version>7.0.3</version>
     <name>knowledge-base</name>
     <description>knowledge-base</description>
     <properties>
@@ -19,7 +19,7 @@
     </properties>
     <scm>
         <developerConnection>scm:git:https://github.com/dmitryshundrik/knowledge-base.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>knowledge-base-7.0.3</tag>
     </scm>
     <dependencies>
         <!-- Spring Boot Starters -->
