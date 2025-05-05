@@ -13,6 +13,7 @@ import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.text.DecimalFormat;
@@ -22,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import static com.dmitryshundrik.knowledgebase.util.Constants.MUSICIAN_GENRES_CACHE;
 
 @Service
 @Transactional
@@ -105,6 +108,7 @@ public class CompositionServiceImpl implements CompositionService {
     }
 
     @Override
+    @CacheEvict(value = MUSICIAN_GENRES_CACHE, key = "#musician.id")
     public CompositionViewDto createComposition(CompositionCreateEditDto compositionDto, Musician musician, Album album) {
         Composition composition = new Composition();
         composition.setMusician(musician);

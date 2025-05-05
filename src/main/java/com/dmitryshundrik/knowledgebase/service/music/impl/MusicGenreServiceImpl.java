@@ -21,6 +21,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.MUSICIAN_GENRES_CACHE;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -35,7 +37,7 @@ public class MusicGenreServiceImpl implements MusicGenreService {
     }
 
     @Override
-//    @Cacheable(value = "musicianGenres", key = "#musician.id")
+    @Cacheable(value = MUSICIAN_GENRES_CACHE, key = "#musician.id")
     public List<MusicGenre> getAllByMusicianOrderByCount(Musician musician) {
         log.info("Computing genres for musician ID: {}", musician.getId());
         Map<MusicGenre, Long> genreCounts = new HashMap<>();

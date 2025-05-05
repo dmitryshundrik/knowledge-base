@@ -15,6 +15,7 @@ import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.DECADE_2010s;
 import static com.dmitryshundrik.knowledgebase.util.Constants.DECADE_2020s;
+import static com.dmitryshundrik.knowledgebase.util.Constants.MUSICIAN_GENRES_CACHE;
 
 @Service
 @Transactional
@@ -105,6 +107,7 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
+    @CacheEvict(value = MUSICIAN_GENRES_CACHE, key = "#musician.id")
     public AlbumViewDto createAlbum(AlbumCreateEditDto albumDto, Musician musician, List<Musician> collaborators) {
         Album album = new Album();
         album.setMusician(musician);
