@@ -144,7 +144,6 @@ public class MusicPageController {
     public String getMusicianBySlug(@PathVariable String slug, Model model) {
         Musician musicianBySlug = musicianService.getBySlug(slug);
         MusicianViewDto musicianDto = musicianService.getMusicianViewDto(musicianBySlug);
-        musicianDto.setMusicPeriods(musicPeriodService.getMusiciansAllOrderByStart(musicianBySlug.getMusicPeriods()));
         model.addAttribute(MUSICIAN, musicianDto);
         return "music/musician";
     }

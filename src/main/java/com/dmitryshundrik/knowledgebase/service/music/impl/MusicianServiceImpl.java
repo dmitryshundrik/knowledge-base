@@ -222,7 +222,9 @@ public class MusicianServiceImpl implements MusicianService {
                 .based(musician.getBased())
                 .occupation(musician.getOccupation())
                 .catalogTitle(musician.getCatalogTitle())
-                .musicPeriods(musician.getMusicPeriods())
+                .musicPeriods(musician.getMusicPeriods().stream()
+                        .sorted(Comparator.comparing(MusicPeriod::getApproximateStart))
+                        .collect(Collectors.toList()))
                 .musicGenres(getSortedMusicGenresByMusician(musician))
                 .spotifyLink(musician.getSpotifyLink())
                 .events(musician.getEvents() != null ? personEventService
