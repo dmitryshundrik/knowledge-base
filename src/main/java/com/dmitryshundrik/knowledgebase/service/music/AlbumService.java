@@ -2,6 +2,7 @@ package com.dmitryshundrik.knowledgebase.service.music;
 
 import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumSelectDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumViewDto;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
@@ -14,12 +15,12 @@ public interface AlbumService {
     Album getBySlug(String albumSlug);
     Album getById(String albumId);
 
-    List<Album> getAll();
     List<Album> getAllOrderByCreated();
     List<Album> getAllByMusician(Musician musician);
     List<Album> getAllByYear(Integer year);
     List<Album> getAllByDecade(String decade);
     List<Album> getAllByGenre(MusicGenre genre);
+    List<AlbumSimpleDto> getAllAlbumSimpleDto();
     List<AlbumViewDto> getTop100BestAlbums();
     List<AlbumViewDto> get10BestAlbumsByYear(Integer year);
     List<Album> getLatestUpdates();

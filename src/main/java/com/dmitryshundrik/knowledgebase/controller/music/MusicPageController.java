@@ -2,6 +2,7 @@ package com.dmitryshundrik.knowledgebase.controller.music;
 
 import com.dmitryshundrik.knowledgebase.model.dto.client.lastfm.topalbums.TopAlbums;
 import com.dmitryshundrik.knowledgebase.model.dto.client.lastfm.topartists.TopArtists;
+import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.entity.core.Resource;
 import com.dmitryshundrik.knowledgebase.service.client.LastfmService;
@@ -128,8 +129,7 @@ public class MusicPageController {
 
     @GetMapping("/album/all")
     public String getAllAlbums(Model model) {
-        List<Album> albums = albumService.getAll();
-        model.addAttribute(ALBUM_LIST, albumService.getAlbumViewDtoListOrderBy(albums, SortType.CREATED));
+        model.addAttribute(ALBUM_LIST, albumService.getAllAlbumSimpleDto());
         return "music/album-all";
     }
 

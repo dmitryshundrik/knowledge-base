@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.music.impl;
 
+import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
@@ -45,11 +46,6 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public List<Album> getAll() {
-        return albumRepository.findAll();
-    }
-
-    @Override
     public List<Album> getAllOrderByCreated() {
         return albumRepository.findAllByOrderByCreatedDesc();
     }
@@ -78,6 +74,11 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public List<Album> getAllByGenre(MusicGenre genre) {
         return albumRepository.findAllByMusicGenresIsContaining(genre);
+    }
+
+    @Override
+    public List<AlbumSimpleDto> getAllAlbumSimpleDto() {
+        return albumRepository.findAllAlbumSimpleDtoOrderCreatedDesc();
     }
 
     @Override
