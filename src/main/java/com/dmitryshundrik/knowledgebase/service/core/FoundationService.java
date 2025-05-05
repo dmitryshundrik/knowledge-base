@@ -22,10 +22,6 @@ public class FoundationService {
         return foundationRepository.findById(UUID.fromString(id)).orElse(null);
     }
 
-    public List<Foundation> getAll() {
-        return foundationRepository.findAll();
-    }
-
     public List<Foundation> getAllOrderByCreated() {
         return foundationRepository.findAllByOrderByCreatedAsc();
     }

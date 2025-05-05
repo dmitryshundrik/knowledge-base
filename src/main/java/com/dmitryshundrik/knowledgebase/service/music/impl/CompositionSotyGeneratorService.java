@@ -1,7 +1,8 @@
-package com.dmitryshundrik.knowledgebase.service.music;
+package com.dmitryshundrik.knowledgebase.service.music.impl;
 
 import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.entity.tools.SotyPair;
+import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;

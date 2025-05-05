@@ -25,10 +25,6 @@ public class ImageService {
         return imageRepository.findBySlug(imageSlug);
     }
 
-    public List<Image> getAll() {
-        return imageRepository.findAll();
-    }
-
     public List<Image> getAllOrderByCreatedDesc() {
         return imageRepository.findAllByOrderByCreatedDesc();
     }

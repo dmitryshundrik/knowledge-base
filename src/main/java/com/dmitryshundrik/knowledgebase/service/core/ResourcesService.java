@@ -23,10 +23,6 @@ public class ResourcesService {
         return resourcesRepository.findById(UUID.fromString(id)).orElse(null);
     }
 
-    public List<Resource> getAll() {
-        return resourcesRepository.findAll();
-    }
-
     public List<Resource> getAllByResourceType(ResourceType resourceType) {
         return resourcesRepository.findAllByResourceTypeOrderByCreatedAsc(resourceType);
     }

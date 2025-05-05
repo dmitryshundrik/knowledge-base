@@ -4,7 +4,7 @@ import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.entity.tools.Soty;
 import com.dmitryshundrik.knowledgebase.model.entity.tools.SotyPair;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
-import com.dmitryshundrik.knowledgebase.service.music.CompositionSotyGeneratorService;
+import com.dmitryshundrik.knowledgebase.service.music.impl.CompositionSotyGeneratorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
