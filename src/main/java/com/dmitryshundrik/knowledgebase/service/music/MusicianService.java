@@ -43,16 +43,13 @@ public interface MusicianService extends BaseService {
     MusicianViewDto getMusicianViewDto(Musician musician);
     MusicianCreateEditDto getMusicianCreateEditDto(Musician musician);
 
+    void setFieldsToAlbumDto(String musicianSlug, AlbumCreateEditDto albumDto);
+    void setFieldsToCompositionDto(String musicianSlug, CompositionCreateEditDto compositionDto);
+
     List<MusicGenre> getSortedMusicGenresByMusician(Musician musician);
 
     Set<Musician> getAllWithCurrentBirth(Integer dayInterval);
     Set<Musician> getAllWithCurrentDeath(Integer dayInterval);
     Set<Musician> getAllWithCurrentBirthAndNotification(Integer dayInterval);
     Set<Musician> getAllWithCurrentDeathAndNotification(Integer dayInterval);
-
-    //Удалить логику этих методов
-    void setFieldsToAlbumDto(String musicianSlug, AlbumCreateEditDto albumDto);
-    void setFieldsToCompositionDto(String musicianSlug, CompositionCreateEditDto compositionDto);
-
-
 }

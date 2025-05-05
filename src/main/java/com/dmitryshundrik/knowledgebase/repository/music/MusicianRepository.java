@@ -21,6 +21,12 @@ public interface MusicianRepository extends JpaRepository<Musician, UUID> {
 
     Musician findByNickNameEnIgnoreCase(String nickNameEn);
 
+    @Query("SELECT new com.dmitryshundrik.knowledgebase.model.dto.music.MusicianSimpleDto(m.slug, m.nickName, " +
+            "m.born, m.founded) " +
+            "FROM Musician m " +
+            "WHERE m.slug = :slug")
+    MusicianSimpleDto findMusicianSimpleDtoBySlug(@Param("slug") String slug);
+
     void deleteBySlug(String slug);
 
     List<Musician> findAllByMusicPeriodsIsContainingAndCompositionsNotEmpty(MusicPeriod period);

@@ -25,7 +25,6 @@ import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -60,8 +59,8 @@ public class MusicianServiceImpl implements MusicianService {
     }
 
     @Override
-    public Musician getById(UUID musicianID) {
-        return musicianRepository.findById(musicianID).orElse(null);
+    public Musician getById(UUID musicianId) {
+        return musicianRepository.findById(musicianId).orElse(null);
     }
 
     @Override
@@ -276,6 +275,18 @@ public class MusicianServiceImpl implements MusicianService {
                 .build();
     }
 
+    public void setFieldsToAlbumDto(String musicianSlug, AlbumCreateEditDto albumDto) {
+        MusicianSimpleDto musicianDto = musicianRepository.findMusicianSimpleDtoBySlug(musicianSlug);
+        albumDto.setMusicianNickname(musicianDto.nickName());
+        albumDto.setMusicianSlug(musicianDto.slug());
+    }
+
+    public void setFieldsToCompositionDto(String musicianSlug, CompositionCreateEditDto compositionDto) {
+        MusicianSimpleDto musicianDto = musicianRepository.findMusicianSimpleDtoBySlug(musicianSlug);
+        compositionDto.setMusicianNickname(musicianDto.nickName());
+        compositionDto.setMusicianSlug(musicianDto.slug());
+    }
+
     @Override
     public List<MusicGenre> getSortedMusicGenresByMusician(Musician musician) {
         Map<MusicGenre, Integer> map = new HashMap<>();
@@ -300,18 +311,6 @@ public class MusicianServiceImpl implements MusicianService {
         return list.stream()
                 .map(Map.Entry::getKey)
                 .limit(10).collect(Collectors.toList());
-    }
-
-    public void setFieldsToCompositionDto(String musicianSlug, CompositionCreateEditDto compositionDto) {
-        Musician musicianBySlug = getBySlug(musicianSlug);
-        compositionDto.setMusicianNickname(musicianBySlug.getNickName());
-        compositionDto.setMusicianSlug(musicianBySlug.getSlug());
-    }
-
-    public void setFieldsToAlbumDto(String musicianSlug, AlbumCreateEditDto albumDto) {
-        Musician musicianBySlug = getBySlug(musicianSlug);
-        albumDto.setMusicianNickname(musicianBySlug.getNickName());
-        albumDto.setMusicianSlug(musicianBySlug.getSlug());
     }
 
     private void setFieldsFromDto(Musician musician, MusicianCreateEditDto musicianDto) {
