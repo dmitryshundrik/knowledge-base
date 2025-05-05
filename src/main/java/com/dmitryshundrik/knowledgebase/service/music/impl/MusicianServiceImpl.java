@@ -19,6 +19,7 @@ import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
 import com.dmitryshundrik.knowledgebase.service.core.PersonEventService;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
+import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
@@ -49,6 +50,8 @@ public class MusicianServiceImpl implements MusicianService {
 
     private final CompositionService compositionService;
 
+    private final MusicGenreService musicGenreService;
+
     private final PersonEventService personEventService;
 
     private final MusicianMapper musicianMapper;
@@ -75,7 +78,7 @@ public class MusicianServiceImpl implements MusicianService {
     @Override
     public MusicianArchiveDetailedDto getMusicianArchiveDetailedDto(Musician musician) {
         MusicianArchiveDetailedDto musicianDto = musicianMapper.toMusicianManagementDetailedResponseDto(musician);
-        musicianDto.setMusicGenres(getSortedMusicGenresByMusician(musician));
+        musicianDto.setMusicGenres(musicGenreService.getAllByMusicianOrderByCount(musician));
         musicianDto.setCreated(InstantFormatter.instantFormatterYMDHMS(musician.getCreated()));
         return musicianDto;
     }
@@ -225,18 +228,18 @@ public class MusicianServiceImpl implements MusicianService {
                 .musicPeriods(musician.getMusicPeriods().stream()
                         .sorted(Comparator.comparing(MusicPeriod::getApproximateStart))
                         .collect(Collectors.toList()))
-                .musicGenres(getSortedMusicGenresByMusician(musician))
+                .musicGenres(musicGenreService.getAllByMusicianOrderByCount(musician))
                 .spotifyLink(musician.getSpotifyLink())
                 .events(musician.getEvents() != null ? personEventService
                         .getPersonEventDtoList(musician.getEvents()) : null)
                 .albums(musician.getAlbums() != null ? albumService
-                        .getSortedAlbumViewDtoList(musician.getAlbums(), musician.getAlbumsSortType()) : null)
+                        .getAlbumViewDtoListOrderBy(musician.getAlbums(), musician.getAlbumsSortType()) : null)
                 .collaborations(musician.getCollaborations() != null ? albumService
                         .getAlbumViewDtoList(musician.getCollaborations().stream()
                                 .sorted(Comparator.comparing(Album::getYear))
                                 .collect(Collectors.toList())) : null)
                 .essentialAlbums(musician.getAlbums() != null ? albumService
-                        .getEssentialAlbumsViewDtoList(musician.getAlbums()) : null)
+                        .getEssentialAlbumViewDtoList(musician.getAlbums()) : null)
                 .compositions(compositionService
                         .getCompositionViewDtoList(compositionService
                                 .getAllByMusicianOrderBy(musician.getId(), musician.getCompositionsSortType())))
@@ -269,7 +272,7 @@ public class MusicianServiceImpl implements MusicianService {
                 .compositionsSortType(musician.getCompositionsSortType())
                 .spotifyLink(musician.getSpotifyLink())
                 .events(personEventService.getPersonEventDtoList(musician.getEvents()))
-                .albums(albumService.getSortedAlbumViewDtoList(musician.getAlbums(), musician.getAlbumsSortType()))
+                .albums(albumService.getAlbumViewDtoListOrderBy(musician.getAlbums(), musician.getAlbumsSortType()))
                 .compositions(compositionService
                         .getCompositionViewDtoList(compositionService
                                 .getAllByMusicianOrderBy(musician.getId(), musician.getCompositionsSortType())))
@@ -287,32 +290,6 @@ public class MusicianServiceImpl implements MusicianService {
         MusicianSimpleDto musicianDto = musicianRepository.findMusicianSimpleDtoBySlug(musicianSlug);
         compositionDto.setMusicianNickname(musicianDto.nickName());
         compositionDto.setMusicianSlug(musicianDto.slug());
-    }
-
-    @Override
-    public List<MusicGenre> getSortedMusicGenresByMusician(Musician musician) {
-        Map<MusicGenre, Integer> map = new HashMap<>();
-        List<Album> albums = musician.getAlbums();
-        List<Composition> compositions = musician.getCompositions();
-        if (albums != null) {
-            for (Album album : musician.getAlbums()) {
-                for (MusicGenre musicGenre : album.getMusicGenres()) {
-                    map.merge(musicGenre, 1, Integer::sum);
-                }
-            }
-        }
-        if (albums != null && albums.isEmpty() && compositions != null) {
-            for (Composition composition : musician.getCompositions()) {
-                for (MusicGenre musicGenre : composition.getMusicGenres()) {
-                    map.merge(musicGenre, 1, Integer::sum);
-                }
-            }
-        }
-        List<Map.Entry<MusicGenre, Integer>> list = new ArrayList<>(map.entrySet());
-        list.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));
-        return list.stream()
-                .map(Map.Entry::getKey)
-                .limit(10).collect(Collectors.toList());
     }
 
     private void setFieldsFromDto(Musician musician, MusicianCreateEditDto musicianDto) {

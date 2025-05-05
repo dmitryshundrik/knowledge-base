@@ -41,7 +41,7 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public Album getBySlug(String albumSlug) {
-        return albumRepository.findAlbumBySlug(albumSlug);
+        return albumRepository.findBySlug(albumSlug);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public List<Album> getAllOrderByCreatedDesc() {
+    public List<Album> getAllOrderByCreated() {
         return albumRepository.findAllByOrderByCreatedDesc();
     }
 
@@ -127,14 +127,6 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public List<AlbumViewDto> getEssentialAlbumsViewDtoList(List<Album> albumList) {
-        return albumList.stream().map(this::getAlbumViewDto)
-                .filter(albumViewDto -> albumViewDto.getEssentialAlbumsRank() != null)
-                .sorted(Comparator.comparing(AlbumViewDto::getEssentialAlbumsRank))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public AlbumViewDto getAlbumViewDto(Album album) {
         return AlbumViewDto.builder()
                 .created(InstantFormatter.instantFormatterDMY(album.getCreated()))
@@ -161,6 +153,36 @@ public class AlbumServiceImpl implements AlbumService {
     public List<AlbumViewDto> getAlbumViewDtoList(List<Album> albumList) {
         return albumList.stream().map(this::getAlbumViewDto).collect(Collectors.toList());
 
+    }
+
+    @Override
+    public List<AlbumViewDto> getAlbumViewDtoListOrderBy(List<Album> albumList, SortType sortType) {
+        return getAlbumViewDtoList(albumList.stream()
+                .sorted((o1, o2) -> {
+                            if (SortType.CATALOGUE_NUMBER.equals(sortType)
+                                    && o1.getCatalogNumber() != null && o2.getCatalogNumber() != null) {
+                                return o1.getCatalogNumber().compareTo(o2.getCatalogNumber());
+                            } else if (SortType.RATING.equals(sortType)
+                                    && o2.getRating() != null && o1.getRating() != null) {
+                                return o2.getRating().compareTo(o1.getRating());
+                            } else if (SortType.CREATED.equals(sortType)
+                                    && o2.getCreated() != null && (o1.getCreated() != null)) {
+                                return o2.getCreated().compareTo(o1.getCreated());
+                            } else if (o1.getYear() != null && o2.getYear() != null) {
+                                return o1.getYear().compareTo(o2.getYear());
+                            }
+                            return -1;
+                        }
+                )
+                .collect(Collectors.toList()));
+    }
+
+    @Override
+    public List<AlbumViewDto> getEssentialAlbumViewDtoList(List<Album> albumList) {
+        return albumList.stream().map(this::getAlbumViewDto)
+                .filter(albumViewDto -> albumViewDto.getEssentialAlbumsRank() != null)
+                .sorted(Comparator.comparing(AlbumViewDto::getEssentialAlbumsRank))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -200,28 +222,6 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public List<AlbumSelectDto> getAlbumSelectDtoList(List<Album> albumList) {
         return albumList.stream().map(this::getAlbumSelectDto).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<AlbumViewDto> getSortedAlbumViewDtoList(List<Album> albumList, SortType sortType) {
-        return getAlbumViewDtoList(albumList.stream()
-                .sorted((o1, o2) -> {
-                            if (SortType.CATALOGUE_NUMBER.equals(sortType)
-                                    && o1.getCatalogNumber() != null && o2.getCatalogNumber() != null) {
-                                return o1.getCatalogNumber().compareTo(o2.getCatalogNumber());
-                            } else if (SortType.RATING.equals(sortType)
-                                    && o2.getRating() != null && o1.getRating() != null) {
-                                return o2.getRating().compareTo(o1.getRating());
-                            } else if (SortType.CREATED.equals(sortType)
-                                    && o2.getCreated() != null && (o1.getCreated() != null)) {
-                                return o2.getCreated().compareTo(o1.getCreated());
-                            } else if (o1.getYear() != null && o2.getYear() != null) {
-                                return o1.getYear().compareTo(o2.getYear());
-                            }
-                            return -1;
-                        }
-                )
-                .collect(Collectors.toList()));
     }
 
     private void setFieldsFromDto(Album album, AlbumCreateEditDto albumDto) {

@@ -129,7 +129,7 @@ public class MusicPageController {
     @GetMapping("/album/all")
     public String getAllAlbums(Model model) {
         List<Album> albums = albumService.getAll();
-        model.addAttribute(ALBUM_LIST, albumService.getSortedAlbumViewDtoList(albums, SortType.CREATED));
+        model.addAttribute(ALBUM_LIST, albumService.getAlbumViewDtoListOrderBy(albums, SortType.CREATED));
         return "music/album-all";
     }
 
@@ -175,7 +175,7 @@ public class MusicPageController {
     @GetMapping("/lists-and-charts/albums-of-{year}")
     public String getAllAlbumsByYear(@PathVariable String year, Model model) {
         List<Album> allAlbumsByYear = albumService.getAllByYear(Integer.valueOf(year));
-        List<AlbumViewDto> albumDtoList = albumService.getSortedAlbumViewDtoList(allAlbumsByYear, SortType.RATING);
+        List<AlbumViewDto> albumDtoList = albumService.getAlbumViewDtoListOrderBy(allAlbumsByYear, SortType.RATING);
         model.addAttribute(ALBUM_LIST, albumDtoList);
         model.addAttribute(YEAR, year);
         return "music/albums-of-year";
@@ -215,7 +215,7 @@ public class MusicPageController {
         if (musicGenre.getMusicGenreType().equals(MusicGenreType.CONTEMPORARY)) {
             List<Album> albumsByGenre = albumService.getAllByGenre(musicGenre);
             model.addAttribute(ALBUM_LIST, albumService
-                    .getSortedAlbumViewDtoList(albumsByGenre, SortType.RATING));
+                    .getAlbumViewDtoListOrderBy(albumsByGenre, SortType.RATING));
         }
         if (musicGenre.getMusicGenreType().equals(MusicGenreType.CLASSICAL)) {
             List<Composition>  compositionsByGenre = compositionService.getAllByGenre(musicGenre);

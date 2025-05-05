@@ -3,14 +3,14 @@ package com.dmitryshundrik.knowledgebase.service.music;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicGenreCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicGenreViewDto;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
-
+import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
 import java.util.List;
 
 public interface MusicGenreService {
 
     MusicGenre getBySlug(String musicGenreSlug);
 
-    List<MusicGenre> getAll();
+    List<MusicGenre> getAllByMusicianOrderByCount(Musician musician);
     List<MusicGenre> getAllClassicalGenres();
     List<MusicGenre> getAllClassicalGenresOrderByTitle();
     List<MusicGenre> getAllContemporaryGenres();

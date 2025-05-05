@@ -1,21 +1,30 @@
 package com.dmitryshundrik.knowledgebase.service.music.impl;
 
+import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
+import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicGenreCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicGenreViewDto;
+import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicGenreRepository;
 import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class MusicGenreServiceImpl implements MusicGenreService {
 
     private final MusicGenreRepository musicGenreRepository;
@@ -26,8 +35,27 @@ public class MusicGenreServiceImpl implements MusicGenreService {
     }
 
     @Override
-    public List<MusicGenre> getAll() {
-        return musicGenreRepository.findAll();
+//    @Cacheable(value = "musicianGenres", key = "#musician.id")
+    public List<MusicGenre> getAllByMusicianOrderByCount(Musician musician) {
+        log.info("Computing genres for musician ID: {}", musician.getId());
+        Map<MusicGenre, Long> genreCounts = new HashMap<>();
+        List<Album> albums = Optional.ofNullable(musician.getAlbums()).orElse(List.of());
+        albums.stream()
+                .flatMap(album -> Optional.ofNullable(album.getMusicGenres()).orElse(List.of()).stream())
+                .forEach(genre -> genreCounts.merge(genre, 1L, Long::sum));
+
+        List<Composition> compositions = Optional.ofNullable(musician.getCompositions()).orElse(List.of());
+        compositions.stream()
+                .flatMap(composition -> Optional.ofNullable(composition.getMusicGenres()).orElse(List.of()).stream())
+                .forEach(genre -> genreCounts.merge(genre, 1L, Long::sum));
+
+        List<MusicGenre> result = genreCounts.entrySet().stream()
+                .sorted(Map.Entry.<MusicGenre, Long>comparingByValue().reversed())
+                .limit(10)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+        log.info("Computed genres for musician ID: {}: {}", musician.getId(), result);
+        return result;
     }
 
     @Override

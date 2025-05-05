@@ -9,7 +9,6 @@ import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianArchiveDetailedD
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianArchiveDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianViewDto;
-import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
 import com.dmitryshundrik.knowledgebase.service.BaseService;
@@ -45,8 +44,6 @@ public interface MusicianService extends BaseService {
 
     void setFieldsToAlbumDto(String musicianSlug, AlbumCreateEditDto albumDto);
     void setFieldsToCompositionDto(String musicianSlug, CompositionCreateEditDto compositionDto);
-
-    List<MusicGenre> getSortedMusicGenresByMusician(Musician musician);
 
     Set<Musician> getAllWithCurrentBirth(Integer dayInterval);
     Set<Musician> getAllWithCurrentDeath(Integer dayInterval);

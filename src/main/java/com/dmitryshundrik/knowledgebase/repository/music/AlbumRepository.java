@@ -13,9 +13,11 @@ public interface AlbumRepository extends JpaRepository<Album, UUID> {
     @Query("SELECT DISTINCT year FROM Album ORDER BY year")
     List<Integer> findAllYearsFromAlbums();
 
-    Album findAlbumBySlug(String slug);
+    Album findBySlug(String slug);
 
     List<Album> findAllByYear(Integer year);
+
+    List<Album> findFirst100ByRatingIsNotNullOrderByRatingDesc();
 
     List<Album> findAllByMusician(Musician musician);
 
@@ -27,8 +29,6 @@ public interface AlbumRepository extends JpaRepository<Album, UUID> {
 
     @Query("FROM Album WHERE year > :start AND year < :end AND rating is not null order by rating desc")
     List<Album> findAllByDecadesOrderByRatingDesc(Integer start, Integer end);
-
-    List<Album> findFirst100ByRatingIsNotNullOrderByRatingDesc();
 
     @Query(value = "select count(m) from Album m")
     Long getSize();

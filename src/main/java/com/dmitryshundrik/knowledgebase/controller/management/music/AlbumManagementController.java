@@ -36,7 +36,7 @@ public class AlbumManagementController {
 
     @GetMapping("/management/album/all")
     public String getAllAlbums(Model model) {
-        List<Album> albumList = albumService.getAllOrderByCreatedDesc();
+        List<Album> albumList = albumService.getAllOrderByCreated();
         model.addAttribute(ALBUM_LIST, albumService.getAlbumViewDtoList(albumList));
         return "management/music/album-all";
     }
