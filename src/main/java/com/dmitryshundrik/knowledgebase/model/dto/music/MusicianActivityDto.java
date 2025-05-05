@@ -1,16 +1,10 @@
 package com.dmitryshundrik.knowledgebase.model.dto.music;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import java.time.Instant;
 
-@AllArgsConstructor
-@Data
-public class MusicianActivityDto {
+public record MusicianActivityDto(
+        Instant created,
+        String slug,
+        String nickName) {
 
-    private Instant created;
-
-    private String slug;
-
-    private String nickName;
 }

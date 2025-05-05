@@ -2,7 +2,7 @@ package com.dmitryshundrik.knowledgebase.controller.music;
 
 import com.dmitryshundrik.knowledgebase.model.dto.client.lastfm.topalbums.TopAlbums;
 import com.dmitryshundrik.knowledgebase.model.dto.client.lastfm.topartists.TopArtists;
-import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianAllPageResponseDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.entity.core.Resource;
 import com.dmitryshundrik.knowledgebase.service.client.LastfmService;
 import com.dmitryshundrik.knowledgebase.service.core.ResourcesService;
@@ -106,7 +106,7 @@ public class MusicPageController {
         }
         model.addAttribute(CURRENT_YEAR, yearInMusicService.getYearInMusicViewDto(yearInMusic));
         model.addAttribute(ALBUM_LIST, albumService.get10BestAlbumsByYear(yearInMusic.getYear()));
-        model.addAttribute(COMPOSITION_LIST, compositionService.getAllForSOTYList(yearInMusic.getYear()));
+        model.addAttribute(COMPOSITION_LIST, compositionService.getCompositionViewDtoListForSoty(yearInMusic.getYear()));
         return "music/year-in-music";
     }
 
@@ -120,7 +120,7 @@ public class MusicPageController {
     @GetMapping("/composition/top100")
     public String getTop100BestClassicalCompositions(Model model) {
         List<Composition> top100BestClassicalCompositions = compositionService
-                .getTop100ByClassicalGenreOrderByRatingDesc();
+                .getTop100ByClassicalGenreOrderByRating();
         List<CompositionViewDto> compositionViewDtoList = compositionService.getCompositionViewDtoList(top100BestClassicalCompositions);
         model.addAttribute(COMPOSITION_LIST, compositionViewDtoList);
         return "music/classical-composition-top100";
@@ -135,7 +135,7 @@ public class MusicPageController {
 
     @GetMapping("/musician/all")
     public String getAllMusicians(Model model) {
-        List<MusicianAllPageResponseDto> musicians = musicianService.getMusicianAllPageResponseDtoOrderByBornAndFounded();
+        List<MusicianSimpleDto> musicians = musicianService.getAllMusicianSimpleDto();
         model.addAttribute(MUSICIAN_LIST, musicians);
         return "music/musician-all";
     }
@@ -199,14 +199,11 @@ public class MusicPageController {
     public String getPeriodBySlug(@PathVariable String periodSlug, Model model) {
         MusicPeriod musicPeriod = musicPeriodService.getBySlug(periodSlug);
         MusicPeriodViewDto musicPeriodDto = musicPeriodService.getMusicPeriodViewDto(musicPeriod);
-        List<Musician> musiciansByPeriod = musicianService.getAllByPeriod(musicPeriod);
-        List<Musician> bestMusiciansByPeriod = musicianService.getTop10MusiciansByPeriod(musiciansByPeriod);
-        List<CompositionViewDto> compositionsByPeriodList = compositionService
-                .getSortedCompositionViewDtoList(compositionService
-                        .getAllByMusicianList(musiciansByPeriod), SortType.RATING);
+        List<Musician> musicianList = musicianService.getAllByPeriod(musicPeriod);
         model.addAttribute(MUSIC_PERIOD, musicPeriodDto);
-        model.addAttribute(MUSICIAN_LIST, bestMusiciansByPeriod);
-        model.addAttribute(COMPOSITION_LIST, compositionsByPeriodList);
+        model.addAttribute(MUSICIAN_LIST, musicianService.getAllBestByPeriod(musicPeriod));
+        model.addAttribute(COMPOSITION_LIST, compositionService.getCompositionViewDtoListOrderBy(compositionService
+                .getAllByMusicianList(musicianList), SortType.RATING));
         return "music/music-period";
     }
 
@@ -224,7 +221,7 @@ public class MusicPageController {
         if (musicGenre.getMusicGenreType().equals(MusicGenreType.CLASSICAL)) {
             List<Composition>  compositionsByGenre = compositionService.getAllByGenre(musicGenre);
             model.addAttribute(COMPOSITION_LIST, compositionService
-                    .getSortedCompositionViewDtoList(compositionsByGenre, SortType.RATING));
+                    .getCompositionViewDtoListOrderBy(compositionsByGenre, SortType.RATING));
         }
         return "music/music-genre";
     }

@@ -5,7 +5,6 @@ import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumCreateEditDto;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
-import com.dmitryshundrik.knowledgebase.util.MusicianDtoTransformer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,8 +46,7 @@ public class AlbumManagementController {
         AlbumCreateEditDto albumDto = new AlbumCreateEditDto();
         musicianService.setFieldsToAlbumDto(musicianSlug, albumDto);
         model.addAttribute(ALBUM, albumDto);
-        model.addAttribute(ALBUM_COLLABORATORS, MusicianDtoTransformer
-                .getMusicianSelectDtoList(musicianService.getAll()));
+        model.addAttribute(ALBUM_COLLABORATORS, musicianService.getAllMusicianSelectDto());
         model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenresOrderByTitle());
         model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenresOrderByTitle());
         return "management/music/album-create";
@@ -74,8 +72,7 @@ public class AlbumManagementController {
     public String getEditAlbumBySlug(@PathVariable String musicianSlug, @PathVariable String albumSlug, Model model) {
         Album albumBySlug = albumService.getBySlug(albumSlug);
         model.addAttribute(ALBUM, albumService.getAlbumCreateEditDto(albumBySlug));
-        model.addAttribute(ALBUM_COLLABORATORS, MusicianDtoTransformer
-                .getMusicianSelectDtoList(musicianService.getAll()));
+        model.addAttribute(ALBUM_COLLABORATORS, musicianService.getAllMusicianSelectDto());
         model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenresOrderByTitle());
         model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenresOrderByTitle());
         return "management/music/album-edit";

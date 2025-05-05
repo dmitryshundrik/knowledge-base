@@ -9,7 +9,7 @@ import com.dmitryshundrik.knowledgebase.model.dto.client.spotify.player.ItemAlbu
 import com.dmitryshundrik.knowledgebase.model.dto.client.spotify.player.ItemArtistResponse;
 import com.dmitryshundrik.knowledgebase.model.dto.client.spotify.player.ItemResponse;
 import com.dmitryshundrik.knowledgebase.model.dto.client.spotify.player.PlayerResponse;
-import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
+import com.dmitryshundrik.knowledgebase.service.music.impl.MusicianServiceImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +32,7 @@ public class SpotifyPlayerService {
 
     private final SpotifyIntegrationService spotifyIntegrationService;
 
-    private final MusicianService musicianService;
+    private final MusicianServiceImpl musicianService;
 
     private final HttpClient httpClient = HttpClient.newHttpClient();
 

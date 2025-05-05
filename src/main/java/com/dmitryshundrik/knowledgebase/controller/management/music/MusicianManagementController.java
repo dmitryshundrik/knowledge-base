@@ -44,13 +44,13 @@ public class MusicianManagementController {
 
     @GetMapping("/management/musician/all")
     public String getAllMusicians(Model model) {
-        model.addAttribute(MUSICIAN_LIST, musicianService.getAllMusicianManagementResponseDto());
+        model.addAttribute(MUSICIAN_LIST, musicianService.getAllMusicianArchiveDto());
         return "management/music/musician-archive";
     }
 
     @GetMapping("/management/musician/all-detailed")
     public String getAllMusiciansDetailed(Model model) {
-        model.addAttribute(MUSICIAN_LIST, musicianService.getAllMusicianManagementDetailedResponseDto());
+        model.addAttribute(MUSICIAN_LIST, musicianService.getAllMusicianArchiveDetailedDto());
         return "management/music/musician-archive-detailed";
     }
 

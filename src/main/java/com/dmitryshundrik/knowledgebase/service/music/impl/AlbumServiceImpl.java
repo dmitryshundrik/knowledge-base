@@ -9,9 +9,9 @@ import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumViewDto;
 import com.dmitryshundrik.knowledgebase.model.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.enums.SortType;
 import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
+import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
-import com.dmitryshundrik.knowledgebase.util.MusicianDtoTransformer;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,6 +31,8 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.DECADE_2020s;
 public class AlbumServiceImpl implements AlbumService {
 
     private final AlbumRepository albumRepository;
+
+    private final MusicianRepository musicianRepository;
 
     @Override
     public Album getById(String albumId) {
@@ -141,7 +143,8 @@ public class AlbumServiceImpl implements AlbumService {
                 .catalogNumber(album.getCatalogNumber())
                 .musicianNickname(album.getMusician().getNickName())
                 .musicianSlug(album.getMusician().getSlug())
-                .collaborators(MusicianDtoTransformer.getMusicianSelectDtoList(album.getCollaborators()))
+// Заменить на маппер
+//                .collaborators(musicianRepository.findAllMusicianSelectDtoOrderByNickName())
                 .feature(album.getFeature())
                 .artwork(album.getArtwork())
                 .year(album.getYear())

@@ -24,7 +24,7 @@ import com.dmitryshundrik.knowledgebase.service.literature.QuoteService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
-import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
+import com.dmitryshundrik.knowledgebase.service.music.impl.MusicianServiceImpl;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CachePut;
@@ -46,7 +46,7 @@ public class EntityActivityServiceImpl implements EntityActivityService {
 
     private final SettingService settingService;
 
-    private final MusicianService musicianService;
+    private final MusicianServiceImpl musicianService;
 
     private final AlbumService albumService;
 
@@ -108,10 +108,10 @@ public class EntityActivityServiceImpl implements EntityActivityService {
         List<MusicianActivityDto> latestUpdate = musicianService.getLatestUpdate();
         for (MusicianActivityDto activityDto : latestUpdate) {
             musicianActivities.add(EntityCurrentActivity.builder()
-                    .created(activityDto.getCreated())
+                    .created(activityDto.created())
                     .archiveSection("музыка:")
-                    .description("музыкант " + activityDto.getNickName())
-                    .link("music/musician/" + activityDto.getSlug())
+                    .description("музыкант " + activityDto.nickName())
+                    .link("music/musician/" + activityDto.slug())
                     .build());
         }
         return musicianActivities;

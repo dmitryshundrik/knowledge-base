@@ -8,7 +8,7 @@ import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.service.core.EntityEventCreator;
 import com.dmitryshundrik.knowledgebase.service.core.EntityNotificationService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
-import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
+import com.dmitryshundrik.knowledgebase.service.music.impl.MusicianServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class EntityNotificationServiceImpl implements EntityNotificationService {
 
-    private final MusicianService musicianService;
+    private final MusicianServiceImpl musicianService;
 
     private final WriterService writerService;
 

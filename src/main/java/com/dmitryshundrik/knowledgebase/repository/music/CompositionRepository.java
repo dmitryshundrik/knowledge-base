@@ -2,6 +2,7 @@ package com.dmitryshundrik.knowledgebase.repository.music;
 
 import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
+import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;
@@ -15,6 +16,8 @@ public interface CompositionRepository extends JpaRepository<Composition, UUID> 
     Composition findCompositionBySlug(String slug);
 
     void deleteBySlug(String slug);
+
+    List<Composition> findByMusicianIn(List<Musician> musicians);
 
     List<Composition> findAllByMusicGenresIsContaining(MusicGenre musicGenre);
 

@@ -1,15 +1,13 @@
 package com.dmitryshundrik.knowledgebase.model.dto.music;
 
-import lombok.Builder;
-import lombok.Data;
+import java.util.UUID;
 
-@Data
-@Builder
-public class MusicianSelectDto {
-
-    private String id;
-
-    private String slug;
-
-    private String nickName;
+public record MusicianSelectDto(
+        String id,
+        String slug,
+        String nickName
+) {
+    public MusicianSelectDto(UUID id, String slug, String nickName) {
+        this(id.toString(), slug, nickName);
+    }
 }

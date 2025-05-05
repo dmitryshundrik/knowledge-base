@@ -19,6 +19,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -35,12 +36,7 @@ public class CompositionServiceImpl implements CompositionService {
     }
 
     @Override
-    public List<Composition> getAll() {
-        return compositionRepository.findAll();
-    }
-
-    @Override
-    public List<Composition> getAllOrderByCreatedDesc() {
+    public List<Composition> getAllOrderByCreated() {
         return compositionRepository.findAllByOrderByCreatedDesc();
     }
 
@@ -63,13 +59,8 @@ public class CompositionServiceImpl implements CompositionService {
     }
 
     @Override
-    public List<Composition> getAllByMusicianAndEssentialRankNotNull(String musicianSlug) {
+    public List<Composition> getAllByMusicianAndEssentialRank(String musicianSlug) {
         return compositionRepository.findAllByMusicianAndEssentialRankNotNull(musicianSlug);
-    }
-
-    @Override
-    public List<Composition> getAllByMusicianWithRating(String musicianSlug) {
-        return compositionRepository.findAllByMusicianWithRating(musicianSlug);
     }
 
     @Override
@@ -92,7 +83,7 @@ public class CompositionServiceImpl implements CompositionService {
     }
 
     @Override
-    public List<Composition> getTop100ByClassicalGenreOrderByRatingDesc() {
+    public List<Composition> getTop100ByClassicalGenreOrderByRating() {
         return compositionRepository.findAllByMusicGenresIsContainingAndRatingNotNull(MusicGenreType.CLASSICAL.name(), 100);
     }
 
@@ -107,10 +98,10 @@ public class CompositionServiceImpl implements CompositionService {
     }
 
     @Override
-    public List<CompositionViewDto> getAllForSOTYList(Integer year) {
-        return getCompositionViewDtoList(compositionRepository.findAllByYearAndYearEndRankNotNull(year))
-                .stream().sorted(Comparator.comparing(CompositionViewDto::getYearEndRank))
-                .collect(Collectors.toList());
+    public Map<Musician, List<Composition>> getAllByMusiciansIn(List<Musician> musicianList) {
+        List<Composition> compositions = compositionRepository.findByMusicianIn(musicianList);
+        return compositions.stream()
+                .collect(Collectors.groupingBy(Composition::getMusician));
     }
 
     @Override
@@ -144,7 +135,7 @@ public class CompositionServiceImpl implements CompositionService {
 
     @Override
     public void updateEssentialCompositions(CompositionCreateEditDto compositionDto) {
-        var sortedEssentialCompositionsList = getAllByMusicianAndEssentialRankNotNull(compositionDto.getMusicianSlug());
+        var sortedEssentialCompositionsList = getAllByMusicianAndEssentialRank(compositionDto.getMusicianSlug());
         for (int i = 0; i < sortedEssentialCompositionsList.size(); i++) {
             if (sortedEssentialCompositionsList.get(i).getEssentialCompositionsRank()
                     .equals(compositionDto.getEssentialCompositionsRank())) {
@@ -190,15 +181,7 @@ public class CompositionServiceImpl implements CompositionService {
     }
 
     @Override
-    public List<CompositionViewDto> getEssentialCompositionsViewDtoList(List<Composition> compositionList) {
-        return compositionList.stream().map(this::getCompositionViewDto)
-                .filter(compositionViewDTO -> compositionViewDTO.getEssentialCompositionsRank() != null)
-                .sorted(Comparator.comparing(CompositionViewDto::getEssentialCompositionsRank))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<CompositionViewDto> getSortedCompositionViewDtoList(List<Composition> compositionList, SortType sortType) {
+    public List<CompositionViewDto> getCompositionViewDtoListOrderBy(List<Composition> compositionList, SortType sortType) {
         return getCompositionViewDtoList(compositionList).stream()
                 .sorted((o1, o2) -> {
                             if (SortType.CATALOGUE_NUMBER.equals(sortType)
@@ -215,6 +198,21 @@ public class CompositionServiceImpl implements CompositionService {
                             return -1;
                         }
                 )
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CompositionViewDto> getCompositionViewDtoListForSoty(Integer year) {
+        return getCompositionViewDtoList(compositionRepository.findAllByYearAndYearEndRankNotNull(year))
+                .stream().sorted(Comparator.comparing(CompositionViewDto::getYearEndRank))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CompositionViewDto> getEssentialCompositionsViewDtoList(List<Composition> compositionList) {
+        return compositionList.stream().map(this::getCompositionViewDto)
+                .filter(compositionViewDTO -> compositionViewDTO.getEssentialCompositionsRank() != null)
+                .sorted(Comparator.comparing(CompositionViewDto::getEssentialCompositionsRank))
                 .collect(Collectors.toList());
     }
 

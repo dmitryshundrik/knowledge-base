@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.entity.music.YearInMusic;
 import com.dmitryshundrik.knowledgebase.model.dto.music.YearInMusicCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.YearInMusicViewDto;
 import com.dmitryshundrik.knowledgebase.repository.music.YearInMusicRepository;
+import com.dmitryshundrik.knowledgebase.service.music.impl.MusicianServiceImpl;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -21,7 +22,7 @@ public class YearInMusicService {
 
     private final YearInMusicRepository yearInMusicRepository;
 
-    private final MusicianService musicianService;
+    private final MusicianServiceImpl musicianService;
 
     public YearInMusic getBySlug(String yearInMusicSlug) {
         return yearInMusicRepository.findBySlug(yearInMusicSlug);

@@ -8,7 +8,7 @@ import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
 import com.dmitryshundrik.knowledgebase.service.core.EntityEventCreator;
 import com.dmitryshundrik.knowledgebase.service.core.EntityEventService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
-import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
+import com.dmitryshundrik.knowledgebase.service.music.impl.MusicianServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CachePut;
@@ -27,7 +27,7 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.ENTITY_EVENT_CACHE
 @Slf4j
 public class EntityEventServiceImpl implements EntityEventService {
 
-    private final MusicianService musicianService;
+    private final MusicianServiceImpl musicianService;
 
     private final WriterService writerService;
 
