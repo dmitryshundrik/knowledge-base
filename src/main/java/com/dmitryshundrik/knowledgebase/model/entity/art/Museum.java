@@ -4,10 +4,10 @@ import com.dmitryshundrik.knowledgebase.model.entity.AbstractEntity;
 import com.dmitryshundrik.knowledgebase.model.entity.core.Image;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import java.util.List;
 
 @Entity

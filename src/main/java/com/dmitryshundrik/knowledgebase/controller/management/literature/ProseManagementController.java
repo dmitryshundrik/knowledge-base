@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseViewDto;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
 import com.dmitryshundrik.knowledgebase.service.literature.impl.ProseServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.PROSE;
@@ -83,7 +83,7 @@ public class ProseManagementController {
     @PostMapping("/management/writer/edit/{writerSlug}/prose/edit/{proseSlug}/schema/upload")
     public String postUploadSynopsisSchema(@PathVariable String writerSlug, @PathVariable String proseSlug,
                                         @RequestParam("file") MultipartFile file) throws IOException {
-        byte[] bytes = Base64.encodeBase64(file.getBytes());
+        byte[] bytes = Base64.getEncoder().encode(file.getBytes());
         proseService.updateSynopsisSchema(proseSlug, bytes);
         return "redirect:/management/writer/edit/" + writerSlug + "/prose/edit/" + proseSlug;
     }

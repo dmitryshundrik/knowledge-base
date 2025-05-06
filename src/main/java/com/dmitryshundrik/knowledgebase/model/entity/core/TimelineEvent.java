@@ -5,11 +5,11 @@ import com.dmitryshundrik.knowledgebase.model.enums.EraType;
 import com.dmitryshundrik.knowledgebase.model.enums.TimelineEventType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "timeline_event")

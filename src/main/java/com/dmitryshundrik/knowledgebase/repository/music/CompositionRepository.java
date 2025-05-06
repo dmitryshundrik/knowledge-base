@@ -10,7 +10,9 @@ import java.util.UUID;
 
 public interface CompositionRepository extends JpaRepository<Composition, UUID> {
 
-    @Query("SELECT DISTINCT year FROM Composition ORDER BY year")
+    @Query("SELECT DISTINCT year " +
+            "FROM Composition " +
+            "ORDER BY year")
     List<Integer> getAllYearsFromCompositions();
 
     Composition findCompositionBySlug(String slug);
@@ -34,12 +36,11 @@ public interface CompositionRepository extends JpaRepository<Composition, UUID> 
 
     List<Composition> findFirst20ByOrderByCreatedDesc();
 
-    @Query("from Composition composition where composition.musician.slug = ?1 " +
-            "and composition.essentialCompositionsRank is not null order by composition.essentialCompositionsRank")
+    @Query("FROM Composition composition " +
+            "WHERE composition.musician.slug = ?1 " +
+            "AND composition.essentialCompositionsRank IS NOT NULL " +
+            "ORDER BY composition.essentialCompositionsRank")
     List<Composition> findAllByMusicianAndEssentialRankNotNull(String musicianSlug);
-
-    @Query("from Composition composition where composition.musician.slug = ?1 and composition.rating is not null")
-    List<Composition> findAllByMusicianWithRating(String musicianSlug);
 
     List<Composition> findAllByOrderByCreatedDesc();
 

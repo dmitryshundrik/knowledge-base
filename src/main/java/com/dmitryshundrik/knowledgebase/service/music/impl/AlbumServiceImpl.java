@@ -1,5 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.music.impl;
 
+import com.dmitryshundrik.knowledgebase.mapper.music.AlbumMapper;
+import com.dmitryshundrik.knowledgebase.mapper.music.MusicianMapper;
 import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
@@ -10,7 +12,6 @@ import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumViewDto;
 import com.dmitryshundrik.knowledgebase.model.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.enums.SortType;
 import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
-import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
@@ -21,8 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.DECADE_2010s;
 import static com.dmitryshundrik.knowledgebase.util.Constants.DECADE_2020s;
@@ -35,7 +39,9 @@ public class AlbumServiceImpl implements AlbumService {
 
     private final AlbumRepository albumRepository;
 
-    private final MusicianRepository musicianRepository;
+    private final AlbumMapper albumMapper;
+
+    private final MusicianMapper musicianMapper;
 
     @Override
     public Album getById(String albumId) {
@@ -58,29 +64,29 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public List<Album> getAllByYear(Integer year) {
-        return albumRepository.findAllByYear(year);
-    }
-
-    @Override
-    public List<Album> getAllByDecade(String decade) {
-        List<Album> albumsByDecade = new ArrayList<>();
-        if (DECADE_2010s.equals(decade)) {
-            albumsByDecade.addAll(albumRepository.findAllByDecadesOrderByRatingDesc(2009, 2020));
-        } else if (DECADE_2020s.equals(decade)) {
-            albumsByDecade.addAll(albumRepository.findAllByDecadesOrderByRatingDesc(2019, 2030));
-        }
-        return albumsByDecade;
-    }
-
-    @Override
     public List<Album> getAllByGenre(MusicGenre genre) {
         return albumRepository.findAllByMusicGenresIsContaining(genre);
     }
 
     @Override
     public List<AlbumSimpleDto> getAllAlbumSimpleDto() {
-        return albumRepository.findAllAlbumSimpleDtoOrderCreatedDesc();
+        return albumRepository.findAllAlbumSimpleDtoOrderByCreatedDesc();
+    }
+
+    @Override
+    public List<AlbumSimpleDto> getAllAlbumSimpleDtoByYear(Integer year) {
+        return albumRepository.findAllAlbumSimpleDtoByYearOrderByRating(year);
+    }
+
+    @Override
+    public List<AlbumSimpleDto> getAllAlbumSimpleDtoByDecade(String decade) {
+        List<AlbumSimpleDto> albumsByDecade = new ArrayList<>();
+        if (DECADE_2010s.equals(decade)) {
+            albumsByDecade.addAll(albumRepository.findAllAlbumSimpleDtoByDecadeOrderByRating(2009, 2020));
+        } else if (DECADE_2020s.equals(decade)) {
+            albumsByDecade.addAll(albumRepository.findAllAlbumSimpleDtoByDecadeOrderByRating(2019, 2030));
+        }
+        return albumsByDecade;
     }
 
     @Override
@@ -109,20 +115,27 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     @CacheEvict(value = MUSICIAN_GENRES_CACHE, key = "#musician.id")
     public AlbumViewDto createAlbum(AlbumCreateEditDto albumDto, Musician musician, List<Musician> collaborators) {
-        Album album = new Album();
+        Album album = albumMapper.toAlbum(albumDto);
+        album.setSlug(musician.getSlug() + "-" + SlugFormatter.slugFormatter(album.getSlug()));
         album.setMusician(musician);
         album.setCollaborators(collaborators);
-        setFieldsFromDto(album, albumDto);
-        album.setSlug(musician.getSlug() + "-" + SlugFormatter.slugFormatter(album.getSlug()));
+        album.setMusicGenres(Stream.of(
+                Optional.ofNullable(albumDto.getClassicalGenres()).orElse(List.of()),
+                Optional.ofNullable(albumDto.getContemporaryGenres()).orElse(List.of())
+        ).flatMap(List::stream).toList());
         return getAlbumViewDto(albumRepository.save(album));
     }
 
     @Override
     public AlbumViewDto updateAlbum(String albumSlug, AlbumCreateEditDto albumDto, List<Musician> collaborators) {
-        Album albumBySlug = getBySlug(albumSlug);
-        albumBySlug.setCollaborators(collaborators);
-        setFieldsFromDto(albumBySlug, albumDto);
-        return getAlbumViewDto(albumBySlug);
+        Album album = getBySlug(albumSlug);
+        albumMapper.updateAlbum(album, albumDto);
+        album.setCollaborators(collaborators);
+        album.setMusicGenres(Stream.of(
+                Optional.ofNullable(albumDto.getClassicalGenres()).orElse(List.of()),
+                Optional.ofNullable(albumDto.getContemporaryGenres()).orElse(List.of())
+        ).flatMap(List::stream).toList());
+        return getAlbumViewDto(album);
     }
 
     @Override
@@ -132,30 +145,17 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public AlbumViewDto getAlbumViewDto(Album album) {
-        return AlbumViewDto.builder()
-                .created(InstantFormatter.instantFormatterDMY(album.getCreated()))
-                .slug(album.getSlug())
-                .title(album.getTitle())
-                .catalogNumber(album.getCatalogNumber())
-                .musicianNickname(album.getMusician().getNickName())
-                .musicianSlug(album.getMusician().getSlug())
-// Заменить на маппер
-//                .collaborators(musicianRepository.findAllMusicianSelectDtoOrderByNickName())
-                .feature(album.getFeature())
-                .artwork(album.getArtwork())
-                .year(album.getYear())
-                .musicGenres(album.getMusicGenres())
-                .rating(album.getRating())
-                .yearEndRank(album.getYearEndRank())
-                .essentialAlbumsRank(album.getEssentialAlbumsRank())
-                .highlights(album.getHighlights())
-                .description(album.getDescription())
-                .build();
+        AlbumViewDto albumDto = albumMapper.toAlbumViewDto(album);
+        albumDto.setCreated(InstantFormatter.instantFormatterDMY(album.getCreated()));
+        albumDto.setCollaborators(musicianMapper.toMusicianSelectDtoList(album.getCollaborators()));
+        return albumDto;
     }
 
     @Override
     public List<AlbumViewDto> getAlbumViewDtoList(List<Album> albumList) {
-        return albumList.stream().map(this::getAlbumViewDto).collect(Collectors.toList());
+        return albumList.stream()
+                .map(this::getAlbumViewDto)
+                .collect(Collectors.toList());
 
     }
 
@@ -178,7 +178,7 @@ public class AlbumServiceImpl implements AlbumService {
                             return -1;
                         }
                 )
-                .collect(Collectors.toList()));
+                .toList());
     }
 
     @Override
@@ -191,28 +191,16 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public AlbumCreateEditDto getAlbumCreateEditDto(Album album) {
-        return AlbumCreateEditDto.builder()
-                .slug(album.getSlug())
-                .title(album.getTitle())
-                .catalogNumber(album.getCatalogNumber())
-                .musicianNickname(album.getMusician().getNickName())
-                .musicianSlug(album.getMusician().getSlug())
-                .collaboratorsUUID(album.getCollaborators().stream().map(Musician::getId).collect(Collectors.toList()))
-                .feature(album.getFeature())
-                .artwork(album.getArtwork())
-                .year(album.getYear())
-                .classicalGenres(album.getMusicGenres().stream()
-                        .filter(musicGenre -> musicGenre.getMusicGenreType().equals(MusicGenreType.CLASSICAL))
-                        .collect(Collectors.toList()))
-                .contemporaryGenres(album.getMusicGenres().stream()
-                        .filter(musicGenre -> musicGenre.getMusicGenreType().equals(MusicGenreType.CONTEMPORARY))
-                        .collect(Collectors.toList()))
-                .rating(album.getRating())
-                .yearEndRank(album.getYearEndRank())
-                .essentialAlbumsRank(album.getEssentialAlbumsRank())
-                .highlights(album.getHighlights())
-                .description(album.getDescription())
-                .build();
+        AlbumCreateEditDto albumDto = albumMapper.toAlbumCreateEditDto(album);
+        albumDto.setCollaboratorsUUID(album.getCollaborators().stream()
+                .map(Musician::getId).collect(Collectors.toList()));
+        Map<MusicGenreType, List<MusicGenre>> genresByType = Optional.ofNullable(album.getMusicGenres())
+                .orElse(List.of())
+                .stream()
+                .collect(Collectors.groupingBy(MusicGenre::getMusicGenreType));
+        albumDto.setContemporaryGenres(genresByType.getOrDefault(MusicGenreType.CONTEMPORARY, List.of()));
+        albumDto.setClassicalGenres(genresByType.getOrDefault(MusicGenreType.CLASSICAL, List.of()));
+        return albumDto;
     }
 
     @Override
@@ -226,25 +214,6 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public List<AlbumSelectDto> getAlbumSelectDtoList(List<Album> albumList) {
         return albumList.stream().map(this::getAlbumSelectDto).collect(Collectors.toList());
-    }
-
-    private void setFieldsFromDto(Album album, AlbumCreateEditDto albumDto) {
-        album.setSlug(albumDto.getSlug().trim());
-        album.setTitle(albumDto.getTitle().trim());
-        album.setCatalogNumber(albumDto.getCatalogNumber());
-        album.setFeature(albumDto.getFeature());
-        album.setYear(albumDto.getYear());
-
-        List<MusicGenre> musicGenres = new ArrayList<>();
-        musicGenres.addAll(albumDto.getClassicalGenres());
-        musicGenres.addAll(albumDto.getContemporaryGenres());
-
-        album.setMusicGenres(musicGenres);
-        album.setRating(albumDto.getRating());
-        album.setYearEndRank(albumDto.getYearEndRank());
-        album.setEssentialAlbumsRank(albumDto.getEssentialAlbumsRank());
-        album.setHighlights(albumDto.getHighlights());
-        album.setDescription(albumDto.getDescription());
     }
 
     @Override

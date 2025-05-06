@@ -16,6 +16,7 @@ public interface YearInMusicRepository extends JpaRepository<YearInMusic, UUID> 
     List<YearInMusic> findAllByOrderByYearAsc();
 
     @Query(value = "SELECT new com.dmitryshundrik.knowledgebase.model.dto.music.YearInMusicSimpleDto(y.slug, y.title) " +
-            "FROM YearInMusic y ORDER BY y.year ASC")
+            "FROM YearInMusic y " +
+            "ORDER BY y.year ASC")
     List<YearInMusicSimpleDto> findAllOrderByYearAcs();
 }

@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<header th:insert="fragments/header.html"></header>
+<header th:insert="~{fragments/header.html}"></header>
 
 <script th:inline="javascript">
     var currentSong = function () {
@@ -56,7 +56,7 @@
 
 </main>
 
-<footer th:insert="fragments/footer.html"></footer>
+<footer th:insert="~{fragments/footer.html}"></footer>
 
 </body>
 </html>

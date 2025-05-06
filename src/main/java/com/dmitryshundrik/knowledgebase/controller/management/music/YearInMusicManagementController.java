@@ -5,6 +5,7 @@ import com.dmitryshundrik.knowledgebase.model.dto.music.YearInMusicCreateEditDto
 import com.dmitryshundrik.knowledgebase.model.dto.music.YearInMusicViewDto;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import com.dmitryshundrik.knowledgebase.service.music.YearInMusicService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import javax.validation.Valid;
 import java.util.List;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.MUSICIAN_LIST;

@@ -4,8 +4,8 @@ import com.dmitryshundrik.knowledgebase.model.dto.cinema.FilmArchiveDto;
 import com.dmitryshundrik.knowledgebase.model.dto.cinema.FilmCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.entity.cinema.Film;
 import com.dmitryshundrik.knowledgebase.service.cinema.FilmService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.FILM;
@@ -75,7 +75,7 @@ public class FilmManagementController {
     @PostMapping("/management/film/edit/{filmSlug}/image/upload")
     public String postUploadFilmImage(@PathVariable String filmSlug,
                                       @RequestParam("file") MultipartFile file) throws IOException {
-        byte[] bytes = Base64.encodeBase64(file.getBytes());
+        byte[] bytes = Base64.getEncoder().encode(file.getBytes());
         filmService.updateFilmImageBySlug(filmSlug, bytes);
         return "redirect:/management/film/edit/" + filmSlug;
     }

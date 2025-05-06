@@ -4,12 +4,12 @@ import com.dmitryshundrik.knowledgebase.model.dto.core.PersonEventDto;
 import com.dmitryshundrik.knowledgebase.model.enums.Gender;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.enums.SortType;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.List;
 

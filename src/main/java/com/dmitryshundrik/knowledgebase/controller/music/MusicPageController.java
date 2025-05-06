@@ -174,8 +174,7 @@ public class MusicPageController {
 
     @GetMapping("/lists-and-charts/albums-of-{year}")
     public String getAllAlbumsByYear(@PathVariable String year, Model model) {
-        List<Album> allAlbumsByYear = albumService.getAllByYear(Integer.valueOf(year));
-        List<AlbumViewDto> albumDtoList = albumService.getAlbumViewDtoListOrderBy(allAlbumsByYear, SortType.RATING);
+        List<AlbumSimpleDto> albumDtoList = albumService.getAllAlbumSimpleDtoByYear(Integer.valueOf(year));
         model.addAttribute(ALBUM_LIST, albumDtoList);
         model.addAttribute(YEAR, year);
         return "music/albums-of-year";
@@ -183,8 +182,7 @@ public class MusicPageController {
 
     @GetMapping("/lists-and-charts/albums-of-{decade}s")
     public String getAllAlbumsByDecade(@PathVariable String decade, Model model) {
-        List<Album> albumByDecadeList = albumService.getAllByDecade(decade);
-        List<AlbumViewDto> albumDtoList = albumService.getAlbumViewDtoList(albumByDecadeList);
+        List<AlbumSimpleDto> albumDtoList = albumService.getAllAlbumSimpleDtoByDecade(decade);
         model.addAttribute(ALBUM_LIST, albumDtoList);
         if (DECADE_2010s.equals(decade)) {
             model.addAttribute(DECADE, "2010-x");

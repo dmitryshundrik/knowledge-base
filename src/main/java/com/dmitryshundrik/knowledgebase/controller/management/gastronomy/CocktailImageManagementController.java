@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Cocktail;
 import com.dmitryshundrik.knowledgebase.service.core.ImageService;
 import com.dmitryshundrik.knowledgebase.service.gastronomy.CocktailService;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.util.Base64;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.COCKTAIL_SLUG;
 import static com.dmitryshundrik.knowledgebase.util.Constants.IMAGE;
@@ -71,7 +71,7 @@ public class CocktailImageManagementController {
     @PostMapping("/management/cocktail/edit/{cocktailSlug}/image/edit/{imageSlug}/file/upload")
     public String postRecipeImageEditeFileUpload(@PathVariable String imageSlug, @RequestParam("file") MultipartFile file,
                                                  @PathVariable String cocktailSlug) throws IOException {
-        byte[] bytes = Base64.encodeBase64(file.getBytes());
+        byte[] bytes = Base64.getEncoder().encode(file.getBytes());
         imageService.uploadFile(imageSlug, bytes);
         return "redirect:/management/cocktail/edit/" + cocktailSlug + "/image/edit/" + imageSlug;
     }

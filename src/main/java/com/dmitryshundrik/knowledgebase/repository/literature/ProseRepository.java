@@ -19,8 +19,6 @@ public interface ProseRepository extends JpaRepository<Prose, UUID> {
 
     List<Prose> findFirst5ByWriterOrderByRatingDesc(Writer writer);
 
-    List<Prose> findAllByWriterOrderByYearAsc(Writer writer);
-
     @Query(value = "select count(m) from Prose m")
     Long getSize();
 }

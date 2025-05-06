@@ -13,16 +13,27 @@ public interface ArtistRepository extends JpaRepository<Artist, UUID> {
 
     Optional<Artist> findBySlug(String artistSlug);
 
-    @Query("SELECT a FROM Artist a WHERE a.slug != :slug")
+    @Query("SELECT a " +
+            "FROM Artist a " +
+            "WHERE a.slug != :slug")
     List<Artist> findAllBy(@Param("slug") String slug);
 
-    @Query("SELECT a FROM Artist a WHERE a.slug != :slug ORDER BY a.born")
+    @Query("SELECT a " +
+            "FROM Artist a " +
+            "WHERE a.slug != :slug " +
+            "ORDER BY a.born")
     List<Artist> findAllByOrderByBorn(@Param("slug") String slug);
 
-    @Query("SELECT a FROM Artist a WHERE a.slug != :slug ORDER BY a.created DESC")
+    @Query("SELECT a " +
+            "FROM Artist a " +
+            "WHERE a.slug != :slug " +
+            "ORDER BY a.created DESC")
     List<Artist> findAllByOrderByCreatedDesc(@Param("slug") String slug);
 
-    @Query("SELECT a FROM Artist a WHERE a.slug != :slug ORDER BY a.created DESC")
+    @Query("SELECT a " +
+            "FROM Artist a " +
+            "WHERE a.slug != :slug " +
+            "ORDER BY a.created DESC")
     List<Artist> findFirst20ByOrderByCreatedDesc(@Param("slug") String slug);
 
     @Query(value = "select * from artist where " +

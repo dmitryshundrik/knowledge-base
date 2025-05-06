@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<header th:insert="fragments/header.html"></header>
+<header th:insert="~{fragments/header.html}"></header>
 
 <script th:inline="javascript">
     var currentSong = function () {
@@ -46,7 +46,7 @@
         <article class="table-body-item">
             <h2 class="table-body-item-title archive-title">Архив</h2>
             <section class="section">
-                <h3 class="section-title"><a href="/music/">Музыка</a></h3>
+                <h3 class="section-title"><a href="/music">Музыка</a></h3>
                 <div class="section-body">
                     <span th:each="yearInMusic : ${yearInMusicList}">
                         <a th:text="${yearInMusic.title}"
@@ -70,7 +70,7 @@
             </section>
 
             <section class="section">
-                <h3 class="section-title"><a href="/literature/">Литература</a></h3>
+                <h3 class="section-title"><a href="/literature">Литература</a></h3>
                 <div class="section-body">
                     <a href="/literature/writer/all">Писатели</a>
                     <a href="/literature/prose/all">Проза и поэзия</a>
@@ -79,7 +79,7 @@
             </section>
 
             <section class="section">
-                <h3 class="section-title"><a href="/art/">Искусство</a></h3>
+                <h3 class="section-title"><a href="/art">Искусство</a></h3>
                 <div class="section-body">
                     <a href="/art/artist/all">Художники</a>
                     <a href="/art/painting/all">Картины</a>
@@ -162,7 +162,7 @@
 
 </main>
 
-<footer th:insert="fragments/footer.html"></footer>
+<footer th:insert="~{fragments/footer.html}"></footer>
 
 </body>
 </html>

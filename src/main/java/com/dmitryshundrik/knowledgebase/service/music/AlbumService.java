@@ -17,10 +17,10 @@ public interface AlbumService {
 
     List<Album> getAllOrderByCreated();
     List<Album> getAllByMusician(Musician musician);
-    List<Album> getAllByYear(Integer year);
-    List<Album> getAllByDecade(String decade);
     List<Album> getAllByGenre(MusicGenre genre);
     List<AlbumSimpleDto> getAllAlbumSimpleDto();
+    List<AlbumSimpleDto> getAllAlbumSimpleDtoByYear(Integer year);
+    List<AlbumSimpleDto> getAllAlbumSimpleDtoByDecade(String decade);
     List<AlbumViewDto> getTop100BestAlbums();
     List<AlbumViewDto> get10BestAlbumsByYear(Integer year);
     List<Album> getLatestUpdates();

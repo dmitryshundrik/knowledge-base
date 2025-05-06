@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianArchiveDetailedD
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianArchiveDto;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
-import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumCreateEditDto;
@@ -29,7 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -77,9 +75,9 @@ public class MusicianServiceImpl implements MusicianService {
 
     @Override
     public MusicianArchiveDetailedDto getMusicianArchiveDetailedDto(Musician musician) {
-        MusicianArchiveDetailedDto musicianDto = musicianMapper.toMusicianManagementDetailedResponseDto(musician);
-        musicianDto.setMusicGenres(musicGenreService.getAllByMusicianOrderByCount(musician));
+        MusicianArchiveDetailedDto musicianDto = musicianMapper.toMusicianArchiveDetailedDto(musician);
         musicianDto.setCreated(InstantFormatter.instantFormatterYMDHMS(musician.getCreated()));
+        musicianDto.setMusicGenres(musicGenreService.getAllByMusicianOrderByCount(musician));
         return musicianDto;
     }
 

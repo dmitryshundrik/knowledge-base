@@ -18,11 +18,15 @@ public interface WriterRepository extends JpaRepository<Writer, UUID> {
     void deleteBySlug(String writerSlug);
 
     @Query(value = "SELECT new com.dmitryshundrik.knowledgebase.model.dto.literature.WriterArchiveListDto(w.slug, w.nickName," +
-            "w.born, w.died, w.birthplace, w.occupation, w.dateNotification) FROM Writer w ORDER BY w.created DESC")
+            "w.born, w.died, w.birthplace, w.occupation, w.dateNotification) " +
+            "FROM Writer w " +
+            "ORDER BY w.created DESC")
     List<WriterArchiveListDto> findAllByOrderByCreatedDesc();
 
     @Query(value = "SELECT new com.dmitryshundrik.knowledgebase.model.dto.literature.WriterSimpleDto(w.slug, w.nickName," +
-            "w.born, w.died) FROM Writer w ORDER BY w.born ASC")
+            "w.born, w.died) " +
+            "FROM Writer w " +
+            "ORDER BY w.born ASC")
     List<WriterSimpleDto> findAllOrderByBornAsc();
 
     List<WriterEntityUpdateInfoDto> findFirst20ByOrderByCreatedDesc();

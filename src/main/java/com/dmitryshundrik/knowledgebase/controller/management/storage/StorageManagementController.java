@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import java.util.Base64;
 import java.util.List;
 
 @Controller
@@ -29,7 +30,7 @@ public class StorageManagementController {
     @GetMapping("/storage/images/{imageSlug}")
     public ResponseEntity<byte[]> getImageFromArchive(@PathVariable String imageSlug) {
         String base64Image = imageService.getBySlug(imageSlug).getData();
-        byte[] bytes = javax.xml.bind.DatatypeConverter.parseBase64Binary(base64Image);
+        byte[] bytes = Base64.getDecoder().decode(base64Image);
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(bytes);
     }
 }

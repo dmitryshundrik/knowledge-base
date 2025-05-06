@@ -3,9 +3,9 @@ package com.dmitryshundrik.knowledgebase.model.entity.core;
 import com.dmitryshundrik.knowledgebase.model.entity.AbstractEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "image")

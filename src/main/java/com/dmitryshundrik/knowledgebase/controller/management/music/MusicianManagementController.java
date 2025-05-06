@@ -7,8 +7,8 @@ import com.dmitryshundrik.knowledgebase.model.enums.SortType;
 import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicPeriodService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Base64;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.CLASSICAL_MUSIC_GENRES;
 import static com.dmitryshundrik.knowledgebase.util.Constants.CONTEMPORARY_MUSIC_GENRES;
@@ -107,7 +107,7 @@ public class MusicianManagementController {
     @PostMapping("/management/musician/edit/{musicianSlug}/image/upload")
     public String postUploadMusicianImage(@PathVariable String musicianSlug,
                                           @RequestParam("file") MultipartFile file) throws IOException {
-        byte[] bytes = Base64.encodeBase64(file.getBytes());
+        byte[] bytes = Base64.getEncoder().encode(file.getBytes());
         musicianService.updateMusicianImage(musicianSlug, bytes);
         return "redirect:/management/musician/edit/" + musicianSlug;
     }

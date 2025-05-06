@@ -6,6 +6,7 @@ import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingViewDto;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import javax.validation.Valid;
 import java.util.List;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.PAINTING;

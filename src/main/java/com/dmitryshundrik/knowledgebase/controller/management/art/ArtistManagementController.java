@@ -5,8 +5,8 @@ import com.dmitryshundrik.knowledgebase.model.dto.art.ArtistCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.art.ArtistViewDto;
 import com.dmitryshundrik.knowledgebase.model.enums.Gender;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.ARTIST;
@@ -81,7 +81,7 @@ public class ArtistManagementController {
     @PostMapping("/management/artist/edit/{artistSlug}/image/upload")
     public String postUploadArtistImage(@PathVariable String artistSlug,
                                         @RequestParam("file") MultipartFile file) throws IOException {
-        byte[] bytes = Base64.encodeBase64(file.getBytes());
+        byte[] bytes = Base64.getEncoder().encode(file.getBytes());
         artistService.updateArtistImageBySlug(artistSlug, bytes);
         return "redirect:/management/artist/edit/" + artistSlug;
     }

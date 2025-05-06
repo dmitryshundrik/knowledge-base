@@ -21,11 +21,14 @@ public interface PaintingRepository extends JpaRepository<Painting, UUID> {
 
     @Query("SELECT new com.dmitryshundrik.knowledgebase.model.dto.art.PaintingArtistProfileDto(FUNCTION('TO_CHAR', p.created, 'DD-MM-YYYY'), " +
             "p.slug, p.title, p.year1, p.year2, p.approximateYears, p.based, p.artistTopRank, p.allTimeTopRank) " +
-            "FROM Painting p WHERE p.artist = :artist ORDER BY p.year2 ASC")
+            "FROM Painting p " +
+            "WHERE p.artist = :artist " +
+            "ORDER BY p.year2 ASC")
     List<PaintingArtistProfileDto> findAllProfileDtoByArtistOrderByYear2Asc(Artist artist);
 
     @Query("SELECT new com.dmitryshundrik.knowledgebase.model.dto.art.PaintingSimpleDto(p.title, p.year2) " +
-            "FROM Painting p WHERE p.artist = :artist AND p.artistTopRank IS NOT NULL " +
+            "FROM Painting p " +
+            "WHERE p.artist = :artist AND p.artistTopRank IS NOT NULL " +
             "ORDER BY p.artistTopRank ASC")
     List<PaintingSimpleDto> findAllByArtistAndArtistTopRankNotNull(Artist artist);
 

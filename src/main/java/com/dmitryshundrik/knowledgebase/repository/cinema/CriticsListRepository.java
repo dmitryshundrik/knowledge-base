@@ -14,11 +14,15 @@ public interface CriticsListRepository extends JpaRepository<CriticsList, UUID> 
     List<CriticsList> findFirst20ByOrderByCreatedDesc();
 
     @Query("SELECT new com.dmitryshundrik.knowledgebase.model.dto.cinema.CriticsListResponseDto(cticsList.created, cticsList.slug, cticsList.title, " +
-            "cticsList.year, cticsList.synopsis) FROM CriticsList cticsList ORDER BY cticsList.created DESC")
+            "cticsList.year, cticsList.synopsis) " +
+            "FROM CriticsList cticsList " +
+            "ORDER BY cticsList.created DESC")
     List<CriticsListResponseDto> findAllCriticsListArchiveDtoOrderByCreatedDesc();
 
     @Query("SELECT new com.dmitryshundrik.knowledgebase.model.dto.cinema.CriticsListResponseDto(cticsList.created, cticsList.slug, cticsList.title, " +
-            "cticsList.year, cticsList.synopsis) FROM CriticsList cticsList ORDER BY cticsList.year DESC")
+            "cticsList.year, cticsList.synopsis) " +
+            "FROM CriticsList cticsList " +
+            "ORDER BY cticsList.year DESC")
     List<CriticsListResponseDto> findAllCriticsListResponseDtoOrderByYearDesc();
 
     @Query(value = "select count(m) from CriticsList m")
