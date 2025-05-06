@@ -19,8 +19,8 @@ public interface CocktailService extends BaseService {
     List<Cocktail> getAllByOrderByCreatedDesc();
     List<Cocktail> getLatestUpdate();
 
-    CocktailViewDto createCocktail(CocktailCreateEditDto cocktailDTO);
-    CocktailViewDto updateCocktail(String cocktailSlug, CocktailCreateEditDto cocktailDTO);
+    Cocktail createCocktail(CocktailCreateEditDto cocktailDTO);
+    Cocktail updateCocktail(String cocktailSlug, CocktailCreateEditDto cocktailDTO);
     void deleteCocktail(String cocktailSlug);
 
     CocktailViewDto getCocktailViewDto(Cocktail cocktail);

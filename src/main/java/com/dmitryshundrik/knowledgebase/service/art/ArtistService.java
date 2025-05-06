@@ -22,8 +22,8 @@ public interface ArtistService extends BaseService {
     List<Artist> getLatestUpdate();
 
     Artist createArtist(ArtistCreateEditDto artistDto);
-    ArtistViewDto updateArtist(String artistSlug, ArtistCreateEditDto artistDto);
-    void deleteArtistBySlug(String artistSlug);
+    Artist updateArtist(String artistSlug, ArtistCreateEditDto artistDto);
+    void deleteArtist(String artistSlug);
 
     void updateArtistImageBySlug(String artistSlug, byte[] imageBytes);
     void deleteArtistImage(String artistSlug);

@@ -13,8 +13,8 @@ public interface YearInMusicService {
 
     List<YearInMusic> getAll();
 
-    YearInMusicViewDto createYearInMusic(YearInMusicCreateEditDto yearInMusicDto);
-    YearInMusicViewDto updateYearInMusic(YearInMusic yearInMusic, YearInMusicCreateEditDto yearInMusicDto);
+    YearInMusic createYearInMusic(YearInMusicCreateEditDto yearInMusicDto);
+    YearInMusic updateYearInMusic(YearInMusic yearInMusic, YearInMusicCreateEditDto yearInMusicDto);
     void deleteYearInMusic(YearInMusic yearInMusic);
 
     YearInMusicViewDto getYearInMusicViewDto(YearInMusic yearInMusic);

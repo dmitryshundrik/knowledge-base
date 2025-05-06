@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.music.impl;
 
+import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
@@ -86,8 +87,8 @@ public class CompositionServiceImpl implements CompositionService {
     }
 
     @Override
-    public List<Composition> getTop100ByClassicalGenreOrderByRating() {
-        return compositionRepository.findAllByMusicGenresIsContainingAndRatingNotNull(MusicGenreType.CLASSICAL.name(), 100);
+    public List<CompositionSimpleDto> getTop100BestCompositionSimpleDto() {
+        return compositionRepository.findTop100BestCompositionSimpleDtoOrderByRating(MusicGenreType.CLASSICAL);
     }
 
     @Override
@@ -109,7 +110,7 @@ public class CompositionServiceImpl implements CompositionService {
 
     @Override
     @CacheEvict(value = MUSICIAN_GENRES_CACHE, key = "#musician.id")
-    public CompositionViewDto createComposition(CompositionCreateEditDto compositionDto, Musician musician, Album album) {
+    public Composition createComposition(CompositionCreateEditDto compositionDto, Musician musician, Album album) {
         Composition composition = new Composition();
         composition.setMusician(musician);
         composition.setAlbum(album);
@@ -120,16 +121,16 @@ public class CompositionServiceImpl implements CompositionService {
         compositionRepository.save(composition);
         composition.setSlug(SlugFormatter.slugFormatter("composition-" + composition.getSlug())
                 + (composition.getYear() != null ? "-" + composition.getYear() : ""));
-        return getCompositionViewDto(composition);
+        return composition;
     }
 
     @Override
-    public CompositionViewDto updateComposition(CompositionCreateEditDto compositionDto, String compositionSlug, Album album) {
+    public Composition updateComposition(CompositionCreateEditDto compositionDto, String compositionSlug, Album album) {
         Composition compositionBySlug = compositionRepository.findCompositionBySlug(compositionSlug);
         compositionBySlug.setAlbum(album);
         setFieldsFromDto(compositionBySlug, compositionDto);
         updateEssentialCompositions(compositionDto);
-        return getCompositionViewDto(compositionBySlug);
+        return compositionBySlug;
     }
 
     @Override

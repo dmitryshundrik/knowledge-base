@@ -46,8 +46,8 @@ public class FoundationManagementController {
 
     @GetMapping("/management/foundation/edit/{foundationId}")
     public String getFoundationEdit(@PathVariable String foundationId, Model model) {
-        Foundation byId = foundationService.getById(foundationId);
-        FoundationDto foundationDto = foundationService.getFoundationDto(byId);
+        Foundation foundation = foundationService.getById(foundationId);
+        FoundationDto foundationDto = foundationService.getFoundationDto(foundation);
         model.addAttribute(FOUNDATION, foundationDto);
         return "management/headermenu/foundation-edit";
     }

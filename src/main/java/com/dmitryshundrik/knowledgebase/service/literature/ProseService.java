@@ -14,13 +14,13 @@ public interface ProseService extends BaseService {
     Prose getBySlug(String proseSlug);
 
     List<Prose> getAll();
-    List<Prose> getAllOrderByCreatedDesc();
+    List<Prose> getAllOrderByCreated();
     List<Prose> getAllByWriter(Writer writer);
     List<Prose> getFirst5ByWriterOrderByRating(Writer writer);
     List<Prose> getLatestUpdate();
 
     Prose createProse(Writer writer, ProseCreateEditDto proseDto);
-    ProseViewDto updateProse(Prose prose, ProseCreateEditDto proseDto);
+    Prose updateProse(Prose prose, ProseCreateEditDto proseDto);
     void deleteProse(String proseSlug);
 
     void updateSynopsisSchema(String proseSlug, byte[] bytes);

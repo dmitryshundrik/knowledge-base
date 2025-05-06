@@ -47,8 +47,8 @@ public class QuoteManagementController {
         QuoteCreateEditDto quoteDto = new QuoteCreateEditDto();
         quoteDto.setWriterNickname(writerService.getBySlug(writerSlug).getNickName());
         quoteDto.setWriterSlug(writerSlug);
-        List<Prose> allByWriter = proseService.getAllByWriter(writerService.getBySlug(writerSlug));
-        List<ProseSelectDto> proseDtoList = proseService.getProseSelectDtoList(allByWriter);
+        List<Prose> proseList = proseService.getAllByWriter(writerService.getBySlug(writerSlug));
+        List<ProseSelectDto> proseDtoList = proseService.getProseSelectDtoList(proseList);
         model.addAttribute(QUOTE, quoteDto);
         model.addAttribute(PROSE_LIST, proseDtoList);
         return "management/literature/quote-create";
@@ -57,9 +57,9 @@ public class QuoteManagementController {
     @PostMapping("/management/writer/edit/{writerSlug}/quote/create")
     public String postQuoteCreate(@PathVariable String writerSlug,
                                   @ModelAttribute(QUOTE) QuoteCreateEditDto quoteDto, Model model) {
-        Writer writerBySlug = writerService.getBySlug(writerSlug);
-        Prose proseById = !quoteDto.getProseId().isBlank() ? proseService.getById(quoteDto.getProseId()) : null;
-        Quote createdQuote = quoteService.createQuote(quoteDto, writerBySlug, proseById);
+        Writer writer = writerService.getBySlug(writerSlug);
+        Prose prose = !quoteDto.getProseId().isBlank() ? proseService.getById(quoteDto.getProseId()) : null;
+        Quote createdQuote = quoteService.createQuote(quoteDto, writer, prose);
         return "redirect:/management/writer/edit/" + writerSlug + "/quote/edit/" + createdQuote.getId();
     }
 
@@ -79,9 +79,9 @@ public class QuoteManagementController {
     public String putQuoteEdit(@PathVariable String writerSlug,
                                @PathVariable String quoteId,
                                @ModelAttribute(QUOTE) QuoteCreateEditDto quoteDto, Model model) {
-        Prose proseById = quoteDto.getProseId().isBlank() ? null : proseService.getById(quoteDto.getProseId());
-        Quote updatedQuote = quoteService.updateQuote(quoteDto, quoteId, proseById);
-        return "redirect:/management/writer/edit/" + writerSlug + "/quote/edit/" + updatedQuote.getId();
+        Prose prose = quoteDto.getProseId().isBlank() ? null : proseService.getById(quoteDto.getProseId());
+        Quote quote = quoteService.updateQuote(quoteDto, quoteId, prose);
+        return "redirect:/management/writer/edit/" + writerSlug + "/quote/edit/" + quote.getId();
     }
 
 

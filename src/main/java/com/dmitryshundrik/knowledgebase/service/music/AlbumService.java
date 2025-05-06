@@ -21,13 +21,13 @@ public interface AlbumService {
     List<AlbumSimpleDto> getAllAlbumSimpleDto();
     List<AlbumSimpleDto> getAllAlbumSimpleDtoByYear(Integer year);
     List<AlbumSimpleDto> getAllAlbumSimpleDtoByDecade(String decade);
-    List<AlbumViewDto> getTop100BestAlbums();
+    List<AlbumSimpleDto> getTop100BestAlbumSimpleDto();
     List<AlbumViewDto> get10BestAlbumsByYear(Integer year);
     List<Album> getLatestUpdates();
     List<Integer> getAllYearsFromAlbums();
 
-    AlbumViewDto createAlbum(AlbumCreateEditDto albumDto, Musician musician, List<Musician> collaborators);
-    AlbumViewDto updateAlbum(String albumSlug, AlbumCreateEditDto albumDto, List<Musician> collaborators);
+    Album createAlbum(AlbumCreateEditDto albumDto, Musician musician, List<Musician> collaborators);
+    Album updateAlbum(String albumSlug, AlbumCreateEditDto albumDto, List<Musician> collaborators);
     void deleteAlbum(String slug);
 
     AlbumViewDto getAlbumViewDto(Album album);

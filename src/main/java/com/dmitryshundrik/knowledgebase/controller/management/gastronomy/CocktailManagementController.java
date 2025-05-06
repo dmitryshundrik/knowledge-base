@@ -57,8 +57,8 @@ public class CocktailManagementController {
 
     @GetMapping("/management/cocktail/edit/{cocktailSlug}")
     public String getCocktailEdit(@PathVariable String cocktailSlug, Model model) {
-        Cocktail bySlug = cocktailService.getBySlug(cocktailSlug);
-        CocktailCreateEditDto cocktailDto = cocktailService.getCocktailCreateEditDto(bySlug);
+        Cocktail cocktail = cocktailService.getBySlug(cocktailSlug);
+        CocktailCreateEditDto cocktailDto = cocktailService.getCocktailCreateEditDto(cocktail);
         model.addAttribute(COCKTAIL, cocktailDto);
         return "management/gastronomy/cocktail-edit";
     }

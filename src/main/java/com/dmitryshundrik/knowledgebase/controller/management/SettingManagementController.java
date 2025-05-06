@@ -23,24 +23,24 @@ public class SettingManagementController {
     @GetMapping("/management/setting/all")
     public String getAllSettings(Model model) {
         List<Setting> settingList = settingService.getAll();
-        List<SettingViewDto> settingViewDtoList = settingService.getSettingViewDtoList(settingList);
-        model.addAttribute("settingList", settingViewDtoList);
+        List<SettingViewDto> settingDtoList = settingService.getSettingViewDtoList(settingList);
+        model.addAttribute("settingList", settingDtoList);
         return "management/setting-archive";
     }
 
     @GetMapping("/management/setting/edit/{settingId}")
     public String getSettingEdit(@PathVariable String settingId, Model model) {
-        Setting byId = settingService.getById(settingId);
-        SettingCreateEditDto settingCreateEditDTO = settingService.getSettingCreateEditDto(byId);
-        model.addAttribute("settingDTO", settingCreateEditDTO);
+        Setting setting = settingService.getById(settingId);
+        SettingCreateEditDto settingDto= settingService.getSettingCreateEditDto(setting);
+        model.addAttribute("settingDto", settingDto);
         return "management/setting-edit";
     }
 
     @PutMapping("/management/setting/edit/{settingId}")
     public String putSettingEdit(@PathVariable String settingId,
-                                 @ModelAttribute("settingDTO") SettingCreateEditDto settingDto) {
-        SettingViewDto settingViewDTO = settingService.updateSetting(settingId, settingDto);
-        return "redirect:/management/setting/edit/" + settingViewDTO.getId();
+                                 @ModelAttribute("settingDto") SettingCreateEditDto settingDto) {
+        String settingDtoId = settingService.updateSetting(settingId, settingDto).getId();
+        return "redirect:/management/setting/edit/" + settingDtoId;
     }
 
     @DeleteMapping("/management/setting/delete/{settingId}")

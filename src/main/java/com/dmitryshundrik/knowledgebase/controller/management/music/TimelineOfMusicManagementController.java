@@ -47,8 +47,8 @@ public class TimelineOfMusicManagementController {
 
     @GetMapping("/management/timeline-of-music/event/edit/{eventId}")
     public String getEditEventForTimelineOfMusic(@PathVariable String eventId, Model model) {
-        TimelineEvent timelineEventById = timelineEventService.getById(eventId);
-        model.addAttribute(TIMELINE_EVENT, timelineEventService.getTimelineEventDto(timelineEventById));
+        TimelineEvent timelineEvent = timelineEventService.getById(eventId);
+        model.addAttribute(TIMELINE_EVENT, timelineEventService.getTimelineEventDto(timelineEvent));
         model.addAttribute(ERA_TYPE_LIST, EraType.values());
         return "management/music/timeline-of-music-edit";
     }

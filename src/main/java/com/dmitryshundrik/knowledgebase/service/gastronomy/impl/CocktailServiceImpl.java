@@ -44,16 +44,16 @@ public class CocktailServiceImpl implements CocktailService {
     }
 
     @Override
-    public CocktailViewDto createCocktail(CocktailCreateEditDto cocktailDto) {
+    public Cocktail createCocktail(CocktailCreateEditDto cocktailDto) {
         Cocktail cocktail = cocktailMapper.toCocktail(cocktailDto);
-        return getCocktailViewDto(cocktailRepository.save(cocktail));
+        return cocktailRepository.save(cocktail);
     }
 
     @Override
-    public CocktailViewDto updateCocktail(String cocktailSlug, CocktailCreateEditDto cocktailDto) {
-        Cocktail bySlug = getBySlug(cocktailSlug);
-        cocktailMapper.updateCocktail(bySlug, cocktailDto);
-        return getCocktailViewDto(bySlug);
+    public Cocktail updateCocktail(String cocktailSlug, CocktailCreateEditDto cocktailDto) {
+        Cocktail cocktail = getBySlug(cocktailSlug);
+        cocktailMapper.updateCocktail(cocktail, cocktailDto);
+        return cocktail;
     }
 
     @Override

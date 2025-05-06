@@ -3,6 +3,7 @@ package com.dmitryshundrik.knowledgebase.controller.music;
 import com.dmitryshundrik.knowledgebase.model.dto.client.lastfm.topalbums.TopAlbums;
 import com.dmitryshundrik.knowledgebase.model.dto.client.lastfm.topartists.TopArtists;
 import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumSimpleDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.entity.core.Resource;
 import com.dmitryshundrik.knowledgebase.service.client.LastfmService;
@@ -14,8 +15,6 @@ import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
 import com.dmitryshundrik.knowledgebase.model.entity.music.YearInMusic;
-import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumViewDto;
-import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionViewDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicPeriodViewDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianViewDto;
 import com.dmitryshundrik.knowledgebase.model.enums.MusicGenreType;
@@ -113,17 +112,15 @@ public class MusicPageController {
 
     @GetMapping("/album/top100")
     public String getTop100BestAlbums(Model model) {
-        List<AlbumViewDto> top100BestAlbums = albumService.getTop100BestAlbums();
-        model.addAttribute(ALBUM_LIST, top100BestAlbums);
+        List<AlbumSimpleDto> albumDtoList = albumService.getTop100BestAlbumSimpleDto();
+        model.addAttribute(ALBUM_LIST, albumDtoList);
         return "music/album-top100";
     }
 
     @GetMapping("/composition/top100")
     public String getTop100BestClassicalCompositions(Model model) {
-        List<Composition> top100BestClassicalCompositions = compositionService
-                .getTop100ByClassicalGenreOrderByRating();
-        List<CompositionViewDto> compositionViewDtoList = compositionService.getCompositionViewDtoList(top100BestClassicalCompositions);
-        model.addAttribute(COMPOSITION_LIST, compositionViewDtoList);
+        List<CompositionSimpleDto> compositionDtoList = compositionService.getTop100BestCompositionSimpleDto();
+        model.addAttribute(COMPOSITION_LIST, compositionDtoList);
         return "music/classical-composition-top100";
     }
 
@@ -135,15 +132,15 @@ public class MusicPageController {
 
     @GetMapping("/musician/all")
     public String getAllMusicians(Model model) {
-        List<MusicianSimpleDto> musicians = musicianService.getAllMusicianSimpleDto();
-        model.addAttribute(MUSICIAN_LIST, musicians);
+        List<MusicianSimpleDto> musicianDtoList = musicianService.getAllMusicianSimpleDto();
+        model.addAttribute(MUSICIAN_LIST, musicianDtoList);
         return "music/musician-all";
     }
 
     @GetMapping("/musician/{slug}")
     public String getMusicianBySlug(@PathVariable String slug, Model model) {
-        Musician musicianBySlug = musicianService.getBySlug(slug);
-        MusicianViewDto musicianDto = musicianService.getMusicianViewDto(musicianBySlug);
+        Musician musician = musicianService.getBySlug(slug);
+        MusicianViewDto musicianDto = musicianService.getMusicianViewDto(musician);
         model.addAttribute(MUSICIAN, musicianDto);
         return "music/musician";
     }
@@ -158,8 +155,8 @@ public class MusicPageController {
 
     @GetMapping("/music-resources")
     public String getMusicResources(Model model) {
-        List<Resource> allByResourceType = resourcesService.getAllByResourceType(ResourceType.MUSIC);
-        model.addAttribute(RESOURCE_LIST, allByResourceType);
+        List<Resource> resourceList = resourcesService.getAllByResourceType(ResourceType.MUSIC);
+        model.addAttribute(RESOURCE_LIST, resourceList);
         return "music/music-resources";
     }
 

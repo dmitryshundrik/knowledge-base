@@ -36,6 +36,7 @@ public abstract class CocktailMapper {
                         .getOrderByCreatedDesc(cocktail.getImageList())) : null);
     }
 
+    @Mapping(target = "imageList", ignore = true)
     public abstract CocktailCreateEditDto toCocktailCreateEditDto(@MappingTarget CocktailCreateEditDto cocktailDto, Cocktail cocktail);
 
     @AfterMapping

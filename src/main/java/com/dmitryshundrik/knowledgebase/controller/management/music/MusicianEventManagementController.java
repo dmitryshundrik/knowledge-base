@@ -49,8 +49,8 @@ public class MusicianEventManagementController {
 
     @GetMapping("/management/musician/edit/{musicianSlug}/event/edit/{id}")
     public String getEditMusicianEventById(@PathVariable String musicianSlug, @PathVariable String id, Model model) {
-        PersonEvent personEventById = personEventService.getById(id);
-        model.addAttribute(PERSON_EVENT, personEventService.getPersonEventDto(personEventById));
+        PersonEvent personEvent = personEventService.getById(id);
+        model.addAttribute(PERSON_EVENT, personEventService.getPersonEventDto(personEvent));
         model.addAttribute(SLUG, musicianSlug);
         return "management/music/musician-event-edit";
     }

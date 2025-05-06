@@ -161,7 +161,7 @@ public class MusicianServiceImpl implements MusicianService {
     @Override
     public List<MusicianArchiveDetailedDto> getAllMusicianArchiveDetailedDto() {
         List<Musician> musicianList = musicianRepository.findAllByOrderByCreatedDesc();
-        return musicianList.stream().map(this::getMusicianArchiveDetailedDto).toList();
+        return musicianList.stream().map(this::getMusicianArchiveDetailedDto).collect(Collectors.toList());
     }
 
     @Override
@@ -170,18 +170,18 @@ public class MusicianServiceImpl implements MusicianService {
     }
 
     @Override
-    public MusicianViewDto createMusician(MusicianCreateEditDto musicianDto) {
+    public Musician createMusician(MusicianCreateEditDto musicianDto) {
         Musician musician = new Musician();
         setFieldsFromDto(musician, musicianDto);
         musician.setSlug(SlugFormatter.slugFormatter(musician.getSlug()));
-        return getMusicianViewDto(musicianRepository.save(musician));
+        return musicianRepository.save(musician);
     }
 
     @Override
-    public MusicianViewDto updateMusician(String musicianSlug, MusicianCreateEditDto musicianDto) {
-        Musician musicianBySlug = getBySlug(musicianSlug);
-        setFieldsFromDto(musicianBySlug, musicianDto);
-        return getMusicianViewDto(musicianBySlug);
+    public Musician updateMusician(String musicianSlug, MusicianCreateEditDto musicianDto) {
+        Musician musician = getBySlug(musicianSlug);
+        setFieldsFromDto(musician, musicianDto);
+        return musician;
     }
 
     @Override

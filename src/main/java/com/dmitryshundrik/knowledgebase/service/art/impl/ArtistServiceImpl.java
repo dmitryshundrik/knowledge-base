@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.UNKNOWN;
@@ -60,14 +61,14 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public ArtistViewDto updateArtist(String artistSlug, ArtistCreateEditDto artistDto) {
-        Artist bySlug = getBySlug(artistSlug);
-        artistMapper.updateArtist(bySlug, artistDto);
-        return getArtistViewDto(bySlug);
+    public Artist updateArtist(String artistSlug, ArtistCreateEditDto artistDto) {
+        Artist artist = getBySlug(artistSlug);
+        artistMapper.updateArtist(artist, artistDto);
+        return artist;
     }
 
     @Override
-    public void deleteArtistBySlug(String artistSlug) {
+    public void deleteArtist(String artistSlug) {
         artistRepository.delete(getBySlug(artistSlug));
     }
 
@@ -93,7 +94,7 @@ public class ArtistServiceImpl implements ArtistService {
     public List<ArtistViewDto> getArtistViewDtoList(List<Artist> artistList) {
         return artistList.stream()
                 .map(this::getArtistViewDto)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override

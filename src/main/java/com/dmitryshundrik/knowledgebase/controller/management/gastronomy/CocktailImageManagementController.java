@@ -40,15 +40,15 @@ public class CocktailImageManagementController {
 
     @PostMapping("/management/cocktail/edit/{cocktailSlug}/image/create")
     public String postRecipeImageCreate(@ModelAttribute(IMAGE) ImageDto imageDto, @PathVariable String cocktailSlug) {
-        Cocktail cocktailBySlug = cocktailService.getBySlug(cocktailSlug);
-        String imageDtoSlug = imageService.createCocktailImage(imageDto, cocktailBySlug).getSlug();
+        Cocktail cocktail = cocktailService.getBySlug(cocktailSlug);
+        String imageDtoSlug = imageService.createCocktailImage(imageDto, cocktail).getSlug();
         return "redirect:/management/cocktail/edit/" + cocktailSlug + "/image/edit/" + imageDtoSlug;
     }
 
     @GetMapping("/management/cocktail/edit/{cocktailSlug}/image/edit/{imageSlug}")
     public String getRecipeImageEdit(@PathVariable String imageSlug, Model model, @PathVariable String cocktailSlug) {
-        Image bySlug = imageService.getBySlug(imageSlug);
-        ImageDto imageDto = imageService.getImageDto(bySlug);
+        Image image = imageService.getBySlug(imageSlug);
+        ImageDto imageDto = imageService.getImageDto(image);
         model.addAttribute(IMAGE, imageDto);
         model.addAttribute(COCKTAIL_SLUG, cocktailSlug);
         return "management/gastronomy/cocktail-image-edit";
@@ -63,8 +63,8 @@ public class CocktailImageManagementController {
 
     @DeleteMapping("/management/cocktail/edit/{cocktailSlug}/image/delete/{imageSlug}")
     public String deleteRecipeImage(@PathVariable String imageSlug, @PathVariable String cocktailSlug) {
-        Cocktail cocktailBySlug = cocktailService.getBySlug(cocktailSlug);
-        imageService.deleteCocktailImage(imageSlug, cocktailBySlug);
+        Cocktail cocktail = cocktailService.getBySlug(cocktailSlug);
+        imageService.deleteCocktailImage(imageSlug, cocktail);
         return "redirect:/management/cocktail/edit/" + cocktailSlug;
     }
 

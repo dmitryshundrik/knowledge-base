@@ -34,9 +34,9 @@ public class PaintingImageManagementController {
     @GetMapping("/management/artist/edit/{artistSlug}/painting/edit/{paintingSlug}/image/create")
     public String getPaintingImageCreate(Model model, @PathVariable String artistSlug, @PathVariable String paintingSlug) {
         ImageDto imageDto = new ImageDto();
-        Painting paintingBySlug = paintingService.getBySlug(paintingSlug);
-        imageDto.setSlug(paintingBySlug.getSlug());
-        imageDto.setTitle(paintingBySlug.getTitle());
+        Painting painting = paintingService.getBySlug(paintingSlug);
+        imageDto.setSlug(painting.getSlug());
+        imageDto.setTitle(painting.getTitle());
         model.addAttribute(IMAGE, imageDto);
         model.addAttribute(ARTIST_SLUG, artistSlug);
         model.addAttribute(PAINTING_SLUG, paintingSlug);
@@ -47,16 +47,16 @@ public class PaintingImageManagementController {
     public String postPaintingImageCreate(@PathVariable String artistSlug,
                                           @PathVariable String paintingSlug,
                                           @ModelAttribute(IMAGE) ImageDto imageDto) {
-        Painting paintingBySlug = paintingService.getBySlug(paintingSlug);
-        String imageDtoSlug = imageService.createPaintingImage(imageDto, paintingBySlug).getSlug();
+        Painting painting = paintingService.getBySlug(paintingSlug);
+        String imageDtoSlug = imageService.createPaintingImage(imageDto, painting).getSlug();
         return "redirect:/management/artist/edit/" + artistSlug + "/painting/edit/" + paintingSlug + "/image/edit/" + imageDtoSlug;
     }
 
     @GetMapping("/management/artist/edit/{artistSlug}/painting/edit/{paintingSlug}/image/edit/{imageSlug}")
     public String getPaintingImageEdit(@PathVariable String artistSlug, @PathVariable String paintingSlug,
                                        @PathVariable String imageSlug, Model model) {
-        Image bySlug = imageService.getBySlug(imageSlug);
-        ImageDto imageDto = imageService.getImageDto(bySlug);
+        Image image = imageService.getBySlug(imageSlug);
+        ImageDto imageDto = imageService.getImageDto(image);
         model.addAttribute(IMAGE, imageDto);
         model.addAttribute(ARTIST_SLUG, artistSlug);
         model.addAttribute(PAINTING_SLUG, paintingSlug);

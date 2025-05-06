@@ -48,8 +48,8 @@ public class ResourcesManagementController {
 
     @GetMapping("/management/resource/edit/{resourceId}")
     public String getResourceEdit(@PathVariable String resourceId, Model model) {
-        Resource byId = resourcesService.getById(resourceId);
-        ResourceDto resourceDto = resourcesService.getResourceDto(byId);
+        Resource resource = resourcesService.getById(resourceId);
+        ResourceDto resourceDto = resourcesService.getResourceDto(resource);
         model.addAttribute(RESOURCE, resourceDto);
         model.addAttribute("resourceTypeList", ResourceType.values());
         return "management/headermenu/resource-edit";
@@ -58,8 +58,8 @@ public class ResourcesManagementController {
     @PutMapping("/management/resource/edit/{resourceId}")
     public String putResourceEdit(@PathVariable String resourceId,
                                   @ModelAttribute(RESOURCE) ResourceDto resourceDto) {
-        String resourceDTOId = resourcesService.updateResource(resourceId, resourceDto).getId();
-        return "redirect:/management/resource/edit/" + resourceDTOId;
+        String resourceDtoId = resourcesService.updateResource(resourceId, resourceDto).getId();
+        return "redirect:/management/resource/edit/" + resourceDtoId;
     }
 
     @DeleteMapping("/management/resource/delete/{resourceId}")

@@ -60,32 +60,32 @@ public class MusicGenreManagementController {
             model.addAttribute(MUSIC_GENRE_TYPE_LIST, MusicGenreType.values());
             return "management/music/music-genre-create";
         }
-        String slug = musicGenreService.createMusicGenre(genreDto);
+        String slug = musicGenreService.createMusicGenre(genreDto).getSlug();
         return "redirect:/management/music-genre/edit/" + slug;
     }
 
     @GetMapping("/management/music-genre/edit/{genreSlug}")
     public String getEditMusicGenre(@PathVariable String genreSlug, Model model) {
-        MusicGenre musicGenreBySlug = musicGenreService.getBySlug(genreSlug);
-        model.addAttribute(MUSIC_GENRE, musicGenreService.getMusicGenreCreateEditDto(musicGenreBySlug));
+        MusicGenre musicGenre = musicGenreService.getBySlug(genreSlug);
+        model.addAttribute(MUSIC_GENRE, musicGenreService.getMusicGenreCreateEditDto(musicGenre));
         model.addAttribute(MUSIC_GENRE_TYPE_LIST, MusicGenreType.values());
         return "management/music/music-genre-edit";
     }
 
     @PutMapping("management/music-genre/edit/{genreSlug}")
     public String putEditMusicGenre(@PathVariable String genreSlug, @ModelAttribute(MUSIC_GENRE) MusicGenreCreateEditDto genreDto) {
-        String slug = musicGenreService.updateMusicGenre(genreSlug, genreDto);
-        return "redirect:/management/music-genre/edit/" + slug;
+        String musicGenreSlug = musicGenreService.updateMusicGenre(genreSlug, genreDto).getSlug();
+        return "redirect:/management/music-genre/edit/" + musicGenreSlug;
     }
 
     @DeleteMapping("/management/music-genre/delete/{genreSlug}")
     public String deleteMusicGenre(@PathVariable String genreSlug) {
-        MusicGenre genre = musicGenreService.getBySlug(genreSlug);
-        albumService.getAllByGenre(genre)
-                .forEach(album -> album.getMusicGenres().remove(genre));
-        compositionService.getAllByGenre(genre)
-                .forEach(composition -> composition.getMusicGenres().remove(genre));
-        musicGenreService.deleteMusicGenre(genre);
+        MusicGenre musicGenre = musicGenreService.getBySlug(genreSlug);
+        albumService.getAllByGenre(musicGenre)
+                .forEach(album -> album.getMusicGenres().remove(musicGenre));
+        compositionService.getAllByGenre(musicGenre)
+                .forEach(composition -> composition.getMusicGenres().remove(musicGenre));
+        musicGenreService.deleteMusicGenre(musicGenre);
         return "redirect:/management/music-genre/all";
     }
 }

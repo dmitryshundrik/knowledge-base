@@ -43,7 +43,7 @@ public class ProseServiceImpl implements ProseService {
     }
 
     @Override
-    public List<Prose> getAllOrderByCreatedDesc() {
+    public List<Prose> getAllOrderByCreated() {
         return proseRepository.findAllByOrderByCreatedDesc();
     }
 
@@ -71,9 +71,9 @@ public class ProseServiceImpl implements ProseService {
     }
 
     @Override
-    public ProseViewDto updateProse(Prose prose, ProseCreateEditDto proseDto) {
+    public Prose updateProse(Prose prose, ProseCreateEditDto proseDto) {
         proseMapper.updateProse(prose, proseDto);
-        return getProseViewDto(prose);
+        return prose;
     }
 
     @Override
@@ -103,7 +103,9 @@ public class ProseServiceImpl implements ProseService {
 
     @Override
     public List<ProseViewDto> getProseViewDtoList(List<Prose> proseList) {
-        return proseList.stream().map(this::getProseViewDto).collect(Collectors.toList());
+        return proseList.stream()
+                .map(this::getProseViewDto)
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -15,8 +15,8 @@ public interface WriterService extends BaseService {
 
     Writer getBySlug(String writerSlug);
 
-    List<WriterSimpleDto> getAllOrderByBornAsc();
-    List<WriterArchiveListDto> getAllOrderByCreatedDesc();
+    List<WriterSimpleDto> getAllOrderByBorn();
+    List<WriterArchiveListDto> getAllOrderByCreated();
     List<WriterEntityUpdateInfoDto> getLatestUpdate();
 
     Writer createWriter(WriterCreateEditDto writerDTO);

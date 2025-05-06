@@ -65,7 +65,9 @@ public class PaintingServiceImpl implements PaintingService {
     @Override
     public List<Painting> getAllTimeBestPaintings() {
         List<Painting> paintingList = paintingRepository.findAllByAllTimeTopRankNotNull();
-        return paintingList.stream().sorted(Comparator.comparing(Painting::getAllTimeTopRank)).collect(Collectors.toList());
+        return paintingList.stream()
+                .sorted(Comparator.comparing(Painting::getAllTimeTopRank))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -74,12 +76,12 @@ public class PaintingServiceImpl implements PaintingService {
     }
 
     @Override
-    public PaintingViewDto createPainting(Artist artist, PaintingCreateEditDto paintingDto) {
+    public Painting createPainting(Artist artist, PaintingCreateEditDto paintingDto) {
         Painting painting = new Painting();
         painting = paintingMapper.toPainting(painting, paintingDto);
         painting.setArtist(artist);
         painting.setSlug(artist.getSlug() + "-" + SlugFormatter.slugFormatter(paintingDto.getSlug()));
-        return getPaintingViewDto(paintingRepository.save(painting));
+        return paintingRepository.save(painting);
     }
 
     @Override
@@ -101,7 +103,9 @@ public class PaintingServiceImpl implements PaintingService {
 
     @Override
     public List<PaintingViewDto> getPaintingViewDtoList(List<Painting> paintingList) {
-        return paintingList.stream().map(this::getPaintingViewDto).collect(Collectors.toList());
+        return paintingList.stream()
+                .map(this::getPaintingViewDto)
+                .collect(Collectors.toList());
     }
 
     @Override

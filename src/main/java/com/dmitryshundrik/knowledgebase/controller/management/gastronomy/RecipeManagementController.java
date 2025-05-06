@@ -55,14 +55,14 @@ public class RecipeManagementController {
             model.addAttribute(COUNTRY_LIST, Country.values());
             return "management/gastronomy/recipe-create";
         }
-        String recipeDTOSlug = recipeService.createRecipe(recipeDto).getSlug();
-        return "redirect:/management/recipe/edit/" + recipeDTOSlug;
+        String recipeDtoSlug = recipeService.createRecipe(recipeDto).getSlug();
+        return "redirect:/management/recipe/edit/" + recipeDtoSlug;
     }
 
     @GetMapping("/management/recipe/edit/{recipeSlug}")
     public String getRecipeEdit(@PathVariable String recipeSlug, Model model) {
-        Recipe bySlug = recipeService.getBySlug(recipeSlug);
-        RecipeCreateEditDto recipeDto = recipeService.getRecipeCreateEditDto(bySlug);
+        Recipe recipe = recipeService.getBySlug(recipeSlug);
+        RecipeCreateEditDto recipeDto = recipeService.getRecipeCreateEditDto(recipe);
         model.addAttribute(RECIPE, recipeDto);
         model.addAttribute(COUNTRY_LIST, Country.values());
         return "management/gastronomy/recipe-edit";

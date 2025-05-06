@@ -34,7 +34,7 @@ public class ProseManagementController {
 
     @GetMapping("/management/prose/all")
     public String getAllProse(Model model) {
-        List<Prose> proseList = proseService.getAllOrderByCreatedDesc();
+        List<Prose> proseList = proseService.getAllOrderByCreated();
         List<ProseViewDto> proseDtoList = proseService.getProseViewDtoList(proseList);
         model.addAttribute(PROSE_LIST, proseDtoList);
         return "management/literature/prose-archive";
@@ -66,8 +66,8 @@ public class ProseManagementController {
 
     @GetMapping("/management/writer/edit/{writerSlug}/prose/edit/{proseSlug}")
     public String getProseEdit(@PathVariable String writerSlug, @PathVariable String proseSlug, Model model) {
-        Prose bySlug = proseService.getBySlug(proseSlug);
-        ProseCreateEditDto proseDto = proseService.getProseCreateEditDto(bySlug);
+        Prose prose = proseService.getBySlug(proseSlug);
+        ProseCreateEditDto proseDto = proseService.getProseCreateEditDto(prose);
         model.addAttribute(PROSE, proseDto);
         return "management/literature/prose-edit";
     }
@@ -75,8 +75,8 @@ public class ProseManagementController {
     @PutMapping("/management/writer/edit/{writerSlug}/prose/edit/{proseSlug}")
     public String putProseEdit(@PathVariable String writerSlug, @PathVariable String proseSlug,
                                @ModelAttribute(PROSE) ProseCreateEditDto proseDto) {
-        Prose bySlug = proseService.getBySlug(proseSlug);
-        String proseDtoSlug = proseService.updateProse(bySlug, proseDto).getSlug();
+        Prose prose = proseService.getBySlug(proseSlug);
+        String proseDtoSlug = proseService.updateProse(prose, proseDto).getSlug();
         return "redirect:/management/writer/edit/" + writerSlug + "/prose/edit/" + proseDtoSlug;
     }
 
@@ -96,16 +96,16 @@ public class ProseManagementController {
 
     @DeleteMapping("/management/writer/edit/{writerSlug}/prose/delete/{proseSlug}")
     public String deleteWritersProseBySlug(@PathVariable String writerSlug, @PathVariable String proseSlug) {
-        Prose bySlug = proseService.getBySlug(proseSlug);
-        bySlug.getQuoteList().forEach(quote -> quote.setProse(null));
+        Prose prose = proseService.getBySlug(proseSlug);
+        prose.getQuoteList().forEach(quote -> quote.setProse(null));
         proseService.deleteProse(proseSlug);
         return "redirect:/management/writer/edit/" + writerSlug;
     }
 
     @DeleteMapping("/management/prose/delete/{proseSlug}")
     public String deleteProseBySlug(@PathVariable String proseSlug) {
-        Prose bySlug = proseService.getBySlug(proseSlug);
-        bySlug.getQuoteList().forEach(quote -> quote.setProse(null));
+        Prose prose = proseService.getBySlug(proseSlug);
+        prose.getQuoteList().forEach(quote -> quote.setProse(null));
         proseService.deleteProse(proseSlug);
         return "redirect:/management/prose/all";
     }

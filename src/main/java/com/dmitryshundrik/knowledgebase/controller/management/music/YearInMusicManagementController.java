@@ -67,15 +67,15 @@ public class YearInMusicManagementController {
     @PutMapping("management/year-in-music/edit/{yearIMSlug}")
     public String putEditYearInMusic(@PathVariable String yearIMSlug,
                                      @ModelAttribute(YEAR_IN_MUSIC) YearInMusicCreateEditDto yearInMusicDto) {
-        YearInMusic yearInMusicBySlug = yearInMusicService.getBySlug(yearIMSlug);
-        String yearInMusicDtoSlug = yearInMusicService.updateYearInMusic(yearInMusicBySlug, yearInMusicDto).getSlug();
+        YearInMusic yearInMusic = yearInMusicService.getBySlug(yearIMSlug);
+        String yearInMusicDtoSlug = yearInMusicService.updateYearInMusic(yearInMusic, yearInMusicDto).getSlug();
         return "redirect:/management/year-in-music/edit/" + yearInMusicDtoSlug;
     }
 
     @DeleteMapping("management/year-in-music/delete/{yearIMSlug}")
     public String deleteYearInMusicBySlug(@PathVariable String yearIMSlug) {
-        YearInMusic yearInMusicBySlug = yearInMusicService.getBySlug(yearIMSlug);
-        yearInMusicService.deleteYearInMusic(yearInMusicBySlug);
+        YearInMusic yearInMusic = yearInMusicService.getBySlug(yearIMSlug);
+        yearInMusicService.deleteYearInMusic(yearInMusic);
         return "redirect:/management/year-in-music/all";
     }
 }

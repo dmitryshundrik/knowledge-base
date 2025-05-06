@@ -70,28 +70,28 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public List<AlbumSimpleDto> getAllAlbumSimpleDto() {
-        return albumRepository.findAllAlbumSimpleDtoOrderByCreatedDesc();
+        return albumRepository.findAllSimpleDtoOrderByCreatedDesc();
     }
 
     @Override
     public List<AlbumSimpleDto> getAllAlbumSimpleDtoByYear(Integer year) {
-        return albumRepository.findAllAlbumSimpleDtoByYearOrderByRating(year);
+        return albumRepository.findAllSimpleDtoByYearOrderByRating(year);
     }
 
     @Override
     public List<AlbumSimpleDto> getAllAlbumSimpleDtoByDecade(String decade) {
         List<AlbumSimpleDto> albumsByDecade = new ArrayList<>();
         if (DECADE_2010s.equals(decade)) {
-            albumsByDecade.addAll(albumRepository.findAllAlbumSimpleDtoByDecadeOrderByRating(2009, 2020));
+            albumsByDecade.addAll(albumRepository.findAllSimpleDtoByDecadeOrderByRating(2009, 2020));
         } else if (DECADE_2020s.equals(decade)) {
-            albumsByDecade.addAll(albumRepository.findAllAlbumSimpleDtoByDecadeOrderByRating(2019, 2030));
+            albumsByDecade.addAll(albumRepository.findAllSimpleDtoByDecadeOrderByRating(2019, 2030));
         }
         return albumsByDecade;
     }
 
     @Override
-    public List<AlbumViewDto> getTop100BestAlbums() {
-        return getAlbumViewDtoList(albumRepository.findFirst100ByRatingIsNotNullOrderByRatingDesc());
+    public List<AlbumSimpleDto> getTop100BestAlbumSimpleDto() {
+        return albumRepository.findTop100BestSimpleDtoOrderByRating();
     }
 
     @Override
@@ -114,7 +114,7 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     @CacheEvict(value = MUSICIAN_GENRES_CACHE, key = "#musician.id")
-    public AlbumViewDto createAlbum(AlbumCreateEditDto albumDto, Musician musician, List<Musician> collaborators) {
+    public Album createAlbum(AlbumCreateEditDto albumDto, Musician musician, List<Musician> collaborators) {
         Album album = albumMapper.toAlbum(albumDto);
         album.setSlug(musician.getSlug() + "-" + SlugFormatter.slugFormatter(album.getSlug()));
         album.setMusician(musician);
@@ -123,11 +123,11 @@ public class AlbumServiceImpl implements AlbumService {
                 Optional.ofNullable(albumDto.getClassicalGenres()).orElse(List.of()),
                 Optional.ofNullable(albumDto.getContemporaryGenres()).orElse(List.of())
         ).flatMap(List::stream).toList());
-        return getAlbumViewDto(albumRepository.save(album));
+        return albumRepository.save(album);
     }
 
     @Override
-    public AlbumViewDto updateAlbum(String albumSlug, AlbumCreateEditDto albumDto, List<Musician> collaborators) {
+    public Album updateAlbum(String albumSlug, AlbumCreateEditDto albumDto, List<Musician> collaborators) {
         Album album = getBySlug(albumSlug);
         albumMapper.updateAlbum(album, albumDto);
         album.setCollaborators(collaborators);
@@ -135,7 +135,7 @@ public class AlbumServiceImpl implements AlbumService {
                 Optional.ofNullable(albumDto.getClassicalGenres()).orElse(List.of()),
                 Optional.ofNullable(albumDto.getContemporaryGenres()).orElse(List.of())
         ).flatMap(List::stream).toList());
-        return getAlbumViewDto(album);
+        return album;
     }
 
     @Override

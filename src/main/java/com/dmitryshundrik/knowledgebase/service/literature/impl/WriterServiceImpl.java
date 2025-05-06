@@ -49,12 +49,12 @@ public class WriterServiceImpl implements WriterService {
     }
 
     @Override
-    public List<WriterSimpleDto> getAllOrderByBornAsc() {
+    public List<WriterSimpleDto> getAllOrderByBorn() {
         return writerRepository.findAllOrderByBornAsc();
     }
 
     @Override
-    public List<WriterArchiveListDto> getAllOrderByCreatedDesc() {
+    public List<WriterArchiveListDto> getAllOrderByCreated() {
         return writerRepository.findAllByOrderByCreatedDesc();
     }
 

@@ -35,16 +35,16 @@ public class ArtistManagementController {
 
     @GetMapping("/management/artist/all")
     public String getAllArtists(Model model) {
-        List<Artist> allSortedByCreatedDesc = artistService.getAllOrderByCreatedDesc();
-        List<ArtistViewDto> artistDtoList = artistService.getArtistViewDtoList(allSortedByCreatedDesc);
+        List<Artist> artistList = artistService.getAllOrderByCreatedDesc();
+        List<ArtistViewDto> artistDtoList = artistService.getArtistViewDtoList(artistList);
         model.addAttribute(ARTIST_LIST, artistDtoList);
         return "management/art/artist-archive";
     }
 
     @GetMapping("/management/artist/create")
     public String getArtistCreate(Model model) {
-        ArtistCreateEditDto artistDTO = new ArtistCreateEditDto();
-        model.addAttribute(ARTIST, artistDTO);
+        ArtistCreateEditDto artistDto = new ArtistCreateEditDto();
+        model.addAttribute(ARTIST, artistDto);
         model.addAttribute(GENDER_LIST, Gender.values());
         return "management/art/artist-create";
     }
@@ -64,9 +64,9 @@ public class ArtistManagementController {
 
     @GetMapping("/management/artist/edit/{artistSlug}")
     public String getArtistEdit(@PathVariable String artistSlug, Model model) {
-        Artist bySlug = artistService.getBySlug(artistSlug);
-        ArtistCreateEditDto artistDTO = artistService.getArtistCreateEditDto(bySlug);
-        model.addAttribute(ARTIST, artistDTO);
+        Artist artist = artistService.getBySlug(artistSlug);
+        ArtistCreateEditDto artistDto = artistService.getArtistCreateEditDto(artist);
+        model.addAttribute(ARTIST, artistDto);
         model.addAttribute(GENDER_LIST, Gender.values());
         return "management/art/artist-edit";
     }
@@ -94,7 +94,7 @@ public class ArtistManagementController {
 
     @DeleteMapping("/management/artist/delete/{artistSlug}")
     public String deleteArtistBySlug(@PathVariable String artistSlug) {
-        artistService.deleteArtistBySlug(artistSlug);
+        artistService.deleteArtist(artistSlug);
         return "redirect:/management/artist/all";
     }
 }

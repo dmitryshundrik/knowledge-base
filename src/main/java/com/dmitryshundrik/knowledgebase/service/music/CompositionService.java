@@ -1,6 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.music;
 
 import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionCreateEditDto;
+import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionViewDto;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
@@ -21,13 +22,13 @@ public interface CompositionService {
     List<Composition> getAllByMusicianList(List<Musician> musicians);
     List<Composition> getAllByYear(Integer year);
     List<Composition> getAllByGenre(MusicGenre genre);
-    List<Composition> getTop100ByClassicalGenreOrderByRating();
+    List<CompositionSimpleDto> getTop100BestCompositionSimpleDto();
     List<Composition> getLatestUpdate();
     List<Integer> getAllYearsFromCompositions();
     Map<Musician, List<Composition>> getAllByMusiciansIn(List<Musician> musicianList);
 
-    CompositionViewDto createComposition(CompositionCreateEditDto compositionDto, Musician musician, Album album);
-    CompositionViewDto updateComposition(CompositionCreateEditDto compositionDto, String compositionSlug, Album album);
+    Composition createComposition(CompositionCreateEditDto compositionDto, Musician musician, Album album);
+    Composition updateComposition(CompositionCreateEditDto compositionDto, String compositionSlug, Album album);
     void deleteComposition(String slug);
     void updateEssentialCompositions(CompositionCreateEditDto compositionDto);
 

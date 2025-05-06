@@ -54,7 +54,7 @@ public class LiteraturePageController {
 
     @GetMapping("/writer/all")
     public String getAllWriters(Model model) {
-        List<WriterSimpleDto> writerDtoList = writerService.getAllOrderByBornAsc();
+        List<WriterSimpleDto> writerDtoList = writerService.getAllOrderByBorn();
         model.addAttribute(WRITER_LIST, writerDtoList);
         return "literature/writer-all";
     }
@@ -92,7 +92,7 @@ public class LiteraturePageController {
 
     @GetMapping("/prose/all")
     public String getAllProse(Model model) {
-        List<Prose> proseList = proseService.getAllOrderByCreatedDesc();
+        List<Prose> proseList = proseService.getAllOrderByCreated();
         List<ProseViewDto> proseDtoList = proseService.getProseViewDtoList(proseList);
         model.addAttribute(PROSE_LIST, proseDtoList);
         return "literature/prose-all";

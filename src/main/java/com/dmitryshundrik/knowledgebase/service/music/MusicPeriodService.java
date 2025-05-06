@@ -12,8 +12,8 @@ public interface MusicPeriodService {
 
     List<MusicPeriod> getAllOrderByStart();
 
-    String createMusicPeriod(MusicPeriodCreateEditDto periodDto);
-    String updateMusicPeriod(String periodSlug, MusicPeriodCreateEditDto periodDto);
+    MusicPeriod createMusicPeriod(MusicPeriodCreateEditDto periodDto);
+    MusicPeriod updateMusicPeriod(String periodSlug, MusicPeriodCreateEditDto periodDto);
     void deleteMusicPeriod(MusicPeriod period);
 
     MusicPeriodViewDto getMusicPeriodViewDto(MusicPeriod musicPeriod);

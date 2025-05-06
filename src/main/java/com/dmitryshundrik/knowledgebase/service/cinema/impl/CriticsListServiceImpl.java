@@ -51,14 +51,14 @@ public class CriticsListServiceImpl implements CriticsListService {
     }
 
     @Override
-    public CriticsList updateCriticsList(String filmSlug, CriticsListCreateEditDto criticsListDto) {
-        CriticsList criticsList = criticsListRepository.findBySlug(filmSlug);
+    public CriticsList updateCriticsList(String criticsListSlug, CriticsListCreateEditDto criticsListDto) {
+        CriticsList criticsList = criticsListRepository.findBySlug(criticsListSlug);
         criticsListMapper.updateCriticsList(criticsList, criticsListDto);
         return criticsList;
     }
 
     @Override
-    public void deleteCriticsListBySlug(String criticListSlug) {
+    public void deleteCriticsList(String criticListSlug) {
         criticsListRepository.delete(criticsListRepository.findBySlug(criticListSlug));
     }
 

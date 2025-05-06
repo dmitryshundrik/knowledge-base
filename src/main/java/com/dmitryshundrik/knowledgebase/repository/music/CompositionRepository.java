@@ -1,10 +1,13 @@
 package com.dmitryshundrik.knowledgebase.repository.music;
 
+import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
+import com.dmitryshundrik.knowledgebase.model.enums.MusicGenreType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,14 +26,14 @@ public interface CompositionRepository extends JpaRepository<Composition, UUID> 
 
     List<Composition> findAllByMusicGenresIsContaining(MusicGenre musicGenre);
 
-    @Query(nativeQuery = true, value = "select distinct composition.*  from composition " +
-            "inner join composition_music_genres " +
-            "on composition.id = composition_music_genres.composition_id " +
-            "inner join music_genre\n" +
-            "on music_genre.id = composition_music_genres.music_genres_id " +
-            "where music_genre.music_genre_type = ?1 and composition.rating is not null " +
-            "order by composition.rating desc limit ?2")
-    List<Composition> findAllByMusicGenresIsContainingAndRatingNotNull(String musicGenreType, Integer limit);
+    @Query("SELECT DISTINCT new com.dmitryshundrik.knowledgebase.model.dto.music.CompositionSimpleDto(" +
+            "c.created, c.title, c.musician.nickName, c.musician.slug, c.year, c.rating) " +
+            "FROM Composition c " +
+            "JOIN c.musicGenres g " +
+            "WHERE g.musicGenreType = :musicGenreType AND c.rating IS NOT NULL " +
+            "ORDER BY c.rating DESC " +
+            "LIMIT 100")
+    List<CompositionSimpleDto> findTop100BestCompositionSimpleDtoOrderByRating(@Param("musicGenreType") MusicGenreType musicGenreType);
 
     List<Composition> findAllByYearAndYearEndRankNotNull(Integer year);
 

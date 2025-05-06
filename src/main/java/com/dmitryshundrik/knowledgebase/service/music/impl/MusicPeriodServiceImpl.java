@@ -32,18 +32,18 @@ public class MusicPeriodServiceImpl implements MusicPeriodService {
     }
 
     @Override
-    public String createMusicPeriod(MusicPeriodCreateEditDto periodDto) {
+    public MusicPeriod createMusicPeriod(MusicPeriodCreateEditDto periodDto) {
         MusicPeriod period = new MusicPeriod();
         setFieldsFromDto(period, periodDto);
         musicPeriodRepository.save(period);
-        return period.getSlug();
+        return period;
     }
 
     @Override
-    public String updateMusicPeriod(String periodSlug, MusicPeriodCreateEditDto periodDto) {
+    public MusicPeriod updateMusicPeriod(String periodSlug, MusicPeriodCreateEditDto periodDto) {
         MusicPeriod period = getBySlug(periodSlug);
         setFieldsFromDto(period, periodDto);
-        return periodDto.getSlug();
+        return period;
     }
 
     @Override

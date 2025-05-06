@@ -53,16 +53,16 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public RecipeViewDto createRecipe(RecipeCreateEditDto recipeDto) {
+    public Recipe createRecipe(RecipeCreateEditDto recipeDto) {
         Recipe recipe = recipeMapper.toRecipe(recipeDto);
-        return getRecipeViewDto(recipeRepository.save(recipe));
+        return recipeRepository.save(recipe);
     }
 
     @Override
-    public RecipeViewDto updateRecipe(String recipeSlug, RecipeCreateEditDto recipeDto) {
-        Recipe bySlug = getBySlug(recipeSlug);
-        recipeMapper.updateRecipe(bySlug, recipeDto);
-        return getRecipeViewDto(bySlug);
+    public Recipe updateRecipe(String recipeSlug, RecipeCreateEditDto recipeDto) {
+        Recipe recipe = getBySlug(recipeSlug);
+        recipeMapper.updateRecipe(recipe, recipeDto);
+        return recipe;
     }
 
     @Override

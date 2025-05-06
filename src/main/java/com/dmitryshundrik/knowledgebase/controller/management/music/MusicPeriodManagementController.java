@@ -52,29 +52,29 @@ public class MusicPeriodManagementController {
             model.addAttribute(SLUG, error);
             return "management/music/music-period-create";
         }
-        String slug = musicPeriodService.createMusicPeriod(periodDto);
+        String slug = musicPeriodService.createMusicPeriod(periodDto).getSlug();
         return "redirect:/management/music-period/edit/" + slug;
     }
 
     @GetMapping("/management/music-period/edit/{periodSlug}")
     public String getEditMusicPeriod(@PathVariable String periodSlug, Model model) {
-        MusicPeriod musicPeriodBySlug = musicPeriodService.getBySlug(periodSlug);
-        model.addAttribute(MUSIC_PERIOD, musicPeriodService.getMusicPeriodCreateEditDto(musicPeriodBySlug));
+        MusicPeriod musicPeriod = musicPeriodService.getBySlug(periodSlug);
+        model.addAttribute(MUSIC_PERIOD, musicPeriodService.getMusicPeriodCreateEditDto(musicPeriod));
         return "management/music/music-period-edit";
     }
 
     @PutMapping("management/music-period/edit/{periodSlug}")
     public String putEditMusicPeriod(@PathVariable String periodSlug, @ModelAttribute(MUSIC_PERIOD) MusicPeriodCreateEditDto periodDto) {
-        String slug = musicPeriodService.updateMusicPeriod(periodSlug, periodDto);
-        return "redirect:/management/music-period/edit/" + slug;
+        String musicPeriodSlug = musicPeriodService.updateMusicPeriod(periodSlug, periodDto).getSlug();
+        return "redirect:/management/music-period/edit/" + musicPeriodSlug;
     }
 
     @DeleteMapping("/management/music-period/delete/{periodSlug}")
     public String deleteMusicPeriod(@PathVariable String periodSlug) {
-        MusicPeriod period = musicPeriodService.getBySlug(periodSlug);
-        musicianService.getAllByPeriod(period)
-                .forEach(musician -> musician.getMusicPeriods().remove(period));
-        musicPeriodService.deleteMusicPeriod(period);
+        MusicPeriod musicPeriod = musicPeriodService.getBySlug(periodSlug);
+        musicianService.getAllByPeriod(musicPeriod)
+                .forEach(musician -> musician.getMusicPeriods().remove(musicPeriod));
+        musicPeriodService.deleteMusicPeriod(musicPeriod);
         return "redirect:/management/music-period/all/";
     }
 }

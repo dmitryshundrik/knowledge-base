@@ -26,7 +26,7 @@ public interface PaintingService extends BaseService {
     List<Painting> getAllTimeBestPaintings();
     List<Painting> getLatestUpdate();
 
-    PaintingViewDto createPainting(Artist artist, PaintingCreateEditDto paintingDto);
+    Painting createPainting(Artist artist, PaintingCreateEditDto paintingDto);
     Painting updatePainting(String paintingSlug, PaintingCreateEditDto paintingDto);
     void deletePaintingBySlug(String paintingSlug);
 

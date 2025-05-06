@@ -40,15 +40,15 @@ public class RecipeImageManagementController {
 
     @PostMapping("/management/recipe/edit/{recipeSlug}/image/create")
     public String postRecipeImageCreate(@ModelAttribute(IMAGE) ImageDto imageDto, @PathVariable String recipeSlug) {
-        Recipe recipeBySlug = recipeService.getBySlug(recipeSlug);
-        String imageDtoSlug = imageService.createRecipeImage(imageDto, recipeBySlug).getSlug();
+        Recipe recipe = recipeService.getBySlug(recipeSlug);
+        String imageDtoSlug = imageService.createRecipeImage(imageDto, recipe).getSlug();
         return "redirect:/management/recipe/edit/" + recipeSlug + "/image/edit/" + imageDtoSlug;
     }
 
     @GetMapping("/management/recipe/edit/{recipeSlug}/image/edit/{imageSlug}")
     public String getRecipeImageEdit(@PathVariable String imageSlug, Model model, @PathVariable String recipeSlug) {
-        Image bySlug = imageService.getBySlug(imageSlug);
-        ImageDto imageDto = imageService.getImageDto(bySlug);
+        Image image = imageService.getBySlug(imageSlug);
+        ImageDto imageDto = imageService.getImageDto(image);
         model.addAttribute(IMAGE, imageDto);
         model.addAttribute(RECIPE_SLUG, recipeSlug);
         return "management/gastronomy/recipe-image-edit";
@@ -63,8 +63,8 @@ public class RecipeImageManagementController {
 
     @DeleteMapping("/management/recipe/edit/{recipeSlug}/image/delete/{imageSlug}")
     public String deleteRecipeImage(@PathVariable String imageSlug, @PathVariable String recipeSlug) {
-        Recipe recipeBySlug = recipeService.getBySlug(recipeSlug);
-        imageService.deleteRecipeImage(imageSlug, recipeBySlug);
+        Recipe recipe = recipeService.getBySlug(recipeSlug);
+        imageService.deleteRecipeImage(imageSlug, recipe);
         return "redirect:/management/recipe/edit/" + recipeSlug;
     }
 

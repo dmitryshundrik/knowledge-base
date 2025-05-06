@@ -35,7 +35,7 @@ public class WriterManagementController {
 
     @GetMapping("/management/writer/all")
     public String getAllWriters(Model model) {
-        List<WriterArchiveListDto> writerDtoList = writerService.getAllOrderByCreatedDesc();
+        List<WriterArchiveListDto> writerDtoList = writerService.getAllOrderByCreated();
         model.addAttribute(WRITER_LIST, writerDtoList);
         return "management/literature/writer-archive";
     }
@@ -63,8 +63,8 @@ public class WriterManagementController {
 
     @GetMapping("/management/writer/edit/{writerSlug}")
     public String getWriterEdit(@PathVariable String writerSlug, Model model) {
-        Writer bySlug = writerService.getBySlug(writerSlug);
-        WriterCreateEditDto writerDto = writerService.getWriterCreateEditDto(bySlug);
+        Writer writer = writerService.getBySlug(writerSlug);
+        WriterCreateEditDto writerDto = writerService.getWriterCreateEditDto(writer);
         model.addAttribute(WRITER, writerDto);
         model.addAttribute(GENDER_LIST, Gender.values());
         return "management/literature/writer-edit";
@@ -73,8 +73,8 @@ public class WriterManagementController {
     @PutMapping("/management/writer/edit/{writerSlug}")
     public String putWriterEdit(@PathVariable String writerSlug,
                                 @ModelAttribute(WRITER) WriterCreateEditDto writerDto) {
-        String writerDTOSlug = writerService.updateWriter(writerSlug, writerDto).getSlug();
-        return "redirect:/management/writer/edit/" + writerDTOSlug;
+        String writerDtoSlug = writerService.updateWriter(writerSlug, writerDto).getSlug();
+        return "redirect:/management/writer/edit/" + writerDtoSlug;
     }
 
     @PostMapping("/management/writer/edit/{writerSlug}/image/upload")

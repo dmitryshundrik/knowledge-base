@@ -47,15 +47,15 @@ public class WordManagementController {
     @PostMapping("/management/writer/edit/{writerSlug}/word/create")
     public String postWordCreate(@PathVariable String writerSlug,
                                  @ModelAttribute(WORD) WordDto wordDto) {
-        Writer writerBySlug = writerService.getBySlug(writerSlug);
-        Word savedWord = wordService.createWord(wordDto, writerBySlug);
-        return "redirect:/management/writer/edit/" + writerSlug + "/word/edit/" + savedWord.getId();
+        Writer writer = writerService.getBySlug(writerSlug);
+        Word word = wordService.createWord(wordDto, writer);
+        return "redirect:/management/writer/edit/" + writerSlug + "/word/edit/" + word.getId();
     }
 
     @GetMapping("/management/writer/edit/{writerSlug}/word/edit/{wordId}")
     public String getWordEdit(@PathVariable String writerSlug, @PathVariable String wordId, Model model) {
-        Word byId = wordService.getById(wordId);
-        WordDto wordDto = wordService.getWordDto(byId);
+        Word word = wordService.getById(wordId);
+        WordDto wordDto = wordService.getWordDto(word);
         model.addAttribute(WORD, wordDto);
         return "management/literature/word-edit";
     }
@@ -63,8 +63,8 @@ public class WordManagementController {
     @PutMapping("/management/writer/edit/{writerSlug}/word/edit/{wordId}")
     public String putWordEdit(@PathVariable String writerSlug, @PathVariable String wordId,
                               @ModelAttribute(WORD) WordDto wordDto) {
-        Word updatedWord = wordService.updateWord(wordDto, wordId);
-        return "redirect:/management/writer/edit/" + writerSlug + "/word/edit/" + updatedWord.getId();
+        Word word = wordService.updateWord(wordDto, wordId);
+        return "redirect:/management/writer/edit/" + writerSlug + "/word/edit/" + word.getId();
     }
 
     @DeleteMapping("/management/writer/edit/{writerSlug}/word/delete/{wordId}")

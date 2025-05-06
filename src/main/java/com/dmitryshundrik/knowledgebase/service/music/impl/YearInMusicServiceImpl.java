@@ -36,16 +36,15 @@ public class YearInMusicServiceImpl implements YearInMusicService {
         return yearInMusicRepository.findAllByOrderByYearAsc();
     }
 
-    public YearInMusicViewDto createYearInMusic(YearInMusicCreateEditDto yearInMusicDto) {
+    public YearInMusic createYearInMusic(YearInMusicCreateEditDto yearInMusicDto) {
         YearInMusic yearInMusic = new YearInMusic();
         setFieldsFromDto(yearInMusic, yearInMusicDto);
-        YearInMusic createdYearInMusic = yearInMusicRepository.save(yearInMusic);
-        return getYearInMusicViewDto(createdYearInMusic);
+        return yearInMusicRepository.save(yearInMusic);
     }
 
-    public YearInMusicViewDto updateYearInMusic(YearInMusic yearInMusic, YearInMusicCreateEditDto yearInMusicDto) {
+    public YearInMusic updateYearInMusic(YearInMusic yearInMusic, YearInMusicCreateEditDto yearInMusicDto) {
         setFieldsFromDto(yearInMusic, yearInMusicDto);
-        return getYearInMusicViewDto(yearInMusic);
+        return yearInMusic;
     }
 
     public void deleteYearInMusic(YearInMusic yearInMusic) {

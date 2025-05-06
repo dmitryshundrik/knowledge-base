@@ -70,8 +70,8 @@ public class AlbumManagementController {
 
     @GetMapping("management/musician/edit/{musicianSlug}/album/edit/{albumSlug}")
     public String getEditAlbumBySlug(@PathVariable String musicianSlug, @PathVariable String albumSlug, Model model) {
-        Album albumBySlug = albumService.getBySlug(albumSlug);
-        model.addAttribute(ALBUM, albumService.getAlbumCreateEditDto(albumBySlug));
+        Album album = albumService.getBySlug(albumSlug);
+        model.addAttribute(ALBUM, albumService.getAlbumCreateEditDto(album));
         model.addAttribute(ALBUM_COLLABORATORS, musicianService.getAllMusicianSelectDto());
         model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenresOrderByTitle());
         model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenresOrderByTitle());
@@ -81,23 +81,23 @@ public class AlbumManagementController {
     @PutMapping("management/musician/edit/{musicianSlug}/album/edit/{albumSlug}")
     public String putEditAlbumBySlug(@PathVariable String musicianSlug, @PathVariable String albumSlug,
                                      @ModelAttribute(ALBUM) AlbumCreateEditDto albumDTO) {
-        String albumDtoSlug = albumService.updateAlbum(albumSlug, albumDTO,
-                musicianService.getAllByUUIDList(albumDTO.getCollaboratorsUUID())).getSlug();
+        String albumDtoSlug = albumService.updateAlbum(albumSlug, albumDTO, musicianService
+                .getAllByUUIDList(albumDTO.getCollaboratorsUUID())).getSlug();
         return "redirect:/management/musician/edit/" + musicianSlug + "/album/edit/" + albumDtoSlug;
     }
 
     @DeleteMapping("management/musician/edit/{musicianSlug}/album/delete/{albumSlug}")
     public String deleteMusiciansAlbumBySlug(@PathVariable String musicianSlug, @PathVariable String albumSlug) {
-        Album albumBySlug = albumService.getBySlug(albumSlug);
-        albumBySlug.getCompositions().forEach(composition -> composition.setAlbum(null));
+        Album album = albumService.getBySlug(albumSlug);
+        album.getCompositions().forEach(composition -> composition.setAlbum(null));
         albumService.deleteAlbum(albumSlug);
         return "redirect:/management/musician/edit/" + musicianSlug;
     }
 
     @DeleteMapping("management/album/delete/{albumSlug}")
     public String deleteAlbumBySlug(@PathVariable String albumSlug) {
-        Album albumBySlug = albumService.getBySlug(albumSlug);
-        albumBySlug.getCompositions().forEach(composition -> composition.setAlbum(null));
+        Album album = albumService.getBySlug(albumSlug);
+        album.getCompositions().forEach(composition -> composition.setAlbum(null));
         albumService.deleteAlbum(albumSlug);
         return "redirect:/management/album/all";
     }

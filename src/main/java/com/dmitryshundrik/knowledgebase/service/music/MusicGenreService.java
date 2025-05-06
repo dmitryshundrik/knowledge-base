@@ -18,8 +18,8 @@ public interface MusicGenreService {
     List<MusicGenre> getFilteredClassicalGenres();
     List<MusicGenre> getFilteredContemporaryGenres();
 
-    String createMusicGenre(MusicGenreCreateEditDto genreDto);
-    String updateMusicGenre(String genreSlug, MusicGenreCreateEditDto genreDto);
+    MusicGenre createMusicGenre(MusicGenreCreateEditDto genreDto);
+    MusicGenre updateMusicGenre(String genreSlug, MusicGenreCreateEditDto genreDto);
     void deleteMusicGenre(MusicGenre genre);
 
     MusicGenreViewDto getMusicGenreViewDto(MusicGenre genre);

@@ -36,6 +36,7 @@ public abstract class RecipeMapper {
                         .getOrderByCreatedDesc(recipe.getImageList())) : null);
     }
 
+    @Mapping(target = "imageList", ignore = true)
     public abstract RecipeCreateEditDto toRecipeCreateEditDto(@MappingTarget RecipeCreateEditDto recipeDto, Recipe recipe);
 
     @AfterMapping

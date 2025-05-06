@@ -33,8 +33,8 @@ public interface MusicianService extends BaseService {
     List<MusicianArchiveDetailedDto> getAllMusicianArchiveDetailedDto();
     List<MusicianActivityDto> getLatestUpdate();
 
-    MusicianViewDto createMusician(MusicianCreateEditDto musicianDto);
-    MusicianViewDto updateMusician(String musicianSlug, MusicianCreateEditDto musicianDto);
+    Musician createMusician(MusicianCreateEditDto musicianDto);
+    Musician updateMusician(String musicianSlug, MusicianCreateEditDto musicianDto);
     void deleteMusician(String musicianSlug);
     void updateMusicianImage(String musicianSlug, byte[] bytes);
     void deleteMusicianImage(String musicianSlug);

@@ -93,18 +93,18 @@ public class MusicGenreServiceImpl implements MusicGenreService {
     }
 
     @Override
-    public String createMusicGenre(MusicGenreCreateEditDto genreDto) {
+    public MusicGenre createMusicGenre(MusicGenreCreateEditDto genreDto) {
         MusicGenre genre = new MusicGenre();
         setFieldsFromDto(genre, genreDto);
         musicGenreRepository.save(genre);
-        return genre.getSlug();
+        return genre;
     }
 
     @Override
-    public String updateMusicGenre(String genreSlug, MusicGenreCreateEditDto genreDto) {
+    public MusicGenre updateMusicGenre(String genreSlug, MusicGenreCreateEditDto genreDto) {
         MusicGenre genre = getBySlug(genreSlug);
         setFieldsFromDto(genre, genreDto);
-        return genreDto.getSlug();
+        return genre;
     }
 
     @Override

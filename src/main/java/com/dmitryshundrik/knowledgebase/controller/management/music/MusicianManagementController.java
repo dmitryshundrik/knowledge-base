@@ -81,14 +81,14 @@ public class MusicianManagementController {
             model.addAttribute(GENDER_LIST, Gender.values());
             return "management/music/musician-create";
         }
-        String musicianDTOSlug = musicianService.createMusician(musicianDto).getSlug();
-        return "redirect:/management/musician/edit/" + musicianDTOSlug;
+        String musicianDtoSlug = musicianService.createMusician(musicianDto).getSlug();
+        return "redirect:/management/musician/edit/" + musicianDtoSlug;
     }
 
     @GetMapping("/management/musician/edit/{musicianSlug}")
     public String getEditMusicianBySlug(@PathVariable String musicianSlug, Model model) {
-        Musician musicianBySlug = musicianService.getBySlug(musicianSlug);
-        model.addAttribute(MUSICIAN, musicianService.getMusicianCreateEditDto(musicianBySlug));
+        Musician musician = musicianService.getBySlug(musicianSlug);
+        model.addAttribute(MUSICIAN, musicianService.getMusicianCreateEditDto(musician));
         model.addAttribute(MUSIC_PERIOD_LIST, musicPeriodService.getAllOrderByStart());
         model.addAttribute(CLASSICAL_MUSIC_GENRES, musicGenreService.getAllClassicalGenres());
         model.addAttribute(CONTEMPORARY_MUSIC_GENRES, musicGenreService.getAllContemporaryGenres());

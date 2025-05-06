@@ -21,8 +21,8 @@ public interface RecipeService extends BaseService {
     List<Recipe> getAllByCountry(Country country);
     List<Recipe> getLatestUpdate();
 
-    RecipeViewDto createRecipe(RecipeCreateEditDto recipeCreateEditDTO);
-    RecipeViewDto updateRecipe(String recipeSlug, RecipeCreateEditDto recipeDTO);
+    Recipe createRecipe(RecipeCreateEditDto recipeCreateEditDTO);
+    Recipe updateRecipe(String recipeSlug, RecipeCreateEditDto recipeDTO);
     void deleteRecipe(String recipeSlug);
 
     RecipeViewDto getRecipeViewDto(Recipe recipe);

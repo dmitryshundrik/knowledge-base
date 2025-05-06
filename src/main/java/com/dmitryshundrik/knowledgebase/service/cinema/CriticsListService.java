@@ -20,8 +20,8 @@ public interface CriticsListService extends BaseService {
     List<CriticsList> getLatestUpdate();
 
     CriticsList createCriticsList(CriticsListCreateEditDto criticsListDto);
-    CriticsList updateCriticsList(String filmSlug, CriticsListCreateEditDto criticsListDto);
-    void deleteCriticsListBySlug(String criticListSlug);
+    CriticsList updateCriticsList(String criticsListSlug, CriticsListCreateEditDto criticsListDto);
+    void deleteCriticsList(String criticListSlug);
 
     CriticsListCreateEditDto getCriticsListCreateEditDto(CriticsList criticsList);
 }

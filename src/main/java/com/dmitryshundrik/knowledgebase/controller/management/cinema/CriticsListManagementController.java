@@ -56,8 +56,8 @@ public class CriticsListManagementController {
 
     @GetMapping("/management/critics-list/edit/{criticsListSlug}")
     public String getCriticsListEdit(@PathVariable String criticsListSlug, Model model) {
-        CriticsList bySlug = criticsListService.getBySlug(criticsListSlug);
-        CriticsListCreateEditDto criticsListDto = criticsListService.getCriticsListCreateEditDto(bySlug);
+        CriticsList criticsList = criticsListService.getBySlug(criticsListSlug);
+        CriticsListCreateEditDto criticsListDto = criticsListService.getCriticsListCreateEditDto(criticsList);
         model.addAttribute(CRITICS_LIST, criticsListDto);
         return "management/cinema/critics-list-edit";
     }
@@ -71,7 +71,7 @@ public class CriticsListManagementController {
 
     @DeleteMapping("/management/critics-list/delete/{criticsListSlug}")
     public String deleteFilmBySlug(@PathVariable String criticsListSlug) {
-        criticsListService.deleteCriticsListBySlug(criticsListSlug);
+        criticsListService.deleteCriticsList(criticsListSlug);
         return "redirect:/management/critics-list/all";
     }
 }
