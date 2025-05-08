@@ -55,7 +55,7 @@ class CompositionServiceTest {
 
         when(compositionRepository.save(any(Composition.class))).thenAnswer(i -> i.getArguments()[0]);
 
-        CompositionViewDto createdComposition = compositionService.createComposition(compositionCreateEditDTO, musician, null);
+        Composition createdComposition = compositionService.createComposition(compositionCreateEditDTO, musician, null);
 
         verify(compositionRepository).save(any(Composition.class));
 
