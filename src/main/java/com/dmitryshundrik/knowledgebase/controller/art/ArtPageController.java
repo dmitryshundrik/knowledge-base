@@ -91,6 +91,11 @@ public class ArtPageController {
         return "art/painting-top20";
     }
 
+    @GetMapping("/ballet/ballet-dancers-top-10")
+    public String getTop10BalletDancers() {
+        return "art/ballet-dancers-top-10";
+    }
+
     @GetMapping("/museum/all")
     public String getAllMuseums(Model model) {
         //

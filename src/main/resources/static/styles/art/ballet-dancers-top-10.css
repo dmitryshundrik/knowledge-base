@@ -1,0 +1,59 @@
+
+.table-title {
+    padding: 30px 300px;
+    text-align: center;
+}
+
+.table-title p {
+    font-size: smaller;
+    font-style: italic;
+}
+
+.table-body {
+    display: flex;
+    flex-direction: column;
+    padding: 0 250px;
+    border: 1px solid gray;
+}
+
+.table-body-item {
+    margin: 20px 0;
+}
+
+.table-body-item-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 15px 0 50px;
+}
+
+.ballet-dancers-top-10 p {
+    text-align: justify;
+}
+
+.ballet-dancers-image {
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .table-title {
+        padding: 30px 30px;
+        font-size: large;
+    }
+
+    .table-body {
+        padding: 0 30px;
+        border: none;
+    }
+
+    .table-body-item {
+        margin: 0;
+        gap: 0;
+    }
+
+    .table-body-item-row {
+        padding: 10px;
+        gap: 5px;
+        margin: 15px 0 30px;
+    }
+}
