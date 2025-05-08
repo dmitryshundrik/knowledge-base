@@ -33,7 +33,6 @@ public interface AlbumService {
     AlbumViewDto getAlbumViewDto(Album album);
     List<AlbumViewDto> getAlbumViewDtoList(List<Album> albumList);
     List<AlbumViewDto> getAlbumViewDtoListOrderBy(List<Album> albumList, SortType sortType);
-    List<AlbumViewDto> getEssentialAlbumViewDtoList(List<Album> albumList);
     AlbumCreateEditDto getAlbumCreateEditDto(Album album);
     AlbumSelectDto getAlbumSelectDto(Album album);
     List<AlbumSelectDto> getAlbumSelectDtoList(List<Album> albumList);

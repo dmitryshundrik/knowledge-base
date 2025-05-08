@@ -34,21 +34,21 @@ public interface AlbumRepository extends JpaRepository<Album, UUID> {
             "a.musician.nickName, a.musician.slug, a.year, a.rating) " +
             "FROM Album a " +
             "WHERE a.year = :year " +
-            "ORDER BY a.rating DESC")
+            "ORDER BY a.rating DESC NULLS LAST")
     List<AlbumSimpleDto> findAllSimpleDtoByYearOrderByRating(@Param("year") Integer year);
 
     @Query("SELECT new com.dmitryshundrik.knowledgebase.model.dto.music.AlbumSimpleDto(a.created, a.title, " +
             "a.musician.nickName, a.musician.slug, a.year, a.rating) " +
             "FROM Album a " +
             "WHERE a.year > :start AND a.year < :end " +
-            "ORDER BY a.rating DESC")
+            "ORDER BY a.rating DESC NULLS LAST")
     List<AlbumSimpleDto> findAllSimpleDtoByDecadeOrderByRating(Integer start, Integer end);
 
     @Query("SELECT new com.dmitryshundrik.knowledgebase.model.dto.music.AlbumSimpleDto(a.created, a.title, " +
             "a.musician.nickName, a.musician.slug, a.year, a.rating) " +
             "FROM Album a " +
             "WHERE a.rating IS NOT NULL " +
-            "ORDER BY a.rating DESC " +
+            "ORDER BY a.rating DESC NULLS LAST " +
             "LIMIT 100")
     List<AlbumSimpleDto> findTop100BestSimpleDtoOrderByRating();
 

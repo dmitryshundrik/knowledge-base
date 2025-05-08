@@ -35,7 +35,7 @@ public interface CompositionRepository extends JpaRepository<Composition, UUID> 
             "FROM Composition c " +
             "JOIN c.musicGenres g " +
             "WHERE g.musicGenreType = :musicGenreType AND c.rating IS NOT NULL " +
-            "ORDER BY c.rating DESC " +
+            "ORDER BY c.rating DESC NULLS LAST " +
             "LIMIT 100")
     List<CompositionSimpleDto> findTop100BestCompositionSimpleDtoOrderByRating(@Param("musicGenreType") MusicGenreType musicGenreType);
 

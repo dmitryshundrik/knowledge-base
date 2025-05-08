@@ -23,7 +23,7 @@ public interface FilmRepository extends JpaRepository<Film, UUID> {
     @Query("SELECT new com.dmitryshundrik.knowledgebase.model.dto.cinema.FilmResponseDto(film.slug, film.title, film.director, film.starring, " +
             "film.year, film.rating, film.yearRank, film.allTimeRank, film.synopsis, film.image) " +
             "FROM Film film " +
-            "WHERE film.allTimeRank IS NOT null " +
+            "WHERE film.allTimeRank IS NOT NULL " +
             "ORDER BY film.allTimeRank ASC")
     List<FilmResponseDto> findAllByAllTimeRankNotNullAndOrderByAllTimeRankAsc();
 

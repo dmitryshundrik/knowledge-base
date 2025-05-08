@@ -186,14 +186,6 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public List<AlbumViewDto> getEssentialAlbumViewDtoList(List<Album> albumList) {
-        return albumList.stream().map(this::getAlbumViewDto)
-                .filter(albumViewDto -> albumViewDto.getEssentialAlbumsRank() != null)
-                .sorted(Comparator.comparing(AlbumViewDto::getEssentialAlbumsRank))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public AlbumCreateEditDto getAlbumCreateEditDto(Album album) {
         AlbumCreateEditDto albumDto = albumMapper.toAlbumCreateEditDto(album);
         albumDto.setCollaboratorsUUID(album.getCollaborators().stream()
