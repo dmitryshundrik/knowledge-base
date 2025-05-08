@@ -4,7 +4,6 @@ import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianSelectDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianArchiveDetailedDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianArchiveDto;
-import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicPeriod;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Musician;
@@ -14,6 +13,7 @@ import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianActivityDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianViewDto;
 import com.dmitryshundrik.knowledgebase.mapper.music.MusicianMapper;
+import com.dmitryshundrik.knowledgebase.model.enums.SortType;
 import com.dmitryshundrik.knowledgebase.repository.music.MusicianRepository;
 import com.dmitryshundrik.knowledgebase.service.core.PersonEventService;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
@@ -21,7 +21,6 @@ import com.dmitryshundrik.knowledgebase.service.music.CompositionService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicGenreService;
 import com.dmitryshundrik.knowledgebase.service.music.MusicianService;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
-import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +35,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
+import static com.dmitryshundrik.knowledgebase.util.SlugFormatter.baseFormatter;
 
 @Service
 @Transactional
@@ -171,16 +171,16 @@ public class MusicianServiceImpl implements MusicianService {
 
     @Override
     public Musician createMusician(MusicianCreateEditDto musicianDto) {
-        Musician musician = new Musician();
-        setFieldsFromDto(musician, musicianDto);
-        musician.setSlug(SlugFormatter.baseFormatter(musician.getSlug()));
+        Musician musician = musicianMapper.toMusician(musicianDto);
+        musician.setSlug(baseFormatter(musician.getSlug()));
         return musicianRepository.save(musician);
     }
 
     @Override
     public Musician updateMusician(String musicianSlug, MusicianCreateEditDto musicianDto) {
         Musician musician = getBySlug(musicianSlug);
-        setFieldsFromDto(musician, musicianDto);
+        musicianMapper.updateMusician(musician, musicianDto);
+        musician.setSlug(baseFormatter(musician.getSlug()));
         return musician;
     }
 
@@ -205,77 +205,29 @@ public class MusicianServiceImpl implements MusicianService {
 
     @Override
     public MusicianViewDto getMusicianViewDto(Musician musician) {
-        return MusicianViewDto.builder()
-                .created(InstantFormatter.instantFormatterDMY(musician.getCreated()))
-                .slug(musician.getSlug())
-                .firstName(musician.getFirstName())
-                .lastName(musician.getLastName())
-                .nickName(musician.getNickName())
-                .nickNameEn(musician.getNickNameEn())
-                .gender(musician.getGender())
-                .image(musician.getImage())
-                .born(musician.getBorn())
-                .died(musician.getDied())
-                .founded(musician.getFounded())
-                .birthDate(musician.getBirthDate())
-                .deathDate(musician.getDeathDate())
-                .birthplace(musician.getBirthplace())
-                .based(musician.getBased())
-                .occupation(musician.getOccupation())
-                .catalogTitle(musician.getCatalogTitle())
-                .musicPeriods(musician.getMusicPeriods().stream()
-                        .sorted(Comparator.comparing(MusicPeriod::getApproximateStart))
-                        .collect(Collectors.toList()))
-                .musicGenres(musicGenreService.getAllByMusicianOrderByCount(musician))
-                .spotifyLink(musician.getSpotifyLink())
-                .events(musician.getEvents() != null ? personEventService
-                        .getPersonEventDtoList(musician.getEvents()) : null)
-                .albums(musician.getAlbums() != null ? albumService
-                        .getAlbumViewDtoListOrderBy(musician.getAlbums(), musician.getAlbumsSortType()) : null)
-                .collaborations(musician.getCollaborations() != null ? albumService
-                        .getAlbumViewDtoList(musician.getCollaborations().stream()
-                                .sorted(Comparator.comparing(Album::getYear))
-                                .collect(Collectors.toList())) : null)
-                .essentialAlbums(musician.getAlbums() != null ? albumService
-                        .getEssentialAlbumViewDtoList(musician.getAlbums()) : null)
-                .compositions(compositionService
-                        .getCompositionViewDtoList(compositionService
-                                .getAllByMusicianOrderBy(musician.getId(), musician.getCompositionsSortType())))
-                .essentialCompositions(musician.getCompositions() != null ? compositionService
-                        .getMusicianRankCompositionViewDtoList(musician.getCompositions()) : null)
-                .build();
+        MusicianViewDto musicianDto = musicianMapper.toMusicianViewDto(musician);
+        musicianDto.setMusicGenres(musicGenreService.getAllByMusicianOrderByCount(musician));
+        musicianDto.setEvents(musician.getEvents() != null ?
+                personEventService.getPersonEventDtoList(musician.getEvents()) : null);
+        musicianDto.setAlbums(musician.getAlbums() != null ?
+                albumService.getAlbumViewDtoListOrderBy(musician.getAlbums(), musician.getAlbumsSortType()) : null);
+        musicianDto.setCollaborations(musician.getCollaborations() != null ?
+                albumService.getAlbumViewDtoListOrderBy(musician.getCollaborations(), SortType.YEAR) : null);
+        musicianDto.setCompositions(compositionService.getCompositionViewDtoList(compositionService
+                .getAllByMusicianOrderBy(musician.getId(), musician.getCompositionsSortType())));
+        musicianDto.setEssentialCompositions(musician.getCompositions() != null ?
+                compositionService.getMusicianRankCompositionViewDtoList(musician.getCompositions()) : null);
+        return musicianDto;
     }
 
     @Override
     public MusicianCreateEditDto getMusicianCreateEditDto(Musician musician) {
-        return MusicianCreateEditDto.builder()
-                .slug(musician.getSlug())
-                .firstName(musician.getFirstName())
-                .lastName(musician.getLastName())
-                .nickName(musician.getNickName())
-                .nickNameEn(musician.getNickNameEn())
-                .gender(musician.getGender())
-                .image(musician.getImage())
-                .born(musician.getBorn())
-                .died(musician.getDied())
-                .founded(musician.getFounded())
-                .birthDate(musician.getBirthDate())
-                .deathDate(musician.getDeathDate())
-                .birthplace(musician.getBirthplace())
-                .based(musician.getBased())
-                .occupation(musician.getOccupation())
-                .catalogTitle(musician.getCatalogTitle())
-                .musicPeriods(musician.getMusicPeriods())
-                .albumsSortType(musician.getAlbumsSortType())
-                .compositionsSortType(musician.getCompositionsSortType())
-                .spotifyLink(musician.getSpotifyLink())
-                .events(personEventService.getPersonEventDtoList(musician.getEvents()))
-                .albums(albumService.getAlbumViewDtoListOrderBy(musician.getAlbums(), musician.getAlbumsSortType()))
-                .compositions(compositionService
-                        .getCompositionViewDtoList(compositionService
-                                .getAllByMusicianOrderBy(musician.getId(), musician.getCompositionsSortType())))
-                .dateNotification(musician.getDateNotification())
-                .build();
+        MusicianCreateEditDto musicianDto = musicianMapper.toMusicianCreateEditDto(musician);
+        musicianDto.setEvents(personEventService.getPersonEventDtoList(musician.getEvents()));
+        musicianDto.setAlbums(albumService.getAlbumViewDtoListOrderBy(musician.getAlbums(), musician.getAlbumsSortType()));
+        musicianDto.setCompositions(compositionService.getCompositionViewDtoList(compositionService
+                .getAllByMusicianOrderBy(musician.getId(), musician.getCompositionsSortType())));
+        return musicianDto;
     }
 
     public void setFieldsToAlbumDto(String musicianSlug, AlbumCreateEditDto albumDto) {
@@ -288,29 +240,6 @@ public class MusicianServiceImpl implements MusicianService {
         MusicianSimpleDto musicianDto = musicianRepository.findMusicianSimpleDtoBySlug(musicianSlug);
         compositionDto.setMusicianNickname(musicianDto.nickName());
         compositionDto.setMusicianSlug(musicianDto.slug());
-    }
-
-    private void setFieldsFromDto(Musician musician, MusicianCreateEditDto musicianDto) {
-        musician.setSlug(musicianDto.getSlug().trim());
-        musician.setFirstName(musicianDto.getFirstName());
-        musician.setLastName(musicianDto.getLastName());
-        musician.setNickName(musicianDto.getNickName());
-        musician.setNickNameEn(musicianDto.getNickNameEn());
-        musician.setGender(musicianDto.getGender());
-        musician.setBorn(musicianDto.getBorn());
-        musician.setDied(musicianDto.getDied());
-        musician.setFounded(musicianDto.getFounded());
-        musician.setBirthDate(musicianDto.getBirthDate());
-        musician.setDeathDate(musicianDto.getDeathDate());
-        musician.setBirthplace(musicianDto.getBirthplace());
-        musician.setBased(musicianDto.getBased());
-        musician.setOccupation(musicianDto.getOccupation());
-        musician.setCatalogTitle(musicianDto.getCatalogTitle());
-        musician.setMusicPeriods(musicianDto.getMusicPeriods());
-        musician.setAlbumsSortType(musicianDto.getAlbumsSortType());
-        musician.setCompositionsSortType(musicianDto.getCompositionsSortType());
-        musician.setSpotifyLink(musicianDto.getSpotifyLink());
-        musician.setDateNotification(musicianDto.getDateNotification());
     }
 
     @Override

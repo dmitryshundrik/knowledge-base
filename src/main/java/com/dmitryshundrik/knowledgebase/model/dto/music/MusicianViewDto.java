@@ -64,8 +64,6 @@ public class MusicianViewDto {
 
     private List<AlbumViewDto> collaborations;
 
-    private List<AlbumViewDto> essentialAlbums;
-
     private List<CompositionViewDto> compositions;
 
     private List<CompositionViewDto> essentialCompositions;

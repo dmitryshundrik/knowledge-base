@@ -82,6 +82,7 @@ public class Musician extends AbstractEntity {
     private String catalogTitle;
 
     @ManyToMany
+    @OrderBy("approximateStart ASC NULLS LAST")
     private List<MusicPeriod> musicPeriods;
 
     @Enumerated(EnumType.STRING)
