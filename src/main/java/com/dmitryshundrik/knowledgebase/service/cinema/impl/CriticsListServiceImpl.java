@@ -46,7 +46,7 @@ public class CriticsListServiceImpl implements CriticsListService {
     @Override
     public CriticsList createCriticsList(CriticsListCreateEditDto criticsListDto) {
         CriticsList criticsList = criticsListMapper.toCriticsList(criticsListDto);
-        criticsList.setSlug(SlugFormatter.slugFormatter(criticsList.getSlug()));
+        criticsList.setSlug(SlugFormatter.baseFormatter(criticsList.getSlug()));
         return criticsListRepository.save(criticsList);
     }
 

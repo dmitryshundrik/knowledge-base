@@ -47,7 +47,7 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public Film createFilm(FilmCreateEditDto filmDto) {
         Film film = filmMapper.toFilm(filmDto);
-        film.setSlug(SlugFormatter.slugFormatter(film.getSlug()));
+        film.setSlug(SlugFormatter.baseFormatter(film.getSlug()));
         return filmRepository.save(film);
     }
 

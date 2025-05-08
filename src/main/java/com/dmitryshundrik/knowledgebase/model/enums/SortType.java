@@ -5,7 +5,10 @@ import lombok.Getter;
 @Getter
 public enum SortType {
 
-    CATALOGUE_NUMBER("Номер каталога"), YEAR("Год"), RATING("Рейтинг"), CREATED("Создан");
+    CATALOGUE_NUMBER("Номер каталога"),
+    YEAR("Год"),
+    RATING("Рейтинг"),
+    CREATED("Создан");
 
     private final String label;
 

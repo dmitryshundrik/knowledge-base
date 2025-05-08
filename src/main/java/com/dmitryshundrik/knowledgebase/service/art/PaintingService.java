@@ -18,7 +18,6 @@ public interface PaintingService extends BaseService {
 
     Painting getBySlug(String paintingSlug);
 
-    List<Painting> getAll();
     List<Painting> getAllOrderByCreatedDesc();
     List<Painting> getAllByArtistOrderByYear2(Artist artist, String direction);
     List<PaintingArtistProfileDto> getAllProfileDtoByArtistOrderByYear2Asc(Artist artist);

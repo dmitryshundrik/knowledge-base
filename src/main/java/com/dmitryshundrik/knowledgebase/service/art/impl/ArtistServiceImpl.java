@@ -34,11 +34,6 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public List<Artist> getAll() {
-        return artistRepository.findAllBy(UNKNOWN);
-    }
-
-    @Override
     public List<Artist> getAllOrderByBorn() {
         return artistRepository.findAllByOrderByBorn(UNKNOWN);
     }
@@ -56,7 +51,7 @@ public class ArtistServiceImpl implements ArtistService {
     @Override
     public Artist createArtist(ArtistCreateEditDto artistDto) {
         Artist artist = artistMapper.toArtist(artistDto);
-        artist.setSlug(SlugFormatter.slugFormatter(artist.getSlug()));
+        artist.setSlug(SlugFormatter.baseFormatter(artist.getSlug()));
         return artistRepository.save(artist);
     }
 

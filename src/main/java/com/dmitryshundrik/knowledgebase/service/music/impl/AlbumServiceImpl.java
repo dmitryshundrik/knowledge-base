@@ -13,7 +13,6 @@ import com.dmitryshundrik.knowledgebase.model.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.enums.SortType;
 import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
-import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
@@ -31,6 +30,7 @@ import java.util.stream.Stream;
 import static com.dmitryshundrik.knowledgebase.util.Constants.DECADE_2010s;
 import static com.dmitryshundrik.knowledgebase.util.Constants.DECADE_2020s;
 import static com.dmitryshundrik.knowledgebase.util.Constants.MUSICIAN_GENRES_CACHE;
+import static com.dmitryshundrik.knowledgebase.util.InstantFormatter.instantFormatterDMY;
 
 @Service
 @Transactional
@@ -116,7 +116,7 @@ public class AlbumServiceImpl implements AlbumService {
     @CacheEvict(value = MUSICIAN_GENRES_CACHE, key = "#musician.id")
     public Album createAlbum(AlbumCreateEditDto albumDto, Musician musician, List<Musician> collaborators) {
         Album album = albumMapper.toAlbum(albumDto);
-        album.setSlug(musician.getSlug() + "-" + SlugFormatter.slugFormatter(album.getSlug()));
+        album.setSlug(musician.getSlug() + "-" + SlugFormatter.baseFormatter(album.getSlug()));
         album.setMusician(musician);
         album.setCollaborators(collaborators);
         album.setMusicGenres(Stream.of(
@@ -146,7 +146,7 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public AlbumViewDto getAlbumViewDto(Album album) {
         AlbumViewDto albumDto = albumMapper.toAlbumViewDto(album);
-        albumDto.setCreated(InstantFormatter.instantFormatterDMY(album.getCreated()));
+        albumDto.setCreated(instantFormatterDMY(album.getCreated()));
         albumDto.setCollaborators(musicianMapper.toMusicianSelectDtoList(album.getCollaborators()));
         return albumDto;
     }

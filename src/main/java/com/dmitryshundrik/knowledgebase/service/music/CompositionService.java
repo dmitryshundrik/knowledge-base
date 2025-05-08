@@ -18,7 +18,6 @@ public interface CompositionService {
 
     List<Composition> getAllOrderByCreated();
     List<Composition> getAllByMusicianOrderBy(UUID musicianId, SortType sortType);
-    List<Composition> getAllByMusicianAndEssentialRank(String musicianSlug);
     List<Composition> getAllByMusicianList(List<Musician> musicians);
     List<Composition> getAllByYear(Integer year);
     List<Composition> getAllByGenre(MusicGenre genre);
@@ -30,13 +29,12 @@ public interface CompositionService {
     Composition createComposition(CompositionCreateEditDto compositionDto, Musician musician, Album album);
     Composition updateComposition(CompositionCreateEditDto compositionDto, String compositionSlug, Album album);
     void deleteComposition(String slug);
-    void updateEssentialCompositions(CompositionCreateEditDto compositionDto);
 
     CompositionViewDto getCompositionViewDto(Composition composition);
     List<CompositionViewDto> getCompositionViewDtoList(List<Composition> compositionList);
     List<CompositionViewDto> getCompositionViewDtoListOrderBy(List<Composition> compositionList, SortType sortType);
     List<CompositionViewDto> getCompositionViewDtoListForSoty(Integer year);
-    List<CompositionViewDto> getEssentialCompositionsViewDtoList(List<Composition> compositionList);
+    List<CompositionViewDto> getMusicianRankCompositionViewDtoList(List<Composition> compositionList);
     CompositionCreateEditDto getCompositionCreateEditDto(Composition composition);
 
     Long getRepositorySize();

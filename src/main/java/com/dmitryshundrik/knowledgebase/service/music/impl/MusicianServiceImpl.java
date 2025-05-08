@@ -173,7 +173,7 @@ public class MusicianServiceImpl implements MusicianService {
     public Musician createMusician(MusicianCreateEditDto musicianDto) {
         Musician musician = new Musician();
         setFieldsFromDto(musician, musicianDto);
-        musician.setSlug(SlugFormatter.slugFormatter(musician.getSlug()));
+        musician.setSlug(SlugFormatter.baseFormatter(musician.getSlug()));
         return musicianRepository.save(musician);
     }
 
@@ -242,7 +242,7 @@ public class MusicianServiceImpl implements MusicianService {
                         .getCompositionViewDtoList(compositionService
                                 .getAllByMusicianOrderBy(musician.getId(), musician.getCompositionsSortType())))
                 .essentialCompositions(musician.getCompositions() != null ? compositionService
-                        .getEssentialCompositionsViewDtoList(musician.getCompositions()) : null)
+                        .getMusicianRankCompositionViewDtoList(musician.getCompositions()) : null)
                 .build();
     }
 

@@ -66,7 +66,7 @@ public class ProseServiceImpl implements ProseService {
     public Prose createProse(Writer writer, ProseCreateEditDto proseDto) {
         Prose prose = proseMapper.toProse(proseDto);
         prose.setWriter(writer);
-        prose.setSlug(writer.getSlug() + "-" + SlugFormatter.slugFormatter(prose.getSlug()));
+        prose.setSlug(writer.getSlug() + "-" + SlugFormatter.baseFormatter(prose.getSlug()));
         return proseRepository.save(prose);
     }
 

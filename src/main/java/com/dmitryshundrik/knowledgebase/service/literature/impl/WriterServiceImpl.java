@@ -71,7 +71,7 @@ public class WriterServiceImpl implements WriterService {
     @Override
     public Writer createWriter(WriterCreateEditDto writerDto) {
         Writer writer = writerMapper.toWriter(writerDto);
-        writer.setSlug(SlugFormatter.slugFormatter(writer.getSlug()));
+        writer.setSlug(SlugFormatter.baseFormatter(writer.getSlug()));
         return writerRepository.save(writer);
     }
 

@@ -16,7 +16,6 @@ public interface ArtistService extends BaseService {
 
     Artist getBySlug(String artistSlug);
 
-    List<Artist> getAll();
     List<Artist> getAllOrderByBorn();
     List<Artist> getAllOrderByCreatedDesc();
     List<Artist> getLatestUpdate();

@@ -35,11 +35,6 @@ public class PaintingServiceImpl implements PaintingService {
     }
 
     @Override
-    public List<Painting> getAll() {
-        return paintingRepository.findAll();
-    }
-
-    @Override
     public List<Painting> getAllOrderByCreatedDesc() {
         return paintingRepository.findAllByOrderByCreatedDesc();
     }
@@ -80,7 +75,7 @@ public class PaintingServiceImpl implements PaintingService {
         Painting painting = new Painting();
         painting = paintingMapper.toPainting(painting, paintingDto);
         painting.setArtist(artist);
-        painting.setSlug(artist.getSlug() + "-" + SlugFormatter.slugFormatter(paintingDto.getSlug()));
+        painting.setSlug(artist.getSlug() + "-" + SlugFormatter.baseFormatter(paintingDto.getSlug()));
         return paintingRepository.save(painting);
     }
 
