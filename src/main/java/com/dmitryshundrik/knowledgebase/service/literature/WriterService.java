@@ -20,7 +20,7 @@ public interface WriterService extends BaseService {
     List<WriterEntityUpdateInfoDto> getLatestUpdate();
 
     Writer createWriter(WriterCreateEditDto writerDTO);
-    WriterViewDto updateWriter(String writerSlug, WriterCreateEditDto writerDTO);
+    Writer updateWriter(String writerSlug, WriterCreateEditDto writerDTO);
     void deleteWriter(String writerSlug);
 
     void updateWriterImage(String writerSlug, byte[] bytes);

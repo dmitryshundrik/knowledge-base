@@ -8,7 +8,6 @@ import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseSelectDto;
 import com.dmitryshundrik.knowledgebase.model.dto.literature.ProseViewDto;
 import com.dmitryshundrik.knowledgebase.repository.literature.ProseRepository;
 import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
-import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +16,8 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
+import static com.dmitryshundrik.knowledgebase.util.SlugFormatter.baseFormatter;
+import static com.dmitryshundrik.knowledgebase.util.SlugFormatter.formatProseSlug;
 
 @Service
 @Transactional
@@ -66,13 +67,15 @@ public class ProseServiceImpl implements ProseService {
     public Prose createProse(Writer writer, ProseCreateEditDto proseDto) {
         Prose prose = proseMapper.toProse(proseDto);
         prose.setWriter(writer);
-        prose.setSlug(writer.getSlug() + "-" + SlugFormatter.baseFormatter(prose.getSlug()));
-        return proseRepository.save(prose);
+        proseRepository.save(prose);
+        prose.setSlug(formatProseSlug(prose));
+        return prose;
     }
 
     @Override
     public Prose updateProse(Prose prose, ProseCreateEditDto proseDto) {
         proseMapper.updateProse(prose, proseDto);
+        prose.setSlug(baseFormatter(prose.getSlug()));
         return prose;
     }
 

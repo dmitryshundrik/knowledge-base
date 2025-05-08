@@ -6,7 +6,6 @@ import com.dmitryshundrik.knowledgebase.model.dto.art.ArtistCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.art.ArtistViewDto;
 import com.dmitryshundrik.knowledgebase.repository.art.ArtistRepository;
 import com.dmitryshundrik.knowledgebase.service.art.ArtistService;
-import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +17,7 @@ import java.util.stream.Collectors;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.UNKNOWN;
+import static com.dmitryshundrik.knowledgebase.util.SlugFormatter.baseFormatter;
 
 @Service
 @Transactional
@@ -51,14 +51,16 @@ public class ArtistServiceImpl implements ArtistService {
     @Override
     public Artist createArtist(ArtistCreateEditDto artistDto) {
         Artist artist = artistMapper.toArtist(artistDto);
-        artist.setSlug(SlugFormatter.baseFormatter(artist.getSlug()));
-        return artistRepository.save(artist);
+        artistRepository.save(artist);
+        artist.setSlug(baseFormatter(artist.getSlug()));
+        return artist;
     }
 
     @Override
     public Artist updateArtist(String artistSlug, ArtistCreateEditDto artistDto) {
         Artist artist = getBySlug(artistSlug);
         artistMapper.updateArtist(artist, artistDto);
+        artist.setSlug(baseFormatter(artist.getSlug()));
         return artist;
     }
 

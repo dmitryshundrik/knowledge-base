@@ -25,6 +25,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.MUSICIAN_GENRES_CACHE;
+import static com.dmitryshundrik.knowledgebase.util.SlugFormatter.baseFormatter;
 import static com.dmitryshundrik.knowledgebase.util.SlugFormatter.formatCompositionSlug;
 
 @Service
@@ -124,6 +125,7 @@ public class CompositionServiceImpl implements CompositionService {
         Composition composition = compositionRepository.findBySlug(compositionSlug);
         compositionMapper.updateComposition(composition, compositionDto);
         composition.setAlbum(album);
+        composition.setSlug(baseFormatter(composition.getSlug()));
         return composition;
     }
 

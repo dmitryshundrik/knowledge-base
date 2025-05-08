@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.SORT_DIRECTION_ASC;
+import static com.dmitryshundrik.knowledgebase.util.SlugFormatter.baseFormatter;
+import static com.dmitryshundrik.knowledgebase.util.SlugFormatter.formatPaintingSlug;
 
 @Service
 @Transactional
@@ -75,14 +77,16 @@ public class PaintingServiceImpl implements PaintingService {
         Painting painting = new Painting();
         painting = paintingMapper.toPainting(painting, paintingDto);
         painting.setArtist(artist);
-        painting.setSlug(artist.getSlug() + "-" + SlugFormatter.baseFormatter(paintingDto.getSlug()));
+        painting.setSlug(formatPaintingSlug(painting));
         return paintingRepository.save(painting);
     }
 
     @Override
     public Painting updatePainting(String paintingSlug, PaintingCreateEditDto paintingDto) {
-        Painting bySlug = getBySlug(paintingSlug);
-        return paintingMapper.toPainting(bySlug, paintingDto);
+        Painting painting = getBySlug(paintingSlug);
+        paintingMapper.toPainting(painting, paintingDto);
+        painting.setSlug(baseFormatter(painting.getSlug()));
+        return painting;
     }
 
     @Override

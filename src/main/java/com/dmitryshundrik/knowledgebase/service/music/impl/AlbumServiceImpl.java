@@ -31,6 +31,8 @@ import static com.dmitryshundrik.knowledgebase.util.Constants.DECADE_2010s;
 import static com.dmitryshundrik.knowledgebase.util.Constants.DECADE_2020s;
 import static com.dmitryshundrik.knowledgebase.util.Constants.MUSICIAN_GENRES_CACHE;
 import static com.dmitryshundrik.knowledgebase.util.InstantFormatter.instantFormatterDMY;
+import static com.dmitryshundrik.knowledgebase.util.SlugFormatter.baseFormatter;
+import static com.dmitryshundrik.knowledgebase.util.SlugFormatter.formatAlbumSlug;
 
 @Service
 @Transactional
@@ -116,14 +118,15 @@ public class AlbumServiceImpl implements AlbumService {
     @CacheEvict(value = MUSICIAN_GENRES_CACHE, key = "#musician.id")
     public Album createAlbum(AlbumCreateEditDto albumDto, Musician musician, List<Musician> collaborators) {
         Album album = albumMapper.toAlbum(albumDto);
-        album.setSlug(musician.getSlug() + "-" + SlugFormatter.baseFormatter(album.getSlug()));
         album.setMusician(musician);
         album.setCollaborators(collaborators);
         album.setMusicGenres(Stream.of(
                 Optional.ofNullable(albumDto.getClassicalGenres()).orElse(List.of()),
                 Optional.ofNullable(albumDto.getContemporaryGenres()).orElse(List.of())
         ).flatMap(List::stream).toList());
-        return albumRepository.save(album);
+        albumRepository.save(album);
+        album.setSlug(formatAlbumSlug(album));
+        return album;
     }
 
     @Override
@@ -135,6 +138,7 @@ public class AlbumServiceImpl implements AlbumService {
                 Optional.ofNullable(albumDto.getClassicalGenres()).orElse(List.of()),
                 Optional.ofNullable(albumDto.getContemporaryGenres()).orElse(List.of())
         ).flatMap(List::stream).toList());
+        album.setSlug(baseFormatter(album.getSlug()));
         return album;
     }
 

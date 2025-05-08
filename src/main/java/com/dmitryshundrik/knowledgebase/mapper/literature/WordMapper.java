@@ -5,12 +5,14 @@ import com.dmitryshundrik.knowledgebase.model.entity.literature.Word;
 import com.dmitryshundrik.knowledgebase.util.InstantFormatter;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import java.time.Instant;
 
 @Mapper(componentModel = "spring")
 public abstract class WordMapper {
 
+    @Mapping(target = "writerNickname", source = "writer.nickName")
     public abstract WordDto toWordDto(@MappingTarget WordDto wordDto, Word word);
 
     @AfterMapping

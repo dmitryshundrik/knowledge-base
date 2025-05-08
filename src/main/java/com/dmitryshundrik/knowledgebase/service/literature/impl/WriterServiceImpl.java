@@ -14,7 +14,6 @@ import com.dmitryshundrik.knowledgebase.service.literature.ProseService;
 import com.dmitryshundrik.knowledgebase.service.literature.QuoteService;
 import com.dmitryshundrik.knowledgebase.service.literature.WordService;
 import com.dmitryshundrik.knowledgebase.service.literature.WriterService;
-import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
+import static com.dmitryshundrik.knowledgebase.util.SlugFormatter.baseFormatter;
 
 @Service
 @Transactional
@@ -71,15 +71,17 @@ public class WriterServiceImpl implements WriterService {
     @Override
     public Writer createWriter(WriterCreateEditDto writerDto) {
         Writer writer = writerMapper.toWriter(writerDto);
-        writer.setSlug(SlugFormatter.baseFormatter(writer.getSlug()));
-        return writerRepository.save(writer);
+        writerRepository.save(writer);
+        writer.setSlug(baseFormatter(writer.getSlug()));
+        return writer;
     }
 
     @Override
-    public WriterViewDto updateWriter(String writerSlug, WriterCreateEditDto writerDto) {
-        Writer bySlug = getBySlug(writerSlug);
-        writerMapper.updateWriter(bySlug, writerDto);
-        return getWriterViewDto(bySlug);
+    public Writer updateWriter(String writerSlug, WriterCreateEditDto writerDto) {
+        Writer writer = getBySlug(writerSlug);
+        writerMapper.updateWriter(writer, writerDto);
+        writer.setSlug(baseFormatter(writer.getSlug()));
+        return writer;
     }
 
     @Override
