@@ -32,6 +32,7 @@ public interface CompositionMapper {
     void updateComposition(@MappingTarget Composition composition, CompositionCreateEditDto compositionDto);
 
     @Mapping(target = "created", source = "composition", qualifiedByName = "mapCreated")
+    @Mapping(target = "catalogTitle", source = "composition", qualifiedByName = "mapCatalogTitle")
     @Mapping(target = "catalogNumber", source = "composition", qualifiedByName = "mapCatalogNumber")
     @Mapping(target = "musicianNickname", source = "musician.nickName")
     @Mapping(target = "musicianSlug", source = "musician.slug")
@@ -70,6 +71,11 @@ public interface CompositionMapper {
         return composition.getMusicGenres().stream()
                 .filter(musicGenre -> musicGenre.getMusicGenreType().equals(MusicGenreType.CONTEMPORARY))
                 .collect(Collectors.toList());
+    }
+
+    @Named("mapCatalogTitle")
+    default String mapCatalogTitle(Composition composition) {
+        return composition.getMusician().getCatalogTitle() != null ? composition.getMusician().getCatalogTitle() : "";
     }
 
     @Named("mapCatalogNumber")

@@ -56,4 +56,9 @@
         gap: 5px;
         margin: 15px 0 30px;
     }
+
+    .ballet-dancers-image {
+        max-width: none;
+        text-align: center;
+    }
 }
