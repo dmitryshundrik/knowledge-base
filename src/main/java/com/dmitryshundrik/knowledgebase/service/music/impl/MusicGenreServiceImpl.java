@@ -37,7 +37,7 @@ public class MusicGenreServiceImpl implements MusicGenreService {
     }
 
     @Override
-    @Cacheable(value = MUSICIAN_GENRES_CACHE, key = "#musician.id")
+    @Cacheable(value = "genres", key = "#musician?.id", unless = "#musician == null")
     public List<MusicGenre> getAllByMusicianOrderByCount(Musician musician) {
         log.info("Computing genres for musician ID: {}", musician.getId());
         Map<MusicGenre, Long> genreCounts = new HashMap<>();
