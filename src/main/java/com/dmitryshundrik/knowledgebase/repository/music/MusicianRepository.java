@@ -11,11 +11,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface MusicianRepository extends JpaRepository<Musician, UUID> {
 
-    Musician findBySlug(String slug);
+    Optional<Musician> findBySlug(String slug);
 
     Musician findByNickNameIgnoreCase(String nickName);
 

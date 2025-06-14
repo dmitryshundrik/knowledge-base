@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.music.impl;
 
+import com.dmitryshundrik.knowledgebase.exception.NotFoundException;
 import com.dmitryshundrik.knowledgebase.model.dto.music.YearInMusicSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.entity.music.YearInMusic;
 import com.dmitryshundrik.knowledgebase.model.dto.music.YearInMusicCreateEditDto;
@@ -15,6 +16,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.exception.NotFoundException.YEAR_IN_MUSIC_NOT_FOUND_MESSAGE;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -25,11 +28,13 @@ public class YearInMusicServiceImpl implements YearInMusicService {
     private final MusicianServiceImpl musicianService;
 
     public YearInMusic getBySlug(String yearInMusicSlug) {
-        return yearInMusicRepository.findBySlug(yearInMusicSlug);
+        return yearInMusicRepository.findBySlug(yearInMusicSlug)
+                .orElseThrow(() -> new NotFoundException(YEAR_IN_MUSIC_NOT_FOUND_MESSAGE.formatted(yearInMusicSlug)));
     }
 
     public YearInMusic getByYear(Integer year) {
-        return yearInMusicRepository.findByYear(year);
+        return yearInMusicRepository.findByYear(year)
+                .orElseThrow(() -> new NotFoundException(YEAR_IN_MUSIC_NOT_FOUND_MESSAGE.formatted(year)));
     }
 
     public List<YearInMusic> getAll() {

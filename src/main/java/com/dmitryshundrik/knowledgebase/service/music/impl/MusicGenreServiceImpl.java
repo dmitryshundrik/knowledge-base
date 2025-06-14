@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.music.impl;
 
+import com.dmitryshundrik.knowledgebase.exception.NotFoundException;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Composition;
 import com.dmitryshundrik.knowledgebase.model.entity.music.MusicGenre;
@@ -21,7 +22,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.dmitryshundrik.knowledgebase.util.Constants.MUSICIAN_GENRES_CACHE;
+import static com.dmitryshundrik.knowledgebase.exception.NotFoundException.MUSIC_GENRE_NOT_FOUND_MESSAGE;
 
 @Service
 @Transactional
@@ -33,13 +34,13 @@ public class MusicGenreServiceImpl implements MusicGenreService {
 
     @Override
     public MusicGenre getBySlug(String musicGenreSlug) {
-        return musicGenreRepository.findBySlug(musicGenreSlug);
+        return musicGenreRepository.findBySlug(musicGenreSlug)
+                .orElseThrow(() -> new NotFoundException(MUSIC_GENRE_NOT_FOUND_MESSAGE.formatted(musicGenreSlug)));
     }
 
     @Override
-    @Cacheable(value = "genres", key = "#musician?.id", unless = "#musician == null")
+    @Cacheable(value = "genres", key = "#musician?.id", unless = "#result == null || #musician == null")
     public List<MusicGenre> getAllByMusicianOrderByCount(Musician musician) {
-        log.info("Computing genres for musician ID: {}", musician.getId());
         Map<MusicGenre, Long> genreCounts = new HashMap<>();
         List<Album> albums = Optional.ofNullable(musician.getAlbums()).orElse(List.of());
         albums.stream()
@@ -51,13 +52,11 @@ public class MusicGenreServiceImpl implements MusicGenreService {
                 .flatMap(composition -> Optional.ofNullable(composition.getMusicGenres()).orElse(List.of()).stream())
                 .forEach(genre -> genreCounts.merge(genre, 1L, Long::sum));
 
-        List<MusicGenre> result = genreCounts.entrySet().stream()
+        return genreCounts.entrySet().stream()
                 .sorted(Map.Entry.<MusicGenre, Long>comparingByValue().reversed())
                 .limit(10)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
-        log.info("Computed genres for musician ID: {}: {}", musician.getId(), result);
-        return result;
     }
 
     @Override
@@ -152,7 +151,7 @@ public class MusicGenreServiceImpl implements MusicGenreService {
     @Override
     public String isSlugExists(String musicGenreSlug) {
         String message = "";
-        if (getBySlug(musicGenreSlug) != null) {
+        if (musicGenreRepository.findBySlug(musicGenreSlug).isPresent()) {
             message = "slug is already exist";
         }
         return message;

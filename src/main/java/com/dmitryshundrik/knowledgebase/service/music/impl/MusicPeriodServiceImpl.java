@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.exception.NotFoundException.MUSIC_PERIOD_NOT_FOUND_MESSAGE;
+import static com.dmitryshundrik.knowledgebase.util.Constants.MUSIC_PERIOD_MUST_NOT_BE_NULL;
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
 
 @Service
@@ -23,7 +25,8 @@ public class MusicPeriodServiceImpl implements MusicPeriodService {
 
     @Override
     public MusicPeriod getBySlug(String musicPeriodSlug) {
-        return musicPeriodRepository.findBySlug(musicPeriodSlug);
+        return musicPeriodRepository.findBySlug(musicPeriodSlug)
+                .orElseThrow(() -> new IllegalArgumentException(MUSIC_PERIOD_NOT_FOUND_MESSAGE.formatted(musicPeriodSlug)));
     }
 
     @Override
@@ -53,6 +56,9 @@ public class MusicPeriodServiceImpl implements MusicPeriodService {
 
     @Override
     public MusicPeriodViewDto getMusicPeriodViewDto(MusicPeriod musicPeriod) {
+        if (musicPeriod == null) {
+            throw new IllegalArgumentException(MUSIC_PERIOD_MUST_NOT_BE_NULL);
+        }
         return MusicPeriodViewDto.builder()
                 .created(InstantFormatter.instantFormatterDMY(musicPeriod.getCreated()))
                 .slug(musicPeriod.getSlug())
@@ -71,6 +77,9 @@ public class MusicPeriodServiceImpl implements MusicPeriodService {
 
     @Override
     public MusicPeriodCreateEditDto getMusicPeriodCreateEditDto(MusicPeriod musicPeriod) {
+        if (musicPeriod == null) {
+            throw new IllegalArgumentException(MUSIC_PERIOD_MUST_NOT_BE_NULL);
+        }
         return MusicPeriodCreateEditDto.builder()
                 .slug(musicPeriod.getSlug())
                 .title(musicPeriod.getTitle())
@@ -93,7 +102,7 @@ public class MusicPeriodServiceImpl implements MusicPeriodService {
     @Override
     public String isSlugExists(String musicPeriodSlug) {
         String message = "";
-        if (getBySlug(musicPeriodSlug) != null) {
+        if (musicPeriodRepository.findBySlug(musicPeriodSlug).isPresent()) {
             message = SLUG_IS_ALREADY_EXIST;
         }
         return message;

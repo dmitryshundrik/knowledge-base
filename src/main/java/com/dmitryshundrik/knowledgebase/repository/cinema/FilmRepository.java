@@ -6,11 +6,12 @@ import com.dmitryshundrik.knowledgebase.model.entity.cinema.Film;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface FilmRepository extends JpaRepository<Film, UUID> {
 
-    Film findBySlug(String slug);
+    Optional<Film> findBySlug(String slug);
 
     List<Film> findFirst20ByOrderByCreatedDesc();
 

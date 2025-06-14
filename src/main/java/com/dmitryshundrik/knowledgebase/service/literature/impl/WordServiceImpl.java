@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.literature.impl;
 
+import com.dmitryshundrik.knowledgebase.exception.NotFoundException;
 import com.dmitryshundrik.knowledgebase.mapper.literature.WordMapper;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Word;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Writer;
@@ -13,6 +14,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.exception.NotFoundException.WORD_NOT_FOUND_MESSAGE;
+import static com.dmitryshundrik.knowledgebase.util.Constants.INVALID_UUID_FORMAT;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -24,7 +28,13 @@ public class WordServiceImpl implements WordService {
 
     @Override
     public Word getById(String wordId) {
-        return wordRepository.findById(UUID.fromString(wordId)).orElse(null);
+        try {
+            UUID uuid = UUID.fromString(wordId);
+            return wordRepository.findById(uuid)
+                    .orElseThrow(() -> new NotFoundException(WORD_NOT_FOUND_MESSAGE.formatted(wordId)));
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(INVALID_UUID_FORMAT.formatted(wordId), e);
+        }
     }
 
     @Override

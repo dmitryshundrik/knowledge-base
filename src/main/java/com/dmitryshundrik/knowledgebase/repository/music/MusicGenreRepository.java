@@ -6,11 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface MusicGenreRepository extends JpaRepository<MusicGenre, UUID> {
 
-    MusicGenre findBySlug(String slug);
+    Optional<MusicGenre> findBySlug(String slug);
 
     @Modifying
     @Query(nativeQuery = true, value = "update music_genre set count = (select count(comp.id) from music_genre mg\n" +

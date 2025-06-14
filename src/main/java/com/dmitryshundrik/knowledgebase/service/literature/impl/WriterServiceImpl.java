@@ -18,11 +18,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static com.dmitryshundrik.knowledgebase.exception.NotFoundException.WRITER_NOT_FOUND_MESSAGE;
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
 import static com.dmitryshundrik.knowledgebase.util.SlugFormatter.baseFormatter;
 
@@ -45,7 +47,8 @@ public class WriterServiceImpl implements WriterService {
 
     @Override
     public Writer getBySlug(String writerSlug) {
-        return writerRepository.findBySlug(writerSlug);
+        return writerRepository.findBySlug(writerSlug)
+                .orElseThrow(() -> new IllegalArgumentException(WRITER_NOT_FOUND_MESSAGE.formatted(writerSlug)));
     }
 
     @Override
@@ -100,7 +103,9 @@ public class WriterServiceImpl implements WriterService {
 
     public WriterViewDto getWriterViewDto(Writer writer) {
         WriterViewDto writerDto = writerMapper.toWriterViewDto(new WriterViewDto(), writer);
-        writerDto.setEvents(personEventService.getPersonEventDtoList(writer.getEvents()));
+        writerDto.setEvents(writer.getEvents() != null
+                ? personEventService.getPersonEventDtoList(writer.getEvents())
+                : Collections.emptyList());
         writerDto.setProseList(proseService.getProseViewDtoList(writer.getProseList().stream()
                 .sorted(Comparator.comparing(Prose::getYear, Comparator.nullsFirst(Comparator.naturalOrder())))
                 .toList()));
@@ -119,7 +124,9 @@ public class WriterServiceImpl implements WriterService {
     public WriterCreateEditDto getWriterCreateEditDto(Writer writer) {
         WriterCreateEditDto writerDto = writerMapper
                 .toWriterCreateEditDto(new WriterCreateEditDto(), writer);
-        writerDto.setEvents(personEventService.getPersonEventDtoList(writer.getEvents()));
+        writerDto.setEvents(writer.getEvents() != null
+                ? personEventService.getPersonEventDtoList(writer.getEvents())
+                : Collections.emptyList());
         writerDto.setProseList(proseService.getProseViewDtoList(writer.getProseList().stream()
                 .sorted(Comparator.comparing(Prose::getYear, Comparator.nullsFirst(Comparator.naturalOrder())))
                 .toList()));
@@ -173,7 +180,7 @@ public class WriterServiceImpl implements WriterService {
     @Override
     public String isSlugExists(String writerSlug) {
         String message = "";
-        if (getBySlug(writerSlug) != null) {
+        if (writerRepository.findBySlug(writerSlug).isPresent()) {
             message = SLUG_IS_ALREADY_EXIST;
         }
         return message;

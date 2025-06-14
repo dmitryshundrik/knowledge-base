@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.util.Constants.INVALID_DATE_FORMAT;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -138,7 +140,7 @@ public class SpotifyPlaylistService {
         } else if (releaseDate.matches("\\d{4}")) {
             return LocalDate.parse(releaseDate + "-01-01");
         } else {
-            throw new DateTimeParseException("Invalid date format: " + releaseDate, releaseDate, 0);
+            throw new DateTimeParseException(INVALID_DATE_FORMAT.formatted(releaseDate), releaseDate, 0);
         }
     }
 }

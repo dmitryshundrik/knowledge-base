@@ -5,11 +5,12 @@ import com.dmitryshundrik.knowledgebase.model.entity.cinema.CriticsList;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface CriticsListRepository extends JpaRepository<CriticsList, UUID> {
 
-    CriticsList findBySlug(String slug);
+    Optional<CriticsList> findBySlug(String slug);
 
     List<CriticsList> findFirst20ByOrderByCreatedDesc();
 

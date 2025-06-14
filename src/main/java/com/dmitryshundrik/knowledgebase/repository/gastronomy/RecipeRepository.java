@@ -5,11 +5,12 @@ import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Recipe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface RecipeRepository extends JpaRepository<Recipe, UUID> {
 
-    Recipe findBySlug(String slug);
+    Optional<Recipe> findBySlug(String slug);
 
     List<Recipe> findAllByCountry(Country country);
 

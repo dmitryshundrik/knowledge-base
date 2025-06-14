@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.cinema.impl;
 
+import com.dmitryshundrik.knowledgebase.exception.NotFoundException;
 import com.dmitryshundrik.knowledgebase.model.dto.cinema.CriticsListCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.cinema.CriticsListResponseDto;
 import com.dmitryshundrik.knowledgebase.model.entity.cinema.CriticsList;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
+import static com.dmitryshundrik.knowledgebase.exception.NotFoundException.CRITICS_LIST_NOT_FOUND_MESSAGE;
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
 
 @Service
@@ -24,8 +26,9 @@ public class CriticsListServiceImpl implements CriticsListService {
     private final CriticsListMapper criticsListMapper;
 
     @Override
-    public CriticsList getBySlug(String slug) {
-        return criticsListRepository.findBySlug(slug);
+    public CriticsList getBySlug(String listSlug) {
+        return criticsListRepository.findBySlug(listSlug)
+                .orElseThrow(() -> new NotFoundException(CRITICS_LIST_NOT_FOUND_MESSAGE.formatted(listSlug)));
     }
 
     @Override
@@ -52,14 +55,14 @@ public class CriticsListServiceImpl implements CriticsListService {
 
     @Override
     public CriticsList updateCriticsList(String criticsListSlug, CriticsListCreateEditDto criticsListDto) {
-        CriticsList criticsList = criticsListRepository.findBySlug(criticsListSlug);
+        CriticsList criticsList = getBySlug(criticsListSlug);
         criticsListMapper.updateCriticsList(criticsList, criticsListDto);
         return criticsList;
     }
 
     @Override
     public void deleteCriticsList(String criticListSlug) {
-        criticsListRepository.delete(criticsListRepository.findBySlug(criticListSlug));
+        criticsListRepository.delete(getBySlug(criticListSlug));
     }
 
     @Override
@@ -70,7 +73,7 @@ public class CriticsListServiceImpl implements CriticsListService {
     @Override
     public String isSlugExists(String criticsListSlug) {
         String message = "";
-        if (criticsListRepository.findBySlug(criticsListSlug) != null) {
+        if (criticsListRepository.findBySlug(criticsListSlug).isPresent()) {
             message = SLUG_IS_ALREADY_EXIST;
         }
         return message;

@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.client.impl;
 
 import com.dmitryshundrik.knowledgebase.client.WeatherClient;
-import com.dmitryshundrik.knowledgebase.exception.WeatherServiceException;
+import com.dmitryshundrik.knowledgebase.exception.ClientServiceException;
 import com.dmitryshundrik.knowledgebase.model.dto.client.openweather.Weather;
 import com.dmitryshundrik.knowledgebase.model.dto.client.openweather.WeatherResponse;
 import com.dmitryshundrik.knowledgebase.service.client.WeatherService;
@@ -14,7 +14,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import static com.dmitryshundrik.knowledgebase.util.Constants.GETTING_CURRENT_WEATHER_FAIL_MESSAGE;
+import static com.dmitryshundrik.knowledgebase.exception.ClientServiceException.GETTING_CURRENT_WEATHER_FAIL_MESSAGE;
+import static com.dmitryshundrik.knowledgebase.exception.ClientServiceException.WEATHER_RESPONSE_IS_NULL_MESSAGE;
 import static com.dmitryshundrik.knowledgebase.util.Constants.UNKNOWN_VALUE;
 import static com.dmitryshundrik.knowledgebase.util.Constants.WEATHER_CACHE;
 
@@ -45,8 +46,7 @@ public class WeatherServiceImpl implements WeatherService {
     public Weather processCurrentWeather() {
         WeatherResponse weatherResponse = getCurrentWeatherFromClient();
         if (weatherResponse == null) {
-            log.error("Weather response is null");
-            throw new WeatherServiceException("Weather response is null");
+            throw new ClientServiceException(WEATHER_RESPONSE_IS_NULL_MESSAGE);
         }
 
         return Weather.builder()
@@ -75,8 +75,7 @@ public class WeatherServiceImpl implements WeatherService {
             log.info("Received response: {}", responseDto);
             return responseDto;
         } catch (Exception e) {
-            log.error("Error while fetching weather data: {}", e.getMessage(), e);
-            throw new WeatherServiceException(GETTING_CURRENT_WEATHER_FAIL_MESSAGE.formatted(e.getMessage()));
+            throw new ClientServiceException(GETTING_CURRENT_WEATHER_FAIL_MESSAGE.formatted(e.getMessage()));
         }
     }
 }

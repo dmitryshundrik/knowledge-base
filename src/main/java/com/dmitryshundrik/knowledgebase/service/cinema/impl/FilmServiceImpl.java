@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.cinema.impl;
 
+import com.dmitryshundrik.knowledgebase.exception.NotFoundException;
 import com.dmitryshundrik.knowledgebase.model.dto.cinema.FilmArchiveDto;
 import com.dmitryshundrik.knowledgebase.model.dto.cinema.FilmCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.cinema.FilmResponseDto;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
+import static com.dmitryshundrik.knowledgebase.exception.NotFoundException.FILM_NOT_FOUND_MESSAGE;
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
 
 @Service
@@ -25,8 +27,9 @@ public class FilmServiceImpl implements FilmService {
     private final FilmMapper filmMapper;
 
     @Override
-    public Film getBySlug(String slug) {
-        return filmRepository.findBySlug(slug);
+    public Film getBySlug(String filmSlug) {
+        return filmRepository.findBySlug(filmSlug)
+                .orElseThrow(() -> new NotFoundException(FILM_NOT_FOUND_MESSAGE.formatted(filmSlug)));
     }
 
     @Override
@@ -53,27 +56,27 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Film updateFilm(String filmSlug, FilmCreateEditDto filmDto) {
-        Film film = filmRepository.findBySlug(filmSlug);
+        Film film = getBySlug(filmSlug);
         filmMapper.updateFilm(film, filmDto);
         return film;
     }
 
     @Override
     public void deleteFilmBySlug(String filmSlug) {
-        filmRepository.delete(filmRepository.findBySlug(filmSlug));
+        filmRepository.delete(getBySlug(filmSlug));
     }
 
     @Override
     public void updateFilmImageBySlug(String filmSlug, byte[] bytes) {
         if (bytes.length != 0) {
-            Film bySlug = filmRepository.findBySlug(filmSlug);
+            Film bySlug = getBySlug(filmSlug);
             bySlug.setImage(new String(bytes));
         }
     }
 
     @Override
     public void deleteFilmImage(String filmSlug) {
-        Film bySlug = filmRepository.findBySlug(filmSlug);
+        Film bySlug = getBySlug(filmSlug);
         bySlug.setImage(null);
     }
 
@@ -85,7 +88,7 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public String isSlugExists(String filmSlug) {
         String message = "";
-        if (filmRepository.findBySlug(filmSlug) != null) {
+        if (filmRepository.findBySlug(filmSlug).isPresent()) {
             message = SLUG_IS_ALREADY_EXIST;
         }
         return message;

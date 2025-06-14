@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.literature.impl;
 
+import com.dmitryshundrik.knowledgebase.exception.NotFoundException;
 import com.dmitryshundrik.knowledgebase.mapper.literature.ProseMapper;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Prose;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Writer;
@@ -15,6 +16,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.exception.NotFoundException.PROSE_NOT_FOUND_MESSAGE;
+import static com.dmitryshundrik.knowledgebase.util.Constants.INVALID_UUID_FORMAT;
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
 import static com.dmitryshundrik.knowledgebase.util.SlugFormatter.baseFormatter;
 import static com.dmitryshundrik.knowledgebase.util.SlugFormatter.formatProseSlug;
@@ -29,13 +32,20 @@ public class ProseServiceImpl implements ProseService {
     private final ProseMapper proseMapper;
 
     @Override
-    public Prose getById(String id) {
-        return proseRepository.findById(UUID.fromString(id)).orElse(null);
+    public Prose getById(String proseId) {
+        try {
+            UUID uuid = UUID.fromString(proseId);
+            return proseRepository.findById(uuid)
+                    .orElseThrow(() -> new NotFoundException(PROSE_NOT_FOUND_MESSAGE.formatted(proseId)));
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(INVALID_UUID_FORMAT.formatted(proseId), e);
+        }
     }
 
     @Override
     public Prose getBySlug(String proseSlug) {
-        return proseRepository.findBySlug(proseSlug);
+        return proseRepository.findBySlug(proseSlug)
+                .orElseThrow(() -> new NotFoundException(PROSE_NOT_FOUND_MESSAGE.formatted(proseSlug)));
     }
 
     @Override
@@ -129,7 +139,7 @@ public class ProseServiceImpl implements ProseService {
     @Override
     public String isSlugExists(String proseSlug) {
         String message = "";
-        if (getBySlug(proseSlug) != null) {
+        if (proseRepository.findBySlug(proseSlug).isPresent()) {
             message = SLUG_IS_ALREADY_EXIST;
         }
         return message;

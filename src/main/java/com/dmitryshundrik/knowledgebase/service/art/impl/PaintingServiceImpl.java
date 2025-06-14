@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.art.impl;
 
+import com.dmitryshundrik.knowledgebase.exception.NotFoundException;
 import com.dmitryshundrik.knowledgebase.mapper.art.PaintingMapper;
 import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingArtistProfileDto;
 import com.dmitryshundrik.knowledgebase.model.dto.art.PaintingCreateEditDto;
@@ -9,7 +10,6 @@ import com.dmitryshundrik.knowledgebase.model.entity.art.Artist;
 import com.dmitryshundrik.knowledgebase.model.entity.art.Painting;
 import com.dmitryshundrik.knowledgebase.repository.art.PaintingRepository;
 import com.dmitryshundrik.knowledgebase.service.art.PaintingService;
-import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +17,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.exception.NotFoundException.PAINTING_NOT_FOUND_MESSAGE;
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.SORT_DIRECTION_ASC;
 import static com.dmitryshundrik.knowledgebase.util.SlugFormatter.baseFormatter;
@@ -33,7 +34,8 @@ public class PaintingServiceImpl implements PaintingService {
 
     @Override
     public Painting getBySlug(String paintingSlug) {
-        return paintingRepository.findBySlug(paintingSlug);
+        return paintingRepository.findBySlug(paintingSlug)
+                .orElseThrow(() -> new NotFoundException(PAINTING_NOT_FOUND_MESSAGE.formatted(paintingSlug)));
     }
 
     @Override
@@ -115,7 +117,7 @@ public class PaintingServiceImpl implements PaintingService {
     @Override
     public String isSlugExists(String paintingSlug) {
         String message = "";
-        if (getBySlug(paintingSlug) != null) {
+        if (paintingRepository.findBySlug(paintingSlug).isPresent()) {
             message = SLUG_IS_ALREADY_EXIST;
         }
         return message;

@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.gastronomy.impl;
 
+import com.dmitryshundrik.knowledgebase.exception.NotFoundException;
 import com.dmitryshundrik.knowledgebase.mapper.gastronomy.RecipeMapper;
 import com.dmitryshundrik.knowledgebase.model.enums.Country;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Recipe;
@@ -14,6 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.exception.NotFoundException.RECIPE_NOT_FOUND_MESSAGE;
+import static com.dmitryshundrik.knowledgebase.util.Constants.COUNTRY_CANNOT_BE_NULL_OR_EMPTY;
+import static com.dmitryshundrik.knowledgebase.util.Constants.INVALID_COUNTRY_MESSAGE;
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
 
 @Service
@@ -29,7 +33,8 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe getBySlug(String recipeSlug) {
-        return recipeRepository.findBySlug(recipeSlug);
+        return recipeRepository.findBySlug(recipeSlug)
+                .orElseThrow(() -> new NotFoundException(RECIPE_NOT_FOUND_MESSAGE.formatted(recipeSlug)));
     }
 
     @Override
@@ -43,8 +48,17 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public List<Recipe> getAllByCountry(Country country) {
-        return recipeRepository.findAllByCountry(country);
+    public List<Recipe> getAllByCountry(String country) {
+        if (country == null || country.trim().isEmpty()) {
+            throw new IllegalArgumentException(COUNTRY_CANNOT_BE_NULL_OR_EMPTY);
+        }
+
+        try {
+            Country countryEnum = Country.valueOf(country.toUpperCase());
+            return recipeRepository.findAllByCountry(countryEnum);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(INVALID_COUNTRY_MESSAGE.formatted(country));
+        }
     }
 
     @Override
@@ -89,7 +103,7 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public String isSlugExists(String recipeSlug) {
         String message = "";
-        if (getBySlug(recipeSlug) != null) {
+        if (recipeRepository.findBySlug(recipeSlug).isPresent()) {
             message = SLUG_IS_ALREADY_EXIST;
         }
         return message;

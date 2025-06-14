@@ -12,13 +12,20 @@ public final class Constants {
     public static final String DATE_FORMAT_YMD = "yyyy-MM-dd";
     public static final String DATE_FORMAT_DMY = "dd-MM-yyyy";
     public static final String DATE_FORMAT_DMY_HMS = "dd-MM-yyyy HH:mm:ss";
+
+    public static final String INVALID_UUID_FORMAT = "Invalid UUID: %s";
+    public static final String INVALID_COUNTRY_MESSAGE = "Invalid country: %s";
+    public static final String INVALID_DATE_FORMAT = "Invalid date format: %s";
+
     public static final String SLUG_IS_ALREADY_EXIST = "Slug is already exist";
     public static final String SLUG_MUST_NOT_BE_BLANK = "Slug must not be blank";
-    public static final String NICKNAME_MUST_NOT_BE_BLANK = "Nickname must not be blank";
-    public static final String DESCRIPTION_MUST_NOT_BE_BLANK = "Description must not be blank";
     public static final String TITLE_MUST_NOT_BE_BLANK = "Title must not be blank";
-    public static final String MUSIC_GENRE_MUST_NOT_BE_BLANK = "Music genre must not be blank";
+    public static final String NICKNAME_MUST_NOT_BE_BLANK = "Nickname must not be blank";
     public static final String YEAR_MUST_NOT_BE_NULL = "Year must not be null";
+    public static final String DESCRIPTION_MUST_NOT_BE_BLANK = "Description must not be blank";
+    public static final String MUSIC_PERIOD_MUST_NOT_BE_NULL = "Music period must not be null";
+    public static final String MUSIC_GENRE_MUST_NOT_BE_BLANK = "Music genre must not be blank";
+    public static final String COUNTRY_CANNOT_BE_NULL_OR_EMPTY = "Country parameter cannot be null or empty";
 
     public static final String CURRENT_WEATHER = "currentWeather";
     public static final String WEATHER_CACHE = "weatherCache";
@@ -37,7 +44,6 @@ public final class Constants {
     public static final String DECADE_2010s = "2010";
     public static final String DECADE_2020s = "2020";
 
-    public static final String GETTING_CURRENT_WEATHER_FAIL_MESSAGE = "Failed to fetch weather data: %s";
     public static final String GETTING_TOP_ARTISTS_FAIL_MESSAGE = "Failed to fetch top artists data: %s";
     public static final String GETTING_TOP_ALBUMS_FAIL_MESSAGE = "Failed to fetch top albums data: %s";
 

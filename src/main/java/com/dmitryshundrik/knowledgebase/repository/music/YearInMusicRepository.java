@@ -5,13 +5,14 @@ import com.dmitryshundrik.knowledgebase.model.entity.music.YearInMusic;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface YearInMusicRepository extends JpaRepository<YearInMusic, UUID> {
 
-    YearInMusic findBySlug(String slug);
+    Optional<YearInMusic> findBySlug(String slug);
 
-    YearInMusic findByYear(Integer year);
+    Optional<YearInMusic> findByYear(Integer year);
 
     List<YearInMusic> findAllByOrderByYearAsc();
 

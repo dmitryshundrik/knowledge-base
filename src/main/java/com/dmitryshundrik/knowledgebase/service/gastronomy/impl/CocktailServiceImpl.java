@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.gastronomy.impl;
 
+import com.dmitryshundrik.knowledgebase.exception.NotFoundException;
 import com.dmitryshundrik.knowledgebase.mapper.gastronomy.CocktailMapper;
 import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.CocktailViewDto;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Cocktail;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.exception.NotFoundException.COCKTAIL_NOT_FOUND_MESSAGE;
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
 
 @Service
@@ -25,7 +27,8 @@ public class CocktailServiceImpl implements CocktailService {
 
     @Override
     public Cocktail getBySlug(String cocktailSLug) {
-        return cocktailRepository.findBySlug(cocktailSLug);
+        return cocktailRepository.findBySlug(cocktailSLug)
+                .orElseThrow(() -> new NotFoundException(COCKTAIL_NOT_FOUND_MESSAGE.formatted(cocktailSLug)));
     }
 
     @Override
@@ -80,7 +83,7 @@ public class CocktailServiceImpl implements CocktailService {
     @Override
     public String isSlugExists(String cocktailSlug) {
         String message = "";
-        if (getBySlug(cocktailSlug) != null) {
+        if (cocktailRepository.findBySlug(cocktailSlug).isPresent()) {
             message = SLUG_IS_ALREADY_EXIST;
         }
         return message;

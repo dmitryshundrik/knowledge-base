@@ -1,7 +1,7 @@
 package com.dmitryshundrik.knowledgebase.service.client.impl;
 
 import com.dmitryshundrik.knowledgebase.client.LastFmClient;
-import com.dmitryshundrik.knowledgebase.exception.WeatherServiceException;
+import com.dmitryshundrik.knowledgebase.exception.ClientServiceException;
 import com.dmitryshundrik.knowledgebase.model.dto.client.lastfm.topalbums.TopAlbums;
 import com.dmitryshundrik.knowledgebase.model.dto.client.lastfm.topalbums.TopAlbumsResponse;
 import com.dmitryshundrik.knowledgebase.model.dto.client.lastfm.topartists.TopArtists;
@@ -71,8 +71,7 @@ public class LastfmServiceImpl implements LastfmService {
             return lastFmClient
                     .getTopArtists(user, period, limit, page, apiKey);
         } catch (Exception e) {
-            log.error("Error while fetching lastfm data: {}", e.getMessage(), e);
-            throw new WeatherServiceException(GETTING_TOP_ARTISTS_FAIL_MESSAGE.formatted(e.getMessage()));
+            throw new ClientServiceException(GETTING_TOP_ARTISTS_FAIL_MESSAGE.formatted(e.getMessage()));
         }
     }
 
@@ -82,8 +81,7 @@ public class LastfmServiceImpl implements LastfmService {
             return lastFmClient
                     .getTopAlbums(user, period, limit, page, apiKey);
         } catch (Exception e) {
-            log.error("Error while fetching lastfm data: {}", e.getMessage(), e);
-            throw new WeatherServiceException(GETTING_TOP_ALBUMS_FAIL_MESSAGE.formatted(e.getMessage()));
+            throw new ClientServiceException(GETTING_TOP_ALBUMS_FAIL_MESSAGE.formatted(e.getMessage()));
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.literature.impl;
 
+import com.dmitryshundrik.knowledgebase.exception.NotFoundException;
 import com.dmitryshundrik.knowledgebase.mapper.literature.QuoteMapper;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Prose;
 import com.dmitryshundrik.knowledgebase.model.entity.literature.Quote;
@@ -15,6 +16,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.exception.NotFoundException.QUOTE_NOT_FOUND_MESSAGE;
+import static com.dmitryshundrik.knowledgebase.util.Constants.INVALID_UUID_FORMAT;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -26,7 +30,13 @@ public class QuoteServiceImpl implements QuoteService {
 
     @Override
     public Quote getById(String quoteId) {
-        return quoteRepository.findById(UUID.fromString(quoteId)).orElse(null);
+        try {
+            UUID uuid = UUID.fromString(quoteId);
+            return quoteRepository.findById(uuid)
+                    .orElseThrow(() -> new NotFoundException(QUOTE_NOT_FOUND_MESSAGE.formatted(quoteId)));
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(INVALID_UUID_FORMAT.formatted(quoteId), e);
+        }
     }
 
     @Override

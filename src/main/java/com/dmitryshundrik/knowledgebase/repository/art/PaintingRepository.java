@@ -7,11 +7,12 @@ import com.dmitryshundrik.knowledgebase.model.entity.art.Painting;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface PaintingRepository extends JpaRepository<Painting, UUID> {
 
-    Painting findBySlug(String paintingSlug);
+    Optional<Painting> findBySlug(String paintingSlug);
 
     List<Painting> findAllByOrderByCreatedDesc();
 

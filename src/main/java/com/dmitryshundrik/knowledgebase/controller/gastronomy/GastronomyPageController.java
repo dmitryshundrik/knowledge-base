@@ -100,11 +100,11 @@ public class GastronomyPageController {
         return "gastronomy/article";
     }
 
-    @GetMapping("/country/{slug}")
-    public String getRecipesByCountry(@PathVariable String slug, Model model) {
-        List<Recipe> allByCountry = recipeService.getAllByCountry(Country.valueOf(slug.toUpperCase()));
+    @GetMapping("/country/{country}")
+    public String getRecipesByCountry(@PathVariable String country, Model model) {
+        List<Recipe> allByCountry = recipeService.getAllByCountry(country);
         List<RecipeViewDto> recipeDtoList = recipeService.getRecipeViewDtoList(allByCountry);
-        model.addAttribute(COUNTRY, Country.valueOf(slug.toUpperCase()));
+        model.addAttribute(COUNTRY, country);
         model.addAttribute(RECIPE_LIST, recipeDtoList);
         return "gastronomy/recipe-all-by-country";
     }

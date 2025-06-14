@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.art.impl;
 
+import com.dmitryshundrik.knowledgebase.exception.NotFoundException;
 import com.dmitryshundrik.knowledgebase.mapper.art.ArtistMapper;
 import com.dmitryshundrik.knowledgebase.model.entity.art.Artist;
 import com.dmitryshundrik.knowledgebase.model.dto.art.ArtistCreateEditDto;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.exception.NotFoundException.ARTIST_NOT_FOUND_MESSAGE;
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
 import static com.dmitryshundrik.knowledgebase.util.Constants.UNKNOWN;
 import static com.dmitryshundrik.knowledgebase.util.SlugFormatter.baseFormatter;
@@ -30,7 +32,8 @@ public class ArtistServiceImpl implements ArtistService {
 
     @Override
     public Artist getBySlug(String artistSlug) {
-        return artistRepository.findBySlug(artistSlug).orElse(null);
+        return artistRepository.findBySlug(artistSlug)
+                .orElseThrow(() -> new NotFoundException(ARTIST_NOT_FOUND_MESSAGE.formatted(artistSlug)));
     }
 
     @Override
@@ -140,7 +143,7 @@ public class ArtistServiceImpl implements ArtistService {
     @Override
     public String isSlugExists(String artistSlug) {
         String message = "";
-        if (getBySlug(artistSlug) != null) {
+        if (artistRepository.findBySlug(artistSlug).isPresent()) {
             message = SLUG_IS_ALREADY_EXIST;
         }
         return message;

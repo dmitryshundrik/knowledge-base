@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.music.impl;
 
+import com.dmitryshundrik.knowledgebase.exception.NotFoundException;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianSelectDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.dto.music.MusicianArchiveDetailedDto;
@@ -34,6 +35,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.exception.NotFoundException.MUSICIAN_NOT_FOUND_MESSAGE;
 import static com.dmitryshundrik.knowledgebase.util.Constants.SLUG_IS_ALREADY_EXIST;
 import static com.dmitryshundrik.knowledgebase.util.SlugFormatter.baseFormatter;
 
@@ -55,13 +57,15 @@ public class MusicianServiceImpl implements MusicianService {
     private final MusicianMapper musicianMapper;
 
     @Override
-    public Musician getBySlug(String musicianSlug) {
-        return musicianRepository.findBySlug(musicianSlug);
+    public Musician getById(UUID musicianId) {
+        return musicianRepository.findById(musicianId)
+                .orElseThrow(() -> new NotFoundException(MUSICIAN_NOT_FOUND_MESSAGE.formatted(musicianId)));
     }
 
     @Override
-    public Musician getById(UUID musicianId) {
-        return musicianRepository.findById(musicianId).orElse(null);
+    public Musician getBySlug(String musicianSlug) {
+        return musicianRepository.findBySlug(musicianSlug)
+                .orElseThrow(() -> new NotFoundException(MUSICIAN_NOT_FOUND_MESSAGE.formatted(musicianSlug)));
     }
 
     @Override
@@ -283,7 +287,7 @@ public class MusicianServiceImpl implements MusicianService {
     @Override
     public String isSlugExists(String musicianSlug) {
         String message = "";
-        if (getBySlug(musicianSlug) != null) {
+        if (musicianRepository.findBySlug(musicianSlug).isPresent()) {
             message = SLUG_IS_ALREADY_EXIST;
         }
         return message;

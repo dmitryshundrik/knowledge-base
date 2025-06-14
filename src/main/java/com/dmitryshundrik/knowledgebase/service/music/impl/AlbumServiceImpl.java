@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.music.impl;
 
+import com.dmitryshundrik.knowledgebase.exception.NotFoundException;
 import com.dmitryshundrik.knowledgebase.mapper.music.AlbumMapper;
 import com.dmitryshundrik.knowledgebase.mapper.music.MusicianMapper;
 import com.dmitryshundrik.knowledgebase.model.dto.music.AlbumSimpleDto;
@@ -13,13 +14,11 @@ import com.dmitryshundrik.knowledgebase.model.enums.MusicGenreType;
 import com.dmitryshundrik.knowledgebase.model.enums.SortType;
 import com.dmitryshundrik.knowledgebase.repository.music.AlbumRepository;
 import com.dmitryshundrik.knowledgebase.service.music.AlbumService;
-import com.dmitryshundrik.knowledgebase.util.SlugFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -27,8 +26,10 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.dmitryshundrik.knowledgebase.exception.NotFoundException.ALBUM_NOT_FOUND_MESSAGE;
 import static com.dmitryshundrik.knowledgebase.util.Constants.DECADE_2010s;
 import static com.dmitryshundrik.knowledgebase.util.Constants.DECADE_2020s;
+import static com.dmitryshundrik.knowledgebase.util.Constants.INVALID_UUID_FORMAT;
 import static com.dmitryshundrik.knowledgebase.util.Constants.MUSICIAN_GENRES_CACHE;
 import static com.dmitryshundrik.knowledgebase.util.InstantFormatter.instantFormatterDMY;
 import static com.dmitryshundrik.knowledgebase.util.SlugFormatter.baseFormatter;
@@ -47,12 +48,19 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public Album getById(String albumId) {
-        return albumRepository.findById(UUID.fromString(albumId)).orElse(null);
+        try {
+            UUID uuid = UUID.fromString(albumId);
+            return albumRepository.findById(uuid)
+                    .orElseThrow(() -> new NotFoundException(ALBUM_NOT_FOUND_MESSAGE.formatted(albumId)));
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(INVALID_UUID_FORMAT.formatted(albumId), e);
+        }
     }
 
     @Override
     public Album getBySlug(String albumSlug) {
-        return albumRepository.findBySlug(albumSlug);
+        return albumRepository.findBySlug(albumSlug)
+                .orElseThrow(() -> new NotFoundException(ALBUM_NOT_FOUND_MESSAGE.formatted(albumSlug)));
     }
 
     @Override

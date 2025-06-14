@@ -3,7 +3,6 @@ package com.dmitryshundrik.knowledgebase.service.gastronomy;
 import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.RecipeCreateEditDto;
 import com.dmitryshundrik.knowledgebase.model.dto.gastronomy.RecipeViewDto;
 import com.dmitryshundrik.knowledgebase.model.entity.gastronomy.Recipe;
-import com.dmitryshundrik.knowledgebase.model.enums.Country;
 import com.dmitryshundrik.knowledgebase.service.BaseService;
 import java.util.List;
 
@@ -18,7 +17,7 @@ public interface RecipeService extends BaseService {
 
     List<Recipe> getAll();
     List<Recipe> getAllByOrderByCreatedDesc();
-    List<Recipe> getAllByCountry(Country country);
+    List<Recipe> getAllByCountry(String country);
     List<Recipe> getLatestUpdate();
 
     Recipe createRecipe(RecipeCreateEditDto recipeCreateEditDTO);

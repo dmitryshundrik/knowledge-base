@@ -96,6 +96,7 @@ public class MusicPageController {
     @GetMapping("/lists-and-charts/{slug}")
     public String getYearInMusic(@PathVariable String slug, Model model) {
         YearInMusic yearInMusic = yearInMusicService.getBySlug(slug);
+
         YearInMusic previousYear = yearInMusicService.getByYear(yearInMusic.getYear() - 1);
         if (previousYear != null) {
             model.addAttribute(PREVIOUS_YEAR, yearInMusicService.getYearInMusicViewDto(previousYear));
@@ -207,13 +208,12 @@ public class MusicPageController {
         model.addAttribute(MUSIC_GENRE, musicGenre);
         model.addAttribute(CLASSICAL_TYPE, MusicGenreType.CLASSICAL);
         model.addAttribute(CONTEMPORARY_TYPE, MusicGenreType.CONTEMPORARY);
-        if (musicGenre.getMusicGenreType().equals(MusicGenreType.CONTEMPORARY)) {
+        if (MusicGenreType.CONTEMPORARY.equals(musicGenre.getMusicGenreType())) {
             List<Album> albumsByGenre = albumService.getAllByGenre(musicGenre);
             model.addAttribute(ALBUM_LIST, albumService
                     .getAlbumViewDtoListOrderBy(albumsByGenre, SortType.RATING));
-        }
-        if (musicGenre.getMusicGenreType().equals(MusicGenreType.CLASSICAL)) {
-            List<Composition>  compositionsByGenre = compositionService.getAllByGenre(musicGenre);
+        } else if (MusicGenreType.CLASSICAL.equals(musicGenre.getMusicGenreType())) {
+            List<Composition> compositionsByGenre = compositionService.getAllByGenre(musicGenre);
             model.addAttribute(COMPOSITION_LIST, compositionService
                     .getCompositionViewDtoListOrderBy(compositionsByGenre, SortType.RATING));
         }

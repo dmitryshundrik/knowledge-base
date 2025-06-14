@@ -1,5 +1,6 @@
 package com.dmitryshundrik.knowledgebase.service.music.impl;
 
+import com.dmitryshundrik.knowledgebase.exception.NotFoundException;
 import com.dmitryshundrik.knowledgebase.mapper.music.CompositionMapper;
 import com.dmitryshundrik.knowledgebase.model.dto.music.CompositionSimpleDto;
 import com.dmitryshundrik.knowledgebase.model.entity.music.Album;
@@ -24,6 +25,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.dmitryshundrik.knowledgebase.exception.NotFoundException.COMPOSITION_NOT_FOUND_MESSAGE;
 import static com.dmitryshundrik.knowledgebase.util.Constants.MUSICIAN_GENRES_CACHE;
 import static com.dmitryshundrik.knowledgebase.util.SlugFormatter.baseFormatter;
 import static com.dmitryshundrik.knowledgebase.util.SlugFormatter.formatCompositionSlug;
@@ -39,7 +41,8 @@ public class CompositionServiceImpl implements CompositionService {
 
     @Override
     public Composition getBySlug(String compositionSlug) {
-        return compositionRepository.findBySlug(compositionSlug);
+        return compositionRepository.findBySlug(compositionSlug)
+                .orElseThrow(() -> new NotFoundException(COMPOSITION_NOT_FOUND_MESSAGE.formatted(compositionSlug)));
     }
 
     @Override
@@ -122,7 +125,7 @@ public class CompositionServiceImpl implements CompositionService {
 
     @Override
     public Composition updateComposition(CompositionCreateEditDto compositionDto, String compositionSlug, Album album) {
-        Composition composition = compositionRepository.findBySlug(compositionSlug);
+        Composition composition = getBySlug(compositionSlug);
         compositionMapper.updateComposition(composition, compositionDto);
         composition.setAlbum(album);
         composition.setSlug(baseFormatter(composition.getSlug()));
