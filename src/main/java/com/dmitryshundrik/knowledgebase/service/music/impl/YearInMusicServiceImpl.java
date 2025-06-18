@@ -27,35 +27,47 @@ public class YearInMusicServiceImpl implements YearInMusicService {
 
     private final MusicianServiceImpl musicianService;
 
+    @Override
     public YearInMusic getBySlug(String yearInMusicSlug) {
         return yearInMusicRepository.findBySlug(yearInMusicSlug)
                 .orElseThrow(() -> new NotFoundException(YEAR_IN_MUSIC_NOT_FOUND_MESSAGE.formatted(yearInMusicSlug)));
     }
 
+    @Override
     public YearInMusic getByYear(Integer year) {
         return yearInMusicRepository.findByYear(year)
                 .orElseThrow(() -> new NotFoundException(YEAR_IN_MUSIC_NOT_FOUND_MESSAGE.formatted(year)));
     }
 
+    @Override
     public List<YearInMusic> getAll() {
         return yearInMusicRepository.findAllByOrderByYearAsc();
     }
 
+    @Override
+    public Boolean existsByYear(Integer year) {
+        return yearInMusicRepository.existsByYear(year);
+    }
+
+    @Override
     public YearInMusic createYearInMusic(YearInMusicCreateEditDto yearInMusicDto) {
         YearInMusic yearInMusic = new YearInMusic();
         setFieldsFromDto(yearInMusic, yearInMusicDto);
         return yearInMusicRepository.save(yearInMusic);
     }
 
+    @Override
     public YearInMusic updateYearInMusic(YearInMusic yearInMusic, YearInMusicCreateEditDto yearInMusicDto) {
         setFieldsFromDto(yearInMusic, yearInMusicDto);
         return yearInMusic;
     }
 
+    @Override
     public void deleteYearInMusic(YearInMusic yearInMusic) {
         yearInMusicRepository.delete(yearInMusic);
     }
 
+    @Override
     public YearInMusicViewDto getYearInMusicViewDto(YearInMusic yearInMusic) {
         return YearInMusicViewDto.builder()
                 .created(InstantFormatter.instantFormatterDMY(yearInMusic.getCreated()))
@@ -78,16 +90,19 @@ public class YearInMusicServiceImpl implements YearInMusicService {
 
     }
 
+    @Override
     public List<YearInMusicViewDto> getYearInMusicViewDtoList(List<YearInMusic> yearInMusicList) {
         return yearInMusicList.stream()
                 .map(this::getYearInMusicViewDto)
                 .collect(Collectors.toList());
     }
 
+    @Override
     public List<YearInMusicSimpleDto> getYearInMusicSimpleDtoList() {
         return yearInMusicRepository.findAllOrderByYearAcs();
     }
 
+    @Override
     public YearInMusicCreateEditDto getYearInMusicCreateEditDto(YearInMusic yearInMusic) {
         return YearInMusicCreateEditDto.builder()
                 .slug(yearInMusic.getSlug())

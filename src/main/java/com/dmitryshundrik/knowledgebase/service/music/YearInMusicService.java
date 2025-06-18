@@ -13,6 +13,8 @@ public interface YearInMusicService {
 
     List<YearInMusic> getAll();
 
+    Boolean existsByYear(Integer year);
+
     YearInMusic createYearInMusic(YearInMusicCreateEditDto yearInMusicDto);
     YearInMusic updateYearInMusic(YearInMusic yearInMusic, YearInMusicCreateEditDto yearInMusicDto);
     void deleteYearInMusic(YearInMusic yearInMusic);

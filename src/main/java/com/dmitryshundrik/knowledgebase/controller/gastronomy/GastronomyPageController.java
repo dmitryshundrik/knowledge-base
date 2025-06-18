@@ -104,7 +104,7 @@ public class GastronomyPageController {
     public String getRecipesByCountry(@PathVariable String country, Model model) {
         List<Recipe> allByCountry = recipeService.getAllByCountry(country);
         List<RecipeViewDto> recipeDtoList = recipeService.getRecipeViewDtoList(allByCountry);
-        model.addAttribute(COUNTRY, country);
+        model.addAttribute(COUNTRY, Country.valueOf(country.toUpperCase()));
         model.addAttribute(RECIPE_LIST, recipeDtoList);
         return "gastronomy/recipe-all-by-country";
     }

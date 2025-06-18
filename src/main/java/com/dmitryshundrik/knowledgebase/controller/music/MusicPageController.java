@@ -97,13 +97,15 @@ public class MusicPageController {
     public String getYearInMusic(@PathVariable String slug, Model model) {
         YearInMusic yearInMusic = yearInMusicService.getBySlug(slug);
 
-        YearInMusic previousYear = yearInMusicService.getByYear(yearInMusic.getYear() - 1);
-        if (previousYear != null) {
-            model.addAttribute(PREVIOUS_YEAR, yearInMusicService.getYearInMusicViewDto(previousYear));
+        Integer previousYear = yearInMusic.getYear() - 1;
+        if (yearInMusicService.existsByYear(previousYear)) {
+            model.addAttribute(PREVIOUS_YEAR, yearInMusicService
+                    .getYearInMusicViewDto(yearInMusicService.getByYear(previousYear)));
         }
-        YearInMusic nextYear = yearInMusicService.getByYear(yearInMusic.getYear() + 1);
-        if (nextYear != null) {
-            model.addAttribute(NEXT_YEAR, yearInMusicService.getYearInMusicViewDto(nextYear));
+        Integer nextYear = yearInMusic.getYear() + 1;
+        if (yearInMusicService.existsByYear(nextYear)) {
+            model.addAttribute(NEXT_YEAR, yearInMusicService
+                    .getYearInMusicViewDto(yearInMusicService.getByYear(nextYear)));
         }
         model.addAttribute(CURRENT_YEAR, yearInMusicService.getYearInMusicViewDto(yearInMusic));
         model.addAttribute(ALBUM_LIST, albumService.get10BestAlbumsByYear(yearInMusic.getYear()));

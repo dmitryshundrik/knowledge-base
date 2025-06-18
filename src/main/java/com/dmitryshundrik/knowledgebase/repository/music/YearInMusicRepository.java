@@ -20,4 +20,6 @@ public interface YearInMusicRepository extends JpaRepository<YearInMusic, UUID> 
             "FROM YearInMusic y " +
             "ORDER BY y.year ASC")
     List<YearInMusicSimpleDto> findAllOrderByYearAcs();
+
+    Boolean existsByYear(Integer year);
 }
