@@ -16,7 +16,6 @@ public class EntityActivitySchedulerService {
     @Scheduled(cron = "${knowledge.base.application.entity-activity.update.interval}")
     public void updateEntityActivityCacheScheduled() {
         try {
-            log.info("Updating entity activity cache: {}", "entity activity cache");
             entityActivityService.processEntityActivities();
         } catch (Exception e) {
             log.error("Failed to update entity activity cache: {}", e.getMessage(), e);

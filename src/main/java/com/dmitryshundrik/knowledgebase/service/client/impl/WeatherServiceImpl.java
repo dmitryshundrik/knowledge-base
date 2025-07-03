@@ -70,10 +70,8 @@ public class WeatherServiceImpl implements WeatherService {
 
     private WeatherResponse getCurrentWeatherFromClient() {
         try {
-            WeatherResponse responseDto = weatherClient
+            return weatherClient
                     .getCurrentWeather(defaultCity, apiKey, units);
-            log.info("Received response: {}", responseDto);
-            return responseDto;
         } catch (Exception e) {
             throw new ClientServiceException(GETTING_CURRENT_WEATHER_FAIL_MESSAGE.formatted(e.getMessage()));
         }

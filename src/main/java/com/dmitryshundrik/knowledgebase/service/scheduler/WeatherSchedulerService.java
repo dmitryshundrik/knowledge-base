@@ -20,7 +20,6 @@ public class WeatherSchedulerService {
     @Scheduled(cron = "${openweather.api.update.interval}")
     public void updateWeatherCacheScheduled() {
         try {
-            log.info("Updating weather cache for city: {}", defaultCity);
             weatherService.processCurrentWeather();
         } catch (Exception e) {
             log.error("Failed to update weather cache: {}", e.getMessage(), e);
