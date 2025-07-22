@@ -19,6 +19,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -107,7 +108,10 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public List<AlbumViewDto> get10BestAlbumsByYear(Integer year) {
         return getAlbumViewDtoList(albumRepository.findAllByYear(year).stream()
-                .sorted((o1, o2) -> o2.getRating().compareTo(o1.getRating()))
+                .sorted(Comparator.comparing(
+                        Album::getRating,
+                        Comparator.nullsLast(Comparator.reverseOrder())
+                ))
                 .limit(10)
                 .collect(Collectors.toList()));
     }
