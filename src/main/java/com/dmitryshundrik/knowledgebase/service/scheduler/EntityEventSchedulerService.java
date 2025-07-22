@@ -13,7 +13,7 @@ public class EntityEventSchedulerService {
 
     private final EntityEventService entityEventService;
 
-    @Scheduled(cron = "${knowledge.base.application.entity-event.update.interval}")
+    @Scheduled(cron = "${knowledge-base.entity-event.update.interval}")
     public void updateEntityEventCacheScheduled() {
         try {
             log.info("Updating entity events cache: {}", "entity events cache");

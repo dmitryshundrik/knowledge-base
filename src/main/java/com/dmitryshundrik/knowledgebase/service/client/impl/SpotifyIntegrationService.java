@@ -50,13 +50,13 @@ public class SpotifyIntegrationService {
 
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
-    @Value("${knowledge.base.application.url}")
+    @Value("${knowledge-base.url}")
     private String applicationURI;
 
-    @Value("${knowledge.base.application.client-id}")
+    @Value("${knowledge-base.client-id}")
     private String clientID;
 
-    @Value("${knowledge.base.application.client-secret}")
+    @Value("${knowledge-base.client-secret}")
     private String clientSecret;
 
     @Getter

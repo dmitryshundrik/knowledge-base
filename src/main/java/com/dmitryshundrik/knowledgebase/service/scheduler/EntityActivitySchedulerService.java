@@ -13,7 +13,7 @@ public class EntityActivitySchedulerService {
 
     private final EntityActivityService entityActivityService;
 
-    @Scheduled(cron = "${knowledge.base.application.entity-activity.update.interval}")
+    @Scheduled(cron = "${knowledge-base.entity-activity.update.interval}")
     public void updateEntityActivityCacheScheduled() {
         try {
             entityActivityService.processEntityActivities();
