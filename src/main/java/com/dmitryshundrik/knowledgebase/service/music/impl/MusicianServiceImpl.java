@@ -250,7 +250,8 @@ public class MusicianServiceImpl implements MusicianService {
     public Set<Musician> getAllWithCurrentBirth(Integer dayInterval) {
         Set<Musician> musicianBirthList = new HashSet<>();
         for (int i = 0; i < dayInterval; i++) {
-            musicianBirthList.addAll(musicianRepository.findAllWithCurrentBirth(LocalDate.now().plusDays(i), null));
+            musicianBirthList.addAll(musicianRepository
+                    .findAllWithCurrentBirth(LocalDate.now().plusDays(i), null));
         }
         return musicianBirthList;
     }
@@ -259,7 +260,8 @@ public class MusicianServiceImpl implements MusicianService {
     public Set<Musician> getAllWithCurrentDeath(Integer dayInterval) {
         Set<Musician> musicianDeathList = new HashSet<>();
         for (int i = 0; i < dayInterval; i++) {
-            musicianDeathList.addAll(musicianRepository.findAllWithCurrentDeath(LocalDate.now().plusDays(i), null));
+            musicianDeathList.addAll(musicianRepository
+                    .findAllWithCurrentDeath(LocalDate.now().plusDays(i), null));
         }
         return musicianDeathList;
     }
